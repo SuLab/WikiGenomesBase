@@ -1,0 +1,547 @@
+[
+  {
+    "taxid": 243277,
+    "taxon": "http://www.wikidata.org/entity/Q21102945",
+    "taxonLabel": "Vibrio cholerae O1 biovar El Tor str. N16961"
+  },
+  {
+    "taxid": 246196,
+    "taxon": "http://www.wikidata.org/entity/Q21102986",
+    "taxonLabel": "Mycobacterium smegmatis str. MC2 155"
+  },
+  {
+    "taxid": 272632,
+    "taxon": "http://www.wikidata.org/entity/Q21102989",
+    "taxonLabel": "Mycoplasma mycoides subsp. mycoides SC str. PG1"
+  },
+  {
+    "taxid": 365659,
+    "taxon": "http://www.wikidata.org/entity/Q21102994",
+    "taxonLabel": "Streptococcus mitis B6"
+  },
+  {
+    "taxid": 272560,
+    "taxon": "http://www.wikidata.org/entity/Q21102995",
+    "taxonLabel": "Burkholderia pseudomallei K96243"
+  },
+  {
+    "taxid": 99287,
+    "taxon": "http://www.wikidata.org/entity/Q21102996",
+    "taxonLabel": "Salmonella enterica subsp. enterica serovar Typhimurium str. LT2"
+  },
+  {
+    "taxid": 220341,
+    "taxon": "http://www.wikidata.org/entity/Q21102997",
+    "taxonLabel": "Salmonella enterica subsp. enterica serovar Typhi str. CT18"
+  },
+  {
+    "taxid": 243231,
+    "taxon": "http://www.wikidata.org/entity/Q21102999",
+    "taxonLabel": "Geobacter sulfurreducens PCA"
+  },
+  {
+    "taxid": 882,
+    "taxon": "http://www.wikidata.org/entity/Q21383317",
+    "taxonLabel": "Desulfovibrio vulgaris subsp. vulgaris str. Hildenborough"
+  },
+  {
+    "taxid": 223283,
+    "taxon": "http://www.wikidata.org/entity/Q21399079",
+    "taxonLabel": "Pseudomonas syringae pv. tomato str. DC3000"
+  },
+  {
+    "taxid": 36809,
+    "taxon": "http://www.wikidata.org/entity/Q6946978",
+    "taxonLabel": "Mycobacterium abscessus"
+  },
+  {
+    "taxid": 471472,
+    "taxon": "http://www.wikidata.org/entity/Q20800254",
+    "taxonLabel": "Chlamydia trachomatis 434/BU"
+  },
+  {
+    "taxid": 272561,
+    "taxon": "http://www.wikidata.org/entity/Q20800373",
+    "taxonLabel": "Chlamydia trachomatis D/UW-3/CX"
+  },
+  {
+    "taxid": 227377,
+    "taxon": "http://www.wikidata.org/entity/Q21064832",
+    "taxonLabel": "Coxiella burnetii RSA 493"
+  },
+  {
+    "taxid": 1208660,
+    "taxon": "http://www.wikidata.org/entity/Q21064863",
+    "taxonLabel": "Bordetella parapertussis Bpp5"
+  },
+  {
+    "taxid": 107806,
+    "taxon": "http://www.wikidata.org/entity/Q21065226",
+    "taxonLabel": "Buchnera aphidicola str. APS (Acyrthosiphon pisum)"
+  },
+  {
+    "taxid": 224326,
+    "taxon": "http://www.wikidata.org/entity/Q21065227",
+    "taxonLabel": "Borrelia burgdorferi B31"
+  },
+  {
+    "taxid": 243275,
+    "taxon": "http://www.wikidata.org/entity/Q21065228",
+    "taxonLabel": "Treponema denticola ATCC 35405"
+  },
+  {
+    "taxid": 189518,
+    "taxon": "http://www.wikidata.org/entity/Q21065229",
+    "taxonLabel": "Leptospira interrogans serovar Lai str. 56601"
+  },
+  {
+    "taxid": 192222,
+    "taxon": "http://www.wikidata.org/entity/Q21065230",
+    "taxonLabel": "Campylobacter jejuni subsp. jejuni NCTC 11168 = ATCC 700819"
+  },
+  {
+    "taxid": 85962,
+    "taxon": "http://www.wikidata.org/entity/Q21065231",
+    "taxonLabel": "Helicobacter pylori 26695"
+  },
+  {
+    "taxid": 177416,
+    "taxon": "http://www.wikidata.org/entity/Q21065232",
+    "taxonLabel": "Francisella tularensis subsp. tularensis SCHU S4"
+  },
+  {
+    "taxid": 300852,
+    "taxon": "http://www.wikidata.org/entity/Q21065233",
+    "taxonLabel": "Thermus thermophilus HB8"
+  },
+  {
+    "taxid": 208964,
+    "taxon": "http://www.wikidata.org/entity/Q21065234",
+    "taxonLabel": "Pseudomonas aeruginosa PAO1"
+  },
+  {
+    "taxid": 160488,
+    "taxon": "http://www.wikidata.org/entity/Q21079489",
+    "taxonLabel": "Pseudomonas putida KT2440"
+  },
+  {
+    "taxid": 205918,
+    "taxon": "http://www.wikidata.org/entity/Q21079490",
+    "taxonLabel": "Pseudomonas syringae pv. syringae B728a"
+  },
+  {
+    "taxid": 190485,
+    "taxon": "http://www.wikidata.org/entity/Q21079491",
+    "taxonLabel": "Xanthomonas campestris pv. campestris str. ATCC 33913"
+  },
+  {
+    "taxid": 309807,
+    "taxon": "http://www.wikidata.org/entity/Q21079559",
+    "taxonLabel": "Salinibacter ruber DSM 13855"
+  },
+  {
+    "taxid": 266834,
+    "taxon": "http://www.wikidata.org/entity/Q21102918",
+    "taxonLabel": "Sinorhizobium meliloti 1021"
+  },
+  {
+    "taxid": 272624,
+    "taxon": "http://www.wikidata.org/entity/Q21102919",
+    "taxonLabel": "Legionella pneumophila subsp. pneumophila str. Philadelphia 1"
+  },
+  {
+    "taxid": 871585,
+    "taxon": "http://www.wikidata.org/entity/Q21102920",
+    "taxonLabel": "Acinetobacter pittii PHEA-2"
+  },
+  {
+    "taxid": 242231,
+    "taxon": "http://www.wikidata.org/entity/Q21102921",
+    "taxonLabel": "Neisseria gonorrhoeae FA 1090"
+  },
+  {
+    "taxid": 122586,
+    "taxon": "http://www.wikidata.org/entity/Q21102922",
+    "taxonLabel": "Neisseria meningitidis MC58"
+  },
+  {
+    "taxid": 568707,
+    "taxon": "http://www.wikidata.org/entity/Q21102924",
+    "taxonLabel": "Bordetella bronchiseptica 253"
+  },
+  {
+    "taxid": 257313,
+    "taxon": "http://www.wikidata.org/entity/Q21102925",
+    "taxonLabel": "Bordetella pertussis Tohama I"
+  },
+  {
+    "taxid": 1028307,
+    "taxon": "http://www.wikidata.org/entity/Q21102927",
+    "taxonLabel": "Enterobacter aerogenes KCTC 2190"
+  },
+  {
+    "taxid": 716541,
+    "taxon": "http://www.wikidata.org/entity/Q21102928",
+    "taxonLabel": "Enterobacter cloacae subsp. cloacae ATCC 13047"
+  },
+  {
+    "taxid": 386585,
+    "taxon": "http://www.wikidata.org/entity/Q21102930",
+    "taxonLabel": "Escherichia coli O157:H7 str. Sakai"
+  },
+  {
+    "taxid": 585056,
+    "taxon": "http://www.wikidata.org/entity/Q21102931",
+    "taxonLabel": "Escherichia coli UMN026"
+  },
+  {
+    "taxid": 585057,
+    "taxon": "http://www.wikidata.org/entity/Q21102933",
+    "taxonLabel": "Escherichia coli IAI39"
+  },
+  {
+    "taxid": 685038,
+    "taxon": "http://www.wikidata.org/entity/Q21102934",
+    "taxonLabel": "Escherichia coli O83:H1 str. NRG 857C"
+  },
+  {
+    "taxid": 1133852,
+    "taxon": "http://www.wikidata.org/entity/Q21102937",
+    "taxonLabel": "Escherichia coli O104:H4 str. 2011C-3493"
+  },
+  {
+    "taxid": 511145,
+    "taxon": "http://www.wikidata.org/entity/Q21102938",
+    "taxonLabel": "Escherichia coli str. K-12 substr. MG1655"
+  },
+  {
+    "taxid": 1125630,
+    "taxon": "http://www.wikidata.org/entity/Q21102939",
+    "taxonLabel": "Klebsiella pneumoniae subsp. pneumoniae HS11286"
+  },
+  {
+    "taxid": 300267,
+    "taxon": "http://www.wikidata.org/entity/Q21102940",
+    "taxonLabel": "Shigella dysenteriae Sd197"
+  },
+  {
+    "taxid": 198214,
+    "taxon": "http://www.wikidata.org/entity/Q21102941",
+    "taxonLabel": "Shigella flexneri 2a str. 301"
+  },
+  {
+    "taxid": 393305,
+    "taxon": "http://www.wikidata.org/entity/Q21102942",
+    "taxonLabel": "Yersinia enterocolitica subsp. enterocolitica 8081"
+  },
+  {
+    "taxid": 214092,
+    "taxon": "http://www.wikidata.org/entity/Q21102943",
+    "taxonLabel": "Yersinia pestis CO92"
+  },
+  {
+    "taxid": 380703,
+    "taxon": "http://www.wikidata.org/entity/Q21102944",
+    "taxonLabel": "Aeromonas hydrophila subsp. hydrophila ATCC 7966"
+  },
+  {
+    "taxid": 312309,
+    "taxon": "http://www.wikidata.org/entity/Q21102946",
+    "taxonLabel": "Vibrio fischeri ES114"
+  },
+  {
+    "taxid": 223926,
+    "taxon": "http://www.wikidata.org/entity/Q21102947",
+    "taxonLabel": "Vibrio parahaemolyticus RIMD 2210633"
+  },
+  {
+    "taxid": 71421,
+    "taxon": "http://www.wikidata.org/entity/Q21102948",
+    "taxonLabel": "Haemophilus influenzae Rd KW20"
+  },
+  {
+    "taxid": 272947,
+    "taxon": "http://www.wikidata.org/entity/Q21102949",
+    "taxonLabel": "Rickettsia prowazekii str. Madrid E"
+  },
+  {
+    "taxid": 295405,
+    "taxon": "http://www.wikidata.org/entity/Q21102950",
+    "taxonLabel": "Bacteroides fragilis YCH46"
+  },
+  {
+    "taxid": 190304,
+    "taxon": "http://www.wikidata.org/entity/Q21102951",
+    "taxonLabel": "Fusobacterium nucleatum subsp. nucleatum ATCC 25586"
+  },
+  {
+    "taxid": 272943,
+    "taxon": "http://www.wikidata.org/entity/Q21102953",
+    "taxonLabel": "Rhodobacter sphaeroides 2.4.1"
+  },
+  {
+    "taxid": 269796,
+    "taxon": "http://www.wikidata.org/entity/Q21102954",
+    "taxonLabel": "Rhodospirillum rubrum ATCC 11170"
+  },
+  {
+    "taxid": 324602,
+    "taxon": "http://www.wikidata.org/entity/Q21102955",
+    "taxonLabel": "Chloroflexus aurantiacus J-10-fl"
+  },
+  {
+    "taxid": 93061,
+    "taxon": "http://www.wikidata.org/entity/Q21102956",
+    "taxonLabel": "Staphylococcus aureus subsp. aureus NCTC 8325"
+  },
+  {
+    "taxid": 176280,
+    "taxon": "http://www.wikidata.org/entity/Q21102957",
+    "taxonLabel": "Staphylococcus epidermidis ATCC 12228"
+  },
+  {
+    "taxid": 243230,
+    "taxon": "http://www.wikidata.org/entity/Q21102959",
+    "taxonLabel": "Deinococcus radiodurans R1"
+  },
+  {
+    "taxid": 568814,
+    "taxon": "http://www.wikidata.org/entity/Q21102960",
+    "taxonLabel": "Streptococcus suis BM407"
+  },
+  {
+    "taxid": 210007,
+    "taxon": "http://www.wikidata.org/entity/Q21102961",
+    "taxonLabel": "Streptococcus mutans UA159"
+  },
+  {
+    "taxid": 208435,
+    "taxon": "http://www.wikidata.org/entity/Q21102962",
+    "taxonLabel": "Streptococcus agalactiae 2603V/R"
+  },
+  {
+    "taxid": 171101,
+    "taxon": "http://www.wikidata.org/entity/Q21102963",
+    "taxonLabel": "Streptococcus pneumoniae R6"
+  },
+  {
+    "taxid": 160490,
+    "taxon": "http://www.wikidata.org/entity/Q21102964",
+    "taxonLabel": "Streptococcus pyogenes M1 GAS"
+  },
+  {
+    "taxid": 226185,
+    "taxon": "http://www.wikidata.org/entity/Q21102965",
+    "taxonLabel": "Enterococcus faecalis V583"
+  },
+  {
+    "taxid": 333849,
+    "taxon": "http://www.wikidata.org/entity/Q21102966",
+    "taxonLabel": "Enterococcus faecium DO"
+  },
+  {
+    "taxid": 272623,
+    "taxon": "http://www.wikidata.org/entity/Q21102967",
+    "taxonLabel": "Lactococcus lactis subsp. lactis Il1403"
+  },
+  {
+    "taxid": 198094,
+    "taxon": "http://www.wikidata.org/entity/Q21102968",
+    "taxonLabel": "Bacillus anthracis str. Ames"
+  },
+  {
+    "taxid": 260799,
+    "taxon": "http://www.wikidata.org/entity/Q21102969",
+    "taxonLabel": "Bacillus anthracis str. Sterne"
+  },
+  {
+    "taxid": 226900,
+    "taxon": "http://www.wikidata.org/entity/Q21102970",
+    "taxonLabel": "Bacillus cereus ATCC 14579"
+  },
+  {
+    "taxid": 224308,
+    "taxon": "http://www.wikidata.org/entity/Q21102971",
+    "taxonLabel": "Bacillus subtilis subsp. subtilis str. 168"
+  },
+  {
+    "taxid": 281309,
+    "taxon": "http://www.wikidata.org/entity/Q21102972",
+    "taxonLabel": "Bacillus thuringiensis serovar konkukian str. 97-27"
+  },
+  {
+    "taxid": 272562,
+    "taxon": "http://www.wikidata.org/entity/Q21102973",
+    "taxonLabel": "Clostridium acetobutylicum ATCC 824"
+  },
+  {
+    "taxid": 441771,
+    "taxon": "http://www.wikidata.org/entity/Q21102974",
+    "taxonLabel": "Clostridium botulinum A str. Hall"
+  },
+  {
+    "taxid": 413999,
+    "taxon": "http://www.wikidata.org/entity/Q21102975",
+    "taxonLabel": "Clostridium botulinum A str. ATCC 3502"
+  },
+  {
+    "taxid": 272563,
+    "taxon": "http://www.wikidata.org/entity/Q21102976",
+    "taxonLabel": "Peptoclostridium difficile 630"
+  },
+  {
+    "taxid": 272621,
+    "taxon": "http://www.wikidata.org/entity/Q21102977",
+    "taxonLabel": "Lactobacillus acidophilus NCFM"
+  },
+  {
+    "taxid": 321967,
+    "taxon": "http://www.wikidata.org/entity/Q21102978",
+    "taxonLabel": "Lactobacillus casei ATCC 334"
+  },
+  {
+    "taxid": 220668,
+    "taxon": "http://www.wikidata.org/entity/Q21102979",
+    "taxonLabel": "Lactobacillus plantarum WCFS1"
+  },
+  {
+    "taxid": 362948,
+    "taxon": "http://www.wikidata.org/entity/Q21102980",
+    "taxonLabel": "Lactobacillus salivarius UCC118"
+  },
+  {
+    "taxid": 169963,
+    "taxon": "http://www.wikidata.org/entity/Q21102981",
+    "taxonLabel": "Listeria monocytogenes EGD-e"
+  },
+  {
+    "taxid": 702459,
+    "taxon": "http://www.wikidata.org/entity/Q21102982",
+    "taxonLabel": "Bifidobacterium bifidum PRL2010"
+  },
+  {
+    "taxid": 196627,
+    "taxon": "http://www.wikidata.org/entity/Q21102983",
+    "taxonLabel": "Corynebacterium glutamicum ATCC 13032"
+  },
+  {
+    "taxid": 233413,
+    "taxon": "http://www.wikidata.org/entity/Q21102984",
+    "taxonLabel": "Mycobacterium bovis AF2122/97"
+  },
+  {
+    "taxid": 272631,
+    "taxon": "http://www.wikidata.org/entity/Q21102985",
+    "taxonLabel": "Mycobacterium leprae TN"
+  },
+  {
+    "taxid": 83332,
+    "taxon": "http://www.wikidata.org/entity/Q21102987",
+    "taxonLabel": "Mycobacterium tuberculosis H37Rv"
+  },
+  {
+    "taxid": 100226,
+    "taxon": "http://www.wikidata.org/entity/Q21102988",
+    "taxonLabel": "Streptomyces coelicolor A3(2)"
+  },
+  {
+    "taxid": 272634,
+    "taxon": "http://www.wikidata.org/entity/Q21102990",
+    "taxonLabel": "Mycoplasma pneumoniae M129"
+  },
+  {
+    "taxid": 243274,
+    "taxon": "http://www.wikidata.org/entity/Q21102991",
+    "taxonLabel": "Thermotoga maritima MSB8"
+  },
+  {
+    "taxid": 525284,
+    "taxon": "http://www.wikidata.org/entity/Q21102992",
+    "taxonLabel": "Gardnerella vaginalis ATCC 14019"
+  },
+  {
+    "taxid": 243160,
+    "taxon": "http://www.wikidata.org/entity/Q21102993",
+    "taxonLabel": "Burkholderia mallei ATCC 23344"
+  },
+  {
+    "taxid": 749927,
+    "taxon": "http://www.wikidata.org/entity/Q21102998",
+    "taxonLabel": "Amycolatopsis mediterranei U32"
+  },
+  {
+    "taxid": 224324,
+    "taxon": "http://www.wikidata.org/entity/Q21365305",
+    "taxonLabel": "Aquifex aeolicus VF5"
+  },
+  {
+    "taxid": 167539,
+    "taxon": "http://www.wikidata.org/entity/Q21384221",
+    "taxonLabel": "Prochlorococcus marinus subsp. marinus str. CCMP1375"
+  },
+  {
+    "taxid": 206672,
+    "taxon": "http://www.wikidata.org/entity/Q21397700",
+    "taxonLabel": "Bifidobacterium longum NCC2705"
+  },
+  {
+    "taxid": 190650,
+    "taxon": "http://www.wikidata.org/entity/Q21397843",
+    "taxonLabel": "Caulobacter crescentus CB15"
+  },
+  {
+    "taxid": 115713,
+    "taxon": "http://www.wikidata.org/entity/Q21397863",
+    "taxonLabel": "Chlamydophila pneumoniae CWL029"
+  },
+  {
+    "taxid": 194439,
+    "taxon": "http://www.wikidata.org/entity/Q21397889",
+    "taxonLabel": "Chlorobium tepidum TLS"
+  },
+  {
+    "taxid": 402612,
+    "taxon": "http://www.wikidata.org/entity/Q21398021",
+    "taxonLabel": "Flavobacterium psychrophilum JIP02/86"
+  },
+  {
+    "taxid": 251221,
+    "taxon": "http://www.wikidata.org/entity/Q21398052",
+    "taxonLabel": "Gloeobacter violaceus PCC 7421"
+  },
+  {
+    "taxid": 265311,
+    "taxon": "http://www.wikidata.org/entity/Q21398170",
+    "taxonLabel": "Mesoplasma florum L1"
+  },
+  {
+    "taxid": 264732,
+    "taxon": "http://www.wikidata.org/entity/Q21398186",
+    "taxonLabel": "Moorella thermoacetica ATCC 39073"
+  },
+  {
+    "taxid": 243090,
+    "taxon": "http://www.wikidata.org/entity/Q21398466",
+    "taxonLabel": "Rhodopirellula baltica SH 1"
+  },
+  {
+    "taxid": 197221,
+    "taxon": "http://www.wikidata.org/entity/Q21398614",
+    "taxonLabel": "Thermosynechococcus elongatus BP-1"
+  },
+  {
+    "taxid": 366394,
+    "taxon": "http://www.wikidata.org/entity/Q21398749",
+    "taxonLabel": "Sinorhizobium medicae WSM419"
+  },
+  {
+    "taxid": 211586,
+    "taxon": "http://www.wikidata.org/entity/Q21398938",
+    "taxonLabel": "Shewanella oneidensis MR-1"
+  },
+  {
+    "taxid": 394,
+    "taxon": "http://www.wikidata.org/entity/Q23309229",
+    "taxonLabel": "Sinorhizobium fredii NGR234"
+  }
+]

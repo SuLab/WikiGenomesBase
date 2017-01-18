@@ -1,0 +1,19 @@
+<div class="box">
+    <div><h3>{{ $ctrl.org.taxonLabel }}</h3></div>
+    <div class="table-responsive">
+        <table class="table table-sm">
+            <thead>
+            <tr>
+                <th>NCBI Taxonomy ID</th>
+                <th>Wikidata QID</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>{{ $ctrl.org.taxid }}</td>
+                <td>{{ $ctrl.org.taxon | parseQID }}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

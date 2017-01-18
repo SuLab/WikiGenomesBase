@@ -1,0 +1,36 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12 header" style="padding: 5px 15px 5px 15px">
+
+
+            <div class="row" style="padding:10px">
+                <div class="col-md-3"><h1>Wikigeneomes</h1></div>
+                <div class="col-md-3"><organism-form orgs="$ctrl.orgList"></organism-form></div>
+                <div class="col-md-3"></div>
+                <div class="col-md-3"></div>
+            </div>
+        </div>
+    </div>
+    <div class="row" style="height: 30%">
+        <div class="col-md-3">
+            <organism-view org="$ctrl.currentOrg" taxid="$ctrl.currentOrg.taxid"></organism-view>
+        </div>
+        <div class="col-md-9">
+            <jbrowse-view org="$ctrl.currentOrg" taxid="$ctrl.currentOrg.taxid"></jbrowse-view>
+        </div>
+    </div>
+    <div class="row" style="height: 40%">
+        <div class="col-md-3 box" style="padding: 10px">
+            <gene-form taxid="$ctrl.currentOrg.taxid"></gene-form>
+            <gene-view gene="$ctrl.currentGene"></gene-view>
+        </div>
+        <div class="col-md-9">
+            <annotations-view gene="$ctrl.currentGene"></annotations-view>
+        </div>
+    </div>
+    <div class="row" style="height: 10%">
+        <div class="col-md-12">
+            <div class="footer"></div>
+        </div>
+    </div>
+</div>

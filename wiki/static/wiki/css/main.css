@@ -1,0 +1,112 @@
+/**{border: dashed crimson 1px;}*/
+html, body {
+    /*min-height: 600px;*/
+    min-width: 1150px;
+    max-width: 2000px;
+    max-height: 1200px;
+    height: 100%;
+    padding: 2px;
+    margin: auto auto;
+    font-family: Tahoma, Geneva, sans-serif;
+    overflow: hidden;
+
+}
+
+.container-fluid {
+    height: 100%;
+}
+
+
+.mainPage{
+    height: 100%;
+
+}
+
+.header {
+    height: 100%;
+    border: solid #385d94 2px;
+    border-radius: 15px 15px 3px 3px;
+    padding: 10px 25px 10px 25px;
+    background-color: #385d94;
+    color: whitesmoke;
+}
+
+.bottomRow {
+    height: 100%;
+}
+
+.footer {
+    height: 100%;
+    border: solid #385d94 2px;
+    border-radius: 3px 3px 15px 15px;
+    background-color: #385d94;
+    color: whitesmoke;
+}
+
+.box {
+    height: 100%;
+    border: solid #99c2ff 3px;
+    border-radius: 3px;
+    padding: 10px;
+
+}
+.formBorder {
+    border-bottom: solid #99c2ff 3px;
+    border-radius: 3px;
+    padding: 10px;
+}
+
+
+div[class^="col-md-"] {
+    height: 100%;
+    padding: 1px;
+}
+
+.main-landing-page {
+    height: 100%;
+    width: 100%;
+    background-color: #385d94;
+    color: whitesmoke;
+    border: solid #385d94 3px;
+    text-align: center;
+
+}
+
+.typeahead-demo .custom-popup-wrapper {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    z-index: 1000;
+    display: none;
+    background-color: #f9f9f9;
+}
+
+.typeahead-demo .custom-popup-wrapper > .message {
+    padding: 10px 20px;
+    border-bottom: 1px solid #ddd;
+    color: #868686;
+}
+
+.typeahead-demo .custom-popup-wrapper > .dropdown-menu {
+    position: static;
+    float: none;
+    display: block;
+    min-width: 160px;
+    background-color: transparent;
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+
+}
+
+.dropdown-menu {
+    max-height: 100px;
+    width: 600px;
+    overflow: auto;
+}
+
+#hpylori {
+    max-width: 60%;
+    height: auto;
+    text-align: center;
+}

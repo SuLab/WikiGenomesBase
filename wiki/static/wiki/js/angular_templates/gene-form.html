@@ -1,0 +1,12 @@
+<form class="main-form-div  ui-widget">
+    <div class="form-group">
+        <input
+                type="text"
+                ng-model="gene.name"
+                uib-typeahead="gene.geneLabel.value for gene in $ctrl.currentAllGenes | filter:$viewValue | limitTo:200"
+                typeahead-on-select="$ctrl.onSelect($item)"
+                class="form-control"
+                data-ng-click="gene.name=''"
+                >
+    </div>
+</form>

@@ -1,0 +1,12 @@
+<form class="main-form-div  ui-widget">
+    <div class="form-group">
+        <input
+                type="text"
+                ng-model="organism.name"
+                uib-typeahead="org.taxonLabel for org in $ctrl.orgs | filter:$viewValue | limitTo:200"
+                typeahead-on-select="$ctrl.onSelect($item, $model, $label)"
+                class="form-control"
+                data-ng-click="organism.name=''"
+                >
+    </div>
+</form>
