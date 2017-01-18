@@ -1,9 +1,12 @@
 angular
     .module('organismForm')
     .component('organismForm', {
-        controller: function (currentOrg, currentGene, allOrgGenes, currentAllGenes) {
+        controller: function ($location, currentOrg, currentGene, allOrgGenes, currentAllGenes) {
             var ctrl = this;
             ctrl.onSelect = function ($item) {
+                if (angular.equals($location.path(), '/')){
+                    $location.path('/main/');
+                }
                 console.log($item);
                 currentOrg.taxon = $item.taxon;
                 currentOrg.taxonLabel = $item.taxonLabel;
