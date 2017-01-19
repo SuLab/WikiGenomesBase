@@ -1,4 +1,3 @@
-
 angular
     .module('geneOntology')
     .component('geneOntology', {
@@ -8,6 +7,7 @@ angular
         },
         controller: function () {
             var ctrl = this;
+
             ctrl.$onInit = function () {
             };
         }

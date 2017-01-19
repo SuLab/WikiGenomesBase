@@ -1,28 +1,49 @@
-<!--<table border="1">-->
-    <!--<tr>-->
-        <!--<th>GO Class QID</th>-->
-        <!--<th>GO Class</th>-->
-    <!--</tr>-->
-    <!--<tr ng-repeat="x in $ctrl.data">-->
-        <!--<td>{{ x.goclass.value | parseQID }}</td>-->
-        <!--<td>{{ x.goclassLabel.value }}</td>-->
-    <!--</tr>-->
-<!--</table>-->
-
-
 <table ng-table="$ctrl.tableParams" class="table">
     <tr ng-repeat="x in $ctrl.data">
-        <td title="'Go Term'">
+        <td title="'GO Term'">
             {{x.gotermValueLabel.value }}
         </td>
-        <td title="'Go Term QID'">
+        <td title="'GO ID'">
+            {{x.goID.value }}
+        </td>
+        <td title="'GO Term QID'">
             {{ x.gotermValue.value | parseQID}}
         </td>
         <td title="'Evidence'">
             {{ x.determinationLabel.value }}
         </td>
         <td title="'Reference'">
-            {{ x.reference_stated_inLabel.value }}
+            <!-- Button trigger modal -->
+            <button type="button" class="btn btn-xs" data-toggle="modal"
+                    data-target="#{{ x.goID.value | replaceColon }}">
+                Open Ref
+            </button>
+            <!-- Modal -->
+            <div class="modal" id="{{x.goID.value | replaceColon}}" tabindex="-1" role="dialog"
+                 aria-labelledby="refModalTitle"
+                 aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="refModalTitle"><br/><br/><strong>{{x.proteinLabel.value}}
+                            </strong> has <strong><u>{{x.goclassLabel.value}}</u></strong>
+                                <strong> {{ x.gotermValueLabel.value }} </strong></h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <h4>Stated in: </h4> {{ x.reference_stated_inLabel.value}} <br/>
+                            <h4>Retrieved on: </h4> {{ x.reference_retrievedLabel.value}}
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </td>
     </tr>
 </table>
+
+

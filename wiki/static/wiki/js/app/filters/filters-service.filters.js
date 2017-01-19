@@ -8,4 +8,14 @@ angular
         };
     });
 
+angular
+    .module('filters')
+    .filter('replaceColon', function () {
+        return function (input) {
+            console.log(input);
+            var inList = input.split(':');
+            return inList.join('_');
+        };
+    });
+
 

@@ -18,5 +18,6 @@ angular.module('cmod', [
     'jbrowseView',
     'annotationsView',
     'landingPage',
-    'geneOntology'
+    'geneOntology',
+    'referenceModal'
 ]);
