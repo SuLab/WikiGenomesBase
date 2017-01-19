@@ -5,6 +5,7 @@ angular.module('cmod', [
     'ui.bootstrap',
     'ngResource',
     'ngRoute',
+    'ngTable',
 
     //internal
     'filters',

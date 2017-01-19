@@ -1,5 +1,28 @@
-<ul>
-    <li ng-repeat="x in $ctrl.data">
-        {{ x.goclass.value | parseQID }} {{ x.goclassLabel.value }}
-    </li>
-</ul>
+<!--<table border="1">-->
+    <!--<tr>-->
+        <!--<th>GO Class QID</th>-->
+        <!--<th>GO Class</th>-->
+    <!--</tr>-->
+    <!--<tr ng-repeat="x in $ctrl.data">-->
+        <!--<td>{{ x.goclass.value | parseQID }}</td>-->
+        <!--<td>{{ x.goclassLabel.value }}</td>-->
+    <!--</tr>-->
+<!--</table>-->
+
+
+<table ng-table="$ctrl.tableParams" class="table">
+    <tr ng-repeat="x in $ctrl.data">
+        <td title="'Go Term'">
+            {{x.gotermValueLabel.value }}
+        </td>
+        <td title="'Go Term QID'">
+            {{ x.gotermValue.value | parseQID}}
+        </td>
+        <td title="'Evidence'">
+            {{ x.determinationLabel.value }}
+        </td>
+        <td title="'Reference'">
+            {{ x.reference_stated_inLabel.value }}
+        </td>
+    </tr>
+</table>
