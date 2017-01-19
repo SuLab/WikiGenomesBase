@@ -10,7 +10,7 @@
             <gene-ontology data="$ctrl.cellcomp"></gene-ontology>
         </uib-tab>
         <uib-tab index="4" heading="Operon">
-            <operon></operon>
+            <operon-annotations data="$ctrl.opData"></operon-annotations>
         </uib-tab>
         <uib-tab index="5" heading="Reaction">
             <reaction></reaction>
@@ -21,8 +21,7 @@
         <uib-tab index="7" heading="Genomic Positon">
             <genomic-position></genomic-position>
         </uib-tab>
-        <uib-tab index="8" heading="InterPro">interpro</uib-tab>
-        <!--<uib-tab index="8" heading="InterPro"><interpro></interpro></uib-tab>-->
+        <uib-tab index="8" heading="InterPro"><inter-pro data="$ctrl.ipData" ></inter-pro></uib-tab>
     </uib-tabset>
 </div>
 

@@ -19,5 +19,6 @@ angular.module('cmod', [
     'annotationsView',
     'landingPage',
     'geneOntology',
-    'referenceModal'
+    'interPro',
+    'operonAnnotations'
 ]);

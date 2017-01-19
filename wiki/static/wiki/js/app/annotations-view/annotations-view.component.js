@@ -6,7 +6,7 @@ angular
             uniprot: '<',
             entrez: '<'
         },
-        controller: function (GOTerms) {
+        controller: function (GOTerms, InterPro, OperonData) {
             var ctrl = this;
             ctrl.$onInit = function () {
             };
@@ -30,6 +30,17 @@ angular
                             });
                             ctrl.goData = data;
                         });
+                    InterPro.getInterPro(ctrl.uniprot).then(
+                        function (data) {
+                            ctrl.ipData = data;
+                        });
+
+                    OperonData.getOperonData(ctrl.entrez).then(
+                        function (data) {
+                            ctrl.opData = data;
+                        });
+
+
 
 
                 }
