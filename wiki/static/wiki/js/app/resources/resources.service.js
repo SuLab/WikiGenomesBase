@@ -12,13 +12,6 @@ angular
         });
     });
 
-//angular
-//    .module('resources')
-//    .value('currentOrg', {
-//        taxon: 'http://www.wikidata.org/entity/Q21065231',
-//        taxid: 85962,
-//        taxonLabel: 'Helicobacter pylori 26695'
-//    });
 angular
     .module('resources')
     .value('currentOrg', {
@@ -33,8 +26,8 @@ angular
     .factory('allOrgGenes', function ($http) {
         var allGenes = [];
         var endpoint = 'https://query.wikidata.org/sparql?format=json&query=';
-        var getAllOrgGenes = function(taxid) {
-             var url = endpoint + encodeURIComponent("SELECT ?gene ?geneLabel ?entrez ?locusTag ?protein " +
+        var getAllOrgGenes = function (taxid) {
+            var url = endpoint + encodeURIComponent("SELECT ?gene ?geneLabel ?entrez ?locusTag ?protein " +
                     "?proteinLabel ?uniprot ?refseqProt" +
                     " WHERE{ ?taxon wdt:P685 '" + taxid + "'. " +
                     "?gene wdt:P703 ?taxon; " +
@@ -45,7 +38,7 @@ angular
                     "?protein wdt:P352 ?uniprot; " +
                     "wdt:P637 ?refseqProt." +
                     "SERVICE wikibase:label { bd:serviceParam wikibase:language 'en' . } }");
-            return $http.get(url).then(function(response){
+            return $http.get(url).then(function (response) {
                 allGenes = response.data.results.bindings;
                 return allGenes
             });
@@ -65,19 +58,6 @@ angular
     });
 
 
-//angular
-//    .module('resources')
-//    .value('currentGene', {
-//        geneLabel: 'preprotein translocase subunit SecD HP1550',
-//        entrez: '899741',
-//        gene: 'https://www.wikidata.org/wiki/Q21628676',
-//        protein: 'https://www.wikidata.org/wiki/Q21632122',
-//        proteinLabel: 'https://www.wikidata.org/wiki/Q21632122',
-//        uniprot: 'O26074',
-//        refseqProt: 'NP_208341',
-//        locusTag: 'HP1550'
-//    });
-
 angular
     .module('resources')
     .value('currentGene', {
@@ -89,4 +69,35 @@ angular
         uniprot: '',
         refseqProt: '',
         locusTag: ''
+    });
+
+
+angular
+    .module('resources')
+    .factory('GOTerms', function ($http) {
+        var endpoint = 'https://query.wikidata.org/sparql?format=json&query=';
+        var getGoTerms = function (uniprot) {
+            var url = endpoint + encodeURIComponent(
+                    "SELECT ?protein ?proteinLabel ?goterm  ?reference_stated_inLabel ?reference_retrievedLabel ?determination  " +
+                    "?determinationLabel ?gotermValue ?gotermValueLabel ?goclass ?goclassLabel ?goID ?ecnumber ?pmid WHERE { ?protein wdt:P352 " +
+                    "'" + uniprot + "'. " +
+                    "{?protein p:P680 ?goterm} UNION {?protein p:P681 ?goterm} UNION {?protein p:P682 ?goterm}.  " +
+                    "?goterm pq:P459 ?determination .  ?goterm prov:wasDerivedFrom/pr:P248 ?reference_stated_in . " +
+                    "?goterm prov:wasDerivedFrom/pr:P813 ?reference_retrieved . " +
+                    "OPTIONAL {?goterm prov:wasDerivedFrom/pr:P698 ?pmid .}" +
+                    "{?goterm ps:P680 ?gotermValue} UNION {?goterm ps:P681 ?gotermValue} UNION {?goterm ps:P682 ?gotermValue}.  " +
+                    "?gotermValue wdt:P279* ?goclass; wdt:P686 ?goID. FILTER ( ?goclass = wd:Q2996394 || ?goclass = wd:Q5058355 || ?goclass = wd:Q14860489) " +
+                    "OPTIONAL {?gotermValue wdt:P591 ?ecnumber.}" +
+                    "SERVICE wikibase:label { bd:serviceParam wikibase:language \"en\" .}}"
+                );
+            return $http.get(url).then(function (response) {
+                return response.data.results.bindings;
+
+            });
+        };
+        return {
+            getGoTerms: getGoTerms
+        }
+
+
     });

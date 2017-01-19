@@ -1,6 +1,7 @@
 angular
     .module('geneForm')
     .component('geneForm', {
+        templateUrl: '/static/wiki/js/angular_templates/gene-form.html',
         bindings: {
             taxid: '<'
         },
@@ -23,6 +24,5 @@ angular
                 currentGene.refseqProt = $item.refseqProt.value;
                 currentGene.locusTag = $item.locusTag.value;
             };
-        },
-        templateUrl: '/static/wiki/js/angular_templates/gene-form.html'
+        }
     });

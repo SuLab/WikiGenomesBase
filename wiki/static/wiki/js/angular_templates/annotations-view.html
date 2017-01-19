@@ -1,3 +1,28 @@
-<div class="box">
-<h3>Annotations</h3>
+<div style="overflow:auto"   class="box">
+    <uib-tabset active="active">
+        <uib-tab  index="1" heading="Molecular Function">
+            <gene-ontology data="$ctrl.molfunc"></gene-ontology>
+        </uib-tab>
+        <uib-tab index="2" heading="Biological Process">
+            <gene-ontology data="$ctrl.bioproc"></gene-ontology>
+        </uib-tab>
+        <uib-tab index="3" heading="Cellular Component">
+            <gene-ontology data="$ctrl.cellcomp"></gene-ontology>
+        </uib-tab>
+        <uib-tab index="4" heading="Operon">
+            <operon></operon>
+        </uib-tab>
+        <uib-tab index="5" heading="Reaction">
+            <reaction></reaction>
+        </uib-tab>
+        <uib-tab index="6" heading="Mutant">
+            <mutant></mutant>
+        </uib-tab>
+        <uib-tab index="7" heading="Genomic Positon">
+            <genomic-position></genomic-position>
+        </uib-tab>
+        <uib-tab index="8" heading="InterPro">interpro</uib-tab>
+        <!--<uib-tab index="8" heading="InterPro"><interpro></interpro></uib-tab>-->
+    </uib-tabset>
 </div>
+
