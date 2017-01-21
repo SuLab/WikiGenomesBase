@@ -1,0 +1,20 @@
+<!--<gene-form orgList=$ctrl.orgList></gene-form>-->
+<div><h3>{{ $ctrl.protein.proteinLabel}}</h3></div>
+<div class="table-responsive">
+    <table class="table table-sm">
+        <tbody>
+        <tr>
+            <th>UniProt ID</th>
+            <td>{{ $ctrl.protein.uniprot}}</td>
+        </tr>
+        <tr>
+            <th>Wikidata QID</th>
+            <td>{{ $ctrl.protein.protein | parseQID }}</td>
+        </tr>
+        <tr>
+            <th>NCBI RefSeq ID</th>
+            <td>{{ $ctrl.protein.refseqProt}}</td>
+        </tr>
+        </tbody>
+    </table>
+</div>

@@ -5,7 +5,9 @@
 
             <div class="row" style="padding:10px">
                 <div class="col-md-3"><h1>Wikigeneomes</h1></div>
-                <div class="col-md-3"><organism-form orgs="$ctrl.orgList"></organism-form></div>
+                <div class="col-md-3">
+                    <organism-form orgs="$ctrl.orgList"></organism-form>
+                </div>
                 <div class="col-md-3"></div>
                 <div class="col-md-3"></div>
             </div>
@@ -22,10 +24,17 @@
     <div class="row" style="height: 40%">
         <div class="col-md-3 box" style="padding: 10px">
             <gene-form taxid="$ctrl.currentOrg.taxid"></gene-form>
-            <gene-view gene="$ctrl.currentGene"></gene-view>
+            <uib-tabset active="active">
+                <uib-tab index="1" heading="Gene">
+                    <gene-view gene="$ctrl.currentGene"></gene-view>
+                </uib-tab>
+                <uib-tab index="2" heading="Protein">
+                    <protein-view protein="$ctrl.currentGene"></protein-view>
+                </uib-tab>
+            </uib-tabset>
         </div>
         <div class="col-md-9">
-            <annotations-view uniprot="$ctrl.currentGene.uniprot" entrez="$ctrl.currentGene.entrez" ></annotations-view>
+            <annotations-view uniprot="$ctrl.currentGene.uniprot" entrez="$ctrl.currentGene.entrez"></annotations-view>
         </div>
     </div>
     <div class="row" style="height: 10%">
@@ -34,3 +43,5 @@
         </div>
     </div>
 </div>
+
+
