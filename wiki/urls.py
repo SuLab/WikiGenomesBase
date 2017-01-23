@@ -3,5 +3,5 @@ from . import views
 
 urlpatterns = [
     url(r'^$', views.index, name='index'),
-    url(r'^main$', views.index, name='main'),
+    url(r'^organism/\d+/$', views.index, name='main'),
 ]

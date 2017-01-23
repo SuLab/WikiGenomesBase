@@ -12,7 +12,7 @@ angular.module('cmod')
             when("/", {
                 template: '<landing-page></landing-page>'
             }).
-            when("/main", {
+            when("/organism/:taxid", {
                 template: '<main-page></main-page>'
             }).
             otherwise({

@@ -4,9 +4,7 @@ angular
         controller: function ($location, currentOrg, currentGene, allOrgGenes, currentAllGenes) {
             var ctrl = this;
             ctrl.onSelect = function ($item) {
-                if (angular.equals($location.path(), '/')){
-                    $location.path('/main/');
-                }
+                $location.path('/organism/' + $item.taxid);
                 console.log($item);
                 currentOrg.taxon = $item.taxon;
                 currentOrg.taxonLabel = $item.taxonLabel;
