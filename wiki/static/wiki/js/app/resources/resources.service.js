@@ -23,32 +23,89 @@ angular
 
 angular
     .module('resources')
+    .factory('currentOrgFetch', function ($http) {
+        var endpoint = 'https://query.wikidata.org/sparql?format=json&query=';
+        var getCurrentOrg = function (taxid) {
+            var url = endpoint + encodeURIComponent("SELECT ?taxid ?taxon ?taxonLabel" +
+                    " WHERE{ ?taxon wdt:P685 '" + taxid + "'. " +
+                    "SERVICE wikibase:label { bd:serviceParam wikibase:language 'en' . } }");
+            return $http.get(url).then(function (response) {
+                var results = response.data.results.bindings;
+                return {
+                    taxid: taxid,
+                    taxon: results[0].taxon.value,
+                    taxonLabel: results[0].taxonLabel.value
+                }
+            });
+        };
+
+        return {
+            getCurrentOrg: getCurrentOrg
+        }
+
+
+    });
+
+angular
+    .module('resources')
     .factory('allOrgGenes', function ($http) {
         var allGenes = [];
         var endpoint = 'https://query.wikidata.org/sparql?format=json&query=';
         var getAllOrgGenes = function (taxid) {
-            var url = endpoint + encodeURIComponent("SELECT ?gene ?geneLabel ?entrez ?locusTag ?protein " +
+            var url = endpoint + encodeURIComponent("SELECT ?refSeqChromosome ?gene ?genStart ?genEnd ?strand ?geneLabel ?entrez ?locusTag ?protein " +
                     "?proteinLabel ?uniprot ?refseqProt" +
                     " WHERE{ ?taxon wdt:P685 '" + taxid + "'. " +
                     "?gene wdt:P703 ?taxon; " +
                     "wdt:P279 wd:Q7187; " +
+                    "wdt:P644 ?genStart; " +
+                    "wdt:P645 ?genEnd; " +
+                    "wdt:P2548 ?strand; " +
                     "wdt:P2393 ?locusTag; " +
                     "wdt:P351 ?entrez; " +
                     "wdt:P688 ?protein. " +
                     "?protein wdt:P352 ?uniprot; " +
                     "wdt:P637 ?refseqProt." +
+
+                    "OPTIONAL{ ?gene p:P644 ?chr. ?chr pq:P2249 ?refSeqChromosome.} " +
                     "SERVICE wikibase:label { bd:serviceParam wikibase:language 'en' . } }");
             return $http.get(url).then(function (response) {
                 allGenes = response.data.results.bindings;
+                console.log(allGenes);
                 return allGenes
             });
         };
         return {
             getAllOrgGenes: getAllOrgGenes
         }
-
-
     });
+
+
+//angular
+//    .module('resources')
+//    .factory('allOrgGenes', function ($http) {
+//        var allGenes = [];
+//        var endpoint = 'https://query.wikidata.org/sparql?format=json&query=';
+//        var getAllOrgGenes = function (taxid) {
+//            var url = endpoint + encodeURIComponent("SELECT ?gene ?geneLabel ?entrez ?locusTag ?protein " +
+//                    "?proteinLabel ?uniprot ?refseqProt" +
+//                    " WHERE{ ?taxon wdt:P685 '" + taxid + "'. " +
+//                    "?gene wdt:P703 ?taxon; " +
+//                    "wdt:P279 wd:Q7187; " +
+//                    "wdt:P2393 ?locusTag; " +
+//                    "wdt:P351 ?entrez; " +
+//                    "wdt:P688 ?protein. " +
+//                    "?protein wdt:P352 ?uniprot; " +
+//                    "wdt:P637 ?refseqProt." +
+//                    "SERVICE wikibase:label { bd:serviceParam wikibase:language 'en' . } }");
+//            return $http.get(url).then(function (response) {
+//                allGenes = response.data.results.bindings;
+//                return allGenes
+//            });
+//        };
+//        return {
+//            getAllOrgGenes: getAllOrgGenes
+//        }
+//    });
 
 
 angular
@@ -68,7 +125,11 @@ angular
         proteinLabel: '',
         uniprot: '',
         refseqProt: '',
-        locusTag: ''
+        locusTag: '',
+        genStart: '',
+        genEnd: '',
+        strand: '',
+        refseqGenome: ''
     });
 
 
@@ -156,8 +217,6 @@ angular
                     "?operon prov:wasDerivedFrom/pr:P248 ?reference_stated_in. " +
                     "?reference_stated_in wdt:P698 ?reference_pmid. } " +
                     "SERVICE wikibase:label { bd:serviceParam wikibase:language 'en' . }}"
-
-
                 );
             return $http.get(url).then(function (response) {
                 console.log(response.data.results.bindings);
@@ -172,6 +231,8 @@ angular
 
 
     });
+
+
 
 
 

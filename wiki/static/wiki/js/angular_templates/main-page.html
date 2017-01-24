@@ -4,7 +4,7 @@
 
 
             <div class="row" style="padding:10px">
-                <div class="col-md-3"><h1>Wikigeneomes</h1></div>
+                <div class="col-md-3"><h1>WikiGenomes</h1></div>
                 <div class="col-md-3">
                     <organism-form orgs="$ctrl.orgList"></organism-form>
                 </div>
@@ -18,7 +18,7 @@
             <organism-view org="$ctrl.currentOrg" taxid="$ctrl.currentOrg.taxid"></organism-view>
         </div>
         <div class="col-md-9">
-            <jbrowse-view org="$ctrl.currentOrg" taxid="$ctrl.currentOrg.taxid"></jbrowse-view>
+            <jbrowse-view entrez="$ctrl.currentGene.entrez" gene="$ctrl.currentGene" taxid="$ctrl.currentOrg.taxid"></jbrowse-view>
         </div>
     </div>
     <div class="row" style="height: 40%">

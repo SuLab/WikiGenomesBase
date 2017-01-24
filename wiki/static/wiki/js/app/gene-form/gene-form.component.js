@@ -23,6 +23,10 @@ angular
                 currentGene.uniprot = $item.uniprot.value;
                 currentGene.refseqProt = $item.refseqProt.value;
                 currentGene.locusTag = $item.locusTag.value;
+                currentGene.genStart = $item.genStart.value;
+                    currentGene.genEnd = $item.genEnd.value;
+                    currentGene.strand = $item.strand.value;
+                    currentGene.refseqGenome = $item.refSeqChromosome.value;
             };
         }
     });
