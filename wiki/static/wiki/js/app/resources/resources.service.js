@@ -70,7 +70,6 @@ angular
                     "SERVICE wikibase:label { bd:serviceParam wikibase:language 'en' . } }");
             return $http.get(url).then(function (response) {
                 allGenes = response.data.results.bindings;
-                console.log(allGenes);
                 return allGenes
             });
         };
@@ -78,34 +77,6 @@ angular
             getAllOrgGenes: getAllOrgGenes
         }
     });
-
-
-//angular
-//    .module('resources')
-//    .factory('allOrgGenes', function ($http) {
-//        var allGenes = [];
-//        var endpoint = 'https://query.wikidata.org/sparql?format=json&query=';
-//        var getAllOrgGenes = function (taxid) {
-//            var url = endpoint + encodeURIComponent("SELECT ?gene ?geneLabel ?entrez ?locusTag ?protein " +
-//                    "?proteinLabel ?uniprot ?refseqProt" +
-//                    " WHERE{ ?taxon wdt:P685 '" + taxid + "'. " +
-//                    "?gene wdt:P703 ?taxon; " +
-//                    "wdt:P279 wd:Q7187; " +
-//                    "wdt:P2393 ?locusTag; " +
-//                    "wdt:P351 ?entrez; " +
-//                    "wdt:P688 ?protein. " +
-//                    "?protein wdt:P352 ?uniprot; " +
-//                    "wdt:P637 ?refseqProt." +
-//                    "SERVICE wikibase:label { bd:serviceParam wikibase:language 'en' . } }");
-//            return $http.get(url).then(function (response) {
-//                allGenes = response.data.results.bindings;
-//                return allGenes
-//            });
-//        };
-//        return {
-//            getAllOrgGenes: getAllOrgGenes
-//        }
-//    });
 
 
 angular
@@ -139,8 +110,7 @@ angular
         var endpoint = 'https://query.wikidata.org/sparql?format=json&query=';
         var getGoTerms = function (uniprot) {
             var url = endpoint + encodeURIComponent(
-                    "SELECT ?protein ?proteinLabel ?goterm  ?reference_stated_inLabel ?reference_retrievedLabel ?determination  " +
-                    "?determinationLabel ?gotermValue ?gotermValueLabel ?goclass ?goclassLabel ?goID ?ecnumber ?pmid WHERE { ?protein wdt:P352 " +
+                    "SELECT  distinct ?gotermValueLabel ?goID ?gotermValue ?goclass ?determinationLabel ?reference_stated_inLabel ?reference_retrievedLabel WHERE { ?protein wdt:P352 " +
                     "'" + uniprot + "'. " +
                     "{?protein p:P680 ?goterm} UNION {?protein p:P681 ?goterm} UNION {?protein p:P682 ?goterm}.  " +
                     "?goterm pq:P459 ?determination .  ?goterm prov:wasDerivedFrom/pr:P248 ?reference_stated_in . " +
@@ -152,6 +122,7 @@ angular
                     "SERVICE wikibase:label { bd:serviceParam wikibase:language \"en\" .}}"
                 );
             return $http.get(url).then(function (response) {
+
                 return response.data.results.bindings;
 
             });
@@ -219,7 +190,6 @@ angular
                     "SERVICE wikibase:label { bd:serviceParam wikibase:language 'en' . }}"
                 );
             return $http.get(url).then(function (response) {
-                console.log(response.data.results.bindings);
                 return response.data.results.bindings;
 
 

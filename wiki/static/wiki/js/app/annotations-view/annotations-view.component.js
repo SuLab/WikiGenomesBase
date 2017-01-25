@@ -6,7 +6,7 @@ angular
             uniprot: '<',
             entrez: '<'
         },
-        controller: function (GOTerms, InterPro, OperonData) {
+        controller: function (GOTerms, InterPro, OperonData, $filter) {
             var ctrl = this;
             ctrl.$onInit = function () {
             };
@@ -14,21 +14,25 @@ angular
                 if (changeObj.uniprot) {
                     GOTerms.getGoTerms(ctrl.uniprot).then(
                         function (data) {
+
                             ctrl.molfunc = [];
                             ctrl.bioproc = [];
-                            ctrl.cellcomp =[];
+                            ctrl.cellcomp = [];
+
                             angular.forEach(data, function (value, key) {
-                                if (value.goclass.value === 'http://www.wikidata.org/entity/Q5058355'){
+                                if (value.goclass.value === 'http://www.wikidata.org/entity/Q5058355') {
                                     ctrl.cellcomp.push(value);
                                 }
-                                if (value.goclass.value === 'http://www.wikidata.org/entity/Q14860489'){
+                                if (value.goclass.value === 'http://www.wikidata.org/entity/Q14860489') {
                                     ctrl.molfunc.push(value);
+                                    console.log(value.gotermValueLabel);
                                 }
-                                if (value.goclass.value === 'http://www.wikidata.org/entity/Q2996394'){
+                                if (value.goclass.value === 'http://www.wikidata.org/entity/Q2996394') {
                                     ctrl.bioproc.push(value);
                                 }
                             });
-                            ctrl.goData = data;
+
+
                         });
                     InterPro.getInterPro(ctrl.uniprot).then(
                         function (data) {
@@ -41,9 +45,9 @@ angular
                         });
 
 
-
-
                 }
+
+
             };
         }
     });

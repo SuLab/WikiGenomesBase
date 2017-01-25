@@ -20,11 +20,9 @@
 angular
     .module('mainPage')
     .component('mainPage', {
-        bindings: {
-            org: '<'
-        },
         controller: function ($location, allOrgs, allOrgGenes, currentGene, currentOrg, currentOrgFetch) {
             var ctrl = this;
+
 
             ctrl.$onInit = function () {
                 ctrl.currentTaxid = $location.path().split("/").pop();

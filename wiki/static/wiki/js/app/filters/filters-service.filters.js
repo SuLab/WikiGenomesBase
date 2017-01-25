@@ -40,3 +40,20 @@ angular
         };
     });
 
+angular
+    .module('filters')
+    .filter('uniqueGoTerms', function() {
+   // we will return a function which will take in a collection
+   // and a keyname
+   return function(input) {
+       var newList = [];
+       angular.forEach(input, function (oldItem) {
+           angular.forEach(newList, function(newItem){
+               if (oldItem != newItem){
+                   newList.push(newItem);
+               }
+           });
+       });
+       return newList
+   };
+});

@@ -1,7 +1,6 @@
 angular
     .module('jbrowseView')
     .component('jbrowseView', {
-        //template: '<h1>{{$ctrl.gene.gene}}</h1>',
         template: '<iframe class="jbrowse" ng-src={{$ctrl.jbrowseURI()}}></iframe>',
         bindings: {
             taxid: '<',
@@ -17,7 +16,6 @@ angular
             };
             ctrl.$onChanges = function (changesObj){
                 if (changesObj.entrez) {
-                    console.log(ctrl.gene.gene);
                     ctrl.jbrowseURI = function () {
                         var start = Number(ctrl.gene.genStart) - 1000;
                         var end = Number(ctrl.gene.genEnd) + 1000;
@@ -27,15 +25,6 @@ angular
                     };
                 }
             };
-            //ctrl.$onInit = function () {
-            //
-
-            //};
-            //ctrl.$onChanges = function (changesObj) {
-            //    if (changesObj.taxid) {
-            //
-            //    }
-            //};
         }
     });
 
