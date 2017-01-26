@@ -19,7 +19,8 @@
                 Open Ref
             </button>
             <!-- Modal -->
-            <div class="modal" id="{{x.goID.value | replaceColon}}{{x.determinationLabel.value}}" tabindex="-1" role="dialog"
+            <div class="modal" id="{{x.goID.value | replaceColon}}{{x.determinationLabel.value}}" tabindex="-1"
+                 role="dialog"
                  aria-labelledby="refModalTitle"
                  aria-hidden="true">
                 <div class="modal-dialog" role="document">
@@ -45,6 +46,29 @@
         </td>
     </tr>
 </table>
+<button type="button" class="btn btn-default" data-toggle="modal"
+        data-target="#{{$ctrl.goclass}}_button">
+    Add an annotation
+</button>
+<!-- Modal -->
+<div class="modal" id="{{$ctrl.goclass}}_button" tabindex="-1" role="dialog"
+     aria-labelledby="refModalTitle"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content" style="padding:10px">
+            <!--<div class="modal-header">-->
+                <!--<h5 class="modal-title" id="refModalTitle">Add a Gene Ontology Annotation</h5>-->
+                <!--<button type="button" class="close" data-dismiss="modal" aria-label="Close">-->
+                    <!--<span aria-hidden="true">&times;</span>-->
+                <!--</button>-->
+            <!--</div>-->
+            <go-form goclass="$ctrl.goclass"></go-form>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 
 

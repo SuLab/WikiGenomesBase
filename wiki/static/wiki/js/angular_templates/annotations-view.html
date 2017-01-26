@@ -1,13 +1,13 @@
 <div style="overflow:auto"   class="box">
     <uib-tabset active="active">
         <uib-tab  index="1" heading="Molecular Function">
-            <gene-ontology data="$ctrl.molfunc"></gene-ontology>
+            <gene-ontology goclass="$ctrl.mf" data="$ctrl.molfunc"></gene-ontology>
         </uib-tab>
         <uib-tab index="2" heading="Biological Process">
-            <gene-ontology data="$ctrl.bioproc"></gene-ontology>
+            <gene-ontology goclass='$ctrl.bp' data="$ctrl.bioproc"></gene-ontology>
         </uib-tab>
         <uib-tab index="3" heading="Cellular Component">
-            <gene-ontology data="$ctrl.cellcomp"></gene-ontology>
+            <gene-ontology goclass='$ctrl.cc' data="$ctrl.cellcomp"></gene-ontology>
         </uib-tab>
         <uib-tab index="4" heading="Operon">
             <operon-annotations data="$ctrl.opData"></operon-annotations>

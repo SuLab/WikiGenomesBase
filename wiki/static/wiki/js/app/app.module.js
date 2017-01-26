@@ -21,5 +21,6 @@ angular.module('cmod', [
     'landingPage',
     'geneOntology',
     'interPro',
-    'operonAnnotations'
+    'operonAnnotations',
+    'goForm'
 ]);

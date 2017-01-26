@@ -18,6 +18,9 @@ angular
                             ctrl.molfunc = [];
                             ctrl.bioproc = [];
                             ctrl.cellcomp = [];
+                            ctrl.mf = 'mf_button';
+                            ctrl.bp = 'bp_button';
+                            ctrl.cc = 'cc_button';
 
                             angular.forEach(data, function (value, key) {
                                 if (value.goclass.value === 'http://www.wikidata.org/entity/Q5058355') {
@@ -51,3 +54,7 @@ angular
             };
         }
     });
+
+
+
+
