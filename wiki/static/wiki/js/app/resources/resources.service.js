@@ -1,3 +1,20 @@
+var getCookie = function (name) {
+    var cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        var cookies = document.cookie.split(';');
+        for (var i = 0; i < cookies.length; i++) {
+            var cookie = jQuery.trim(cookies[i]);
+            // Does this cookie string begin with the name we want?
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+};
+
+//data from /json
 angular
     .module('resources')
     .factory('allOrgs', function ($resource) {
@@ -14,13 +31,49 @@ angular
 
 angular
     .module('resources')
-    .value('currentOrg', {
-        taxon: '',
-        taxid: '',
-        taxonLabel: ''
+    .factory('evidenceCodes', function ($resource) {
+        var url = '/static/wiki/json/evidence_codes.json';
+        return $resource(url, {}, {
+            getevidenceCodes: {
+                method: "GET",
+                params: {},
+                isArray: true,
+                cache: true
+            }
+        });
+    });
+
+//server communication
+
+angular
+    .module('resources')
+    .factory('goFormData', function ($http) {
+        var endpoint = window.location.pathname;
+        var getgoFormData = function (url_suffix, data) {
+            var url = endpoint + url_suffix;
+            var csrfToken = getCookie('csrftoken');
+            var config = {
+                headers : {
+                    'X-CSRFToken': csrfToken
+                }
+            };
+            return $http.post(url, data, config)
+                .success(function (data, status, headers, config) {
+                    return data
+                })
+                .error(function (data, status, header, config) {
+                    return status
+                });
+        };
+        return {
+            getgoFormData: getgoFormData
+        }
+
+
     });
 
 
+//currently loaded organism
 angular
     .module('resources')
     .factory('currentOrgFetch', function ($http) {
@@ -45,6 +98,17 @@ angular
 
 
     });
+
+angular
+    .module('resources')
+    .value('currentOrg', {
+        taxon: '',
+        taxid: '',
+        taxonLabel: ''
+    });
+
+
+//genes for current organism
 
 angular
     .module('resources')
@@ -80,13 +144,6 @@ angular
 
 angular
     .module('resources')
-    .value('currentAllGenes', {
-        allGenes: ''
-    });
-
-
-angular
-    .module('resources')
     .value('currentGene', {
         geneLabel: '',
         entrez: '',
@@ -103,6 +160,7 @@ angular
     });
 
 
+//annotations data
 angular
     .module('resources')
     .factory('GOTerms', function ($http) {
@@ -201,151 +259,4 @@ angular
     });
 
 
-angular
-    .module('resources')
-    .factory('evidenceCodes', function ($resource) {
-        var url = '/static/wiki/json/evidence_codes.json';
-        return $resource(url, {}, {
-            getevidenceCodes: {
-                method: "GET",
-                params: {},
-                isArray: true,
-                cache: true
-            }
-        });
-    });
 
-
-//
-//angular
-//    .module('resources')
-//    .factory('evidenceCodes', function () {
-//        return [
-//            {
-//                "evidence_code": "http://www.wikidata.org/entity/Q23174389",
-//                "evidence_codeLabel": "IPI",
-//                "name": "Inferred from Physical Interaction",
-//                "eviURL": "http://geneontology.org/page/ipi-inferred-physical-interaction/"
-//            },
-//            {
-//                "evidence_code": "http://www.wikidata.org/entity/Q23190825",
-//                "evidence_codeLabel": "ISM",
-//                "name": "Inferred from Sequence Model",
-//                "eviURL": "http://geneontology.org/page/ism-inferred-sequence-model/"
-//            },
-//            {
-//                "evidence_code": "http://www.wikidata.org/entity/Q23175558",
-//                "evidence_codeLabel": "ISS",
-//                "name": "Inferred from Sequence or structural Similarity",
-//                "eviURL": "http://geneontology.org/page/iss-inferred-sequence-or-structural-similarity/"
-//            },
-//            {
-//                "evidence_code": "http://www.wikidata.org/entity/Q23190881",
-//                "evidence_codeLabel": "IEA",
-//                "name": "Inferred from Electronic Annotation",
-//                "eviURL": "http://geneontology.org/page/automatically-assigned-evidence-codes/"
-//            },
-//            {
-//                "evidence_code": "http://www.wikidata.org/entity/Q23190827",
-//                "evidence_codeLabel": "IBA",
-//                "name": "Inferred from Biological aspect of Ancestor",
-//                "eviURL": "http://geneontology.org/page/iba-inferred-biological-aspect-ancestor/"
-//            },
-//            {
-//                "evidence_code": "http://www.wikidata.org/entity/Q23190833",
-//                "evidence_codeLabel": "IBD",
-//                "name": "Inferred from Biological aspect of Descendant",
-//                "eviURL": "http://geneontology.org/page/ibd-inferred-biological-aspect-descendent/"
-//            },
-//            {
-//                "evidence_code": "http://www.wikidata.org/entity/Q23190852",
-//                "evidence_codeLabel": "RCA",
-//                "name": "Inferred from Reviewed Computational Analysis",
-//                "eviURL": "http://geneontology.org/page/rca-inferred-reviewed-computational-analysis/"
-//            },
-//            {
-//                "evidence_code": "http://www.wikidata.org/entity/Q23190738",
-//                "evidence_codeLabel": "ISA",
-//                "name": "Inferred from Sequence Alignment",
-//                "eviURL": "http://geneontology.org/page/isa-inferred-sequence-alignment/"
-//            },
-//            {
-//                "evidence_code": "http://www.wikidata.org/entity/Q23190856",
-//                "evidence_codeLabel": "IC",
-//                "name": "Inferred by Curator",
-//                "eviURL": "http://geneontology.org/page/ic-inferred-curator/"
-//            },
-//            {
-//                "evidence_code": "http://www.wikidata.org/entity/Q23190854",
-//                "evidence_codeLabel": "NAS",
-//                "name": "Non-traceable Author Statement",
-//                "eviURL": "http://geneontology.org/page/nas-non-traceable-author-statement/"
-//            },
-//            {
-//                "evidence_code": "http://www.wikidata.org/entity/Q23190826",
-//                "evidence_codeLabel": "IGC",
-//                "name": "Inferred from Genomic Context",
-//                "eviURL": "http://geneontology.org/page/igc-inferred-genomic-context/"
-//            },
-//            {
-//                "evidence_code": "http://www.wikidata.org/entity/Q23190850",
-//                "evidence_codeLabel": "IRD",
-//                "name": "Inferred from Rapid Divergence",
-//                "eviURL": "http://geneontology.org/page/ird-inferred-rapid-divergence/"
-//            },
-//            {
-//                "evidence_code": "http://www.wikidata.org/entity/Q23173789",
-//                "evidence_codeLabel": "EXP",
-//                "name": "Inferred from Experiment",
-//                "eviURL": "http://geneontology.org/page/exp-inferred-experiment/"
-//            },
-//            {
-//                "evidence_code": "http://www.wikidata.org/entity/Q23190853",
-//                "evidence_codeLabel": "TAS",
-//                "name": "Traceable Author Statement",
-//                "eviURL": "http://geneontology.org/page/tas-traceable-author-statement/"
-//            },
-//            {
-//                "evidence_code": "http://www.wikidata.org/entity/Q23175251",
-//                "evidence_codeLabel": "IEP",
-//                "name": "Inferred from Expression Pattern",
-//                "eviURL": "http://geneontology.org/page/iep-inferred-expression-pattern/"
-//            },
-//            {
-//                "evidence_code": "http://www.wikidata.org/entity/Q23174122",
-//                "evidence_codeLabel": "IDA",
-//                "name": "Inferred from Direct Assay",
-//                "eviURL": "http://geneontology.org/page/ida-inferred-direct-assay/"
-//            },
-//            {
-//                "evidence_code": "http://www.wikidata.org/entity/Q23190857",
-//                "evidence_codeLabel": "ND",
-//                "name": "No biological Data available",
-//                "eviURL": "http://geneontology.org/page/nd-no-biological-data-available/"
-//            },
-//            {
-//                "evidence_code": "http://www.wikidata.org/entity/Q23190637",
-//                "evidence_codeLabel": "ISO",
-//                "name": "Inferred from Sequence Orthology",
-//                "eviURL": "http://geneontology.org/page/iso-inferred-sequence-orthology/"
-//            },
-//            {
-//                "evidence_code": "http://www.wikidata.org/entity/Q23174952",
-//                "evidence_codeLabel": "IGI",
-//                "name": "Inferred from Genetic Interaction",
-//                "eviURL": "http://geneontology.org/page/igi-inferred-genetic-interaction/"
-//            },
-//            {
-//                "evidence_code": "http://www.wikidata.org/entity/Q23174671",
-//                "evidence_codeLabel": "IMP",
-//                "name": "Inferred from Mutant Phenotype",
-//                "eviURL": "http://geneontology.org/page/imp-inferred-mutant-phenotype/"
-//            },
-//            {
-//                "evidence_code": "http://www.wikidata.org/entity/Q23190842",
-//                "evidence_codeLabel": "IKR",
-//                "name": "Inferred from Key Residues",
-//                "eviURL": "http://geneontology.org/page/ikr-inferred-key-residues/"
-//            }
-//        ];
-//    });

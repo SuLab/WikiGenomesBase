@@ -23,7 +23,6 @@ angular
         controller: function ($location, allOrgs, allOrgGenes, currentGene, currentOrg, currentOrgFetch) {
             var ctrl = this;
 
-
             ctrl.$onInit = function () {
                 ctrl.currentTaxid = $location.path().split("/").pop();
                 allOrgs.getAllOrgs(function (data) {

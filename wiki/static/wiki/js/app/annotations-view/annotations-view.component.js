@@ -28,7 +28,6 @@ angular
                                 }
                                 if (value.goclass.value === 'http://www.wikidata.org/entity/Q14860489') {
                                     ctrl.molfunc.push(value);
-                                    console.log(value.gotermValueLabel);
                                 }
                                 if (value.goclass.value === 'http://www.wikidata.org/entity/Q2996394') {
                                     ctrl.bioproc.push(value);
