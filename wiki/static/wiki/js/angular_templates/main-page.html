@@ -1,8 +1,6 @@
 <div class="container-fluid">
     <div class="row">
-        <div class="col-md-12 wg-header" style="padding: 5px 15px 5px 15px">
-
-
+        <div class="col-md-12" style="padding: 5px 15px 5px 15px">
             <div class="row" style="padding:10px">
                 <div class="col-md-3"><h1>WikiGenomes</h1></div>
                 <div class="col-md-3">
@@ -22,7 +20,7 @@
         </div>
     </div>
     <div class="row" style="height: 40%">
-        <div class="col-md-3 box" style="padding: 10px">
+        <div class="col-md-3 ">
             <gene-form taxid="$ctrl.currentOrg.taxid"></gene-form>
             <uib-tabset active="active">
                 <uib-tab index="1" heading="Gene">
@@ -33,13 +31,8 @@
                 </uib-tab>
             </uib-tabset>
         </div>
-        <div class="col-md-9">
-            <annotations-view uniprot="$ctrl.currentGene.uniprot" entrez="$ctrl.currentGene.entrez"></annotations-view>
-        </div>
-    </div>
-    <div class="row" style="height: 10%">
-        <div class="col-md-12">
-            <div class="footer"></div>
+        <div class="col-md-9 ">
+            <annotations-view gene="$ctrl.currentGene" uniprot="$ctrl.currentGene.uniprot" entrez="$ctrl.currentGene.entrez"></annotations-view>
         </div>
     </div>
 </div>

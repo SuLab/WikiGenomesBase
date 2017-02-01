@@ -57,5 +57,5 @@ angular
 
 
         },
-        templateUrl: '/static/wiki/js/angular_templates/main-page.html'
+        templateUrl: '/static/wiki/js/angular_templates/main-page2.html'
     });

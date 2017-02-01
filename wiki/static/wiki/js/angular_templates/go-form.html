@@ -1,0 +1,61 @@
+<form name='goAnnotationForm' class="form-group" ng-model="$ctrl.goFormModel">
+    <div class="well-sm">
+        <h4>Search for a {{$ctrl.goclass | goClass}}</h4>
+
+        <input id="goInput"
+               type="text"
+               ng-model="$ctrl.goFormModel.go"
+               placeholder="{{$ctrl.goclass | goClass}}"
+               uib-typeahead="go as go.goterm_label.value for go in $ctrl.getGoTerm($viewValue)"
+               typeahead-loading="loadingGOTerms"
+               typeahead-no-results="noResults"
+               class="form-control"
+               typeahead-wait-ms="900"
+                >
+        <i ng-show="loadingGOTerms" class="glyphicon glyphicon-refresh"></i>
+
+        <div ng-show="noResults">
+            <i class="glyphicon glyphicon-remove"></i> No Results Found
+        </div>
+        <div class="well-sm">
+            <a target="_blank" href="http://geneontology.org/page/about">The Gene Ontology Project (GO)</a>
+        </div>
+
+        <h4>Select a Determination Method</h4>
+        <select id='eviInput' class="form-control" ng-model="$ctrl.goFormModel.evi" required="required"
+                ng-options="option as option.name + ' (' + option.evidence_codeLabel + ') ' for option in $ctrl.evidence">
+            <option style="display:none" value="">GO Evidence Code</option>
+        </select>
+
+        <div class="well-sm">
+            <a target="_blank" href="http://geneontology.org/page/guide-go-evidence-codes">Guide to GO Evidence
+                Codes</a>
+        </div>
+
+        <h4>Search for Referenced Publication</h4>
+
+        <input id="pubInput"
+               type="text"
+               ng-model="$ctrl.goFormModel.pub"
+               placeholder="PMID"
+               uib-typeahead="pmid as pmid.title +  ' PMID:' + pmid.uid for pmid in $ctrl.getPMID($viewValue)"
+               typeahead-loading="loadingPub"
+               typeahead-no-results="noPubResults"
+               class="form-control"
+               typeahead-wait-ms="900"
+                >
+        <i ng-show="loadingPub" class="glyphicon glyphicon-refresh"></i>
+
+        <div ng-show="noPubResults">
+            <i class="glyphicon glyphicon-remove"></i> No Results Found
+        </div>
+    </div>
+    <div style="text-align:right" class="well-sm">
+        <button class="btn btn-success" type="button" ng-click="$ctrl.sendData($ctrl.goFormModel)">Submit Annotation
+        </button>
+        <button class="btn btn-warning" type="button" ng-click="$ctrl.goFormModel=null">Reset
+        </button>
+    </div>
+</form>
+
+

@@ -1,51 +1,38 @@
 <table ng-table="$ctrl.tableParams" class="table">
-    <tr ng-repeat="x in $ctrl.data">
-        <td title="'Operon'">
-            {{x.operonItemLabel.value }}
-        </td>
-        <td title="'Regulated Genes'">
-            {{x.op_genesLabel.value }}
-        </td>
-        <td title="'Entrez ID'">
-            {{x.entrez.value }}
-        </td>
-        <td title="'NCBI Locus Tag'">
-            {{x.locusTag.value }}
-        </td>
-        <td title="'QID'">
-            {{x.op_genes.value | parseQID}}
+    <tr>
+        <td title="'Chromosome Accession'">
+            {{$ctrl.data.refseqGenome }}
         </td>
         <td title="'Genomic Start'">
-            {{x.genStart.value }}
+            {{$ctrl.data.genStart }}
         </td>
         <td title="'Genomic End'">
-            {{x.genEnd.value }}
+            {{$ctrl.data.genEnd}}
         </td>
         <td title="'Strand'">
-            {{x.strand.value | convertStrand }}
+            {{ $ctrl.data.strand | convertStrand }}
         </td>
-
         <td title="'Reference'">
             <!-- Button trigger modal -->
             <button type="button" class="btn btn-xs" data-toggle="modal"
-                    data-target="#{{ x.locusTag.value}}">
+                    data-target="#geneRef">
                 Open Ref
             </button>
             <!-- Modal -->
-            <div class="modal" id="{{x.locusTag.value}}" tabindex="-1" role="dialog"
+            <div class="modal" id="geneRef" tabindex="-1"
+                 role="dialog"
                  aria-labelledby="refModalTitle"
                  aria-hidden="true">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="refModalTitle"><strong>{{x.op_genesLabel.value}}</strong> is regulated by <strong>{{ x.operonItemLabel.value}}</strong></h5>
+                            <h5 class="modal-title" id="refModalTitle"><strong>Genomic Position</strong></h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
                         <div class="modal-body">
-                            <h4>Stated in: </h4> {{ x.reference_stated_inLabel.value}} <br/>
-                            <h4>PMID: </h4> {{ x.reference_pmid.value}}
+                            <h4>Stated in: </h4> <a target="_blank" href="http://www.ncbi.nlm.nih.gov/gene/?term={{$ctrl.data.entrez}}">NCBI Gene Database</a><br/>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

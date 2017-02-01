@@ -4,7 +4,8 @@ angular
         templateUrl: '/static/wiki/js/angular_templates/annotations-view.html',
         bindings: {
             uniprot: '<',
-            entrez: '<'
+            entrez: '<',
+            gene: '<'
         },
         controller: function (GOTerms, InterPro, OperonData, $filter) {
             var ctrl = this;

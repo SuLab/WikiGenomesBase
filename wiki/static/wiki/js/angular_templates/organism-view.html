@@ -1,19 +1,18 @@
-<div class="box">
-    <div><h3>{{ $ctrl.org.taxonLabel }}</h3></div>
-    <div class="table-responsive">
-        <table class="table table-sm">
-            <thead>
-            <tr>
-                <th>NCBI Taxonomy ID</th>
-                <th>Wikidata QID</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-                <td>{{ $ctrl.org.taxid }}</td>
-                <td>{{ $ctrl.org.taxon | parseQID }}</td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
+<div class="table-responsive">
+    <table class="table table-hover">
+        <col width="50%"/>
+        <col width="50%"/>
+        <thead>
+        </thead>
+        <tbody>
+        <tr>
+            <th>NCBI Taxonomy ID</th>
+            <td>{{ $ctrl.org.taxid }}</td>
+        </tr>
+        <tr>
+            <th>Wikidata QID</th>
+            <td>{{ $ctrl.org.taxon | parseQID }}</td>
+        </tr>
+        </tbody>
+    </table>
 </div>

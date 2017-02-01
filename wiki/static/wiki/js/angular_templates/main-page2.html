@@ -1,0 +1,83 @@
+<div class="container-fluid">
+    <div class="row" style="height:300px">
+        <div class="col-md-1">
+        </div>
+        <div class="col-md-3 box">
+            <div class="panel panel-primary box">
+                <div class="panel-heading">
+                    <h3>{{$ctrl.currentOrg.taxonLabel}}</h3>
+                    <organism-form orgs="$ctrl.orgList"></organism-form>
+                </div>
+                <div class="panel-body">
+                    <organism-view org="$ctrl.currentOrg" taxid="$ctrl.currentOrg.taxid"></organism-view>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-7">
+            <div class="panel panel-primary box">
+                <jbrowse-view entrez="$ctrl.currentGene.entrez" gene="$ctrl.currentGene"
+                              taxid="$ctrl.currentOrg.taxid"></jbrowse-view>
+            </div>
+        </div>
+        <div class="col-md-1">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-10">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3>{{$ctrl.currentGene.geneLabel}}</h3>
+                    <gene-form taxid="$ctrl.currentOrg.taxid"></gene-form>
+                </div>
+                <div class="panel-body">
+                    <gene-view gene="$ctrl.currentGene"></gene-view>
+                    <protein-view protein="$ctrl.currentGene"></protein-view>
+                    <annotations-view gene="$ctrl.currentGene" uniprot="$ctrl.currentGene.uniprot" -->
+                        entrez="$ctrl.currentGene.entrez">
+                    </annotations-view>
+
+
+                </div>
+
+            </div>
+        </div>
+        <div class="col-md-1">
+        </div>
+    </div>
+
+
+</div>
+<!--<div class="row">-->
+<!--<div class="col-md-12" style="padding: 5px 15px 5px 15px">-->
+<!--<div class="row" style="padding:10px">-->
+<!--<div class="col-md-3"><h1>WikiGenomes</h1></div>-->
+
+<!--<div class="col-md-3"></div>-->
+<!--<div class="col-md-3"></div>-->
+<!--</div>-->
+<!--</div>-->
+<!--</div>-->
+<!--<div class="row" style="height: 30%">-->
+<!--<div class="col-md-3">-->
+<!---->
+<!--</div>-->
+
+<!--</div>-->
+<!--<div class="row" style="height: 40%">-->
+<!--<div class="col-md-3 ">-->
+<!---->
+<!--<uib-tabset active="active">-->
+<!--<uib-tab index="1" heading="Gene">-->
+<!--<gene-view gene="$ctrl.currentGene"></gene-view>-->
+<!--</uib-tab>-->
+<!--<uib-tab index="2" heading="Protein">-->
+<!---->
+<!--</uib-tab>-->
+<!--</uib-tabset>-->
+<!--</div>-->
+<!--<div class="col-md-9 ">-->
+<!--<annotations-view gene="$ctrl.currentGene" uniprot="$ctrl.currentGene.uniprot"-->
+<!--entrez="$ctrl.currentGene.entrez"></annotations-view>-->
+<!--</div>-->
+<!--</div>-->

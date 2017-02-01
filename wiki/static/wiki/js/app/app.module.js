@@ -22,5 +22,6 @@ angular.module('cmod', [
     'geneOntology',
     'interPro',
     'operonAnnotations',
-    'goForm'
+    'goForm',
+    'genomicPosition'
 ]);
