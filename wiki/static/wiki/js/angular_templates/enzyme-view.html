@@ -1,35 +1,37 @@
 <table ng-table="$ctrl.tableParams" class="table">
-    <col width="50%"/>
-    <col width="45%"/>
+    <col width="20%"/>
+    <col width="65%"/>
     <col width="5%%"/>
-    <tr ng-repeat="x in $ctrl.data">
-        <td title="'InterPro Domain'">
-            {{x.interPro_label.value }}
+    <tr ng-repeat="(key,value) in $ctrl.reaction">
+        <td title="'EC Number'">
+            {{key}}
         </td>
-        <td title="'InterPro ID'">
-            {{x.ipID.value }}
+        <td title="'Reaction(s)'">
+            <ul ng-repeat="x in value" >
+                <li>{{x}}</li>
+            </ul>
         </td>
         <td title="'Reference'">
             <!-- Button trigger modal -->
             <button type="button" class="btn btn-xs" data-toggle="modal"
-                    data-target="#{{ x.ipID.value}}">
+                    data-target="#{{ key | replaceperiod}}">
                 Open Ref
             </button>
             <!-- Modal -->
-            <div class="modal" id="{{x.ipID.value}}" tabindex="-1" role="dialog"
+            <div class="modal" id="{{key | replaceperiod}}" tabindex="-1" role="dialog"
                  aria-labelledby="refModalTitle"
                  aria-hidden="true">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="refModalTitle"><strong>{{x.interPro_label.value }}</strong></h5>
+                            <h5 class="modal-title" id="refModalTitle">Reaction Source</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
                         <div class="modal-body">
-                            <h4>Stated in: </h4> {{ x.reference_stated_inLabel.value}} <br/>
-                            <h4>Reference URL: </h4> {{ x.refURL.value}}
+                            <h4>Stated in: </h4> Expasy Enzyme <br/>
+                            <h4>Reference URL: </h4> http://enzyme.expasy.org/EC/{{ key }}.txt
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

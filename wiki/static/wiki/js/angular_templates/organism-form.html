@@ -1,6 +1,7 @@
 <form class="main-form-div  ui-widget">
     <div class="form-group">
-        <input
+        <label for="orgForm">Organism Search: </label>
+        <input id="orgForm"
                 type="text"
                 ng-model="organism.name"
                 uib-typeahead="org.taxonLabel for org in $ctrl.orgs | filter:$viewValue | limitTo:200"

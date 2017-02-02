@@ -23,5 +23,6 @@ angular.module('cmod', [
     'interPro',
     'operonAnnotations',
     'goForm',
-    'genomicPosition'
+    'genomicPosition',
+    'enzymeView'
 ]);

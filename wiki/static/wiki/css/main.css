@@ -12,17 +12,14 @@ html, body {
 
 }
 
-.container-fluid {
-    /*height: 100%;*/
-    padding-top:30px;
-    padding-bottom:30px;
-
-}
-
-
 .mainPage{
     /*height: 100%;*/
 
+}
+.wd-logo {
+    max-height: 40px;
+    float: right;
+    clear: right;
 }
 
 .box{

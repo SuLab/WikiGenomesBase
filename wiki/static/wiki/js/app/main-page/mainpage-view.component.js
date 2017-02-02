@@ -28,12 +28,17 @@ angular
                 allOrgs.getAllOrgs(function (data) {
                     ctrl.orgList = data;
                 });
-                currentOrgFetch.getCurrentOrg(ctrl.currentTaxid).then(function(data) {
+                $(".listBut").on('click', function (e) {
+                    console.log("yup");
+                    e.preventDefault();
+                });
+
+                currentOrgFetch.getCurrentOrg(ctrl.currentTaxid).then(function (data) {
                     currentOrg.taxon = data.taxon;
                     currentOrg.taxid = data.taxid;
                     currentOrg.taxonLabel = data.taxonLabel;
                 });
-                allOrgGenes.getAllOrgGenes(ctrl.currentTaxid).then(function(data){
+                allOrgGenes.getAllOrgGenes(ctrl.currentTaxid).then(function (data) {
                     ctrl.currentAllGenes = data;
                     currentGene.geneLabel = data[0].geneLabel.value;
                     currentGene.entrez = data[0].entrez.value;
@@ -52,8 +57,6 @@ angular
                 ctrl.currentOrg = currentOrg;
                 ctrl.currentGene = currentGene;
             };
-
-
 
 
         },

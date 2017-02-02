@@ -1,22 +1,23 @@
 <div class="table-responsive">
     <table class="table table-sm">
         <col width="50%"/>
-        <col width="50%"/>
-        <caption><h4>Gene Product</h4></caption>
-
+        <col width="30%"/>
+        <col width="30%"/>
+        <caption> Gene Product Identifiers</caption>
         <tbody>
         <tr>
             <th>UniProt ID</th>
             <td>{{ $ctrl.protein.uniprot}}</td>
         </tr>
         <tr>
-            <th>Wikidata QID</th>
-            <td>{{ $ctrl.protein.protein | parseQID }}</td>
-        </tr>
-        <tr>
             <th>NCBI RefSeq ID</th>
             <td>{{ $ctrl.protein.refseqProt}}</td>
         </tr>
+        <tr>
+            <th>Wikidata QID</th>
+            <td>{{ $ctrl.protein.protein | parseQID }}</td>
+        </tr>
+
         </tbody>
     </table>
 </div>

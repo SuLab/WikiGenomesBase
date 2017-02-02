@@ -1,18 +1,2 @@
-<div class="table-responsive">
-    <table class="table table-hover">
-        <col width="50%"/>
-        <col width="50%"/>
-        <thead>
-        </thead>
-        <tbody>
-        <tr>
-            <th>NCBI Taxonomy ID</th>
-            <td>{{ $ctrl.org.taxid }}</td>
-        </tr>
-        <tr>
-            <th>Wikidata QID</th>
-            <td>{{ $ctrl.org.taxon | parseQID }}</td>
-        </tr>
-        </tbody>
-    </table>
-</div>
+<div style="width:100%;display:inline-block"><h2>{{$ctrl.org.taxonLabel}}</h2><h4>NCBI Taxonomy ID: {{ $ctrl.org.taxid }}</h4></div>
+ <!--Wikidata QID: {{ $ctrl.org.taxon | parseQID }}-->

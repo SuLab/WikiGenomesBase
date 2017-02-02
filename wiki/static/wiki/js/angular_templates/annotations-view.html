@@ -1,27 +1,61 @@
-<div style="overflow:auto">
-    <uib-tabset active="active">
-        <uib-tab  index="1" heading="Molecular Function">
-            <gene-ontology goclass="$ctrl.mf" data="$ctrl.molfunc"></gene-ontology>
-        </uib-tab>
-        <uib-tab index="2" heading="Biological Process">
-            <gene-ontology goclass='$ctrl.bp' data="$ctrl.bioproc"></gene-ontology>
-        </uib-tab>
-        <uib-tab index="3" heading="Cellular Component">
-            <gene-ontology goclass='$ctrl.cc' data="$ctrl.cellcomp"></gene-ontology>
-        </uib-tab>
-        <uib-tab index="4" heading="Operon">
-            <operon-annotations data="$ctrl.opData"></operon-annotations>
-        </uib-tab>
-        <uib-tab index="5" heading="Reaction">
-            <reaction></reaction>
-        </uib-tab>
-        <uib-tab index="6" heading="Mutant">
-            <mutant></mutant>
-        </uib-tab>
-        <uib-tab index="7" heading="Genomic Positon">
-            <genomic-position data="$ctrl.gene"></genomic-position>
-        </uib-tab>
-        <uib-tab index="8" heading="InterPro"><inter-pro data="$ctrl.ipData" ></inter-pro></uib-tab>
-    </uib-tabset>
+<div>
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-md-4" style="padding:3px">
+                <div class="panel">
+                    <div class="panel-heading">Molecular Function</div>
+                    <div class="panel-body">
+                        <gene-ontology goclass="$ctrl.mf" data="$ctrl.molfunc"></gene-ontology>
+                    </div>
+
+                </div>
+            </div>
+            <div class="col-md-4" style="padding:3px">
+                <div class="panel ">
+                    <div class="panel-heading">Biological Process</div>
+                    <div class="panel-body">
+                        <gene-ontology goclass='$ctrl.bp' data="$ctrl.bioproc"></gene-ontology>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4" style="padding:3px">
+                <div class="panel ">
+                    <div class="panel-heading">Cellular Component</div>
+                    <div class="panel-body">
+                        <gene-ontology goclass='$ctrl.cc' data="$ctrl.cellcomp"></gene-ontology>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
 </div>
+<div class="panel ">
+    <div class="panel-heading">Operon</div>
+    <div class="panel-body">
+        <operon-annotations data="$ctrl.opData"></operon-annotations>
+    </div>
+</div>
+<div class="panel ">
+    <div class="panel-heading">InterPro Domain</div>
+    <div class="panel-body">
+        <inter-pro data="$ctrl.ipData"></inter-pro>
+    </div>
+</div>
+<div class="panel ">
+    <div class="panel-heading">Enzyme</div>
+    <div class="panel-body">
+        <enzyme-view ecnumber="$ctrl.EC" reaction="$ctrl.reaction"></enzyme-view>
+    </div>
+</div>
+<div class="panel ">
+    <div class="panel-heading">Mutant</div>
+    <div class="panel-body">
+        <mutant></mutant>
+    </div>
+</div>
+
+
+
 

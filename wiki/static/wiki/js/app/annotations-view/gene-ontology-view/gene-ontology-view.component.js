@@ -8,8 +8,8 @@ angular
         },
         controller: function () {
             var ctrl = this;
-
             ctrl.$onInit = function () {
+
             };
         }
     });

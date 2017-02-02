@@ -53,7 +53,7 @@ angular
             var url = endpoint + url_suffix;
             var csrfToken = getCookie('csrftoken');
             var config = {
-                headers : {
+                headers: {
                     'X-CSRFToken': csrfToken
                 }
             };
@@ -167,7 +167,7 @@ angular
         var endpoint = 'https://query.wikidata.org/sparql?format=json&query=';
         var getGoTerms = function (uniprot) {
             var url = endpoint + encodeURIComponent(
-                    "SELECT  distinct ?gotermValueLabel ?goID ?gotermValue ?goclass ?determinationLabel ?reference_stated_inLabel ?reference_retrievedLabel WHERE { ?protein wdt:P352 " +
+                    "SELECT  distinct ?gotermValueLabel ?goID ?gotermValue ?goclass ?determinationLabel ?reference_stated_inLabel ?reference_retrievedLabel ?ecnumber WHERE { ?protein wdt:P352 " +
                     "'" + uniprot + "'. " +
                     "{?protein p:P680 ?goterm} UNION {?protein p:P681 ?goterm} UNION {?protein p:P682 ?goterm}.  " +
                     "?goterm pq:P459 ?determination .  ?goterm prov:wasDerivedFrom/pr:P248 ?reference_stated_in . " +
@@ -258,5 +258,124 @@ angular
 
     });
 
+angular
+    .module('resources')
+    .factory('expasyData', function ($http) {
+        var expasy_endpoint = 'http://enzyme.expasy.org/EC/{ecnumber}.txt';
+
+        var getReactionData = function (ecNumber) {
+            var url = expasy_endpoint.replace('{ecnumber}', ecNumber);
+            return $http.get(url).then(
+                function successCallback(response) {
+                    var reactionData = {
+                            reaction: []
+                        };
+                    var responseData = response.data.split("\n");
+                    angular.forEach(responseData, function (value, key) {
+
+                        if (value.match("^ID")) {
+                            reactionData['ecnumber'] = value.slice(5);
+                        }
+                        if (value.match("^CA ")) {
+                            var trimmedReaction = value.replace(/^(CA)/,"");
+                            reactionData['reaction'].push(trimmedReaction);
+                        }
+
+                    });
+                    return reactionData;
+
+                },
+                function errorCallbackResponse(response) {
+                    return response;
+                }
+            );
+        };
+        return {
+            getReactionData: getReactionData
+        }
 
 
+    });
+
+
+//angular
+//    .module('resources')
+//    .factory('expasyData', function ($http) {
+//        var reactions = [];
+//        var expasy_endpoint = 'http://enzyme.expasy.org/EC/{ecnumber}.txt';
+//        var getReaction = function(ecnumber){
+//            angular.forEach(ecnumber, function (value){
+//                var exurl = expasy_endpoint.replace('{ecnumber}', value);
+//                reactions.push(exurl);
+//
+//            });
+//            return reactions
+//        };
+//        return {
+//            getReaction: getReaction
+//        };
+//
+//    });
+
+
+//angular
+//    .module('resources')
+//    .factory('expasyData', function ($http) {
+//
+//
+//        var expasy_endpoint = 'http://enzyme.expasy.org/EC/{ecnumber}.txt';
+//        var reactions = [];
+//        var getReaction = function (ecNumber) {
+//
+//            angular.forEach(ecNumber, function (value) {
+//                console.log(value);
+//                var exurl = expasy_endpoint.replace('{ecnumber}', value);
+//                return $http.get(exurl).then(
+//                    function successCallback(response) {
+//                        var reactionData = response.data.split("\n");
+//                        var reactionDict = {
+//                            reaction: []
+//                        };
+//                        angular.forEach(reactionData, function (value, key) {
+//                            if (value.match("^ID")) {
+//                                reactionDict['ecnumber'] = value.slice(5);
+//                            }
+//                            if (value.match("^CA ")) {
+//                                reactionDict['reaction'].push(value.slice(8));
+//                            }
+//                            reactions.push(reactionDict);
+//
+//                        });
+//                        return reactions
+//                    },
+//                    function errorCallback(response) {
+//                        console.log(response);
+//                    });
+//
+//            });
+//
+//        };
+//        return {
+//            getReaction: getReaction
+//        };
+//
+//
+//        //$.ajax({
+//        //    type: "GET",
+//        //    url: exurl,
+//        //    dataType: 'text',
+//        //    success: function (data) {
+//        //        var rxnDict = [];
+//        //        var newdata = data.split("\n");
+//        //        $.each(newdata, function (key, element) {
+//        //            if (element.match("^CA ")) {
+//        //                rxnDict.push(element.substr(4));
+//        //            }
+//        //        });
+//        //        newDIct['reactions'] = rxnDict.join("");
+//        //        callBackonSuccess(newDIct);
+//        //    }
+//
+//    });
+//
+//

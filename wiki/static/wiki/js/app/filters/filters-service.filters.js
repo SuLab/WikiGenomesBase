@@ -27,6 +27,15 @@ angular
 
 angular
     .module('filters')
+    .filter('replaceperiod', function () {
+        return function (input) {
+            var inList = input.split('.');
+            return inList.join('_');
+        };
+    });
+
+angular
+    .module('filters')
     .filter('convertStrand', function () {
         return function (input) {
             var inList = input.split('/');

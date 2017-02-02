@@ -1,15 +1,11 @@
 <table ng-table="$ctrl.tableParams" class="table">
-        <col width="50%"/>
-        <col width="50%"/>
+        <col width="80%"/>
+        <col width="10%"/>
+        <col width="10%"/>
+
     <tr ng-repeat="x in $ctrl.data">
         <td title="'GO Term'">
             {{x.gotermValueLabel.value }}
-        </td>
-        <td title="'GO ID'">
-            {{x.goID.value }}
-        </td>
-        <td title="'GO Term QID'">
-            {{ x.gotermValue.value | parseQID}}
         </td>
         <td title="'Evidence'">
             {{ x.determinationLabel.value }}
@@ -37,7 +33,10 @@
                         </div>
                         <div class="modal-body">
                             <h4>Stated in: </h4> {{ x.reference_stated_inLabel.value}} <br/>
-                            <h4>Retrieved on: </h4> {{ x.reference_retrievedLabel.value}}
+                            <h4>Retrieved on: </h4> {{ x.reference_retrievedLabel.value}} <br/>
+                            <h4>Gene Ontology ID: </h4> {{x.goID.value }} <br/>
+                            <h4>Wikidata ID: </h4> {{ x.gotermValue.value | parseQID}}
+
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

@@ -1,6 +1,7 @@
-<form class="main-form-div  ui-widget">
+<form class="form-inline main-form-div ui-widget">
     <div class="form-group">
-        <input
+        <label for="geneForm">Gene Search: </label>
+        <input  id="geneForm"
                 type="text"
                 ng-model="gene.name"
                 uib-typeahead="gene.geneLabel.value for gene in $ctrl.currentAllGenes | filter:$viewValue | limitTo:200"
