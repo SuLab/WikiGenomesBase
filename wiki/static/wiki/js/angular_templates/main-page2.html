@@ -32,7 +32,7 @@
     </div>
     <!-- /.container-fluid -->
 </nav>
-<div class="container-fluid">
+<div class="container-fluid" style="color:#385d94">
     <div class="row" style="height: 400px;">
         <div class="col-md-1">
         </div>
@@ -62,25 +62,23 @@
                         </div>
                     </div>
                 </div>
-                <!--<h3>{{$ctrl.currentGene.geneLabel}}</h3>-->
                 <div class="panel-body">
-                    <div class="row" style="padding: 15px">
+                    <div class="row" style="padding: 15px; border-bottom: solid #bce8f1 1px;">
                         <div class="col-md-6">
-                            <div>
+                            <div class="panel">
                                 <gene-view gene="$ctrl.currentGene"></gene-view>
                             </div>
                         </div>
                         <div class="col-md-6">
-                            <div>
+                            <div class="panel">
                                 <protein-view protein="$ctrl.currentGene"></protein-view>
                             </div>
                         </div>
                     </div>
-
+                    <annotations-view gene="$ctrl.currentGene" uniprot="$ctrl.currentGene.uniprot"
+                                      entrez="$ctrl.currentGene.entrez">
+                    </annotations-view>
                 </div>
-                <annotations-view gene="$ctrl.currentGene" uniprot="$ctrl.currentGene.uniprot"
-                                  entrez="$ctrl.currentGene.entrez">
-                </annotations-view>
             </div>
 
 

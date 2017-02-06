@@ -1,56 +1,61 @@
 <div>
-    <div class="panel-body">
-        <div class="row">
-            <div class="col-md-4" style="padding:3px">
-                <div class="panel">
-                    <div class="panel-heading">Molecular Function</div>
-                    <div class="panel-body">
-                        <gene-ontology goclass="$ctrl.mf" data="$ctrl.molfunc"></gene-ontology>
-                    </div>
+    <div class="panel">
+        <div class="panel-heading">
+        <h5>Gene Ontology Terms</h5>
+        </div>
 
-                </div>
-            </div>
-            <div class="col-md-4" style="padding:3px">
-                <div class="panel ">
-                    <div class="panel-heading">Biological Process</div>
-                    <div class="panel-body">
-                        <gene-ontology goclass='$ctrl.bp' data="$ctrl.bioproc"></gene-ontology>
+        <div class="panel-body" style="border-bottom: solid #bce8f1 1px">
+            <div class="row">
+                <div class="col-md-4 385d94" style="padding:3px">
+                    <div class="panel">
+                        <div class="panel-heading">Molecular Function</div>
+                        <div class="panel-body">
+                            <gene-ontology goclass="$ctrl.mf" data="$ctrl.molfunc"></gene-ontology>
+                        </div>
+
                     </div>
                 </div>
-            </div>
-            <div class="col-md-4" style="padding:3px">
-                <div class="panel ">
-                    <div class="panel-heading">Cellular Component</div>
-                    <div class="panel-body">
-                        <gene-ontology goclass='$ctrl.cc' data="$ctrl.cellcomp"></gene-ontology>
+                <div class="col-md-4" style="padding:3px">
+                    <div class="panel ">
+                        <div class="panel-heading">Biological Process</div>
+                        <div class="panel-body">
+                            <gene-ontology goclass='$ctrl.bp' data="$ctrl.bioproc"></gene-ontology>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4" style="padding:3px">
+                    <div class="panel ">
+                        <div class="panel-heading">Cellular Component</div>
+                        <div class="panel-body">
+                            <gene-ontology goclass='$ctrl.cc' data="$ctrl.cellcomp"></gene-ontology>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
 
-
     </div>
 </div>
-<div class="panel ">
-    <div class="panel-heading">Operon</div>
+<div class="panel " style="border-bottom: solid #bce8f1 1px;">
+    <div class="panel-heading"><h5>Operon</h5></div>
     <div class="panel-body">
         <operon-annotations data="$ctrl.opData"></operon-annotations>
     </div>
 </div>
-<div class="panel ">
-    <div class="panel-heading">InterPro Domain</div>
+<div class="panel " style="border-bottom: solid #bce8f1 1px;">
+    <div class="panel-heading"><h5>InterPro Domain</h5></div>
     <div class="panel-body">
         <inter-pro data="$ctrl.ipData"></inter-pro>
     </div>
 </div>
-<div class="panel ">
-    <div class="panel-heading">Enzyme</div>
+<div class="panel " style="border-bottom: solid #bce8f1 1px;">
+    <div class="panel-heading"><h5>Enzyme</h5></div>
     <div class="panel-body">
         <enzyme-view ecnumber="$ctrl.EC" reaction="$ctrl.reaction"></enzyme-view>
     </div>
 </div>
-<div class="panel ">
-    <div class="panel-heading">Mutant</div>
+<div class="panel " style="border-bottom: solid #bce8f1 1px;">
+    <div class="panel-heading"><h5>Mutant</h5></div>
     <div class="panel-body">
         <mutant></mutant>
     </div>

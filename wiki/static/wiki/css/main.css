@@ -59,15 +59,6 @@ div[class^="col-md-"] {
     padding: 1px;
 }
 
-.main-landing-page {
-    height: 100%;
-    width: 100%;
-    background-color: #385d94;
-    color: whitesmoke;
-    border: solid #385d94 3px;
-    text-align: center;
-
-}
 
 .typeahead-demo .custom-popup-wrapper {
     position: absolute;
@@ -120,3 +111,4 @@ td {
 .my-custom-table-class tbody tr:hover {
   background-color: #dddddd;
 }
+

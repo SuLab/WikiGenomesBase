@@ -28,6 +28,7 @@ angular
                             angular.forEach(data, function (value, key) {
                                 if (value.hasOwnProperty('ecnumber')) {
                                     ctrl.ecnumber.push(value.ecnumber.value);
+                                    console.log("has EC");
                                 }
                                 if (value.goclass.value === 'http://www.wikidata.org/entity/Q5058355') {
                                     ctrl.cellcomp.push(value);
@@ -50,26 +51,33 @@ angular
 
                             OperonData.getOperonData(ctrl.entrez).then(
                                 function (data) {
-                                    ctrl.opData = data;
+                                    if (data.length > 0) {
+                                        ctrl.opData = data;
+                                        console.log(data);
+                                    } else {
+                                        ctrl.opData = [];
+                                    }
+
                                 });
 
                             ctrl.reaction = {};
+                            if (ctrl.ecnumber.length > 0) {
+                                angular.forEach(ctrl.ecnumber, function (value) {
+                                    if (value.indexOf('-') > -1) {
+                                        var multiReactions = "view reactions hierarchy at: http://enzyme.expasy.org/EC/" + value;
+                                        ctrl.reaction[value] = [multiReactions];
+                                    } else {
+                                        expasyData.getReactionData(value).then(function (data) {
+                                            ctrl.reaction[data.ecnumber] = data.reaction;
+                                            console.log(data);
+                                        });
+                                    }
+                                });
+                            } else {
+                                ctrl.reaction['No Data'] = ['---------'];
+                            }
 
 
-                            angular.forEach(ctrl.ecnumber, function (value) {
-                                if (value.indexOf('-') > -1) {
-                                    var multiReactions = "view reactions hierarchy at: http://enzyme.expasy.org/EC/" + value;
-                                    ctrl.reaction[value] = [multiReactions];
-                                } else {
-                                    expasyData.getReactionData(value).then(function (data) {
-                                        ctrl.reaction[data.ecnumber] = data.reaction;
-                                        console.log(data);
-                                    });
-
-                                }
-
-
-                            });
                         });
 
 
@@ -79,7 +87,5 @@ angular
             };
         }
     });
-
-
 
 
