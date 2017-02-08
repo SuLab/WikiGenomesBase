@@ -1,0 +1,111 @@
+<style>
+    body {
+        padding-top: 100px;
+    }
+
+    .container-fluid {
+        /*height: 100%;*/
+        padding-top: 30px;
+        padding-bottom: 30px;
+
+    }
+
+    .navbar-custom {
+        background-color: #385d94;
+        color: whitesmoke;
+    }
+</style>
+<nav class="navbar navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <a style="color: whitesmoke" class="navbar-brand" href="/">WikiGenomes</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <form class="navbar-form navbar-left">
+                <organism-form orgs="$ctrl.orgList"></organism-form>
+            </form>
+            <gene-download taxid="$ctrl.currentOrg.taxid"></gene-download>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container-fluid -->
+</nav>
+<div class="container-fluid" style="color:#385d94">
+    <div class="row">
+        <div class="col-md-1">
+        </div>
+        <div class="col-md-10 box">
+            <div class="panel box" style="padding:10px">
+                <organism-view org="$ctrl.currentOrg" taxid="$ctrl.currentOrg.taxid"></organism-view>
+                <div class="panel" style="height:300px; border: solid #385d94 2px; border-radius: 3px">
+                    <jbrowse-view entrez="$ctrl.currentGene.entrez" gene="$ctrl.currentGene"
+                                  taxid="$ctrl.currentOrg.taxid"></jbrowse-view>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-1">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-10">
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <div class="row" style="padding:10px">
+                        <div class="col-md-3" style="padding-left: 30px">
+                            <gene-form taxid="$ctrl.currentOrg.taxid"></gene-form>
+                        </div>
+                        <div class="col-md-9">
+                        </div>
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <div style="float:left">
+                        Genes: {{$ctrl.currentAllGenes.length}}
+                    </div>
+                    <div style="text-align: center">
+                        <dir-pagination-controls on-page-change="pageChanged(newPageNumber)"></dir-pagination-controls>
+                    </div>
+                    <ul style="list-style: none;" class="example-animate-container">
+                        <li ng-mouseover="" dir-paginate="x in $ctrl.currentAllGenes | itemsPerPage: 10">
+                            <a href="/organism/{{$ctrl.currentOrg.taxid}}/gene/{{x.entrez.value}}">
+                                <div class="well">
+                                    <table>
+                                        <col width="35%"/>
+                                        <col width="54%"/>
+                                        <col width="1%%"/>
+                                        <tr>
+                                            <td><h4>{{x.geneLabel.value}}</h4></td>
+                                            <td><h4>Entrez: {{x.entrez.value}}</h4></td>
+                                            <td style="text-align: right"><a target="_blank"
+                                                                             href="https://www.wikidata.org/wiki/{{x.gene.value | parseQID}}">
+                                                <div class="panel"><img style="max-height: 30px" id="wikilogo"
+                                                                        src="static/wiki/img/GeneWikidata-logo-en.png">
+                                                </div>
+                                            </a>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </a>
+                        </li>
+                    </ul>
+                    <div style="text-align: center;">
+                        <dir-pagination-controls on-page-change="pageChanged(newPageNumber)"></dir-pagination-controls>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+        <div class="col-md-1">
+        </div>
+    </div>
+</div>
+
+
+
+

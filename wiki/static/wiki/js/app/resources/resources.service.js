@@ -115,6 +115,7 @@ angular
     .factory('allOrgGenes', function ($http) {
         var allGenes = [];
         var endpoint = 'https://query.wikidata.org/sparql?format=json&query=';
+
         var getAllOrgGenes = function (taxid) {
             var url = endpoint + encodeURIComponent("SELECT ?refSeqChromosome ?gene ?genStart ?genEnd ?strand ?geneLabel ?entrez ?locusTag ?protein " +
                     "?proteinLabel ?uniprot ?refseqProt" +
@@ -131,10 +132,14 @@ angular
                     "wdt:P637 ?refseqProt." +
                     "OPTIONAL{ ?gene p:P644 ?chr. ?chr pq:P2249 ?refSeqChromosome.} " +
                     "SERVICE wikibase:label { bd:serviceParam wikibase:language 'en' . } }");
-            return $http.get(url).then(function (response) {
-                allGenes = response.data.results.bindings;
-                return allGenes
-            });
+            return $http.get(url)
+                .success(function(response){
+                   return response.data
+
+            })
+                .error(function(response){
+                    return response
+                })
         };
         return {
             getAllOrgGenes: getAllOrgGenes
@@ -268,8 +273,8 @@ angular
             return $http.get(url).then(
                 function successCallback(response) {
                     var reactionData = {
-                            reaction: []
-                        };
+                        reaction: []
+                    };
                     var responseData = response.data.split("\n");
                     angular.forEach(responseData, function (value, key) {
 
@@ -277,7 +282,7 @@ angular
                             reactionData['ecnumber'] = value.slice(5);
                         }
                         if (value.match("^CA ")) {
-                            var trimmedReaction = value.replace(/^(CA)/,"");
+                            var trimmedReaction = value.replace(/^(CA)/, "");
                             reactionData['reaction'].push(trimmedReaction);
                         }
 

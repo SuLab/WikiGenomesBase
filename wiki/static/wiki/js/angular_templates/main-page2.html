@@ -27,22 +27,19 @@
             <form class="navbar-form navbar-left">
                 <organism-form orgs="$ctrl.orgList"></organism-form>
             </form>
+            <gene-download taxid="$ctrl.currentOrg.taxid"></gene-download>
         </div>
         <!-- /.navbar-collapse -->
     </div>
     <!-- /.container-fluid -->
 </nav>
 <div class="container-fluid" style="color:#385d94">
-    <div class="row" style="height: 400px;">
+    <div class="row">
         <div class="col-md-1">
         </div>
         <div class="col-md-10 box">
             <div class="panel box" style="padding:10px">
-                <organism-view org="$ctrl.currentOrg" taxid="$ctrl.currentOrg.taxid"></organism-view>
-                <div class="panel" style="height: 75%">
-                    <jbrowse-view entrez="$ctrl.currentGene.entrez" gene="$ctrl.currentGene"
-                                  taxid="$ctrl.currentOrg.taxid"></jbrowse-view>
-                </div>
+
             </div>
         </div>
         <div class="col-md-1">
@@ -51,8 +48,8 @@
     <div class="row">
         <div class="col-md-1"></div>
         <div class="col-md-10">
-            <div class="panel panel-info">
-                <div class="panel-heading">
+            <div class="panel panel-info" >
+                <div class="panel-heading" >
                     <div class="row" style="padding:10px">
                         <div class="col-md-3" style="padding-left: 30px">
                             <gene-form taxid="$ctrl.currentOrg.taxid"></gene-form>
@@ -61,8 +58,14 @@
                             <genomic-position data="$ctrl.currentGene"></genomic-position>
                         </div>
                     </div>
+
                 </div>
                 <div class="panel-body">
+                    <div class="panel" style="height: 350px">
+                        <organism-view org="$ctrl.currentOrg" taxid="$ctrl.currentOrg.taxid"></organism-view>
+                        <jbrowse-view entrez="$ctrl.currentGene.entrez" gene="$ctrl.currentGene"
+                                      taxid="$ctrl.currentOrg.taxid"></jbrowse-view>
+                    </div>
                     <div class="row" style="padding: 15px; border-bottom: solid #bce8f1 1px;">
                         <div class="col-md-6">
                             <div class="panel">

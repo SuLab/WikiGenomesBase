@@ -28,7 +28,7 @@ angular
                             angular.forEach(data, function (value, key) {
                                 if (value.hasOwnProperty('ecnumber')) {
                                     ctrl.ecnumber.push(value.ecnumber.value);
-                                    console.log("has EC");
+
                                 }
                                 if (value.goclass.value === 'http://www.wikidata.org/entity/Q5058355') {
                                     ctrl.cellcomp.push(value);
@@ -36,11 +36,11 @@ angular
                                 }
                                 if (value.goclass.value === 'http://www.wikidata.org/entity/Q14860489') {
                                     ctrl.molfunc.push(value);
-                                    console.log(value);
+
                                 }
                                 if (value.goclass.value === 'http://www.wikidata.org/entity/Q2996394') {
                                     ctrl.bioproc.push(value);
-                                    console.log(value);
+
                                 }
                             });
 
@@ -69,7 +69,6 @@ angular
                                     } else {
                                         expasyData.getReactionData(value).then(function (data) {
                                             ctrl.reaction[data.ecnumber] = data.reaction;
-                                            console.log(data);
                                         });
                                     }
                                 });

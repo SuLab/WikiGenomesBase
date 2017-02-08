@@ -12,7 +12,10 @@ angular.module('cmod')
             when("/", {
                 template: '<landing-page></landing-page>'
             }).
-            when("/organism/:taxid", {
+            when("/organism/:taxid/", {
+                template: '<browser-page></browser-page>'
+            }).
+            when("/organism/:taxid/gene/:entrez", {
                 template: '<main-page></main-page>'
             }).
             otherwise({
@@ -20,3 +23,10 @@ angular.module('cmod')
             })
 
     });
+
+
+angular.module('cmod')
+    .config(['$compileProvider', function ($compileProvider) {
+        $compileProvider.aHrefSanitizationWhitelist(/^\s*(|blob|):/);
+        $compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|ftp|mailto|chrome-extension):/);
+    }]);

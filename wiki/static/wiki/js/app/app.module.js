@@ -9,6 +9,7 @@ angular.module('cmod', [
 
     //internal
     'filters',
+    'browserPage',
     'mainPage',
     'geneForm',
     'organismForm',
@@ -24,5 +25,7 @@ angular.module('cmod', [
     'operonAnnotations',
     'goForm',
     'genomicPosition',
-    'enzymeView'
+    'enzymeView',
+    'geneDownload',
+    'angularUtils.directives.dirPagination'
 ]);

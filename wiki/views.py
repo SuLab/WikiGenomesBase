@@ -17,3 +17,4 @@ def go_form(request):
         print(body['go'])
     return JsonResponse({'goForm': 'test'})
 
+

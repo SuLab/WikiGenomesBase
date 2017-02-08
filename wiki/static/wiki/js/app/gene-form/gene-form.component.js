@@ -5,16 +5,20 @@ angular
         bindings: {
             taxid: '<'
         },
-        controller: function (allOrgGenes, currentGene) {
+        controller: function ($location, allOrgGenes, currentGene) {
             var ctrl = this;
             ctrl.$onChanges = function (changesObj) {
                 if (changesObj.taxid) {
-                    allOrgGenes.getAllOrgGenes(ctrl.taxid).then(function (data) {
-                        ctrl.currentAllGenes = data;
+                    allOrgGenes.getAllOrgGenes(ctrl.taxid)
+                    .then(function (data) {
+                        ctrl.currentAllGenes = data.data.results.bindings;
+                        console.log(ctrl.currentAllGenes);
                     });
                 }
             };
             ctrl.onSelect = function ($item) {
+                $location.path('/organism/' + ctrl.taxid + "/gene/" + $item.entrez.value );
+                console.log($item.geneLabel.value);
                 currentGene.geneLabel = $item.geneLabel.value;
                 currentGene.entrez = $item.entrez.value;
                 currentGene.gene = $item.gene.value;
@@ -27,6 +31,7 @@ angular
                     currentGene.genEnd = $item.genEnd.value;
                     currentGene.strand = $item.strand.value;
                     currentGene.refseqGenome = $item.refSeqChromosome.value;
+
             };
         }
     });
