@@ -9,7 +9,6 @@ angular
                     ctrl.orgList = data;
                 });
                 ctrl.currentTaxid = $location.path().split("/")[2];
-                console.log(ctrl.currentTaxid);
                 allOrgGenes.getAllOrgGenes(ctrl.currentTaxid)
                     .then(function (data) {
                         ctrl.currentAllGenes = data.data.results.bindings;
@@ -37,6 +36,7 @@ angular
                     currentOrg.taxonLabel = data.taxonLabel;
                 });
             };
+
 
 
         },

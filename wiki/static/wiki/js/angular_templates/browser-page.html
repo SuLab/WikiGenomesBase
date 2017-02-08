@@ -63,34 +63,29 @@
                     </div>
                 </div>
                 <div class="panel-body">
-                    <div style="float:left">
-                        Genes: {{$ctrl.currentAllGenes.length}}
-                    </div>
                     <div style="text-align: center">
                         <dir-pagination-controls on-page-change="pageChanged(newPageNumber)"></dir-pagination-controls>
                     </div>
                     <ul style="list-style: none;" class="example-animate-container">
                         <li ng-mouseover="" dir-paginate="x in $ctrl.currentAllGenes | itemsPerPage: 10">
-                            <a href="/organism/{{$ctrl.currentOrg.taxid}}/gene/{{x.entrez.value}}">
-                                <div class="well">
-                                    <table>
-                                        <col width="35%"/>
-                                        <col width="54%"/>
-                                        <col width="1%%"/>
-                                        <tr>
-                                            <td><h4>{{x.geneLabel.value}}</h4></td>
-                                            <td><h4>Entrez: {{x.entrez.value}}</h4></td>
-                                            <td style="text-align: right"><a target="_blank"
-                                                                             href="https://www.wikidata.org/wiki/{{x.gene.value | parseQID}}">
-                                                <div class="panel"><img style="max-height: 30px" id="wikilogo"
-                                                                        src="static/wiki/img/GeneWikidata-logo-en.png">
-                                                </div>
-                                            </a>
-                                            </td>
-                                        </tr>
-                                    </table>
-                                </div>
-                            </a>
+                            <div ng-click="$ctrl.onSelect(x)"  class="well">
+                                <table>
+                                    <col width="35%"/>
+                                    <col width="54%"/>
+                                    <col width="1%%"/>
+                                    <tr>
+                                        <td><h4>{{x.geneLabel.value}}</h4></td>
+                                        <td><h4>Entrez: {{x.entrez.value}}</h4></td>
+                                        <td style="text-align: right"><a target="_blank"
+                                                                         href="https://www.wikidata.org/wiki/{{x.gene.value | parseQID}}">
+                                            <div class="btn btn-default"><img style="max-height: 30px" id="wikilogo"
+                                                                              src="static/wiki/img/GeneWikidata-logo-en.png">
+                                            </div>
+                                        </a>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
                         </li>
                     </ul>
                     <div style="text-align: center;">

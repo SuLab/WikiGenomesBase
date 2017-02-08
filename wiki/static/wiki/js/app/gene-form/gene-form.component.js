@@ -12,13 +12,11 @@ angular
                     allOrgGenes.getAllOrgGenes(ctrl.taxid)
                     .then(function (data) {
                         ctrl.currentAllGenes = data.data.results.bindings;
-                        console.log(ctrl.currentAllGenes);
                     });
                 }
             };
             ctrl.onSelect = function ($item) {
                 $location.path('/organism/' + ctrl.taxid + "/gene/" + $item.entrez.value );
-                console.log($item.geneLabel.value);
                 currentGene.geneLabel = $item.geneLabel.value;
                 currentGene.entrez = $item.entrez.value;
                 currentGene.gene = $item.gene.value;

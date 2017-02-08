@@ -9,7 +9,6 @@ angular
         controller: function (allOrgGenes) {
 
             var ctrl = this;
-            console.log("gene download");
             ctrl.$onChanges = function (changesObj) {
 
 

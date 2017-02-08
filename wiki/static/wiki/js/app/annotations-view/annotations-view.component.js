@@ -9,27 +9,47 @@ angular
         },
         controller: function (GOTerms, InterPro, OperonData, expasyData) {
             var ctrl = this;
+            ctrl.ecnumber = [];
+            ctrl.molfunc = [];
+            ctrl.bioproc = [];
+            ctrl.cellcomp = [];
+
             ctrl.$onInit = function () {
+
             };
             ctrl.$onChanges = function (changeObj) {
                 if (changeObj.uniprot) {
-                    console.log('uniprot changes');
                     GOTerms.getGoTerms(ctrl.uniprot).then(
                         function (data) {
 
-                            ctrl.molfunc = [];
-                            ctrl.bioproc = [];
-                            ctrl.cellcomp = [];
-                            ctrl.ecnumber = [];
                             ctrl.mf = 'mf_button';
                             ctrl.bp = 'bp_button';
                             ctrl.cc = 'cc_button';
 
-                            angular.forEach(data, function (value, key) {
+                            angular.forEach(data.data.results.bindings, function (value, key) {
+                                console.log(value);
                                 if (value.hasOwnProperty('ecnumber')) {
                                     ctrl.ecnumber.push(value.ecnumber.value);
-
+                                    console.log(value.ecnumber.value);
+                                } else {
+                                    ctrl.ecnumber.push("None");
                                 }
+                                ctrl.reaction = {};
+                                if (ctrl.ecnumber.length > 0) {
+                                    angular.forEach(ctrl.ecnumber, function (value) {
+                                        if (value.indexOf('-') > -1) {
+                                            var multiReactions = "view reactions hierarchy at: http://enzyme.expasy.org/EC/" + value;
+                                            ctrl.reaction[value] = [multiReactions];
+                                        } else {
+                                            expasyData.getReactionData(value).then(function (data) {
+                                                ctrl.reaction[data.ecnumber] = data.reaction;
+                                            });
+                                        }
+                                    });
+                                } else {
+                                    ctrl.reaction['No Data'] = ['---------'];
+                                }
+
                                 if (value.goclass.value === 'http://www.wikidata.org/entity/Q5058355') {
                                     ctrl.cellcomp.push(value);
 
@@ -42,46 +62,27 @@ angular
                                     ctrl.bioproc.push(value);
 
                                 }
+
                             });
 
-                            InterPro.getInterPro(ctrl.uniprot).then(
-                                function (data) {
-                                    ctrl.ipData = data;
-                                });
+                        });
+                    InterPro.getInterPro(ctrl.uniprot).then(
+                        function (data) {
+                            ctrl.ipData = data;
+                        });
 
-                            OperonData.getOperonData(ctrl.entrez).then(
-                                function (data) {
-                                    if (data.length > 0) {
-                                        ctrl.opData = data;
-                                        console.log(data);
-                                    } else {
-                                        ctrl.opData = [];
-                                    }
-
-                                });
-
-                            ctrl.reaction = {};
-                            if (ctrl.ecnumber.length > 0) {
-                                angular.forEach(ctrl.ecnumber, function (value) {
-                                    if (value.indexOf('-') > -1) {
-                                        var multiReactions = "view reactions hierarchy at: http://enzyme.expasy.org/EC/" + value;
-                                        ctrl.reaction[value] = [multiReactions];
-                                    } else {
-                                        expasyData.getReactionData(value).then(function (data) {
-                                            ctrl.reaction[data.ecnumber] = data.reaction;
-                                        });
-                                    }
-                                });
+                    OperonData.getOperonData(ctrl.entrez).then(
+                        function (data) {
+                            if (data.length > 0) {
+                                ctrl.opData = data;
                             } else {
-                                ctrl.reaction['No Data'] = ['---------'];
+                                ctrl.opData = [];
                             }
-
 
                         });
 
 
                 }
-
 
             };
         }

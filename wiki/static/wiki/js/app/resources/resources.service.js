@@ -113,7 +113,6 @@ angular
 angular
     .module('resources')
     .factory('allOrgGenes', function ($http) {
-        var allGenes = [];
         var endpoint = 'https://query.wikidata.org/sparql?format=json&query=';
 
         var getAllOrgGenes = function (taxid) {
@@ -183,11 +182,20 @@ angular
                     "OPTIONAL {?gotermValue wdt:P591 ?ecnumber.}" +
                     "SERVICE wikibase:label { bd:serviceParam wikibase:language \"en\" .}}"
                 );
-            return $http.get(url).then(function (response) {
+            return $http.get(url)
+                .success(function(response){
+                   return response.data
 
-                return response.data.results.bindings;
+            })
+                .error(function(response){
+                    return response
+                })
 
-            });
+            //    .then(function (response) {
+            //
+            //    return response.data.results.bindings;
+            //
+            //});
         };
         return {
             getGoTerms: getGoTerms
