@@ -2,7 +2,7 @@
     <col width="50%"/>
     <col width="45%"/>
     <col width="5%%"/>
-    <tr ng-repeat="x in $ctrl.data">
+    <tr ng-show="$ctrl.data.length!=0" ng-repeat="x in $ctrl.data">
         <td title="'InterPro Domain'">
             {{x.interPro_label.value }}
         </td>
@@ -37,6 +37,11 @@
                     </div>
                 </div>
             </div>
+        </td>
+    </tr>
+    <tr>
+        <td ng-show="$ctrl.data.length==0">
+            No data
         </td>
     </tr>
 </table>

@@ -1,12 +1,18 @@
 angular
     .module('mainPage')
     .component('mainPage', {
-        controller: function ($filter, $location, allOrgs, allOrgGenes, currentGene, currentOrg, currentOrgFetch) {
+        controller: function ($filter, $location, allOrgs, allOrgGenes) {
+            //Main gene page component.
             var ctrl = this;
 
             ctrl.$onInit = function () {
                 allOrgs.getAllOrgs(function (data) {
                     ctrl.orgList = data;
+                    ctrl.currentOrg = $filter('getJsonItemOrg')('taxid', ctrl.currentTaxid, ctrl.orgList);
+                    if(ctrl.currentOrg == undefined){
+                        alert("not a valid taxonomy id");
+                        $location.path('/');
+                    }
                 });
                 ctrl.currentTaxid = $location.path().split("/")[2];
                 ctrl.currentEntrez = $location.path().split("/")[4];
@@ -15,7 +21,6 @@ angular
                     .then(function (data) {
                         ctrl.currentAllGenes = data.data.results.bindings;
                         var curgene = $filter('getJsonItem')('entrez', ctrl.currentEntrez, ctrl.currentAllGenes);
-
                         if (curgene == undefined) {
                             alert("not a valid gene id");
                             $location.path('/organism/' + ctrl.currentTaxid);
@@ -34,14 +39,6 @@ angular
                         ctrl.currentGene.refseqGenome = curgene.refSeqChromosome.value;
 
                     });
-                ctrl.currentOrg = currentOrg;
-
-
-                currentOrgFetch.getCurrentOrg(ctrl.currentTaxid).then(function (data) {
-                    currentOrg.taxon = data.taxon;
-                    currentOrg.taxid = data.taxid;
-                    currentOrg.taxonLabel = data.taxonLabel;
-                });
             };
 
 

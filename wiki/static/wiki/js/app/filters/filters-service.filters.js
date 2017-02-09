@@ -125,6 +125,23 @@ angular
 
 angular
     .module('filters')
+    .filter('getJsonItemOrg', function () {
+        return function (ikey, ivalue, ijson) {
+            var curGene;
+            angular.forEach(ijson, function (value, key) {
+                if (value[ikey] == ivalue) {
+                    curGene = value;
+                }
+                else {
+                    return 'none'
+                }
+            });
+            return curGene
+        }
+    });
+
+angular
+    .module('filters')
     .filter('orderObjectBy', function () {
         return function (input, attribute) {
             if (!angular.isObject(input)) return input;

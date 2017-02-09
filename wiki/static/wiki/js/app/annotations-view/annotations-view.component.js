@@ -13,6 +13,12 @@ angular
             ctrl.molfunc = [];
             ctrl.bioproc = [];
             ctrl.cellcomp = [];
+            ctrl.accordion = {
+                go: false,
+                operon: false,
+                interpro: false,
+                enzyme: false
+            };
 
             ctrl.$onInit = function () {
 
@@ -22,12 +28,14 @@ angular
                 if (changeObj.uniprot) {
                     GOTerms.getGoTerms(ctrl.uniprot).then(
                         function (data) {
-
                             ctrl.mf = 'mf_button';
                             ctrl.bp = 'bp_button';
                             ctrl.cc = 'cc_button';
-
-                            angular.forEach(data.data.results.bindings, function (value, key) {
+                            var dataResults = data.data.results.bindings;
+                            if (dataResults.length > 0){
+                                ctrl.accordion.go = true;
+                            }
+                            angular.forEach(dataResults, function (value, key) {
                                 console.log(value);
                                 if (value.hasOwnProperty('ecnumber')) {
                                     ctrl.ecnumber.push(value.ecnumber.value);
@@ -35,9 +43,8 @@ angular
                                 }
                                 ctrl.reaction = {};
                                 if (ctrl.ecnumber.length > 0) {
-                                    console.log(ctrl.ecnumber);
+                                    ctrl.accordion.enzyme = true;
                                     angular.forEach(ctrl.ecnumber, function (value) {
-
                                         if (value.indexOf('-') > -1) {
                                             var multiReactions = "view reactions hierarchy at: http://enzyme.expasy.org/EC/" + value;
                                             ctrl.reaction[value] = [multiReactions];
@@ -72,6 +79,9 @@ angular
                     InterPro.getInterPro(ctrl.uniprot).then(
                         function (data) {
                             ctrl.ipData = data;
+                            if (ctrl.ipData.length > 0){
+                                ctrl.accordion.interpro = true;
+                            }
                         });
 
 
@@ -79,6 +89,7 @@ angular
                         function (data) {
                             if (data.length > 0) {
                                 ctrl.opData = data;
+                                ctrl.accordion.operon = true;
                             } else {
                                 ctrl.opData = [];
                             }
@@ -86,13 +97,7 @@ angular
                         });
 
                     //buttons for expanding and collapsing accordion
-                    ctrl.accordion = {
-                        go: false,
-                        operon: false,
-                        interpro: false,
-                        enzyme: false,
-                        mutant: false,
-                    };
+
 
                     ctrl.expandAll = function () {
                         ctrl.toggleOpen(true);
@@ -105,8 +110,7 @@ angular
                         ctrl.accordion.go = openAll;
                         ctrl.accordion.operon = openAll;
                         ctrl.accordion.interpro = openAll;
-                        ctrl.accordion.enzyme = openAll;
-                        ctrl.accordion.mutant = openAll;
+                        ctrl.accordion.enzyme = openAll
                     };
                 }
 
