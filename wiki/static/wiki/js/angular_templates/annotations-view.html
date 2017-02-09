@@ -1,66 +1,124 @@
-<div>
-    <div class="panel">
-        <div class="panel-heading">
-        <h5>Gene Ontology Terms</h5>
-        </div>
+<script type="text/ng-template" id="group-template.html">
+    <div class="panel-heading">
+        <h4 class="panel-title">
+            <a href tabindex="0" class="accordion-toggle" ng-click="toggleOpen()" uib-accordion-transclude="heading">
+          <span uib-accordion-header ng-class="{'text-muted': isDisabled}">
+            {{heading}}
+          </span>
+            </a>
+        </h4>
+    </div>
+    <div class="panel-collapse collapse" uib-collapse="!isOpen">
+        <div class="panel-body" ng-transclude></div>
+    </div>
+</script>
+<div class="row">
+    <div class="col-md-1"><h4>Annotations</h4></div>
+    <div class="col-md-9"></div>
+    <div class="col-md-1" style="text-align: right">
+        <button class="btn btn-default btn-sm" ng-click="$ctrl.expandAll()">Expand all</button>
+    </div>
+    <div class="col-md-1">
+        <button class="btn btn-default btn-sm" ng-click="$ctrl.collapseAll()">Collapse all</button>
+    </div>
 
-        <div class="panel-body" style="border-bottom: solid #bce8f1 1px">
-            <div class="row">
-                <div class="col-md-4 385d94" style="padding:3px">
-                    <div class="panel">
-                        <div class="panel-heading">Molecular Function</div>
-                        <div class="panel-body">
-                            <gene-ontology goclass="$ctrl.mf" data="$ctrl.molfunc"></gene-ontology>
-                        </div>
+</div>
 
-                    </div>
-                </div>
-                <div class="col-md-4" style="padding:3px">
-                    <div class="panel ">
-                        <div class="panel-heading">Biological Process</div>
-                        <div class="panel-body">
-                            <gene-ontology goclass='$ctrl.bp' data="$ctrl.bioproc"></gene-ontology>
+
+<uib-accordion close-others="false">
+
+    <div uib-accordion-group class="panel-default" is-open="$ctrl.accordion.go"
+         template-url="group-template.html">
+        <uib-accordion-heading>
+            Gene Ontology Annotations <i class="pull-right glyphicon"
+                                         ng-class="{'glyphicon-chevron-down': status.isCustomHeaderOpen, 'glyphicon-chevron-right': !status.isCustomHeaderOpen}"></i>
+        </uib-accordion-heading>
+        <div class="panel">
+            <div class="panel-body" style="border-bottom: solid #bce8f1 1px">
+                <div class="row">
+                    <div class="col-md-4 385d94" style="padding:3px">
+                        <div class="panel">
+                            <div class="panel-heading">Molecular Function</div>
+                            <div class="panel-body">
+                                <gene-ontology goclass="$ctrl.mf" data="$ctrl.molfunc"></gene-ontology>
+                            </div>
+
                         </div>
                     </div>
-                </div>
-                <div class="col-md-4" style="padding:3px">
-                    <div class="panel ">
-                        <div class="panel-heading">Cellular Component</div>
-                        <div class="panel-body">
-                            <gene-ontology goclass='$ctrl.cc' data="$ctrl.cellcomp"></gene-ontology>
+                    <div class="col-md-4" style="padding:3px">
+                        <div class="panel ">
+                            <div class="panel-heading">Biological Process</div>
+                            <div class="panel-body">
+                                <gene-ontology goclass='$ctrl.bp' data="$ctrl.bioproc"></gene-ontology>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4" style="padding:3px">
+                        <div class="panel">
+                            <div class="panel-heading">Cellular Component</div>
+                            <div class="panel-body">
+                                <gene-ontology goclass='$ctrl.cc' data="$ctrl.cellcomp"></gene-ontology>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
+
+        </div>
+    </div>
+    <div uib-accordion-group class="panel-default"
+         template-url="group-template.html" is-open="$ctrl.accordion.operon">
+        <uib-accordion-heading>
+            Operon <i class="pull-right glyphicon"
+                      ng-class="{'glyphicon-chevron-down': status.isCustomHeaderOpen, 'glyphicon-chevron-right': !status.isCustomHeaderOpen}"></i>
+        </uib-accordion-heading>
+        <div class="panel " style="border-bottom: solid #bce8f1 1px;">
+            <div class="panel-body">
+                <operon-annotations data="$ctrl.opData"></operon-annotations>
+            </div>
         </div>
 
     </div>
-</div>
-<div class="panel " style="border-bottom: solid #bce8f1 1px;">
-    <div class="panel-heading"><h5>Operon</h5></div>
-    <div class="panel-body">
-        <operon-annotations data="$ctrl.opData"></operon-annotations>
+    <div uib-accordion-group class="panel-default" is-open="$ctrl.accordion.interpro"
+         template-url="group-template.html">
+        <uib-accordion-heading>
+            InterPro Domains <i class="pull-right glyphicon"
+                                ng-class="{'glyphicon-chevron-down': status.isCustomHeaderOpen, 'glyphicon-chevron-right': !status.isCustomHeaderOpen}"></i>
+        </uib-accordion-heading>
+        <div class="panel " style="border-bottom: solid #bce8f1 1px;">
+            <div class="panel-body">
+                <inter-pro data="$ctrl.ipData"></inter-pro>
+            </div>
+        </div>
+
     </div>
-</div>
-<div class="panel " style="border-bottom: solid #bce8f1 1px;">
-    <div class="panel-heading"><h5>InterPro Domain</h5></div>
-    <div class="panel-body">
-        <inter-pro data="$ctrl.ipData"></inter-pro>
-    </div>
-</div>
-<div class="panel " style="border-bottom: solid #bce8f1 1px;">
-    <div class="panel-heading"><h5>Enzyme</h5></div>
-    <div class="panel-body">
-        <enzyme-view ecnumber="$ctrl.EC" reaction="$ctrl.reaction"></enzyme-view>
-    </div>
-</div>
-<div class="panel " style="border-bottom: solid #bce8f1 1px;">
-    <div class="panel-heading"><h5>Mutant</h5></div>
-    <div class="panel-body">
-        <mutant></mutant>
-    </div>
-</div>
+    <div uib-accordion-group class="panel-default" is-open="$ctrl.accordion.enzyme"
+         template-url="group-template.html">
+        <uib-accordion-heading>
+            Enzyme <i class="pull-right glyphicon"
+                      ng-class="{'glyphicon-chevron-down': status.isCustomHeaderOpen, 'glyphicon-chevron-right': !status.isCustomHeaderOpen}"></i>
+        </uib-accordion-heading>
+        <div class="panel " style="border-bottom: solid #bce8f1 1px;">
+            <div class="panel-body">
+                <enzyme-view ecnumber="$ctrl.EC" reaction="$ctrl.reaction"></enzyme-view>
+            </div>
+        </div>
 
 
+    </div>
+    <div uib-accordion-group class="panel-default" is-open="$ctrl.accordion.mutant"
+         template-url="group-template.html">
+        <uib-accordion-heading>
+            Mutants <i class="pull-right glyphicon"
+                       ng-class="{'glyphicon-chevron-down': status.isCustomHeaderOpen, 'glyphicon-chevron-right': !status.isCustomHeaderOpen}"></i>
+        </uib-accordion-heading>
+        <div class="panel " style="border-bottom: solid #bce8f1 1px;">
+            <div class="panel-body">
+                <mutant></mutant>
+            </div>
+        </div>
 
 
+    </div>
+
+</uib-accordion>

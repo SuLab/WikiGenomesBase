@@ -16,6 +16,7 @@ angular
 
             ctrl.$onInit = function () {
 
+
             };
             ctrl.$onChanges = function (changeObj) {
                 if (changeObj.uniprot) {
@@ -67,10 +68,12 @@ angular
                             });
 
                         });
+
                     InterPro.getInterPro(ctrl.uniprot).then(
                         function (data) {
                             ctrl.ipData = data;
                         });
+
 
                     OperonData.getOperonData(ctrl.entrez).then(
                         function (data) {
@@ -82,7 +85,29 @@ angular
 
                         });
 
+                    //buttons for expanding and collapsing accordion
+                    ctrl.accordion = {
+                        go: false,
+                        operon: false,
+                        interpro: false,
+                        enzyme: false,
+                        mutant: false,
+                    };
 
+                    ctrl.expandAll = function () {
+                        ctrl.toggleOpen(true);
+                    };
+
+                    ctrl.collapseAll = function () {
+                        ctrl.toggleOpen(false);
+                    };
+                    ctrl.toggleOpen = function (openAll) {
+                        ctrl.accordion.go = openAll;
+                        ctrl.accordion.operon = openAll;
+                        ctrl.accordion.interpro = openAll;
+                        ctrl.accordion.enzyme = openAll;
+                        ctrl.accordion.mutant = openAll;
+                    };
                 }
 
             };

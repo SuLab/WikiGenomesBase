@@ -16,7 +16,7 @@ angular
                         ctrl.currentAllGenes = data.data.results.bindings;
                         var curgene = $filter('getJsonItem')('entrez', ctrl.currentEntrez, ctrl.currentAllGenes);
 
-                        if (curgene == undefined){
+                        if (curgene == undefined) {
                             alert("not a valid gene id");
                             $location.path('/organism/' + ctrl.currentTaxid);
                         }
@@ -46,5 +46,5 @@ angular
 
 
         },
-        templateUrl: '/static/wiki/js/angular_templates/main-page2.html'
+        templateUrl: '/static/wiki/js/angular_templates/main-page_new.html'
     });
