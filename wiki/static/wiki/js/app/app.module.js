@@ -27,6 +27,5 @@ angular.module('cmod', [
     'genomicPosition',
     'enzymeView',
     'geneDownload',
-    'angularUtils.directives.dirPagination',
-    'notFound'
+    'angularUtils.directives.dirPagination'
 ]);
