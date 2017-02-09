@@ -13,7 +13,9 @@ angular
                 ctrl.currentTaxid = $location.path().split("/")[2];
                 allOrgGenes.getAllOrgGenes(ctrl.currentTaxid)
                     .then(function (data) {
-                        ctrl.currentAllGenes = data.data.results.bindings;
+                        var dataResults = data.data.results.bindings;
+                        ctrl.currentAllGenes = $filter('orderObjectBy')(dataResults, 'genStart');
+                        console.log(ctrl.currentAllGenes);
                     });
                 ctrl.currentOrg = currentOrg;
                 ctrl.currentGene = currentGene;
