@@ -2,8 +2,13 @@ angular
     .module('filters')
     .filter('parseQID', function () {
         return function (input) {
+            if (input){
             var inList = input.split('/');
             return inList.slice(-1)[0];
+            }
+            else {
+                return "None"
+            }
         };
     });
 
@@ -38,6 +43,8 @@ angular
     .module('filters')
     .filter('convertStrand', function () {
         return function (input) {
+            if (input) {
+
             var inList = input.split('/');
             var qid = inList.slice(-1)[0];
             if (qid === 'Q22809711') {
@@ -45,6 +52,10 @@ angular
             }
             else {
                 return 'forward'
+            }
+        }
+        else {
+                return 'None'
             }
         };
     });
@@ -94,3 +105,22 @@ angular
         return input.slice(start);
     }
 });
+
+angular
+    .module('filters')
+    .filter('getJsonItem', function () {
+    return function (ikey, ivalue, ijson) {
+        var curGene;
+        angular.forEach(ijson, function(value, key){
+            if (value[ikey].value == ivalue){
+                curGene = value;
+            }
+            else {
+                return 'none'
+            }
+        });
+        return curGene
+    }
+});
+
+

@@ -1,7 +1,7 @@
 angular
     .module('mainPage')
     .component('mainPage', {
-        controller: function ($location, allOrgs, allOrgGenes, currentGene, currentOrg, currentOrgFetch) {
+        controller: function ($filter, $location, allOrgs, allOrgGenes, currentGene, currentOrg, currentOrgFetch) {
             var ctrl = this;
 
             ctrl.$onInit = function () {
@@ -9,26 +9,33 @@ angular
                     ctrl.orgList = data;
                 });
                 ctrl.currentTaxid = $location.path().split("/")[2];
+                ctrl.currentEntrez = $location.path().split("/")[4];
+                ctrl.currentGene = {};
                 allOrgGenes.getAllOrgGenes(ctrl.currentTaxid)
                     .then(function (data) {
                         ctrl.currentAllGenes = data.data.results.bindings;
+                        var curgene = $filter('getJsonItem')('entrez', ctrl.currentEntrez, ctrl.currentAllGenes);
 
-                        currentGene.geneLabel = ctrl.currentAllGenes[0].geneLabel.value;
-                        currentGene.entrez = ctrl.currentAllGenes[0].entrez.value;
-                        currentGene.gene = ctrl.currentAllGenes[0].gene.value;
-                        currentGene.protein = ctrl.currentAllGenes[0].protein.value;
-                        currentGene.proteinLabel = ctrl.currentAllGenes[0].proteinLabel.value;
-                        currentGene.uniprot = ctrl.currentAllGenes[0].uniprot.value;
-                        currentGene.refseqProt = ctrl.currentAllGenes[0].refseqProt.value;
-                        currentGene.locusTag = ctrl.currentAllGenes[0].locusTag.value;
-                        currentGene.genStart = ctrl.currentAllGenes[0].genStart.value;
-                        currentGene.genEnd = ctrl.currentAllGenes[0].genEnd.value;
-                        currentGene.strand = ctrl.currentAllGenes[0].strand.value;
-                        currentGene.refseqGenome = ctrl.currentAllGenes[0].refSeqChromosome.value;
+                        if (curgene == undefined){
+                            alert("not a valid gene id");
+                            $location.path('/organism/' + ctrl.currentTaxid);
+                        }
+                        ctrl.currentGene.geneLabel = curgene.geneLabel.value;
+                        ctrl.currentGene.entrez = curgene.entrez.value;
+                        ctrl.currentGene.gene = curgene.gene.value;
+                        ctrl.currentGene.protein = curgene.protein.value;
+                        ctrl.currentGene.proteinLabel = curgene.proteinLabel.value;
+                        ctrl.currentGene.uniprot = curgene.uniprot.value;
+                        ctrl.currentGene.refseqProt = curgene.refseqProt.value;
+                        ctrl.currentGene.locusTag = curgene.locusTag.value;
+                        ctrl.currentGene.genStart = curgene.genStart.value;
+                        ctrl.currentGene.genEnd = curgene.genEnd.value;
+                        ctrl.currentGene.strand = curgene.strand.value;
+                        ctrl.currentGene.refseqGenome = curgene.refSeqChromosome.value;
 
                     });
                 ctrl.currentOrg = currentOrg;
-                ctrl.currentGene = currentGene;
+
 
                 currentOrgFetch.getCurrentOrg(ctrl.currentTaxid).then(function (data) {
                     currentOrg.taxon = data.taxon;
@@ -36,7 +43,6 @@ angular
                     currentOrg.taxonLabel = data.taxonLabel;
                 });
             };
-
 
 
         },

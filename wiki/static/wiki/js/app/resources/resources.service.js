@@ -189,7 +189,7 @@ angular
             })
                 .error(function(response){
                     return response
-                })
+                });
 
             //    .then(function (response) {
             //

@@ -31,18 +31,19 @@ angular
                                 if (value.hasOwnProperty('ecnumber')) {
                                     ctrl.ecnumber.push(value.ecnumber.value);
                                     console.log(value.ecnumber.value);
-                                } else {
-                                    ctrl.ecnumber.push("None");
                                 }
                                 ctrl.reaction = {};
                                 if (ctrl.ecnumber.length > 0) {
+                                    console.log(ctrl.ecnumber);
                                     angular.forEach(ctrl.ecnumber, function (value) {
+
                                         if (value.indexOf('-') > -1) {
                                             var multiReactions = "view reactions hierarchy at: http://enzyme.expasy.org/EC/" + value;
                                             ctrl.reaction[value] = [multiReactions];
                                         } else {
                                             expasyData.getReactionData(value).then(function (data) {
                                                 ctrl.reaction[data.ecnumber] = data.reaction;
+
                                             });
                                         }
                                     });

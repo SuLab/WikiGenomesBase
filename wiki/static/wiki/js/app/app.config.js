@@ -19,7 +19,7 @@ angular.module('cmod')
                 template: '<main-page></main-page>'
             }).
             otherwise({
-                template: "Not found"
+                template: "<not-found></not-found>"
             })
 
     });

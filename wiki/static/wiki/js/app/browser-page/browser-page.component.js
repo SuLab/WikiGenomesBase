@@ -23,7 +23,6 @@ angular
                     currentOrg.taxid = data.taxid;
                     currentOrg.taxonLabel = data.taxonLabel;
                 });
-
                 ctrl.onSelect = function ($item) {
                     console.log($item);
                     $location.path('/organism/' + ctrl.currentTaxid + "/gene/" + $item.entrez.value);
@@ -49,8 +48,3 @@ angular
         },
         templateUrl: '/static/wiki/js/angular_templates/browser-page.html'
     });
-
-var app = angular.module('myApp', []);
-
-// alternate - https://github.com/michaelbromley/angularUtils/tree/master/src/directives/pagination
-// alternate - http://fdietz.github.io/recipes-with-angular-js/common-user-interface-patterns/paginating-through-client-side-data.html
