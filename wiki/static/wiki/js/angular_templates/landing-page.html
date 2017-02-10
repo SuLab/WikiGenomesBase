@@ -1,6 +1,8 @@
-<style> html, body {
+<style>
+    html, body {
         background-color: #385d94;
-}
+    }
+    a {color: whitesmoke}
 </style>
 <div class="container-fluid main-landing-page">
     <div class="row">
@@ -22,7 +24,14 @@
         <div class="col-md-6">
             <div id="indexFormModule">
                 <organism-form orgs=$ctrl.orgList></organism-form>
-                <h4>Start typing the name of an organism to continue.</h4>
+                <h4>Start typing the name of an organism to continue or start by clicking one of the example organism
+                    links below.</h4>
+
+                <div>
+                    <a href="/organism/85962"><i>Helicobacter pylori 26695</i></a><br/>
+                    <a href="/organism/471472"><i>Chlamydia trachomatis 434/BU</i></a><br/>
+                    <a href="/organism/169963"><i>Listeria monocytogenes EGD-e</i></a>
+                </div>
             </div>
         </div>
         <div class="col-md-3"></div>
