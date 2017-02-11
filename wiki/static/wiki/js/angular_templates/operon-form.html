@@ -1,0 +1,63 @@
+<form name='operonAnnotationForm' class="form-group" ng-model="$ctrl.operonFormModel">
+    <!--<div class="form-group">-->
+        <!--<label for="opForm">Operon Search: </label>-->
+        <!--<input autocomplete="off"-->
+               <!--id="opForm"-->
+               <!--type="text"-->
+               <!--ng-model="$ctrl.operonFormModel.operoninputValue"-->
+               <!--uib-typeahead="gene.geneLabel.value for gene in $ctrl.currentAllGenes | filter:$viewValue | limitTo:200"-->
+               <!--typeahead-loading="loading"-->
+               <!--typeahead-no-results="noResults"-->
+               <!--class="form-control"-->
+               <!--data-ng-click="$ctrl.operonFormModel.operoninputValue=''"-->
+
+    <!--</div>-->
+    <div class="form-group">
+        <label for="geneForm">Gene Search: </label>
+        <input autocomplete="off"
+               id="geneForm"
+               type="text"
+               ng-model="$ctrl.operonFormModel.geneinputValue"
+               uib-typeahead="gene.geneLabel.value for gene in $ctrl.currentAllGenes | filter:$viewValue | limitTo:200"
+               typeahead-loading="loading"
+               typeahead-no-results="noResults"
+               typeahead-on-select="$ctrl.onSelectGene($item)"
+               class="form-control"
+               data-ng-click="$ctrl.operonFormModel.geneinputValue=''"
+                >
+    </div>
+    <div class="form-group">
+        <label for="geneForm">Publication Search: </label>
+
+
+        <input id="pubInput"
+               type="text"
+               ng-model="$ctrl.operonFormModel.pubinpuValue"
+               placeholder="PMID"
+               uib-typeahead="pmid as pmid.title +  ' PMID:' + pmid.uid for pmid in $ctrl.getPMID($viewValue)"
+               typeahead-loading="loading"
+               typeahead-no-results="noResults"
+               typeahead-on-select="$ctrl.onSelectPub($item)"
+               class="form-control"
+               typeahead-wait-ms="900"
+               data-ng-click="$ctrl.operonFormModel.pubinpuValue=''"
+                >
+    </div>
+    <i ng-show="loading" class="glyphicon glyphicon-refresh"></i>
+
+    <div ng-show="noResults">
+        <i class="glyphicon glyphicon-remove"></i> No Results Found
+    </div>
+
+    <div style="text-align:right" class="well-sm">
+        <button class="btn btn-success" type="button" ng-click="$ctrl.sendData($ctrl.operonFormModel)">Submit
+            Annotation
+        </button>
+        <button class="btn btn-warning" type="button" ng-click="$ctrl.operonFormModel=null">Reset
+        </button>
+    </div>
+</form>
+
+<pre>{{$ctrl.operonFormModel | json}}</pre>
+
+

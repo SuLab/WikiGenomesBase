@@ -60,11 +60,11 @@
 
                 </div>
                 <div class="panel-body">
-                        <div class="panel" style="height: 350px">
+                    <div class="panel" style="height: 350px">
                         <organism-view org="$ctrl.currentOrg" taxid="$ctrl.currentOrg.taxid"></organism-view>
                         <jbrowse-view entrez="$ctrl.currentGene.entrez" gene="$ctrl.currentGene"
-                        taxid="$ctrl.currentOrg.taxid"></jbrowse-view>
-                        </div>
+                                      taxid="$ctrl.currentOrg.taxid"></jbrowse-view>
+                    </div>
                     <div class="row" style="padding: 30px 30px 5px 30px;">
                         <div class="col-md-6">
                             <div class="panel">
@@ -79,14 +79,16 @@
                             </div>
                         </div>
                     </div>
-                    <div style="padding: 0px 30px 5px 30px;">
-                    <annotations-view gene="$ctrl.currentGene" uniprot="$ctrl.currentGene.uniprot"
-                                      entrez="$ctrl.currentGene.entrez">
-                    </annotations-view></div>
+                    <div style="padding: 0 30px 5px 30px;">
+                        <annotations-view gene="$ctrl.currentGene" uniprot="$ctrl.currentGene.uniprot"
+                                          entrez="$ctrl.currentGene.entrez" taxid="$ctrl.currentTaxid"
+                                          allOrgGenes="$ctrl.currentAllGenes"
+
+                                >
+                        </annotations-view>
+                    </div>
                 </div>
             </div>
-
-
         </div>
         <div class="col-md-1">
         </div>

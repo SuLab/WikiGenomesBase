@@ -4,12 +4,11 @@ angular
         controller: function ($filter, $location, allOrgs, allOrgGenes) {
             //Main gene page component.
             var ctrl = this;
-
             ctrl.$onInit = function () {
                 allOrgs.getAllOrgs(function (data) {
                     ctrl.orgList = data;
                     ctrl.currentOrg = $filter('getJsonItemOrg')('taxid', ctrl.currentTaxid, ctrl.orgList);
-                    if(ctrl.currentOrg == undefined){
+                    if (ctrl.currentOrg == undefined) {
                         alert("not a valid taxonomy id");
                         $location.path('/');
                     }
@@ -38,10 +37,12 @@ angular
                         ctrl.currentGene.strand = curgene.strand.value;
                         ctrl.currentGene.refseqGenome = curgene.refSeqChromosome.value;
 
-                    });
+                    }
+                );
             };
 
 
         },
         templateUrl: '/static/wiki/js/angular_templates/main-page_new.html'
-    });
+    })
+;

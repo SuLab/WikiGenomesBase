@@ -6,7 +6,7 @@
                type="text"
                ng-model="$ctrl.goFormModel.go"
                placeholder="{{$ctrl.goclass | goClass}}"
-               uib-typeahead="go as go.goterm_label.value for go in $ctrl.getGoTerm($viewValue)"
+               uib-typeahead="go as go.goterm_label.value for go in $ctrl.getGoTermsAll($viewValue)"
                typeahead-loading="loadingGOTerms"
                typeahead-no-results="noResults"
                class="form-control"

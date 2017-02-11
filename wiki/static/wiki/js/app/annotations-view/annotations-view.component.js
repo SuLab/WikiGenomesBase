@@ -5,7 +5,8 @@ angular
         bindings: {
             uniprot: '<',
             entrez: '<',
-            gene: '<'
+            gene: '<',
+            taxid: '<'
         },
         controller: function (GOTerms, InterPro, OperonData, expasyData) {
             var ctrl = this;
@@ -13,6 +14,7 @@ angular
             ctrl.molfunc = [];
             ctrl.bioproc = [];
             ctrl.cellcomp = [];
+            ctrl.opData = [];
             ctrl.accordion = {
                 go: false,
                 operon: false,
@@ -32,14 +34,13 @@ angular
                             ctrl.bp = 'bp_button';
                             ctrl.cc = 'cc_button';
                             var dataResults = data.data.results.bindings;
-                            if (dataResults.length > 0){
+                            if (dataResults.length > 0) {
                                 ctrl.accordion.go = true;
                             }
                             angular.forEach(dataResults, function (value, key) {
-                                console.log(value);
                                 if (value.hasOwnProperty('ecnumber')) {
                                     ctrl.ecnumber.push(value.ecnumber.value);
-                                    console.log(value.ecnumber.value);
+
                                 }
                                 ctrl.reaction = {};
                                 if (ctrl.ecnumber.length > 0) {
@@ -79,7 +80,7 @@ angular
                     InterPro.getInterPro(ctrl.uniprot).then(
                         function (data) {
                             ctrl.ipData = data;
-                            if (ctrl.ipData.length > 0){
+                            if (ctrl.ipData.length > 0) {
                                 ctrl.accordion.interpro = true;
                             }
                         });
@@ -87,15 +88,14 @@ angular
 
                     OperonData.getOperonData(ctrl.entrez).then(
                         function (data) {
-                            if (data.length > 0) {
-                                ctrl.opData = data;
+                            var dataResults = data.data.results.bindings;
+                            if (dataResults.length > 0) {
+                                ctrl.opData = dataResults;
+                                console.log(ctrl.opData);
                                 ctrl.accordion.operon = true;
-                            } else {
-                                ctrl.opData = [];
                             }
 
                         });
-
                     //buttons for expanding and collapsing accordion
 
 
@@ -111,6 +111,11 @@ angular
                         ctrl.accordion.operon = openAll;
                         ctrl.accordion.interpro = openAll;
                         ctrl.accordion.enzyme = openAll
+                    };
+                    ctrl.status = {
+                        isCustomHeaderOpen: false,
+                        isFirstOpen: true,
+                        isFirstDisabled: false
                     };
                 }
 

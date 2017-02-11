@@ -71,3 +71,20 @@
         </td>
     </tr>
 </table>
+<button type="button" class="btn btn-default" data-toggle="modal"
+        data-target="#operonForm_button">
+    Add an annotation
+</button>
+<!-- Modal -->
+<div class="modal" id="operonForm_button" tabindex="-1" role="dialog"
+     aria-labelledby="refModalTitle"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content" style="padding:10px">
+            <operon-form taxid="$ctrl.taxid" data="$ctrl.data"></operon-form>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>

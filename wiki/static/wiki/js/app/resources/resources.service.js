@@ -99,15 +99,6 @@ angular
 
     });
 
-angular
-    .module('resources')
-    .value('currentOrg', {
-        taxon: '',
-        taxid: '',
-        taxonLabel: ''
-    });
-
-
 //genes for current organism
 
 angular
@@ -132,35 +123,17 @@ angular
                     "OPTIONAL{ ?gene p:P644 ?chr. ?chr pq:P2249 ?refSeqChromosome.} " +
                     "SERVICE wikibase:label { bd:serviceParam wikibase:language 'en' . } }");
             return $http.get(url)
-                .success(function(response){
-                   return response.data
+                .success(function (response) {
+                    return response.data
 
-            })
-                .error(function(response){
+                })
+                .error(function (response) {
                     return response
                 })
         };
         return {
             getAllOrgGenes: getAllOrgGenes
         }
-    });
-
-
-angular
-    .module('resources')
-    .value('currentGene', {
-        geneLabel: '',
-        entrez: '',
-        gene: '',
-        protein: '',
-        proteinLabel: '',
-        uniprot: '',
-        refseqProt: '',
-        locusTag: '',
-        genStart: '',
-        genEnd: '',
-        strand: '',
-        refseqGenome: ''
     });
 
 
@@ -183,11 +156,11 @@ angular
                     "SERVICE wikibase:label { bd:serviceParam wikibase:language \"en\" .}}"
                 );
             return $http.get(url)
-                .success(function(response){
-                   return response.data
+                .success(function (response) {
+                    return response.data
 
-            })
-                .error(function(response){
+                })
+                .error(function (response) {
                     return response
                 });
 
@@ -259,17 +232,20 @@ angular
                     "?reference_stated_in wdt:P698 ?reference_pmid. } " +
                     "SERVICE wikibase:label { bd:serviceParam wikibase:language 'en' . }}"
                 );
-            return $http.get(url).then(function (response) {
-                return response.data.results.bindings;
+            return $http.get(url)
+                .success(function (response) {
+                    return response.data
 
-            });
+                })
+                .error(function (response) {
+                    return response
+                });
         };
         return {
             getOperonData: getOperonData
         }
-
-
     });
+
 
 angular
     .module('resources')
@@ -309,3 +285,81 @@ angular
 
 
     });
+
+angular
+    .module('resources')
+    .factory('pubMedData', function ($http) {
+        var getPMID = function (val) {
+            var endpoint = 'https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esummary.fcgi?db=pubmed&retmode=json&id=';
+            var url = endpoint + val;
+            return $http.get(url)
+                .success(function (response) {
+                    return response.result[val];
+                })
+                .error(function (response) {
+                    return response
+                });
+        };
+        return {
+            getPMID: getPMID
+        }
+    });
+
+
+angular
+    .module('resources')
+    .factory('allGoTerms', function ($http) {
+        var getGoTermsAll = function (val, goClass) {
+            var endpoint = 'https://query.wikidata.org/sparql?format=json&query=';
+            var url = endpoint + encodeURIComponent("SELECT DISTINCT ?goterm ?goID ?goterm_label " +
+                    "WHERE { ?goterm wdt:P279* wd:" + goClass + "; " +
+                    "rdfs:label ?goterm_label; wdt:P686 ?goID. " +
+                    "FILTER(lang(?goterm_label) = 'en') " +
+                    "FILTER(CONTAINS(LCASE(?goterm_label), '" +
+                    val.toLowerCase() + "' ))}"
+                );
+            return $http.get(url)
+                .success(function (response) {
+                    return response.data;
+                })
+                .error(function (response) {
+                    return response
+                });
+        };
+        return {
+            getGoTermsAll: getGoTermsAll
+        }
+
+    });
+
+
+angular
+    .module('resources')
+    .factory('allOperons', function ($http) {
+        var getAllOperons = function (val, taxid) {
+            var endpoint = 'https://query.wikidata.org/sparql?format=json&query=';
+            var url = endpoint + encodeURIComponent(
+
+
+
+
+
+
+
+                );
+            return $http.get(url)
+                .success(function (response) {
+                    return response.data;
+                })
+                .error(function (response) {
+                    return response
+                });
+        };
+        return {
+            getAllOperons: getAllOperons
+        }
+
+    });
+
+
+

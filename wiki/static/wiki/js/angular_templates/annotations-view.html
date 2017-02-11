@@ -24,13 +24,12 @@
 
 </div>
 
-
 <uib-accordion close-others="false">
 
-    <div uib-accordion-group class="panel-default" is-open="$ctrl.accordion.go"
+    <div uib-accordion-group  is-open="$ctrl.accordion.go" ng-class="{'panel-info': true}"
          template-url="group-template.html">
         <uib-accordion-heading>
-            Gene Ontology Annotations <i class="pull-right glyphicon glyphicon-menu-hamburger"></i>
+            Gene Ontology Annotations <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': $ctrl.accordion.go, 'glyphicon-chevron-right': !$ctrl.accordion.go}"></i>
         </uib-accordion-heading>
         <div class="panel">
             <div class="panel-body" style="border-bottom: solid #bce8f1 1px">
@@ -65,22 +64,23 @@
 
         </div>
     </div>
-    <div uib-accordion-group class="panel-default"
+    <div uib-accordion-group  ng-class="{'panel-info': true}"
          template-url="group-template.html" is-open="$ctrl.accordion.operon">
         <uib-accordion-heading>
-            Operon <i class="pull-right glyphicon glyphicon-menu-hamburger"></i>
+            Operon <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': $ctrl.accordion.operon, 'glyphicon-chevron-right': !$ctrl.accordion.operon}"></i>
         </uib-accordion-heading>
         <div class="panel " style="border-bottom: solid #bce8f1 1px;">
             <div class="panel-body">
-                <operon-annotations data="$ctrl.opData"></operon-annotations>
+                <operon-annotations taxid="$ctrl.taxid" data="$ctrl.opData"></operon-annotations>
             </div>
         </div>
 
     </div>
-    <div uib-accordion-group class="panel-default" is-open="$ctrl.accordion.interpro"
+    <div uib-accordion-group ng-class="{'panel-info': true}"
+         is-open="$ctrl.accordion.interpro"
          template-url="group-template.html">
         <uib-accordion-heading>
-            InterPro Domains <i class="pull-right glyphicon glyphicon-menu-hamburger"></i>
+            InterPro Domains <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': $ctrl.accordion.interpro, 'glyphicon-chevron-right': !$ctrl.accordion.interpro}"></i>
         </uib-accordion-heading>
         <div class="panel " style="border-bottom: solid #bce8f1 1px;">
             <div class="panel-body">
@@ -89,18 +89,16 @@
         </div>
 
     </div>
-    <div uib-accordion-group class="panel-default" is-open="$ctrl.accordion.enzyme"
+    <div uib-accordion-group ng-class="{'panel-info': true}"
+         is-open="$ctrl.accordion.enzyme"
          template-url="group-template.html">
         <uib-accordion-heading>
-            Enzyme <i class="pull-right glyphicon glyphicon-menu-hamburger"></i>
+            Enzyme <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': $ctrl.accordion.enzyme, 'glyphicon-chevron-right': !$ctrl.accordion.enzyme}"></i>
         </uib-accordion-heading>
         <div class="panel " style="border-bottom: solid #bce8f1 1px;">
             <div class="panel-body">
                 <enzyme-view ecnumber="$ctrl.EC" reaction="$ctrl.reaction"></enzyme-view>
             </div>
         </div>
-
-
     </div>
-
 </uib-accordion>
