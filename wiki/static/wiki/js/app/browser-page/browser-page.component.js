@@ -2,7 +2,7 @@ angular
     .module('browserPage')
     .component('browserPage', {
         controller: function ($filter, $location, allOrgs, allOrgGenes) {
-            //Browser page Component.  Directed here to paginated list of genes when organism is selcted from landing page,
+            //Browser page Component.  Directed here to paginated list of genes when organism is selected from landing page,
             //or when browser is pointed to URL with /organism/<valid-taxid>
             //The component parses the URL to determine the current organism taxid and uses that to look up all genes and load
             //them into pagination, as well as launches JBrowse

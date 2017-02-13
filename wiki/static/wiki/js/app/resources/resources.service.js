@@ -73,6 +73,33 @@ angular
     });
 
 
+angular
+    .module('resources')
+    .factory('oauthSubmission', function ($http) {
+        var submitOauth = function (url_suffix, data) {
+            var url = url_suffix;
+            var csrfToken = getCookie('csrftoken');
+            var config = {
+                headers: {
+                    'X-CSRFToken': csrfToken
+                }
+            };
+            return $http.post(url, data, config)
+                .success(function (data, status, headers, config) {
+                    return data
+                })
+                .error(function (data, status, header, config) {
+                    return status
+                });
+        };
+        return {
+            submitOauth: submitOauth
+        }
+
+    });
+
+
+
 //currently loaded organism
 angular
     .module('resources')

@@ -1,7 +1,7 @@
 angular
     .module('geneDownload')
     .component('geneDownload', {
-        template: '<a target="_blank" href="{{$ctrl.genesUrl()}}"><div class="btn btn-default">Get Genes</div></a>',
+        template: '<a target="_blank" href="{{$ctrl.genesUrl()}}"><div class="btn btn-default">Download Genes</div></a>',
 
         bindings: {
             taxid: '<'
