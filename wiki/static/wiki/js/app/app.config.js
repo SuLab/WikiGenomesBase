@@ -15,6 +15,9 @@ angular.module('cmod')
             when("/organism/:taxid/", {
                 template: '<browser-page></browser-page>'
             }).
+            when("/keyword/:keyword", {
+                template: '<genes-keyword></genes-keyword>'
+            }).
             when("/organism/:taxid/gene/:entrez", {
                 template: '<main-page></main-page>'
             }).

@@ -1,9 +1,9 @@
 angular
     .module('landingPage')
     .component('landingPage', {
-        controller: function (allOrgs) {
+        controller: function (allChlamOrgs) {
             var ctrl = this;
-            ctrl.orgList = allOrgs.getAllOrgs();
+            ctrl.orgList = allChlamOrgs.getAllOrgs();
         },
         templateUrl: '/static/wiki/js/angular_templates/landing-page.html'
     });

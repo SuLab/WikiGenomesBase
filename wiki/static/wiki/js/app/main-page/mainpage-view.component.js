@@ -1,11 +1,11 @@
 angular
     .module('mainPage')
     .component('mainPage', {
-        controller: function ($filter, $location, allOrgs, allOrgGenes) {
+        controller: function ($filter, $location, allChlamOrgs, allOrgGenes) {
             //Main gene page component.
             var ctrl = this;
             ctrl.$onInit = function () {
-                allOrgs.getAllOrgs(function (data) {
+                allChlamOrgs.getAllOrgs(function (data) {
                     ctrl.orgList = data;
                     ctrl.currentOrg = $filter('getJsonItemOrg')('taxid', ctrl.currentTaxid, ctrl.orgList);
                     if (ctrl.currentOrg == undefined) {

@@ -29,5 +29,7 @@ angular.module('cmod', [
     'enzymeView',
     'geneDownload',
     'angularUtils.directives.dirPagination',
-    'oauthView'
+    'oauthView',
+    'genesKeyword',
+    'keywordForm'
 ]);

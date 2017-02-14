@@ -69,9 +69,12 @@
             <div class="panel-heading">
                 <div class="row" style="padding:10px">
                     <div class="col-md-3" style="padding-left: 30px">
-                        <gene-form taxid="$ctrl.currentOrg.taxid"></gene-form>
+                        <form class="form form-inline">
+                            <gene-form taxid="$ctrl.currentOrg.taxid"></gene-form>
+                        </form>
                     </div>
                     <div class="col-md-9">
+                        <keyword-form></keyword-form>
                     </div>
                 </div>
             </div>
@@ -108,7 +111,7 @@
     <div class="col-md-1">
     </div>
 </div>
-</div>
+
 
 
 

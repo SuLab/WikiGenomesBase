@@ -159,3 +159,18 @@ angular
             return array;
         }
     });
+
+
+angular
+    .module('filters')
+    .filter('keywordFilter', ['$filter', function($filter){
+    return function(data, text){
+        var textArr = text.split(' ');
+        angular.forEach(textArr, function(test){
+            if(test){
+                  data = $filter('filter')(data, test);
+            }
+        });
+        return data;
+    }
+}]);
