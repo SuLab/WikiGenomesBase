@@ -1,6 +1,6 @@
 angular
-    .module('geneDownload')
-    .component('geneDownload', {
+    .module('allgenesDownload')
+    .component('allgenesDownload', {
         template: '<a target="_blank" href="{{$ctrl.genesUrl()}}"><div class="btn btn-default">Download Genes</div></a>',
 
         bindings: {

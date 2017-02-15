@@ -30,9 +30,6 @@ angular
                             console.log($filter('deleteJsonItemValuesList')('taxid', ctrl.currentOrgsList, ctrl.chlamGenes.keywordAll));
                         };
                     });
-                ctrl.onSelect = function ($item) {
-                    $location.path('/organism/' + $item.taxid.value + "/gene/" + $item.entrez.value);
-                };
             };
         },
         templateUrl: '/static/wiki/js/angular_templates/genes-keyword-browser.html'

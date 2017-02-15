@@ -1,24 +1,24 @@
 <style>
-    .dont-break-out {
-        -ms-word-break: break-all;
+    .wrapbreaker {
         word-break: break-all;
-        -webkit-hyphens: auto;
-        -moz-hyphens: auto;
-        hyphens: auto;
+
     }
 </style>
 <div class="panel-body">
+
     <div style="text-align: center">
         <dir-pagination-controls on-page-change="pageChanged(newPageNumber)"></dir-pagination-controls>
     </div>
-    <ul style="text-align: left;list-style: none;" class="example-animate-container">
+    <ul style="list-style: none">
+        <li>
+        </li>
         <li dir-paginate="x in $ctrl.data| itemsPerPage: 10">
             <div ng-click="$ctrl.onSelect(x)" class="btn btn-default"
                  style="margin-top:15px; width:100%; color:#385d94">
                 <div class="row">
                     <div class="col-md-10" style="text-align: left">
                         <div style="padding-left: 20px">
-                            <h5><u>{{x.geneLabel.value}}</u></h5>
+                         <strong><u>{{x.geneLabel.value | limitTo : 80}}</u>{{x.geneLabel.value.length > 80 ? '...' : ''}}</strong>
                             <h6>Strain: <i>{{x.taxonLabel.value}}</i></h6>
                             <h6>Locus Tag: {{x.locusTag.value}} </h6>
                             <h6>Entrez: {{x.entrez.value}} </h6>

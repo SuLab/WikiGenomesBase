@@ -14,6 +14,7 @@
         background-color: #385d94;
         color: whitesmoke;
     }
+
 </style>
 <nav class="navbar navbar-custom navbar-fixed-top">
     <div class="container-fluid">
@@ -45,7 +46,8 @@
 
                 <div class="checkbox" ng-repeat="value in $ctrl.orgData">
                     <label>
-                        <input type="checkbox" ng-change="$ctrl.facetOrganism(value)"  ng-checked="value.check" ng-model="value.check"> {{value.taxonLabel}}
+                        <input type="checkbox" ng-change="$ctrl.facetOrganism(value)" ng-checked="value.check"
+                               ng-model="value.check"> {{value.taxonLabel}}
                     </label>
                 </div>
             </div>
@@ -63,6 +65,4 @@
     </div>
 
 
-
-
-
+</div>
