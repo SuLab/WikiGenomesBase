@@ -40,43 +40,25 @@
 
 
     <div class="row">
-        <div class="col-md-1"></div>
-        <div class="col-md-10">
-            <div class="panel panel-info">
-                <div class="panel-heading">
-                    <h4>Gene results for '{{$ctrl.keyword}}': {{$ctrl.keywordList.length}}</h4>
-                </div>
-                <div class="panel-body">
-                    <div style="text-align: center">
-                        <dir-pagination-controls on-page-change="pageChanged(newPageNumber)"></dir-pagination-controls>
-                    </div>
-                    <ul style="text-align: left;list-style: none;" class="example-animate-container">
-                        <li dir-paginate="x in $ctrl.keywordList | itemsPerPage: 10">
-                            <div ng-click="$ctrl.onSelect(x)" class="btn btn-default"
-                                 style="margin-top:15px; width:100%; color:#385d94">
-                                <div class="col-md-11" style="text-align: left"><h2>{{x.geneLabel.value}}</h2>
-                                    <h4>Strain: <i>{{x.taxonLabel.value}}</i> </h4>
-                                    <h4>Locus Tag: {{x.locusTag.value}} </h4>
-                                    <h4>Entrez: {{x.entrez.value}} </h4></div>
-                                <div class="col-md-1" style="text-align: right"><a target="_blank"
-                                                                  href="https://www.wikidata.org/wiki/{{x.gene.value | parseQID}}">
-                                    <div class="btn btn-default"><img style="max-height: 30px" id="wikilogo"
-                                                                      src="static/wiki/img/GeneWikidata-logo-en.png">
-                                    </div>
-                                </a>
-                                </div>
-                            </div>
-                        </li>
-                    </ul>
-                    <div style="text-align: center">
-                        <dir-pagination-controls on-page-change="pageChanged(newPageNumber)"></dir-pagination-controls>
-                    </div>
+        <div class="col-md-2">
+            <div class="panel" style="padding: 15px"><h5>Organism</h5>
+
+                <div class="checkbox" ng-repeat="value in $ctrl.orgData">
+                    <label>
+                        <input type="checkbox" ng-change="$ctrl.facetOrganism(value)"  ng-checked="value.check" ng-model="value.check"> {{value.taxonLabel}}
+                    </label>
                 </div>
             </div>
-
-
         </div>
-        <div class="col-md-1">
+        <div class="col-md-8">
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <h4>Gene results for '{{$ctrl.keyword}}': {{$ctrl.chlamGenes.currentKW.length}}</h4>
+                </div>
+                <keyword-paginated data="$ctrl.chlamGenes.currentKW"></keyword-paginated>
+            </div>
+        </div>
+        <div class="col-md-2">
         </div>
     </div>
 

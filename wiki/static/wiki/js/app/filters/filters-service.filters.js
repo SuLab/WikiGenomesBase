@@ -125,6 +125,39 @@ angular
 
 angular
     .module('filters')
+    .filter('deleteJsonItem', function () {
+        return function (ikey, ivalue, ijson) {
+            var goodGenes = [];
+            angular.forEach(ijson, function (value, key) {
+                if (value[ikey].value != ivalue) {
+                }
+                else {
+                    goodGenes.push(value);
+                }
+            });
+            return goodGenes
+        }
+    });
+
+angular
+    .module('filters')
+    .filter('deleteJsonItemValuesList', function () {
+        return function (ikey, ivalue, ijson) {
+            var hits = [];
+            angular.forEach(ivalue, function (tid) {
+                angular.forEach(ijson, function (value, key) {
+                    if (value[ikey].value == tid) {
+                        hits.push(value);
+                    }
+                });
+            });
+            return hits
+        }
+    });
+
+
+angular
+    .module('filters')
     .filter('getJsonItemOrg', function () {
         return function (ikey, ivalue, ijson) {
             var curGene;
@@ -174,3 +207,4 @@ angular
         return data;
     }
 }]);
+

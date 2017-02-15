@@ -12,19 +12,21 @@ html, body {
 
 }
 
-.mainPage{
+.mainPage {
     /*height: 100%;*/
 
 }
+
 .wd-logo {
     max-height: 40px;
     float: right;
     clear: right;
 }
 
-.box{
+.box {
     height: 100%;
 }
+
 .wg-header {
     height: 100%;
     border: solid #385d94 2px;
@@ -46,19 +48,16 @@ html, body {
     color: whitesmoke;
 }
 
-
 .formBorder {
     border-bottom: solid #99c2ff 3px;
     border-radius: 3px;
     padding: 10px;
 }
 
-
 div[class^="col-md-"] {
     height: 100%;
     padding: 1px;
 }
-
 
 .typeahead-demo .custom-popup-wrapper {
     position: absolute;
@@ -99,7 +98,7 @@ div[class^="col-md-"] {
     text-align: center;
 }
 
-.ng-table-header{
+.ng-table-header {
     text-align: left;
     color: #385d94;
 }
@@ -109,6 +108,6 @@ td {
 }
 
 .my-custom-table-class tbody tr:hover {
-  background-color: #dddddd;
+    background-color: #dddddd;
 }
 

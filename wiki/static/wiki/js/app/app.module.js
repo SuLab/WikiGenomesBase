@@ -31,5 +31,6 @@ angular.module('cmod', [
     'angularUtils.directives.dirPagination',
     'oauthView',
     'genesKeyword',
-    'keywordForm'
+    'keywordForm',
+    'keywordPaginated'
 ]);
