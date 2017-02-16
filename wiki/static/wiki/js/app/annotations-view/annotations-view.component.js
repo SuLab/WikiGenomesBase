@@ -19,7 +19,8 @@ angular
                 go: false,
                 operon: false,
                 interpro: false,
-                enzyme: false
+                enzyme: false,
+                mutants: false,
             };
 
             ctrl.$onInit = function () {
@@ -126,7 +127,8 @@ angular
                         ctrl.accordion.go = openAll;
                         ctrl.accordion.operon = openAll;
                         ctrl.accordion.interpro = openAll;
-                        ctrl.accordion.enzyme = openAll
+                        ctrl.accordion.enzyme = openAll;
+                        ctrl.accordion.mutants = openAll;
                     };
                     ctrl.status = {
                         isCustomHeaderOpen: false,

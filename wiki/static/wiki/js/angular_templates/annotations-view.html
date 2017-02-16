@@ -99,10 +99,10 @@
         </div>
     </div>
     <div uib-accordion-group ng-class="{'panel-info': true}"
-         is-open="$ctrl.accordion.enzyme"
+         is-open="$ctrl.accordion.mutants"
          template-url="group-template.html">
         <uib-accordion-heading>
-            Mutants ({{$ctrl.mutantData.length}})<i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': $ctrl.accordion.enzyme, 'glyphicon-chevron-right': !$ctrl.accordion.enzyme}"></i>
+            Mutants ({{$ctrl.mutantData.length}})<i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': $ctrl.accordion.mutants, 'glyphicon-chevron-right': !$ctrl.accordion.mutants}"></i>
         </uib-accordion-heading>
         <div class="panel " style="border-bottom: solid #bce8f1 1px;">
             <div class="panel-body">
