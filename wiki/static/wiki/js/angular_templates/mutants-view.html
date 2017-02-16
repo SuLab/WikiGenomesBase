@@ -1,0 +1,21 @@
+<table ng-table="$ctrl.tableParams" class="table table-hover">
+    <!--<col width="50%"/>-->
+    <!--<col width="45%"/>-->
+    <!--<col width="5%%"/>-->
+    <tr ng-show="$ctrl.data.length!=0" ng-repeat="x in $ctrl.data">
+        <td title="'Mutant Strain'">
+            {{x.mutant_strain }}
+        </td>
+        <td title="'Genomic Position'">
+            {{x.genome_postion_L2 }}
+        </td>
+        <td title="'Mutant Type'">
+            {{x.mutant_type }}
+        </td>
+    </tr>
+    <tr>
+        <td ng-show="$ctrl.data.length==0">
+            No data
+        </td>
+    </tr>
+</table>

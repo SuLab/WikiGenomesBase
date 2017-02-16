@@ -8,7 +8,7 @@ angular
             gene: '<',
             taxid: '<'
         },
-        controller: function (GOTerms, InterPro, OperonData, expasyData) {
+        controller: function ($filter, GOTerms, InterPro, OperonData, expasyData, mutantData) {
             var ctrl = this;
             ctrl.ecnumber = [];
             ctrl.molfunc = [];
@@ -96,6 +96,22 @@ angular
                             }
 
                         });
+
+                    mutantData.getKokesMutants(function (data) {
+                        var mutants = [];
+                        ctrl.mutantData = [];
+                        mutants.push($filter('getJsonItemNoWD')('locus_tag_L2', ctrl.gene.locusTag, data));
+                        var locus_Tag = ctrl.gene.locusTag.replace("CT_", "CT");
+                        mutants.push($filter('getJsonItemNoWD')('locus_tag_DUW3', locus_Tag, data));
+                        angular.forEach(mutants, function(value){
+                            angular.forEach(value, function(val2){
+                                ctrl.mutantData.push(val2);
+                            });
+                        });
+
+                    });
+
+
                     //buttons for expanding and collapsing accordion
 
 

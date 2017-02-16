@@ -12,7 +12,7 @@ angular
                     });
             };
         },
-        template: '<div ng-click="$ctrl.oauthAuthorization()" class="btn btn-default">Authorize to edit</div>'
+        template: '<div ng-click="$ctrl.oauthAuthorization()" class="btn btn-success">Authorize to edit</div>'
     });
 
 

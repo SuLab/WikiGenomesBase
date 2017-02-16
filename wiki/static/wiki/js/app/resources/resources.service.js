@@ -57,6 +57,20 @@ angular
         });
     });
 
+angular
+    .module('resources')
+    .factory('mutantData', function ($resource) {
+        var url = '/static/wiki/json/kokes.json';
+        return $resource(url, {}, {
+            getKokesMutants: {
+                method: "GET",
+                params: {},
+                isArray: true,
+                cache: true
+            }
+        });
+    });
+
 //server communication
 
 angular

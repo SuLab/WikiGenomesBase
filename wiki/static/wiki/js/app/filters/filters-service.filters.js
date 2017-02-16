@@ -125,6 +125,23 @@ angular
 
 angular
     .module('filters')
+    .filter('getJsonItemNoWD', function () {
+        return function (ikey, ivalue, ijson) {
+            var curGene = [];
+            angular.forEach(ijson, function (value, key) {
+                if (value[ikey] == ivalue) {
+                    curGene.push(value);
+                }
+                else {
+                    return 'none'
+                }
+            });
+            return curGene
+        }
+    });
+
+angular
+    .module('filters')
     .filter('deleteJsonItem', function () {
         return function (ikey, ivalue, ijson) {
             var goodGenes = [];
