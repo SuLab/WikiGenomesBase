@@ -99,6 +99,9 @@ angular
                         });
 
                     mutantData.getKokesMutants(function (data) {
+                        if (data.length > 0) {
+                                ctrl.accordion.mutants = true;
+                            }
                         var mutants = [];
                         ctrl.mutantData = [];
                         mutants.push($filter('getJsonItemNoWD')('locus_tag_L2', ctrl.gene.locusTag, data));

@@ -14,7 +14,9 @@
 </script>
 <div class="row">
     <div class="col-md-1"><h4>Annotations</h4></div>
-    <div class="col-md-9"></div>
+    <div class="col-md-8"></div>
+    <div class="col-md-1">
+    </div>
     <div class="col-md-1 btn btn-default btn-sm" ng-click="$ctrl.expandAll()">Expand all
     </div>
     <div class="col-md-1 btn btn-default btn-sm" ng-click="$ctrl.collapseAll()">Collapse all
@@ -22,11 +24,12 @@
 </div>
 
 <uib-accordion close-others="false">
-    <div uib-accordion-group  is-open="$ctrl.accordion.go" ng-class="{'panel-info': true}"
+    <div uib-accordion-group is-open="$ctrl.accordion.go" ng-class="{'panel-info': true}"
          template-url="group-template.html">
         <uib-accordion-heading>
             Gene Ontology Annotations ({{$ctrl.molfunc.length + $ctrl.cellcomp.length + $ctrl.bioproc.length}})
-            <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': $ctrl.accordion.go, 'glyphicon-chevron-right': !$ctrl.accordion.go}"></i>
+            <i class="pull-right glyphicon"
+               ng-class="{'glyphicon-chevron-down': $ctrl.accordion.go, 'glyphicon-chevron-right': !$ctrl.accordion.go}"></i>
         </uib-accordion-heading>
         <div class="panel">
             <div class="panel-body" style="border-bottom: solid #bce8f1 1px">
@@ -61,10 +64,11 @@
 
         </div>
     </div>
-    <div uib-accordion-group  ng-class="{'panel-info': true}"
+    <div uib-accordion-group ng-class="{'panel-info': true}"
          template-url="group-template.html" is-open="$ctrl.accordion.operon">
         <uib-accordion-heading>
-            Operon ({{$ctrl.opData.length}}) <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': $ctrl.accordion.operon, 'glyphicon-chevron-right': !$ctrl.accordion.operon}"></i>
+            Operon ({{$ctrl.opData.length}}) <i class="pull-right glyphicon"
+                                                ng-class="{'glyphicon-chevron-down': $ctrl.accordion.operon, 'glyphicon-chevron-right': !$ctrl.accordion.operon}"></i>
         </uib-accordion-heading>
         <div class="panel " style="border-bottom: solid #bce8f1 1px;">
             <div class="panel-body">
@@ -77,7 +81,8 @@
          is-open="$ctrl.accordion.interpro"
          template-url="group-template.html">
         <uib-accordion-heading>
-            InterPro Domains ({{$ctrl.ipData.length}})<i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': $ctrl.accordion.interpro, 'glyphicon-chevron-right': !$ctrl.accordion.interpro}"></i>
+            InterPro Domains ({{$ctrl.ipData.length}})<i class="pull-right glyphicon"
+                                                         ng-class="{'glyphicon-chevron-down': $ctrl.accordion.interpro, 'glyphicon-chevron-right': !$ctrl.accordion.interpro}"></i>
         </uib-accordion-heading>
         <div class="panel " style="border-bottom: solid #bce8f1 1px;">
             <div class="panel-body">
@@ -90,7 +95,8 @@
          is-open="$ctrl.accordion.enzyme"
          template-url="group-template.html">
         <uib-accordion-heading>
-            Enzyme ({{$ctrl.ecnumber.length}})<i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': $ctrl.accordion.enzyme, 'glyphicon-chevron-right': !$ctrl.accordion.enzyme}"></i>
+            Enzyme ({{$ctrl.ecnumber.length}})<i class="pull-right glyphicon"
+                                                 ng-class="{'glyphicon-chevron-down': $ctrl.accordion.enzyme, 'glyphicon-chevron-right': !$ctrl.accordion.enzyme}"></i>
         </uib-accordion-heading>
         <div class="panel " style="border-bottom: solid #bce8f1 1px;">
             <div class="panel-body">
@@ -102,7 +108,8 @@
          is-open="$ctrl.accordion.mutants"
          template-url="group-template.html">
         <uib-accordion-heading>
-            Mutants ({{$ctrl.mutantData.length}})<i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': $ctrl.accordion.mutants, 'glyphicon-chevron-right': !$ctrl.accordion.mutants}"></i>
+            Mutants ({{$ctrl.mutantData.length}})<i class="pull-right glyphicon"
+                                                    ng-class="{'glyphicon-chevron-down': $ctrl.accordion.mutants, 'glyphicon-chevron-right': !$ctrl.accordion.mutants}"></i>
         </uib-accordion-heading>
         <div class="panel " style="border-bottom: solid #bce8f1 1px;">
             <div class="panel-body">

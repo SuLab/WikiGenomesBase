@@ -1,56 +1,7 @@
-/*/!** {border: dashed black 1px}*!/*/
-/*html, body{*/
-    /*height:100%*/
-/*}*/
-/*.form-control {*/
-    /*padding-left: 25px;*/
-    /*margin-top: 5px;*/
-    /*margin-bottom: 5px;*/
+html, body {
 
-/*}*/
-
-/*#loadHpylori:link {*/
-   /*color:inherit;*/
-/*}*/
-/*#main-wdlogo-div {*/
-    /*float: right;*/
-    /*border-radius: 2px;*/
-    /*background: whitesmoke*/
-/*}*/
-
-/*/!*.main-landing-page {*!/*/
-    /*/!*height: 100%;*!/*/
-    /*/!*width: 100%;*!/*/
-    /*/!*background-color: #385d94;*!/*/
-    /*/!*color: whitesmoke;*!/*/
-    /*/!*padding-top: 5em;*!/*/
-    /*/!*padding-left: 50px;*!/*/
-    /*/!*padding-right: 50px;*!/*/
-    /*/!*border: solid #385d94 3px;*!/*/
-    /*/!*text-align: center;*!/*/
-    /*/!*padding-bottom: 100px;*!/*/
-    /*/!*overflow: hidden;*!/*/
-
-/*/!*}*!/*/
-
-/*#hpylori {*/
-    /*max-width: 70%;*/
-    /*height: auto;*/
-    /*text-align: center;*/
-/*}*/
-
-/*.center-div*/
-/*{*/
-     /*margin: 0 auto;*/
-
-/*}*/
-
-/*.centerText {*/
-    /*text-align: center;*/
-/*}*/
-/*#footerList a:hover{*/
-    /*color: #385d94;*/
-/*}*/
+    height: 100%;
+}
 
 .main-landing-page {
     background-color: #385d94;

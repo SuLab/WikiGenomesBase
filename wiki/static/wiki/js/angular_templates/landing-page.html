@@ -1,8 +1,7 @@
 <style>
-    html, body {
-        background-color: #385d94;
+    a {
+        color: whitesmoke
     }
-    a {color: whitesmoke}
 </style>
 <div class="container-fluid main-landing-page">
     <div class="row">
@@ -25,23 +24,26 @@
 
             <div id="indexFormModule">
                 <organism-form orgs=$ctrl.orgList></organism-form>
+                <div id="chart_div"></div>
                 <div>
                     <a href="/organism/272561"><i>Chlamydia trachomatis D/UW-3/CX</i></a><br/>
                     <a href="/organism/471472"><i>Chlamydia trachomatis 434/BU</i></a><br/>
                     <a href="/organism/115713"><i>Chlamydophila pneumoniae CWL029</i></a><br/><br/>
-
                 </div>
 
                 <div>
                     <keyword-form></keyword-form>
                 </div>
+
             </div>
         </div>
         <div class="col-md-3"></div>
     </div>
     <div class="row">
         <div class="col-md-3"></div>
-        <div class="col-md-6"></div>
+        <div class="col-md-6">
+            <organism-tree orgs="$ctrl.orgList"></organism-tree>
+        </div>
         <div class="col-md-3"></div>
     </div>
 </div>

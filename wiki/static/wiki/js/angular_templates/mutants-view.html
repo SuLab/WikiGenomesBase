@@ -7,10 +7,52 @@
             {{x.mutant_strain }}
         </td>
         <td title="'Genomic Position'">
-            {{x.genome_postion_L2 }}
+            {{x.genome_position_L2 }}
         </td>
         <td title="'Mutant Type'">
             {{x.mutant_type }}
+        </td>
+        <td title="'L2 Base'">
+            {{x.ref_base_L2 }}
+        </td>
+        <td title="'Variant Base'">
+            {{x.variant_base_L2 }}
+        </td>
+        <td title="'SNV Type'">
+            {{x.snv_type }}
+        </td>
+        <td title="'Effect on Amino Acid'">
+            {{x.aa_sub }}
+        </td>
+
+        <td title="'Reference'">
+            <!-- Button trigger modal -->
+            <button type="button" class="btn btn-xs" data-toggle="modal"
+                    data-target="#ref_{{ x.genomic_position_L2}}">
+                Open Ref
+            </button>
+            <!-- Modal -->
+            <div class="modal" id="ref_{{ x.genomic_position_L2}}" tabindex="-1" role="dialog"
+                 aria-labelledby="refModalTitle"
+                 aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="refModalTitle">Mutant</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <h4>Stated in: {{x.ref_qid}}
+                            <h4>PMID: {{x.ref_pmid}}</h4>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </td>
     </tr>
     <tr>
