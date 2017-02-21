@@ -11,28 +11,36 @@
             <h3>An open, editable, and centralized model organism database <br> for
                 the
                 chlamydial research community.</h3>
+        </div>
+    </div>
 
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-3"></div>
-        <div class="col-md-6" style="padding: 50px">
-            <organism-tree orgs="$ctrl.orgList"></organism-tree>
-        </div>
-        <div class="col-md-3"></div>
-    </div>
+            <div style="padding: 40px"><organism-tree orgs="$ctrl.orgList"></organism-tree></div>
+
     <div class="row">
         <div class="col-md-3"></div>
         <div class="col-md-6">
-
-            <div id="indexFormModule">
-
-                <form class="form-group form-inline" style="padding:30px">
-                    <organism-form orgs=$ctrl.orgList></organism-form>&nbsp; &nbsp; &nbsp;
-                    <keyword-form></keyword-form>
-                </form>
-
+            <div class="table-responsive indexFormModule" style="width:100%">
+                <table style="width:100%">
+                    <col width="50%"/>
+                    <col width="50%"/>
+                    <tbody>
+                    <tr>
+                        <th style="padding-left: 15px">Organism Search:</th>
+                        <th style="padding-left: 15px">Keyword Search:</th>
+                    </tr>
+                    <tr>
+                        <td style="padding-left: 15px">
+                            <organism-form orgs=$ctrl.orgList></organism-form>
+                        </td>
+                        <td style="padding-left: 15px">
+                            <keyword-form></keyword-form>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
             </div>
+
+
         </div>
         <div class="col-md-3"></div>
     </div>

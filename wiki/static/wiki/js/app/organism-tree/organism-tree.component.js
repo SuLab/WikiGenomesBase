@@ -8,36 +8,59 @@ angular
                 google.charts.setOnLoadCallback(drawChart);
 
                 function drawChart() {
-                    var orgTreeChart = new google.visualization.DataTable();
-                    orgTreeChart.addColumn('string', 'Name');
-                    orgTreeChart.addColumn('string', 'Parent');
+                    var data = new google.visualization.DataTable();
+                    data.addColumn('string', 'Name');
+                    data.addColumn('string', 'Parent');
 
                     // For each orgchart box, provide the name, manager, and tooltip to show.
-                    orgTreeChart.addRows([
-                        ['Chlamydia', ''],
-                        ['Chlamydia trachomatis', 'Chlamydia'],
-                        ['Chlamydia muridarum', 'Chlamydia'],
-                        ['Chlamydia pneumoniae', 'Chlamydia'],
-                        ['<a style="color:#385d94" href="/organism/471472">Chlamydia trachomatis 434/BU</a>', 'Chlamydia trachomatis'],
-                        ['<a style="color:#385d94" href="/organism/272561">Chlamydia trachomatis D/UW-3/CX</a>', 'Chlamydia trachomatis'],
-                        ['<a style="color:#385d94" href="/organism/272561">Chlamydia muridarum Nigg</a>', 'Chlamydia muridarum'],
-                        ['<a style="color:#385d94" href="/organism/243161">Chlamydia pneumoniae CWL029</a>', 'Chlamydia pneumoniae']
+                    data.addRows([
+                        [{v: 'Chlamydia', f: '<div style="color:#385d94; font-style:italic">Chlamydia</div>'},
+                            ''],
+                        [{
+                            v: 'Chlamydia trachomatis',
+                            f: '<div style="color:#385d94; font-style:italic">Chlamydia trachomatis</div>'
+                        },
+                            'Chlamydia'],
+                        [{
+                            v: 'Chlamydia muridarum',
+                            f: '<div style="color:#385d94; font-style:italic">Chlamydia muridarum</div>'
+                        },
+                            'Chlamydia'],
+                        [{
+                            v: 'Chlamydia pneumoniae',
+                            f: '<div style="color:#385d94; font-style:italic">Chlamydia pneumoniae</div>'
+                        },
+                            'Chlamydia'],
+                        [{
+                            v: 'Chlamydia pneumoniae CWL029',
+                            f: '<a href="/organism/115713/" style="color:#385d94; font-style:italic">Chlamydia pneumoniae CWL029</div>'
+                        },
+                            'Chlamydia pneumoniae'],
+                        [{
+                            v: 'Chlamydia muridarum Nigg',
+                            f: '<a href="/organism/243161/"  style="color:#385d94; font-style:italic">Chlamydia muridarum Nigg</div>'
+                        },
+                            'Chlamydia muridarum'],
+                        [{
+                            v: 'Chlamydia trachomatis 434/BU',
+                            f: '<a href="/organism/471472/" style="color:#385d94; font-style:italic">Chlamydia trachomatis 434/BU</a>'
+                        },
+                            'Chlamydia trachomatis'],
+                        [{
+                            v: 'Chlamydia trachomatis D/UW-3/CX',
+                            f: '<a href="/organism/272561/" style="color:#385d94; font-style:italic">Chlamydia trachomatis D/UW-3/CX</>'
+                        },
+                            'Chlamydia trachomatis']
+
 
                     ]);
-                    var options = {
-                        'color': 'whitesmoke',
-                        'allowHtml': true,
-                        'size': 'large',
-                        'nodeClass': 'panel'
 
-                    };
                     // Create the chart.
                     var chart = new google.visualization.OrgChart(document.getElementById('chart_div'));
                     // Draw the chart, setting the allowHtml option to true for the tooltips.
-                    chart.draw(orgTreeChart, options);
+                    chart.draw(data, {allowHtml: true});
                 }
             };
-
 
         },
         templateUrl: '/static/wiki/js/angular_templates/organism-tree.html',

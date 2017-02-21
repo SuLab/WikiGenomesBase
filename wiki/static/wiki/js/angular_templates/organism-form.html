@@ -1,7 +1,8 @@
-<form class="main-form-div  ui-widget">
-        <label for="orgForm">Organism Search: </label>
+<form class="ui-widget">
+        <!--<label for="orgForm">Organism Search: </label>-->
         <input autocomplete="off"
                id="orgForm"
+               placeholder="e.g. Chlamydia trachomatis 434/BU"
                type="text"
                ng-model="organism.name"
                uib-typeahead="org.taxonLabel for org in $ctrl.orgs | filter:$viewValue | limitTo:200"

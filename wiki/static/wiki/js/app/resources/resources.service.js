@@ -15,6 +15,7 @@ var getCookie = function (name) {
 };
 
 //data from /json
+
 angular
     .module('resources')
     .factory('allOrgs', function ($resource) {

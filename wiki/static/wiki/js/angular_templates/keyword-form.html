@@ -1,5 +1,6 @@
-<form class="form-inline">
-        <label for="keywordSearch"> Keyword Search: </label>
-        <input ng-model="$ctrl.keyword" type="text" class="form-control" id="keywordSearch" placeholder="e.g. kinase">
-    <div ng-click="$ctrl.submitKeyword($ctrl.keyword)" class="btn btn-default">Search</div>
-</form>
+<div class="input-group">
+    <input  ng-model="$ctrl.keyword" type="text" class="form-control ui-widget"  id="keywordSearch" placeholder="e.g. kinase">
+      <span class="input-group-btn">
+        <div ng-click="$ctrl.submitKeyword($ctrl.keyword)" class="btn btn-default">Go!</div>
+      </span>
+</div><!-- /input-group -->
