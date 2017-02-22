@@ -24,10 +24,10 @@ def go_form(request):
 @ensure_csrf_cookie
 def wd_oauth(request):
     if request.method == 'POST':
+
         consumer_token = ConsumerToken(oauth_config.consumer_key, oauth_config.consumer_secret)
         mw_uri = "https://www.mediawiki.org/w/index.php"
-        # callbackURI = '"http://54.166.140.4/' +  request.session['oauth']['current_path'] + '"'
-        callbackURI = "http://54.166.140.4" + request.session['oauth']['current_path'] + '/authorized'
+        callbackURI = "http://54.166.140.4" + request.body['current_path'] + '/authorized'
         print('"' + callbackURI + '"')
 
         handshaker = Handshaker(mw_uri=mw_uri, consumer_token=consumer_token, callback=callbackURI)
