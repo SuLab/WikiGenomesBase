@@ -26,10 +26,9 @@ def wd_oauth(request):
     if request.method == 'POST':
         body_unicode = request.body.decode('utf-8')
         body = json.loads(body_unicode)
-        request.session['oauth']['current_path'] = body['current_path']
         consumer_token = ConsumerToken(oauth_config.consumer_key, oauth_config.consumer_secret)
         mw_uri = "https://www.mediawiki.org/w/index.php"
-        callbackURI = "http://54.166.140.4" + request.session['oauth']['current_path'] + '/authorized'
+        callbackURI = "http://54.166.140.4" + body['current_path'] + '/authorized'
         handshaker = Handshaker(mw_uri=mw_uri, consumer_token=consumer_token, callback=callbackURI)
         mw_redirect, request_token = handshaker.initiate(callback=callbackURI)
         response_data = {
