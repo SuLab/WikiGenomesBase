@@ -21,13 +21,14 @@ angular.module('cmod')
             when("/organism/:taxid/gene/:entrez", {
                 template: '<main-page></main-page>'
             }).
+            when("/organism/:taxid/gene/:entrez/authorization", {
+                template: '<main-page></main-page>'
+            }).
             otherwise({
                 template: "<not-found></not-found>"
             })
 
     });
-
-
 angular.module('cmod')
     .config(['$compileProvider', function ($compileProvider) {
         $compileProvider.aHrefSanitizationWhitelist(/^\s*(|blob|):/);

@@ -11,6 +11,7 @@ angular
                         .then(function (data) {
                             ctrl.currentAllGenes = data.data.results.bindings;
                         });
+
                 }
             };
 
@@ -18,7 +19,7 @@ angular
                 genes: [],
                 pub: []
             };
-            ctrl.getOperon =function(val){
+            ctrl.getOperon = function (val) {
 
 
             };
@@ -33,13 +34,15 @@ angular
                 );
             };
             ctrl.onSelectGene = function ($item) {
-               ctrl.operonFormModel.genes.push($item.gene.value);
+                ctrl.operonFormModel.genes.push($item.gene.value);
                 console.log(ctrl.operonFormModel);
             };
             ctrl.onSelectPub = function ($item) {
-               ctrl.operonFormModel.pub.push($item);
+                ctrl.operonFormModel.pub.push($item);
                 console.log($item);
             };
+
+
         },
         templateUrl: '/static/wiki/js/angular_templates/operon-form.html',
         bindings: {

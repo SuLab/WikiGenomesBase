@@ -302,6 +302,42 @@ angular
     });
 
 
+
+
+
+
+
+//angular
+//    .module('resources')
+//    .factory('allOperons', function ($http) {
+//        var getAllOperons = function (){
+//            console.log("hello");
+//            return "hello"
+//        };
+//        //var endpoint = 'https://query.wikidata.org/sparql?format=json&query=';
+//        //var getAllOperons = function (taxid) {
+//        //    //var url = endpoint + encodeURIComponent(
+//        //    //        'SELECT ?operon ?operonLabel WHERE { ?taxon wdt:P685 "' +
+//        //    //        taxid +
+//        //    //        '". ?operon wdt:P279 wd:Q139677; wdt:P703 ?taxon.' +
+//        //    //        'SERVICE wikibase:label {     bd:serviceParam wikibase:language "en" . }}'
+//        //    //    );
+//        //    console.log('flappy');
+//        //    //return $http.get(url)
+//        //    //    .success(function (response) {
+//        //    //        return response.data
+//        //    //
+//        //    //    })
+//        //    //    .error(function (response) {
+//        //    //        return response
+//        //    //    });
+//        //};
+//        return {
+//            getAllOperons: getAllOperons
+//        }
+//    });
+
+
 angular
     .module('resources')
     .factory('expasyData', function ($http) {
