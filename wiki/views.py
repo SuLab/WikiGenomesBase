@@ -27,15 +27,16 @@ def wd_oauth(request):
         body_unicode = request.body.decode('utf-8')
         body = json.loads(body_unicode)
         consumer_token = ConsumerToken(oauth_config.consumer_key, oauth_config.consumer_secret)
+        print(consumer_token)
         mw_uri = "https://www.mediawiki.org/w/index.php"
         callbackURI = "http://54.166.140.4" + body['current_path'] + '/authorized'
+        print(callbackURI)
         handshaker = Handshaker(mw_uri=mw_uri, consumer_token=consumer_token, callback=callbackURI)
         mw_redirect, request_token = handshaker.initiate(callback=callbackURI)
         response_data = {
             'wikimediaURL': mw_redirect
         }
         return JsonResponse(response_data)
-
 @ensure_csrf_cookie
 def oauth_response(request):
 
