@@ -21,7 +21,7 @@ angular.module('cmod')
             when("/organism/:taxid/gene/:entrez", {
                 template: '<main-page></main-page>'
             }).
-            when("/organism/:taxid/gene/:entrez/authorization", {
+            when("/organism/:taxid/gene/:entrez/authorized", {
                 template: '<main-page></main-page>'
             }).
             otherwise({
