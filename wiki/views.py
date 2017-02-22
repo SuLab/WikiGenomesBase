@@ -32,7 +32,7 @@ def wd_oauth(request):
         handshaker = Handshaker(mw_uri=mw_uri, consumer_token=consumer_token, callback=callbackURI)
         mw_redirect, request_token = handshaker.initiate(callback=callbackURI)
         response_data = {
-            'redirect': mw_redirect
+            'wikimediaURL': mw_redirect
         }
         return JsonResponse(response_data)
 
