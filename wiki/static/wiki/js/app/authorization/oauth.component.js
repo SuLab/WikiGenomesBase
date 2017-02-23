@@ -4,7 +4,12 @@ angular
         bindings: {},
         controller: function ($window, oauthSubmission, $location) {
             var ctrl = this;
-            ctrl.authorization_button = 'Authorize to edit';
+            if ($location.path().includes('authorized')){
+                ctrl.authorization_button = 'Authorized';
+            }else{
+                ctrl.authorization_button = 'Authorize to edit';
+            }
+
             ctrl.oauthAuthorization = function () {
                 oauthSubmission.submitOauth(
                     '/wd_oauth',
@@ -15,7 +20,6 @@ angular
                     .then(function (data) {
                         console.log(data);
                         $window.location.href = data.data.wikimediaURL;
-                        ctrl.authorization_button = 'Authorized';
                     });
             };
         },
