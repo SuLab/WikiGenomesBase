@@ -5,9 +5,11 @@ angular
         controller: function ($window, oauthSubmission, $location) {
             var ctrl = this;
             if ($location.path().includes('authorized')){
-                ctrl.authorization_button = 'Authorized';
+                ctrl.authorization_button = 'Revoke authorization';
+                ctrl.auth_class = 'btn btn-warning'
             }else{
                 ctrl.authorization_button = 'Authorize to edit';
+                ctrl.auth_class = 'btn btn-success'
             }
 
             ctrl.oauthAuthorization = function () {
@@ -23,6 +25,6 @@ angular
                     });
             };
         },
-        template: '<div ng-click="$ctrl.oauthAuthorization()" class="btn btn-success">{{$ctrl.authorization_button}}</div>'
+        template: '<div ng-click="$ctrl.oauthAuthorization()" ng-class="$ctrl.auth_class">{{$ctrl.authorization_button}}</div>'
     });
 

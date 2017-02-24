@@ -423,31 +423,6 @@ angular
 
     });
 
-
-angular
-    .module('resources')
-    .factory('allOperons', function ($http) {
-        var getAllOperons = function (val, taxid) {
-            var endpoint = 'https://query.wikidata.org/sparql?format=json&query=';
-            var url = endpoint + encodeURIComponent(
-
-
-                );
-            return $http.get(url)
-                .success(function (response) {
-                    return response.data;
-                })
-                .error(function (response) {
-                    return response
-                });
-        };
-        return {
-            getAllOperons: getAllOperons
-        }
-
-    });
-
-
 angular
     .module('resources')
     .factory('allChlamydiaGenes', function ($http) {
@@ -477,5 +452,24 @@ angular
         };
         return {
             getAllChlamGenes: getAllChlamGenes
+        }
+    });
+
+angular
+    .module('resources')
+    .factory('wdGetEntities', function ($http) {
+        var wdGetEntities = function (qid) {
+        var endpoint = 'https://www.wikidata.org/w/api.php?action=wbgetentities&ids=';
+            var url = endpoint + qid;
+            return $http.get(url)
+                .success(function (response) {
+                    return response.data;
+                })
+                .error(function (response) {
+                    return response
+                });
+        };
+        return {
+            wdGetEntities: wdGetEntities
         }
     });

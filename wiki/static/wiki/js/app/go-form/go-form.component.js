@@ -9,8 +9,6 @@ angular
                 'bp_button': 'Q2996394'
             };
             ctrl.formData = {};
-
-
             evidenceCodes.getevidenceCodes(function (data) {
                 ctrl.evidence = data;
             });
@@ -19,7 +17,6 @@ angular
             ctrl.eviInput = angular.element(window).find('#eviInput');
             ctrl.goInput = angular.element(window).find('#pubInput');
 
-
             ctrl.getGoTermsAll = function (val) {
                 return allGoTerms.getGoTermsAll(val, goClassMap[ctrl.goclass]).then(
                     function (data) {
@@ -27,8 +24,6 @@ angular
                             return item;
                         });
                     });
-
-
             };
 
             ctrl.getPMID = function (val) {
@@ -50,8 +45,6 @@ angular
                 });
 
             };
-
-
         },
         templateUrl: '/static/wiki/js/angular_templates/go-form.html',
         bindings: {
