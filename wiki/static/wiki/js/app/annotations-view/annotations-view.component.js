@@ -22,16 +22,16 @@ angular
                 enzyme: false,
                 mutants: false
             };
-
             ctrl.$onInit = function () {
             };
             ctrl.$onChanges = function (changeObj) {
                 if (changeObj.uniprot) {
-                    wdGetEntities.wdGetEntities('Q21172312').then(function (data) {
-                        console.log(data);
-                    });
-
-
+                    ctrl.qid = $filter('parseQID')(ctrl.gene.gene);
+                    if (ctrl.qid != 'None') {
+                        wdGetEntities.wdGetEntities(ctrl.qid).then(function (data) {
+                            ctrl.entity = data.entities[ctrl.qid];
+                        });
+                    }
                     GOTerms.getGoTerms(ctrl.uniprot).then(
                         function (data) {
                             ctrl.mf = 'mf_button';
@@ -108,13 +108,18 @@ angular
                         var mutants = [];
                         ctrl.mutantData = [];
                         mutants.push($filter('getJsonItemNoWD')('locus_tag_L2', ctrl.gene.locusTag, data));
-                        var locus_Tag = ctrl.gene.locusTag.replace("CT_", "CT");
-                        mutants.push($filter('getJsonItemNoWD')('locus_tag_DUW3', locus_Tag, data));
-                        angular.forEach(mutants, function (value) {
-                            angular.forEach(value, function (val2) {
-                                ctrl.mutantData.push(val2);
+                        if (ctrl.gene.locusTag) {
+                            var locus_Tag = ctrl.gene.locusTag.replace("CT_", "CT");
+                            mutants.push($filter('getJsonItemNoWD')('locus_tag_DUW3', locus_Tag, data));
+                            angular.forEach(mutants, function (value) {
+                                angular.forEach(value, function (val2) {
+                                    ctrl.mutantData.push(val2);
+                                });
                             });
-                        });
+
+                        }
+                        ;
+
 
                     });
 

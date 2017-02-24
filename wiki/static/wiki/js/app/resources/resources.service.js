@@ -302,11 +302,6 @@ angular
     });
 
 
-
-
-
-
-
 //angular
 //    .module('resources')
 //    .factory('allOperons', function ($http) {
@@ -459,20 +454,50 @@ angular
     .module('resources')
     .factory('wdGetEntities', function ($http) {
         var wdGetEntities = function (qid) {
-        var endpoint = 'https://www.wikidata.org/w/api.php?action=wbgetentities&ids=';
-            var url = endpoint + qid;
-            var config = {
-                headers: { 'Api-User-Agent': 'ChlamBase.org (http://54.166.140.4/; tputman@scripps.org)' },
-            };
-            return $http.get(url, config)
-                .success(function (response) {
-                    return response.data;
-                })
-                .error(function (response) {
+            return $.ajax({
+                url: "https://www.wikidata.org/w/api.php",
+                jsonp: "callback",
+                dataType: 'jsonp',
+                data: {
+                    action: "wbgetentities",
+                    ids: qid,
+                    format: "json"
+                },
+                xhrFields: {withCredentials: true},
+                success: function (response) {
                     return response
-                });
+                },
+                error: function (response) {
+                    return response
+                }
+            });
         };
         return {
             wdGetEntities: wdGetEntities
+
         }
     });
+
+var thing = {
+    "histograms": {
+        "stats": [{"basesPerBin": "5000", "mean": 1, "max": 1}],
+        "meta": [{
+            "arrayParams": {"urlTemplate": "hist-5000-{Chunk}.json", "chunkSize": 10000, "length": 1},
+            "basesPerBin": "5000"
+        }]
+    },
+    "intervals": {
+        "classes": [{
+            "isArrayAttr": {},
+            "attributes": ["Start", "End", "Strand", "Note", "Type", "Load_id", "Name", "Seq_id", "Score", "Source"]
+        }, {"isArrayAttr": {"Sublist": 1}, "attributes": ["Start", "End", "Chunk"]}],
+        "count": 1,
+        "minStart": 999,
+        "lazyClass": 1,
+        "urlTemplate": "lf-{Chunk}.json",
+        "nclist": [[0, 999, 1000, 0, "This is a fake SNP that should appear at 1000 with length 1", "SNP", "FakeSNP1", "FakeSNP", "ctgA", "0.987", "example"]],
+        "maxEnd": 1000
+    },
+    "formatVersion": 1,
+    "featureCount": 1
+};
