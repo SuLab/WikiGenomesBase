@@ -1,0 +1,17 @@
+{
+   "tracks" : [
+      {
+         "key" : "kokes_variants",
+         "trackType" : null,
+         "urlTemplate" : "tracks/kokes_variants/{refseq}/trackData.json",
+         "style" : {
+            "className" : "feature"
+         },
+         "type" : "FeatureTrack",
+         "storeClass" : "JBrowse/Store/SeqFeature/NCList",
+         "compress" : 0,
+         "label" : "kokes_variants"
+      }
+   ],
+   "formatVersion" : 1
+}
