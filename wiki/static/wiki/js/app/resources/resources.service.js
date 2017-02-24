@@ -461,7 +461,10 @@ angular
         var wdGetEntities = function (qid) {
         var endpoint = 'https://www.wikidata.org/w/api.php?action=wbgetentities&ids=';
             var url = endpoint + qid;
-            return $http.get(url)
+            var config = {
+                headers: { 'Api-User-Agent': 'ChlamBase.org (http://54.166.140.4/; tputman@scripps.org)' },
+            };
+            return $http.get(url, config)
                 .success(function (response) {
                     return response.data;
                 })
