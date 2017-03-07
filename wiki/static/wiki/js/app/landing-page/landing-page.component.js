@@ -13,12 +13,18 @@ angular
                 var pubs = data.data.esearchresult.idlist;
                 ctrl.recentPubs = [];
                 angular.forEach(pubs, function (value) {
+                    console.log(value);
                     euroPubData.getEuroPubData(value).then(function (data) {
-                            ctrl.recentPubs.push(data.data.resultList.result[0]);
+
+                            if(data.data.resultList.result[0]){
+                                ctrl.recentPubs.push(data.data.resultList.result[0]);
+                            }
+
+
                         }
                     )
 
-                })
+                });
             });
 
         },

@@ -6,7 +6,12 @@
         <tbody>
         <tr>
             <th>Entrez ID</th>
-            <td>{{ $ctrl.gene.entrez}}</td>
+            <td>{{ $ctrl.gene.entrez}}
+                <a target="_blank" href="https://www.ncbi.nlm.nih.gov/gene/?term={{$ctrl.gene.entrez}}">
+                    <img uib-tooltip="InterPro Database Entry" style="height: 14px; margin-top: -3px"
+                         data-ng-src="/static/wiki/img/InterPro_long_1600.png">
+                </a>
+            </td>
         </tr>
         <tr>
             <th>NCBI Locus Tag</th>
@@ -14,7 +19,8 @@
         </tr>
         <tr>
             <th>Wikidata QID</th>
-            <td>{{ $ctrl.gene.geneQID }}</td>
+            <td>{{ $ctrl.gene.geneQID }}
+            </td>
         </tr>
         </tbody>
     </table>

@@ -59,21 +59,30 @@
                         <jbrowse-view entrez="$ctrl.currentGene.entrez" gene="$ctrl.currentGene"
                                       taxid="$ctrl.currentOrg.taxid"></jbrowse-view>
                     </div>
-                    <div class="row" style="padding: 30px 30px 5px 30px;">
-                        <div class="col-md-6">
-                            <div class="panel">
-                                <h4> Gene Identifiers</h4>
-                                <gene-view gene="$ctrl.currentGene"></gene-view>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="panel">
-                                <h4> Gene Product Identifiers</h4>
-                                <protein-view protein="$ctrl.currentGene"></protein-view>
-                            </div>
-                        </div>
-                    </div>
-                    <div style="padding: 0 30px 5px 30px;">
+                    <!--<div class="row" style="padding: 30px 30px 5px 30px;">-->
+                        <!--<div class="col-md-6">-->
+                            <!--<div class="panel">-->
+                                <!--<div class="row">-->
+                                    <!--<div class="col-md-10">Gene Identifiers</div>-->
+                                    <!--<div class="col-md-2"><a style="float:right" target="_blank"-->
+                                                             <!--href="https://www.wikidata.org/wiki/{{$ctrl.currentGene.gene}}">-->
+                                        <!--<img uib-tooltip="Wikidata Item" style="height: 14px; margin-top: -3px"-->
+                                             <!--data-ng-src="/static/wiki/img/GeneWikidata-logo-en.png">-->
+                                    <!--</a></div>-->
+                                <!--</div>-->
+
+
+                                <!--<gene-view gene="$ctrl.currentGene"></gene-view>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                        <!--<div class="col-md-6">-->
+                            <!--<div class="panel">-->
+                                <!--<h4> Gene Product Identifiers</h4>-->
+                                <!--<protein-view protein="$ctrl.currentGene"></protein-view>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                    <div style="padding: 30px 30px 5px 30px;">
                         <annotations-view gene="$ctrl.currentGene" uniprot="$ctrl.currentGene.uniprot"
                                           entrez="$ctrl.currentGene.entrez" taxid="$ctrl.currentTaxid"
                                           allOrgGenes="$ctrl.currentAllGenes" locus_tag="$ctrl.currentGene.locusTag"

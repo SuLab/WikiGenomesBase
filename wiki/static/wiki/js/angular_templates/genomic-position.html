@@ -3,10 +3,13 @@
         <td title="'Gene Name'">
             <strong>{{$ctrl.data.geneLabel }}</strong>
         </td>
+        <td title="'Locus Tag'">
+            <strong>{{$ctrl.data.locusTag }}</strong>
+        </td>
         <td title="'Aliases'">
            {{$ctrl.data.geneAliases | list2CSV}}
         </td>
-        <td title="'Chromosome Accession'">
+        <td title="'Chromosome'">
             {{$ctrl.data.refseqGenome }}
         </td>
         <td title="'Genomic Start'">
