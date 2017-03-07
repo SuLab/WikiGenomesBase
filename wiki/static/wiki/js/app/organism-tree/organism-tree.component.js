@@ -14,41 +14,41 @@ angular
 
                     // For each orgchart box, provide the name, manager, and tooltip to show.
                     data.addRows([
-                        [{v: 'Chlamydia', f: '<div class="btn btn-default treeNode nohover" >Chlamydia</div>'},
+                        [{v: 'Chlamydia', f: '<div class="btn btn-default treeNode nohover" ><i>Chlamydia</i></div>'},
                             ''],
                         [{
                             v: 'Chlamydia trachomatis',
-                            f: '<div class="btn btn-default treeNode nohover" >Chlamydia trachomatis</div>'
+                            f: '<div class="btn btn-default treeNode nohover" ><i>Chlamydia trachomatis</i></div>'
                         },
                             'Chlamydia'],
                         [{
                             v: 'Chlamydia muridarum',
-                            f: '<div class="btn btn-default treeNode nohover" >Chlamydia muridarum</div>'
+                            f: '<div class="btn btn-default treeNode nohover" ><i>Chlamydia muridarum</i></div>'
                         },
                             'Chlamydia'],
                         [{
                             v: 'Chlamydia pneumoniae',
-                            f: '<div class="btn btn-default treeNode nohover" >Chlamydia pneumoniae</div>'
+                            f: '<div class="btn btn-default treeNode nohover" ><i>Chlamydia pneumoniae</i></div>'
                         },
                             'Chlamydia'],
                         [{
                             v: 'Chlamydia pneumoniae CWL029',
-                            f: '<a class="btn btn-default treeNode" href="/organism/115713/" >Chlamydia pneumoniae CWL029</div>'
+                            f: '<a class="btn btn-default treeNode" href="/organism/115713/" ><i>Chlamydia pneumoniae CWL029</i></div>'
                         },
                             'Chlamydia pneumoniae'],
                         [{
                             v: 'Chlamydia muridarum Nigg',
-                            f: '<a class="btn btn-default treeNode" href="/organism/243161/" >Chlamydia muridarum Nigg</div>'
+                            f: '<a class="btn btn-default treeNode" href="/organism/243161/" ><i>Chlamydia muridarum Nigg</i></div>'
                         },
                             'Chlamydia muridarum'],
                         [{
                             v: 'Chlamydia trachomatis 434/BU',
-                            f: '<a  class="btn btn-default treeNode" href="/organism/471472/" >Chlamydia trachomatis 434/BU</a>'
+                            f: '<a  class="btn btn-default treeNode" href="/organism/471472/" ><i>Chlamydia trachomatis 434/BU</i></a>'
                         },
                             'Chlamydia trachomatis'],
                         [{
                             v: 'Chlamydia trachomatis D/UW-3/CX',
-                            f: '<a  class="btn btn-default treeNode" href="/organism/272561/" >Chlamydia trachomatis D/UW-3/CX</>'
+                            f: '<a  class="btn btn-default treeNode" href="/organism/272561/" ><i>Chlamydia trachomatis D/UW-3/CX</i></a>'
                         },
                             'Chlamydia trachomatis']
 

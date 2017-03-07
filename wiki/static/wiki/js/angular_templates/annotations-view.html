@@ -117,4 +117,17 @@
             </div>
         </div>
     </div>
+    <div uib-accordion-group ng-class="{'panel-info': true}"
+         is-open="$ctrl.accordion.pubs"
+         template-url="group-template.html">
+        <uib-accordion-heading>
+            Related Publications <i class="pull-right glyphicon"
+                                                    ng-class="{'glyphicon-chevron-down': $ctrl.accordion.pubs, 'glyphicon-chevron-right': !$ctrl.accordion.pubs}"></i>
+        </uib-accordion-heading>
+        <div class="panel " style="border-bottom: solid #bce8f1 1px;">
+            <div class="panel-body" style="max-height: 400px; overflow: auto">
+                <linked-pubs gene="$ctrl.gene" entrez="$ctrl.gene.entrez" ></linked-pubs>
+            </div>
+        </div>
+    </div>
 </uib-accordion>

@@ -390,7 +390,84 @@ angular
             getPMID: getPMID
         }
     });
+var url = 'http://www.ebi.ac.uk/europepmc/webservices/rest/search?query=CT681&resulttype=core&format=json'
 
+angular
+    .module('resources')
+    .factory('locusTag2Pub', function ($http) {
+        var getlocusTag2Pub = function (val) {
+            var endpoint = 'http://www.ebi.ac.uk/europepmc/webservices/rest/search?query=chlamydia%20{locusTag}&format=json';
+            var url = endpoint.replace('{locusTag}', val);
+            return $http.get(url)
+                .success(function (response) {
+                    return response;
+                })
+                .error(function (response) {
+                    return response
+                });
+        };
+        return {
+            getlocusTag2Pub: getlocusTag2Pub
+        }
+    });
+
+
+angular
+    .module('resources')
+    .factory('euroPubData', function ($http) {
+        var getEuroPubData = function (val) {
+            var endpoint = 'http://www.ebi.ac.uk/europepmc/webservices/rest/search?query={pubmedID}&resulttype=core&format=json';
+            var url = endpoint.replace('{pubmedID}', val);
+            return $http.get(url)
+                .success(function (response) {
+                    return response;
+                })
+                .error(function (response) {
+                    return response
+                });
+        };
+        return {
+            getEuroPubData: getEuroPubData
+        }
+    });
+
+angular
+    .module('resources')
+    .factory('pubLinks', function ($http, $filter) {
+        var getPubLinks = function (entrez) {
+            var endpoint = 'https://eutils.ncbi.nlm.nih.gov/entrez/eutils/elink.fcgi?dbfrom=gene&db=pubmed&id={entrez}&retmode=json&linkname=gene_pubmed_pmc_nucleotide';
+
+            var url = endpoint.replace('{entrez}', entrez);
+            return $http.get(url)
+                .success(function (response) {
+                    return response
+                })
+                .error(function (response) {
+                    return response
+                });
+        };
+        return {
+            getPubLinks: getPubLinks
+        }
+    });
+
+angular
+    .module('resources')
+    .factory('recentChlamPubLinks', function ($http) {
+        var getRecentChlamPubLinks = function (entrez) {
+            var url = 'https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=pubmed&term=chlamydia&reldate=10&datetype=edat&retmax=100&usehistory=y&retmode=json';
+            return $http.get(url)
+                .success(function (response) {
+                    return response
+                })
+                .error(function (response) {
+                    return response
+                });
+        };
+        return {
+            getRecentChlamPubLinks: getRecentChlamPubLinks
+        }
+    });
 
 angular
     .module('resources')
@@ -478,26 +555,3 @@ angular
         }
     });
 
-var thing = {
-    "histograms": {
-        "stats": [{"basesPerBin": "5000", "mean": 1, "max": 1}],
-        "meta": [{
-            "arrayParams": {"urlTemplate": "hist-5000-{Chunk}.json", "chunkSize": 10000, "length": 1},
-            "basesPerBin": "5000"
-        }]
-    },
-    "intervals": {
-        "classes": [{
-            "isArrayAttr": {},
-            "attributes": ["Start", "End", "Strand", "Note", "Type", "Load_id", "Name", "Seq_id", "Score", "Source"]
-        }, {"isArrayAttr": {"Sublist": 1}, "attributes": ["Start", "End", "Chunk"]}],
-        "count": 1,
-        "minStart": 999,
-        "lazyClass": 1,
-        "urlTemplate": "lf-{Chunk}.json",
-        "nclist": [[0, 999, 1000, 0, "This is a fake SNP that should appear at 1000 with length 1", "SNP", "FakeSNP1", "FakeSNP", "ctgA", "0.987", "example"]],
-        "maxEnd": 1000
-    },
-    "formatVersion": 1,
-    "featureCount": 1
-};

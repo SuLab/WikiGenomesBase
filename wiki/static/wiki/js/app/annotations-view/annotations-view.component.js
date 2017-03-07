@@ -20,12 +20,16 @@ angular
                 operon: false,
                 interpro: false,
                 enzyme: false,
-                mutants: false
+                mutants: false,
+                pubs: true
             };
             ctrl.$onInit = function () {
             };
             ctrl.$onChanges = function (changeObj) {
                 if (changeObj.uniprot) {
+                    console.log(
+                       ctrl.gene
+                    );
                     ctrl.qid = $filter('parseQID')(ctrl.gene.gene);
                     if (ctrl.qid != 'None') {
                         wdGetEntities.wdGetEntities(ctrl.qid).then(function (data) {
@@ -118,7 +122,6 @@ angular
                             });
 
                         }
-                        ;
 
 
                     });
@@ -140,6 +143,7 @@ angular
                         ctrl.accordion.interpro = openAll;
                         ctrl.accordion.enzyme = openAll;
                         ctrl.accordion.mutants = openAll;
+                        ctrl.accordion.pubs = openAll;
                     };
                     ctrl.status = {
                         isCustomHeaderOpen: false,

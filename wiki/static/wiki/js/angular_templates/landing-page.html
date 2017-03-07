@@ -2,8 +2,11 @@
     a {
         color: whitesmoke
     }
+    .carousel-control.left, .carousel-control.right {
+        background-image: none
+    }
 </style>
-<div class="container-fluid main-landing-page">
+<div class="container-fluid main-landing-page" style="padding: 50px">
     <div class="row">
         <div class="col-md-12">
             <h1>Welcome to ChlamBase.org</h1>
@@ -45,30 +48,44 @@
         </div>
         <div class="col-md-3"></div>
     </div>
+
+    <div class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-10"
+             style="padding: 60px">
+            <h2>See what's happening in the most recent <i><strong>Chlamydia</strong></i> Related Research:</h2>
+            <div style="background-color: transparent; padding-top: 30px;">
+                <div style="height: 100px" class="carousel slide" data-ride=carousel id="slider">
+                    <div class="carousel-inner" role="listbox">
+                        <div style="text-align: left;padding-left: 20%; padding-right: 20%" class="item"
+                             ng-class="{active:!$index}"
+                             ng-repeat="pub in $ctrl.recentPubs">
+                            <a target="_blank" href="https://www.ncbi.nlm.nih.gov/pubmed/{{pub.id}}">
+                                <div>{{pub.title}}</div>
+                                <div><strong><i>{{pub.journalInfo.journal.title}}</i></strong></div>
+                                <div>{{pub.authorList.author[0].fullName}} <i>et al.</i>
+                                    {{pub.journalInfo.printPublicationDate | date}}
+                                </div>
+                                <div>PMID: {{pub.id}}</div>
+                            </a>
+                        </div>
+                    </div>
+
+                </div>
+                <div>
+                    <a class="left carousel-control" data-target="#slider" role="button" data-slide="prev">
+                        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                    <a class="right carousel-control" data-target="#slider" role="button" data-slide="next">
+                        <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                        <span class="sr-only">Next</span>
+                    </a>
+                </div>
+            </div>
+
+        </div>
+        <div class="col-md-1"></div>
+    </div>
 </div>
 
-
-<!-- -->
-<!--<div  class="table-responsive indexFormModule">-->
-<!--<table >-->
-<!--<col width="50%"/>-->
-<!--<col width="50%"/>-->
-<!--<tbody>-->
-<!--<tr>-->
-<!--<th style="padding-left: 15px">Organism Search:</th>-->
-<!--<th style="padding-left: 15px">Keyword Search:</th>-->
-<!--</tr>-->
-<!--<tr>-->
-<!--<td style="padding-left: 15px">-->
-<!--<organism-form orgs=$ctrl.orgList></organism-form>-->
-<!--</td>-->
-<!--<td style="padding-left: 15px">-->
-<!--<keyword-form></keyword-form>-->
-<!--</td>-->
-<!--</tr>-->
-<!--</tbody>-->
-<!--</table>-->
-<!--</div>-->
-
-
-<!--</div>-->

@@ -34,5 +34,6 @@ angular.module('cmod', [
     'genesKeyword',
     'keywordForm',
     'keywordPaginated',
-    'organismTree'
+    'organismTree',
+    'linkedPubs'
 ]);

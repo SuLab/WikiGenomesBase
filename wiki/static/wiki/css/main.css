@@ -114,3 +114,8 @@ td {
 .node1 {
     border-radius: 10px;
 }
+
+a:hover {
+ cursor:pointer;
+}
+
