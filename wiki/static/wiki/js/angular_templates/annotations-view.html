@@ -126,7 +126,7 @@
         </uib-accordion-heading>
         <div class="panel " style="border-bottom: solid #bce8f1 1px;">
             <div class="panel-body" style="max-height: 400px; overflow: auto">
-                <linked-pubs gene="$ctrl.gene" entrez="$ctrl.gene.entrez" ></linked-pubs>
+                <linked-pubs ng-if="$ctrl.gene.locusTag" gene="$ctrl.gene" entrez="$ctrl.gene.entrez" ></linked-pubs>
             </div>
         </div>
     </div>

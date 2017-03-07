@@ -163,7 +163,7 @@ angular
 
         var getAllOrgGenes = function (taxid) {
             var url = endpoint + encodeURIComponent("SELECT ?refSeqChromosome ?gene ?genStart ?genEnd ?strand ?geneLabel ?entrez ?locusTag ?protein " +
-                    "?proteinLabel ?uniprot ?refseqProt" +
+                    "?proteinLabel ?uniprot ?refseqProt ?aliases" +
                     " WHERE{ ?taxon wdt:P685 '" + taxid + "'. " +
                     "?gene wdt:P703 ?taxon; " +
                     "wdt:P279 wd:Q7187; " +
@@ -172,7 +172,8 @@ angular
                     "wdt:P2548 ?strand; " +
                     "wdt:P2393 ?locusTag; " +
                     "wdt:P351 ?entrez; " +
-                    "wdt:P688 ?protein. " +
+                    "wdt:P688 ?protein;" +
+                    "skos:altLabel ?aliases. " +
                     "?protein wdt:P352 ?uniprot; " +
                     "wdt:P637 ?refseqProt." +
                     "OPTIONAL{ ?gene p:P644 ?chr. ?chr pq:P2249 ?refSeqChromosome.} " +
@@ -498,7 +499,7 @@ angular
 
 angular
     .module('resources')
-    .factory('wdGetEntities', function ($http) {
+    .factory('wdGetEntities', function () {
         var wdGetEntities = function (qid) {
             return $.ajax({
                 url: "https://www.wikidata.org/w/api.php",
@@ -524,3 +525,28 @@ angular
         }
     });
 
+angular
+    .module('resources')
+    .factory('entrez2QID', function ($http, $filter) {
+        var endpoint = 'https://query.wikidata.org/sparql?format=json&query=';
+        var getEntrez2QID = function (entrez) {
+            var query = "SELECT distinct ?gene ?protein WHERE{" +
+                "?gene wdt:P351 '{entrez}'; " +
+                      "wdt:P688 ?protein.}";
+            var url = endpoint + encodeURIComponent(query.replace('{entrez}', entrez));
+            console.log(url);
+            return $http.get(url)
+                .success(function (response) {
+                    return response;
+                })
+                .error(function (response) {
+                    return response
+                });
+
+        };
+        return {
+            getEntrez2QID: getEntrez2QID
+        }
+
+
+    });

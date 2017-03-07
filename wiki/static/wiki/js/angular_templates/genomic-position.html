@@ -3,6 +3,9 @@
         <td title="'Gene Name'">
             <strong>{{$ctrl.data.geneLabel }}</strong>
         </td>
+        <td title="'Aliases'">
+           {{$ctrl.data.geneAliases | list2CSV}}
+        </td>
         <td title="'Chromosome Accession'">
             {{$ctrl.data.refseqGenome }}
         </td>

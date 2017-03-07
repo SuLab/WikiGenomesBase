@@ -45,9 +45,9 @@ angular
         return function (input) {
             if (input) {
 
-                var inList = input.split('/');
-                var qid = inList.slice(-1)[0];
-                if (qid === 'Q22809711') {
+                //var inList = input.split('/');
+                //var qid = inList.slice(-1)[0];
+                if (input === 'Q22809711') {
                     return 'reverse'
                 }
                 else {
@@ -103,6 +103,14 @@ angular
         return function (input, start) {
             start = +start; //parse to int
             return input.slice(start);
+        }
+    });
+
+angular
+    .module('filters')
+    .filter('list2CSV', function () {
+        return function (input) {
+            return input.join(", ");
         }
     });
 

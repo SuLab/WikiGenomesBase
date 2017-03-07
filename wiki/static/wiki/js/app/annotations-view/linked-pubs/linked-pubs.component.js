@@ -13,7 +13,6 @@ angular
             };
             ctrl.$onChanges = function (changesObj) {
                 if (changesObj.entrez) {
-
                     ctrl.gene.locusTag = ctrl.gene.locusTag.replace('_','');
                     locusTag2Pub.getlocusTag2Pub(ctrl.gene.locusTag).then(function (data) {
                         ctrl.pubList = data.data.resultList.result;
