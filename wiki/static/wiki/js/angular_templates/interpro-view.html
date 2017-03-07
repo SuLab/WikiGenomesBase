@@ -12,43 +12,21 @@
         <td title="'References'">
             <!-- Button trigger modal -->
             <div style="padding: 3px">
-                <a data-toggle="modal"
-                   data-target="#{{ x.ipID.value}}_interpro">
-                    <img uib-tooltip="Click for InterPro Database Entry" style="height: 14px; margin-top: -3px" data-ng-src="/static/wiki/img/InterPro_long_1600.png">
+                <a target="_blank" href="{{ x.refURL.value }}">
+                    <img uib-tooltip="InterPro Database Entry" style="height: 14px; margin-top: -3px" data-ng-src="/static/wiki/img/InterPro_long_1600.png">
                 </a>
                 <a data-toggle="modal"
                    data-target="#{{ x.ipID.value}}_pubmed">
-                   <img uib-tooltip="Click for associated Publications" style="height: 14px; margin-top: -3px" data-ng-src="/static/wiki/img/pubmedGlyph.png">
+                   <img uib-tooltip="Cited Publication" style="height: 14px; margin-top: -3px" data-ng-src="/static/wiki/img/pubmedGlyph.png">
                 </a>
-                <a data-toggle="modal"
-                   data-target="#">
-                    <span uib-tooltip="Click to download annotation data" class="glyphicon glyphicon-download-alt"></span>
+                <a
+                  target="_blank" href="{{x.interPro_item.value}}">
+                   <img uib-tooltip="Wikidata Item" style="height: 14px; margin-top: -3px" data-ng-src="/static/wiki/img/GeneWikidata-logo-en.png">
                 </a>
             </div>
 
 
             <!-- Modal -->
-            <div class="modal" id="{{x.ipID.value}}_interpro" tabindex="-1" role="dialog"
-                 aria-labelledby="refModalTitle"
-                 aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="refModalTitle"><strong>{{x.interPro_label.value }}</strong></h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            <h4>Stated in: </h4> {{ x.reference_stated_inLabel.value}} <br/>
-                            <h4>Reference URL: </h4> {{ x.refURL.value }}
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
             <div class="modal" id="{{x.ipID.value}}_pubmed" tabindex="-1" role="dialog"
                  aria-labelledby="refModalTitle"
                  aria-hidden="true">
