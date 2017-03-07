@@ -301,38 +301,6 @@ angular
         }
     });
 
-
-//angular
-//    .module('resources')
-//    .factory('allOperons', function ($http) {
-//        var getAllOperons = function (){
-//            console.log("hello");
-//            return "hello"
-//        };
-//        //var endpoint = 'https://query.wikidata.org/sparql?format=json&query=';
-//        //var getAllOperons = function (taxid) {
-//        //    //var url = endpoint + encodeURIComponent(
-//        //    //        'SELECT ?operon ?operonLabel WHERE { ?taxon wdt:P685 "' +
-//        //    //        taxid +
-//        //    //        '". ?operon wdt:P279 wd:Q139677; wdt:P703 ?taxon.' +
-//        //    //        'SERVICE wikibase:label {     bd:serviceParam wikibase:language "en" . }}'
-//        //    //    );
-//        //    console.log('flappy');
-//        //    //return $http.get(url)
-//        //    //    .success(function (response) {
-//        //    //        return response.data
-//        //    //
-//        //    //    })
-//        //    //    .error(function (response) {
-//        //    //        return response
-//        //    //    });
-//        //};
-//        return {
-//            getAllOperons: getAllOperons
-//        }
-//    });
-
-
 angular
     .module('resources')
     .factory('expasyData', function ($http) {
@@ -502,14 +470,15 @@ angular
             var endpoint = 'https://query.wikidata.org/sparql?format=json&query=';
             var url = endpoint + encodeURIComponent(
                     "SELECT ?taxon ?taxid ?taxonLabel ?gene ?geneLabel ?entrez  ?uniprot ?protein ?proteinLabel ?locusTag " +
-                    "?geneDescription ?refseq_prot " +
+                    "?geneDescription ?refseq_prot ?aliases " +
                     "WHERE {  " +
                     "?taxon wdt:P171* wd:Q846309.  " +
                     "?gene wdt:P279 wd:Q7187;  " +
                     "wdt:P703 ?taxon;  " +
                     "wdt:P351 ?entrez;  " +
                     "wdt:P2393 ?locusTag;  " +
-                    "wdt:P688 ?protein.  " +
+                    "wdt:P688 ?protein;  " +
+                    "skos:altLabel ?aliases." +
                     "?protein wdt:P352 ?uniprot;  " +
                     "wdt:P637 ?refseq_prot. " +
                     "?taxon wdt:P685 ?taxid." +

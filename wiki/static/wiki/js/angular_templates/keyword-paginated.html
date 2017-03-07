@@ -19,7 +19,9 @@
                     <div class="col-md-10" style="text-align: left">
                         <div style="padding-left: 20px">
                          <strong><u>{{x.geneLabel.value | limitTo : 80}}</u>{{x.geneLabel.value.length > 80 ? '...' : ''}}</strong>
-                            <h6>Strain: <i>{{x.taxonLabel.value}}</i></h6>
+
+                            <h6>Aliases: <i>{{x.aliases.value}}</i>
+                            </h6><h6>Strain: <i>{{x.taxonLabel.value}}</i></h6>
                             <h6>Locus Tag: {{x.locusTag.value}} </h6>
                             <h6>Entrez: {{x.entrez.value}} </h6>
                         </div>

@@ -13,7 +13,6 @@ angular
 
             ctrl.$onChanges = function (changesObj) {
                 if (changesObj.taxid) {
-
                     ctrl.genesUrl = function () {
                         return "https://query.wikidata.org/#SELECT ?refSeqChromosome " +
                             "?gene ?genStart ?genEnd ?strand ?geneLabel ?entrez ?locusTag ?protein " +
