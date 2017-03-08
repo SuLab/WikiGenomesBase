@@ -259,3 +259,16 @@ angular
             return value + (tail || ' …');
         };
     });
+
+angular
+    .module('filters')
+    .filter('typeFilter', function () {
+        var types ={
+            'Q7187' : 'gene',
+            'Q20747295' : 'protein-coding-gene',
+            'Q8054': 'protein'
+        };
+        return function (input) {
+            return types[input]
+        };
+    });

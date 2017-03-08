@@ -12,10 +12,9 @@
         </td>
         <td title="'Reference'">
             <!-- Button trigger modal -->
-            <button type="button" class="btn btn-xs" data-toggle="modal"
+            <a style="margin-left: 50px" class="glyphicon glyphicon-new-window" data-toggle="modal"
                     data-target="#{{ x.goID.value | replaceColon }}{{x.determinationLabel.value}}">
-                Open Ref
-            </button>
+            </a>
             <!-- Modal -->
             <div class="modal" id="{{x.goID.value | replaceColon}}{{x.determinationLabel.value}}" tabindex="-1"
                  role="dialog"
@@ -36,7 +35,6 @@
                             <h4>Retrieved on: </h4> {{ x.reference_retrievedLabel.value}} <br/>
                             <h4>Gene Ontology ID: </h4> {{x.goID.value }} <br/>
                             <h4>Wikidata ID: </h4> {{ x.gotermValue.value | parseQID}}
-
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

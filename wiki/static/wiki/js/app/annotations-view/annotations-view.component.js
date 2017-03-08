@@ -21,7 +21,8 @@ angular
                 interpro: false,
                 enzyme: false,
                 mutants: false,
-                pubs: true
+                pubs: true,
+                product: true
             };
             ctrl.$onInit = function () {
             };
@@ -144,6 +145,7 @@ angular
                         ctrl.accordion.enzyme = openAll;
                         ctrl.accordion.mutants = openAll;
                         ctrl.accordion.pubs = openAll;
+                        ctrl.accordion.product = openAll;
                     };
                     ctrl.status = {
                         isCustomHeaderOpen: false,

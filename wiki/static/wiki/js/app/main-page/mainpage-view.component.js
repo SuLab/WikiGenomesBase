@@ -24,8 +24,12 @@ angular
                             ctrl.currentGene.genEnd = entity.claims.P645[0].mainsnak.datavalue.value;
                             ctrl.currentGene.strand = entity.claims.P2548[0].mainsnak.datavalue.value;
                             ctrl.currentGene.refseqGenome = entity.claims.P644[0].qualifiers.P2249[0].datavalue.value;
+                            ctrl.currentGene.geneType = entity.claims.P279[0].mainsnak.datavalue.value;
                             angular.forEach(entity.aliases.en, function (alias) {
-                                ctrl.currentGene.geneAliases.push(alias.value);
+                                if(alias.value != ctrl.currentGene.locusTag){
+                                    ctrl.currentGene.geneAliases.push(alias.value);
+                                }
+
                             });
                         });
                         wdGetEntities.wdGetEntities(ctrl.currentGene.proteinQID).then(function (data) {
@@ -38,6 +42,7 @@ angular
                             });
                             ctrl.currentGene.uniprot = entity.claims.P352[0].mainsnak.datavalue.value;
                             ctrl.currentGene.refseqProt = entity.claims.P637[0].mainsnak.datavalue.value;
+                            ctrl.currentGene.productType = entity.claims.P279[0].mainsnak.datavalue.value;
 
                         });
 

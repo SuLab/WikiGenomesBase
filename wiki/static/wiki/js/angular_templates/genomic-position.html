@@ -4,22 +4,33 @@
             <strong>{{$ctrl.data.geneLabel }}</strong>
         </td>
         <td title="'Locus Tag'">
-            <strong>{{$ctrl.data.locusTag }}</strong>
+            {{$ctrl.data.locusTag }}
+        </td>
+        <td title="'Entrez ID'">
+            {{$ctrl.data.entrez }}
         </td>
         <td title="'Aliases'">
-           {{$ctrl.data.geneAliases | list2CSV}}
+            {{$ctrl.data.geneAliases | list2CSV}}
         </td>
         <td title="'Chromosome'">
             {{$ctrl.data.refseqGenome }}
         </td>
-        <td title="'Genomic Start'">
+        <td title="'Start'">
             {{$ctrl.data.genStart }}
         </td>
-        <td title="'Genomic End'">
+        <td title="'End'">
             {{$ctrl.data.genEnd}}
         </td>
         <td title="'Strand'">
             {{ $ctrl.data.strand | convertStrand }}
+        </td>
+        <td style="text-align: center" title="'Reference'">
+            <a target="_blank" href="https://www.ncbi.nlm.nih.gov/gene?term={{$ctrl.data.entrez}}">
+                    <img uib-tooltip="NCBI Database Entry" style="height: 14px; margin-top: -3px" data-ng-src="/static/wiki/img/NCBI-logo-2.png">
+                </a>
+            <a target="_blank" href="http://www.wikidata.org/wiki/{{$ctrl.data.geneQID}}">
+                    <img uib-tooltip="Wikidata Database Item" style="height: 14px; margin-top: -3px" data-ng-src="/static/wiki/img/GeneWikidata-logo-en.png">
+                </a>
         </td>
     </tr>
 </table>

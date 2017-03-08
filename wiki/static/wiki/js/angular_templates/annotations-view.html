@@ -24,6 +24,19 @@
 </div>
 
 <uib-accordion close-others="false">
+        <div uib-accordion-group ng-class="{'panel-info': true}"
+         template-url="group-template.html" is-open="$ctrl.accordion.product">
+        <uib-accordion-heading>
+            Gene Product <i class="pull-right glyphicon"
+                                                ng-class="{'glyphicon-chevron-down': $ctrl.accordion.product, 'glyphicon-chevron-right': !$ctrl.accordion.product}"></i>
+        </uib-accordion-heading>
+        <div class="panel " style="border-bottom: solid #bce8f1 1px;">
+            <div class="panel-body">
+                <protein-view protein="$ctrl.gene"></protein-view>
+            </div>
+        </div>
+
+    </div>
     <div uib-accordion-group is-open="$ctrl.accordion.go" ng-class="{'panel-info': true}"
          template-url="group-template.html">
         <uib-accordion-heading>

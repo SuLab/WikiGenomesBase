@@ -30,6 +30,7 @@
             <form class="navbar-form navbar-left">
                 <keyword-form></keyword-form>
             </form>
+
             <oauth-view style="float:right"></oauth-view>
         </div>
         <!-- /.navbar-collapse -->
@@ -43,15 +44,8 @@
         <div class="col-md-10">
             <div class="panel panel-info">
                 <div class="panel-heading">
-                    <div class="row" style="padding:10px">
-                        <div class="col-md-3" style="padding-left: 30px">
-                            <gene-form taxid="$ctrl.currentOrg.taxid"></gene-form>
-                        </div>
-                        <div class="col-md-9">
-                            <genomic-position data="$ctrl.currentGene"></genomic-position>
-                        </div>
-                    </div>
-
+                    <!--<gene-form taxid="$ctrl.currentOrg.taxid"></gene-form>-->
+                    <genomic-position data="$ctrl.currentGene"></genomic-position>
                 </div>
                 <div class="panel-body">
                     <div class="panel" style="height: 350px">
@@ -59,29 +53,6 @@
                         <jbrowse-view entrez="$ctrl.currentGene.entrez" gene="$ctrl.currentGene"
                                       taxid="$ctrl.currentOrg.taxid"></jbrowse-view>
                     </div>
-                    <!--<div class="row" style="padding: 30px 30px 5px 30px;">-->
-                        <!--<div class="col-md-6">-->
-                            <!--<div class="panel">-->
-                                <!--<div class="row">-->
-                                    <!--<div class="col-md-10">Gene Identifiers</div>-->
-                                    <!--<div class="col-md-2"><a style="float:right" target="_blank"-->
-                                                             <!--href="https://www.wikidata.org/wiki/{{$ctrl.currentGene.gene}}">-->
-                                        <!--<img uib-tooltip="Wikidata Item" style="height: 14px; margin-top: -3px"-->
-                                             <!--data-ng-src="/static/wiki/img/GeneWikidata-logo-en.png">-->
-                                    <!--</a></div>-->
-                                <!--</div>-->
-
-
-                                <!--<gene-view gene="$ctrl.currentGene"></gene-view>-->
-                            <!--</div>-->
-                        <!--</div>-->
-                        <!--<div class="col-md-6">-->
-                            <!--<div class="panel">-->
-                                <!--<h4> Gene Product Identifiers</h4>-->
-                                <!--<protein-view protein="$ctrl.currentGene"></protein-view>-->
-                            <!--</div>-->
-                        <!--</div>-->
-                    <!--</div>-->
                     <div style="padding: 30px 30px 5px 30px;">
                         <annotations-view gene="$ctrl.currentGene" uniprot="$ctrl.currentGene.uniprot"
                                           entrez="$ctrl.currentGene.entrez" taxid="$ctrl.currentTaxid"
