@@ -1,14 +1,37 @@
 {
+  "trackSelector": {
+    "type": "Faceted"
+  },
   "formatVersion": 1,
   "tracks": [
     {
-      "category": "Reference sequence",
-      "storeClass": "JBrowse/Store/Sequence/StaticChunked",
       "urlTemplate": "seq/{refseq_dirpath}/{refseq}-",
+      "storeClass": "JBrowse/Store/Sequence/StaticChunked",
+      "key": "Reference sequence",
       "type": "SequenceTrack",
-      "label": "DNA",
       "chunkSize": 20000,
-      "key": "Reference sequence"
+      "label": "DNA",
+      "category": "Reference sequence"
+    },
+    {
+      "type": "JBrowse/View/Track/CanvasFeatures",
+      "style": {
+        "color": "#99c2ff"
+      },
+      "label": "genes_canvas_mod",
+      "storeClass": "JBrowse/Store/SeqFeature/GFF3",
+      "urlTemplate": "471472_gene.gff",
+      "key": "genes_canvas_mod"
+    },
+    {
+      "type": "JBrowse/View/Track/CanvasFeatures",
+      "style": {
+        "color": "pink"
+      },
+      "label": "mutants_canvas_mod",
+      "storeClass": "JBrowse/Store/SeqFeature/GFF3",
+      "urlTemplate": "kokes.gff",
+      "key": "mutants_canvas_mod"
     }
   ]
 }
