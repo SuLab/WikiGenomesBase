@@ -1,4 +1,5 @@
 from SPARQLWrapper import SPARQLWrapper, JSON
+import pprint
 class WDSparqlQueries(object):
     """
     params: optional depending on type of query (for qid provide prop and string, for label provide qid)
@@ -71,12 +72,42 @@ class WDSparqlQueries(object):
         wdt:P645 ?end;
         wdt:P2548 ?wdstrand ;
         p:P644 ?chr.
-        ?strain wdt:P685 '{taxid}'.
+        ?strain wdt:P685 '{TAXID}'.
         bind( IF(?wdstrand = wd:Q22809680, '+', '-') as ?strand).
         bind(str(?gene) as ?uri).
         filter (lang(?description) = "en").
         OPTIONAL {?chr qualifier:P2249 ?refSeq.}
          }'''
-        query = preQuery.replace('{taxid}', self.taxid)
+        query = preQuery.replace('{TAXID}', self.taxid)
         results = self.execute_query(queryPrefixes + query)
         return results['results']['bindings']
+
+    def operons4tid(self):
+        queryPrefixes = '''PREFIX wdt: <http://www.wikidata.org/prop/direct/>
+        PREFIX wd: <http://www.wikidata.org/entity/>
+        PREFIX qualifier: <http://www.wikidata.org/prop/qualifier/>'''
+        preQuery = '''SELECT ?uniqueID ?description ?strand  (MIN(?gstart) AS ?start)  (MAX(?gend) AS ?end) ?uri ?refSeq
+        WHERE {
+        ?strain wdt:P685 '{TAXID}'.
+        ?operon wdt:P279 wd:Q139677;
+        wdt:P703 ?strain;
+        rdfs:label ?description;
+        wdt:P2548 ?wdstrand;
+        wdt:P527 ?genes.
+        ?genes wdt:P644 ?gstart;
+        wdt:P645 ?gend;
+        p:P644 ?chr.
+        filter (lang(?description) = "en").
+        OPTIONAL {?chr qualifier:P2249 ?refSeq.}
+        bind( IF(?wdstrand = wd:Q22809680, '1', '-1') as ?strand).
+        bind(str(?operon) as ?uri)
+        bind( strafter( str(?operon), "entity/" ) as ?uniqueID ).
+        }
+        GROUP BY ?uniqueID ?description ?strand ?uri ?prefix ?refSeq'''
+        query = preQuery.replace('{TAXID}', self.taxid)
+        results = self.execute_query(queryPrefixes + query)
+        return results['results']['bindings']
+
+
+
+
