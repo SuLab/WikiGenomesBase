@@ -9,7 +9,7 @@
 <div class="container-fluid main-landing-page" style="padding: 50px">
     <div class="row">
         <div class="col-md-12">
-            <h1>Welcome to ChlamBase.org</h1>
+            <h1>Welcome to ChlamyPedia.org</h1>
 
             <h3>An open, editable, and centralized model organism database <br> for
                 the
@@ -55,13 +55,13 @@
              style="padding: 60px">
             <h2>See what's happening in the most recent <i><strong>Chlamydia</strong></i> Related Research:</h2>
             <div style="background-color: transparent; padding-top: 30px;">
-                <div style="height: 100px" class="carousel slide" data-ride=carousel id="slider">
+                <div style="height: 100px;" class="carousel slide" data-ride=carousel id="slider">
                     <div class="carousel-inner" role="listbox">
-                        <div style="text-align: left;padding-left: 20%; padding-right: 20%" class="item"
+                        <div style="text-align: center;padding-left: 20%; padding-right: 20%" class="item"
                              ng-class="{active:!$index}"
                              ng-repeat="pub in $ctrl.recentPubs">
                             <a target="_blank" href="https://www.ncbi.nlm.nih.gov/pubmed/{{pub.id}}">
-                                <div>{{pub.title}}</div>
+                                <div><strong>{{pub.title}}</strong></div>
                                 <div><strong><i>{{pub.journalInfo.journal.title}}</i></strong></div>
                                 <div>{{pub.authorList.author[0].fullName}} <i>et al.</i>
                                     {{pub.journalInfo.printPublicationDate | date}}

@@ -10,7 +10,7 @@
         <td title="'Evidence'">
             {{ x.determinationLabel.value }}
         </td>
-        <td title="'Reference'">
+        <td title="'Reference(s)'">
             <!-- Button trigger modal -->
             <a style="margin-left: 50px" class="glyphicon glyphicon-new-window" data-toggle="modal"
                     data-target="#{{ x.goID.value | replaceColon }}{{x.determinationLabel.value}}">
@@ -31,10 +31,10 @@
                             </button>
                         </div>
                         <div class="modal-body">
-                            <h4>Stated in: </h4> {{ x.reference_stated_inLabel.value}} <br/>
+                          <div class="well">  <h4>Stated in: </h4> {{ x.reference_stated_inLabel.value}} <br/>
                             <h4>Retrieved on: </h4> {{ x.reference_retrievedLabel.value}} <br/>
                             <h4>Gene Ontology ID: </h4> {{x.goID.value }} <br/>
-                            <h4>Wikidata ID: </h4> {{ x.gotermValue.value | parseQID}}
+                            <h4>Wikidata ID: </h4> {{ x.gotermValue.value | parseQID}}</div>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -61,7 +61,7 @@
                     <!--<span aria-hidden="true">&times;</span>-->
                 <!--</button>-->
             <!--</div>-->
-            <go-form goclass="$ctrl.goclass"></go-form>
+            <go-form ng-if="$ctrl.gene.entrez" gene="$ctrl.gene" goclass="$ctrl.goclass"></go-form>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
             </div>

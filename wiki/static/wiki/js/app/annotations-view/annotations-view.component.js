@@ -8,35 +8,39 @@ angular
             gene: '<',
             taxid: '<'
         },
-        controller: function ($filter, GOTerms, InterPro, OperonData, expasyData, mutantData, wdGetEntities) {
+        controller: function ($filter, GOTerms, InterPro, OperonData, expasyData, mutantData, wdGetEntities, orthoData) {
             var ctrl = this;
-            ctrl.ecnumber = [];
-            ctrl.molfunc = [];
-            ctrl.bioproc = [];
-            ctrl.cellcomp = [];
-            ctrl.opData = [];
-            ctrl.accordion = {
-                go: false,
-                operon: false,
-                interpro: false,
-                enzyme: false,
-                mutants: false,
-                pubs: true,
-                product: true
-            };
+
             ctrl.$onInit = function () {
             };
             ctrl.$onChanges = function (changeObj) {
+
                 if (changeObj.uniprot) {
-                    console.log(
-                       ctrl.gene
-                    );
+                    ctrl.ecnumber = [];
+                    ctrl.molfunc = [];
+                    ctrl.bioproc = [];
+                    ctrl.cellcomp = [];
+                    ctrl.opData = [];
+                    ctrl.accordion = {
+                        go: false,
+                        operon: false,
+                        interpro: false,
+                        enzyme: false,
+                        mutants: false,
+                        pubs: true,
+                        product: true
+                    };
                     ctrl.qid = $filter('parseQID')(ctrl.gene.gene);
                     if (ctrl.qid != 'None') {
                         wdGetEntities.wdGetEntities(ctrl.qid).then(function (data) {
                             ctrl.entity = data.entities[ctrl.qid];
                         });
                     }
+                    orthoData.getOrthologs(function (data) {
+                        ctrl.orthologs = data;
+                        ctrl.accordion.ortholog = true;
+                    });
+
                     GOTerms.getGoTerms(ctrl.uniprot).then(
                         function (data) {
                             ctrl.mf = 'mf_button';
@@ -100,7 +104,6 @@ angular
                             var dataResults = data.data.results.bindings;
                             if (dataResults.length > 0) {
                                 ctrl.opData = dataResults;
-                                console.log(ctrl.opData);
                                 ctrl.accordion.operon = true;
                             }
 
@@ -114,8 +117,7 @@ angular
                         ctrl.mutantData = [];
                         mutants.push($filter('getJsonItemNoWD')('locus_tag_L2', ctrl.gene.locusTag, data));
                         if (ctrl.gene.locusTag) {
-                            var locus_Tag = ctrl.gene.locusTag.replace("CT_", "CT");
-                            mutants.push($filter('getJsonItemNoWD')('locus_tag_DUW3', locus_Tag, data));
+                            mutants.push($filter('getJsonItemNoWD')('locus_tag_DUW3', ctrl.gene.locusTag, data));
                             angular.forEach(mutants, function (value) {
                                 angular.forEach(value, function (val2) {
                                     ctrl.mutantData.push(val2);
@@ -129,8 +131,6 @@ angular
 
 
                     //buttons for expanding and collapsing accordion
-
-
                     ctrl.expandAll = function () {
                         ctrl.toggleOpen(true);
                     };
@@ -146,6 +146,7 @@ angular
                         ctrl.accordion.mutants = openAll;
                         ctrl.accordion.pubs = openAll;
                         ctrl.accordion.product = openAll;
+                        ctrl.accordion.ortholog = openAll;
                     };
                     ctrl.status = {
                         isCustomHeaderOpen: false,

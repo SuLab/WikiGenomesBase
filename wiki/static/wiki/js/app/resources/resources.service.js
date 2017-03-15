@@ -72,6 +72,20 @@ angular
         });
     });
 
+angular
+    .module('resources')
+    .factory('orthoData', function ($resource) {
+        var url = '/static/wiki/json/orthologs.json';
+        return $resource(url, {}, {
+            getOrthologs: {
+                method: "GET",
+                params: {},
+                isArray: true,
+                cache: true
+            }
+        });
+    });
+
 //server communication
 
 angular

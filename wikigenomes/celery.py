@@ -29,36 +29,19 @@ def debug_task(self):
 app.conf.beat_schedule = {
     'weekly-genome-operations': {
         'task': 'wiki.tasks.get_wd_genome_data',
-        'schedule': 30.0,
-        # 'schedule': crontab(hour=0, minute=25, day_of_week=6),
+        'schedule': crontab(hour=0, minute=5, day_of_week=6),
         'args': ()
     },
     'weekly-feature-operations': {
         'task': 'wiki.tasks.get_wd_features',
-        'schedule': 30.0,
-        # 'schedule': crontab(hour=0, minute=25, day_of_week=6),
+        'schedule': crontab(hour=0, minute=25, day_of_week=6),
+        'args': ()
+    },
+    'weekly-update-orthologues': {
+        'task': 'wiki.tasks.update_orthologues',
+        'schedule': 10.0,
         'args': ()
     }
-    # 'weekly-ref-genome-confi': {
-    #     'task': 'wiki.tasks.getWikidataGenes',
-    #     'schedule': crontab(hour=0, minute=30, day_of_week=6),
-    #     'args': ()
-    # },
-    # 'weekly-sparql-2-gff': {
-    #     'task': 'wiki.tasks.genes2gff',
-    #     'schedule': crontab(hour=0, minute=35, day_of_week=6),
-    #     'args': ()
-    # },
-    # 'weekly-generate-reference': {
-    #     'task': 'wiki.tasks.generate_reference',
-    #     'schedule': crontab(hour=0, minute=40, day_of_week=6),
-    #     'args': ()
-    # },
-    # 'weekly-generate-trackList': {
-    #     'task': 'wiki.tasks.generate_trackList',
-    #     'schedule': 10.0,
-    #     'args': ()
-    # },
 }
 
 

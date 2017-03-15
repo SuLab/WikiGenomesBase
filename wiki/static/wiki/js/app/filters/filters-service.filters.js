@@ -14,6 +14,26 @@ angular
 
 angular
     .module('filters')
+    .filter('taxid2Name', function () {
+        var chlamMap = {
+          '471472':'Chlamydia trachomatis 434/BU',
+          '272561': 'Chlamydia trachomatis D/UW-3/CX',
+          '243161': 'Chlamydia muridarum Str. Nigg',
+          '115713': 'Chlamydia pneumoniae CWL209'
+        };
+        return function (input) {
+            if (input) {
+                return chlamMap[input]
+            }
+            else {
+                return "None"
+            }
+        };
+    });
+
+
+angular
+    .module('filters')
     .filter('replaceColon', function () {
         return function (input) {
             var inList = input.split(':');
@@ -217,6 +237,7 @@ angular
             return array;
         }
     });
+
 
 
 angular

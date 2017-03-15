@@ -1,0 +1,31 @@
+<table ng-table="$ctrl.tableParams" class="table table-hover">
+    <col width="30%"/>
+    <col width="20%"/>
+    <col width="20%"/>
+    <col width="20%"/>
+    <col width="10%"/>
+    <tr ng-repeat="(key, value) in $ctrl.currentOrtholog">
+        <td title="'Strain'">
+            {{key | taxid2Name}}
+        </td>
+        <td title="'Taxid'">
+            {{key}}
+        </td>
+        <td title="'Current Locus Tag'">
+            {{value.current }}
+        </td>
+        <td title="'Depricated Locus Tag'">
+            {{value.depricated }}
+        </td>
+        <td title="'References'">
+            <!-- Button trigger modal -->
+            <div style="padding: 3px">
+                <a data-toggle="modal"
+                   data-target="#{{ x.ipID.value}}_pubmed">
+                   <img uib-tooltip="Cited Publication" style="height: 14px; margin-top: -3px" data-ng-src="/static/wiki/img/pubmedGlyph.png">
+                </a>
+            </div>
+        </td>
+    </tr>
+</table>
+

@@ -35,5 +35,6 @@ angular.module('cmod', [
     'keywordForm',
     'keywordPaginated',
     'organismTree',
-    'linkedPubs'
+    'linkedPubs',
+    'orthologView'
 ]);

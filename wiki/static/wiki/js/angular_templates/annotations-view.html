@@ -24,15 +24,28 @@
 </div>
 
 <uib-accordion close-others="false">
-        <div uib-accordion-group ng-class="{'panel-info': true}"
+    <div uib-accordion-group ng-class="{'panel-info': true}"
          template-url="group-template.html" is-open="$ctrl.accordion.product">
         <uib-accordion-heading>
             Gene Product <i class="pull-right glyphicon"
-                                                ng-class="{'glyphicon-chevron-down': $ctrl.accordion.product, 'glyphicon-chevron-right': !$ctrl.accordion.product}"></i>
+                            ng-class="{'glyphicon-chevron-down': $ctrl.accordion.product, 'glyphicon-chevron-right': !$ctrl.accordion.product}"></i>
         </uib-accordion-heading>
         <div class="panel " style="border-bottom: solid #bce8f1 1px;">
             <div class="panel-body">
                 <protein-view protein="$ctrl.gene"></protein-view>
+            </div>
+        </div>
+
+    </div>
+    <div uib-accordion-group ng-class="{'panel-info': true}"
+         template-url="group-template.html" is-open="$ctrl.accordion.ortholog">
+        <uib-accordion-heading>
+            Otholog(s) <i class="pull-right glyphicon"
+                            ng-class="{'glyphicon-chevron-down': $ctrl.accordion.ortholog, 'glyphicon-chevron-right': !$ctrl.accordion.ortholog}"></i>
+        </uib-accordion-heading>
+        <div class="panel " style="border-bottom: solid #bce8f1 1px;">
+            <div class="panel-body">
+                <ortholog-view gene="$ctrl.gene" data="$ctrl.orthologs"></ortholog-view>
             </div>
         </div>
 
@@ -51,7 +64,7 @@
                         <div class="panel">
                             <div class="panel-heading">Molecular Function</div>
                             <div class="panel-body">
-                                <gene-ontology goclass="$ctrl.mf" data="$ctrl.molfunc"></gene-ontology>
+                                <gene-ontology gene="$ctrl.gene" goclass="$ctrl.mf" data="$ctrl.molfunc"></gene-ontology>
                             </div>
 
                         </div>
@@ -135,11 +148,11 @@
          template-url="group-template.html">
         <uib-accordion-heading>
             Related Publications <i class="pull-right glyphicon"
-                                                    ng-class="{'glyphicon-chevron-down': $ctrl.accordion.pubs, 'glyphicon-chevron-right': !$ctrl.accordion.pubs}"></i>
+                                    ng-class="{'glyphicon-chevron-down': $ctrl.accordion.pubs, 'glyphicon-chevron-right': !$ctrl.accordion.pubs}"></i>
         </uib-accordion-heading>
         <div class="panel " style="border-bottom: solid #bce8f1 1px;">
             <div class="panel-body" style="max-height: 400px; overflow: auto">
-                <linked-pubs ng-if="$ctrl.gene.locusTag" gene="$ctrl.gene" entrez="$ctrl.gene.entrez" ></linked-pubs>
+                <linked-pubs ng-if="$ctrl.gene.locusTag" gene="$ctrl.gene" entrez="$ctrl.gene.entrez"></linked-pubs>
             </div>
         </div>
     </div>

@@ -1,7 +1,7 @@
 angular
     .module('mainPage')
     .component('mainPage', {
-        controller: function ($filter, $location, allChlamOrgs, allOrgGenes, wdGetEntities, entrez2QID) {
+        controller: function ($filter, $location, allChlamOrgs, wdGetEntities, entrez2QID) {
             //Main gene page component.
             var ctrl = this;
             ctrl.$onInit = function () {
@@ -11,12 +11,11 @@ angular
                     proteinAliases: []
                 };
                 entrez2QID.getEntrez2QID(ctrl.currentGene.entrez).then(function (data) {
-                        console.log(data);
                         ctrl.currentGene.geneQID = $filter('parseQID')(data.data.results.bindings[0].gene.value);
                         ctrl.currentGene.proteinQID = $filter('parseQID')(data.data.results.bindings[0].protein.value);
                         wdGetEntities.wdGetEntities(ctrl.currentGene.geneQID).then(function (data) {
                             var entity = data.entities[ctrl.currentGene.geneQID];
-                            console.log(entity);
+                            //console.log(entity);
                             ctrl.currentGene.geneLabel = entity.labels.en.value;
                             ctrl.currentGene.locusTag = entity.claims.P2393[0].mainsnak.datavalue.value;
                             ctrl.currentGene.description = entity.descriptions.en.value;
@@ -29,12 +28,11 @@ angular
                                 if(alias.value != ctrl.currentGene.locusTag){
                                     ctrl.currentGene.geneAliases.push(alias.value);
                                 }
-
                             });
                         });
                         wdGetEntities.wdGetEntities(ctrl.currentGene.proteinQID).then(function (data) {
                             var entity = data.entities[ctrl.currentGene.proteinQID];
-                            console.log(entity);
+                            //console.log(entity);
                             ctrl.currentGene.proteinLabel = entity.labels.en.value;
                             ctrl.currentGene.description = entity.descriptions.en.value;
                             angular.forEach(entity.aliases.en, function (alias) {
@@ -45,7 +43,6 @@ angular
                             ctrl.currentGene.productType = entity.claims.P279[0].mainsnak.datavalue.value;
 
                         });
-
                         allChlamOrgs.getAllOrgs(function (data) {
                             ctrl.orgList = data;
                             ctrl.currentOrg = $filter('getJsonItemOrg')('taxid', ctrl.currentTaxid, ctrl.orgList);
@@ -56,16 +53,6 @@ angular
                         });
                         ctrl.currentTaxid = $location.path().split("/")[2];
 
-
-                        allOrgGenes.getAllOrgGenes(ctrl.currentTaxid)
-                            .then(function (data) {
-                                ctrl.currentAllGenes = data.data.results.bindings;
-                                var curgene = $filter('getJsonItem')('entrez', ctrl.currentGene.entrez, ctrl.currentAllGenes);
-                                if (curgene == undefined) {
-                                    alert("not a valid gene id");
-                                    $location.path('/organism/' + ctrl.currentTaxid);
-                                }
-                            });
                     }
                 );
             };

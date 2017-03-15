@@ -21,6 +21,7 @@ angular
                     .then(function (data) {
                         var dataResults = data.data.results.bindings;
                         ctrl.currentAllGenes = $filter('orderObjectBy')(dataResults, 'genStart');
+                        ctrl.initialGene = ctrl.currentAllGenes[0];
                     });
                 ctrl.onSelect = function ($item) {
                     $location.path('/organism/' + ctrl.currentTaxid + "/gene/" + $item.entrez.value);

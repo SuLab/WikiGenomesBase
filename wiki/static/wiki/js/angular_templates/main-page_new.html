@@ -14,12 +14,18 @@
         background-color: #385d94;
         color: whitesmoke;
     }
+
+    #jbrowse-div {
+        resize: vertical;
+        overflow: auto;
+    }
+
 </style>
 <nav class="navbar navbar-custom navbar-fixed-top">
     <div class="container-fluid">
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
-            <a style="color: whitesmoke" class="navbar-brand" href="/">ChlamBase</a>
+            <a style="color: whitesmoke" class="navbar-brand" href="/">ChlamyPedia</a>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
@@ -47,19 +53,20 @@
             <div class="panel panel-info">
                 <div class="panel-heading">
                     <!--<gene-form taxid="$ctrl.currentOrg.taxid"></gene-form>-->
-                    <genomic-position data="$ctrl.currentGene"></genomic-position>
+                    <genomic-position ng-if="$ctrl.currentGene.locusTag" data="$ctrl.currentGene"></genomic-position>
                 </div>
                 <div class="panel-body">
-                    <div class="panel" style="height: 350px">
+                    <div class="panel">
                         <organism-view org="$ctrl.currentOrg" taxid="$ctrl.currentOrg.taxid"></organism-view>
-                        <jbrowse-view entrez="$ctrl.currentGene.entrez" gene="$ctrl.currentGene"
-                                      taxid="$ctrl.currentOrg.taxid"></jbrowse-view>
+                        <div id="jbrowse-div" style="height: 250px; border: solid #99c2ff 3px; border-radius: 3px ">
+                            <jbrowse-view ng-if="$ctrl.currentGene.entrez" entrez="$ctrl.currentGene.entrez" gene="$ctrl.currentGene"
+                                          taxid="$ctrl.currentOrg.taxid"></jbrowse-view>
+                        </div>
                     </div>
                     <div style="padding: 30px 30px 5px 30px;">
-                        <annotations-view gene="$ctrl.currentGene" uniprot="$ctrl.currentGene.uniprot"
+                        <annotations-view ng-if="$ctrl.currentGene.locusTag" gene="$ctrl.currentGene" uniprot="$ctrl.currentGene.uniprot"
                                           entrez="$ctrl.currentGene.entrez" taxid="$ctrl.currentTaxid"
-                                          allOrgGenes="$ctrl.currentAllGenes" locus_tag="$ctrl.currentGene.locusTag"
-                                >
+                                          allOrgGenes="$ctrl.currentAllGenes" locus_tag="$ctrl.currentGene.locusTag">
                         </annotations-view>
                     </div>
                 </div>

@@ -19,7 +19,7 @@
     <div class="container-fluid">
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
-            <a style="color: whitesmoke" class="navbar-brand" href="/">ChlamBase</a>
+            <a style="color: whitesmoke" class="navbar-brand" href="/">ChlamyPedia</a>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
@@ -57,7 +57,7 @@
         </div>
         <div class="col-md-10 box">
             <div class="panel" style="height:300px; border: solid #385d94 2px; border-radius: 3px">
-                <jbrowse-view entrez="$ctrl.currentGene.entrez" gene="$ctrl.currentGene"
+                <jbrowse-view ng-if="$ctrl.initialGene.entrez" entrez="$ctrl.initialGene.entrez" gene="$ctrl.initialGene"
                               taxid="$ctrl.currentOrg.taxid"></jbrowse-view>
             </div>
         </div>
