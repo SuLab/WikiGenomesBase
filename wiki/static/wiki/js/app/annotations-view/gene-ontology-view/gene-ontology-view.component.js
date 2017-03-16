@@ -4,7 +4,7 @@ angular
         templateUrl: '/static/wiki/js/angular_templates/gene-ontology-view.html',
         bindings: {
             data: '<',
-            goclass: '<',
+            goclass: '@',
             gene: '<'
         },
         controller: function () {

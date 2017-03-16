@@ -2,7 +2,7 @@
     <col width="50%"/>
     <col width="45%"/>
     <col width="5%%"/>
-    <tr ng-show="$ctrl.ecnumber.length!=0" ng-repeat="(key,value) in $ctrl.reaction">
+    <tr ng-show="!$ctrl.ecnumber==0" ng-repeat="(key,value) in $ctrl.reaction">
         <td title="'EC Number'">
             {{key}}
         </td>
@@ -42,9 +42,8 @@
         </td>
     </tr>
     <tr>
-        <td ng-show="$ctrl.ecnumber.length==0">
+        <td ng-show="$ctrl.ecnumber==0">
             No data
         </td>
     </tr>
 </table>
-{{$ctrl.ecnumber}}

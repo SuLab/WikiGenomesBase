@@ -23,8 +23,8 @@
         <col width="20%"/>
         <col width="6%"/>
         <col width="20%"/>
-        <col width="6%"/>
-        <col width="21%"/>
+        <col width="%"/>
+        <col width="20%"/>
         <tr>
             <th class="strongColor">Function</th>
             <th class="strongColor glyphicon glyphicon-arrow-right"></th>
@@ -97,7 +97,7 @@
         <h4>Review for submission</h4>
 
         <div>
-            <p ng-show="$ctrl.validateFields()"> The protein "<strong>{{$ctrl.goFormModel.proteinLabel}} </strong>"is
+            <p ng-show="$ctrl.validateFields()"> The protein "<strong>{{$ctrl.gene.proteinLabel}}</strong>"is
                 involved in
                 "<strong>{{$ctrl.goFormModel.go.goterm_label.value}}</strong>". This claim was stated in
                 " <strong>{{$ctrl.goFormModel.pub.authors[0].name}} <i>et al.</i>

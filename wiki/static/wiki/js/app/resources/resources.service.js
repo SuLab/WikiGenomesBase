@@ -174,7 +174,6 @@ angular
     .module('resources')
     .factory('allOrgGenes', function ($http) {
         var endpoint = 'https://query.wikidata.org/sparql?format=json&query=';
-
         var getAllOrgGenes = function (taxid) {
             var url = endpoint + encodeURIComponent("SELECT ?refSeqChromosome ?gene ?genStart ?genEnd ?strand ?geneLabel ?entrez ?locusTag ?protein " +
                     "?proteinLabel ?uniprot ?refseqProt ?aliases" +
@@ -195,7 +194,6 @@ angular
             return $http.get(url)
                 .success(function (response) {
                     return response.data
-
                 })
                 .error(function (response) {
                     return response

@@ -130,7 +130,13 @@ angular
     .module('filters')
     .filter('list2CSV', function () {
         return function (input) {
-            return input.join(", ");
+            if(input){
+              return input.join(", ");
+            }
+            else{
+                return 'None'
+            }
+
         }
     });
 

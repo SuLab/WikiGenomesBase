@@ -1,3 +1,4 @@
+
 <script type="text/ng-template" id="group-template.html">
     <div class="panel-heading">
         <h4 class="panel-title">
@@ -32,7 +33,7 @@
         </uib-accordion-heading>
         <div class="panel " style="border-bottom: solid #bce8f1 1px;">
             <div class="panel-body">
-                <protein-view protein="$ctrl.gene"></protein-view>
+                <protein-view protein="$ctrl.data"></protein-view>
             </div>
         </div>
 
@@ -45,7 +46,7 @@
         </uib-accordion-heading>
         <div class="panel " style="border-bottom: solid #bce8f1 1px;">
             <div class="panel-body">
-                <ortholog-view gene="$ctrl.gene" data="$ctrl.orthologs"></ortholog-view>
+                <ortholog-view data="$ctrl.annotations.orthologs"></ortholog-view>
             </div>
         </div>
 
@@ -64,7 +65,7 @@
                         <div class="panel">
                             <div class="panel-heading">Molecular Function</div>
                             <div class="panel-body">
-                                <gene-ontology gene="$ctrl.gene" goclass="$ctrl.mf" data="$ctrl.molfunc"></gene-ontology>
+                                <gene-ontology  gene="$ctrl.data" goclass='mf_button' data="$ctrl.annotations.go.molfunc"></gene-ontology>
                             </div>
 
                         </div>
@@ -73,7 +74,7 @@
                         <div class="panel ">
                             <div class="panel-heading">Biological Process</div>
                             <div class="panel-body">
-                                <gene-ontology goclass='$ctrl.bp' data="$ctrl.bioproc"></gene-ontology>
+                                <gene-ontology gene="$ctrl.data" goclass='bp_button' data="$ctrl.annotations.go.bioproc"></gene-ontology>
                             </div>
                         </div>
                     </div>
@@ -81,7 +82,7 @@
                         <div class="panel">
                             <div class="panel-heading">Cellular Component</div>
                             <div class="panel-body">
-                                <gene-ontology goclass='$ctrl.cc' data="$ctrl.cellcomp"></gene-ontology>
+                                <gene-ontology gene="$ctrl.data" goclass='cc_button' data="$ctrl.annotations.go.cellcomp"></gene-ontology>
                             </div>
                         </div>
                     </div>
@@ -93,12 +94,12 @@
     <div uib-accordion-group ng-class="{'panel-info': true}"
          template-url="group-template.html" is-open="$ctrl.accordion.operon">
         <uib-accordion-heading>
-            Operon ({{$ctrl.opData.length}}) <i class="pull-right glyphicon"
+            Operon ({{$ctrl.annotations.operons.length}}) <i class="pull-right glyphicon"
                                                 ng-class="{'glyphicon-chevron-down': $ctrl.accordion.operon, 'glyphicon-chevron-right': !$ctrl.accordion.operon}"></i>
         </uib-accordion-heading>
         <div class="panel " style="border-bottom: solid #bce8f1 1px;">
             <div class="panel-body">
-                <operon-annotations taxid="$ctrl.taxid" data="$ctrl.opData"></operon-annotations>
+                <operon-annotations taxid="$ctrl.taxid" data="$ctrl.annotations.operons"></operon-annotations>
             </div>
         </div>
 
@@ -107,12 +108,12 @@
          is-open="$ctrl.accordion.interpro"
          template-url="group-template.html">
         <uib-accordion-heading>
-            InterPro Domains ({{$ctrl.ipData.length}})<i class="pull-right glyphicon"
+            InterPro Domains ({{$ctrl.annotations.interpro.length}})<i class="pull-right glyphicon"
                                                          ng-class="{'glyphicon-chevron-down': $ctrl.accordion.interpro, 'glyphicon-chevron-right': !$ctrl.accordion.interpro}"></i>
         </uib-accordion-heading>
         <div class="panel " style="border-bottom: solid #bce8f1 1px;">
             <div class="panel-body">
-                <inter-pro data="$ctrl.ipData"></inter-pro>
+                <inter-pro data="$ctrl.annotations.interpro"></inter-pro>
             </div>
         </div>
 
@@ -121,12 +122,12 @@
          is-open="$ctrl.accordion.enzyme"
          template-url="group-template.html">
         <uib-accordion-heading>
-            Enzyme ({{$ctrl.ecnumber.length}})<i class="pull-right glyphicon"
+            Enzyme ({{$ctrl.annotations.ecnumber.length}})<i class="pull-right glyphicon"
                                                  ng-class="{'glyphicon-chevron-down': $ctrl.accordion.enzyme, 'glyphicon-chevron-right': !$ctrl.accordion.enzyme}"></i>
         </uib-accordion-heading>
         <div class="panel " style="border-bottom: solid #bce8f1 1px;">
             <div class="panel-body">
-                <enzyme-view ecnumber="$ctrl.EC" reaction="$ctrl.reaction"></enzyme-view>
+                <enzyme-view ecnumber="$ctrl.annotations.ecnumber" reaction="$ctrl.annotations.reaction"></enzyme-view>
             </div>
         </div>
     </div>
@@ -134,12 +135,12 @@
          is-open="$ctrl.accordion.mutants"
          template-url="group-template.html">
         <uib-accordion-heading>
-            Mutants ({{$ctrl.mutantData.length}})<i class="pull-right glyphicon"
+            Mutants ({{$ctrl.annotations.mutants.length}})<i class="pull-right glyphicon"
                                                     ng-class="{'glyphicon-chevron-down': $ctrl.accordion.mutants, 'glyphicon-chevron-right': !$ctrl.accordion.mutants}"></i>
         </uib-accordion-heading>
         <div class="panel " style="border-bottom: solid #bce8f1 1px;">
             <div class="panel-body">
-                <mutants-view data="$ctrl.mutantData"></mutants-view>
+                <mutants-view data="$ctrl.annotations.mutants"></mutants-view>
             </div>
         </div>
     </div>
@@ -152,7 +153,7 @@
         </uib-accordion-heading>
         <div class="panel " style="border-bottom: solid #bce8f1 1px;">
             <div class="panel-body" style="max-height: 400px; overflow: auto">
-                <linked-pubs ng-if="$ctrl.gene.locusTag" gene="$ctrl.gene" entrez="$ctrl.gene.entrez"></linked-pubs>
+                <linked-pubs pubs="$ctrl.annotations.pubList" ></linked-pubs>
             </div>
         </div>
     </div>
