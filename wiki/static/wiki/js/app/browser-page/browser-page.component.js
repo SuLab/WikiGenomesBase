@@ -20,8 +20,11 @@ angular
                 allOrgGenes.getAllOrgGenes(ctrl.currentTaxid)
                     .then(function (data) {
                         var dataResults = data.data.results.bindings;
+                        console.log(dataResults[0]);
+                        console.log('hello');
                         ctrl.currentAllGenes = $filter('orderObjectBy')(dataResults, 'genStart');
                         ctrl.initialGene = ctrl.currentAllGenes[0];
+
                     });
                 ctrl.onSelect = function ($item) {
                     $location.path('/organism/' + ctrl.currentTaxid + "/gene/" + $item.entrez.value);

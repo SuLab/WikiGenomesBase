@@ -9,11 +9,9 @@ angular
             var currIndex = 0;
             ctrl.orgList = allChlamOrgs.getAllOrgs();
             recentChlamPubLinks.getRecentChlamPubLinks().then(function (data) {
-                console.log(data);
                 var pubs = data.data.esearchresult.idlist;
                 ctrl.recentPubs = [];
                 angular.forEach(pubs, function (value) {
-                    console.log(value);
                     euroPubData.getEuroPubData(value).then(function (data) {
 
                             if(data.data.resultList.result[0]){

@@ -175,25 +175,37 @@ angular
     .factory('allOrgGenes', function ($http) {
         var endpoint = 'https://query.wikidata.org/sparql?format=json&query=';
         var getAllOrgGenes = function (taxid) {
-            var url = endpoint + encodeURIComponent("SELECT ?refSeqChromosome ?gene ?genStart ?genEnd ?strand ?geneLabel ?entrez ?locusTag ?protein " +
-                    "?proteinLabel ?uniprot ?refseqProt ?aliases" +
-                    " WHERE{ ?taxon wdt:P685 '" + taxid + "'. " +
+            var url = endpoint + encodeURIComponent("SELECT ?gene ?geneLabel ?proteinLabel ?protein ?entrez ?refseqProt " +
+                    "?locusTag ?uniprot ?refSeqChromosome  ?genStart ?genEnd ?strand " +
+                    "(group_concat(?aliases;separator=', ') as ?alias) " +
+                    "WHERE{ ?taxon wdt:P685 '" + taxid + "'. " +
                     "?gene wdt:P703 ?taxon; " +
                     "wdt:P279 wd:Q7187; " +
+                    "wdt:P2393 ?locusTag; " +
+                    "wdt:P351 ?entrez; " +
+                    "wdt:P688 ?protein; " +
                     "wdt:P644 ?genStart; " +
                     "wdt:P645 ?genEnd; " +
                     "wdt:P2548 ?strand; " +
-                    "wdt:P2393 ?locusTag; " +
-                    "wdt:P351 ?entrez; " +
-                    "wdt:P688 ?protein;" +
                     "skos:altLabel ?aliases. " +
                     "?protein wdt:P352 ?uniprot; " +
-                    "wdt:P637 ?refseqProt." +
-                    "OPTIONAL{ ?gene p:P644 ?chr. ?chr pq:P2249 ?refSeqChromosome.} " +
-                    "SERVICE wikibase:label { bd:serviceParam wikibase:language 'en' . } }");
+                    "wdt:P637 ?refseqProt. " +
+                    "OPTIONAL{ " +
+                    "?gene p:P644 ?chr. " +
+                    "?chr pq:P2249 ?refSeqChromosome." +
+                    "} " +
+                    "SERVICE wikibase:label { " +
+                    "bd:serviceParam wikibase:language 'en' ." +
+                    "}" +
+                    "} " +
+                    "GROUP BY ?gene ?geneLabel ?protein ?proteinLabel ?entrez ?refseqProt " +
+                    "?locusTag ?uniprot ?refSeqChromosome  ?genStart ?genEnd ?strand"
+                );
             return $http.get(url)
                 .success(function (response) {
-                    return response.data
+                    console.log(url);
+                    console.log(response);
+                    return response
                 })
                 .error(function (response) {
                     return response
@@ -436,7 +448,7 @@ angular
     .module('resources')
     .factory('recentChlamPubLinks', function ($http) {
         var getRecentChlamPubLinks = function (entrez) {
-            var url = 'https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=pubmed&term=chlamydia&reldate=10&datetype=edat&retmax=100&usehistory=y&retmode=json';
+            var url = 'https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=pubmed&term=chlamydia trachomatis&reldate=10&datetype=edat&retmax=100&usehistory=y&retmode=json';
             return $http.get(url)
                 .success(function (response) {
                     return response
@@ -544,7 +556,7 @@ angular
         var getEntrez2QID = function (entrez) {
             var query = "SELECT distinct ?gene ?protein WHERE{" +
                 "?gene wdt:P351 '{entrez}'; " +
-                      "wdt:P688 ?protein.}";
+                "wdt:P688 ?protein.}";
             var url = endpoint + encodeURIComponent(query.replace('{entrez}', entrez));
             console.log(url);
             return $http.get(url)

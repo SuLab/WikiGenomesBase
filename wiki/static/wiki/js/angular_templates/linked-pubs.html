@@ -1,7 +1,3 @@
-<div ng-show="$ctrl.pubList.length==0">
-            No data
-        </div>
-
 <div ng-show="$ctrl.pubList.length!=0" ng-repeat="pub in $ctrl.pubs">
     <div class="panel" style="margin-top: 10px; border: solid 1px #99c2ff">
         <div class="panel-heading">
@@ -16,5 +12,7 @@
         <br/>
     </div>
 </div>
-
+<div ng-show="$ctrl.pubs.length==0">
+    No Linked Publications
+</div>
 

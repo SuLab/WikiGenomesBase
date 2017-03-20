@@ -54,7 +54,7 @@
     <div uib-accordion-group is-open="$ctrl.accordion.go" ng-class="{'panel-info': true}"
          template-url="group-template.html">
         <uib-accordion-heading>
-            Gene Ontology Annotations ({{$ctrl.molfunc.length + $ctrl.cellcomp.length + $ctrl.bioproc.length}})
+            Gene Ontology Annotations ({{$ctrl.annotations.go.molfunc.length + $ctrl.annotations.go.cellcomp.length + $ctrl.annotations.go.bioproc.length}})
             <i class="pull-right glyphicon"
                ng-class="{'glyphicon-chevron-down': $ctrl.accordion.go, 'glyphicon-chevron-right': !$ctrl.accordion.go}"></i>
         </uib-accordion-heading>

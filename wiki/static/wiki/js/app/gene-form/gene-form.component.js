@@ -12,6 +12,7 @@ angular
                     allOrgGenes.getAllOrgGenes(ctrl.taxid)
                         .then(function (data) {
                             ctrl.currentAllGenes = data.data.results.bindings;
+                            console.log(ctrl.currentAllGenes.length);
                         });
                 }
             };
