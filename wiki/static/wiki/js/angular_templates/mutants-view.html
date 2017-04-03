@@ -27,10 +27,16 @@
 
         <td title="'Reference'">
             <!-- Button trigger modal -->
-            <button type="button" class="btn btn-xs" data-toggle="modal"
-                    data-target="#ref_{{ x.genomic_position_L2}}">
-                Open Ref
-            </button>
+            <!--<button type="button" class="btn btn-xs" data-toggle="modal"-->
+                    <!--data-target="#ref_{{ x.genomic_position_L2}}">-->
+                <!--Open Ref-->
+            <!--</button>-->
+            <div style="padding: 3px">
+                <a data-toggle="modal"
+                   data-target="#ref_{{ x.genomic_position_L2}}">
+                   <img uib-tooltip="Cited Publication" style="height: 14px; margin-top: -3px" data-ng-src="/static/wiki/img/pubmedGlyph.png">
+                </a>
+            </div>
             <!-- Modal -->
             <div class="modal" id="ref_{{ x.genomic_position_L2}}" tabindex="-1" role="dialog"
                  aria-labelledby="refModalTitle"
@@ -44,7 +50,7 @@
                             </button>
                         </div>
                         <div class="modal-body">
-                            <h4>Stated in: {{x.ref_qid}}
+                            <h4>Stated in: {{x.ref_qid}}</h4>
                             <h4>PMID: {{x.ref_pmid}}</h4>
                         </div>
                         <div class="modal-footer">
