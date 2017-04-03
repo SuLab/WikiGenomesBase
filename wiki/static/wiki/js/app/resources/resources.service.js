@@ -203,8 +203,6 @@ angular
                 );
             return $http.get(url)
                 .success(function (response) {
-                    console.log(url);
-                    console.log(response);
                     return response
                 })
                 .error(function (response) {
@@ -558,7 +556,6 @@ angular
                 "?gene wdt:P351 '{entrez}'; " +
                 "wdt:P688 ?protein.}";
             var url = endpoint + encodeURIComponent(query.replace('{entrez}', entrez));
-            console.log(url);
             return $http.get(url)
                 .success(function (response) {
                     return response;

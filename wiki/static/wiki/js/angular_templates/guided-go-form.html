@@ -8,14 +8,12 @@
 <!--<h1>page 3</h1>-->
 <!--</div>-->
 <style>
-    .fadedColor {
-        color: lightgrey;
-    }
 
-    .strongColor {
-        color: #385d94;
-    }
 </style>
+<!--<img data-ng-src="/static/wiki/img/pubmedGlyph.png" ng-show="$ctrl.loading">-->
+<div  ng-show="$ctrl.loading"  class="overlay">
+    <div id="loading-img"></div>
+</div>
 <div style="padding:20px">
     <table style="width:100%">
         <col width="20%"/>
@@ -36,11 +34,13 @@
             <th ng-class="{ 'fadedColor': $ctrl.pageCount < 2, 'strongColor': $ctrl.pageCount >= 2}">Reference</th>
             <th ng-class="{ 'fadedColor': $ctrl.pageCount < 2, 'strongColor': $ctrl.pageCount >= 2 }"
                 class="glyphicon glyphicon-arrow-right"></th>
-
             <th ng-class="{ 'fadedColor': $ctrl.pageCount < 4, 'strongColor': $ctrl.pageCount == 3}">Review</th>
         </tr>
     </table>
+
+
 </div>
+
 <form name='goAnnotationForm' class="form-group" ng-model="$ctrl.goFormModel">
     <div class="well" ng-show="$ctrl.pageCount==0" style="height:150px"><h4>Search for a {{$ctrl.goclass |
         goClass}}</h4>
@@ -119,7 +119,7 @@
     </div>
     <div style="clear:both; width:100%; margin-top: 10px">
         <div class="btn btn-warning" ng-click="$ctrl.resetForm()">Reset</div>
-        <div style="float:right" ng-show="$ctrl.validateFields()" class="btn btn-success"
+        <div style="float:right" ng-show="$ctrl.validateFields() && $ctrl.pageCount==3" class="btn btn-success"
              ng-click="$ctrl.sendData($ctrl.goFormModel)">
             Submit Annotation
         </div>
