@@ -1,7 +1,7 @@
 <form class="ui-widget">
     <input autocomplete="off"
            id="orgForm"
-           placeholder="e.g. trachomatis"
+           placeholder="genome search"
            type="text"
            ng-model="organism.name"
            uib-typeahead="org.taxonLabel for org in $ctrl.orgs | filter:$viewValue | limitTo:200"
