@@ -571,3 +571,35 @@ angular
 
 
     });
+
+angular
+    .module('resources')
+    .factory('locusTag2QID', function ($http, $filter) {
+        var endpoint = 'https://query.wikidata.org/sparql?format=json&query=';
+        var getLocusTag2QID = function (locusTag, taxid) {
+            var query = "SELECT distinct ?gene ?protein WHERE{" +
+                "?strain wdt:P685 '{taxid}'. " +
+                "?gene wdt:P2393 '{locusTag}'; " +
+                "wdt:P703 ?strain; " +
+                "wdt:P688 ?protein.}";
+            var url1 = query.replace('{taxid}', taxid);
+            var url = endpoint + encodeURIComponent(url1.replace('{locusTag}', locusTag));
+            console.log(url);
+            return $http.get(url)
+                .success(function (response) {
+                    console.log(response);
+                    return response;
+
+                })
+                .error(function (response) {
+                    console.log(response);
+                    return response
+                });
+
+        };
+        return {
+            getLocusTag2QID: getLocusTag2QID
+        }
+
+
+    });

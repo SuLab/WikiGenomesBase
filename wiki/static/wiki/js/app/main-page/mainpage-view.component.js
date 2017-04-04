@@ -13,19 +13,21 @@ angular
                               OperonData,
                               expasyData,
                               mutantData,
-                              locusTag2Pub) {
+                              locusTag2Pub,
+                              locusTag2QID) {
             //Main gene page component.
             var ctrl = this;
             ctrl.$onInit = function () {
                 ctrl.currentTaxid = $routeParams.taxid;
-                ctrl.currentEntrez = $routeParams.entrez;
+                ctrl.currentLocusTag = $routeParams.locusTag;
                 ctrl.currentGene = {};
                 ctrl.annotations = {};
-                entrez2QID.getEntrez2QID(ctrl.currentEntrez).then(function (data) {
+                locusTag2QID.getLocusTag2QID(ctrl.currentLocusTag, ctrl.currentTaxid).then(function (data) {
+                    console.log(data);
                     ctrl.currentGene.geneQID = $filter('parseQID')(data.data.results.bindings[0].gene.value);
                     wdGetEntities.wdGetEntities(ctrl.currentGene.geneQID).then(function (data) {
                         var entity = data.entities[ctrl.currentGene.geneQID];
-                        ctrl.currentGene.entrez = ctrl.currentEntrez;
+                        ctrl.currentGene.entrez = entity.claims.P351[0].mainsnak.datavalue.value;
                         ctrl.currentGene.geneLabel = entity.labels.en.value;
                         ctrl.currentGene.locusTag = entity.claims.P2393[0].mainsnak.datavalue.value;
                         ctrl.currentGene.geneDescription = entity.descriptions.en.value;
@@ -56,6 +58,9 @@ angular
                             function (data) {
                                 var dataResults = data.data.results.bindings;
                                 if (dataResults.length > 0) {
+                                    console.log(dataResults);
+                                    ctrl.annotations.currentOperon = dataResults[0].operonItemLabel.value;
+                                    console.log(ctrl.annotations.currentOperon);
                                     ctrl.opData = dataResults;
                                     ctrl.annotations.operons = dataResults;
                                 } else {

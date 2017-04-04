@@ -1,17 +1,14 @@
+<div style="border-bottom: solid darkgrey 2px; padding-bottom: 5px"><h5><strong>Name: </strong></h5>{{$ctrl.operon}}</div>
 <table ng-table="$ctrl.tableParams" class="table table-hover">
-    <col width="12%"/>
     <col width="35%"/>
-    <col width="7%"/>
-    <col width="7%"/>
+    <col width="11%"/>
+    <col width="11%"/>
     <col width="8%"/>
     <col width="8%"/>
     <col width="8%"/>
     <col width="10%"/>
     <col width="5%"/>
     <tr ng-show="$ctrl.data.length!=0" ng-repeat="x in $ctrl.data">
-        <td title="'Operon'">
-            {{x.operonItemLabel.value }}
-        </td>
         <td title="'Regulated Genes'">
             {{x.op_genesLabel.value }}
         </td>
@@ -36,10 +33,12 @@
 
         <td title="'Reference'">
             <!-- Button trigger modal -->
-            <button type="button" class="btn btn-xs" data-toggle="modal"
-                    data-target="#{{ x.locusTag.value}}">
-                Open Ref
-            </button>
+            <div style="padding: 3px">
+                <a data-toggle="modal"
+                   data-target="#{{ x.locusTag.value}}">
+                   <img uib-tooltip="Cited Publication" style="height: 14px; margin-top: -3px" data-ng-src="/static/wiki/img/pubmedGlyph.png">
+                </a>
+            </div>
             <!-- Modal -->
             <div class="modal" id="{{x.locusTag.value}}" tabindex="-1" role="dialog"
                  aria-labelledby="refModalTitle"

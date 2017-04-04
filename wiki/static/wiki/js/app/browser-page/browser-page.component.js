@@ -26,7 +26,7 @@ angular
 
                     });
                 ctrl.onSelect = function ($item) {
-                    $location.path('/organism/' + ctrl.currentTaxid + "/gene/" + $item.entrez.value);
+                    $location.path('/organism/' + ctrl.currentTaxid + "/gene/" + $item.locusTag.value);
                 };
             };
         },

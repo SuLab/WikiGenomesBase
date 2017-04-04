@@ -8,7 +8,7 @@ angular
         controller: function ($location) {
             var ctrl = this;
             ctrl.onSelect = function ($item) {
-                    $location.path('/organism/' + $item.taxid.value + "/gene/" + $item.entrez.value);
+                    $location.path('/organism/' + $item.taxid.value + "/gene/" + $item.locusTag.value);
                 };
             ctrl.longTitle = function($item){
                 if($item.length > 80){

@@ -18,10 +18,10 @@ angular.module('cmod')
             when("/keyword/:keyword", {
                 template: '<genes-keyword></genes-keyword>'
             }).
-            when("/organism/:taxid/gene/:entrez", {
+            when("/organism/:taxid/gene/:locusTag", {
                 template: '<main-page></main-page>'
             }).
-            when("/organism/:taxid/gene/:entrez/authorized", {
+            when("/organism/:taxid/gene/:locusTag/authorized", {
                 template: '<main-page></main-page>'
             }).
             otherwise({

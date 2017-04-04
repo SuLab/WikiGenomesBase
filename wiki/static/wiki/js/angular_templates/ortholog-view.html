@@ -6,13 +6,13 @@
     <col width="10%"/>
     <tr ng-repeat="(key, value) in $ctrl.data">
         <td title="'Strain'">
-            {{key | taxid2Name}}
+            <a href="/organism/{{key}}">{{key | taxid2Name}}</a>
         </td>
         <td title="'Taxid'">
-            {{key}}
+            <a href="/organism/{{key}}">{{key}}</a>
         </td>
         <td title="'Current Locus Tag'">
-            {{value.current }}
+            <a href="/organism/{{key}}/gene/{{value.current}}">{{value.current }}</a>
         </td>
         <td title="'Deprecated Locus Tag'">
             {{value.depricated }}

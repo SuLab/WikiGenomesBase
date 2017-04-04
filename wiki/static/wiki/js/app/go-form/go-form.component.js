@@ -1,12 +1,17 @@
 angular
     .module('goForm')
     .component('goForm', {
-        controller: function ($filter, $location, evidenceCodes, goFormData, pubMedData, allGoTerms, entrez2QID) {
+        controller: function ($routeParams, $filter, $location, evidenceCodes, goFormData, pubMedData, allGoTerms, locusTag2QID) {
             var ctrl = this;
             ctrl.$onInit = function () {
-                ctrl.currentTaxid = $location.path().split("/")[2];
-                ctrl.currentEntrez = $location.path().split("/")[4];
-                entrez2QID.getEntrez2QID(ctrl.currentEntrez).then(function (data) {
+
+                //ctrl.currentTaxid = $location.path().split("/")[2];
+                ctrl.currentTaxid = $routeParams.taxid;
+                //ctrl.currentEntrez = $location.path().split("/")[4];
+                ctrl.currentLocusTag = $routeParams.locusTag;
+                console.log(ctrl.currentLocusTag);
+                locusTag2QID.getLocusTag2QID(ctrl.currentLocusTag, ctrl.currentTaxid).then(function (data) {
+                    console.log(data);
                     ctrl.geneQID = $filter('parseQID')(data.data.results.bindings[0].gene.value);
                     ctrl.proteinQID = $filter('parseQID')(data.data.results.bindings[0].protein.value);
                     console.log(ctrl.proteinQID);
