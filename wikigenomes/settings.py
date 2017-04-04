@@ -128,3 +128,5 @@ STATIC_URL = '/static/'
 # CELERY_RESULT_BACKEND = 'djcelery.backends.database:DatabaseBackend'
 CELERY_TIMEZONE = 'America/Los_Angeles'
 BROKER_URL = "amqp://guest:guest@localhost:5672//"
+
+
