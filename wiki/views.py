@@ -10,6 +10,7 @@ from wikidataintegrator import wdi_core, wdi_login
 from time import strftime, gmtime
 import requests
 
+
 def index(request):
     # launch landing page
     context = {'data': 'None'}
@@ -24,36 +25,53 @@ def go_form(request):
         body = json.loads(body_unicode)
         responseData = {}
         login = wdi_login.WDLogin(user=credentials_secret.user, pwd=credentials_secret.pwd)
+        goclass = body['goClass']
         goProp = {
                 "Q14860489": "P680",
                 "Q5058355": "P681",
                 "Q2996394": "P682"
             }
-        pprint(body)
         eutilsPMID = body['pub']['uid']
         refs = []
+        #contstruct the references using WDI_core and PMID_tools if necessary
         try:
-            refs.append(wdi_core.WDItemID(value='Q26489220', prop_nr='P1640', is_reference=True))
-            refs.append(wdi_core.WDTime(str(strftime("+%Y-%m-%dT00:00:00Z", gmtime())), prop_nr='P813', is_reference=True))
-            PMID_QID = WDO(prop='P698', string=eutilsPMID).wd_prop2qid()
-            if PMID_QID != 'None':
-                ifPub = WDO(prop='P31', qid=PMID_QID)
-                if ifPub == 'Q13442814':
-                    refs.append(wdi_core.WDItemID(value=PMID_QID, prop_nr='P248', is_reference=True))
-            else:
-                # use Greg's PMID Tool to create a pubmed citation in wikidata for this pmid
-                pmid_url = 'https://tools.wmflabs.org/pmidtool/get_or_create/{}'.format(eutilsPMID)
-                pmid_result =requests.get(url=pmid_url)
-                if pmid_result.json()['success'] == True:
-                    refs.append(wdi_core.WDItemID(value=pmid_result.json()['result'], prop_nr='P248', is_reference=True))
+            refs.append([wdi_core.WDItemID(value='Q26489220', prop_nr='P1640', is_reference=True)])
+            refs.append([wdi_core.WDTime(str(strftime("+%Y-%m-%dT00:00:00Z", gmtime())), prop_nr='P813', is_reference=True)])
+            pmid_url = 'https://tools.wmflabs.org/pmidtool/get_or_create/{}'.format(eutilsPMID)
+            pmid_result = requests.get(url=pmid_url)
+            if pmid_result.json()['success'] == True:
+                refs.append([wdi_core.WDItemID(value=pmid_result.json()['result'], prop_nr='P248', is_reference=True)])
+            pprint(pmid_result.json())
             responseData['ref_success'] = True
         except Exception as e:
             responseData['ref_success'] = False
             print("reference construction error: " + str(e))
 
+        statements = []
+        #contstruct the statements using WDI_core
+        try:
+            eviCodeQID = body['evi']['evidence_code'].split("/")[-1]
+            goQID = body['go']['goterm']['value'].split("/")[-1]
+            evidence = wdi_core.WDItemID(value=eviCodeQID, prop_nr='P459', is_qualifier=True)
+            statements.append(wdi_core.WDItemID(value=goQID, prop_nr=goProp[goclass], references=refs, qualifiers=[evidence]))
+            responseData['statement_success'] = True
+        except Exception as e:
+            responseData['statement_success'] = False
+            print(e)
 
+        #write the statement to WD using WDI_core
+        try:
+            # find the appropriate item in wd
+            wd_item_protein = wdi_core.WDItemEngine(wd_item_id=body['proteinQID'], domain=None,
+                                                    data=statements, use_sparql=True,
+                                                    append_value=[goProp[goclass]])
+            wd_item_protein.write(login=login)
+            responseData['write_success'] = True
 
-
+        except Exception as e:
+            responseData['write_success'] = False
+            print(e)
+        pprint(responseData)
         return JsonResponse(responseData)
 
 

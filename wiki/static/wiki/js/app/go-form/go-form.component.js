@@ -8,7 +8,8 @@ angular
                 ctrl.currentEntrez = $location.path().split("/")[4];
                 entrez2QID.getEntrez2QID(ctrl.currentEntrez).then(function (data) {
                     ctrl.geneQID = $filter('parseQID')(data.data.results.bindings[0].gene.value);
-                    ctrl.proteinQID = $filter('parseQID')(data.data.results.bindings[0].gene.value);
+                    ctrl.proteinQID = $filter('parseQID')(data.data.results.bindings[0].protein.value);
+                    console.log(ctrl.proteinQID);
 
                     var goClassMap = {
                         'mf_button': {
@@ -29,7 +30,7 @@ angular
                         evi: null,
                         pub: null,
                         go: null,
-                        proteinQID: ctrl.geneQID,
+                        proteinQID: ctrl.proteinQID,
                         goClass: goClassMap[ctrl.goclass].QID
                     };
 
@@ -81,7 +82,7 @@ angular
                         ctrl.loading = true;
                         goFormData.getgoFormData('/wd_go_edit', formData).then(function (data) {
                             console.log(data.data);
-                            if(data.data.ref_success === true){
+                            if(data.data.write_success === true){
                                 alert("Successfully Annotated! Well Done! The annotation will appear here in a few minutes.")
                                 ctrl.resetForm();
                             }
