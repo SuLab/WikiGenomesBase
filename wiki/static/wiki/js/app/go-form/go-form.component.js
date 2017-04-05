@@ -88,7 +88,7 @@ angular
                         goFormData.getgoFormData('/wd_go_edit', formData).then(function (data) {
                             console.log(data.data);
                             if(data.data.write_success === true){
-                                alert("Successfully Annotated! Well Done! The annotation will appear here in a few minutes.")
+                                alert("Successfully Annotated! Well Done! The annotation will appear here in a few minutes.");
                                 ctrl.resetForm();
                             }
                             else{
