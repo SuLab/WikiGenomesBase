@@ -1,20 +1,16 @@
 angular
     .module('goForm')
     .component('goForm', {
-        controller: function ($routeParams, $filter, $location, evidenceCodes, goFormData, pubMedData, allGoTerms, locusTag2QID) {
+        controller: function ($routeParams, $filter, $location, evidenceCodes, sendFormData, pubMedData, allGoTerms, locusTag2QID) {
             var ctrl = this;
             ctrl.$onInit = function () {
-
-                //ctrl.currentTaxid = $location.path().split("/")[2];
                 ctrl.currentTaxid = $routeParams.taxid;
-                //ctrl.currentEntrez = $location.path().split("/")[4];
                 ctrl.currentLocusTag = $routeParams.locusTag;
-                console.log(ctrl.currentLocusTag);
+
                 locusTag2QID.getLocusTag2QID(ctrl.currentLocusTag, ctrl.currentTaxid).then(function (data) {
-                    console.log(data);
+
                     ctrl.geneQID = $filter('parseQID')(data.data.results.bindings[0].gene.value);
                     ctrl.proteinQID = $filter('parseQID')(data.data.results.bindings[0].protein.value);
-                    console.log(ctrl.proteinQID);
 
                     var goClassMap = {
                         'mf_button': {
@@ -85,8 +81,7 @@ angular
                     //send form data to server to edit wikidata
                     ctrl.sendData = function (formData) {
                         ctrl.loading = true;
-                        goFormData.getgoFormData('/wd_go_edit', formData).then(function (data) {
-                            console.log(data.data);
+                        sendFormData.exexcuteSendFormData('/wd_go_edit', formData).then(function (data) {
                             if(data.data.write_success === true){
                                 alert("Successfully Annotated! Well Done! The annotation will appear here in a few minutes.");
                                 ctrl.resetForm();

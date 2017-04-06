@@ -23,7 +23,6 @@ angular
                 ctrl.currentGene = {};
                 ctrl.annotations = {};
                 locusTag2QID.getLocusTag2QID(ctrl.currentLocusTag, ctrl.currentTaxid).then(function (data) {
-                    console.log(data);
                     if (data.data.results.bindings.length > 0) {
 
 

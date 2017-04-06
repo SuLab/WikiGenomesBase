@@ -76,6 +76,13 @@ def go_form(request):
 
 
 @ensure_csrf_cookie
+def operon_form(request):
+    if request.method == 'POST':
+        body_unicode = request.body.decode('utf-8')
+        body = json.loads(body_unicode)
+        return JsonResponse({"hello": "operonData"})
+
+@ensure_csrf_cookie
 def wd_oauth(request):
     if request.method == 'POST':
         body_unicode = request.body.decode('utf-8')

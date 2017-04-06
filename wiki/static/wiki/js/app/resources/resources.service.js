@@ -90,9 +90,9 @@ angular
 
 angular
     .module('resources')
-    .factory('goFormData', function ($http) {
+    .factory('sendFormData', function ($http) {
         var endpoint = window.location.pathname;
-        var getgoFormData = function (url_suffix, data) {
+        var exexcuteSendFormData = function (url_suffix, data) {
             var url = endpoint + url_suffix;
             var csrfToken = getCookie('csrftoken');
             var config = {
@@ -109,7 +109,7 @@ angular
                 });
         };
         return {
-            getgoFormData: getgoFormData
+            exexcuteSendFormData: exexcuteSendFormData
         }
 
 
@@ -213,6 +213,36 @@ angular
             getAllOrgGenes: getAllOrgGenes
         }
     });
+
+angular
+    .module('resources')
+    .factory('allOrgOperons', function ($http) {
+        var endpoint = 'https://query.wikidata.org/sparql?format=json&query=';
+        var getAllOrgOperons = function (taxid) {
+            var url = endpoint + encodeURIComponent(
+                    "SELECT ?operon ?operonLabel " +
+                    "WHERE{ ?taxon wdt:P685 '" + taxid + "'. " +
+                    "?operon wdt:P703 ?taxon; " +
+                    "wdt:P279 wd:Q139677. " +
+                    "SERVICE wikibase:label { " +
+                    "bd:serviceParam wikibase:language 'en' ." +
+                    "}" +
+                    "} "
+                );
+            return $http.get(url)
+                .success(function (response) {
+                    return response
+                })
+                .error(function (response) {
+                    return response
+                })
+        };
+        return {
+            getAllOrgOperons: getAllOrgOperons
+        }
+    });
+
+
 
 
 //annotations data
@@ -584,15 +614,15 @@ angular
                 "wdt:P688 ?protein.}";
             var url1 = query.replace('{taxid}', taxid);
             var url = endpoint + encodeURIComponent(url1.replace('{locusTag}', locusTag));
-            console.log(url);
+
             return $http.get(url)
                 .success(function (response) {
-                    console.log(response);
+
                     return response;
 
                 })
                 .error(function (response) {
-                    console.log(response);
+
                     return response
                 });
 
