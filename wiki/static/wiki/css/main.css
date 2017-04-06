@@ -127,7 +127,7 @@ a:hover {
     color: #385d94;
 }
 
-#loading-img {
+.loading-img {
     /*background: url(http://preloaders.net/preloaders/360/Velocity.gif) center center no-repeat;*/
     background: url("../../../../static/wiki/img/gears.gif") center center no-repeat;
     height: 100%;

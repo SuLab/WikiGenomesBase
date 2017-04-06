@@ -50,13 +50,28 @@ angular
                         ctrl.evidence = data;
                     });
 
+                    ctrl.selectGoTerm = function ($item, $model, $label) {
+                        ctrl.goFormModel.go = $item;
+                        ctrl.goValue = ''
+                    };
+
+                    ctrl.selectPub = function ($item, $model, $label) {
+                        ctrl.goFormModel.pub = $item;
+                        ctrl.pubValue = ''
+                    };
+
+
                     ctrl.getGoTermsAll = function (val) {
+                        ctrl.goTermLoading = true;
                         return allGoTerms.getGoTermsAll(val, goClassMap[ctrl.goclass].QID).then(
                             function (data) {
                                 return data.data.results.bindings.map(function (item) {
                                     return item;
                                 });
-                            });
+                            }).finally(function(){
+                                ctrl.goTermLoading = false;
+                            }
+                        );
                     };
                     ctrl.getPMID = function (val) {
                         return pubMedData.getPMID(val).then(

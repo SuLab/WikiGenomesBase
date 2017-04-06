@@ -80,7 +80,7 @@ def operon_form(request):
     if request.method == 'POST':
         body_unicode = request.body.decode('utf-8')
         body = json.loads(body_unicode)
-        return JsonResponse({"hello": "operonData"})
+        return JsonResponse({"write_success": True})
 
 @ensure_csrf_cookie
 def wd_oauth(request):
