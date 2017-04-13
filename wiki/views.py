@@ -6,9 +6,11 @@ import json
 from mwoauth import ConsumerToken, Handshaker
 from wikigenomes import oauth_config, credentials_secret
 from pprint import pprint
-from wikidataintegrator import wdi_core, wdi_login
+
+from scripts.WikidataIntegrator.wikidataintegrator import wdi_login, wdi_core
 from time import strftime, gmtime
 import requests
+import webbrowser
 
 
 def index(request):
@@ -20,7 +22,6 @@ def index(request):
 @ensure_csrf_cookie
 def go_form(request):
     if request.method == 'POST':
-
         body_unicode = request.body.decode('utf-8')
         body = json.loads(body_unicode)
         responseData = {}
@@ -82,21 +83,20 @@ def operon_form(request):
         body = json.loads(body_unicode)
         return JsonResponse({"write_success": True})
 
+
 @ensure_csrf_cookie
 def wd_oauth(request):
     if request.method == 'POST':
         body_unicode = request.body.decode('utf-8')
         body = json.loads(body_unicode)
-        consumer_token = ConsumerToken(oauth_config.consumer_key, oauth_config.consumer_secret)
-        mw_uri = "https://www.mediawiki.org/w/index.php"
-        callbackURI = "http://54.166.140.4" + body['current_path'] + '/authorized'
-        handshaker = Handshaker(mw_uri=mw_uri, consumer_token=consumer_token, callback=callbackURI)
-        mw_redirect, request_token = handshaker.initiate(callback=callbackURI)
+        callbackURI = "http://chlambase.org" + body['current_path'] + '/authorized/'
+        authentication = wdi_login.WDLogin(consumer_key=oauth_config.consumer_key,
+                                           consumer_secret=oauth_config.consumer_secret,
+                                           callback_url=callbackURI)
         response_data = {
-            'wikimediaURL': mw_redirect
+            'wikimediaURL': authentication.redirect
         }
         return JsonResponse(response_data)
-
 
 @ensure_csrf_cookie
 def oauth_response(request):
