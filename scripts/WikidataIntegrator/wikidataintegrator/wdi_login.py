@@ -204,11 +204,3 @@ class WDLogin(object):
         self.generate_edit_credentials()
 
 
-        modified:   scripts/__pycache__/WD_Utils.cpython-35.pyc
-        modified:   scripts/__pycache__/__init__.cpython-35.pyc
-        modified:   wiki/__pycache__/urls.cpython-35.pyc
-        modified:   wiki/__pycache__/views.cpython-35.pyc
-        modified:   wikigenomes/__pycache__/__init__.cpython-35.pyc
-        modified:   wikigenomes/__pycache__/celery.cpython-35.pyc
-        modified:   wikigenomes/__pycache__/oauth_config.cpython-35.pyc
-        modified:   wikigenomes/__pycache__/settings.cpython-35.pyc
