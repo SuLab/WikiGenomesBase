@@ -120,6 +120,7 @@ angular
     .module('resources')
     .factory('oauthSubmission', function ($http) {
         var submitOauth = function (url_suffix, data) {
+            console.log('resourec submit');
             var url = url_suffix;
             var csrfToken = getCookie('csrftoken');
             var config = {
