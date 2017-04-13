@@ -13,6 +13,7 @@ angular
             }
 
             ctrl.oauthAuthorization = function () {
+                console.log($location.path());
                 oauthSubmission.submitOauth(
                     '/wd_oauth',
                     {
@@ -20,7 +21,6 @@ angular
                         'current_path': $location.path()
                     })
                     .then(function (data) {
-                        console.log(data);
                         $window.location.href = data.data.wikimediaURL;
                     });
             };
