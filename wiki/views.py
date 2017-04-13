@@ -98,6 +98,7 @@ def wd_oauth(request):
         }
         return JsonResponse(response_data)
 
+
 @ensure_csrf_cookie
 def oauth_response(request):
     context = {'data': 'None'}
