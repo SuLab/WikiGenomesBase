@@ -21,7 +21,7 @@ angular.module('cmod')
             when("/organism/:taxid/gene/:locusTag", {
                 template: '<main-page></main-page>'
             }).
-            when("/organism/:taxid/gene/:locusTag/authorized", {
+            when("/organism/:taxid/gene/:locusTag/authorized/", {
                 template: '<main-page></main-page>'
             }).
             otherwise({
