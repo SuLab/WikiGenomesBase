@@ -142,6 +142,32 @@ angular
 
     });
 
+angular
+    .module('resources')
+    .factory('sendToView', function ($http) {
+        var sendToView = function (url_suffix, data) {
+            var url = url_suffix;
+            var csrfToken = getCookie('csrftoken');
+            var config = {
+                headers: {
+                    'X-CSRFToken': csrfToken
+                }
+            };
+            return $http.post(url, data, config)
+                .success(function (data, status, headers, config) {
+                    return data
+                })
+                .error(function (data, status, header, config) {
+                    return status
+                });
+        };
+        return {
+            sendToView: sendToView
+        }
+
+    });
+
+
 
 //currently loaded organism
 angular

@@ -20,6 +20,7 @@ angular
             ctrl.$onInit = function () {
                 ctrl.currentTaxid = $routeParams.taxid;
                 ctrl.currentLocusTag = $routeParams.locusTag;
+                console.log($routeParams);
                 ctrl.currentGene = {};
                 ctrl.annotations = {};
                 locusTag2QID.getLocusTag2QID(ctrl.currentLocusTag, ctrl.currentTaxid).then(function (data) {

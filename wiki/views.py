@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.core import serializers
 from django.http import HttpResponse, JsonResponse
 from django.views.decorators.csrf import ensure_csrf_cookie
 from scripts.WD_Utils import WDSparqlQueries as WDO
@@ -11,6 +12,8 @@ from scripts.WikidataIntegrator.wikidataintegrator import wdi_login, wdi_core
 from time import strftime, gmtime
 import requests
 import webbrowser
+from pprint import pprint
+import jsonpickle
 
 
 def index(request):
@@ -25,7 +28,8 @@ def go_form(request):
         body_unicode = request.body.decode('utf-8')
         body = json.loads(body_unicode)
         responseData = {}
-        login = wdi_login.WDLogin(user=credentials_secret.user, pwd=credentials_secret.pwd)
+        login = jsonpickle.decode(request.session['login'])
+        pprint(login)
         goclass = body['goClass']
         goProp = {
                 "Q14860489": "P680",
@@ -34,6 +38,7 @@ def go_form(request):
             }
         eutilsPMID = body['pub']['uid']
         refs = []
+
         #contstruct the references using WDI_core and PMID_tools if necessary
         try:
             refs.append([wdi_core.WDItemID(value='Q26489220', prop_nr='P1640', is_reference=True)])
@@ -89,20 +94,31 @@ def wd_oauth(request):
     if request.method == 'POST':
         body_unicode = request.body.decode('utf-8')
         body = json.loads(body_unicode)
-        callbackURI = "http://chlambase.org" + body['current_path'] + '/authorized/'
-        authentication = wdi_login.WDLogin(consumer_key=oauth_config.consumer_key,
-                                           consumer_secret=oauth_config.consumer_secret,
-                                           callback_url=callbackURI)
-        response_data = {
-            'wikimediaURL': authentication.redirect
-        }
-        return JsonResponse(response_data)
+        pprint(body)
+        if 'initiate' in body.keys():
+            print(body)
+            callbackURI = "http://chlambase.org" + body['current_path'] + '/authorized/'
+            authentication = wdi_login.WDLogin(consumer_key=oauth_config.consumer_key,
+                                               consumer_secret=oauth_config.consumer_secret,
+                                               callback_url=callbackURI)
+            request.session['authOBJ'] = jsonpickle.encode(authentication)
+            response_data = {
+                'wikimediaURL': authentication.redirect
+            }
+            return JsonResponse(response_data)
+        if 'url' in body.keys():
+            authentication = jsonpickle.decode(request.session['authOBJ'])
+            authentication.continue_oauth(oauth_callback_data=body['url'])
+            request.session['login'] = jsonpickle.encode(authentication)
+            return JsonResponse(body)
+        if 'deauthenticate' in body.keys():
+            request.session['authentication'] = None
+            request.session['login'] = None
+            return JsonResponse({'deauthenicate': True})
 
 
-@ensure_csrf_cookie
-def oauth_response(request):
-    context = {'data': 'None'}
-    return render(request, "wiki/index.html", context=context)
+
+
 
 
 
