@@ -12,8 +12,8 @@ angular
                     {'url': $location.url()}
                 )
                     .then(
-                    function(data){
-                     console.log(data);
+                    function (data) {
+                        console.log(data);
                     });
 
 
@@ -46,13 +46,11 @@ angular
                         'deauthenticate': true
                     })
                     .then(function (data) {
-                        $window.location.href = data.data.wikimediaURL;
+                        var org = '/organism/{taxid}'.replace('{taxid}', $routeParams.taxid);
+                        var locusTag = '/gene/{locusTag}/'.replace('{locusTag}', $routeParams.locusTag);
+                        $location.url(org + locusTag);
                     });
-                var org = '/organism/{taxid}'.replace('{taxid}', $routeParams.taxid);
-                console.log(org);
-                var locusTag = '/gene/{locusTag}/'.replace('{locusTag}', $routeParams.locusTag);
-                console.log(locusTag);
-                $location.url(org + locusTag);
+
             };
 
 
