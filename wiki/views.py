@@ -2,19 +2,14 @@ from django.shortcuts import render
 from django.core import serializers
 from django.http import HttpResponse, JsonResponse
 from django.views.decorators.csrf import ensure_csrf_cookie
-from scripts.WD_Utils import WDSparqlQueries as WDO
 import json
-from mwoauth import ConsumerToken, Handshaker
-from wikigenomes import oauth_config, credentials_secret
+from wikigenomes import oauth_config
 from pprint import pprint
-
 from scripts.WikidataIntegrator.wikidataintegrator import wdi_login, wdi_core
 from time import strftime, gmtime
 import requests
-import webbrowser
 from pprint import pprint
 import jsonpickle
-
 
 def index(request):
     # launch landing page
