@@ -1,5 +1,0 @@
-simplejson
-requests
-python-dateutil
-mwoauth
-requests_oauthlib

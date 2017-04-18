@@ -1,4 +1,0 @@
-import wikidataintegrator.wdi_core
-import wikidataintegrator.wdi_fastrun
-import wikidataintegrator.wdi_helpers
-import wikidataintegrator.wdi_login
