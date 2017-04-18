@@ -5,7 +5,7 @@ from django.views.decorators.csrf import ensure_csrf_cookie
 import json
 from wikigenomes import oauth_config
 from pprint import pprint
-from scripts.WikidataIntegrator.wikidataintegrator import wdi_login, wdi_core
+from wikidataintegrator import wdi_login, wdi_core
 from time import strftime, gmtime
 import requests
 from pprint import pprint
