@@ -4,7 +4,8 @@ angular
         templateUrl: '/static/wiki/js/angular_templates/annotations-view.html',
         bindings: {
             data: '<',
-            annotations: '<'
+            annotations: '<',
+            org: '<'
         },
         controller: function () {
             var ctrl = this;

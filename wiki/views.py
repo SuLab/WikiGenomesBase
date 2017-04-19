@@ -1,5 +1,4 @@
 from django.shortcuts import render
-from django.core import serializers
 from django.http import HttpResponse, JsonResponse
 from django.views.decorators.csrf import ensure_csrf_cookie
 import json
@@ -34,7 +33,7 @@ def go_form(request):
         eutilsPMID = body['pub']['uid']
         refs = []
 
-        #contstruct the references using WDI_core and PMID_tools if necessary
+        # contstruct the references using WDI_core and PMID_tools if necessary
         try:
             refs.append([wdi_core.WDItemID(value='Q26489220', prop_nr='P1640', is_reference=True)])
             refs.append([wdi_core.WDTime(str(strftime("+%Y-%m-%dT00:00:00Z", gmtime())), prop_nr='P813', is_reference=True)])
@@ -60,7 +59,7 @@ def go_form(request):
             responseData['statement_success'] = False
             print(e)
 
-        #write the statement to WD using WDI_core
+        # write the statement to WD using WDI_core
         try:
             # find the appropriate item in wd
             wd_item_protein = wdi_core.WDItemEngine(wd_item_id=body['proteinQID'], domain=None,
@@ -79,9 +78,81 @@ def go_form(request):
 @ensure_csrf_cookie
 def operon_form(request):
     if request.method == 'POST':
+        print('operon form initiated')
         body_unicode = request.body.decode('utf-8')
         body = json.loads(body_unicode)
-        return JsonResponse({"write_success": True})
+        pprint(body)
+        responseData = {}
+
+        login = jsonpickle.decode(request.session['login'])
+
+        eutilsPMID = body['pub']['uid']
+        refs = []
+        pprint(body)
+
+        # statements for operon item
+        operon_statements = []
+
+        # contstruct the references using WDI_core and PMID_tools if necessary
+        try:
+            refs.append(wdi_core.WDItemID(value='Q26489220', prop_nr='P1640', is_reference=True))
+            refs.append(wdi_core.WDTime(str(strftime("+%Y-%m-%dT00:00:00Z", gmtime())), prop_nr='P813', is_reference=True))
+            pmid_url = 'https://tools.wmflabs.org/pmidtool/get_or_create/{}'.format(eutilsPMID)
+            pmid_result = requests.get(url=pmid_url)
+            if pmid_result.json()['success'] == True:
+                refs.append(wdi_core.WDItemID(value=pmid_result.json()['result'], prop_nr='P248', is_reference=True))
+            else:
+                return JsonResponse({'pmid': False})
+            pprint(pmid_result.json())
+            responseData['ref_success'] = True
+        except Exception as e:
+            responseData['ref_success'] = False
+            print("reference construction error: " + str(e))
+
+        # create new operon item statements
+        try:
+            operon_statements.append(wdi_core.WDItemID(prop_nr='P279', value='Q139677', references=[refs]))
+            for gene in body['genes']:
+                qid = gene['gene'].split('/')[-1]
+                operon_statements.append(wdi_core.WDItemID(prop_nr='P527', value=qid, references=[refs]))
+
+            responseData['operon_success'] = True
+        except Exception as e:
+            pprint(e)
+            responseData['operon_success'] = False
+        pprint(responseData)
+
+        # write the operon Item
+        operon_qid = None
+        try:
+            pprint(body['operon']['operonLabel'])
+            pprint(operon_statements)
+            wd_item_operon = wdi_core.WDItemEngine(item_name=body['operon']['operonLabel']['value'], domain='genes', data=operon_statements, use_sparql=True, append_value=['P527'])
+            pprint(vars(wd_item_operon))
+            wd_item_operon.set_label(body['operon']['operonLabel']['value'])
+            wd_item_operon.set_description("Microbial operon found in " + body['organism']['taxonLabel'])
+            pprint(wd_item_operon.get_wd_json_representation())
+            wd_item_operon.write(login=login)
+            operon_qid = wd_item_operon.wd_item_id
+            responseData['operonWrite_success'] = True
+        except Exception as e:
+            print(e)
+            responseData['operonWrite_success'] = False
+
+        gene_statement = [wdi_core.WDItemID(prop_nr='P361', value=operon_qid, references=[refs])]
+
+        for gene in body['genes']:
+            try:
+                qid = gene['gene'].split('/')[-1]
+                wd_gene_item = wdi_core.WDItemEngine(wd_item_id=qid, data=gene_statement, use_sparql=True)
+                wd_gene_item.write(login=login)
+                responseData['gene_write_success'] = True
+            except Exception as e:
+                pprint(e)
+                responseData['gene_write_success'] = False
+
+        pprint(responseData)
+        return JsonResponse(responseData)
 
 
 @ensure_csrf_cookie

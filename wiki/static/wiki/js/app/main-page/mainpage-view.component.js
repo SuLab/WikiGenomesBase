@@ -25,8 +25,6 @@ angular
                 ctrl.annotations = {};
                 locusTag2QID.getLocusTag2QID(ctrl.currentLocusTag, ctrl.currentTaxid).then(function (data) {
                     if (data.data.results.bindings.length > 0) {
-
-
                         ctrl.currentGene.geneQID = $filter('parseQID')(data.data.results.bindings[0].gene.value);
                         wdGetEntities.wdGetEntities(ctrl.currentGene.geneQID).then(function (data) {
                             var entity = data.entities[ctrl.currentGene.geneQID];
@@ -160,6 +158,7 @@ angular
                         allChlamOrgs.getAllOrgs(function (data) {
                             ctrl.orgList = data;
                             ctrl.currentOrg = $filter('getJsonItemOrg')('taxid', ctrl.currentTaxid, ctrl.orgList);
+                            console.log(ctrl.currentOrg);
                             if (ctrl.currentOrg == undefined) {
                                 alert("not a valid taxonomy id");
                                 $location.path('/');

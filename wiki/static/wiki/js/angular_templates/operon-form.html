@@ -30,7 +30,7 @@
 </div>
 <form name='opAnnotationForm' class="form-group" ng-model="$ctrl.opFormModel">
 
-    <div class="well" ng-show="$ctrl.pageCount==0" style="min-height:225px">
+    <div class="well" ng-show="$ctrl.pageCount==0" style="min-height:160px">
         <h4>Create a new operon</h4>
         <div class="input-group">
             <input ng-model="$ctrl.opNewName" type="text" class="form-control ui-widget" id="operonName"
@@ -39,23 +39,23 @@
         <div ng-click="$ctrl.nameOperon($ctrl.opNewName)" class="btn btn-default">Go!</div>
       </span>
         </div>
-        <h4>Search for an existing operon</h4>
-        <input id="opInput"
-               type="text"
-               ng-model="$ctrl.operonValue"
-               placeholder="operon"
-               uib-typeahead="op as op.operonLabel.value for op in $ctrl.allOrgOperons | filter:$viewValue | limitTo:200""
-        typeahead-loading="loadingOperons"
-        typeahead-no-results="noResults"
-        class="form-control"
-        typeahead-wait-ms="900"
-        typeahead-on-select="$ctrl.selectOperon($item, $model, $value)"
-        >
-        <i ng-show="loadingOperons" class="glyphicon glyphicon-refresh"></i>
+        <!--<h4>Search for an existing operon</h4>-->
+        <!--<input id="opInput"-->
+               <!--type="text"-->
+               <!--ng-model="$ctrl.operonValue"-->
+               <!--placeholder="operon"-->
+               <!--uib-typeahead="op as op.operonLabel.value for op in $ctrl.allOrgOperons | filter:$viewValue | limitTo:200""-->
+        <!--typeahead-loading="loadingOperons"-->
+        <!--typeahead-no-results="noResults"-->
+        <!--class="form-control"-->
+        <!--typeahead-wait-ms="900"-->
+        <!--typeahead-on-select="$ctrl.selectOperon($item, $model, $value)"-->
+        <!-->
+        <!--<i ng-show="loadingOperons" class="glyphicon glyphicon-refresh"></i>-->
 
-        <div ng-show="noResults">
-            <i class="glyphicon glyphicon-remove"></i> No Results Found
-        </div>
+        <!--<div ng-show="noResults">-->
+            <!--<i class="glyphicon glyphicon-remove"></i> No Results Found-->
+        <!--</div>-->
 
         <div ng-show="$ctrl.opFormModel.operon">
             <div style="padding:10px 2px 2px 2px">

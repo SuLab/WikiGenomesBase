@@ -46,6 +46,7 @@ angular
                         'deauthenticate': true
                     })
                     .then(function (data) {
+                        console.log(data);
                         var org = '/organism/{taxid}'.replace('{taxid}', $routeParams.taxid);
                         var locusTag = '/gene/{locusTag}/'.replace('{locusTag}', $routeParams.locusTag);
                         $location.url(org + locusTag);

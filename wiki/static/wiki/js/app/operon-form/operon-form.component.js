@@ -1,7 +1,8 @@
 angular
     .module('operonForm')
     .component('operonForm', {
-        controller: function ($routeParams, $filter, pubMedData, locusTag2QID, allOrgGenes, allOrgOperons, sendFormData) {
+        controller: function ($routeParams, $filter, pubMedData, locusTag2QID, allOrgGenes, allOrgOperons, allChlamOrgs,
+                              sendFormData) {
             var ctrl = this;
             ctrl.$onInit = function () {
                 ctrl.currentTaxid = $routeParams.taxid;
@@ -12,26 +13,35 @@ angular
                         operon: null,
                         pub: null,
                         genes: [],
-                        geneQID: ctrl.geneQID
+                        geneQID: ctrl.geneQID,
+                        organism: null
                     };
 
                     //controls for navigating form
                     ctrl.pageCount = 0;
                     ctrl.nextClick = function () {
                         ctrl.pageCount += 1;
+                        console.log(ctrl.data);
                     };
                     ctrl.backClick = function () {
                         ctrl.pageCount -= 1;
                     };
 
                     //data collection for form query sets
-                    allOrgOperons.getAllOrgOperons(ctrl.currentTaxid).then(function (data) {
-                        ctrl.allOrgOperons = data.data.results.bindings;
-                        console.log(ctrl.allOrgOperons);
-                    });
+                    //allOrgOperons.getAllOrgOperons(ctrl.currentTaxid).then(function (data) {
+                    //    ctrl.allOrgOperons = data.data.results.bindings;
+                    //    console.log(ctrl.allOrgOperons);
+                    //});
                     allOrgGenes.getAllOrgGenes(ctrl.currentTaxid).then(function (data) {
                         ctrl.allOrgGenes = data.data.results.bindings;
                     });
+
+                    allChlamOrgs.getAllOrgs(function (data) {
+                            ctrl.orgList = data;
+                            ctrl.opFormModel.organism = $filter('getJsonItemOrg')('taxid', ctrl.currentTaxid,
+                                ctrl.orgList);
+                        });
+
                     ctrl.getPMID = function (val) {
                         return pubMedData.getPMID(val).then(
                             function (data) {
@@ -48,14 +58,18 @@ angular
                         ctrl.pubValue = ''
                     };
 
-                    ctrl.selectOperon = function ($item, $model, $label) {
-                        ctrl.opFormModel.operon = $item;
-                        ctrl.operonValue = ''
-                    };
+                    //ctrl.selectOperon = function ($item, $model, $label) {
+                    //    ctrl.opFormModel.operon = $item;
+                    //    console.log($item);
+                    //    ctrl.operonValue = ''
+                    //};
 
                     ctrl.nameOperon = function (name) {
                         if (name) {
-                            ctrl.opFormModel.operon = {operonLabel: {value: name}};
+                            ctrl.opFormModel.operon = {
+                                operon: {value: 'None'},
+                                operonLabel: {value: name}
+                            };
                             ctrl.opNewName = '';
                         }
 
@@ -97,8 +111,9 @@ angular
                     ////send form data to server to edit wikidata
                     ctrl.sendData = function (formData) {
                         ctrl.loading = true;
+                        console.log(formData);
                         sendFormData.exexcuteSendFormData('/wd_operon_edit', formData).then(function (data) {
-                            if(data.data.write_success === true){
+                            if(data.data.operonWrite_success === true){
                                 alert("Successfully Annotated! Well Done! The annotation will appear here in a few minutes.");
                                 ctrl.resetForm();
                             }
@@ -107,7 +122,7 @@ angular
                             }
                         }).finally(function () {
                             ctrl.loading = false;
-                            ctrl.resetForm();
+                            //ctrl.resetForm();
                         });
 
                     };

@@ -65,7 +65,7 @@
                         </div>
                     </div>
                     <div style="padding: 30px 30px 5px 30px;">
-                        <annotations-view annotations="$ctrl.annotations" mutants="$ctrl.mutantData" operons="$ctrl.opData" orthos="$ctrl.currentOrtholog" locusTag="$ctrl.currentGene.locusTag" data="$ctrl.currentGene"></annotations-view>
+                        <annotations-view annotations="$ctrl.annotations" data="$ctrl.currentGene"></annotations-view>
                     </div>
                 </div>
             </div>
@@ -74,59 +74,3 @@
         </div>
     </div>
 </div>
-
-<!--<nav class="navbar navbar-custom navbar-fixed-top">-->
-    <!--<div class="container-fluid">-->
-        <!--&lt;!&ndash; Brand and toggle get grouped for better mobile display &ndash;&gt;-->
-        <!--<div class="navbar-header">-->
-            <!--<a style="color: whitesmoke" class="navbar-brand" href="/">ChlamyPedia</a>-->
-        <!--</div>-->
-
-        <!--&lt;!&ndash; Collect the nav links, forms, and other content for toggling &ndash;&gt;-->
-        <!--<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">-->
-            <!--<form class="navbar-form navbar-left">-->
-                <!--<organism-form orgs="$ctrl.orgList"></organism-form>-->
-            <!--</form>-->
-            <!--<form class="navbar-form navbar-left">-->
-                <!--<gene-form taxid="$ctrl.currentTaxid"></gene-form>-->
-            <!--</form>-->
-            <!--<form class="navbar-form navbar-left">-->
-                <!--<keyword-form></keyword-form>-->
-            <!--</form>-->
-            <!--<oauth-view style="float:right"></oauth-view>-->
-        <!--</div>-->
-        <!--&lt;!&ndash; /.navbar-collapse &ndash;&gt;-->
-    <!--</div>-->
-    <!--&lt;!&ndash; /.container-fluid &ndash;&gt;-->
-<!--</nav>-->
-<!--<div class="container-fluid" style="color:#385d94">-->
-    <!--<div class="row">-->
-        <!--<div class="col-md-1">-->
-        <!--</div>-->
-        <!--<div class="col-md-10">-->
-            <!--<div class="panel panel-info">-->
-                <!--<div class="panel-heading">-->
-                    <!--&lt;!&ndash;<gene-form taxid="$ctrl.currentOrg.taxid"></gene-form>&ndash;&gt;-->
-                    <!--<genomic-position  data="$ctrl.currentGene"></genomic-position>-->
-                <!--</div>-->
-                <!--<div class="panel-body">-->
-                    <!--<div class="panel">-->
-                        <!--<organism-view org="$ctrl.currentOrg" taxid="$ctrl.currentOrg.taxid"></organism-view>-->
-                        <!--<div id="jbrowse-div" style="height: 250px; border: solid #99c2ff 3px; border-radius: 3px ">-->
-                            <!--<jbrowse-view ng-if="$ctrl.currentGene.entrez" entrez="$ctrl.currentGene.entrez"-->
-                                          <!--gene="$ctrl.currentGene"-->
-                                          <!--taxid="$ctrl.currentOrg.taxid"></jbrowse-view>-->
-                        <!--</div>-->
-                    <!--</div>-->
-                    <!--<div style="padding: 30px 30px 5px 30px;">-->
-                        <!--<annotations-view  gene="$ctrl.currentGene"-->
-                                          <!--entrez="$ctrl.currentGene.entrez">-->
-                        <!--</annotations-view>-->
-                    <!--</div>-->
-                <!--</div>-->
-            <!--</div>-->
-        <!--</div>-->
-        <!--<div class="col-md-1">-->
-        <!--</div>-->
-    <!--</div>-->
-<!--</div>-->
