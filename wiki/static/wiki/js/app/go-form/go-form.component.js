@@ -96,7 +96,10 @@ angular
                     //send form data to server to edit wikidata
                     ctrl.sendData = function (formData) {
                         ctrl.loading = true;
-                        sendToView.sendToView('/wd_go_edit', formData).then(function (data) {
+
+                        var url_suf = $location.path() + '/wd_go_edit';
+                        console.log(url_suf);
+                        sendToView.sendToView(url_suf, formData).then(function (data) {
                             if(data.data.write_success === true){
                                 alert("Successfully Annotated! Well Done! The annotation will appear here in a few minutes.");
                                 ctrl.resetForm();
