@@ -7,6 +7,7 @@ angular.module('cmod', [
     'ngRoute',
     'ngTable',
     'ngFileUpload',
+    'ngCookies',
 
     //internal
     'filters',

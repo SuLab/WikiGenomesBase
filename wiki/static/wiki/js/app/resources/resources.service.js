@@ -1,22 +1,3 @@
-// using jQuery
-function getCookie(name) {
-    var cookieValue = null;
-    if (document.cookie && document.cookie !== '') {
-        var cookies = document.cookie.split(';');
-        for (var i = 0; i < cookies.length; i++) {
-            var cookie = jQuery.trim(cookies[i]);
-            // Does this cookie string begin with the name we want?
-            if (cookie.substring(0, name.length + 1) === (name + '=')) {
-                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                break;
-            }
-        }
-    }
-    console.log(cookieValue);
-    return cookieValue;
-}
-var csrftoken = getCookie('csrftoken');
-
 //data from /json
 
 angular
@@ -95,18 +76,11 @@ angular
     .factory('sendToView', function ($http) {
         var sendToView = function (url_suffix, data) {
             var url = url_suffix;
-            var csrfToken = getCookie('csrftoken');
-            console.log(csrfToken);
-            var config = {
-                headers: {
-                    'X-CSRFToken': csrfToken
-                }
-            };
-            return $http.post(url, data, config)
-                .success(function (data, status, headers, config) {
+            return $http.post(url, data)
+                .success(function (data) {
                     return data
                 })
-                .error(function (data, status, header, config) {
+                .error(function (data, status) {
                     return status
                 });
         };

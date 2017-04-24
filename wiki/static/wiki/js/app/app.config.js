@@ -3,10 +3,18 @@
 angular.module('cmod')
     .config(
     function ($locationProvider,
-              $routeProvider) {
+              $routeProvider,
+              $httpProvider,
+              $interpolateProvider,
+              $compileProvider) {
+
         $locationProvider.html5Mode({
             enabled: true
         });
+
+
+        $compileProvider.aHrefSanitizationWhitelist(/^\s*(|blob|):/);
+        $compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|ftp|mailto|chrome-extension):/);
 
         $routeProvider.
             when("/", {
@@ -29,11 +37,18 @@ angular.module('cmod')
             }).
             otherwise({
                 template: "<not-found></not-found>"
-            })
+            });
 
-    });
-angular.module('cmod')
-    .config(['$compileProvider', function ($compileProvider) {
-        $compileProvider.aHrefSanitizationWhitelist(/^\s*(|blob|):/);
-        $compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|ftp|mailto|chrome-extension):/);
-    }]);
+        $interpolateProvider.startSymbol('{$');
+        $interpolateProvider.endSymbol('$}');
+        $httpProvider.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
+
+    }).
+    run([
+        '$http',
+        '$cookies',
+        function ($http, $cookies) {
+            $http.defaults.headers.post['X-CSRFToken'] = $cookies.get('csrftoken');
+        }]);
+
+

@@ -26,7 +26,6 @@ angular
             }
 
             ctrl.oauthAuthorization = function () {
-                console.log($location.path());
                 sendToView.sendToView(
                     '/wd_oauth',
                     {
