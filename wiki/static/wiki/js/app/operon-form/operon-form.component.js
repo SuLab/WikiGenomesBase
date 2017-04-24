@@ -111,8 +111,8 @@ angular
                     ////send form data to server to edit wikidata
                     ctrl.sendData = function (formData) {
                         ctrl.loading = true;
-                        console.log(formData);
-                        sendToView.sendToView('/wd_operon_edit', formData).then(function (data) {
+                        var url_suf = $location.path() + '/wd_operon_edit'
+                        sendToView.sendToView(url_suf, formData).then(function (data) {
                             if(data.data.operonWrite_success === true){
                                 alert("Successfully Annotated! Well Done! The annotation will appear here in a few minutes.");
                                 ctrl.resetForm();
