@@ -28,6 +28,8 @@
     <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/ng-table/1.0.0/ng-table.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular-cookies.js"></script>
+
 
     <script src="{% static 'wiki/js/cytoscape.js' %}"></script>
     <script src="{% static 'wiki/js/ui-bootstrap-tpls-2.3.0.min.js' %}"></script>
@@ -141,7 +143,7 @@
 </head>
 <body>
 
-
+{%csrf_token%}
 <div style="height: 100%" class="ng-view"></div>
 </body>
 </html>

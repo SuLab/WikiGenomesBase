@@ -9,6 +9,7 @@ from time import strftime, gmtime
 import requests
 from pprint import pprint
 import jsonpickle
+from django.middleware.csrf import get_token
 
 
 def index(request):
