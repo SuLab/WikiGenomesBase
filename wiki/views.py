@@ -37,12 +37,12 @@ def go_form(request):
 
         # contstruct the references using WDI_core and PMID_tools if necessary
         try:
-            refs.append([wdi_core.WDItemID(value='Q26489220', prop_nr='P1640', is_reference=True)])
-            refs.append([wdi_core.WDTime(str(strftime("+%Y-%m-%dT00:00:00Z", gmtime())), prop_nr='P813', is_reference=True)])
+            refs.append(wdi_core.WDItemID(value='Q26489220', prop_nr='P1640', is_reference=True))
+            refs.append(wdi_core.WDTime(str(strftime("+%Y-%m-%dT00:00:00Z", gmtime())), prop_nr='P813', is_reference=True))
             pmid_url = 'https://tools.wmflabs.org/pmidtool/get_or_create/{}'.format(eutilsPMID)
             pmid_result = requests.get(url=pmid_url)
             if pmid_result.json()['success'] == True:
-                refs.append([wdi_core.WDItemID(value=pmid_result.json()['result'], prop_nr='P248', is_reference=True)])
+                refs.append(wdi_core.WDItemID(value=pmid_result.json()['result'], prop_nr='P248', is_reference=True))
             pprint(pmid_result.json())
             responseData['ref_success'] = True
         except Exception as e:
@@ -55,7 +55,7 @@ def go_form(request):
             eviCodeQID = body['evi']['evidence_code'].split("/")[-1]
             goQID = body['go']['goterm']['value'].split("/")[-1]
             evidence = wdi_core.WDItemID(value=eviCodeQID, prop_nr='P459', is_qualifier=True)
-            statements.append(wdi_core.WDItemID(value=goQID, prop_nr=goProp[goclass], references=refs, qualifiers=[evidence]))
+            statements.append(wdi_core.WDItemID(value=goQID, prop_nr=goProp[goclass], references=[refs], qualifiers=[evidence]))
             responseData['statement_success'] = True
         except Exception as e:
             responseData['statement_success'] = False
