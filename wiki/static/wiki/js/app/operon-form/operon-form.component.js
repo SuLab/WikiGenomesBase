@@ -2,7 +2,7 @@ angular
     .module('operonForm')
     .component('operonForm', {
         controller: function ($routeParams, $filter, pubMedData, locusTag2QID, allOrgGenes, allOrgOperons, allChlamOrgs,
-                              sendFormData) {
+                              sendToView) {
             var ctrl = this;
             ctrl.$onInit = function () {
                 ctrl.currentTaxid = $routeParams.taxid;
@@ -112,7 +112,7 @@ angular
                     ctrl.sendData = function (formData) {
                         ctrl.loading = true;
                         console.log(formData);
-                        sendFormData.exexcuteSendFormData('/wd_operon_edit', formData).then(function (data) {
+                        sendToView.sendToView('/wd_operon_edit', formData).then(function (data) {
                             if(data.data.operonWrite_success === true){
                                 alert("Successfully Annotated! Well Done! The annotation will appear here in a few minutes.");
                                 ctrl.resetForm();
@@ -122,7 +122,6 @@ angular
                             }
                         }).finally(function () {
                             ctrl.loading = false;
-                            //ctrl.resetForm();
                         });
 
                     };

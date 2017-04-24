@@ -63,3 +63,20 @@
         </td>
     </tr>
 </table>
+<button type="button" class="btn btn-default" data-toggle="modal"
+        data-target="#mutantBatchForm_button">
+    Upload bulk annotations
+</button>
+<!-- Modal -->
+<div class="modal" id="mutantBatchForm_button" tabindex="-1" role="dialog"
+     aria-labelledby="refModalTitle"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content" style="padding:10px">
+            <mutant-batch></mutant-batch>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>

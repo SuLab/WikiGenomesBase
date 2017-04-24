@@ -6,6 +6,7 @@ angular.module('cmod', [
     'ngResource',
     'ngRoute',
     'ngTable',
+    'ngFileUpload',
 
     //internal
     'filters',
@@ -36,5 +37,6 @@ angular.module('cmod', [
     'keywordPaginated',
     'organismTree',
     'linkedPubs',
-    'orthologView'
+    'orthologView',
+    'mutantBatch'
 ]);

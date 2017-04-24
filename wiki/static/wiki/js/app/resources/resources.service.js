@@ -1,4 +1,5 @@
-var getCookie = function (name) {
+// using jQuery
+function getCookie(name) {
     var cookieValue = null;
     if (document.cookie && document.cookie !== '') {
         var cookies = document.cookie.split(';');
@@ -11,8 +12,10 @@ var getCookie = function (name) {
             }
         }
     }
+    console.log(cookieValue);
     return cookieValue;
-};
+}
+var csrftoken = getCookie('csrftoken');
 
 //data from /json
 
@@ -87,67 +90,13 @@ angular
     });
 
 //server communication
-
-angular
-    .module('resources')
-    .factory('sendFormData', function ($http) {
-        var endpoint = window.location.pathname;
-        var exexcuteSendFormData = function (url_suffix, data) {
-            var url = endpoint + url_suffix;
-            var csrfToken = getCookie('csrftoken');
-            var config = {
-                headers: {
-                    'X-CSRFToken': csrfToken
-                }
-            };
-            return $http.post(url, data, config)
-                .success(function (data, status, headers, config) {
-                    return data
-                })
-                .error(function (data, status, header, config) {
-                    return status
-                });
-        };
-        return {
-            exexcuteSendFormData: exexcuteSendFormData
-        }
-
-
-    });
-
-
-angular
-    .module('resources')
-    .factory('oauthSubmission', function ($http) {
-        var submitOauth = function (url_suffix, data) {
-            console.log('resourec submit');
-            var url = url_suffix;
-            var csrfToken = getCookie('csrftoken');
-            var config = {
-                headers: {
-                    'X-CSRFToken': csrfToken
-                }
-            };
-            return $http.post(url, data, config)
-                .success(function (data, status, headers, config) {
-                    return data
-                })
-                .error(function (data, status, header, config) {
-                    return status
-                });
-        };
-        return {
-            submitOauth: submitOauth
-        }
-
-    });
-
 angular
     .module('resources')
     .factory('sendToView', function ($http) {
         var sendToView = function (url_suffix, data) {
             var url = url_suffix;
             var csrfToken = getCookie('csrftoken');
+            console.log(csrfToken);
             var config = {
                 headers: {
                     'X-CSRFToken': csrfToken

@@ -2,7 +2,7 @@ angular
     .module('oauthView')
     .component('oauthView', {
         bindings: {},
-        controller: function ($window, $routeParams, $location, oauthSubmission, sendToView) {
+        controller: function ($window, $routeParams, $location, sendToView) {
             var ctrl = this;
             console.log($routeParams);
             if ($routeParams.oauth_verifier) {

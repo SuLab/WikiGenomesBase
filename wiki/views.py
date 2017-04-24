@@ -10,6 +10,7 @@ import requests
 from pprint import pprint
 import jsonpickle
 
+
 def index(request):
     # launch landing page
     context = {'data': 'None'}
@@ -183,8 +184,13 @@ def wd_oauth(request):
             return JsonResponse({'deauthenicate': True})
 
 
-
-
+@ensure_csrf_cookie
+def wd_upload(request):
+    print(request.body)
+    # print('request made')
+    # if request.method == 'POST':
+    #     print(request.body)
+    return JsonResponse({'success': 'yes'})
 
 
 

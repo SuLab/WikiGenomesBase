@@ -1,7 +1,7 @@
 angular
     .module('goForm')
     .component('goForm', {
-        controller: function ($routeParams, $filter, $location, evidenceCodes, sendFormData, pubMedData, allGoTerms, locusTag2QID) {
+        controller: function ($routeParams, $filter, $location, evidenceCodes, sendToView, pubMedData, allGoTerms, locusTag2QID) {
             var ctrl = this;
             ctrl.$onInit = function () {
                 ctrl.currentTaxid = $routeParams.taxid;
@@ -96,7 +96,7 @@ angular
                     //send form data to server to edit wikidata
                     ctrl.sendData = function (formData) {
                         ctrl.loading = true;
-                        sendFormData.exexcuteSendFormData('/wd_go_edit', formData).then(function (data) {
+                        sendToView.sendToView('/wd_go_edit', formData).then(function (data) {
                             if(data.data.write_success === true){
                                 alert("Successfully Annotated! Well Done! The annotation will appear here in a few minutes.");
                                 ctrl.resetForm();

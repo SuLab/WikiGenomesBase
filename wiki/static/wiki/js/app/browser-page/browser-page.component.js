@@ -8,6 +8,7 @@ angular
             //them into pagination, as well as launches JBrowse
             var ctrl = this;
             ctrl.$onInit = function () {
+                ctrl.loading = true;
                 ctrl.currentTaxid = $routeParams.taxid;
                 console.log(ctrl.currentTaxid);
                 allChlamOrgs.getAllOrgs(function (data) {
@@ -24,6 +25,8 @@ angular
                         ctrl.currentAllGenes = $filter('orderObjectBy')(dataResults, 'genStart');
                         ctrl.initialGene = ctrl.currentAllGenes[0];
 
+                    }).finally(function(){
+                        ctrl.loading = false;
                     });
                 ctrl.onSelect = function ($item) {
                     $location.path('/organism/' + ctrl.currentTaxid + "/gene/" + $item.locusTag.value);
