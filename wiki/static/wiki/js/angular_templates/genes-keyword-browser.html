@@ -16,6 +16,9 @@
     }
 
 </style>
+<div ng-show="$ctrl.loading" class="overlay">
+    <div class="loading-img"></div>
+</div>
 <nav class="navbar navbar-custom navbar-fixed-top">
     <div class="container-fluid">
         <!-- Brand and toggle get grouped for better mobile display -->
@@ -26,7 +29,7 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <form class="navbar-form navbar-left">
-                <organism-form orgs="$ctrl.orgList"></organism-form>
+                <organism-form orgs="$ctrl.orgData"></organism-form>
             </form>
             <form class="navbar-form navbar-left">
                 <keyword-form></keyword-form>
@@ -38,8 +41,6 @@
     <!-- /.container-fluid -->
 </nav>
 <div class="container-fluid" style="color:#385d94">
-
-
     <div class="row">
         <div class="col-md-2">
             <div class="panel" style="padding: 15px"><h5>Organism</h5>

@@ -16,6 +16,7 @@ angular
                 });
                 ctrl.getChlamGenes = allChlamydiaGenes.getAllChlamGenes().then(
                     function (data) {
+                        ctrl.loading = true;
                         ctrl.chlamGenes.allGenes = data.data.results.bindings;
                         ctrl.chlamGenes.keywordAll = $filter('keywordFilter')(ctrl.chlamGenes.allGenes, ctrl.keyword);
                         ctrl.chlamGenes.currentKW = ctrl.chlamGenes.keywordAll;
@@ -29,6 +30,8 @@ angular
                             ctrl.chlamGenes.currentKW = $filter('deleteJsonItemValuesList')('taxid', ctrl.currentOrgsList, ctrl.chlamGenes.keywordAll);
                             console.log($filter('deleteJsonItemValuesList')('taxid', ctrl.currentOrgsList, ctrl.chlamGenes.keywordAll));
                         };
+                    }).finally(function(){
+                        ctrl.loading = false;
                     });
             };
         },
