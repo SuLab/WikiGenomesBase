@@ -1,12 +1,13 @@
 angular
     .module('operonForm')
     .component('operonForm', {
-        controller: function ($routeParams, $filter, pubMedData, locusTag2QID, allOrgGenes, allOrgOperons, allChlamOrgs,
+        controller: function ($routeParams, $location, $filter, pubMedData, locusTag2QID, allOrgGenes, allOrgOperons, allChlamOrgs,
                               sendToView) {
             var ctrl = this;
             ctrl.$onInit = function () {
                 ctrl.currentTaxid = $routeParams.taxid;
                 ctrl.currentLocusTag = $routeParams.locusTag;
+                console.log($location.path());
                 locusTag2QID.getLocusTag2QID(ctrl.currentLocusTag, ctrl.currentTaxid).then(function (data) {
                     ctrl.geneQID = $filter('parseQID')(data.data.results.bindings[0].gene.value);
                     ctrl.opFormModel = {
