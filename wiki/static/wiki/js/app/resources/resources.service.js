@@ -90,6 +90,27 @@ angular
 
     });
 
+angular
+    .module('resources')
+    .factory('uploadFile', function ($http) {
+        var uploadFile = function (url_suffix, data) {
+            var url = url_suffix;
+            //var config = {
+            //  'Content-Type': data.type
+            //};
+            return $http.post(url, data)
+                .success(function (data) {
+                    return data
+                })
+                .error(function (data, status) {
+                    return status
+                });
+        };
+        return {
+            uploadFile: uploadFile
+        }
+
+    });
 
 
 //currently loaded organism
@@ -191,8 +212,6 @@ angular
             getAllOrgOperons: getAllOrgOperons
         }
     });
-
-
 
 
 //annotations data
@@ -579,6 +598,59 @@ angular
         };
         return {
             getLocusTag2QID: getLocusTag2QID
+        }
+
+
+    });
+
+
+angular
+    .module('resources')
+    .factory('abstractSPARQL', function ($http) {
+        var endpoint = 'https://query.wikidata.org/sparql?format=json&query=';
+        var getAbstractSPARQL = function (pqid, pred, idprop) {
+            var preq = "PREFIX wd: <http://www.wikidata.org/entity/> " +
+                "PREFIX prov: <http://www.w3.org/ns/prov#> " +
+                "PREFIX pr: <http://www.wikidata.org/prop/reference/> " +
+                "PREFIX p: <http://www.wikidata.org/prop/> " +
+                "PREFIX ps: <http://www.wikidata.org/prop/statement/> " +
+                "SELECT (wd:prot_qid as ?sub) " +
+                "?obj ?objLabel ?objDescription ?obj_id " +
+                "?stated_in ?stated_inLabel " +
+                "?retrieved " +
+                "?reference_url " +
+                "?language ?languageLabel " +
+                "?curator ?curatorLabel " +
+                "?determination ?determinationLabel " +
+                "WHERE { " +
+                " wd:prot_qid p:an_prop ?claim . " +
+                " ?claim ps:an_prop ?obj. " +
+                " ?obj wdt:id_prop ?obj_id. " +
+                "  optional {?claim prov:wasDerivedFrom/pr:P248 ?stated_in. } " +
+                "  optional {?claim prov:wasDerivedFrom/pr:P813 ?retrieved. } " +
+                "  optional {?claim prov:wasDerivedFrom/pr:P854 ?reference_url. } " +
+                "  optional {?claim prov:wasDerivedFrom/pr:P407 ?language. } " +
+                "  optional {?claim prov:wasDerivedFrom/pr:P1640 ?curator. } " +
+                "  optional {?claim pq:P459 ?determination. } " +
+                "  SERVICE wikibase:label { " +
+                "        bd:serviceParam wikibase:language 'en' ." +
+                "  } " +
+                "}";
+
+            var url1 = preq.replace(/prot_qid/g, pqid).replace(/an_prop/g, pred).replace(/id_prop/g, idprop);
+            var url = endpoint + encodeURIComponent(url1);
+            console.log(url1);
+            return $http.get(url)
+                .success(function (response) {
+                    return response;
+                })
+                .error(function (response) {
+
+                    return response
+                });
+        };
+        return {
+            getAbstractSPARQL: getAbstractSPARQL
         }
 
 

@@ -14,18 +14,27 @@ angular
                               expasyData,
                               mutantData,
                               locusTag2Pub,
-                              locusTag2QID) {
-            //Main gene page component.
+                              locusTag2QID,
+                              abstractSPARQL) {
+
+            // Main gene page component. Loaded when a gene is selected.  Parses the url for taxid and locus tag and uses
+            // those to make API calls to wikidata.
             var ctrl = this;
             ctrl.$onInit = function () {
+                //parse url for taxid and locus tag
                 ctrl.currentTaxid = $routeParams.taxid;
                 ctrl.currentLocusTag = $routeParams.locusTag;
-                console.log($routeParams);
+
+
                 ctrl.currentGene = {};
                 ctrl.annotations = {};
+
+                // retrieve wikidata gene item qid with SPARQL query to make API call to wikidata
                 locusTag2QID.getLocusTag2QID(ctrl.currentLocusTag, ctrl.currentTaxid).then(function (data) {
-                    if (data.data.results.bindings.length > 0) {
-                        ctrl.currentGene.geneQID = $filter('parseQID')(data.data.results.bindings[0].gene.value);
+                    var gene_json = data.data.results.bindings;
+                    if (gene_json.length > 0) {
+                        ctrl.currentGene.geneQID = $filter('parseQID')(gene_json[0].gene.value);
+                        // API call to retrieve gene document from Wikidata
                         wdGetEntities.wdGetEntities(ctrl.currentGene.geneQID).then(function (data) {
                             var entity = data.entities[ctrl.currentGene.geneQID];
                             ctrl.currentGene.entrez = entity.claims.P351[0].mainsnak.datavalue.value;
@@ -43,18 +52,8 @@ angular
                                     ctrl.currentGene.geneAliases.push(alias.value);
                                 }
                             });
-                            orthoData.getOrthologs(function (data) {
-                                ctrl.orthologs = data;
-                                var current = $filter('keywordFilter')(data, ctrl.currentGene.locusTag);
-                                ctrl.currentOrtholog = {};
-                                angular.forEach(current[0], function (value, key) {
-                                    if (key != '_id' && key != '$oid' && key != 'timestamp') {
-                                        ctrl.currentOrtholog[key] = value
-                                    }
-                                });
-                                ctrl.annotations.orthologs = ctrl.currentOrtholog;
-                            });
 
+                            // Get operon data from wikidata sparql query
                             OperonData.getOperonData(ctrl.currentGene.entrez).then(
                                 function (data) {
                                     var dataResults = data.data.results.bindings;
@@ -70,6 +69,20 @@ angular
                                     }
                                 });
 
+                            // Get ortholog data from local json file
+                            orthoData.getOrthologs(function (data) {
+                                ctrl.orthologs = data;
+                                var current = $filter('keywordFilter')(data, ctrl.currentLocusTag);
+                                ctrl.currentOrtholog = {};
+                                angular.forEach(current[0], function (value, key) {
+                                    if (key != '_id' && key != '$oid' && key != 'timestamp') {
+                                        ctrl.currentOrtholog[key] = value
+                                    }
+                                });
+                                ctrl.annotations.orthologs = ctrl.currentOrtholog;
+                            });
+
+                            // Get ortholog data from local json file
                             mutantData.getKokesMutants(function (data) {
                                 var mutants = [];
                                 ctrl.mutantData = [];
@@ -84,6 +97,8 @@ angular
                                 }
                                 ctrl.annotations.mutants = ctrl.mutantData;
                             });
+
+                            // Get related publications from eutils
                             var locus_tag = ctrl.currentGene.locusTag.replace('_', '');
                             locusTag2Pub.getlocusTag2Pub(locus_tag).then(function (data) {
                                 ctrl.annotations.pubList = data.data.resultList.result;
@@ -91,8 +106,11 @@ angular
 
                         });
 
-                        ctrl.currentGene.proteinQID = $filter('parseQID')(data.data.results.bindings[0].protein.value);
+                        // SPARQL to return protein qid
+                        ctrl.currentGene.proteinQID = $filter('parseQID')(gene_json[0].protein.value);
 
+
+                        // API call to return protein document from Wikidata
                         wdGetEntities.wdGetEntities(ctrl.currentGene.proteinQID).then(function (data) {
                             var entity = data.entities[ctrl.currentGene.proteinQID];
                             ctrl.currentGene.proteinLabel = entity.labels.en.value;
@@ -105,12 +123,35 @@ angular
                                 ctrl.currentGene.proteinAliases.push(alias.value);
                             });
 
+                            //abstractSPARQL.getAbstractSPARQL(ctrl.currentGene.proteinQID, 'P527', 'P2926').then(function (data) {
+                            //    console.log('interproAbstract', data.data.results.bindings);
+                            //    var ipData = data.data.results.bindings;
+                            //    ctrl.ipConfig = {
+                            //        title: 'InterPro Domains',
+                            //        fields: {
+                            //            'InterPro Domain': ipData.objLabel.value,
+                            //            'InterPro ID': ipData.obj_id.value,
+                            //            'Reference': {
+                            //                Source: ipData.stated_inLabel.value
+                            //            }
+                            //        }
+                            //    };
+                            //
+                            //});
+                            //
+                            //abstractSPARQL.getAbstractSPARQL(ctrl.currentGene.proteinQID, 'P680', 'P686').then(function (data) {
+                            //    console.log('goAbstract', data.data.results.bindings);
+                            //
+                            //});
+
+                            // Get InterPro Domains from Wikidata SPARQL
                             InterPro.getInterPro(ctrl.currentGene.uniprot).then(
                                 function (data) {
                                     ctrl.ipData = data;
                                     ctrl.annotations.interpro = data;
                                 });
 
+                            // Get GO Terms  from Wikidata SPARQL
                             GOTerms.getGoTerms(ctrl.currentGene.uniprot).then(
                                 function (data) {
                                     ctrl.annotations.go = {
@@ -125,6 +166,8 @@ angular
 
                                     var dataResults = data.data.results.bindings;
                                     ctrl.annotations.ecnumber = [];
+
+                                    // gather ec numbers from go terms
                                     angular.forEach(dataResults, function (value, key) {
                                         if (value.hasOwnProperty('ecnumber')) {
                                             ctrl.annotations.ecnumber.push(value.ecnumber.value);
@@ -155,6 +198,7 @@ angular
                                 });
 
                         });
+
                         allChlamOrgs.getAllOrgs(function (data) {
                             ctrl.orgList = data;
                             ctrl.currentOrg = $filter('getJsonItemOrg')('taxid', ctrl.currentTaxid, ctrl.orgList);
@@ -166,7 +210,7 @@ angular
                         });
 
                     }
-                    else{
+                    else {
                         alert(ctrl.currentLocusTag + " doesn't seem to be a gene in this genome.");
                         $location.path('/organism/' + ctrl.currentTaxid);
                     }

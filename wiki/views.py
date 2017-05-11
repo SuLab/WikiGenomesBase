@@ -1,15 +1,16 @@
 from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse
 from django.views.decorators.csrf import ensure_csrf_cookie
-import json
-from wikigenomes import oauth_config
-from pprint import pprint
-from wikidataintegrator import wdi_login, wdi_core
-from time import strftime, gmtime
+
 import requests
+from time import strftime, gmtime
 from pprint import pprint
+
+import json
 import jsonpickle
-from django.middleware.csrf import get_token
+
+from wikigenomes import oauth_config
+from wikidataintegrator import wdi_login, wdi_core
 
 
 def index(request):
@@ -20,6 +21,11 @@ def index(request):
 
 @ensure_csrf_cookie
 def go_form(request):
+    """
+    uses wdi to make go annotation edit to wikidata
+    :param request: includes go annotation json for writing to wikidata
+    :return: response data oject with a write success boolean
+    """
     if request.method == 'POST':
         body_unicode = request.body.decode('utf-8')
         body = json.loads(body_unicode)
@@ -38,7 +44,8 @@ def go_form(request):
         # contstruct the references using WDI_core and PMID_tools if necessary
         try:
             refs.append(wdi_core.WDItemID(value='Q26489220', prop_nr='P1640', is_reference=True))
-            refs.append(wdi_core.WDTime(str(strftime("+%Y-%m-%dT00:00:00Z", gmtime())), prop_nr='P813', is_reference=True))
+            refs.append(wdi_core.WDTime(str(strftime("+%Y-%m-%dT00:00:00Z", gmtime())), prop_nr='P813',
+                                        is_reference=True))
             pmid_url = 'https://tools.wmflabs.org/pmidtool/get_or_create/{}'.format(eutilsPMID)
             pmid_result = requests.get(url=pmid_url)
             if pmid_result.json()['success'] == True:
@@ -55,7 +62,8 @@ def go_form(request):
             eviCodeQID = body['evi']['evidence_code'].split("/")[-1]
             goQID = body['go']['goterm']['value'].split("/")[-1]
             evidence = wdi_core.WDItemID(value=eviCodeQID, prop_nr='P459', is_qualifier=True)
-            statements.append(wdi_core.WDItemID(value=goQID, prop_nr=goProp[goclass], references=[refs], qualifiers=[evidence]))
+            statements.append(wdi_core.WDItemID(value=goQID, prop_nr=goProp[goclass], references=[refs],
+                                                qualifiers=[evidence]))
             responseData['statement_success'] = True
         except Exception as e:
             responseData['statement_success'] = False
@@ -79,13 +87,17 @@ def go_form(request):
 
 @ensure_csrf_cookie
 def operon_form(request):
+    """
+    uses wdi to make operon annotation edit to wikidata
+    :param request: includes operon annotation json for writing to wikidata
+    :return: response data oject with a write success boolean
+    """
     if request.method == 'POST':
         print('operon form initiated')
         body_unicode = request.body.decode('utf-8')
         body = json.loads(body_unicode)
         pprint(body)
         responseData = {}
-
         login = jsonpickle.decode(request.session['login'])
 
         eutilsPMID = body['pub']['uid']
@@ -95,10 +107,11 @@ def operon_form(request):
         # statements for operon item
         operon_statements = []
 
-        # contstruct the references using WDI_core and PMID_tools if necessary
+        # construct the references using WDI_core and PMID_tools if necessary
         try:
             refs.append(wdi_core.WDItemID(value='Q26489220', prop_nr='P1640', is_reference=True))
-            refs.append(wdi_core.WDTime(str(strftime("+%Y-%m-%dT00:00:00Z", gmtime())), prop_nr='P813', is_reference=True))
+            refs.append(wdi_core.WDTime(str(strftime("+%Y-%m-%dT00:00:00Z", gmtime())), prop_nr='P813',
+                                        is_reference=True))
             pmid_url = 'https://tools.wmflabs.org/pmidtool/get_or_create/{}'.format(eutilsPMID)
             pmid_result = requests.get(url=pmid_url)
             if pmid_result.json()['success'] == True:
@@ -129,7 +142,8 @@ def operon_form(request):
         try:
             pprint(body['operon']['operonLabel'])
             pprint(operon_statements)
-            wd_item_operon = wdi_core.WDItemEngine(item_name=body['operon']['operonLabel']['value'], domain='genes', data=operon_statements, use_sparql=True, append_value=['P527'])
+            wd_item_operon = wdi_core.WDItemEngine(item_name=body['operon']['operonLabel']['value'], domain='genes',
+                                                   data=operon_statements, use_sparql=True, append_value=['P527'])
             pprint(vars(wd_item_operon))
             wd_item_operon.set_label(body['operon']['operonLabel']['value'])
             wd_item_operon.set_description("Microbial operon found in " + body['organism']['taxonLabel'])
@@ -158,14 +172,37 @@ def operon_form(request):
 
 
 @ensure_csrf_cookie
+def mutant_form(request):
+    """
+    UNDER DEVELOPMENT
+    edit local mutant repository wiht user supplied annotation
+    :param request:
+    :return:
+    """
+    if request.method == 'POST':
+        print('mutant form initiated')
+        body_unicode = request.body.decode('utf-8')
+        body = json.loads(body_unicode)
+        pprint(body)
+        responseData = {'write_success': True}
+        pprint(responseData)
+        return JsonResponse(responseData)
+
+
+@ensure_csrf_cookie
 def wd_oauth(request):
+    """
+    handles the authenitication process of wikimedia oauth1
+    :param request:
+    :return: access token for editing with wikidata api
+    """
     if request.method == 'POST':
         body_unicode = request.body.decode('utf-8')
         body = json.loads(body_unicode)
         pprint(body)
+        # initiate the handshake by sendin consumer token to wikidata by redirect
         if 'initiate' in body.keys():
-            print(body)
-            callbackURI = "http://chlambase.org" + body['current_path'] + '/authorized/'
+            callbackURI = 'http://chlambase.org{}/authorized/'.format(body['current_path'])
             authentication = wdi_login.WDLogin(consumer_key=oauth_config.consumer_key,
                                                consumer_secret=oauth_config.consumer_secret,
                                                callback_url=callbackURI)
@@ -174,24 +211,21 @@ def wd_oauth(request):
                 'wikimediaURL': authentication.redirect
             }
             return JsonResponse(response_data)
+
+        # parse the url from wikidata for the oauth token and secret
         if 'url' in body.keys():
             authentication = jsonpickle.decode(request.session['authOBJ'])
             authentication.continue_oauth(oauth_callback_data=body['url'])
             request.session['login'] = jsonpickle.encode(authentication)
             return JsonResponse(body)
+
+        # clear the authenitcation if user wants to revoke
         if 'deauthenticate' in body.keys():
             request.session['authentication'] = None
             request.session['login'] = None
             return JsonResponse({'deauthenicate': True})
 
 
-@ensure_csrf_cookie
-def wd_upload(request):
-    print(request.body)
-    # print('request made')
-    # if request.method == 'POST':
-    #     print(request.body)
-    return JsonResponse({'success': 'yes'})
 
 
 

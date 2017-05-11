@@ -32,9 +32,6 @@ angular.module('cmod')
             when("/organism/:taxid/gene/:locusTag/authorized/", {
                 template: '<main-page></main-page>'
             }).
-            when("/upload-full-form/", {
-                template: '<upload-form></upload-form>'
-            }).
             otherwise({
                 template: "<not-found></not-found>"
             });

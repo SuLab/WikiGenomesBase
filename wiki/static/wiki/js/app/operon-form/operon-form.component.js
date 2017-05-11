@@ -28,11 +28,6 @@ angular
                         ctrl.pageCount -= 1;
                     };
 
-                    //data collection for form query sets
-                    //allOrgOperons.getAllOrgOperons(ctrl.currentTaxid).then(function (data) {
-                    //    ctrl.allOrgOperons = data.data.results.bindings;
-                    //    console.log(ctrl.allOrgOperons);
-                    //});
                     allOrgGenes.getAllOrgGenes(ctrl.currentTaxid).then(function (data) {
                         ctrl.allOrgGenes = data.data.results.bindings;
                     });
@@ -59,11 +54,6 @@ angular
                         ctrl.pubValue = ''
                     };
 
-                    //ctrl.selectOperon = function ($item, $model, $label) {
-                    //    ctrl.opFormModel.operon = $item;
-                    //    console.log($item);
-                    //    ctrl.operonValue = ''
-                    //};
 
                     ctrl.nameOperon = function (name) {
                         if (name) {

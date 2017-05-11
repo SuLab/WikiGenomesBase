@@ -39,5 +39,6 @@ angular.module('cmod', [
     'organismTree',
     'linkedPubs',
     'orthologView',
-    'mutantBatch'
+    'mutantForm',
+    'functionalAnnotation'
 ]);

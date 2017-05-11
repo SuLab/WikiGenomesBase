@@ -4,33 +4,40 @@ angular
         bindings: {
             data: '<'
         },
-        controller: function (Upload) {
+        controller: function ($timeout, uploadFile, Upload) {
             var ctrl = this;
-            ctrl.submit = function () {
-                console.log(ctrl.file);
-                if (ctrl.file) {
-                    ctrl.upload(ctrl.file);
-                    console.log('thing');
-                }
+            ctrl.uploadFiles = function (file, errFiles) {
+                ctrl.f = file;
+                ctrl.errFile = errFiles && errFiles[0];
+                if (file) {
+                    uploadFile.uploadFile('/wd_upload', file).then(function (response) {
+                        console.log(response);
+                    });
+                        file.upload = Upload.upload({
+                            url: 'https://angular-file-upload-cors-srv.appspot.com/upload',
+                            data: {file: file}
+                        });
+                        file.upload.then(function (response) {
+                            $timeout(function () {
+                                file.result = response.data;
+                            });
+                        }, function (response) {
+                            if (response.status > 0)
+                                ctrl.errorMsg = response.status + ': ' + response.data;
+                        }, function (evt) {
+                            file.progress = Math.min(100, parseInt(100.0 *
+                                evt.loaded / evt.total));
+                        });
+                    }
+                };
+
+            ctrl.metaModel = {
+
             };
 
-            // upload on file select or drop
-            ctrl.upload = function (file) {
-                Upload.upload({
-                    url: '/wd_upload',
-                    data: {file: file, 'username': ctrl.username}
-                }).then(function (resp) {
-                    console.log('Success ' + resp.config.data.file.name + 'uploaded. Response: ' + resp.data);
-                }, function (resp) {
-                    console.log('Error status: ' + resp.status);
-                }, function (evt) {
-                    var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
-                    console.log('progress: ' + progressPercentage + '% ' + evt.config.data.file.name);
-                });
-            };
-
-
-        },
-        templateUrl: '/static/wiki/js/angular_templates/mutant-batch.html'
-    });
+            },
+                templateUrl
+            :
+            '/static/wiki/js/angular_templates/mutant-batch.html'
+        });
 

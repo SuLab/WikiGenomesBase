@@ -1,0 +1,66 @@
+<div ng-show="$ctrl.pageCount == 0" class="well">
+    <form ng-model="$ctrl.mutantAnnotation">
+        <div class="form-group">
+            <label for="mutant">Mutant Strain</label>
+            <input ng-model="$ctrl.mutantAnnotation.name" type="text" class="form-control" id="mutant"
+                   placeholder="L2 Mutant 1">
+            <label for="genomic_position1">Genomic Position Start</label>
+            <input ng-model="$ctrl.mutantAnnotation.coordinate.start" type="text" class="form-control"
+                   id="genomic_position1" placeholder="1">
+            <label for="genomic_position2">Genomic Position End</label>
+            <input ng-model="$ctrl.mutantAnnotation.coordinate.end" type="text" class="form-control"
+                   id="genomic_position2"
+                   placeholder="2">
+            <label for="mutant-type">Mutant Type</label>
+            <input ng-model="$ctrl.mutantAnnotation.mutant_type" type="text" class="form-control" id="mutant-type"
+                   placeholder="chemical, transposon, etc.">
+            <label for="reference-base">Reference Base</label>
+            <input ng-model="$ctrl.mutantAnnotation.ref_base" type="text" class="form-control" id="reference-base"
+                   placeholder="A">
+            <label for="variant-base">Variant Base</label>
+            <input ng-model="$ctrl.mutantAnnotation.variant_base" type="text" class="form-control" id="variant-base"
+                   placeholder="A">
+            <label for="variant-type">Variant Type</label>
+            <input ng-model="$ctrl.mutantAnnotation.variant_type" type="text" class="form-control" id="variant-type"
+                   placeholder="Synonymous">
+            <label for="aa-effect">Effect on Amino Acid</label>
+            <input ng-model="$ctrl.mutantAnnotation.aa_effect" type="text" class="form-control" id="aa-effect"
+                   placeholder="R172C">
+            <label for="getPMID">PMID Reference</label>
+            <input id="getPMID"
+                   type="text"
+                   ng-model="$ctrl.mutantAnnotation.pub"
+                   placeholder="PMID"
+                   uib-typeahead="pmid as pmid.title +  ' PMID:' + pmid.uid for pmid in $ctrl.getPMID($viewValue)"
+                   typeahead-loading="loadingTerms"
+                   typeahead-no-results="noResults"
+                   class="form-control"
+                   typeahead-wait-ms="900"
+                   typeahead-on-select="$ctrl.selectPub($item, $model, $value)"
+                    ></div>
+        <div>
+            <i ng-show="loadingTerms" class="glyphicon glyphicon-refresh"></i>
+            <i ng-show="noResults" class="glyphicon glyphicon-remove"></i>
+        </div>
+    </form>
+</div>
+
+<div class="well" ng-show="$ctrl.pageCount == 1">
+    <pre>{{ $ctrl.mutantAnnotation | json }}</pre>
+</div>
+
+<div style="height:30px; width:100%">
+    <div ng-hide="$ctrl.pageCount==0" class="btn btn-default" ng-click="$ctrl.backClick()">
+        Previous
+    </div>
+    <div style="float:right" ng-hide="$ctrl.pageCount==1" class="btn btn-default" ng-click="$ctrl.nextClick()">
+        Next
+    </div>
+</div>
+<div style="clear:both; width:100%; margin-top: 10px">
+    <div class="btn btn-warning" ng-click="$ctrl.resetForm()">Reset</div>
+    <div ng-show="$ctrl.pageCount==1" style="float:right" class="btn btn-success"
+         ng-click="$ctrl.sendData($ctrl.mutantAnnotation)">
+        Submit Annotation
+    </div>
+</div>
