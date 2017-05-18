@@ -1,6 +1,5 @@
-<form class="form-inline main-form-div ui-widget">
-    <div class="form-group">
-        <label for="geneForm">Gene Search: </label>
+<form class="ui-widget">
+    <label for="geneForm">Gene Search: </label>
         <input  autocomplete="off"
                 id="geneForm"
                 type="text"
@@ -9,6 +8,6 @@
                 typeahead-on-select="$ctrl.onSelect($item)"
                 class="form-control"
                 data-ng-click="gene.name=''"
+                placeholder="e.g. CTL0002"
                 >
-    </div>
 </form>

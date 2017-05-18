@@ -1,0 +1,51 @@
+<style>
+    .thumb {
+        width: 24px;
+        height: 24px;
+        float: none;
+        position: relative;
+        top: 7px;
+    }
+
+    form .progress {
+        line-height: 15px;
+    }
+
+    .progress {
+        display: inline-block;
+        width: 100px;
+        border: 3px groove #CCC;
+    }
+
+    .progress div {
+        font-size: smaller;
+        background: orange;
+        width: 0;
+    }
+</style>
+
+<div><h4>Upload on file select</h4>
+
+    <form>
+
+        <input type="text" ng-model="$ctrl.">
+        <button class="btn btn-default" type="file" ngf-select="$ctrl.uploadFiles($file, $invalidFiles)">
+            Select File
+        </button>
+    </form>
+    <br><br>
+    File:
+    <div>{{ $ctrl.name }} {{ $ctrl.errFile.name }} {{ $ctrl.errFile.$error }} {{ $ctrl.errFile.$errorParam }}
+    <span class="progress" ng-show="$ctrl.f.progress >= 0">
+    <div style="width:{{ $ctrl.f.progress }}%"
+         ng-bind="$ctrl.f.progress + '%'"></div>
+    </span>
+    </div>
+    {{ $ctrl.errorMsg }}
+
+</div>
+
+
+
+
+

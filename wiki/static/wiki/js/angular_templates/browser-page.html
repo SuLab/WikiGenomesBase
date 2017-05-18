@@ -15,17 +15,23 @@
         color: whitesmoke;
     }
 </style>
+<div ng-show="$ctrl.loading" class="overlay">
+    <div class="loading-img"></div>
+</div>
 <nav class="navbar navbar-custom navbar-fixed-top">
     <div class="container-fluid">
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
-            <a style="color: whitesmoke" class="navbar-brand" href="/">WikiGenomes</a>
+            <a style="color: whitesmoke" class="navbar-brand" href="/">ChlamBase</a>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <form class="navbar-form navbar-left">
                 <organism-form orgs="$ctrl.orgList"></organism-form>
+            </form>
+            <form class="navbar-form navbar-left">
+                <keyword-form></keyword-form>
             </form>
         </div>
         <!-- /.navbar-collapse -->
@@ -54,7 +60,7 @@
         </div>
         <div class="col-md-10 box">
             <div class="panel" style="height:300px; border: solid #385d94 2px; border-radius: 3px">
-                <jbrowse-view entrez="$ctrl.currentGene.entrez" gene="$ctrl.currentGene"
+                <jbrowse-view ng-if="$ctrl.initialGene.entrez" entrez="$ctrl.initialGene.entrez" gene="$ctrl.initialGene"
                               taxid="$ctrl.currentOrg.taxid"></jbrowse-view>
             </div>
         </div>
@@ -69,7 +75,9 @@
             <div class="panel-heading">
                 <div class="row" style="padding:10px">
                     <div class="col-md-3" style="padding-left: 30px">
-                        <gene-form taxid="$ctrl.currentOrg.taxid"></gene-form>
+                        <form class="form form-inline">
+                            <gene-form taxid="$ctrl.currentOrg.taxid"></gene-form>
+                        </form>
                     </div>
                     <div class="col-md-9">
                     </div>
@@ -108,7 +116,7 @@
     <div class="col-md-1">
     </div>
 </div>
-</div>
+
 
 
 

@@ -1,0 +1,20 @@
+<div class="panel panel-info">
+    <div class="panel-heading">
+        {{ $ctrl.title }}
+    </div>
+    <div class="panel-body">
+        <table style="width:100%">
+            <tr>
+                <th>{{ $ctrl.config.fields.name }}</th>
+                <th>{{ $ctrl.config.fields.identifier }}</th>
+                <!--<th>Reference</th>-->
+            </tr>
+            <tr ng-repeat="d in $ctrl.data">
+
+                <td>{{d.objLabel.value}}</td>
+                <td>{{d.obj_id.value}}</td>
+                <td>{{d.obj.value | parseQID}}</td>
+            </tr>
+        </table>
+    </div>
+</div>

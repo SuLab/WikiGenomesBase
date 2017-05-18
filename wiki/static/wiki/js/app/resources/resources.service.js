@@ -1,24 +1,23 @@
-var getCookie = function (name) {
-    var cookieValue = null;
-    if (document.cookie && document.cookie !== '') {
-        var cookies = document.cookie.split(';');
-        for (var i = 0; i < cookies.length; i++) {
-            var cookie = jQuery.trim(cookies[i]);
-            // Does this cookie string begin with the name we want?
-            if (cookie.substring(0, name.length + 1) === (name + '=')) {
-                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                break;
-            }
-        }
-    }
-    return cookieValue;
-};
-
 //data from /json
+
 angular
     .module('resources')
     .factory('allOrgs', function ($resource) {
         var url = '/static/wiki/json/orgsList.json';
+        return $resource(url, {}, {
+            getAllOrgs: {
+                method: "GET",
+                params: {},
+                isArray: true,
+                cache: true
+            }
+        });
+    });
+
+angular
+    .module('resources')
+    .factory('allChlamOrgs', function ($resource) {
+        var url = '/static/wiki/json/chlamsOrgList.json';
         return $resource(url, {}, {
             getAllOrgs: {
                 method: "GET",
@@ -43,61 +42,76 @@ angular
         });
     });
 
+angular
+    .module('resources')
+    .factory('mutantData', function ($resource) {
+        var url = '/static/wiki/json/kokes.json';
+        return $resource(url, {}, {
+            getKokesMutants: {
+                method: "GET",
+                params: {},
+                isArray: true,
+                cache: true
+            }
+        });
+    });
+
+angular
+    .module('resources')
+    .factory('orthoData', function ($resource) {
+        var url = '/static/wiki/json/orthologs.json';
+        return $resource(url, {}, {
+            getOrthologs: {
+                method: "GET",
+                params: {},
+                isArray: true,
+                cache: true
+            }
+        });
+    });
+
 //server communication
-
 angular
     .module('resources')
-    .factory('goFormData', function ($http) {
-        var endpoint = window.location.pathname;
-        var getgoFormData = function (url_suffix, data) {
-            var url = endpoint + url_suffix;
-            var csrfToken = getCookie('csrftoken');
-            var config = {
-                headers: {
-                    'X-CSRFToken': csrfToken
-                }
-            };
-            return $http.post(url, data, config)
-                .success(function (data, status, headers, config) {
-                    return data
-                })
-                .error(function (data, status, header, config) {
-                    return status
-                });
-        };
-        return {
-            getgoFormData: getgoFormData
-        }
-
-
-    });
-
-
-angular
-    .module('resources')
-    .factory('oauthSubmission', function ($http) {
-        var submitOauth = function (url_suffix, data) {
+    .factory('sendToView', function ($http) {
+        var sendToView = function (url_suffix, data) {
+            console.log(data);
             var url = url_suffix;
-            var csrfToken = getCookie('csrftoken');
-            var config = {
-                headers: {
-                    'X-CSRFToken': csrfToken
-                }
-            };
-            return $http.post(url, data, config)
-                .success(function (data, status, headers, config) {
+            return $http.post(url, data)
+                .success(function (data) {
                     return data
                 })
-                .error(function (data, status, header, config) {
+                .error(function (data, status) {
                     return status
                 });
         };
         return {
-            submitOauth: submitOauth
+            sendToView: sendToView
         }
 
     });
 
+angular
+    .module('resources')
+    .factory('uploadFile', function ($http) {
+        var uploadFile = function (url_suffix, data) {
+            var url = url_suffix;
+            //var config = {
+            //  'Content-Type': data.type
+            //};
+            return $http.post(url, data)
+                .success(function (data) {
+                    return data
+                })
+                .error(function (data, status) {
+                    return status
+                });
+        };
+        return {
+            uploadFile: uploadFile
+        }
+
+    });
 
 
 //currently loaded organism
@@ -132,27 +146,36 @@ angular
     .module('resources')
     .factory('allOrgGenes', function ($http) {
         var endpoint = 'https://query.wikidata.org/sparql?format=json&query=';
-
         var getAllOrgGenes = function (taxid) {
-            var url = endpoint + encodeURIComponent("SELECT ?refSeqChromosome ?gene ?genStart ?genEnd ?strand ?geneLabel ?entrez ?locusTag ?protein " +
-                    "?proteinLabel ?uniprot ?refseqProt" +
-                    " WHERE{ ?taxon wdt:P685 '" + taxid + "'. " +
+            var url = endpoint + encodeURIComponent("SELECT ?gene ?geneLabel ?proteinLabel ?protein ?entrez ?refseqProt " +
+                    "?locusTag ?uniprot ?refSeqChromosome  ?genStart ?genEnd ?strand " +
+                    "(group_concat(?aliases;separator=', ') as ?alias) " +
+                    "WHERE{ ?taxon wdt:P685 '" + taxid + "'. " +
                     "?gene wdt:P703 ?taxon; " +
                     "wdt:P279 wd:Q7187; " +
+                    "wdt:P2393 ?locusTag; " +
+                    "wdt:P351 ?entrez; " +
+                    "wdt:P688 ?protein; " +
                     "wdt:P644 ?genStart; " +
                     "wdt:P645 ?genEnd; " +
                     "wdt:P2548 ?strand; " +
-                    "wdt:P2393 ?locusTag; " +
-                    "wdt:P351 ?entrez; " +
-                    "wdt:P688 ?protein. " +
+                    "skos:altLabel ?aliases. " +
                     "?protein wdt:P352 ?uniprot; " +
-                    "wdt:P637 ?refseqProt." +
-                    "OPTIONAL{ ?gene p:P644 ?chr. ?chr pq:P2249 ?refSeqChromosome.} " +
-                    "SERVICE wikibase:label { bd:serviceParam wikibase:language 'en' . } }");
+                    "wdt:P637 ?refseqProt. " +
+                    "OPTIONAL{ " +
+                    "?gene p:P644 ?chr. " +
+                    "?chr pq:P2249 ?refSeqChromosome." +
+                    "} " +
+                    "SERVICE wikibase:label { " +
+                    "bd:serviceParam wikibase:language 'en' ." +
+                    "}" +
+                    "} " +
+                    "GROUP BY ?gene ?geneLabel ?protein ?proteinLabel ?entrez ?refseqProt " +
+                    "?locusTag ?uniprot ?refSeqChromosome  ?genStart ?genEnd ?strand"
+                );
             return $http.get(url)
                 .success(function (response) {
-                    return response.data
-
+                    return response
                 })
                 .error(function (response) {
                     return response
@@ -160,6 +183,34 @@ angular
         };
         return {
             getAllOrgGenes: getAllOrgGenes
+        }
+    });
+
+angular
+    .module('resources')
+    .factory('allOrgOperons', function ($http) {
+        var endpoint = 'https://query.wikidata.org/sparql?format=json&query=';
+        var getAllOrgOperons = function (taxid) {
+            var url = endpoint + encodeURIComponent(
+                    "SELECT ?operon ?operonLabel " +
+                    "WHERE{ ?taxon wdt:P685 '" + taxid + "'. " +
+                    "?operon wdt:P703 ?taxon; " +
+                    "wdt:P279 wd:Q139677. " +
+                    "SERVICE wikibase:label { " +
+                    "bd:serviceParam wikibase:language 'en' ." +
+                    "}" +
+                    "} "
+                );
+            return $http.get(url)
+                .success(function (response) {
+                    return response
+                })
+                .error(function (response) {
+                    return response
+                })
+        };
+        return {
+            getAllOrgOperons: getAllOrgOperons
         }
     });
 
@@ -273,7 +324,6 @@ angular
         }
     });
 
-
 angular
     .module('resources')
     .factory('expasyData', function ($http) {
@@ -331,7 +381,84 @@ angular
             getPMID: getPMID
         }
     });
+var url = 'http://www.ebi.ac.uk/europepmc/webservices/rest/search?query=CT681&resulttype=core&format=json'
 
+angular
+    .module('resources')
+    .factory('locusTag2Pub', function ($http) {
+        var getlocusTag2Pub = function (val) {
+            var endpoint = 'http://www.ebi.ac.uk/europepmc/webservices/rest/search?query=chlamydia%20{locusTag}&format=json';
+            var url = endpoint.replace('{locusTag}', val);
+            return $http.get(url)
+                .success(function (response) {
+                    return response;
+                })
+                .error(function (response) {
+                    return response
+                });
+        };
+        return {
+            getlocusTag2Pub: getlocusTag2Pub
+        }
+    });
+
+
+angular
+    .module('resources')
+    .factory('euroPubData', function ($http) {
+        var getEuroPubData = function (val) {
+            var endpoint = 'http://www.ebi.ac.uk/europepmc/webservices/rest/search?query={pubmedID}&resulttype=core&format=json';
+            var url = endpoint.replace('{pubmedID}', val);
+            return $http.get(url)
+                .success(function (response) {
+                    return response;
+                })
+                .error(function (response) {
+                    return response
+                });
+        };
+        return {
+            getEuroPubData: getEuroPubData
+        }
+    });
+
+angular
+    .module('resources')
+    .factory('pubLinks', function ($http, $filter) {
+        var getPubLinks = function (entrez) {
+            var endpoint = 'https://eutils.ncbi.nlm.nih.gov/entrez/eutils/elink.fcgi?dbfrom=gene&db=pubmed&id={entrez}&retmode=json&linkname=gene_pubmed_pmc_nucleotide';
+
+            var url = endpoint.replace('{entrez}', entrez);
+            return $http.get(url)
+                .success(function (response) {
+                    return response
+                })
+                .error(function (response) {
+                    return response
+                });
+        };
+        return {
+            getPubLinks: getPubLinks
+        }
+    });
+
+angular
+    .module('resources')
+    .factory('recentChlamPubLinks', function ($http) {
+        var getRecentChlamPubLinks = function (entrez) {
+            var url = 'https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=pubmed&term=chlamydia trachomatis&reldate=10&datetype=edat&retmax=100&usehistory=y&retmode=json';
+            return $http.get(url)
+                .success(function (response) {
+                    return response
+                })
+                .error(function (response) {
+                    return response
+                });
+        };
+        return {
+            getRecentChlamPubLinks: getRecentChlamPubLinks
+        }
+    });
 
 angular
     .module('resources')
@@ -359,21 +486,26 @@ angular
 
     });
 
-
 angular
     .module('resources')
-    .factory('allOperons', function ($http) {
-        var getAllOperons = function (val, taxid) {
+    .factory('allChlamydiaGenes', function ($http) {
+        var getAllChlamGenes = function () {
             var endpoint = 'https://query.wikidata.org/sparql?format=json&query=';
             var url = endpoint + encodeURIComponent(
-
-
-
-
-
-
-
-                );
+                    "SELECT ?taxon ?taxid ?taxonLabel ?gene ?geneLabel ?entrez  ?uniprot ?protein ?proteinLabel ?locusTag " +
+                    "?geneDescription ?refseq_prot ?aliases " +
+                    "WHERE {  " +
+                    "?taxon wdt:P171* wd:Q846309.  " +
+                    "?gene wdt:P279 wd:Q7187;  " +
+                    "wdt:P703 ?taxon;  " +
+                    "wdt:P351 ?entrez;  " +
+                    "wdt:P2393 ?locusTag;  " +
+                    "wdt:P688 ?protein;  " +
+                    "skos:altLabel ?aliases." +
+                    "?protein wdt:P352 ?uniprot;  " +
+                    "wdt:P637 ?refseq_prot. " +
+                    "?taxon wdt:P685 ?taxid." +
+                    "SERVICE wikibase:label {bd:serviceParam wikibase:language 'en'.}}");
             return $http.get(url)
                 .success(function (response) {
                     return response.data;
@@ -383,10 +515,144 @@ angular
                 });
         };
         return {
-            getAllOperons: getAllOperons
+            getAllChlamGenes: getAllChlamGenes
         }
+    });
+
+angular
+    .module('resources')
+    .factory('wdGetEntities', function () {
+        var wdGetEntities = function (qid) {
+            return $.ajax({
+                url: "https://www.wikidata.org/w/api.php",
+                jsonp: "callback",
+                dataType: 'jsonp',
+                data: {
+                    action: "wbgetentities",
+                    ids: qid,
+                    format: "json"
+                },
+                xhrFields: {withCredentials: true},
+                success: function (response) {
+                    return response
+                },
+                error: function (response) {
+                    return response
+                }
+            });
+        };
+        return {
+            wdGetEntities: wdGetEntities
+
+        }
+    });
+
+angular
+    .module('resources')
+    .factory('entrez2QID', function ($http, $filter) {
+        var endpoint = 'https://query.wikidata.org/sparql?format=json&query=';
+        var getEntrez2QID = function (entrez) {
+            var query = "SELECT distinct ?gene ?protein WHERE{" +
+                "?gene wdt:P351 '{entrez}'; " +
+                "wdt:P688 ?protein.}";
+            var url = endpoint + encodeURIComponent(query.replace('{entrez}', entrez));
+            return $http.get(url)
+                .success(function (response) {
+                    return response;
+                })
+                .error(function (response) {
+                    return response
+                });
+
+        };
+        return {
+            getEntrez2QID: getEntrez2QID
+        }
+
+
+    });
+
+angular
+    .module('resources')
+    .factory('locusTag2QID', function ($http, $filter) {
+        var endpoint = 'https://query.wikidata.org/sparql?format=json&query=';
+        var getLocusTag2QID = function (locusTag, taxid) {
+            var query = "SELECT distinct ?gene ?protein WHERE{" +
+                "?strain wdt:P685 '{taxid}'. " +
+                "?gene wdt:P2393 '{locusTag}'; " +
+                "wdt:P703 ?strain; " +
+                "wdt:P688 ?protein.}";
+            var url1 = query.replace('{taxid}', taxid);
+            var url = endpoint + encodeURIComponent(url1.replace('{locusTag}', locusTag));
+
+            return $http.get(url)
+                .success(function (response) {
+
+                    return response;
+
+                })
+                .error(function (response) {
+
+                    return response
+                });
+
+        };
+        return {
+            getLocusTag2QID: getLocusTag2QID
+        }
+
 
     });
 
 
+angular
+    .module('resources')
+    .factory('abstractSPARQL', function ($http) {
+        var endpoint = 'https://query.wikidata.org/sparql?format=json&query=';
+        var getAbstractSPARQL = function (pqid, pred, idprop) {
+            var preq = "PREFIX wd: <http://www.wikidata.org/entity/> " +
+                "PREFIX prov: <http://www.w3.org/ns/prov#> " +
+                "PREFIX pr: <http://www.wikidata.org/prop/reference/> " +
+                "PREFIX p: <http://www.wikidata.org/prop/> " +
+                "PREFIX ps: <http://www.wikidata.org/prop/statement/> " +
+                "SELECT (wd:prot_qid as ?sub) " +
+                "?obj ?objLabel ?objDescription ?obj_id " +
+                "?stated_in ?stated_inLabel " +
+                "?retrieved " +
+                "?reference_url " +
+                "?language ?languageLabel " +
+                "?curator ?curatorLabel " +
+                "?determination ?determinationLabel " +
+                "WHERE { " +
+                " wd:prot_qid p:an_prop ?claim . " +
+                " ?claim ps:an_prop ?obj. " +
+                " ?obj wdt:id_prop ?obj_id. " +
+                "  optional {?claim prov:wasDerivedFrom/pr:P248 ?stated_in. } " +
+                "  optional {?claim prov:wasDerivedFrom/pr:P813 ?retrieved. } " +
+                "  optional {?claim prov:wasDerivedFrom/pr:P854 ?reference_url. } " +
+                "  optional {?claim prov:wasDerivedFrom/pr:P407 ?language. } " +
+                "  optional {?claim prov:wasDerivedFrom/pr:P1640 ?curator. } " +
+                "  optional {?claim pq:P459 ?determination. } " +
+                "  SERVICE wikibase:label { " +
+                "        bd:serviceParam wikibase:language 'en' ." +
+                "  } " +
+                "}";
 
+            var url1 = preq.replace(/prot_qid/g, pqid).replace(/an_prop/g, pred).replace(/id_prop/g, idprop);
+            var url = endpoint + encodeURIComponent(url1);
+            console.log(url1);
+            return $http.get(url)
+                .success(function (response) {
+                    return response;
+                })
+                .error(function (response) {
+
+                    return response
+                });
+        };
+        return {
+            getAbstractSPARQL: getAbstractSPARQL
+        }
+
+
+    });

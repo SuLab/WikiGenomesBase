@@ -6,6 +6,8 @@ angular.module('cmod', [
     'ngResource',
     'ngRoute',
     'ngTable',
+    'ngFileUpload',
+    'ngCookies',
 
     //internal
     'filters',
@@ -27,7 +29,16 @@ angular.module('cmod', [
     'operonForm',
     'genomicPosition',
     'enzymeView',
-    'geneDownload',
+    'mutantsView',
+    'allgenesDownload',
     'angularUtils.directives.dirPagination',
-    'oauthView'
+    'oauthView',
+    'genesKeyword',
+    'keywordForm',
+    'keywordPaginated',
+    'organismTree',
+    'linkedPubs',
+    'orthologView',
+    'mutantForm',
+    'functionalAnnotation'
 ]);

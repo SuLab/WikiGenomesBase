@@ -1,0 +1,31 @@
+<table ng-table="$ctrl.tableParams" class="table table-hover">
+    <col width="30%"/>
+    <col width="20%"/>
+    <col width="20%"/>
+    <col width="20%"/>
+    <col width="10%"/>
+    <tr ng-repeat="(key, value) in $ctrl.data">
+        <td title="'Strain'">
+            <a href="/organism/{{key}}">{{key | taxid2Name}}</a>
+        </td>
+        <td title="'Taxid'">
+            <a href="/organism/{{key}}">{{key}}</a>
+        </td>
+        <td title="'Current Locus Tag'">
+            <a href="/organism/{{key}}/gene/{{value.current}}">{{value.current }}</a>
+        </td>
+        <td title="'Deprecated Locus Tag'">
+            {{value.depricated }}
+        </td>
+        <td title="'References'">
+            <!-- Button trigger modal -->
+            <div style="padding: 3px">
+                <a data-toggle="modal"
+                   data-target="">
+                   <img uib-tooltip="Cited Publication" style="height: 14px; margin-top: -3px" data-ng-src="/static/wiki/img/pubmedGlyph.png">
+                </a>
+            </div>
+        </td>
+    </tr>
+</table>
+

@@ -1,0 +1,22 @@
+[
+  {
+    "taxid": 471472,
+    "taxon": "http://www.wikidata.org/entity/Q20800254",
+    "taxonLabel": "Chlamydia trachomatis 434/BU"
+  },
+  {
+    "taxid": 272561,
+    "taxon": "http://www.wikidata.org/entity/Q20800373",
+    "taxonLabel": "Chlamydia trachomatis D/UW-3/CX"
+  },
+  {
+    "taxid": 115713,
+    "taxon": "http://www.wikidata.org/entity/Q21397863",
+    "taxonLabel": "Chlamydophila pneumoniae CWL029"
+  },
+  {
+    "taxid": 243161,
+    "taxon": "http://www.wikidata.org/entity/Q21398805",
+    "taxonLabel": "Chlamydia muridarum Nigg"
+  }
+]

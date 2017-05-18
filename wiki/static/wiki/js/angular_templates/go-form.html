@@ -3,6 +3,7 @@
         <h4>Search for a {{$ctrl.goclass | goClass}}</h4>
 
         <input id="goInput"
+               autocomplete="off"
                type="text"
                ng-model="$ctrl.goFormModel.go"
                placeholder="{{$ctrl.goclass | goClass}}"
@@ -36,6 +37,7 @@
 
         <input id="pubInput"
                type="text"
+               autocomplete="off"
                ng-model="$ctrl.goFormModel.pub"
                placeholder="PMID"
                uib-typeahead="pmid as pmid.title +  ' PMID:' + pmid.uid for pmid in $ctrl.getPMID($viewValue)"

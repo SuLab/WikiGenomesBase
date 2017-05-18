@@ -1,0 +1,18 @@
+<div ng-show="$ctrl.pubList.length!=0" ng-repeat="pub in $ctrl.pubs">
+    <div class="panel" style="margin-top: 10px; border: solid 1px #99c2ff">
+        <div class="panel-heading">
+            <a target="_blank" href="https://www.ncbi.nlm.nih.gov/pubmed/{{pub.pmid}}"><h4>{{ pub.title }}</h4><br/>
+            </a>
+        </div>
+        <div class="panel-body">
+            <i><strong>{{ pub.journalTitle}}</strong></i><br/>
+            {{ pub.authorString.split(',')[0]}} <i>et. al</i> {{ pub.pubYear }}<br/>
+            PMID: {{ pub.pmid }}
+        </div>
+        <br/>
+    </div>
+</div>
+<div ng-show="$ctrl.pubs.length==0">
+    No Linked Publications
+</div>
+

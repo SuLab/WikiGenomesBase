@@ -1,1 +1,500 @@
-{"intervals":{"classes":[{"attributes":["Start","End","Strand","Load_id","Note","Type","Subfeatures","Name","Seq_id","Source"],"isArrayAttr":{"Subfeatures":1}},{"isArrayAttr":{"Subfeatures":1},"attributes":["Start","End","Strand","Note","Subfeatures","Type","Load_id","Name","Seq_id","Parent_id","Source"]},{"attributes":["Start","End","Strand","Parent_id","Type","Seq_id","Source"],"isArrayAttr":{}},{"attributes":["Start","End","Strand","Type","Parent_id","Phase","Seq_id","Source"],"isArrayAttr":{}},{"attributes":["Start","End","Strand","Type","Source","Phase","Parent_id","Seq_id"],"isArrayAttr":{}},{"attributes":["Start","End","Strand","Type","Parent_id","Phase","Seq_id","Source"],"isArrayAttr":{}},{"attributes":["Start","End","Strand","Type","Source","Seq_id","Phase","Parent_id"],"isArrayAttr":{}},{"isArrayAttr":{},"attributes":["Start","End","Strand","Type","Seq_id","Parent_id","Source"]},{"attributes":["Start","End","Strand","Note","Type","Subfeatures","Load_id","Name","Seq_id","Parent_id","Source"],"isArrayAttr":{"Subfeatures":1}},{"attributes":["Start","End","Strand","Source","Phase","Parent_id","Seq_id","Type"],"isArrayAttr":{}},{"attributes":["Start","End","Strand","Parent_id","Seq_id","Type","Source"],"isArrayAttr":{}},{"isArrayAttr":{},"attributes":["Start","End","Strand","Type","Source","Phase","Parent_id","Seq_id"]},{"attributes":["Start","End","Strand","Seq_id","Type","Parent_id","Source"],"isArrayAttr":{}},{"isArrayAttr":{},"attributes":["Start","End","Strand","Parent_id","Type","Seq_id","Source"]},{"isArrayAttr":{},"attributes":["Start","End","Strand","Type","Seq_id","Parent_id","Phase","Source"]},{"isArrayAttr":{},"attributes":["Start","End","Strand","Source","Parent_id","Phase","Seq_id","Type"]},{"isArrayAttr":{"Sublist":1},"attributes":["Start","End","Chunk"]}],"urlTemplate":"lf-{Chunk}.json","lazyClass":16,"minStart":1049,"count":1,"nclist":[[0,1049,9000,1,"EDEN","protein kinase","gene",[[1,1049,9000,1,"Eden splice form 1",[[2,7608,9000,1,"EDEN.1","three_prime_UTR","ctgA","example"],[3,4999,5500,1,"CDS","EDEN.1","0","ctgA","example"],[4,1200,1500,1,"CDS","example","0","EDEN.1","ctgA"],[5,6999,7608,1,"CDS","EDEN.1","0","ctgA","example"],[6,2999,3902,1,"CDS","example","ctgA","0","EDEN.1"],[7,1049,1200,1,"five_prime_UTR","ctgA","EDEN.1","example"]],"mRNA","EDEN.1","EDEN.1","ctgA","EDEN","example"],[8,1299,9000,1,"Eden splice form 3","mRNA",[[9,4999,5500,1,"example","1","EDEN.3","ctgA","CDS"],[10,2999,3300,1,"EDEN.3","ctgA","five_prime_UTR","example"],[11,6999,7600,1,"CDS","example","1","EDEN.3","ctgA"],[7,7600,9000,1,"three_prime_UTR","ctgA","EDEN.3","example"],[12,1299,1500,1,"ctgA","five_prime_UTR","EDEN.3","example"],[5,3300,3902,1,"CDS","EDEN.3","0","ctgA","example"]],"EDEN.3","EDEN.3","ctgA","EDEN","example"],[1,1049,9000,1,"Eden splice form 2",[[13,7608,9000,1,"EDEN.2","three_prime_UTR","ctgA","example"],[14,6999,7608,1,"CDS","ctgA","EDEN.2","0","example"],[15,4999,5500,1,"example","EDEN.2","0","ctgA","CDS"],[9,1200,1500,1,"example","0","EDEN.2","ctgA","CDS"],[13,1049,1200,1,"EDEN.2","five_prime_UTR","ctgA","example"]],"mRNA","EDEN.2","EDEN.2","ctgA","EDEN","example"]],"EDEN","ctgA","example"]],"maxEnd":9000},"histograms":{"meta":[{"arrayParams":{"length":1,"chunkSize":10000,"urlTemplate":"hist-50000-{Chunk}.json"},"basesPerBin":"50000"}],"stats":[{"max":1,"basesPerBin":"50000","mean":1}]},"featureCount":1,"formatVersion":1}
+{
+  "intervals": {
+    "classes": [
+      {
+        "attributes": [
+          "Start",
+          "End",
+          "Strand",
+          "Load_id",
+          "Note",
+          "Type",
+          "Subfeatures",
+          "Name",
+          "Seq_id",
+          "Source"
+        ],
+        "isArrayAttr": {
+          "Subfeatures": 1
+        }
+      },
+      {
+        "isArrayAttr": {
+          "Subfeatures": 1
+        },
+        "attributes": [
+          "Start",
+          "End",
+          "Strand",
+          "Note",
+          "Subfeatures",
+          "Type",
+          "Load_id",
+          "Name",
+          "Seq_id",
+          "Parent_id",
+          "Source"
+        ]
+      },
+      {
+        "attributes": [
+          "Start",
+          "End",
+          "Strand",
+          "Parent_id",
+          "Type",
+          "Seq_id",
+          "Source"
+        ],
+        "isArrayAttr": {}
+      },
+      {
+        "attributes": [
+          "Start",
+          "End",
+          "Strand",
+          "Type",
+          "Parent_id",
+          "Phase",
+          "Seq_id",
+          "Source"
+        ],
+        "isArrayAttr": {}
+      },
+      {
+        "attributes": [
+          "Start",
+          "End",
+          "Strand",
+          "Type",
+          "Source",
+          "Phase",
+          "Parent_id",
+          "Seq_id"
+        ],
+        "isArrayAttr": {}
+      },
+      {
+        "attributes": [
+          "Start",
+          "End",
+          "Strand",
+          "Type",
+          "Parent_id",
+          "Phase",
+          "Seq_id",
+          "Source"
+        ],
+        "isArrayAttr": {}
+      },
+      {
+        "attributes": [
+          "Start",
+          "End",
+          "Strand",
+          "Type",
+          "Source",
+          "Seq_id",
+          "Phase",
+          "Parent_id"
+        ],
+        "isArrayAttr": {}
+      },
+      {
+        "isArrayAttr": {},
+        "attributes": [
+          "Start",
+          "End",
+          "Strand",
+          "Type",
+          "Seq_id",
+          "Parent_id",
+          "Source"
+        ]
+      },
+      {
+        "attributes": [
+          "Start",
+          "End",
+          "Strand",
+          "Note",
+          "Type",
+          "Subfeatures",
+          "Load_id",
+          "Name",
+          "Seq_id",
+          "Parent_id",
+          "Source"
+        ],
+        "isArrayAttr": {
+          "Subfeatures": 1
+        }
+      },
+      {
+        "attributes": [
+          "Start",
+          "End",
+          "Strand",
+          "Source",
+          "Phase",
+          "Parent_id",
+          "Seq_id",
+          "Type"
+        ],
+        "isArrayAttr": {}
+      },
+      {
+        "attributes": [
+          "Start",
+          "End",
+          "Strand",
+          "Parent_id",
+          "Seq_id",
+          "Type",
+          "Source"
+        ],
+        "isArrayAttr": {}
+      },
+      {
+        "isArrayAttr": {},
+        "attributes": [
+          "Start",
+          "End",
+          "Strand",
+          "Type",
+          "Source",
+          "Phase",
+          "Parent_id",
+          "Seq_id"
+        ]
+      },
+      {
+        "attributes": [
+          "Start",
+          "End",
+          "Strand",
+          "Seq_id",
+          "Type",
+          "Parent_id",
+          "Source"
+        ],
+        "isArrayAttr": {}
+      },
+      {
+        "isArrayAttr": {},
+        "attributes": [
+          "Start",
+          "End",
+          "Strand",
+          "Parent_id",
+          "Type",
+          "Seq_id",
+          "Source"
+        ]
+      },
+      {
+        "isArrayAttr": {},
+        "attributes": [
+          "Start",
+          "End",
+          "Strand",
+          "Type",
+          "Seq_id",
+          "Parent_id",
+          "Phase",
+          "Source"
+        ]
+      },
+      {
+        "isArrayAttr": {},
+        "attributes": [
+          "Start",
+          "End",
+          "Strand",
+          "Source",
+          "Parent_id",
+          "Phase",
+          "Seq_id",
+          "Type"
+        ]
+      },
+      {
+        "isArrayAttr": {
+          "Sublist": 1
+        },
+        "attributes": [
+          "Start",
+          "End",
+          "Chunk"
+        ]
+      }
+    ],
+    "urlTemplate": "lf-{Chunk}.json",
+    "lazyClass": 16,
+    "minStart": 1049,
+    "count": 1,
+    "nclist": [
+      [
+        0,
+        1049,
+        9000,
+        1,
+        "EDEN",
+        "protein kinase",
+        "gene",
+        [
+          [
+            1,
+            1049,
+            9000,
+            1,
+            "Eden splice form 1",
+            [
+              [
+                2,
+                7608,
+                9000,
+                1,
+                "EDEN.1",
+                "three_prime_UTR",
+                "ctgA",
+                "example"
+              ],
+              [
+                3,
+                4999,
+                5500,
+                1,
+                "CDS",
+                "EDEN.1",
+                "0",
+                "ctgA",
+                "example"
+              ],
+              [
+                4,
+                1200,
+                1500,
+                1,
+                "CDS",
+                "example",
+                "0",
+                "EDEN.1",
+                "ctgA"
+              ],
+              [
+                5,
+                6999,
+                7608,
+                1,
+                "CDS",
+                "EDEN.1",
+                "0",
+                "ctgA",
+                "example"
+              ],
+              [
+                6,
+                2999,
+                3902,
+                1,
+                "CDS",
+                "example",
+                "ctgA",
+                "0",
+                "EDEN.1"
+              ],
+              [
+                7,
+                1049,
+                1200,
+                1,
+                "five_prime_UTR",
+                "ctgA",
+                "EDEN.1",
+                "example"
+              ]
+            ],
+            "mRNA",
+            "EDEN.1",
+            "EDEN.1",
+            "ctgA",
+            "EDEN",
+            "example"
+          ],
+          [
+            8,
+            1299,
+            9000,
+            1,
+            "Eden splice form 3",
+            "mRNA",
+            [
+              [
+                9,
+                4999,
+                5500,
+                1,
+                "example",
+                "1",
+                "EDEN.3",
+                "ctgA",
+                "CDS"
+              ],
+              [
+                10,
+                2999,
+                3300,
+                1,
+                "EDEN.3",
+                "ctgA",
+                "five_prime_UTR",
+                "example"
+              ],
+              [
+                11,
+                6999,
+                7600,
+                1,
+                "CDS",
+                "example",
+                "1",
+                "EDEN.3",
+                "ctgA"
+              ],
+              [
+                7,
+                7600,
+                9000,
+                1,
+                "three_prime_UTR",
+                "ctgA",
+                "EDEN.3",
+                "example"
+              ],
+              [
+                12,
+                1299,
+                1500,
+                1,
+                "ctgA",
+                "five_prime_UTR",
+                "EDEN.3",
+                "example"
+              ],
+              [
+                5,
+                3300,
+                3902,
+                1,
+                "CDS",
+                "EDEN.3",
+                "0",
+                "ctgA",
+                "example"
+              ]
+            ],
+            "EDEN.3",
+            "EDEN.3",
+            "ctgA",
+            "EDEN",
+            "example"
+          ],
+          [
+            1,
+            1049,
+            9000,
+            1,
+            "Eden splice form 2",
+            [
+              [
+                13,
+                7608,
+                9000,
+                1,
+                "EDEN.2",
+                "three_prime_UTR",
+                "ctgA",
+                "example"
+              ],
+              [
+                14,
+                6999,
+                7608,
+                1,
+                "CDS",
+                "ctgA",
+                "EDEN.2",
+                "0",
+                "example"
+              ],
+              [
+                15,
+                4999,
+                5500,
+                1,
+                "example",
+                "EDEN.2",
+                "0",
+                "ctgA",
+                "CDS"
+              ],
+              [
+                9,
+                1200,
+                1500,
+                1,
+                "example",
+                "0",
+                "EDEN.2",
+                "ctgA",
+                "CDS"
+              ],
+              [
+                13,
+                1049,
+                1200,
+                1,
+                "EDEN.2",
+                "five_prime_UTR",
+                "ctgA",
+                "example"
+              ]
+            ],
+            "mRNA",
+            "EDEN.2",
+            "EDEN.2",
+            "ctgA",
+            "EDEN",
+            "example"
+          ]
+        ],
+        "EDEN",
+        "ctgA",
+        "example"
+      ]
+    ],
+    "maxEnd": 9000
+  },
+  "histograms": {
+    "meta": [
+      {
+        "arrayParams": {
+          "length": 1,
+          "chunkSize": 10000,
+          "urlTemplate": "hist-50000-{Chunk}.json"
+        },
+        "basesPerBin": "50000"
+      }
+    ],
+    "stats": [
+      {
+        "max": 1,
+        "basesPerBin": "50000",
+        "mean": 1
+      }
+    ]
+  },
+  "featureCount": 1,
+  "formatVersion": 1
+}

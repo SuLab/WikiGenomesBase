@@ -14,7 +14,7 @@
     <link rel="stylesheet" type="text/css" href="{% static 'wiki/css/jquery-ui.theme.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'wiki/css/landing_page.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'wiki/css/main.css' %}">
-    <link rel="stylesheet" type="text/css" href="https://unpkg.com/ng-table@2.0.2/bundles/ng-table.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/ng-table/1.0.0/ng-table.css">
 
 
     <!--JS External-->
@@ -27,11 +27,20 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
     <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-    <script src="https://unpkg.com/ng-table@2.0.2/bundles/ng-table.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ng-table/1.0.0/ng-table.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular-cookies.js"></script>
+
 
     <script src="{% static 'wiki/js/cytoscape.js' %}"></script>
     <script src="{% static 'wiki/js/ui-bootstrap-tpls-2.3.0.min.js' %}"></script>
     <script src="{% static 'wiki/js/external_js/dirPagination.js' %}"></script>
+
+    <script src="{% static 'wiki/js/external_js/ng-file-upload/ng-file-upload-shim.min.js'  %}"></script>
+    <script src="{% static 'wiki/js/external_js/ng-file-upload/ng-file-upload.min.js'  %}"></script>
+
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+    <script src="http://d3js.org/d3.v3.min.js"></script>
 
 
     <!--JS Local-->
@@ -95,24 +104,65 @@
     <script src="{% static 'wiki/js/app/annotations-view/enzyme-view/enzyme-view.module.js' %}"></script>
     <script src="{% static 'wiki/js/app/annotations-view/enzyme-view/enzyme-view.component.js' %}"></script>
 
-    <script src="{% static 'wiki/js/app/gene-download/gene-download.module.js' %}"></script>
-    <script src="{% static 'wiki/js/app/gene-download/gene-download.component.js' %}"></script>
-
-
+    <script src="{% static 'wiki/js/app/all-genes-download/allgenes-download.module.js' %}"></script>
+    <script src="{% static 'wiki/js/app/all-genes-download/allgenes-download.component.js' %}"></script>
 
     <script src="{% static 'wiki/js/app/operon-form/operon-form.module.js' %}"></script>
     <script src="{% static 'wiki/js/app/operon-form/operon-form.component.js' %}"></script>
 
+    <script src="{% static 'wiki/js/app/organism-tree/organism-tree.module.js' %}"></script>
+    <script src="{% static 'wiki/js/app/organism-tree/organism-tree.component.js' %}"></script>
+
     <script src="{% static 'wiki/js/app/authorization/oauth.module.js' %}"></script>
     <script src="{% static 'wiki/js/app/authorization/oauth.component.js' %}"></script>
 
+    <script src="{% static 'wiki/js/app/genes-keyword-browser/genes-keyword.module.js' %}"></script>
+    <script src="{% static 'wiki/js/app/genes-keyword-browser/genes-keyword.component.js' %}"></script>
+
+    <script src="{% static 'wiki/js/app/keyword-form/keyword-form.module.js' %}"></script>
+    <script src="{% static 'wiki/js/app/keyword-form/keyword-form.component.js' %}"></script>
+
+    <script src="{% static 'wiki/js/app/keyword-paginated/keyword-paginated.module.js' %}"></script>
+    <script src="{% static 'wiki/js/app/keyword-paginated/keyword-paginated.component.js' %}"></script>
+
+    <script src="{% static 'wiki/js/app/annotations-view/mutants-view/mutants-view.module.js' %}"></script>
+    <script src="{% static 'wiki/js/app/annotations-view/mutants-view/mutants-view.component.js' %}"></script>
+
+    <script src="{% static 'wiki/js/app/annotations-view/linked-pubs/linked-pubs.module.js' %}"></script>
+    <script src="{% static 'wiki/js/app/annotations-view/linked-pubs/linked-pubs.component.js' %}"></script>
+
+    <script src="{% static 'wiki/js/app/annotations-view/ortholog-view/ortholog-view.module.js' %}"></script>
+    <script src="{% static 'wiki/js/app/annotations-view/ortholog-view/ortholog-view.component.js' %}"></script>
+
+    <script src="{% static 'wiki/js/app/mutant-forms/mutant-single-form.module.js' %}"></script>
+    <script src="{% static 'wiki/js/app/mutant-forms/mutant-single-form.component.js' %}"></script>
+
+    <script src="{% static 'wiki/js/app/functional-annotation/functional-annotation.module.js' %}"></script>
+    <script src="{% static 'wiki/js/app/functional-annotation/functional-annotation.component.js' %}"></script>
 
 
+    <script>
+        (function (i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r;
+            i[r] = i[r] || function () {
+                        (i[r].q = i[r].q || []).push(arguments)
+                    }, i[r].l = 1 * new Date();
+            a = s.createElement(o),
+                    m = s.getElementsByTagName(o)[0];
+            a.async = 1;
+            a.src = g;
+            m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+
+        ga('create', 'UA-91585082-2', 'auto');
+        ga('send', 'pageview');
+
+    </script>
 
 </head>
 <body>
 
+{%csrf_token%}
 <div style="height: 100%" class="ng-view"></div>
-
 </body>
 </html>

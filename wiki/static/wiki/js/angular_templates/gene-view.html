@@ -1,3 +1,4 @@
+
 <div class="table-responsive">
     <table class="table table-hover">
         <col width="50%"/>
@@ -6,15 +7,13 @@
         <tbody>
         <tr>
             <th>Entrez ID</th>
-            <td>{{ $ctrl.gene.entrez}}</td>
-        </tr>
-        <tr>
-            <th>NCBI Locus Tag</th>
-            <td>{{ $ctrl.gene.locusTag}}</td>
+            <td>{{ $ctrl.gene.entrez}}
+            </td>
         </tr>
         <tr>
             <th>Wikidata QID</th>
-            <td>{{ $ctrl.gene.gene | parseQID }}</td>
+            <td>{{ $ctrl.gene.geneQID }}
+            </td>
         </tr>
         </tbody>
     </table>

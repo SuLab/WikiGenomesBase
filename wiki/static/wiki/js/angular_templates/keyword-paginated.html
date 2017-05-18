@@ -1,0 +1,45 @@
+<style>
+    .wrapbreaker {
+        word-break: break-all;
+
+    }
+</style>
+<div class="panel-body">
+
+    <div style="text-align: center">
+        <dir-pagination-controls on-page-change="pageChanged(newPageNumber)"></dir-pagination-controls>
+    </div>
+    <ul style="list-style: none">
+        <li>
+        </li>
+        <li dir-paginate="x in $ctrl.data| itemsPerPage: 10">
+            <div ng-click="$ctrl.onSelect(x)" class="btn btn-default"
+                 style="margin-top:15px; width:100%; color:#385d94">
+                <div class="row">
+                    <div class="col-md-10" style="text-align: left">
+                        <div style="padding-left: 20px">
+                         <strong><u>{{x.geneLabel.value | limitTo : 80}}</u>{{x.geneLabel.value.length > 80 ? '...' : ''}}</strong>
+
+                            <h6>Aliases: <i>{{x.aliases.value}}</i>
+                            </h6><h6>Strain: <i>{{x.taxonLabel.value}}</i></h6>
+                            <h6>Locus Tag: {{x.locusTag.value}} </h6>
+                            <h6>Entrez: {{x.entrez.value}} </h6>
+                        </div>
+                    </div>
+                    <div class="col-md-2" style="text-align: right"><a target="_blank"
+                                                                       href="https://www.wikidata.org/wiki/{{x.gene.value | parseQID}}">
+                        <div style="padding: 10px;">
+                            <div class="btn btn-default"><img style="max-height: 30px" id="wikilogo"
+                                                              src="static/wiki/img/GeneWikidata-logo-en.png">
+                            </div>
+                        </div>
+                    </a>
+                    </div>
+                </div>
+            </div>
+        </li>
+    </ul>
+    <div style="text-align: center">
+        <dir-pagination-controls on-page-change="pageChanged(newPageNumber)"></dir-pagination-controls>
+    </div>
+</div>

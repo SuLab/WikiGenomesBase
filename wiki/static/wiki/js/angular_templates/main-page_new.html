@@ -14,12 +14,18 @@
         background-color: #385d94;
         color: whitesmoke;
     }
+
+    #jbrowse-div {
+        resize: vertical;
+        overflow: auto;
+    }
+
 </style>
 <nav class="navbar navbar-custom navbar-fixed-top">
     <div class="container-fluid">
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
-            <a style="color: whitesmoke" class="navbar-brand" href="/">WikiGenomes</a>
+            <a style="color: whitesmoke" class="navbar-brand" href="/">ChlamBase</a>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
@@ -27,55 +33,40 @@
             <form class="navbar-form navbar-left">
                 <organism-form orgs="$ctrl.orgList"></organism-form>
             </form>
+            <form class="navbar-form navbar-left">
+                <gene-form taxid="$ctrl.currentTaxid"></gene-form>
+            </form>
+            <form class="navbar-form navbar-left">
+                <keyword-form></keyword-form>
+            </form>
             <oauth-view style="float:right"></oauth-view>
         </div>
         <!-- /.navbar-collapse -->
     </div>
     <!-- /.container-fluid -->
 </nav>
+
 <div class="container-fluid" style="color:#385d94">
     <div class="row">
-        <div class="col-md-1"></div>
+        <div class="col-md-1">
+        </div>
         <div class="col-md-10">
             <div class="panel panel-info">
                 <div class="panel-heading">
-                    <div class="row" style="padding:10px">
-                        <div class="col-md-3" style="padding-left: 30px">
-                            <gene-form taxid="$ctrl.currentOrg.taxid"></gene-form>
-                        </div>
-                        <div class="col-md-9">
-                            <genomic-position data="$ctrl.currentGene"></genomic-position>
-                        </div>
-                    </div>
-
+                    <!--<gene-form taxid="$ctrl.currentOrg.taxid"></gene-form>-->
+                    <genomic-position  data="$ctrl.currentGene"></genomic-position>
                 </div>
                 <div class="panel-body">
-                    <div class="panel" style="height: 350px">
+                    <div class="panel">
                         <organism-view org="$ctrl.currentOrg" taxid="$ctrl.currentOrg.taxid"></organism-view>
-                        <jbrowse-view entrez="$ctrl.currentGene.entrez" gene="$ctrl.currentGene"
-                                      taxid="$ctrl.currentOrg.taxid"></jbrowse-view>
-                    </div>
-                    <div class="row" style="padding: 30px 30px 5px 30px;">
-                        <div class="col-md-6">
-                            <div class="panel">
-                                <h4> Gene Identifiers</h4>
-                                <gene-view gene="$ctrl.currentGene"></gene-view>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="panel">
-                                <h4> Gene Product Identifiers</h4>
-                                <protein-view protein="$ctrl.currentGene"></protein-view>
-                            </div>
+                        <div id="jbrowse-div" style="height: 250px; border: solid #99c2ff 3px; border-radius: 3px ">
+                            <jbrowse-view ng-if="$ctrl.currentGene.entrez" entrez="$ctrl.currentGene.entrez"
+                                          gene="$ctrl.currentGene"
+                                          taxid="$ctrl.currentOrg.taxid"></jbrowse-view>
                         </div>
                     </div>
-                    <div style="padding: 0 30px 5px 30px;">
-                        <annotations-view gene="$ctrl.currentGene" uniprot="$ctrl.currentGene.uniprot"
-                                          entrez="$ctrl.currentGene.entrez" taxid="$ctrl.currentTaxid"
-                                          allOrgGenes="$ctrl.currentAllGenes"
-
-                                >
-                        </annotations-view>
+                    <div style="padding: 30px 30px 5px 30px;">
+                        <annotations-view annotations="$ctrl.annotations" data="$ctrl.currentGene"></annotations-view>
                     </div>
                 </div>
             </div>

@@ -3,10 +3,18 @@
 angular.module('cmod')
     .config(
     function ($locationProvider,
-              $routeProvider) {
+              $routeProvider,
+              $httpProvider,
+              $interpolateProvider,
+              $compileProvider) {
+
         $locationProvider.html5Mode({
             enabled: true
         });
+
+
+        $compileProvider.aHrefSanitizationWhitelist(/^\s*(|blob|):/);
+        $compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|ftp|mailto|chrome-extension):/);
 
         $routeProvider.
             when("/", {
@@ -15,18 +23,29 @@ angular.module('cmod')
             when("/organism/:taxid/", {
                 template: '<browser-page></browser-page>'
             }).
-            when("/organism/:taxid/gene/:entrez", {
+            when("/keyword/:keyword", {
+                template: '<genes-keyword></genes-keyword>'
+            }).
+            when("/organism/:taxid/gene/:locusTag", {
+                template: '<main-page></main-page>'
+            }).
+            when("/organism/:taxid/gene/:locusTag/authorized/", {
                 template: '<main-page></main-page>'
             }).
             otherwise({
                 template: "<not-found></not-found>"
-            })
+            });
 
-    });
+        $interpolateProvider.startSymbol('{$');
+        $interpolateProvider.endSymbol('$}');
+        $httpProvider.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
+
+    }).
+    run([
+        '$http',
+        '$cookies',
+        function ($http, $cookies) {
+            $http.defaults.headers.post['X-CSRFToken'] = $cookies.get('csrftoken');
+        }]);
 
 
-angular.module('cmod')
-    .config(['$compileProvider', function ($compileProvider) {
-        $compileProvider.aHrefSanitizationWhitelist(/^\s*(|blob|):/);
-        $compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|ftp|mailto|chrome-extension):/);
-    }]);

@@ -1,0 +1,159 @@
+<div ng-show="$ctrl.loading" class="overlay">
+    <div class="loading-img"></div>
+</div>
+<div style="padding:20px">
+    <table style="width:100%">
+        <col width="20%"/>
+        <col width="6%"/>
+        <col width="20%"/>
+        <col width="6%"/>
+        <col width="20%"/>
+        <col width="8%"/>
+        <col width="20%"/>
+        <tr>
+            <th class="strongColor">Function</th>
+            <th class="strongColor glyphicon glyphicon-arrow-right"></th>
+
+            <th ng-class="{ 'fadedColor': $ctrl.pageCount < 1, 'strongColor': $ctrl.pageCount >= 1 }">Method</th>
+            <th ng-class="{ 'fadedColor': $ctrl.pageCount < 1, 'strongColor': $ctrl.pageCount >= 1 }"
+                class="glyphicon glyphicon-arrow-right"></th>
+
+            <th ng-class="{ 'fadedColor': $ctrl.pageCount < 2, 'strongColor': $ctrl.pageCount >= 2}">Reference</th>
+            <th ng-class="{ 'fadedColor': $ctrl.pageCount < 2, 'strongColor': $ctrl.pageCount >= 2 }"
+                class="glyphicon glyphicon-arrow-right"></th>
+            <th ng-class="{ 'fadedColor': $ctrl.pageCount < 4, 'strongColor': $ctrl.pageCount == 3}">Review</th>
+        </tr>
+    </table>
+
+
+</div>
+
+<form name='goAnnotationForm' class="form-group" ng-model="$ctrl.goFormModel">
+    <div class="well" ng-show="$ctrl.pageCount==0" style="min-height:200px">
+
+        <div class="row">
+            <div class="col-md-1"></div>
+            <div class="col-md-10">
+                <h4>Search for a {{$ctrl.goclass | goClass}}</h4>
+                <input id="goInput"
+                       type="text"
+                       typeahead-loading="loadingTerms"
+                       typeahead-no-results="noResults"
+                       ng-model="$ctrl.goValue"
+                       placeholder="{{$ctrl.goclass | goClass}}"
+                       uib-typeahead="go as go.goterm_label.value for go in $ctrl.getGoTermsAll($viewValue)"
+                       class="form-control"
+                       typeahead-wait-ms="900"
+                       typeahead-on-select="$ctrl.selectGoTerm($item, $model, $value)"
+                        >
+
+                <div class="well-sm">
+                    <a target="_blank" href="http://geneontology.org/page/about">The Gene Ontology Project (GO)</a>
+                </div>
+            </div>
+            <div class="col-md-1">
+                <i ng-show="loadingTerms" class="glyphicon glyphicon-refresh"></i>
+                <i ng-show="noResults" class="glyphicon glyphicon-remove"></i>
+            </div>
+        </div>
+
+
+        <div ng-show="$ctrl.goFormModel.go">
+            <div style="padding:10px 2px 2px 2px">
+                <button class="btn btn-info">
+                    {{$ctrl.goFormModel.go.goterm_label.value}}
+                    <div data-ng-click="$ctrl.goFormModel.go=null" class="glyphicon glyphicon-remove"></div>
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="well" ng-show="$ctrl.pageCount==1" style="min-height:200px">
+
+        <div class="row">
+            <div class="col-md-1"></div>
+            <div class="col-md-10">
+                <h4>Select a Determination Method</h4>
+                <select id='eviInput' class="form-control" ng-model="$ctrl.goFormModel.evi" required="required"
+                        ng-options="option as option.name + ' (' + option.evidence_codeLabel + ') ' for option in $ctrl.evidence">
+                    <option style="display:none" value="">GO Evidence Code</option>
+                </select>
+
+                <div class="well-sm">
+                    <a target="_blank" href="http://geneontology.org/page/guide-go-evidence-codes">Guide to GO Evidence
+                        Codes</a>
+                </div>
+            </div>
+            <div class="col-md-1"></div>
+        </div>
+        <div ng-show="$ctrl.goFormModel.evi">
+            <div style="padding:2px 2px 2px 2px">
+                <button class="btn btn-info">
+                    {{ $ctrl.goFormModel.evi.name }}
+                    <div data-ng-click="$ctrl.goFormModel.evi=null" class="glyphicon glyphicon-remove"></div>
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="well" ng-show="$ctrl.pageCount==2" style="height:200px">
+
+        <div class="row">
+            <div class="col-md-1"></div>
+            <div class="col-md-10">
+                <h4>Search for Referenced Publication</h4>
+                <input id="pubInput"
+                       type="text"
+                       ng-model="$ctrl.pubValue"
+                       placeholder="PMID"
+                       uib-typeahead="pmid as pmid.title +  ' PMID:' + pmid.uid for pmid in $ctrl.getPMID($viewValue)"
+                       typeahead-loading="loadingTerms"
+                       typeahead-no-results="noResults"
+                       class="form-control"
+                       typeahead-wait-ms="900"
+                       typeahead-on-select="$ctrl.selectPub($item, $model, $value)"
+                        ></div>
+            <div class="col-md-1">
+                <i ng-show="loadingTerms" class="glyphicon glyphicon-refresh"></i>
+                <i ng-show="noResults" class="glyphicon glyphicon-remove"></i></div>
+        </div>
+
+        <div ng-show="$ctrl.goFormModel.pub">
+            <div style="padding:10px 2px 2px 2px">
+                <button class="btn btn-info">
+                    {{$ctrl.goFormModel.pub.authors[0].name}} <i>et al.</i> {{$ctrl.goFormModel.pub.pubdate}}
+                    <div data-ng-click="$ctrl.goFormModel.pub=null" class="glyphicon glyphicon-remove"></div>
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="well" ng-show="$ctrl.pageCount==3" style="height:200px">
+        <h4>Review for submission</h4>
+
+        <div>
+            <p ng-show="$ctrl.validateFields()"> The protein "<strong>{{$ctrl.gene.proteinLabel}}</strong>"is
+                involved in
+                "<strong>{{$ctrl.goFormModel.go.goterm_label.value}}</strong>". This claim was stated in
+                " <strong>{{$ctrl.goFormModel.pub.authors[0].name}} <i>et al.</i>
+                    {{$ctrl.goFormModel.pub.pubdate}}</strong>"
+                and determined by "<strong>{{$ctrl.goFormModel.evi.name}}</strong>"
+            </p>
+        </div>
+        <div>
+            <p ng-show="!$ctrl.validateFields()">Please fill out all form fields before proceeding</p>
+        </div>
+    </div>
+    <div style="height:30px; width:100%">
+        <div ng-hide="$ctrl.pageCount==0" class="btn btn-default" ng-click="$ctrl.backClick()">
+            Previous
+        </div>
+        <div style="float:right" ng-hide="$ctrl.pageCount==3" class="btn btn-default" ng-click="$ctrl.nextClick()">
+            Next
+        </div>
+    </div>
+    <div style="clear:both; width:100%; margin-top: 10px">
+        <div class="btn btn-warning" ng-click="$ctrl.resetForm()">Reset</div>
+        <div style="float:right" ng-show="$ctrl.validateFields() && $ctrl.pageCount==3" class="btn btn-success"
+             ng-click="$ctrl.sendData($ctrl.goFormModel)">
+            Submit Annotation
+        </div>
+    </div>
+</form>
