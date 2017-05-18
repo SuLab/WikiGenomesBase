@@ -75,5 +75,3 @@ class Flatfile2Mongo(object):
         cursor = self.mutants.find()
         for i in cursor:
             pprint(i)
-
-
