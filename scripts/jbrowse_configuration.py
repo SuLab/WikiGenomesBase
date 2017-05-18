@@ -230,8 +230,19 @@ class FeatureDataRetrieval(object):
             cursor = self.mutants.find({'taxid': self.taxid})
             for doc in cursor:
                 featurewriter.writerow(
-                    [doc['refSeq'], 'PubMed', 'Mutant', doc['start'], doc['end'], '.', doc['strand'],
-                     '.', 'id={}'.format(doc['attributes'])])
+                    [
+                        doc['gff']['seqname'],
+                        doc['gff']['source'],
+                        doc['gff']['feature'],
+                        doc['gff']['start'],
+                        doc['gff']['end'],
+                        doc['gff']['score'],
+                        doc['gff']['strand'],
+                        doc['gff']['phase'],
+                        doc['gff']['attribute'],
+                     ]
+
+                )
 
     def genes2gff(self):
         filename = '{}_genes.gff'.format(self.taxid)
