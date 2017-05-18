@@ -9,6 +9,10 @@ from pprint import pprint
 import json
 import jsonpickle
 
+from scripts.mutant_annotations import  MutantMongo
+from scripts.jbrowse_configuration import FeatureDataRetrieval
+from scripts.get_mongo_annotations import GetMongoAnnotations
+
 from wikigenomes import oauth_config
 from wikidataintegrator import wdi_login, wdi_core
 
@@ -180,13 +184,21 @@ def mutant_form(request):
     :return:
     """
     if request.method == 'POST':
-        print('mutant form initiated')
         body_unicode = request.body.decode('utf-8')
         body = json.loads(body_unicode)
-        pprint(body)
-        responseData = {'write_success': True}
-        pprint(responseData)
-        return JsonResponse(responseData)
+        annotation = MutantMongo(mut_json=body)
+        annotation.add_gff_from_json()
+        write_result = annotation.push2mongo()
+        body['write_result'] = write_result
+        print(write_result)
+        if write_result['write_success'] is True:
+            body['write_success'] = True
+        else:
+            body['write_success'] = False
+        refObj = FeatureDataRetrieval(taxid=body['taxid'])
+        refObj.mutants2gff()
+
+        return JsonResponse(body)
 
 
 @ensure_csrf_cookie
@@ -226,9 +238,40 @@ def wd_oauth(request):
             return JsonResponse({'deauthenicate': True})
 
 
+@ensure_csrf_cookie
+def mongo_annotations(request):
+    """
+    :param request:
+    :return:
+    """
+    def removekey(d, key):
+        r = dict(d)
+        del r[key]
+        return r
 
+    if request.method == 'POST':
+        body_unicode = request.body.decode('utf-8')
+        body = json.loads(body_unicode)
+        pprint(body)
+        annotations = GetMongoAnnotations()
+        annotation_data = {
+            'mutants': [],
+            'reactions': []
+        }
+        mg_mutants = annotations.get_mutants(locus_tag=body['locusTag'])
 
-
+        for mut in mg_mutants:
+            print(mut)
+            annotation_data['mutants'].append(mut)
+        ecs = [x for x in body['ec_number'] if '-' not in x]
+        if len(ecs) > 0:
+            for ec in ecs:
+                reactions = annotations.get_reactions(ec_number=ec)
+                for rxn in reactions:
+                    rxn = removekey(rxn, '_id')
+                    annotation_data['reactions'].append(rxn)
+        print(annotation_data)
+        return JsonResponse(annotation_data, safe=False)
 
 
 

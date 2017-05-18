@@ -1,28 +1,53 @@
+<style>
+    label{
+        margin-top: 10px;
+    }
+</style>
+
 <div ng-show="$ctrl.pageCount == 0" class="well">
+
     <form ng-model="$ctrl.mutantAnnotation">
         <div class="form-group">
             <label for="mutant">Mutant Strain</label>
             <input ng-model="$ctrl.mutantAnnotation.name" type="text" class="form-control" id="mutant"
                    placeholder="L2 Mutant 1">
-            <label for="genomic_position1">Genomic Position Start</label>
+            <label for="chr">Chromosome Accession</label>
+            <input ng-model="$ctrl.mutantAnnotation.chromosome" type="text" class="form-control" id="chr"
+                   placeholder="NC_010287.1">
+            <label for="genomic_position1">Genomic Position</label>
             <input ng-model="$ctrl.mutantAnnotation.coordinate.start" type="text" class="form-control"
                    id="genomic_position1" placeholder="1">
-            <label for="genomic_position2">Genomic Position End</label>
-            <input ng-model="$ctrl.mutantAnnotation.coordinate.end" type="text" class="form-control"
-                   id="genomic_position2"
-                   placeholder="2">
             <label for="mutant-type">Mutant Type</label>
             <input ng-model="$ctrl.mutantAnnotation.mutant_type" type="text" class="form-control" id="mutant-type"
                    placeholder="chemical, transposon, etc.">
-            <label for="reference-base">Reference Base</label>
-            <input ng-model="$ctrl.mutantAnnotation.ref_base" type="text" class="form-control" id="reference-base"
-                   placeholder="A">
-            <label for="variant-base">Variant Base</label>
-            <input ng-model="$ctrl.mutantAnnotation.variant_base" type="text" class="form-control" id="variant-base"
-                   placeholder="A">
-            <label for="variant-type">Variant Type</label>
-            <input ng-model="$ctrl.mutantAnnotation.variant_type" type="text" class="form-control" id="variant-type"
-                   placeholder="Synonymous">
+            <div class="btn-group">
+                <label>Reference Base</label>
+                <br/>
+                <label class="btn btn-default" ng-model="$ctrl.mutantAnnotation.ref_base" uib-btn-radio="'A'">A</label>
+                <label class="btn btn-default" ng-model="$ctrl.mutantAnnotation.ref_base" uib-btn-radio="'C'">C</label>
+                <label class="btn btn-default" ng-model="$ctrl.mutantAnnotation.ref_base" uib-btn-radio="'G'">G</label>
+                <label class="btn btn-default" ng-model="$ctrl.mutantAnnotation.ref_base" uib-btn-radio="'T'">T</label>
+            </div>
+            <div class="btn-group" style="margin-left: 20px">
+                <label>Variant Base</label>
+                <br/>
+                <label class="btn btn-default" ng-model="$ctrl.mutantAnnotation.variant_base"
+                       uib-btn-radio="'A'">A</label>
+                <label class="btn btn-default" ng-model="$ctrl.mutantAnnotation.variant_base"
+                       uib-btn-radio="'C'">C</label>
+                <label class="btn btn-default" ng-model="$ctrl.mutantAnnotation.variant_base"
+                       uib-btn-radio="'G'">G</label>
+                <label class="btn btn-default" ng-model="$ctrl.mutantAnnotation.variant_base"
+                       uib-btn-radio="'T'">T</label>
+            </div>
+            <br/>
+            <label for="varInput">Variant Type</label>
+            <select id='varInput' class="form-control" ng-model="$ctrl.mutantAnnotation.variant_type"
+                    required="required"
+                    ng-options="option.name for option in $ctrl.seq_ontology_map">
+                <option style="display:none" value="">Variant Type</option>
+            </select>
+
             <label for="aa-effect">Effect on Amino Acid</label>
             <input ng-model="$ctrl.mutantAnnotation.aa_effect" type="text" class="form-control" id="aa-effect"
                    placeholder="R172C">
@@ -64,3 +89,13 @@
         Submit Annotation
     </div>
 </div>
+
+
+
+
+
+
+
+
+
+

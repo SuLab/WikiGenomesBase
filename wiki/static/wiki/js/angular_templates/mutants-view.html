@@ -1,28 +1,29 @@
+<!--<pre>{{ $ctrl.data | json }}</pre>-->
 <table ng-table="$ctrl.tableParams" class="table table-hover">
     <!--<col width="50%"/>-->
     <!--<col width="45%"/>-->
     <!--<col width="5%%"/>-->
-    <tr ng-show="$ctrl.data.length!=0" ng-repeat="x in $ctrl.data">
+    <tr ng-show="$ctrl.data.length!=0" ng-repeat="x in $ctrl.data.mutants">
         <td title="'Mutant Strain'">
-            {{x.mutant_strain }}
+            {{x.name }}
         </td>
         <td title="'Genomic Position'">
-            {{x.genome_position_L2 }}
+            {{x.coordinate.start }}
         </td>
         <td title="'Mutant Type'">
             {{x.mutant_type }}
         </td>
         <td title="'L2 Base'">
-            {{x.ref_base_L2 }}
+            {{x.ref_base}}
         </td>
         <td title="'Variant Base'">
-            {{x.variant_base_L2 }}
+            {{x.variant_base }}
         </td>
         <td title="'SNV Type'">
-            {{x.snv_type }}
+            {{x.variant_type.name }}
         </td>
         <td title="'Effect on Amino Acid'">
-            {{x.aa_sub }}
+            {{x.aa_effect }}
         </td>
 
         <td title="'Reference'">
@@ -47,8 +48,8 @@
                             </button>
                         </div>
                         <div class="modal-body">
-                            <h4>Stated in: {{x.ref_qid}}</h4>
-                            <h4>PMID: {{x.ref_pmid}}</h4>
+                            <h4>Stated in: {{x.pub.title}}</h4>
+                            <h4>PMID: {{x.pub.uid}}</h4>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

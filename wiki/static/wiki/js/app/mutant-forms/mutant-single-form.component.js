@@ -7,19 +7,52 @@ angular
 
         controller: function (pubMedData, $location, $routeParams, sendToView) {
             var ctrl = this;
+            ctrl.$onInit = function () {
+                ctrl.mutantAnnotation = {
+                    taxid: $routeParams.taxid,
+                    locusTag: $routeParams.locusTag
+                };
+                ctrl.pageCount = 0;
+            };
 
-            //ctrl.mutantAnnotation ={
-            //    locus_tag
-            //};
+
             //controls for navigating form
-            ctrl.pageCount = 0;
-
             ctrl.nextClick = function () {
                 ctrl.pageCount += 1;
             };
             ctrl.backClick = function () {
                 ctrl.pageCount -= 1;
             };
+
+            ctrl.seq_ontology_map = [
+                {
+                    alias: 'SYNONYMOUS',
+                    name: 'synonymous',
+                    id: 'SO:0001814'
+                },
+                {
+                    alias: 'Non-neutral',
+                    name: 'non-synonymous',
+                    id: 'SO:0001816'
+                },
+                {
+                    alias: 'NON-CODING',
+                    name: 'non_transcribed_region',
+                    id: 'SO:0000183'
+                },
+                {
+                    alias: 'Neutral',
+                    name: 'silent_mutation',
+                    id: 'SO:0001017'
+                },
+                {
+                    alias: 'NONSENSE',
+                    name: 'stop_gained',
+                    id: 'SO:0001017'
+                }
+
+            ];
+
 
             ctrl.getPMID = function (val) {
                 return pubMedData.getPMID(val).then(
@@ -39,8 +72,7 @@ angular
             };
 
             ctrl.resetForm = function () {
-                ctrl.pageCount = 0;
-                ctrl.mutantAnnotation = null;
+                ctrl.$onInit();
             };
 
             //send form data to server to edit wikidata
@@ -52,10 +84,11 @@ angular
                     if (data.data.write_success === true) {
                         console.log(data);
                         alert("Successfully Annotated! Well Done! The annotation will appear here in a few minutes.");
-                        ctrl.resetForm();
+                        //ctrl.resetForm();
                     }
                     else {
                         alert("Something went wrong.  Give it another shot!")
+                        console.log(data);
                     }
                 }).finally(function () {
                     ctrl.loading = false;
