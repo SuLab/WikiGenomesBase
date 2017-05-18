@@ -75,6 +75,7 @@ angular
     .module('resources')
     .factory('sendToView', function ($http) {
         var sendToView = function (url_suffix, data) {
+            console.log(data);
             var url = url_suffix;
             return $http.post(url, data)
                 .success(function (data) {
