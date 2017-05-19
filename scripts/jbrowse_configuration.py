@@ -271,6 +271,3 @@ class FeatureDataRetrieval(object):
 
 
 
-
-
-

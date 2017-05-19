@@ -9,31 +9,34 @@ __author__ = 'timputman'
 
 class MutantMongo(object):
     so_map = {
-                'SYNONYMOUS' : {
-                    'name': 'synonymous',
-                    'id': 'SO:0001814'
-                },
-                'Non-neutral':{
-                    'name': 'non-synonymous',
-                    'id': 'SO:0001816'
-                },
-               'NON-CODING':{
-                    'name': 'non_transcribed_region',
-                    'id': 'SO:0000183'
-                },
-                'Neutral':{
-                    'name': 'silent_mutation',
-                    'id': 'SO:0001017'
-                },
-                'NONSENSE': {
-                    'name': 'stop_gained',
-                    'id': 'SO:0001587'
-                }
+        'SYNONYMOUS' : {
+            'name': 'synonymous',
+            'id': 'SO:0001814'
+        },
+        'Non-neutral':{
+            'name': 'non-synonymous',
+            'id': 'SO:0001816'
+        },
+       'NON-CODING':{
+            'name': 'non_transcribed_region',
+            'id': 'SO:0000183'
+        },
+        'Neutral':{
+            'name': 'silent_mutation',
+            'id': 'SO:0001017'
+        },
+        'NONSENSE': {
+            'name': 'stop_gained',
+            'id': 'SO:0001587'
+        }
     }
-    """
 
-    """
     def __init__(self, mut_json=None):
+        """
+
+        :param mut_json:
+        :return:
+        """
         self.mut_json = mut_json
         self.client = MongoClient()
         self.genomes = self.client.genomes
