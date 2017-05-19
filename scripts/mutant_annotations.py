@@ -68,6 +68,14 @@ class MutantMongo(object):
                     'duplicate_key': False,
                     }
 
+    def delete_one_mongo(self):
+        try:
+            self.mutants.delete_one({'_id': self.mut_json['_id']})
+            return {'delete_success': True}
+
+        except Exception as e:
+            return {'delete_success': False}
+
     def add_gff_from_json(self):
         self.mut_json['gff'] = {
             "seqname": self.mut_json['chromosome'],

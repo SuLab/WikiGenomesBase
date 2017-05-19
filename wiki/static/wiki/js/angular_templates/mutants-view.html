@@ -1,8 +1,5 @@
 <!--<pre>{{ $ctrl.data | json }}</pre>-->
 <table ng-table="$ctrl.tableParams" class="table table-hover">
-    <!--<col width="50%"/>-->
-    <!--<col width="45%"/>-->
-    <!--<col width="5%%"/>-->
     <tr ng-show="$ctrl.data.length!=0" ng-repeat="x in $ctrl.data.mutants">
         <td title="'Mutant Strain'">
             {{x.name }}
@@ -58,9 +55,13 @@
                 </div>
             </div>
         </td>
+        <td title="'Delete Annotation'">
+            <a class="glyphicon glyphicon-remove" ng-click="$ctrl.deleteAnnotation(x); $ctrl.data.mutants.splice($index,1)">
+            </a>
+        </td>
     </tr>
     <tr>
-        <td ng-show="$ctrl.data.length==0">
+        <td ng-show="$ctrl.data.mutants.length==0">
             No data
         </td>
     </tr>

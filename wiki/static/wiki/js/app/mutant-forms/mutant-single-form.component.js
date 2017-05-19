@@ -78,6 +78,7 @@ angular
             //send form data to server to edit wikidata
             ctrl.sendData = function (formData) {
                 ctrl.loading = true;
+                formData.action = 'annotate';
                 var url_suf = $location.path() + '/wd_mutant_edit';
                 console.log(url_suf);
                 sendToView.sendToView(url_suf, formData).then(function (data) {
