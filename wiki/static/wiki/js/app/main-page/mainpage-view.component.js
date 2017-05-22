@@ -87,7 +87,7 @@ angular
                             ctrl.currentGene.proteinAliases.push(alias.value);
                         });
 
-                                    //                // Get operon data from wikidata sparql query
+                        // Get operon data from wikidata sparql query
                         OperonData.getOperonData(ctrl.currentGene.entrez).then(
                             function (data) {
                                 var dataResults = data.data.results.bindings;

@@ -7,7 +7,10 @@ angular
             ctrl.$onInit = function () {
                 ctrl.currentTaxid = $routeParams.taxid;
                 ctrl.currentLocusTag = $routeParams.locusTag;
-                console.log($location.path());
+                ctrl.alerts = {
+                    'success': false,
+                    'error': false
+                };
                 locusTag2QID.getLocusTag2QID(ctrl.currentLocusTag, ctrl.currentTaxid).then(function (data) {
                     ctrl.geneQID = $filter('parseQID')(data.data.results.bindings[0].gene.value);
                     ctrl.opFormModel = {
@@ -33,10 +36,10 @@ angular
                     });
 
                     allChlamOrgs.getAllOrgs(function (data) {
-                            ctrl.orgList = data;
-                            ctrl.opFormModel.organism = $filter('getJsonItemOrg')('taxid', ctrl.currentTaxid,
-                                ctrl.orgList);
-                        });
+                        ctrl.orgList = data;
+                        ctrl.opFormModel.organism = $filter('getJsonItemOrg')('taxid', ctrl.currentTaxid,
+                            ctrl.orgList);
+                    });
 
                     ctrl.getPMID = function (val) {
                         return pubMedData.getPMID(val).then(
@@ -102,14 +105,14 @@ angular
                     ////send form data to server to edit wikidata
                     ctrl.sendData = function (formData) {
                         ctrl.loading = true;
-                        var url_suf = $location.path() + '/wd_operon_edit'
+                        var url_suf = $location.path() + '/wd_operon_edit';
                         sendToView.sendToView(url_suf, formData).then(function (data) {
-                            if(data.data.operonWrite_success === true){
+                            if (data.data.operonWrite_success === true) {
                                 alert("Successfully Annotated! Well Done! The annotation will appear here in a few minutes.");
                                 ctrl.resetForm();
                             }
-                            else{
-                                alert("Something went wrong.  Give it another shot!")
+                            else {
+                                alert("Something went wrong.  Give it another shot!");
                             }
                         }).finally(function () {
                             ctrl.loading = false;

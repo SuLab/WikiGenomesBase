@@ -93,10 +93,17 @@
     </div>
 </div>
 
+<div style='margin-top: 15px'>
+    <div ng-show='$ctrl.alerts.success' class="alert alert-success">
+        <strong>Success!</strong> You have succesfully added a mutant annotation. Refresh your browser to load the
+        annotation.
+    </div>
 
-
-
-
+    <div ng-show='$ctrl.alerts.error' class="alert alert-warning">
+        <strong>Warning!</strong> Something went wrong while attempting to make the annotation. Please review the
+        requirements for adding annotations to chlambase.org
+    </div>
+</div>
 
 
 

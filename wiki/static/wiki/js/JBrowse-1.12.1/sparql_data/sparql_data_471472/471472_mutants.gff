@@ -1,4 +1,1 @@
-NC_010287.1	chemical	mutation	2400	2400	.	.	.	id=Mutant1
-NC	c	mutation	1	1	.	.	.	id=Mutant1
-NC	c	mutation	1	1	.	.	.	id=Mutant3
-NC	c	mutation	1	1	.	.	.	id=Mutant35
+NC_010287.1	chemical	mutation	500	500	.	.	.	id=mut1

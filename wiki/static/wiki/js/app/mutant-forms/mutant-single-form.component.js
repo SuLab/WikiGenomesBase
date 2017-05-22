@@ -13,6 +13,10 @@ angular
                     locusTag: $routeParams.locusTag
                 };
                 ctrl.pageCount = 0;
+                ctrl.alerts = {
+                    'success': false,
+                    'error': false
+                };
             };
 
 
@@ -83,13 +87,10 @@ angular
                 console.log(url_suf);
                 sendToView.sendToView(url_suf, formData).then(function (data) {
                     if (data.data.write_success === true) {
-                        console.log(data);
-                        alert("Successfully Annotated! Well Done! The annotation will appear here in a few minutes.");
-                        //ctrl.resetForm();
+                        ctrl.alerts.success = true;
                     }
                     else {
-                        alert("Something went wrong.  Give it another shot!")
-                        console.log(data);
+                        ctrl.alerts.error = true;
                     }
                 }).finally(function () {
                     ctrl.loading = false;
