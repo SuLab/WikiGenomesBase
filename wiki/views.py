@@ -178,8 +178,8 @@ def operon_form(request):
 @ensure_csrf_cookie
 def mutant_form(request):
     """
-    UNDER DEVELOPMENT
-    edit local mutant repository wiht user supplied annotation
+
+    edit local mutant repository with user supplied annotation
     :param request:
     :return:
     """

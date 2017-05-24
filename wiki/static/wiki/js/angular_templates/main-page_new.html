@@ -25,20 +25,17 @@
     <div class="container-fluid">
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
-            <a style="color: whitesmoke" class="navbar-brand" href="/">ChlamBase</a>
+            <a style="color: whitesmoke" class="navbar-brand" href="/"><h1>ChlamBase</h1></a>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <form class="navbar-form navbar-left">
+            <form class="navbar-form navbar-left form-group form-inline">
                 <organism-form orgs="$ctrl.orgList"></organism-form>
-            </form>
-            <form class="navbar-form navbar-left">
                 <gene-form taxid="$ctrl.currentTaxid"></gene-form>
-            </form>
-            <form class="navbar-form navbar-left">
                 <keyword-form></keyword-form>
             </form>
+
             <oauth-view style="float:right"></oauth-view>
         </div>
         <!-- /.navbar-collapse -->
@@ -54,7 +51,7 @@
             <div class="panel panel-info">
                 <div class="panel-heading">
                     <!--<gene-form taxid="$ctrl.currentOrg.taxid"></gene-form>-->
-                    <genomic-position  data="$ctrl.currentGene"></genomic-position>
+                    <genomic-position data="$ctrl.currentGene"></genomic-position>
                 </div>
                 <div class="panel-body">
                     <div class="panel">

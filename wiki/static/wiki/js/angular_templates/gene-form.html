@@ -1,13 +1,11 @@
-<form class="ui-widget">
-    <label for="geneForm">Gene Search: </label>
-        <input  autocomplete="off"
-                id="geneForm"
-                type="text"
-                ng-model="gene.name"
-                uib-typeahead="gene.geneLabel.value for gene in $ctrl.currentAllGenes | filter:$viewValue | limitTo:200"
-                typeahead-on-select="$ctrl.onSelect($item)"
-                class="form-control"
-                data-ng-click="gene.name=''"
-                placeholder="e.g. CTL0002"
-                >
-</form>
+<label for="geneForm">Gene Search: </label>
+<input autocomplete="off"
+       id="geneForm"
+       type="text"
+       ng-model="gene.name"
+       uib-typeahead="gene.geneLabel.value for gene in $ctrl.currentAllGenes | filter:$viewValue | limitTo:200"
+       typeahead-on-select="$ctrl.onSelect($item)"
+       class="form-control"
+       data-ng-click="gene.name=''"
+       placeholder="e.g. CTL0002"
+        >

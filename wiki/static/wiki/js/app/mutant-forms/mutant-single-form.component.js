@@ -57,6 +57,19 @@ angular
 
             ];
 
+            ctrl.mutant_type_map = [
+                {
+                    alias: 'chemical mutagenesis',
+                    name: 'chemically induced mutation',
+                    id:'EFO_0000370'
+                },
+                {
+                    alias: 'transposon mutagenesis',
+                    name: 'tbd',
+                    id: 'tbd'
+                }
+            ];
+
 
             ctrl.getPMID = function (val) {
                 return pubMedData.getPMID(val).then(

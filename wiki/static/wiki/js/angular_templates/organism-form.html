@@ -1,12 +1,11 @@
-<form class="ui-widget">
-    <input autocomplete="off"
-           id="orgForm"
-           placeholder="genome search"
-           type="text"
-           ng-model="organism.name"
-           uib-typeahead="org.taxonLabel for org in $ctrl.orgs | filter:$viewValue | limitTo:200"
-           typeahead-on-select="$ctrl.onSelect($item, $model, $label)"
-           class="form-control"
-           data-ng-click="organism.name=''"
-            >
-</form>
+<label for="orgForm">Organism Search: </label>
+<input autocomplete="off"
+       id="orgForm"
+       placeholder="genome search"
+       type="text"
+       ng-model="organism.name"
+       uib-typeahead="org.taxonLabel for org in $ctrl.orgs | filter:$viewValue | limitTo:200"
+       typeahead-on-select="$ctrl.onSelect($item, $model, $label)"
+       class="form-control"
+       data-ng-click="organism.name=''"
+        >

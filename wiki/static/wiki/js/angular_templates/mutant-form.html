@@ -17,9 +17,14 @@
             <label for="genomic_position1">Genomic Position</label>
             <input ng-model="$ctrl.mutantAnnotation.coordinate.start" type="text" class="form-control"
                    id="genomic_position1" placeholder="1">
-            <label for="mutant-type">Mutant Type</label>
-            <input ng-model="$ctrl.mutantAnnotation.mutant_type" type="text" class="form-control" id="mutant-type"
-                   placeholder="chemical, transposon, etc.">
+            <label for="mutant_type">Type of Mutation</label>
+
+            <select id='mutant_type' class="form-control" ng-model="$ctrl.mutantAnnotation.mutant_type"
+                    required="required"
+                    ng-options="option.alias for option in $ctrl.mutant_type_map">
+                <option style="display:none" value="">Mutation Type</option>
+            </select>
+
 
             <div class="btn-group">
                 <label>Reference Base</label>
@@ -104,6 +109,7 @@
         requirements for adding annotations to chlambase.org
     </div>
 </div>
+<pre>{{ $ctrl.mutantAnnotation | json }}</pre>
 
 
 
