@@ -186,25 +186,32 @@ def mutant_form(request):
     if request.method == 'POST':
         body_unicode = request.body.decode('utf-8')
         body = json.loads(body_unicode)
-        annotation = MutantMongo(mut_json=body)
+
         if body['action'] == 'annotate':
-            print('action annotate')
-            annotation.add_gff_from_json()
-            write_result = annotation.push2mongo()
-            body['write_result'] = write_result
-            print(write_result)
-            if write_result['write_success'] is True:
-                body['write_success'] = True
-            else:
+            try:
+                annotation = MutantMongo(mut_json=body)
+                annotation.add_gff_from_json()
+                write_result = annotation.push2mongo()
+                body['write_result'] = write_result
+                refObj = FeatureDataRetrieval(taxid=body['taxid'])
+                refObj.mutants2gff()
+                if write_result['write_success'] is True:
+                    body['write_success'] = True
+                else:
+                    body['write_success'] = False
+
+            except Exception as e:
                 body['write_success'] = False
-            refObj = FeatureDataRetrieval(taxid=body['taxid'])
-            refObj.mutants2gff()
+
         if body['action'] == 'delete':
-            print('action delete')
-            delete_result = annotation.delete_one_mongo()
-            if delete_result['delete_success'] is True:
-                body['delete_success'] = True
-            else:
+            try:
+                annotation = MutantMongo(mut_json=body)
+                delete_result = annotation.delete_one_mongo()
+                if delete_result['delete_success'] is True:
+                    body['delete_success'] = True
+                else:
+                    body['delete_success'] = False
+            except Exception as e:
                 body['delete_success'] = False
 
         return JsonResponse(body)

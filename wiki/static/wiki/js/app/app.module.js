@@ -40,5 +40,6 @@ angular.module('cmod', [
     'linkedPubs',
     'orthologView',
     'mutantForm',
-    'functionalAnnotation'
+    'functionalAnnotation',
+    'expressionView'
 ]);

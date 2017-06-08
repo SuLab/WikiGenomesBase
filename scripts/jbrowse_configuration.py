@@ -267,7 +267,3 @@ class FeatureDataRetrieval(object):
                 featurewriter.writerow(
                     [doc['refSeq'], 'PubMed', 'Operon', doc['start'], doc['end'], '.', doc['strand'],
                      '.', 'id={}'.format(doc['label'])])
-
-
-
-

@@ -4,21 +4,14 @@
     }
 </style>
 
-<div ng-show="$ctrl.pageCount == 0" class="well">
-
+<div ng-show="$ctrl.pageCount == 0">
+<pre>{{$ctrl.mutantAnnotation  | json}}</pre>
     <form ng-model="$ctrl.mutantAnnotation">
         <div class="form-group">
-            <label for="mutant">Mutant Strain</label>
+            <label for="mutant">Mutant Strain Name</label>
             <input ng-model="$ctrl.mutantAnnotation.name" type="text" class="form-control" id="mutant"
                    placeholder="L2 Mutant 1">
-            <label for="chr">Chromosome Accession</label>
-            <input ng-model="$ctrl.mutantAnnotation.chromosome" type="text" class="form-control" id="chr"
-                   placeholder="NC_010287.1">
-            <label for="genomic_position1">Genomic Position</label>
-            <input ng-model="$ctrl.mutantAnnotation.coordinate.start" type="text" class="form-control"
-                   id="genomic_position1" placeholder="1">
             <label for="mutant_type">Type of Mutation</label>
-
             <select id='mutant_type' class="form-control" ng-model="$ctrl.mutantAnnotation.mutant_type"
                     required="required"
                     ng-options="option.alias for option in $ctrl.mutant_type_map">
@@ -26,37 +19,73 @@
             </select>
 
 
-            <div class="btn-group">
-                <label>Reference Base</label>
-                <br/>
-                <label class="btn btn-default" ng-model="$ctrl.mutantAnnotation.ref_base" uib-btn-radio="'A'">A</label>
-                <label class="btn btn-default" ng-model="$ctrl.mutantAnnotation.ref_base" uib-btn-radio="'C'">C</label>
-                <label class="btn btn-default" ng-model="$ctrl.mutantAnnotation.ref_base" uib-btn-radio="'G'">G</label>
-                <label class="btn btn-default" ng-model="$ctrl.mutantAnnotation.ref_base" uib-btn-radio="'T'">T</label>
-            </div>
-            <div class="btn-group" style="margin-left: 20px">
-                <label>Variant Base</label>
-                <br/>
-                <label class="btn btn-default" ng-model="$ctrl.mutantAnnotation.variant_base"
-                       uib-btn-radio="'A'">A</label>
-                <label class="btn btn-default" ng-model="$ctrl.mutantAnnotation.variant_base"
-                       uib-btn-radio="'C'">C</label>
-                <label class="btn btn-default" ng-model="$ctrl.mutantAnnotation.variant_base"
-                       uib-btn-radio="'G'">G</label>
-                <label class="btn btn-default" ng-model="$ctrl.mutantAnnotation.variant_base"
-                       uib-btn-radio="'T'">T</label>
-            </div>
-            <br/>
-            <label for="varInput">Variant Type</label>
-            <select id='varInput' class="form-control" ng-model="$ctrl.mutantAnnotation.variant_type"
-                    required="required"
-                    ng-options="option.name for option in $ctrl.seq_ontology_map">
-                <option style="display:none" value="">Variant Type</option>
-            </select>
+            <div style="margin-top: 15px" class="well" ng-show="$ctrl.mutantAnnotation.mutant_type.key===1"><label
+                    for="mutant">Mutant Strain</label>
+                <label for="genomic_position1">Genomic Position</label>
+                <input ng-model="$ctrl.mutantAnnotation.coordinate.start" type="text" class="form-control"
+                       id="genomic_position1" placeholder="coordinate in range: {{ $ctrl.genStart}}-{{$ctrl.genEnd}}">
 
-            <label for="aa-effect">Effect on Amino Acid</label>
-            <input ng-model="$ctrl.mutantAnnotation.aa_effect" type="text" class="form-control" id="aa-effect"
-                   placeholder="R172C">
+                <div class="btn-group">
+                    <label>Reference Base</label>
+                    <br/>
+                    <label class="btn btn-default" ng-model="$ctrl.mutantAnnotation.ref_base"
+                           uib-btn-radio="'A'">A</label>
+                    <label class="btn btn-default" ng-model="$ctrl.mutantAnnotation.ref_base"
+                           uib-btn-radio="'C'">C</label>
+                    <label class="btn btn-default" ng-model="$ctrl.mutantAnnotation.ref_base"
+                           uib-btn-radio="'G'">G</label>
+                    <label class="btn btn-default" ng-model="$ctrl.mutantAnnotation.ref_base"
+                           uib-btn-radio="'T'">T</label>
+                </div>
+                <div class="btn-group" style="margin-left: 20px">
+                    <label>Variant Base</label>
+                    <br/>
+                    <label class="btn btn-default" ng-model="$ctrl.mutantAnnotation.variant_base"
+                           uib-btn-radio="'A'">A</label>
+                    <label class="btn btn-default" ng-model="$ctrl.mutantAnnotation.variant_base"
+                           uib-btn-radio="'C'">C</label>
+                    <label class="btn btn-default" ng-model="$ctrl.mutantAnnotation.variant_base"
+                           uib-btn-radio="'G'">G</label>
+                    <label class="btn btn-default" ng-model="$ctrl.mutantAnnotation.variant_base"
+                           uib-btn-radio="'T'">T</label>
+                </div>
+                <br/>
+                <label for="varInput">Variant Type</label>
+                <select id='varInput' class="form-control" ng-model="$ctrl.mutantAnnotation.variant_type"
+                        required="required"
+                        ng-options="option.name for option in $ctrl.seq_ontology_map">
+                    <option style="display:none" value="">Variant Type</option>
+                </select>
+
+                <label for="aa-effect">Effect on Amino Acid</label>
+                <input ng-model="$ctrl.mutantAnnotation.aa_effect" type="text" class="form-control" id="aa-effect"
+                       placeholder="R172C">
+
+            </div>
+            <div style="margin-top: 15px" class="well" ng-show="$ctrl.mutantAnnotation.mutant_type.key===2">
+
+                <label for="genomic_position1">Genomic Position of Insert</label>
+                <input ng-model="$ctrl.mutantAnnotation.coordinate.start" type="text" class="form-control"
+                       id="genomic_position1" placeholder="coordinate in range: {{ $ctrl.genStart}}-{{$ctrl.genEnd}}">
+
+                <label for="percent_gene_intact">Percent Gene Intact Prior to Insert</label>
+                <input ng-model="$ctrl.mutantAnnotation.percent_gene_intact" type="text"
+                       class="form-control"
+                       id="percent_gene_intact" placeholder="e.g. 12%">
+
+
+                <label>Insert Directionality</label>
+                <br/>
+
+                <div class="btn-group" style="margin-left: 20px">
+                    <label class="btn btn-default glyphicon glyphicon-arrow-left"
+                           ng-model="$ctrl.mutantAnnotation.insert_direction"
+                           uib-btn-radio="'reverse'"></label>
+                    <label class="btn btn-default glyphicon glyphicon-arrow-right"
+                           ng-model="$ctrl.mutantAnnotation.insert_direction"
+                           uib-btn-radio="'forward'"></label>
+                </div>
+            </div>
             <label for="getPMID">PMID Reference</label>
             <input id="getPMID"
                    type="text"
@@ -68,7 +97,8 @@
                    class="form-control"
                    typeahead-wait-ms="900"
                    typeahead-on-select="$ctrl.selectPub($item, $model, $value)"
-                    ></div>
+                    >
+        </div>
         <div>
             <i ng-show="loadingTerms" class="glyphicon glyphicon-refresh"></i>
             <i ng-show="noResults" class="glyphicon glyphicon-remove"></i>
@@ -109,9 +139,3 @@
         requirements for adding annotations to chlambase.org
     </div>
 </div>
-<pre>{{ $ctrl.mutantAnnotation | json }}</pre>
-
-
-
-
-

@@ -4,9 +4,7 @@ angular
         bindings: {},
         controller: function ($window, $routeParams, $location, sendToView) {
             var ctrl = this;
-            console.log($routeParams);
             if ($routeParams.oauth_verifier) {
-                console.log("routparams");
                 sendToView.sendToView(
                     '/wd_oauth',
                     {'url': $location.url()}
@@ -45,7 +43,6 @@ angular
                         'deauthenticate': true
                     })
                     .then(function (data) {
-                        console.log(data);
                         var org = '/organism/{taxid}'.replace('{taxid}', $routeParams.taxid);
                         var locusTag = '/gene/{locusTag}/'.replace('{locusTag}', $routeParams.locusTag);
                         $location.url(org + locusTag);

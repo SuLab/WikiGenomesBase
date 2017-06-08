@@ -58,6 +58,20 @@ angular
 
 angular
     .module('resources')
+    .factory('expressionTimingData', function ($resource) {
+        var url = '/static/wiki/json/expression_timing.json';
+        return $resource(url, {}, {
+            getExpression: {
+                method: "GET",
+                params: {},
+                isArray: true,
+                cache: true
+            }
+        });
+    });
+
+angular
+    .module('resources')
     .factory('orthoData', function ($resource) {
         var url = '/static/wiki/json/orthologs.json';
         return $resource(url, {}, {
@@ -547,6 +561,8 @@ angular
         }
     });
 
+
+
 angular
     .module('resources')
     .factory('entrez2QID', function ($http, $filter) {
@@ -584,10 +600,8 @@ angular
                 "wdt:P688 ?protein.}";
             var url1 = query.replace('{taxid}', taxid);
             var url = endpoint + encodeURIComponent(url1.replace('{locusTag}', locusTag));
-
             return $http.get(url)
                 .success(function (response) {
-
                     return response;
 
                 })
@@ -603,6 +617,10 @@ angular
 
 
     });
+
+
+
+
 
 
 angular

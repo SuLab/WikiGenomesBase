@@ -10,6 +10,7 @@ angular
         controller: function () {
             var ctrl = this;
             ctrl.$onInit = function () {
+
                 //buttons for expanding and collapsing accordion
                 ctrl.expandAll = function () {
                     ctrl.toggleOpen(true);
