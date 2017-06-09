@@ -56,16 +56,6 @@
                 <i ng-show="noResults" class="glyphicon glyphicon-remove"></i>
             </div>
         </div>
-
-
-        <div ng-show="$ctrl.goFormModel.go">
-            <div style="padding:10px 2px 2px 2px">
-                <button class="btn btn-info">
-                    {{$ctrl.goFormModel.go.goterm_label.value}}
-                    <div data-ng-click="$ctrl.goFormModel.go=null" class="glyphicon glyphicon-remove"></div>
-                </button>
-            </div>
-        </div>
     </div>
     <div class="well" ng-show="$ctrl.pageCount==1" style="min-height:200px">
 
