@@ -26,7 +26,8 @@ angular
                     mutants: true,
                     pubs: true,
                     product: true,
-                    ortholog: true
+                    ortholog: true,
+                    expression: true,
                 };
 
                 ctrl.toggleOpen = function (openAll) {

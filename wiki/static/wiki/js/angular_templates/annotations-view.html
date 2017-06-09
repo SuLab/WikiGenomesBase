@@ -33,11 +33,26 @@
         <div class="panel " style="border-bottom: solid #bce8f1 1px;">
             <div class="panel-body">
                 <protein-view protein="$ctrl.data"></protein-view>
-                 <expression-view data="$ctrl.annotations.expression"></expression-view>
+
             </div>
         </div>
 
     </div>
+    <div uib-accordion-group ng-class="{'panel-info': true}"
+         template-url="group-template.html" is-open="$ctrl.accordion.expression">
+        <uib-accordion-heading>
+            Expression Timing <i class="pull-right glyphicon"
+                            ng-class="{'glyphicon-chevron-down': $ctrl.accordion.expression, 'glyphicon-chevron-right': !$ctrl.accordion.expression}"></i>
+        </uib-accordion-heading>
+        <div class="panel " style="border-bottom: solid #bce8f1 1px;">
+            <div class="panel-body">
+                <expression-view data="$ctrl.annotations.expression"></expression-view>
+            </div>
+        </div>
+
+    </div>
+
+
     <div uib-accordion-group ng-class="{'panel-info': true}"
          template-url="group-template.html" is-open="$ctrl.accordion.ortholog">
         <uib-accordion-heading>

@@ -250,8 +250,11 @@ angular
     .module('filters')
     .filter('keywordFilter', ['$filter', function ($filter) {
         return function (data, text) {
+            console.log(data);
             var textArr = text.split(' ');
+            console.log(textArr);
             angular.forEach(textArr, function (test) {
+                console.log(test);
                 if (test) {
                     data = $filter('filter')(data, test);
                 }

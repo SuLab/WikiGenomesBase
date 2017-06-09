@@ -20,7 +20,9 @@ angular
 
                         ctrl.chlamGenes.allGenes = data.data.results.bindings;
                         ctrl.chlamGenes.keywordAll = $filter('keywordFilter')(ctrl.chlamGenes.allGenes, ctrl.keyword);
+
                         ctrl.chlamGenes.currentKW = ctrl.chlamGenes.keywordAll;
+                        console.log(ctrl.chlamGenes.currentKW);
                         ctrl.facetOrganism = function (organism) {
                             ctrl.currentOrgsList = [];
                             angular.forEach(ctrl.orgData, function (value) {
@@ -31,7 +33,7 @@ angular
                             ctrl.chlamGenes.currentKW = $filter('deleteJsonItemValuesList')('taxid', ctrl.currentOrgsList, ctrl.chlamGenes.keywordAll);
                             console.log($filter('deleteJsonItemValuesList')('taxid', ctrl.currentOrgsList, ctrl.chlamGenes.keywordAll));
                         };
-                    }).finally(function(){
+                    }).finally(function () {
                         ctrl.loading = false;
                     });
             };
