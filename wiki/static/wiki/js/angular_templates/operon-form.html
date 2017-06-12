@@ -32,6 +32,7 @@
 
     <div class="well" ng-show="$ctrl.pageCount==0" style="min-height:160px">
         <h4>Create a new operon</h4>
+
         <div class="input-group">
             <input ng-model="$ctrl.opNewName" type="text" class="form-control ui-widget" id="operonName"
                    placeholder="operon">
@@ -39,35 +40,13 @@
         <div ng-click="$ctrl.nameOperon($ctrl.opNewName)" class="btn btn-default">Go!</div>
       </span>
         </div>
-        <!--<h4>Search for an existing operon</h4>-->
-        <!--<input id="opInput"-->
-               <!--type="text"-->
-               <!--ng-model="$ctrl.operonValue"-->
-               <!--placeholder="operon"-->
-               <!--uib-typeahead="op as op.operonLabel.value for op in $ctrl.allOrgOperons | filter:$viewValue | limitTo:200""-->
-        <!--typeahead-loading="loadingOperons"-->
-        <!--typeahead-no-results="noResults"-->
-        <!--class="form-control"-->
-        <!--typeahead-wait-ms="900"-->
-        <!--typeahead-on-select="$ctrl.selectOperon($item, $model, $value)"-->
-        <!-->
-        <!--<i ng-show="loadingOperons" class="glyphicon glyphicon-refresh"></i>-->
 
-        <!--<div ng-show="noResults">-->
-            <!--<i class="glyphicon glyphicon-remove"></i> No Results Found-->
-        <!--</div>-->
-
-        <div ng-show="$ctrl.opFormModel.operon">
-            <div style="padding:10px 2px 2px 2px">
-                <button class="btn btn-info">
-                    {{$ctrl.opFormModel.operon.operonLabel.value}}
-                    <div data-ng-click="$ctrl.opFormModel.operon=null" class="glyphicon glyphicon-remove"></div>
-                </button>
-            </div>
+        <div ng-show="$ctrl.opFormModel.operon" class="glyphicon glyphicon-ok">
         </div>
 
     </div>
-    <div class="well" ng-show="$ctrl.pageCount==1" style="min-height:160px"><h4>Select the genes regulated by this operon</h4>
+    <div class="well" ng-show="$ctrl.pageCount==1" style="min-height:160px"><h4>Select the genes regulated by this
+        operon</h4>
         <input id="genesInput"
                type="text"
                ng-model="$ctrl.geneValue"
@@ -87,7 +66,7 @@
         <div style="display: inline-block" ng-repeat="gene in $ctrl.opFormModel.genes">
             <div style="padding:10px 2px 2px 2px">
                 <button class="btn btn-info">
-                    {{gene.locusTag}}
+                    {{ gene.locusTag }}
                     <div data-ng-click="$ctrl.removeGene(gene)" class="glyphicon glyphicon-remove"></div>
                 </button>
             </div>
@@ -112,10 +91,10 @@
             <i class="glyphicon glyphicon-remove"></i> No Results Found
         </div>
         <div ng-show="$ctrl.opFormModel.pub">
-            <div style="padding:10px 2px 2px 2px">
+            <div style="padding:10px 2px 2px 2px" ng-repeat="pub in $ctrl.opFormModel.pub">
                 <button class="btn btn-info">
-                    {{$ctrl.opFormModel.pub.authors[0].name}} et. al {{$ctrl.opFormModel.pub.pubdate}}
-                    <div data-ng-click="$ctrl.opFormModel.pub=null" class="glyphicon glyphicon-remove"></div>
+                    {{ pub.authors[0].name}} et. al {{ pub.pubdate }}
+                    <div data-ng-click="$ctrl.removePub(pub)" class="glyphicon glyphicon-remove"></div>
                 </button>
             </div>
         </div>
@@ -129,7 +108,7 @@
                 the
                 expression of the genes:
             <ul ng-repeat="gene in $ctrl.opFormModel.genes">
-                <li>{{gene.locusTag}}</li>
+                <li>{{ gene.locusTag }}</li>
             </ul>
             This claim was stated in
             " <strong>{{$ctrl.opFormModel.pub.authors[0].name}} <i>et al.</i>
@@ -157,5 +136,5 @@
 
 
     </div>
-    <!--<pre>{{$ctrl.opFormModel | json}}</pre>-->
+
 </form>

@@ -36,7 +36,6 @@ angular
                 allChlamOrgs.getAllOrgs(function (data) {
                     ctrl.orgList = data;
                     ctrl.currentOrg = $filter('getJsonItemOrg')('taxid', ctrl.currentTaxid, ctrl.orgList);
-                    console.log(ctrl.currentOrg);
                     if (ctrl.currentOrg == undefined) {
                         alert("not a valid taxonomy id");
                         $location.path('/');
@@ -78,7 +77,6 @@ angular
 
                     wdGetEntities.wdGetEntities(ctrl.currentGene.proteinQID).then(function (data) {
                         var entity = data.entities[ctrl.currentGene.proteinQID];
-                        console.log(entity);
                         ctrl.currentGene.proteinLabel = entity.labels.en.value;
                         ctrl.currentGene.description = entity.descriptions.en.value;
                         ctrl.currentGene.uniprot = entity.claims.P352[0].mainsnak.datavalue.value;
@@ -94,9 +92,7 @@ angular
                             function (data) {
                                 var dataResults = data.data.results.bindings;
                                 if (dataResults.length > 0) {
-                                    console.log(dataResults);
                                     ctrl.annotations.currentOperon = dataResults[0].operonItemLabel.value;
-                                    console.log(ctrl.annotations.currentOperon);
                                     ctrl.opData = dataResults;
                                     ctrl.annotations.operons = dataResults;
                                 } else {
@@ -129,7 +125,6 @@ angular
                                 }
                             });
                             ctrl.annotations.expression = ctrl.currentExpression;
-                            console.log(ctrl.annotations.expression);
                         });
 
 
@@ -209,6 +204,7 @@ angular
                     var url_suf = $location.path() + '/mg_mutant_view';
 
                     sendToView.sendToView(url_suf, anno_keys).then(function (data) {
+                        console.log(data);
                         ctrl.annotations.mutants = {
                             mutants: data.data.mutants,
                             refseq: ctrl.currentGene.refseqGenome

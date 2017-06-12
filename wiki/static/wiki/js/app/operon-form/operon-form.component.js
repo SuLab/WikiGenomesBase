@@ -15,7 +15,7 @@ angular
                     ctrl.geneQID = $filter('parseQID')(data.data.results.bindings[0].gene.value);
                     ctrl.opFormModel = {
                         operon: null,
-                        pub: null,
+                        pub: [],
                         genes: [],
                         geneQID: ctrl.geneQID,
                         organism: null
@@ -53,8 +53,25 @@ angular
                     };
 
                     ctrl.selectPub = function ($item, $model, $label) {
-                        ctrl.opFormModel.pub = $item;
+                        ctrl.opFormModel.pub.push($item);
                         ctrl.pubValue = ''
+                    };
+
+                    ctrl.removePub = function (delpub) {
+                        console.log(delpub);
+                        var removeValue = function (ikey, ivalue, ijson) {
+                            var goodPubs = [];
+                            angular.forEach(ijson, function (value, key) {
+                                if (value[ikey] != ivalue) {
+                                    goodPubs.push(value);
+                                }
+                                else {
+                                }
+                            });
+                            return goodPubs
+                        };
+                        ctrl.opFormModel.pub = removeValue('uid', delpub.uid,
+                            ctrl.opFormModel.pub);
                     };
 
 
@@ -64,7 +81,6 @@ angular
                                 operon: {value: 'None'},
                                 operonLabel: {value: name}
                             };
-                            ctrl.opNewName = '';
                         }
 
                     };

@@ -100,35 +100,37 @@ def operon_form(request):
         print('operon form initiated')
         body_unicode = request.body.decode('utf-8')
         body = json.loads(body_unicode)
-        pprint(body)
         responseData = {}
+        if 'login' not in request.session.keys():
+            return JsonResponse({'authenticated': False})
+
         login = jsonpickle.decode(request.session['login'])
-
-        eutilsPMID = body['pub']['uid']
-        refs = []
-        pprint(body)
-
         # statements for operon item
         operon_statements = []
+        # references
+        refs = []
+        for publication in body['pub']:
+            eutilsPMID = publication['uid']
+            # construct the references using WDI_core and PMID_tools if necessary
+            try:
+                refs.append(wdi_core.WDItemID(value='Q26489220', prop_nr='P1640', is_reference=True))
+                refs.append(wdi_core.WDTime(str(strftime("+%Y-%m-%dT00:00:00Z", gmtime())), prop_nr='P813',
+                                            is_reference=True))
+                pmid_url = 'https://tools.wmflabs.org/pmidtool/get_or_create/{}'.format(eutilsPMID)
+                pmid_result = requests.get(url=pmid_url)
+                if pmid_result.json()['success'] == True:
+                    refs.append(wdi_core.WDItemID(value=pmid_result.json()['result'], prop_nr='P248', is_reference=True))
+                else:
+                    return JsonResponse({'pmid': False})
+                pprint(pmid_result.json())
+                responseData['ref_success'] = True
+            except Exception as e:
+                responseData['ref_success'] = False
+                print("reference construction error: " + str(e))
+        print(refs)
 
-        # construct the references using WDI_core and PMID_tools if necessary
-        try:
-            refs.append(wdi_core.WDItemID(value='Q26489220', prop_nr='P1640', is_reference=True))
-            refs.append(wdi_core.WDTime(str(strftime("+%Y-%m-%dT00:00:00Z", gmtime())), prop_nr='P813',
-                                        is_reference=True))
-            pmid_url = 'https://tools.wmflabs.org/pmidtool/get_or_create/{}'.format(eutilsPMID)
-            pmid_result = requests.get(url=pmid_url)
-            if pmid_result.json()['success'] == True:
-                refs.append(wdi_core.WDItemID(value=pmid_result.json()['result'], prop_nr='P248', is_reference=True))
-            else:
-                return JsonResponse({'pmid': False})
-            pprint(pmid_result.json())
-            responseData['ref_success'] = True
-        except Exception as e:
-            responseData['ref_success'] = False
-            print("reference construction error: " + str(e))
-
-        # create new operon item statements
+        #
+        # # create new operon item statements
         try:
             operon_statements.append(wdi_core.WDItemID(prop_nr='P279', value='Q139677', references=[refs]))
             for gene in body['genes']:
