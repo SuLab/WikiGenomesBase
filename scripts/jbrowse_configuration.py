@@ -6,7 +6,7 @@ import gzip
 import tempfile
 from time import gmtime, strftime
 import subprocess
-import pprint
+from pprint import pprint
 from scripts.WD_Utils import WDSparqlQueries
 from wikigenomes.settings import BASE_DIR
 import json
@@ -232,7 +232,7 @@ class FeatureDataRetrieval(object):
                 featurewriter.writerow(
                     [
                         doc['gff']['seqname'],
-                        doc['gff']['source'],
+                        doc['gff']['source']['name'],
                         doc['gff']['feature'],
                         doc['gff']['start'],
                         doc['gff']['end'],
@@ -267,3 +267,7 @@ class FeatureDataRetrieval(object):
                 featurewriter.writerow(
                     [doc['refSeq'], 'PubMed', 'Operon', doc['start'], doc['end'], '.', doc['strand'],
                      '.', 'id={}'.format(doc['label'])])
+
+
+fdr = FeatureDataRetrieval(taxid='471472')
+fdr.mutants2gff()
