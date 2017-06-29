@@ -9,6 +9,7 @@ angular
             ctrl.$onInit = function (){
             };
             ctrl.deleteAnnotation = function(mutant){
+                console.log(mutant);
                 ctrl.loading = true;
                 mutant.action = 'delete';
                 var url_suf = $location.path() + '/wd_mutant_edit';

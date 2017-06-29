@@ -11,7 +11,25 @@ angular
 
                 ctrl.mutantAnnotation = {
                     taxid: $routeParams.taxid,
-                    locusTag: $routeParams.locusTag
+                    locusTag: $routeParams.locusTag,
+                    chromosome: null,
+                    name: null,
+                    mutant_type: {
+                        "alias": null,
+                        "name": null,
+                        "id": null,
+                        "key": null
+                    },
+                    coordinate: {
+                        start: null
+                    },
+                    percent_gene_intact: null,
+                    insert_direction: null,
+                    pub: null,
+                    ref_base: null,
+                    variant_base: null,
+                    variant_type: {alias: null, name: null, id: null},
+                    aa_effect: null
                 };
                 ctrl.pageCount = 0;
                 ctrl.alerts = {
@@ -139,4 +157,3 @@ angular
         },
         templateUrl: '/static/wiki/js/angular_templates/mutant-form.html'
     });
-

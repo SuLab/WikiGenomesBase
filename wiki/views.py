@@ -188,10 +188,11 @@ def mutant_form(request):
     if request.method == 'POST':
         body_unicode = request.body.decode('utf-8')
         body = json.loads(body_unicode)
-
         if body['action'] == 'annotate':
+            print('annotate')
             try:
-                annotation = MutantMongo(mut_json=body)
+                annotation = MutantMongo(mut_json=body, taxid=body['taxid'], refseq=body['chromosome'])
+                annotation.generate_full_json()
                 annotation.add_gff_from_json()
                 write_result = annotation.push2mongo()
                 body['write_result'] = write_result
@@ -203,19 +204,20 @@ def mutant_form(request):
                     body['write_success'] = False
 
             except Exception as e:
+                print('error')
                 body['write_success'] = False
 
         if body['action'] == 'delete':
             try:
-                annotation = MutantMongo(mut_json=body)
+                annotation = MutantMongo(mut_json=body, taxid=body['taxid'], refseq=body['chromosome'])
                 delete_result = annotation.delete_one_mongo()
                 if delete_result['delete_success'] is True:
                     body['delete_success'] = True
                 else:
                     body['delete_success'] = False
             except Exception as e:
-                body['delete_success'] = False
 
+                body['delete_success'] = False
         return JsonResponse(body)
 
 

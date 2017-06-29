@@ -232,7 +232,7 @@ class FeatureDataRetrieval(object):
                 featurewriter.writerow(
                     [
                         doc['gff']['seqname'],
-                        doc['gff']['source']['name'],
+                        doc['gff']['source'],
                         doc['gff']['feature'],
                         doc['gff']['start'],
                         doc['gff']['end'],
@@ -267,7 +267,3 @@ class FeatureDataRetrieval(object):
                 featurewriter.writerow(
                     [doc['refSeq'], 'PubMed', 'Operon', doc['start'], doc['end'], '.', doc['strand'],
                      '.', 'id={}'.format(doc['label'])])
-
-
-fdr = FeatureDataRetrieval(taxid='471472')
-fdr.mutants2gff()
