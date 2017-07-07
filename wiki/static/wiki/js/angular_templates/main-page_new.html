@@ -55,7 +55,11 @@
                 </div>
                 <div class="panel-body">
                     <div class="panel">
-                        <organism-view org="$ctrl.currentOrg" taxid="$ctrl.currentOrg.taxid"></organism-view>
+                        <a style="color: #385d94; margin-bottom: 5px" href="/organism/{{ $ctrl.currentTaxid }}" tooltip-placement="right" uib-tooltip="Click to return to genome level"
+                           class="btn btn-default">
+                            <organism-view org="$ctrl.currentOrg" taxid="$ctrl.currentOrg.taxid"></organism-view>
+                        </a>
+
                         <div id="jbrowse-div" style="height: 400px; border: solid #99c2ff 3px; border-radius: 3px ">
                             <jbrowse-view ng-if="$ctrl.currentGene.entrez" entrez="$ctrl.currentGene.entrez"
                                           gene="$ctrl.currentGene"
