@@ -8204,4 +8204,4 @@ NC_010287.1	chemical mutagenesis	mutation	1038390	1038390	.	.	.	id=CTL2M_Pool 27
 NC_010287.1	chemical mutagenesis	mutation	1038414	1038414	.	.	.	id=CTL2M_Pool 44
 NC_010287.1	chemical mutagenesis	mutation	1038741	1038741	.	.	.	id=CTL2M_Pool 04
 NC_010287.1	transposon mutagenesis	mutation	100	100	.	.	.	id=trans mut 4
-NC_010287.1	transposon mutagenesis	mutation	40599	40599	.	.	.	id=trans mut 2
+NC_010287.1	transposon mutagenesis	mutation	43000	43000	.	.	.	id=trans mut 1

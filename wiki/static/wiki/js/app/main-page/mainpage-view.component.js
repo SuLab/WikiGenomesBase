@@ -105,11 +105,12 @@ angular
                         // Get ortholog data from local json file
                         orthoData.getOrthologs(function (data) {
                             ctrl.orthologs = data;
+                            console.log(ctrl.orthologs);
                             var current = $filter('keywordFilter')(data, ctrl.currentLocusTag);
                             ctrl.currentOrtholog = {};
                             angular.forEach(current[0], function (value, key) {
                                 if (key != '_id' && key != '$oid' && key != 'timestamp') {
-                                    ctrl.currentOrtholog[key] = value
+                                    ctrl.currentOrtholog[key] = value;
                                 }
                             });
                             ctrl.annotations.orthologs = ctrl.currentOrtholog;

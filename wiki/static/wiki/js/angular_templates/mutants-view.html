@@ -1,13 +1,11 @@
 <table ng-table="$ctrl.tableParams" class="table table-hover">
+    <caption style="color:#385d94">Chemical Mutagenesis</caption>
     <tr ng-show="$ctrl.data.length!=0" ng-repeat="x in $ctrl.data.mutants" ng-if="x.mutant_type.key==1">
         <td title="'Mutant Strain'">
             {{x.name }}
         </td>
         <td title="'Genomic Position'">
             {{x.coordinate.start }}
-        </td>
-        <td title="'Mutant Type'">
-            {{x.mutant_type.alias }}
         </td>
         <td title="'L2 Base'">
             {{x.ref_base}}
@@ -66,15 +64,13 @@
 </table>
 
 <table ng-table="$ctrl.tableParams" class="table table-hover">
+    <caption style="color:#385d94">Transposon Mutagenesis</caption>
     <tr ng-show="$ctrl.data.length!=0" ng-repeat="x in $ctrl.data.mutants" ng-if="x.mutant_type.key==2">
         <td title="'Mutant Strain'">
             {{x.name }}
         </td>
         <td title="'Genomic Position'">
             {{x.coordinate.start }}
-        </td>
-        <td title="'Mutant Type'">
-            {{x.mutant_type.alias }}
         </td>
         <td title="'Percent Left Intact'">
             {{x.percent_gene_intact }}
