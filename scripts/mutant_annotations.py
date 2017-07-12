@@ -92,7 +92,7 @@ class MutantMongo(object):
         if self.mut_json['mutant_type']['key'] == 1:
             self.final_json['gff'] = {
                 "seqname": self.final_json['chromosome'],
-                "source": self.final_json['mutant_type'],
+                "source": self.final_json['mutant_type']['alias'],
                 "feature": 'mutation',
                 "start": self.final_json['coordinate']['start'],
                 "end": self.final_json['coordinate']['start'],

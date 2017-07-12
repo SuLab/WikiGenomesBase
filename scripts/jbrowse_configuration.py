@@ -229,6 +229,8 @@ class FeatureDataRetrieval(object):
             # genewriter.writerow(['seqid', 'source', 'type', 'start', 'end', 'score', 'strand', 'phase', 'attributes'])
             cursor = self.mutants.find({'taxid': self.taxid})
             for doc in cursor:
+                if isinstance(doc['gff']['source'], dict):
+                    doc['gff']['source'] = doc['gff']['source']['alias']
                 start_coord = doc['gff']['start'].replace(',', '')
                 end_coord = doc['gff']['end'].replace(',', '')
                 featurewriter.writerow(
