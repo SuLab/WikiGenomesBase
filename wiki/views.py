@@ -190,6 +190,7 @@ def mutant_form(request):
         body = json.loads(body_unicode)
         if body['action'] == 'annotate':
             print('annotate')
+            pprint(body)
             try:
                 annotation = MutantMongo(mut_json=body, taxid=body['taxid'], refseq=body['chromosome'])
                 annotation.generate_full_json()

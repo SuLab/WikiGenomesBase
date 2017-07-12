@@ -229,13 +229,15 @@ class FeatureDataRetrieval(object):
             # genewriter.writerow(['seqid', 'source', 'type', 'start', 'end', 'score', 'strand', 'phase', 'attributes'])
             cursor = self.mutants.find({'taxid': self.taxid})
             for doc in cursor:
+                start_coord = doc['gff']['start'].replace(',', '')
+                end_coord = doc['gff']['end'].replace(',', '')
                 featurewriter.writerow(
                     [
                         doc['gff']['seqname'],
                         doc['gff']['source'],
                         doc['gff']['feature'],
-                        doc['gff']['start'],
-                        doc['gff']['end'],
+                        start_coord,
+                        end_coord,
                         doc['gff']['score'],
                         doc['gff']['strand'],
                         doc['gff']['phase'],

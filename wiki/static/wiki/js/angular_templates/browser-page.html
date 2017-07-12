@@ -30,9 +30,6 @@
             <form class="navbar-form navbar-left">
                 <organism-form orgs="$ctrl.orgList"></organism-form>
             </form>
-            <form class="navbar-form navbar-left">
-                <keyword-form></keyword-form>
-            </form>
         </div>
         <!-- /.navbar-collapse -->
     </div>
@@ -45,7 +42,8 @@
         <div class="col-md-10 box">
             <div>
                 <div class="col-md-9">
-                    <organism-view style="width:100%" org="$ctrl.currentOrg" taxid="$ctrl.currentOrg.taxid"></organism-view>
+                    <organism-view style="width:100%" org="$ctrl.currentOrg"
+                                   taxid="$ctrl.currentOrg.taxid"></organism-view>
                 </div>
                 <div style="text-align: right" class="col-md-3">
                     <gene-download taxid="$ctrl.currentOrg.taxid"></gene-download>
@@ -60,7 +58,8 @@
         </div>
         <div class="col-md-10 box">
             <div class="panel" style="height:300px; border: solid #385d94 2px; border-radius: 3px">
-                <jbrowse-view ng-if="$ctrl.initialGene.entrez" entrez="$ctrl.initialGene.entrez" gene="$ctrl.initialGene"
+                <jbrowse-view ng-if="$ctrl.initialGene.entrez" entrez="$ctrl.initialGene.entrez"
+                              gene="$ctrl.initialGene"
                               taxid="$ctrl.currentOrg.taxid"></jbrowse-view>
             </div>
         </div>
@@ -73,30 +72,29 @@
     <div class="col-md-10">
         <div class="panel panel-info">
             <div class="panel-heading">
-                <div class="row" style="padding:10px">
-                    <div class="col-md-3" style="padding-left: 30px">
-                        <form class="form form-inline">
-                            <gene-form taxid="$ctrl.currentOrg.taxid"></gene-form>
-                        </form>
+                <form class="form-inline">
+                    <div class="form-group">
+                        <gene-form taxid="$ctrl.currentOrg.taxid"></gene-form>
                     </div>
-                    <div class="col-md-9">
+                    <div class="form-group">
+                        <keyword-form></keyword-form>
                     </div>
-                </div>
+                </form>
             </div>
             <div class="panel-body">
                 <div style="text-align: center">
-                    <h4>Genes: {{$ctrl.currentAllGenes.length}}</h4>
+                    <h4>Genes: {{ $ctrl.currentAllGenes.length }}</h4>
                     <dir-pagination-controls on-page-change="pageChanged(newPageNumber)"></dir-pagination-controls>
                 </div>
                 <ul style="text-align: left;list-style: none;" class="example-animate-container">
                     <li dir-paginate="x in $ctrl.currentAllGenes | itemsPerPage: 10">
                         <div ng-click="$ctrl.onSelect(x)" class="btn btn-default"
                              style="margin-top:15px; width:100%; color:#385d94">
-                            <div class="col-md-7" style="text-align: left"><h4>{{x.geneLabel.value}}</h4></div>
-                            <div class="col-md-2"><h4>Locus Tag: {{x.locusTag.value}} </h4></div>
-                            <div class="col-md-2"><h4>Entrez: {{x.entrez.value}} </h4></div>
+                            <div class="col-md-7" style="text-align: left"><h4>{{ x.geneLabel.value }}</h4></div>
+                            <div class="col-md-2"><h4>Locus Tag: {{ x.locusTag.value }} </h4></div>
+                            <div class="col-md-2"><h4>Entrez: {{ x.entrez.value }} </h4></div>
                             <div class="col-md-1"><a target="_blank"
-                                                     href="https://www.wikidata.org/wiki/{{x.gene.value | parseQID}}">
+                                                     href="https://www.wikidata.org/wiki/{{ x.gene.value | parseQID }}">
                                 <div class="btn btn-default"><img style="max-height: 30px" id="wikilogo"
                                                                   src="static/wiki/img/GeneWikidata-logo-en.png">
                                 </div>

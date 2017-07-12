@@ -1,6 +1,6 @@
 <style>
     body {
-        padding-top: 100px;
+        padding-top: 40px;
     }
 
     .container-fluid {
@@ -22,27 +22,20 @@
 
 </style>
 <nav class="navbar navbar-custom navbar-fixed-top">
-    <div class="container-fluid">
-        <!-- Brand and toggle get grouped for better mobile display -->
-        <div class="navbar-header">
-            <a style="color: whitesmoke" class="navbar-brand" href="/"><h1>ChlamBase</h1></a>
+    <div class="row" style="padding: 10px"><!-- Brand and toggle get grouped for better mobile display -->
+        <div class="col-md-2" style="padding-left: 15px">
+            <a style="color: whitesmoke" href="/"><h4>ChlamBase</h4></a>
         </div>
-
         <!-- Collect the nav links, forms, and other content for toggling -->
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <form class="navbar-form navbar-left form-group form-inline">
-                <organism-form orgs="$ctrl.orgList"></organism-form>
-                <gene-form taxid="$ctrl.currentTaxid"></gene-form>
-                <keyword-form></keyword-form>
-            </form>
-
+        <div class="col-md-5"></div>
+        <div class="col-md-3 form-inline">
+            <organism-form orgs="$ctrl.orgList"></organism-form>
+        </div>
+        <div class="col-md-2" style="padding-right: 15px">
             <oauth-view style="float:right"></oauth-view>
         </div>
-        <!-- /.navbar-collapse -->
     </div>
-    <!-- /.container-fluid -->
 </nav>
-
 <div class="container-fluid" style="color:#385d94">
     <div class="row">
         <div class="col-md-1">
@@ -50,12 +43,21 @@
         <div class="col-md-10">
             <div class="panel panel-info">
                 <div class="panel-heading">
-                    <!--<gene-form taxid="$ctrl.currentOrg.taxid"></gene-form>-->
-                    <genomic-position data="$ctrl.currentGene"></genomic-position>
+                    <form class="form-inline" style="padding: 5px;  margin-bottom: 5px">
+                        <div class="form-group">
+                            <gene-form taxid="$ctrl.currentTaxid"></gene-form>
+                        </div>
+                        <div class="form-group">
+                            <keyword-form></keyword-form>
+                        </div>
+                    </form>
                 </div>
                 <div class="panel-body">
                     <div class="panel">
-                        <a style="color: #385d94; margin-bottom: 5px" href="/organism/{{ $ctrl.currentTaxid }}" tooltip-placement="right" uib-tooltip="Click to return to genome level"
+
+                        <a style="color: #385d94; margin-bottom: 5px;width:100%"
+                           href="/organism/{{ $ctrl.currentTaxid }}"
+                           tooltip-placement="right" uib-tooltip="Click to return to genome level"
                            class="btn btn-default">
                             <organism-view org="$ctrl.currentOrg" taxid="$ctrl.currentOrg.taxid"></organism-view>
                         </a>
@@ -65,8 +67,12 @@
                                           gene="$ctrl.currentGene"
                                           taxid="$ctrl.currentOrg.taxid"></jbrowse-view>
                         </div>
+
+                        <genomic-position data="$ctrl.currentGene"></genomic-position>
+
                     </div>
-                    <div style="padding: 30px 30px 5px 30px;">
+                    <div style="padding: 20px 30px 5px 30px;">
+
                         <annotations-view annotations="$ctrl.annotations" data="$ctrl.currentGene"></annotations-view>
                     </div>
                 </div>
