@@ -32,7 +32,7 @@
       "urlTemplate": "471472_genes.gff",
       "key": "genes_canvas_mod",
       "label": "genes_canvas_mod",
-      "fmtDetailValue_Name": "function(name) { var top_url = (window.location != window.parent.location)? document.referrer: document.location.href; var thing = top_url.split('/'); var domain = thing[2]; var org = thing[4]; var lt = thing[6];  var pre_url = ['http://', domain, 'organism', org, 'gene', name].join('/'); return window.parent.location = pre_url}"
+      "fmtDetailValue_Name": "function(name) { var top_url = (window.location != window.parent.location)? document.referrer: document.location.href; var thing = top_url.split('/'); var domain = thing[2]; var org = thing[4]; var lt = thing[6];  var pre_url = ['http:/', domain, 'organism', org, 'gene', name].join('/'); var chgURL = function(chg){alert(chg)}; return window.parent.location=pre_url}"
     },
     {
       "type": "JBrowse/View/Track/CanvasFeatures",
