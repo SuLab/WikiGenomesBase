@@ -1,1 +1,48 @@
-{"trackSelector": {"type": "Faceted"}, "formatVersion": 1, "tracks": [{"type": "SequenceTrack", "label": "DNA", "storeClass": "JBrowse/Store/Sequence/StaticChunked", "chunkSize": 20000, "urlTemplate": "seq/{refseq_dirpath}/{refseq}-", "category": "Reference sequence", "key": "Reference sequence"}, {"type": "JBrowse/View/Track/CanvasFeatures", "style": {"color": "red"}, "storeClass": "JBrowse/Store/SeqFeature/GFF3", "urlTemplate": "243161_mutants.gff", "key": "mutants_canvas_mod", "label": "mutants_canvas_mod"}, {"type": "JBrowse/View/Track/CanvasFeatures", "style": {"color": "#99c2ff"}, "storeClass": "JBrowse/Store/SeqFeature/GFF3", "urlTemplate": "243161_genes.gff", "key": "genes_canvas_mod", "label": "genes_canvas_mod"}, {"type": "JBrowse/View/Track/CanvasFeatures", "style": {"color": "#385d94"}, "storeClass": "JBrowse/Store/SeqFeature/GFF3", "urlTemplate": "243161_operons.gff", "key": "operons_canvas_mod", "label": "operons_canvas_mod"}]}
+{
+  "trackSelector": {
+    "type": "Faceted"
+  },
+  "formatVersion": 1,
+  "tracks": [
+    {
+      "type": "SequenceTrack",
+      "label": "DNA",
+      "storeClass": "JBrowse/Store/Sequence/StaticChunked",
+      "chunkSize": 20000,
+      "urlTemplate": "seq/{refseq_dirpath}/{refseq}-",
+      "category": "Reference sequence",
+      "key": "Reference sequence"
+    },
+    {
+      "type": "JBrowse/View/Track/CanvasFeatures",
+      "style": {
+        "color": "red"
+      },
+      "storeClass": "JBrowse/Store/SeqFeature/GFF3",
+      "urlTemplate": "243161_mutants.gff",
+      "key": "mutants_canvas_mod",
+      "label": "mutants_canvas_mod"
+    },
+    {
+      "type": "JBrowse/View/Track/CanvasFeatures",
+      "style": {
+        "color": "#99c2ff"
+      },
+      "storeClass": "JBrowse/Store/SeqFeature/GFF3",
+      "urlTemplate": "243161_genes.gff",
+      "key": "genes_canvas_mod",
+      "label": "genes_canvas_mod",
+      "fmtDetailValue_Name": "function(name) { var top_url = (window.location != window.parent.location)? document.referrer: document.location.href; var thing = top_url.split('/'); var domain = thing[2]; var org = thing[4]; var lt = thing[6];  var pre_url = ['http://', domain, 'organism', org, 'gene', name].join('/'); return window.parent.location = pre_url}"
+    },
+    {
+      "type": "JBrowse/View/Track/CanvasFeatures",
+      "style": {
+        "color": "#385d94"
+      },
+      "storeClass": "JBrowse/Store/SeqFeature/GFF3",
+      "urlTemplate": "243161_operons.gff",
+      "key": "operons_canvas_mod",
+      "label": "operons_canvas_mod"
+    }
+  ]
+}
