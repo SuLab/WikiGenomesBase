@@ -301,6 +301,42 @@ angular
 
 angular
     .module('resources')
+    .factory('hostPathogen', function ($http) {
+        var endpoint = 'https://query.wikidata.org/sparql?format=json&query=';
+        var getHostPathogen = function (uniprot) {
+            var url = endpoint + encodeURIComponent(
+                    "SELECT ?host ?hostLabel ?protein ?proteinLabel ?hostProtein ?hostProteinLabel ?reference_stated_in ?reference_stated_inLabel ?pmid " +
+                    "(group_concat(distinct ?determination ;separator=\", \") as ?dmethod) " +
+                    "(group_concat(distinct ?det_label ;separator=\", \") as ?dmethodLabel) " +
+                    "WHERE{ " +
+                    "?protein wdt:P352 '" + uniprot + "'; " +
+                    "wdt:P129 ?hostProtein; " +
+                    "p:P129 ?hpClaim. " +
+                    "?hpClaim prov:wasDerivedFrom/pr:P248 ?reference_stated_in; " +
+                    "pq:P459 ?determination. " +
+                    "?determination rdfs:label ?det_label. " +
+                    "?reference_stated_in wdt:P698 ?pmid. " +
+                    "?hostProtein wdt:P703 ?host. " +
+                    "FILTER (lang(?det_label) = \"en\") " +
+                    "SERVICE wikibase:label { bd:serviceParam wikibase:language \"en\" .}" +
+                    "} " +
+                    "GROUP BY ?protein ?proteinLabel ?reference_stated_in ?reference_stated_inLabel ?pmid ?hostProtein ?hostProteinLabel ?host ?hostLabel"
+                );
+
+            console.log(url);
+            return $http.get(url).then(function (response) {
+                return response.data.results.bindings;
+            });
+        };
+        return {
+            getHostPathogen: getHostPathogen
+        }
+
+
+    });
+
+angular
+    .module('resources')
     .factory('OperonData', function ($http) {
         var endpoint = 'https://query.wikidata.org/sparql?format=json&query=';
         var getOperonData = function (entrez) {
@@ -562,7 +598,6 @@ angular
     });
 
 
-
 angular
     .module('resources')
     .factory('entrez2QID', function ($http, $filter) {
@@ -617,10 +652,6 @@ angular
 
 
     });
-
-
-
-
 
 
 angular

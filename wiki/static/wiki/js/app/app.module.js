@@ -41,5 +41,6 @@ angular.module('cmod', [
     'orthologView',
     'mutantForm',
     'functionalAnnotation',
-    'expressionView'
+    'expressionView',
+    'hostPathogen'
 ]);

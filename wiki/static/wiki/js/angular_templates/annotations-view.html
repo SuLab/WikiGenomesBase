@@ -42,7 +42,7 @@
          template-url="group-template.html" is-open="$ctrl.accordion.expression">
         <uib-accordion-heading>
             Expression Timing <i class="pull-right glyphicon"
-                            ng-class="{'glyphicon-chevron-down': $ctrl.accordion.expression, 'glyphicon-chevron-right': !$ctrl.accordion.expression}"></i>
+                                 ng-class="{'glyphicon-chevron-down': $ctrl.accordion.expression, 'glyphicon-chevron-right': !$ctrl.accordion.expression}"></i>
         </uib-accordion-heading>
         <div class="panel " style="border-bottom: solid #bce8f1 1px;">
             <div class="panel-body">
@@ -163,7 +163,19 @@
             </div>
         </div>
     </div>
-
+    <div uib-accordion-group ng-class="{'panel-info': true}"
+         is-open="$ctrl.accordion.hostpath"
+         template-url="group-template.html">
+        <uib-accordion-heading>
+            Host-Pathogen Interactions <i class="pull-right glyphicon"
+                                          ng-class="{'glyphicon-chevron-down': $ctrl.accordion.hostpath, 'glyphicon-chevron-right': !$ctrl.accordion.hostpath}"></i>
+        </uib-accordion-heading>
+        <div class="panel " style="border-bottom: solid #bce8f1 1px;">
+            <div class="panel-body" style="max-height: 400px; overflow: auto">
+                <host-pathogen data="$ctrl.annotations.hostpath"></host-pathogen>
+            </div>
+        </div>
+    </div>
     <div uib-accordion-group ng-class="{'panel-info': true}"
          is-open="$ctrl.accordion.pubs"
          template-url="group-template.html">
@@ -177,5 +189,6 @@
             </div>
         </div>
     </div>
+
 
 </uib-accordion>

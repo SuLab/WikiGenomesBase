@@ -28,6 +28,8 @@ angular
                     product: true,
                     ortholog: true,
                     expression: true,
+                    hostpath: true,
+
                 };
 
                 ctrl.toggleOpen = function (openAll) {
@@ -39,6 +41,7 @@ angular
                     ctrl.accordion.pubs = openAll;
                     ctrl.accordion.product = openAll;
                     ctrl.accordion.ortholog = openAll;
+                    ctrl.accordion.hostpath = openAll;
                 };
 
                 ctrl.status = {

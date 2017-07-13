@@ -16,7 +16,8 @@ angular
                               locusTag2Pub,
                               locusTag2QID,
                               sendToView,
-                              expressionTimingData) {
+                              expressionTimingData,
+                              hostPathogen) {
 
             // Main gene page component. Loaded when a gene is selected.  Parses the url for taxid and locus tag and uses
             // those to make API calls to wikidata.
@@ -105,7 +106,6 @@ angular
                         // Get ortholog data from local json file
                         orthoData.getOrthologs(function (data) {
                             ctrl.orthologs = data;
-                            console.log(ctrl.orthologs);
                             var current = $filter('keywordFilter')(data, ctrl.currentLocusTag);
                             ctrl.currentOrtholog = {};
                             angular.forEach(current[0], function (value, key) {
@@ -116,7 +116,7 @@ angular
                             ctrl.annotations.orthologs = ctrl.currentOrtholog;
                         });
 
-                        expressionTimingData.getExpression(function(data){
+                        expressionTimingData.getExpression(function (data) {
                             ctrl.expression = data;
                             var current = $filter('keywordFilter')(data, ctrl.currentLocusTag);
                             ctrl.currentExpression = {};
@@ -140,6 +140,12 @@ angular
                             function (data) {
                                 ctrl.ipData = data;
                                 ctrl.annotations.interpro = data;
+                            });
+
+                        hostPathogen.getHostPathogen(ctrl.currentGene.uniprot).then(
+                            function (data) {
+                                ctrl.hostpathData = data;
+                                ctrl.annotations.hostpath = data;
                             });
 
 

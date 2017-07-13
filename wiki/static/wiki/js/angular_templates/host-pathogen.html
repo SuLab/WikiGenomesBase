@@ -1,0 +1,57 @@
+<table ng-table="$ctrl.tableParams" class="table table-hover">
+    <col width="50%"/>
+    <col width="45%"/>
+    <col width="5%%"/>
+    <tr ng-show="$ctrl.data.length!=0" ng-repeat="x in $ctrl.data">
+
+        <td title="'Host Protein'">
+            <a href="{{ x.hostProtein.value }}">{{ x.hostProteinLabel.value }}</a>
+        </td>
+        <td title="'Host'">
+            <a href="{{ x.host.value }}">{{ x.hostLabel.value }}</a>
+        </td>
+        <td title="'Determination Method'">
+            {{ x.dmethodLabel.value }}
+        </td>
+        <td title="'References'">
+            <!-- Button trigger modal -->
+            <div style="padding: 3px">
+                <a data-toggle="modal"
+                   data-target="#{{ x.pmid.value }}_pubmed">
+                    <img uib-tooltip="Cited Publication" style="height: 14px; margin-top: -3px"
+                         data-ng-src="/static/wiki/img/pubmedGlyph.png">
+                </a>
+            </div>
+
+            <!-- Modal -->
+            <div class="modal" id="{{ x.pmid.value }}_pubmed" tabindex="-1" role="dialog"
+                 aria-labelledby="refModalTitle"
+                 aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="refModalTitle"><strong>Publications Cited</strong></h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <h4>Stated in: </h4> <a target="_blank"
+                                                    href="{{ x.reference_stated_in.value }}">{{ x.reference_stated_inLabel.value }}</a><br/>
+                            <h4>PMID: </h4> <a target="_blank"
+                                               href="https://www.ncbi.nlm.nih.gov/pubmed/{{ x.pmid.value }}">{{ x.pmid.value }}</a><br/>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td ng-show="$ctrl.data.length==0">
+            No data
+        </td>
+    </tr>
+</table>
