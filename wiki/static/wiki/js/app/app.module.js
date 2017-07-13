@@ -42,5 +42,6 @@ angular.module('cmod', [
     'mutantForm',
     'functionalAnnotation',
     'expressionView',
-    'hostPathogen'
+    'hostPathogen',
+    'hostpathForm'
 ]);

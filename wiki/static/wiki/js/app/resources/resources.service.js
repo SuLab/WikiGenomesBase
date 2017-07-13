@@ -153,6 +153,36 @@ angular
 
 
     });
+angular
+    .module('resources')
+    .factory('speciesGenes', function ($http) {
+        console.log('speciesGenes');
+        var endpoint = 'https://query.wikidata.org/sparql?format=json&query=';
+        var getSpeciesGenes = function (taxid) {
+            var url = endpoint + encodeURIComponent("SELECT ?protein ?proteinLabel ?uniprot " +
+                    "WHERE{ " +
+                    "?taxon wdt:P685 '" + taxid + "'. " +
+                    "?protein wdt:P352 ?uniprot;" +
+                    "wdt:P703 ?taxon;" +
+                    "rdfs:label ?proteinLabel." +
+                    "FILTER (lang(?proteinLabel) = \"en\") " +
+                    "}"
+                );
+            console.log(url);
+            return $http.get(url)
+                .success(function (response) {
+                    return response
+                })
+                .error(function (response) {
+                    return response
+                })
+        };
+        return {
+            getSpeciesGenes: getSpeciesGenes
+        }
+    });
+
+
 
 //genes for current organism
 

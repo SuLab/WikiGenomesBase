@@ -1,7 +1,8 @@
 <table ng-table="$ctrl.tableParams" class="table table-hover">
-    <col width="50%"/>
-    <col width="45%"/>
-    <col width="5%%"/>
+    <col width="30%"/>
+    <col width="30%"/>
+    <col width="30%"/>
+    <col width="10%"/>
     <tr ng-show="$ctrl.data.length!=0" ng-repeat="x in $ctrl.data">
 
         <td title="'Host Protein'">
@@ -55,3 +56,20 @@
         </td>
     </tr>
 </table>
+<button type="button" class="btn btn-default" data-toggle="modal"
+        data-target="#hostPath_button">
+    Add an annotation
+</button>
+<!-- Modal -->
+<div class="modal" id="hostPath_button" tabindex="-1" role="dialog"
+     aria-labelledby="refModalTitle"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content" style="padding:10px">
+            <hostpath-form data=""></hostpath-form>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
