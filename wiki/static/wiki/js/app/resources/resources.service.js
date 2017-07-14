@@ -73,7 +73,7 @@ angular
 angular
     .module('resources')
     .factory('orthoData', function ($resource) {
-        var url = '/static/wiki/json/orthologs.json';
+        var url = '/static/wiki/json/new_orthologs.json';
         return $resource(url, {}, {
             getOrthologs: {
                 method: "GET",

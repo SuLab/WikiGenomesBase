@@ -107,6 +107,7 @@ angular
                         orthoData.getOrthologs(function (data) {
                             ctrl.orthologs = data;
                             var current = $filter('keywordFilter')(data, ctrl.currentLocusTag);
+                            console.log(current);
                             ctrl.currentOrtholog = {};
                             angular.forEach(current[0], function (value, key) {
                                 if (key != '_id' && key != '$oid' && key != 'timestamp') {

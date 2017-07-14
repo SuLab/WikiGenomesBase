@@ -31,7 +31,6 @@ angular
         };
     });
 
-
 angular
     .module('filters')
     .filter('replaceColon', function () {
