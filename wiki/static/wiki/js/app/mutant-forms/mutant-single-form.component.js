@@ -36,17 +36,13 @@ angular
                     'success': false,
                     'error': false
                 };
-
+                console.log(ctrl.mutantAnnotation.locusTag);
                 locusTag2QID.getLocusTag2QID(ctrl.mutantAnnotation.locusTag, ctrl.mutantAnnotation.taxid).then(function (data) {
                     var results = data.data.results.bindings;
                     if (results.length > 0) {
                         ctrl.geneQID = $filter('parseQID')(results[0].gene.value);
-                        ctrl.proteinQID = $filter('parseQID')(results[0].protein.value);
                     }
-                    else {
-                        alert(ctrl.currentLocusTag + " doesn't seem to be a gene in this genome.");
-                        $location.path('/organism/' + ctrl.currentTaxid);
-                    }
+
                 }).finally(function () {
                     wdGetEntities.wdGetEntities(ctrl.geneQID).then(function (data) {
                         var entity = data.entities[ctrl.geneQID];

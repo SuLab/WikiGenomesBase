@@ -54,10 +54,9 @@ angular
                         $location.path('/organism/' + ctrl.currentTaxid);
 
                     }
-
-
                 }).finally(function () {
                     wdGetEntities.wdGetEntities(ctrl.currentGene.geneQID).then(function (data) {
+                        console.log(data);
                         var entity = data.entities[ctrl.currentGene.geneQID];
                         ctrl.currentGene.entrez = entity.claims.P351[0].mainsnak.datavalue.value;
                         ctrl.currentGene.geneLabel = entity.labels.en.value;
@@ -77,6 +76,7 @@ angular
                     });
 
                     wdGetEntities.wdGetEntities(ctrl.currentGene.proteinQID).then(function (data) {
+                        console.log(data);
                         var entity = data.entities[ctrl.currentGene.proteinQID];
                         ctrl.currentGene.proteinLabel = entity.labels.en.value;
                         ctrl.currentGene.description = entity.descriptions.en.value;

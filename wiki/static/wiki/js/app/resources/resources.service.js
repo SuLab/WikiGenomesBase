@@ -199,17 +199,12 @@ angular
                     "wdt:P279 wd:Q7187; " +
                     "wdt:P2393 ?locusTag; " +
                     "wdt:P351 ?entrez; " +
-                    "wdt:P688 ?protein; " +
                     "wdt:P644 ?genStart; " +
                     "wdt:P645 ?genEnd; " +
                     "wdt:P2548 ?strand; " +
                     "skos:altLabel ?aliases. " +
-                    "?protein wdt:P352 ?uniprot; " +
-                    "wdt:P637 ?refseqProt. " +
-                    "OPTIONAL{ " +
-                    "?gene p:P644 ?chr. " +
-                    "?chr pq:P2249 ?refSeqChromosome." +
-                    "} " +
+                    "OPTIONAL {?gene wdt:P688 ?protein; wdt:P352 ?uniprot; wdt:P637 ?refseqProt. }" +
+                    "OPTIONAL{ ?gene p:P644 ?chr. ?chr pq:P2249 ?refSeqChromosome. } " +
                     "SERVICE wikibase:label { " +
                     "bd:serviceParam wikibase:language 'en' ." +
                     "}" +
@@ -217,6 +212,7 @@ angular
                     "GROUP BY ?gene ?geneLabel ?protein ?proteinLabel ?entrez ?refseqProt " +
                     "?locusTag ?uniprot ?refSeqChromosome  ?genStart ?genEnd ?strand"
                 );
+            console.log(url);
             return $http.get(url)
                 .success(function (response) {
                     return response
