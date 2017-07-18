@@ -23,11 +23,17 @@
             <!-- Button trigger modal -->
 
 
-            <a target="_blank" href="https://www.ncbi.nlm.nih.gov/pubmed/{{x.pub.result.uids[0]}}">
-                <img uib-tooltip="UniProt Database Entry" style="height: 14px; margin-top: -3px"
+            <a target="_blank" href="https://www.ncbi.nlm.nih.gov/pubmed/{{ x.pub.result.uids[0]}}">
+                <img uib-tooltip="Link to publication in PubMed" style="height: 14px; margin-top: -3px"
                      data-ng-src="/static/wiki/img/pubmedGlyph.png">
             </a>
+        </td>
 
+
+        <td title="'Delete Annotation'">
+            <a class="glyphicon glyphicon-remove"
+               ng-click="$ctrl.deleteAnnotation(x); $ctrl.data.mutants.splice($index,1)">
+            </a>
         </td>
     </tr>
     <tr>
@@ -57,37 +63,15 @@
         </td>
 
         <td title="'Reference'">
-            <!-- Button trigger modal -->
-            <div style="padding: 3px">
-                <a data-toggle="modal"
-                   data-target="#ref_{{ x.genomic_position_L2 }}">
-                    <img uib-tooltip="Cited Publication" style="height: 14px; margin-top: -3px"
-                         data-ng-src="/static/wiki/img/pubmedGlyph.png">
-                </a>
-            </div>
-            <!-- Modal -->
-            <div class="modal" id="ref_{{ x.genomic_position_L2 }}" tabindex="-1" role="dialog"
-                 aria-labelledby="refModalTitle"
-                 aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="refModalTitle">Mutant</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            {{ x }}
-                            {#                            <h4>Stated in: {{x.pub.title}}</h4>#}
-                            {#                            <h4>PMID: {{x.pub.uid}}</h4>#}
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <a target="_blank" href="https://www.ncbi.nlm.nih.gov/pubmed/{{ x.pub.uid }}">
+                <img uib-tooltip="Link to publication in PubMed" style="height: 14px; margin-top: -3px"
+                     data-ng-src="/static/wiki/img/pubmedGlyph.png">
+            </a>
+        </td>
+        <td title="'Delete Annotation'">
+            <a class="glyphicon glyphicon-remove"
+               ng-click="$ctrl.deleteAnnotation(x); $ctrl.data.mutants.splice($index,1)">
+            </a>
         </td>
     </tr>
     <tr>

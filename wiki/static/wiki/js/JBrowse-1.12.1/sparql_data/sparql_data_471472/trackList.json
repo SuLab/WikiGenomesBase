@@ -32,7 +32,19 @@
       "urlTemplate": "471472_genes.gff",
       "key": "genes_canvas_mod",
       "label": "genes_canvas_mod",
-      "fmtDetailValue_Name": "function(name) { var top_url = (window.location != window.parent.location)? document.referrer: document.location.href; var thing = top_url.split('/'); var domain = thing[2]; var org = thing[4]; var lt = thing[6];  var pre_url = ['http:/', domain, 'organism', org, 'gene', name].join('/'); var chgURL = function(chg){alert(chg)}; return window.parent.location=pre_url}"
+      "menuTemplate": [
+        {
+          "label": "View Details",
+        },
+        {
+          "label": "Highlight this gene",
+        },
+        {
+          "label": "load this gene page",
+          "iconClass": "dijitIconDatabase",
+          "action": "function( track, feature, div ){var top_url = (window.location != window.parent.location)? document.referrer: document.location.href; var pre_url = top_url.split('/'); pre_url[6] = this.feature.data.id; var new_url = pre_url.join('/'); return window.parent.location=new_url}"
+        }
+      ]
     },
     {
       "type": "JBrowse/View/Track/CanvasFeatures",

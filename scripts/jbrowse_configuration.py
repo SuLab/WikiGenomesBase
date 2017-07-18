@@ -71,7 +71,21 @@ class GenomeDataRetrieval(object):
             "label": "genes_canvas_mod",
             "storeClass": "JBrowse/Store/SeqFeature/GFF3",
             "urlTemplate": "{}_genes.gff".format(self.taxid),
-            "key": "genes_canvas_mod"
+            "key": "genes_canvas_mod",
+            "menuTemplate": [
+                {
+                    "label": "View Details",
+                },
+                {
+                    "label": "Highlight this gene",
+                },
+                {
+                    "label": "load this gene page",
+                    "iconClass": "dijitIconDatabase",
+                    "action": "function( track, feature, div ){var top_url = (window.location != window.parent.location)? document.referrer: document.location.href; var pre_url = top_url.split('/'); pre_url[6] = this.feature.data.id; var new_url = pre_url.join('/'); return window.parent.location=new_url}"
+                }
+            ]
+
         }
 
         mutantTrack = {
@@ -81,7 +95,7 @@ class GenomeDataRetrieval(object):
             },
             "label": "mutants_canvas_mod",
             "storeClass": "JBrowse/Store/SeqFeature/GFF3",
-            "urlTemplate": "{}_mutants.gff".format(self.taxid), # name of mutant gff file
+            "urlTemplate": "{}_mutants.gff".format(self.taxid),  # name of mutant gff file
             "key": "mutants_canvas_mod"
         }
 
@@ -92,7 +106,7 @@ class GenomeDataRetrieval(object):
             },
             "label": "operons_canvas_mod",
             "storeClass": "JBrowse/Store/SeqFeature/GFF3",
-            "urlTemplate": "{}_operons.gff".format(self.taxid), # name of mutant gff file
+            "urlTemplate": "{}_operons.gff".format(self.taxid),  # name of mutant gff file
             "key": "operons_canvas_mod"
         }
 
@@ -135,7 +149,8 @@ class GenomeDataRetrieval(object):
                 temp.write(current_fasta)
                 temp.flush()
                 prep_rs = BASE_DIR + '/wiki/static/wiki/js/JBrowse-1.12.1/bin/prepare-refseqs.pl'
-                out_file = BASE_DIR + '/wiki/static/wiki/js/JBrowse-1.12.1/sparql_data/sparql_data_{}'.format(self.taxid)
+                out_file = BASE_DIR + '/wiki/static/wiki/js/JBrowse-1.12.1/sparql_data/sparql_data_{}'.format(
+                    self.taxid)
                 sub_args = [prep_rs, "--fasta", temp.name, "--out", out_file]
                 subprocess.call(sub_args)
 
@@ -186,7 +201,6 @@ class FeatureDataRetrieval(object):
             tidOperons = queryObj.operons4tid()
 
             for operon in tidOperons:
-
                 oepronObj = {
                     'start': operon['start']['value'],
                     'end': operon['end']['value'],
@@ -207,7 +221,7 @@ class FeatureDataRetrieval(object):
 
     def get_mutants(self):
         updatedLog = []
-        mutFile = self.dirpath + 'kokes.gff' # eventually this will be a sparql query to wikidata
+        mutFile = self.dirpath + 'kokes.gff'  # eventually this will be a sparql query to wikidata
         header = ['refSeq', 'source', 'type', 'start', 'end', 'score', 'strand', 'phase', 'attributes']
         mutDataList = []
         with open(mutFile, 'r') as mutantFile:
@@ -244,7 +258,7 @@ class FeatureDataRetrieval(object):
                         doc['gff']['strand'],
                         doc['gff']['phase'],
                         doc['gff']['attribute'],
-                     ]
+                    ]
 
                 )
 
