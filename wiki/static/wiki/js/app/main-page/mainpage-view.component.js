@@ -56,7 +56,7 @@ angular
                     }
                 }).finally(function () {
                     wdGetEntities.wdGetEntities(ctrl.currentGene.geneQID).then(function (data) {
-                        console.log(data);
+
                         var entity = data.entities[ctrl.currentGene.geneQID];
                         ctrl.currentGene.entrez = entity.claims.P351[0].mainsnak.datavalue.value;
                         ctrl.currentGene.geneLabel = entity.labels.en.value;
@@ -76,7 +76,7 @@ angular
                     });
 
                     wdGetEntities.wdGetEntities(ctrl.currentGene.proteinQID).then(function (data) {
-                        console.log(data);
+
                         var entity = data.entities[ctrl.currentGene.proteinQID];
                         ctrl.currentGene.proteinLabel = entity.labels.en.value;
                         ctrl.currentGene.description = entity.descriptions.en.value;
@@ -107,7 +107,7 @@ angular
                         orthoData.getOrthologs(function (data) {
                             ctrl.orthologs = data;
                             var current = $filter('keywordFilter')(data, ctrl.currentLocusTag);
-                            console.log(current);
+
                             ctrl.currentOrtholog = {};
                             angular.forEach(current[0], function (value, key) {
                                 if (key != '_id' && key != '$oid' && key != 'timestamp') {
@@ -169,16 +169,14 @@ angular
                                     if (value.hasOwnProperty('ecnumber')) {
                                         ctrl.annotations.ecnumber.push(value.ecnumber.value);
                                         angular.forEach(ctrl.annotations.ecnumber, function (value) {
-                                            if (value.indexOf('-') > -1) {
-                                                var multiReactions = "view reactions hierarchy " +
-                                                    "at: http://enzyme.expasy.org/EC/" + value;
-                                                ctrl.annotations.reaction[value] = [multiReactions];
-                                            } else {
+                                            console.log(value.indexOf('-'));
+                                            if (value.indexOf('-') === -1) {
                                                 expasyData.getReactionData(value).then(function (data) {
                                                     ctrl.annotations.reaction[data.ecnumber] = data.reaction;
                                                 });
                                             }
                                         });
+                                        console.log(ctrl.annotations);
                                     }
                                     if (value.goclass.value === 'http://www.wikidata.org/entity/Q5058355') {
                                         ctrl.annotations.go.cellcomp.push(value);
@@ -212,13 +210,11 @@ angular
                     var url_suf = $location.path() + '/mg_mutant_view';
 
                     sendToView.sendToView(url_suf, anno_keys).then(function (data) {
-                        console.log(data);
+
                         ctrl.annotations.mutants = {
                             mutants: data.data.mutants,
                             refseq: ctrl.currentGene.refseqGenome
                         };
-                        ctrl.annotations.reactions = data.data.reactions;
-                        console.log(ctrl.annotations.mutants);
                     });
                 };
 
