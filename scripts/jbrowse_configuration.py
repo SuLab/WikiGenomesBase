@@ -72,6 +72,10 @@ class GenomeDataRetrieval(object):
             "storeClass": "JBrowse/Store/SeqFeature/GFF3",
             "urlTemplate": "{}_genes.gff".format(self.taxid),
             "key": "genes_canvas_mod",
+            "onClick": {
+                "label": "right-click for more options",
+                "action": "function( track, feature, div ){var top_url = (window.location != window.parent.location)? document.referrer: document.location.href; var pre_url = top_url.split('/');  var taxid = pre_url[4]; var new_url = ['http:/' , pre_url[2], 'organism', taxid, 'gene', this.feature.data.id].join('/'); return window.parent.location=new_url}"
+            },
             "menuTemplate": [
                 {
                     "label": "View Details",
@@ -82,7 +86,7 @@ class GenomeDataRetrieval(object):
                 {
                     "label": "load this gene page",
                     "iconClass": "dijitIconDatabase",
-                    "action": "function( track, feature, div ){var top_url = (window.location != window.parent.location)? document.referrer: document.location.href; var pre_url = top_url.split('/');  var taxid = pre_url[4]; var new_url = ['http:/' , pre_url[2], 'organism', taxid, 'gene', this.feature.data.id].join('/'); ; return window.parent.location=new_url}"
+                    "action": "function( track, feature, div ){var top_url = (window.location != window.parent.location)? document.referrer: document.location.href; var pre_url = top_url.split('/');  var taxid = pre_url[4]; var new_url = ['http:/' , pre_url[2], 'organism', taxid, 'gene', this.feature.data.id].join('/'); return window.parent.location=new_url}"
                 }
             ]
 
