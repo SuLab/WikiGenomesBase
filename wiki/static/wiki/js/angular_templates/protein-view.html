@@ -3,12 +3,14 @@
         <col width="50%"/>
         <col width="20%"/>
         <col width="22%"/>
-        <col width="8%"/>
+        <col width="5%"/>
+        <col width="3%"/>
         <tbody>
         <th>Product type</th>
         <th>UniProt ID</th>
         <th>NCBI RefSeq ID</th>
         <th>References</th>
+        <th>Download</th>
         <tr>
             <td>{{ $ctrl.protein.productType.id | typeFilter}}</td>
             <td>{{ $ctrl.protein.uniprot}}</td>
@@ -27,6 +29,8 @@
                          data-ng-src="/static/wiki/img/GeneWikidata-logo-en.png">
                 </a>
             </td>
+            <td>
+                <a uib-tooltip="Download Protein Fasta" class="glyphicon glyphicon-download" href="https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=protein&rettype=FASTA&id={{$ctrl.protein.refseqProt}}"></a></td>
         </tr>
         </tbody>
     </table>
