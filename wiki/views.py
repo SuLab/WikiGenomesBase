@@ -12,6 +12,7 @@ import jsonpickle
 from scripts.mutant_annotations import  MutantMongo
 from scripts.jbrowse_configuration import FeatureDataRetrieval
 from scripts.get_mongo_annotations import GetMongoAnnotations
+from scripts.WD_Utils import WDSparqlQueries
 
 from wikigenomes import oauth_config
 from wikidataintegrator import wdi_login, wdi_core
@@ -88,6 +89,71 @@ def go_form(request):
         pprint(responseData)
         return JsonResponse(responseData)
 
+@ensure_csrf_cookie
+def hostpath_form(request):
+    """
+    uses wdi to make go annotation edit to wikidata
+    :param request: includes go annotation json for writing to wikidata
+    :return: response data oject with a write success boolean
+    """
+    if request.method == 'POST':
+        body_unicode = request.body.decode('utf-8')
+        body = json.loads(body_unicode)
+        obj = WDSparqlQueries(prop='P2393', string=body['obj_locus_tag'])
+        body['proteinQID'] = obj.wd_prop2qid()
+        responseData = {}
+        if 'login' not in request.session.keys():
+            responseData['authentication'] = False
+            return JsonResponse(responseData)
+        else:
+            responseData['authentication'] = True
+
+        login = jsonpickle.decode(request.session['login'])
+        eutilsPMID = body['pub']['uid']
+        refs = []
+        # #
+        # # contstruct the references using WDI_core and PMID_tools if necessary
+        try:
+            refs.append(wdi_core.WDItemID(value='Q26489220', prop_nr='P1640', is_reference=True))
+            refs.append(wdi_core.WDTime(str(strftime("+%Y-%m-%dT00:00:00Z", gmtime())), prop_nr='P813',
+                                        is_reference=True))
+            pmid_url = 'https://tools.wmflabs.org/pmidtool/get_or_create/{}'.format(eutilsPMID)
+            pmid_result = requests.get(url=pmid_url)
+
+            if pmid_result.json()['success'] == True:
+                refs.append(wdi_core.WDItemID(value=pmid_result.json()['result'], prop_nr='P248', is_reference=True))
+            pprint(pmid_result.json())
+            responseData['ref_success'] = True
+        except Exception as e:
+            responseData['ref_success'] = False
+            print("reference construction error: " + str(e))
+
+        statements = []
+        # #contstruct the statements using WDI_core
+        try:
+            eviCodeQID = body['determination']['item'].split("/")[-1]
+            hostProtein = body['host_protein']['protein']['value'].split("/")[-1]
+            evidence = wdi_core.WDItemID(value=eviCodeQID, prop_nr='P459', is_qualifier=True)
+            statements.append(wdi_core.WDItemID(value=hostProtein, prop_nr='P129', references=[refs],
+                                                qualifiers=[evidence]))
+            responseData['statement_success'] = True
+        except Exception as e:
+            responseData['statement_success'] = False
+            print(e)
+
+        #write the statement to WD using WDI_core
+        try:
+            # find the appropriate item in wd
+            wd_item_protein = wdi_core.WDItemEngine(wd_item_id=body['proteinQID'], domain=None,
+                                                    data=statements, use_sparql=True,
+                                                    append_value='P129')
+            wd_item_protein.write(login=login)
+            responseData['write_success'] = True
+
+        except Exception as e:
+            responseData['write_success'] = False
+            print(e)
+        return JsonResponse(responseData)
 
 @ensure_csrf_cookie
 def operon_form(request):

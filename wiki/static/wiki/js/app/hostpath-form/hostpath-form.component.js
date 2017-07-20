@@ -4,20 +4,24 @@ angular
         bindings: {
             data: '<'
         },
-        controller: function ($routeParams, speciesGenes, pubMedData, sendToView) {
+        controller: function ($location, $routeParams, speciesGenes, pubMedData, sendToView) {
             var ctrl = this;
+
             ctrl.pageCount = 0;
+
             ctrl.nextClick = function () {
                 ctrl.pageCount += 1;
-                console.log(ctrl.data);
             };
+
             ctrl.backClick = function () {
                 ctrl.pageCount -= 1;
             };
+
             ctrl.hostpathAnnotation = {
                 obj_locus_tag: $routeParams.locusTag,
                 host_species: null
             };
+
             ctrl.species = [
                 {
                     name: 'Homo sapiens',
@@ -30,6 +34,7 @@ angular
                     taxid: '10090'
                 }
             ];
+
             ctrl.determination_methods = [{
                 "item": "http://www.wikidata.org/entity/Q32860428",
                 "itemLabel": "immunoprecipitation evidence",
@@ -65,20 +70,25 @@ angular
                 ctrl.pubValue = $item;
             };
             ctrl.sendData = function (formData) {
-                alert('still under construction');
-                //ctrl.loading = true;
-                //var url_suf = $location.path() + '/wd_hostpath_edit';
-                //sendToView.sendToView(url_suf, formData).then(function (data) {
-                //    if (data.data.operonWrite_success === true) {
-                //        alert("Successfully Annotated! Well Done! The annotation will appear here in a few minutes.");
-                //        ctrl.resetForm();
-                //    }
-                //    else {
-                //        alert("Something went wrong.  Give it another shot!");
-                //    }
-                //}).finally(function () {
-                //    ctrl.loading = false;
-                //});
+                ctrl.loading = true;
+                var url_suf = $location.path() + '/wd_hostpath_edit';
+                sendToView.sendToView(url_suf, formData).then(function (data) {
+                    if (data.data.authentication === false){
+                        console.log(data);
+                        alert('please authorize ChlamBase to edit Wikidata on your behalf!')
+                    }
+                    if (data.data.success === true) {
+                        console.log(data);
+                        alert("Successfully Annotated! Well Done! The annotation will appear here in a few minutes.");
+                        ctrl.resetForm();
+                    }
+                    else {
+                        console.log(data);
+                        alert("Something went wrong.  Give it another shot!");
+                    }
+                }).finally(function () {
+                    ctrl.loading = false;
+                });
 
             };
             ctrl.resetForm = function () {
