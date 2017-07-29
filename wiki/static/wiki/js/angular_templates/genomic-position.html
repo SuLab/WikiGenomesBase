@@ -26,11 +26,18 @@
         </td>
         <td style="text-align: center" title="'Reference'">
             <a target="_blank" href="https://www.ncbi.nlm.nih.gov/gene?term={{ $ctrl.data.entrez }}">
-                    <img uib-tooltip="NCBI Database Entry" style="height: 14px; margin-top: -3px" data-ng-src="/static/wiki/img/NCBI-logo-2.png">
-                </a>
+                <img uib-tooltip="NCBI Database Entry" style="height: 14px; margin-top: -3px"
+                     data-ng-src="/static/wiki/img/NCBI-logo-2.png">
+            </a>
             <a target="_blank" href="http://www.wikidata.org/wiki/{{ $ctrl.data.geneQID }}">
-                    <img uib-tooltip="Wikidata Database Item" style="height: 14px; margin-top: -3px" data-ng-src="/static/wiki/img/GeneWikidata-logo-en.png">
-                </a>
+                <img uib-tooltip="Wikidata Database Item" style="height: 14px; margin-top: -3px"
+                     data-ng-src="/static/wiki/img/GeneWikidata-logo-en.png">
+            </a>
+        </td>
+        <!--   <td title="'Download'">
+            <a uib-tooltip="Download Nucleotide Fasta" class="glyphicon glyphicon-download"
+               href="https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=gene&rettype=FASTA&id={{ $ctrl.data.entrez }}">
+            </a>-->
         </td>
     </tr>
 </table>

@@ -40,13 +40,7 @@ html, body {
     height: 100%;
 }
 
-.footer {
-    height: 100%;
-    border: solid #385d94 2px;
-    border-radius: 3px 3px 15px 15px;
-    background-color: #385d94;
-    color: whitesmoke;
-}
+
 
 .formBorder {
     border-bottom: solid #99c2ff 3px;
