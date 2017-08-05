@@ -81,6 +81,24 @@ angular
 
 angular
     .module('filters')
+    .filter('strandNum', function () {
+        return function (input) {
+            if (input) {
+                if (input === 'Q22809711') {
+                    return '2'
+                }
+                else {
+                    return '1'
+                }
+            }
+            else {
+                return 'None'
+            }
+        };
+    });
+
+angular
+    .module('filters')
     .filter('uniqueGoTerms', function () {
         // we will return a function which will take in a collection
         // and a keyname

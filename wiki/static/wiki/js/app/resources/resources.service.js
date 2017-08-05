@@ -183,7 +183,6 @@ angular
     });
 
 
-
 //genes for current organism
 
 angular
@@ -458,7 +457,7 @@ angular
             getPMID: getPMID
         }
     });
-var url = 'http://www.ebi.ac.uk/europepmc/webservices/rest/search?query=CT681&resulttype=core&format=json'
+
 
 angular
     .module('resources')
@@ -478,6 +477,7 @@ angular
             getlocusTag2Pub: getlocusTag2Pub
         }
     });
+
 
 
 angular

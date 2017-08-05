@@ -1,3 +1,4 @@
+
 <table ng-table="$ctrl.tableParams" class="table">
     <tr>
         <td title="'Gene Name'">
@@ -34,10 +35,12 @@
                      data-ng-src="/static/wiki/img/GeneWikidata-logo-en.png">
             </a>
         </td>
-        <!--   <td title="'Download'">
+        <td title="'Download'">
             <a uib-tooltip="Download Nucleotide Fasta" class="glyphicon glyphicon-download"
-               href="https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=gene&rettype=FASTA&id={{ $ctrl.data.entrez }}">
-            </a>-->
+               href="https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=nuccore&id=
+                       {{$ctrl.data.refseqGenome }}&seq_start={{$ctrl.data.genStart }}&seq_stop=
+                       {{$ctrl.data.genEnd}}&strand={{ $ctrl.data.strand | strandNum  }}&rettype=fasta&retmode=json">
+            </a>
         </td>
     </tr>
 </table>
