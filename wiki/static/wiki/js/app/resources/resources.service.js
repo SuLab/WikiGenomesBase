@@ -331,7 +331,7 @@ angular
         var endpoint = 'https://query.wikidata.org/sparql?format=json&query=';
         var getHostPathogen = function (uniprot) {
             var url = endpoint + encodeURIComponent(
-                    "SELECT ?host ?hostLabel ?protein ?proteinLabel ?hostProtein ?hostProteinLabel ?reference_stated_in ?reference_stated_inLabel ?pmid " +
+                    "SELECT ?host ?hostLabel ?protein ?proteinLabel ?hostProtein ?hostGeneLabel ?hostProteinLabel ?reference_stated_in ?reference_stated_inLabel ?pmid " +
                     "(group_concat(distinct ?determination ;separator=\", \") as ?dmethod) " +
                     "(group_concat(distinct ?det_label ;separator=\", \") as ?dmethodLabel) " +
                     "WHERE{ " +
@@ -342,11 +342,12 @@ angular
                     "pq:P459 ?determination. " +
                     "?determination rdfs:label ?det_label. " +
                     "?reference_stated_in wdt:P698 ?pmid. " +
-                    "?hostProtein wdt:P703 ?host. " +
+                    "?hostProtein wdt:P703 ?host; " +
+                    "wdt:P702 ?hostGene. " +
                     "FILTER (lang(?det_label) = \"en\") " +
                     "SERVICE wikibase:label { bd:serviceParam wikibase:language \"en\" .}" +
                     "} " +
-                    "GROUP BY ?protein ?proteinLabel ?reference_stated_in ?reference_stated_inLabel ?pmid ?hostProtein ?hostProteinLabel ?host ?hostLabel"
+                    "GROUP BY ?protein ?hostGeneLabel ?proteinLabel ?reference_stated_in ?reference_stated_inLabel ?pmid ?hostProtein ?hostProteinLabel ?host ?hostLabel"
                 );
 
             console.log(url);

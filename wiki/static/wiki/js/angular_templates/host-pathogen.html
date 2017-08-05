@@ -1,10 +1,14 @@
+
 <table ng-table="$ctrl.tableParams" class="table table-hover">
-    <col width="30%"/>
-    <col width="30%"/>
-    <col width="30%"/>
+    <col width="15%"/>
+    <col width="25%"/>
+    <col width="25%"/>
+    <col width="25%"/>
     <col width="10%"/>
     <tr ng-show="$ctrl.data.length!=0" ng-repeat="x in $ctrl.data">
-
+        <td title="'Host Gene Symbol'">
+            {{ x.hostGeneLabel.value }}
+        </td>
         <td title="'Host Protein'">
             <a href="{{ x.hostProtein.value }}">{{ x.hostProteinLabel.value }}</a>
         </td>
