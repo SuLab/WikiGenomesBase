@@ -3,15 +3,8 @@ from wikigenomes.settings import BASE_DIR
 from celery import shared_task
 from scripts import jbrowse_configuration
 from scripts import flatfile_ingestion
-
+from wikigenomes_conf import taxids
 import os
-
-chlamydia_taxids = [
-    '471472',
-    '115713',
-    '272561',
-    '243161'
-]
 
 
 @shared_task
@@ -21,12 +14,13 @@ def get_wd_genome_data():
     :return:
     """
     taskLog = []
-    for taxid in chlamydia_taxids:
+    for taxid in taxids:
         refObj = jbrowse_configuration.GenomeDataRetrieval(taxid=taxid)
         taskLog.append(refObj.get_assembly_summary())
         taskLog.append(refObj.generate_reference())
         taskLog.append(refObj.generate_tracklist())
     return taskLog
+
 
 @shared_task
 def get_wd_features():
@@ -35,7 +29,7 @@ def get_wd_features():
     :return:
     """
     taskLog = []
-    for taxid in chlamydia_taxids:
+    for taxid in taxids:
         refObj = jbrowse_configuration.FeatureDataRetrieval(taxid=taxid)
         taskLog.append(refObj.get_wd_genes())
         taskLog.append(refObj.get_wd_operons())
