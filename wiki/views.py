@@ -14,13 +14,14 @@ from scripts.jbrowse_configuration import FeatureDataRetrieval
 from scripts.get_mongo_annotations import GetMongoAnnotations
 from scripts.WD_Utils import WDSparqlQueries
 
-from wikigenomes import oauth_config
+from wikigenomes_conf import consumer_key, consumer_secret
 from wikidataintegrator import wdi_login, wdi_core
 
 
 def index(request):
     # launch landing page
     context = {'data': 'None'}
+    return render(request, "wiki/index.html", context=context)
     return render(request, "wiki/index.html", context=context)
 
 
@@ -302,8 +303,8 @@ def wd_oauth(request):
         # initiate the handshake by sendin consumer token to wikidata by redirect
         if 'initiate' in body.keys():
             callbackURI = 'http://chlambase.org{}/authorized/'.format(body['current_path'])
-            authentication = wdi_login.WDLogin(consumer_key=oauth_config.consumer_key,
-                                               consumer_secret=oauth_config.consumer_secret,
+            authentication = wdi_login.WDLogin(consumer_key=consumer_key,
+                                               consumer_secret=consumer_secret,
                                                callback_url=callbackURI)
             request.session['authOBJ'] = jsonpickle.encode(authentication)
             response_data = {
@@ -357,7 +358,6 @@ def mongo_annotations(request):
                 for rxn in reactions:
                     rxn = removekey(rxn, '_id')
                     annotation_data['reactions'].append(rxn)
-        print(annotation_data)
         return JsonResponse(annotation_data, safe=False)
 
 

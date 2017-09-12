@@ -1,12 +1,19 @@
 angular
     .module('landingPage')
     .component('landingPage', {
-        controller: function (allChlamOrgs, recentChlamPubLinks, euroPubData) {
+        controller: function (allChlamOrgs, recentChlamPubLinks, euroPubData, appData) {
             var ctrl = this;
             ctrl.myInterval = 5000;
             ctrl.noWrapSlides = false;
             ctrl.active = 0;
             var currIndex = 0;
+            appData.getAppData(function (data) {
+                console.log("i'm trying");
+                ctrl.appName = data[0].appName;
+                console.log(ctrl.appName);
+
+            });
+
             ctrl.orgList = allChlamOrgs.getAllOrgs();
             recentChlamPubLinks.getRecentChlamPubLinks().then(function (data) {
                 var pubs = data.data.esearchresult.idlist;

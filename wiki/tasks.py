@@ -1,10 +1,43 @@
 from __future__ import absolute_import, unicode_literals
 from wikigenomes.settings import BASE_DIR
 from celery import shared_task
-from scripts import jbrowse_configuration
-from scripts import flatfile_ingestion
-from wikigenomes_conf import taxids
+from scripts import jbrowse_configuration, flatfile_ingestion, WD_Utils
+from wikigenomes_conf import taxids, title
+from pymongo import MongoClient
+from bson.json_util import dumps
+from pprint import pprint
 import os
+
+
+def generate_org_list():
+    jsonpath = BASE_DIR + '/wiki/static/wiki/json/'
+    client = MongoClient()
+    genomes = client.genomes
+    assembly_sum = genomes.assembly_summary
+    cursor = assembly_sum.find()
+    orgList = []
+    for cur in cursor:
+        pprint(cur)
+        sparql = WD_Utils.WDSparqlQueries(prop='P685', string=cur['_id'])
+        qid = sparql.wd_prop2qid()
+        cur['taxon'] = 'http://www.wikidata.org/entity/{}'.format(qid)
+        cur['taxonLabel'] = cur['organism_name']
+        orgList.append(cur)
+
+    filepath = jsonpath + 'orgsList.json'
+    with open(filepath, 'w') as outFile:
+        print(dumps(orgList), file=outFile)
+
+
+def generate_app_name():
+    jsonpath = BASE_DIR + '/wiki/static/wiki/json/'
+    filepath = jsonpath + 'appData.json'
+    name = [{
+        'appName': title
+    }]
+    with open(filepath, 'w') as outfile:
+        print(dumps(name), file=outfile)
+
 
 
 @shared_task

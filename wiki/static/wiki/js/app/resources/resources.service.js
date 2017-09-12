@@ -87,6 +87,21 @@ angular
 //server communication
 angular
     .module('resources')
+    .factory('appData', function ($resource) {
+        console.log('resources appData');
+        var url = '/static/wiki/json/appData.json';
+        return $resource(url, {}, {
+            getAppData: {
+                method: "GET",
+                params: {},
+                isArray: true,
+                cache: true
+            }
+        });
+    });
+
+angular
+    .module('resources')
     .factory('sendToView', function ($http) {
         var sendToView = function (url_suffix, data) {
             console.log(data);

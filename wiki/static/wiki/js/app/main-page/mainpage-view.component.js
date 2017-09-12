@@ -17,7 +17,8 @@ angular
                               locusTag2QID,
                               sendToView,
                               expressionTimingData,
-                              hostPathogen) {
+                              hostPathogen,
+                              appData) {
 
             // Main gene page component. Loaded when a gene is selected.  Parses the url for taxid and locus tag and uses
             // those to make API calls to wikidata.
@@ -41,6 +42,13 @@ angular
                         alert("not a valid taxonomy id");
                         $location.path('/');
                     }
+                });
+
+                appData.getAppData(function (data) {
+                    console.log("i'm trying");
+                    ctrl.appName = data[0].appName;
+                    console.log(ctrl.appName);
+
                 });
                 //
                 locusTag2QID.getLocusTag2QID(ctrl.currentLocusTag, ctrl.currentTaxid).then(function (data) {
@@ -222,7 +230,7 @@ angular
             };
 
         },
-        templateUrl: '/static/wiki/js/angular_templates/main-page_new.html'
+        templateUrl: '/static/wiki/js/app/main-page/main-page_new.html'
     });
 
 
