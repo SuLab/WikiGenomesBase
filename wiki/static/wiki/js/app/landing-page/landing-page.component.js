@@ -26,7 +26,7 @@ angular
             });
 
         },
-        templateUrl: '/static/wiki/js/angular_templates/landing-page.html'
+        templateUrl: '/static/wiki/js/app/landing-page/landing-page.html'
     });
 
 
