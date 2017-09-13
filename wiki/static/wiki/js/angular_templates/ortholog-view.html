@@ -27,8 +27,20 @@
                 </a>
             </div>
         </td>
+	<td title="'Align'">
+		<input type="checkbox" ng-checked="orthologs" 
+			ng-click="select(value)">
+	</td>
     </tr>
 
 
 </table>
+<div ng-show="$ctrl.data.hasOwnProperty('471472')">
+	<!-- the MSA Viewer Widget -->
+	<p> Show Ortholog Alignment: <input type="checkbox" ng-model="showOrth"> </p>
+</div>
+<div ng-show="showOrth">
+	<button type="button" ng-click="updatePanel($ctrl.data)">Update</button>
+	<div id="msaDiv"></div>
+</div>
 <div ng-hide="$ctrl.data.hasOwnProperty('471472')">No known orthologs</div>

@@ -23,4 +23,4 @@ simplejson==3.10.0
 six==1.10.0
 SPARQLWrapper==1.8.0
 vine==1.1.3
-wikidataintegrator==0.0.389
+wikidataintegrator==0.0.390
