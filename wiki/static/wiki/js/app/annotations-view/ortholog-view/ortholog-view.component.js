@@ -124,15 +124,39 @@ angular.module('orthologView').component('orthologView', {
 
                                             // data to send to muscle
                                             var content = {
-                                                "email": "djow@ucsd.edu",
-                                                "title": "ortholog alignment",
-                                                "format": "fasta",
-                                                "tree": "tree1",
-                                                "order": "aligned",
-                                                "sequence": data.join()
+                                                email: "djow@ucsd.edu",
+                                                title: "ortholog alignment",
+                                                format: "fasta",
+                                                tree: "tree1",
+                                                order: "aligned",
+                                                sequence: data.join()
                                             };
 
-                                            // submit post to MUSCLE
+					     // try longhand post request using url encoded
+					    $http({
+					     	method: 'POST',
+						url: 'http://www.ebi.ac.uk/Tools/services/rest/muscle/run/',
+						data: content,
+						headers: {
+							'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'
+						},
+						transformRequest: [function(data) {
+							console.log(data);
+							console.log(angular.isObject(data) && String(data) !== '[object File]' ? $httpParamSerializer(data) : data);
+    					    		return angular.isObject(data) && String(data) !== '[object File]' ? $httpParamSerializer(data) : data;
+  					     	}]
+
+					     }).then (function successCallback(response) {
+					     	console.log("SUCCESS");
+					     }, function errorCallback(response) {
+					     	console.log("ERROR");
+						console.log(response);
+						console.log(response.headers);
+						console.log(response.config);
+
+					     });
+
+                                            // submit post to MUSCLE using shorthand method in json
                                             $http.post('http://www.ebi.ac.uk/Tools/services/rest/muscle/run/', content).then(function (success) {
 
                                                 // JOB ID for muscle
@@ -145,7 +169,10 @@ angular.module('orthologView').component('orthologView', {
                                                 // there was an error with the POST request
                                             }, function (error) {
                                                 console.log("Error" + error.status);
-                                                console.log(error.config);
+                                                console.log(error);
+						console.log(error.config);
+						console.log(error.config.headers);
+						console.log(error.config.data);
 
                                                 // temporary display w/o alignment
                                                 var seqs = msa.io.fasta.parse(data.join(""));
