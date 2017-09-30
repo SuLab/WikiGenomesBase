@@ -129,7 +129,7 @@ angular.module('orthologView').component('orthologView', {
                                                 format: "fasta",
                                                 tree: "tree1",
                                                 order: "aligned",
-                                                sequence: data.join()
+                                                sequence: "ATATATATATATATTA"
                                             };
 
 					     // try longhand post request using url encoded

@@ -13,7 +13,7 @@
 <div class="container-fluid main-landing-page" style="padding: 50px">
     <div class="row">
         <div class="col-md-12">
-            <h1>Welcome to {{ $ctrl.appName }}</h1>
+            <h1 data-intro="Welcome to Chlambase! Follow this quick tutorial to get started!" data-step="1">Welcome to {{ appName }}</h1>
 
             <h3>An open, editable, and centralized model organism database <br> for
                 the
@@ -21,7 +21,7 @@
         </div>
     </div>
 
-    <div style="padding: 40px">
+    <div style="padding: 40px" data-intro="This is the chlamydia navigation tree. Click one of the four organisms at the bottom to get more information on that particular strain." data-step="2" data-position="bottom">
         <organism-tree orgs="$ctrl.orgList"></organism-tree>
     </div>
 
@@ -29,10 +29,10 @@
         <div class="col-md-3"></div>
         <div class="col-md-6">
             <div class="row">
-                <div class="col-md-6" style="padding-left: 15px">
+                <div class="col-md-6" style="padding-left: 15px" data-intro="If you know which genome you need, type it in here." data-step="3">
                     <organism-form orgs=$ctrl.orgList></organism-form>
                 </div>
-                <div class="col-md-6" style="padding-left: 15px">
+                <div class="col-md-6" style="padding-left: 15px" data-intro="Or if unsure about the specific name, you can search by keyword here." data-step="4">
                     <keyword-form></keyword-form>
                 </div>
             </div>
@@ -44,7 +44,7 @@
         <div class="col-md-1"></div>
         <div class="col-md-10"
              style="padding: 60px">
-            <h2>See what's happening in the most recent <i><strong>Chlamydia</strong></i> Related Research:</h2>
+            <h2 data-intro="Lastly, make sure you stay up to date with the latest Chlam research in this scroll carousel." data-step="5">See what's happening in the most recent <i><strong>Chlamydia</strong></i> Related Research:</h2>
             <div style="background-color: transparent; padding-top: 30px;">
                 <div style="height: 100px;" class="carousel slide" data-ride=carousel id="slider">
                     <div class="carousel-inner" role="listbox">
@@ -80,7 +80,7 @@
     </div>
     <div class="row"></div>
 </div>
-<div style="background: #385d94" class="navbar-custom navbar navbar-fixed-bottom">
+<div style="background: #385d94" class="navbar-custom navbar navbar-fixed-bottom" data-intro="For any further information about the WikiGenome project, explore your options here." data-position="6">
 
     <div class="row">
         <div class="col-md-2"></div>
