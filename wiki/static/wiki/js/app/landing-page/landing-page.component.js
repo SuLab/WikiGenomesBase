@@ -41,7 +41,7 @@ angular
 		if (localStorage.getItem('tutorial') != 'true') {
 
 			// set options for introjs
-	    		var intro = introJs().setOption("skipLabel", "Exit");
+	    		var intro = introJs().setOption("skipLabel", "Skip Tutorial");
 	    		intro.setOption("showStepNumbers", "false");
 	   		intro.hideHints();
 
