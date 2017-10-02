@@ -36,6 +36,18 @@ angular
                 });
             });
 
+	    // run the tutorial after clicking the button
+	    document.getElementById("get-started").onclick = function() {
+	    	
+		// set options for introjs
+	    	var intro = introJs().setOption("skipLabel", "Skip Tutorial");
+	    	intro.setOption("showStepNumbers", "false");
+	   	intro.hideHints();
+
+		// now start it
+		intro.start();
+	    };
+
 	    // when the page is loaded, check whether or not to do the tutorial
 	    window.addEventListener('load', function() {
 		if (localStorage.getItem('tutorial') != 'true') {
