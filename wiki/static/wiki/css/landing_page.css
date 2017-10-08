@@ -4,11 +4,46 @@ html, body {
 }
 
 .main-landing-page {
-    background-color: #385d94;
+    background: url("../img/c_banner.jpg") no-repeat top center,
+        radial-gradient(circle, #385d94, #1c2e4a);
+    background-size: 100% 200px;
     color: whitesmoke;
     border: solid #385d94 3px;
     text-align: center;
     min-height:100%;
     padding-top: 50px;
 
+}
+
+#get-started {
+
+    background-color: #1c2e4a;
+    color: rgb(255, 255, 255);
+    transition: all 0.5s;
+    font-size: 20px;
+    text-align: center;
+
+}
+
+#get-started span {
+    display: inline-block;
+    position: relative;
+    transition: 0.5s;
+}
+
+#get-started span:after {
+    content: '\00bb';
+    position: absolute;
+    opacity: 0;
+    right: -20px;
+    transition: 0.5s;
+}
+
+#get-started:hover span {
+    padding-right: 25px;
+}
+
+#get-started:hover span:after {
+    opacity: 1;
+    right: 0;
 }

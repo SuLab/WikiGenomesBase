@@ -11,14 +11,14 @@
 
 </style>
 <div class="container-fluid main-landing-page" style="padding: 50px">
-    <div class="row">
+    <div class="row" style="">
         <div class="col-md-12">
             <h1 data-intro="Welcome to Chlambase! Follow this quick tutorial to get started!" data-step="1">Welcome to {{ appName }}</h1>
 
             <h3>An open, editable, and centralized model organism database <br> for
                 the
                 chlamydial research community.</h3>
-	    <button id="get-started" type="button" class="btn btn-default">Get Started</button>
+	    <button id="get-started" type="button" class="btn btn-default"><span>Get Started </span></button>
         </div>
     </div>
 
@@ -33,7 +33,7 @@
                 <div class="col-md-6" style="padding-left: 15px" data-intro="If you know which genome you need, type it in here." data-step="3">
                     <organism-form orgs=$ctrl.orgList></organism-form>
                 </div>
-                <div class="col-md-6" style="padding-left: 15px" data-intro="Or if unsure about the specific name, you can search by keyword here." data-step="4">
+                <div class="col-md-6" style="padding-left: 15px" data-intro="You can also search by keyword here." data-step="4">
                     <keyword-form></keyword-form>
                 </div>
             </div>
@@ -81,7 +81,7 @@
     </div>
     <div class="row"></div>
 </div>
-<div style="background: #385d94" class="navbar-custom navbar navbar-fixed-bottom" data-intro="For any further information about the WikiGenome project, explore your options here." data-position="6">
+<div style="background: #385d94; color: #FFFFFF" class="navbar-custom navbar navbar-fixed-bottom">
 
     <div class="row">
         <div class="col-md-2"></div>
