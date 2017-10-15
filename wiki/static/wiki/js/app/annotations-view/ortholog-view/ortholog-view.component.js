@@ -4,12 +4,15 @@ angular.module('orthologView').component('orthologView', {
         data: '<'
     },
 
-    controller: function ($scope, $http, $httpParamSerializer) {
+    controller: function ($scope, $http) {
 
     // called after data binding
     this.$onInit = function () {
         console.log("On Init Called");
     };
+
+    // whether or not to invert selection when selecting all
+    $scope.invertSelection = true;
 
     // for selecting from the check list
     $scope.select = function(item) {
@@ -35,6 +38,14 @@ angular.module('orthologView').component('orthologView', {
 
     // function to update the selected list and align after
     $scope.updatePanel = function(data) {
+
+        // whether or not to invert selection
+	if ($scope.invertSelection) {
+	    angular.forEach(data, function(value, key) {
+	        $scope.select(value);
+	    });
+	    $scope.invertSelection = false;
+	}
 
         // get the list of selected orthologs by ncbi
         $scope.updateSelected(data);
@@ -80,8 +91,6 @@ angular.module('orthologView').component('orthologView', {
 
                                 // reset the count for the efetch process
                                 remaining = selectedIds.length;
-
-                                // http://www.ebi.ac.uk/Tools/services/rest/muscle/result/muscle-I20170914-222804-0757-67922191-oy/aln-fasta
 
                                 // stores the sequences
                                 var data = [];
@@ -132,30 +141,6 @@ angular.module('orthologView').component('orthologView', {
                                                 sequence: data.join()
                                             };
 
-					     // try longhand post request using url encoded
-					    $http({
-					     	method: 'POST',
-						url: 'http://www.ebi.ac.uk/Tools/services/rest/muscle/run/',
-						data: content,
-						headers: {
-							'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'
-						},
-						transformRequest: [function(data) {
-							console.log(data);
-							console.log(angular.isObject(data) && String(data) !== '[object File]' ? $httpParamSerializer(data) : data);
-    					    		return angular.isObject(data) && String(data) !== '[object File]' ? $httpParamSerializer(data) : data;
-  					     	}]
-
-					     }).then (function successCallback(response) {
-					     	console.log("SUCCESS");
-					     }, function errorCallback(response) {
-					     	console.log("ERROR");
-						console.log(response);
-						console.log(response.headers);
-						console.log(response.config);
-
-					     });
-
                                             // submit post to MUSCLE using shorthand method in json
                                             $http.post('http://www.ebi.ac.uk/Tools/services/rest/muscle/run/', content).then(function (success) {
 
@@ -170,9 +155,6 @@ angular.module('orthologView').component('orthologView', {
                                             }, function (error) {
                                                 console.log("Error" + error.status);
                                                 console.log(error);
-						console.log(error.config);
-						console.log(error.config.headers);
-						console.log(error.config.data);
 
                                                 // temporary display w/o alignment
                                                 var seqs = msa.io.fasta.parse(data.join(""));
