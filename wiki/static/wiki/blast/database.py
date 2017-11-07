@@ -44,7 +44,7 @@ ids = {}
 for index, row in data.iterrows():
 
   # do a comparison check if id is already in the dict
-  if row["Query"] in ids:
+  if row["Query"] in ids and row["Query"] != row["Subject"]:
 
     # get the dictionary associated with the query
     dic = ids[row["Query"]]
@@ -87,7 +87,7 @@ for entry in ids:
     # Add to list of not best matches if the subject does not agree with the query
     if entry not in ids[subject]:
       not_rbm.append(entry)
-      continue
+      break
 
 # now write the list of non reciprocal best matches to file
 outfile = open("non_rbm.txt", "w")
