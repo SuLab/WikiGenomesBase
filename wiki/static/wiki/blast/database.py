@@ -53,6 +53,54 @@ for query in databases:
       # now save it to a new formatted data file
       data.to_csv("parsed_" + title + ".tab", index=False, header=True, sep="	")
 
+# for determing which strain the locus tag came from
+def getStrain(tag):
+  if "TC" in tag:
+    return "muridarum"
+  elif "CP" in tag:
+    return "pneumoniae"
+  elif "CTL" in tag:
+    return "trachomatis_434"
+  elif "CT" in tag:
+    return "trachomatis_duw"
+  else:
+    return "Unknown"
+
+# get a clique row entry filled with only tag
+def getList(tag):
+  l = [[], [], [], []]
+  strain = getStrain(tag)
+  if (strain == "muridarum"):
+    l[0].append(tag)
+  if (strain == "pneumoniae"):
+    l[1].append(tag)
+  if (strain == "trachomatis_434"):
+    l[2].append(tag)
+  if (strain == "trachomatis_duw"):
+    l[3].append(tag)
+  return l
+
+# for determing which strain the locus tag came from
+def getIndex(tag):
+  if "TC" in tag:
+    #return "muridarum"
+    return 0
+  elif "CP" in tag:
+    #return "pneumoniae"
+    return 1
+  elif "CTL" in tag:
+    #return "trachomatis_434"
+    return 2
+  elif "CT" in tag:
+    #return "trachomatis_duw"
+    return 3
+  else:
+    #return "Unknown"
+    return -1
+
+# construct an additional table for finding cliques
+cliques = pd.DataFrame(columns=databases)
+
 # iterate through all combinations to parse results
 for index, query in enumerate(databases):
   for subject in databases[index + 1:]:
@@ -68,6 +116,8 @@ for index, query in enumerate(databases):
     # get results from both files
     for search in searches:
       if os.path.isfile("parsed_" + search + ".tab"):
+
+        print ("Processing " + search)
 
         # now read from the parsed data tab
         data = pd.read_table("parsed_" + search + ".tab", header=0);
@@ -131,9 +181,39 @@ for index, query in enumerate(databases):
       outfile.write("%s\n" % entry)
     outfile.close()
 
+    print ("Processing RBM Data")
+
     # now write the list of reciprocal best matches to file
     data = pd.DataFrame(columns=["Query", "Best Match(es)"])
     for entry in ids:
       if entry not in not_rbm:
         data = data.append(pd.DataFrame([[entry, ids[entry]]], columns=["Query", "Best Match(es)"]))
+
+        # list of all target loci to check
+        combined = [s for s in ids[entry]]
+        combined.append(entry)
+        found = False
+
+        # iterate through the current data frame looking for any matching loci
+        for index, row in cliques.iterrows():
+          for s in combined:
+            if s in row[query] or s in row[subject]:
+              for item in combined:
+                if item not in row[getStrain(item)]:
+                  row[getStrain(item)].append(item)
+              found = True
+              break
+          if found:
+            break
+	    
+	# create the row
+        if not found:
+          insert = getList(entry)
+          for s in ids[entry]:
+            insert[getIndex(s)].append(s)
+          cliques = cliques.append(pd.DataFrame([insert], columns=databases))
+
     data.to_csv("results/" + title + "_rbm.tab", index=False, header=True, sep="	")
+
+# write cliques to file
+cliques.to_csv("results/cliques.tab", index=False, header=True, sep="	")
