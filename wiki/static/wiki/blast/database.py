@@ -24,7 +24,8 @@ for query in databases:
     
     # run the blast search if there is no raw data file
     if query != subject and not os.path.isfile("unparsed_" + title + ".tab"):
-      blastn_cline = NcbiblastnCommandline(query=subject + ".fasta", db=query, out="unparsed_" + title + ".tab", outfmt="\"6 qacc sacc pident\"")
+      print ("Blasting " + title)
+      blastn_cline = NcbiblastnCommandline(task="blastn", query=subject + ".fasta", db=query, out="unparsed_" + title + ".tab", outfmt="\"6 qacc sacc pident evalue\"")
       stdout, stderr = blastn_cline()
 
 # dictionary that links each accession id to a locus tag
@@ -32,7 +33,6 @@ ids = {}
 for seq_record in SeqIO.parse("all.fasta", "fasta"):
   ids[seq_record.id] = getLocusTag(seq_record.description)
   ids[seq_record.id[4:]] = getLocusTag(seq_record.description)
-
 
 # iterate through all combinations to parse output
 for query in databases:
@@ -43,15 +43,48 @@ for query in databases:
 
     # check if data is parsed
     if query != subject and not os.path.isfile("parsed_" + title + ".tab"):
+
+      print ("Parsing " + title)
    
       # read the results from the blast search
-      data = pd.read_table("unparsed_" + title + ".tab", names=["Query", "Subject", "% Similarity"])
+      data = pd.read_table("unparsed_" + title + ".tab", names=["Query", "Subject", "% Similarity", "E Value"])
+
+      # the new parsed table with only the top evalue from the unparsed data
+      parsed = pd.DataFrame(columns=["Query", "Subject", "% Similarity", "E Value"])
+      
+      # the rows with the lowest evalues (usually e values are always different)
+      rows = []
+
+      # lowest e value rows for each gene
+      tmp = []
+
+      # to keep track of the min value
+      min = 0
+      last = ""
+      for index,row in data.iterrows():
+        if row["Query"] != last:
+          last = row["Query"]
+          rows = rows + tmp
+          min = float(row["E Value"])
+          tmp = [row]
+        elif float(row["E Value"]) == min:
+          tmp.append(row)
+        elif float(row["E Value"]) < min:
+          min = float(row["E Value"])
+          tmp = [row]
+      
+      # append the last lowest e valued genes
+      rows = rows + tmp
+
+      # save them to the parsed output file
+      for row in rows:
+        parsed = parsed.append(pd.DataFrame([row], columns=["Query", "Subject", "% Similarity", "E Value"]))
 
       # now update all the accession numbers to the corresponding locus tag
-      data.replace(ids, inplace=True)
+      parsed.replace(ids, inplace=True)
 
       # now save it to a new formatted data file
-      data.to_csv("parsed_" + title + ".tab", index=False, header=True, sep="	")
+      parsed.to_csv("parsed_" + title + ".tab", index=False, header=True, sep="	")
 
 # for determing which strain the locus tag came from
 def getStrain(tag):
