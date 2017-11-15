@@ -31,7 +31,6 @@ def getStrain(tag):
 
 # find the missing strain in a given dataframe row
 def getMissingStrain(row):
-  print ("Target: " + str(row))
   for i, j in zip(row, strains):
     if i == "[]":
       return j
@@ -74,6 +73,12 @@ for index, row in data.iterrows():
           rows = temp.loc[(temp["Query"] == query)]
           for index, target in rows.iterrows():
             outfile.write("\t%s\n" % str(target.values))
+            
+	    # now do the reverse search
+            temp = pd.read_table("parsed_%s_v_%s.tab" % (getStrain(target["Query"]), getStrain(target["Subject"])), header=0)
+            other = temp.loc[(temp["Query"] == target["Subject"])]
+            for i, t in other.iterrows():
+              outfile.write("\t%s\n" % str(t.values))
       outfile.write("\n")
 
     # get a list of all terms to search for
