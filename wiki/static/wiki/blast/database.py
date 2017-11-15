@@ -25,7 +25,7 @@ for query in databases:
     # run the blast search if there is no raw data file
     if query != subject and not os.path.isfile("unparsed_" + title + ".tab"):
       print ("Blasting " + title)
-      blastn_cline = NcbiblastnCommandline(task="blastn", query=subject + ".fasta", db=query, out="unparsed_" + title + ".tab", outfmt="\"6 qacc sacc pident evalue\"")
+      blastn_cline = NcbiblastnCommandline(task="blastn", query=subject + ".fasta", db=query, out="unparsed_" + title + ".tab", outfmt="\"6 qacc sacc pident evalue length\"")
       stdout, stderr = blastn_cline()
 
 # dictionary that links each accession id to a locus tag
@@ -47,10 +47,10 @@ for query in databases:
       print ("Parsing " + title)
    
       # read the results from the blast search
-      data = pd.read_table("unparsed_" + title + ".tab", names=["Query", "Subject", "% Similarity", "E Value"])
+      data = pd.read_table("unparsed_" + title + ".tab", names=["Query", "Subject", "% Similarity", "E Value", "Length"])
 
       # the new parsed table with only the top evalue from the unparsed data
-      parsed = pd.DataFrame(columns=["Query", "Subject", "% Similarity", "E Value"])
+      parsed = pd.DataFrame(columns=["Query", "Subject", "% Similarity", "E Value", "Length"])
       
       # the rows with the lowest evalues (usually e values are always different)
       rows = []
@@ -78,7 +78,7 @@ for query in databases:
 
       # save them to the parsed output file
       for row in rows:
-        parsed = parsed.append(pd.DataFrame([row], columns=["Query", "Subject", "% Similarity", "E Value"]))
+        parsed = parsed.append(pd.DataFrame([row], columns=["Query", "Subject", "% Similarity", "E Value", "Length"]))
 
       # now update all the accession numbers to the corresponding locus tag
       parsed.replace(ids, inplace=True)
