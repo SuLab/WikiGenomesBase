@@ -1,5 +1,6 @@
 Line 2: ["['TC_RS02100']" "['CPn0252', 'CPn0065']" "['CTL0399']" "['CT_144']"]
 
+	Repeated Hits
 	Query Subject %_Similarity E_Value Length
 	['TC_RS02100' 'CPn0252' 88.89 0.018000000000000002 27]
 	['TC_RS02100' 'CTL0399' 72.0 6.9999999999999965e-127 857]
@@ -17,6 +18,7 @@ Line 2: ["['TC_RS02100']" "['CPn0252', 'CPn0065']" "['CTL0399']" "['CT_144']"]
 Line 3: ["['TC_RS02755']" "['CPn0420']" "['CTL0523', 'CTL0895']"
  "['CT_271', 'CT_631']"]
 
+	Repeated Hits
 	Query Subject %_Similarity E_Value Length
 	['TC_RS02755' 'CPn0420' 69.26 9e-20 231]
 	['TC_RS02755' 'CTL0523' 87.85 2.9999999999999984e-101 288]
@@ -35,6 +37,7 @@ Line 3: ["['TC_RS02755']" "['CPn0420']" "['CTL0523', 'CTL0895']"
 
 Line 4: ["['TC_RS00910']" "['CPn0028', 'CPn0945']" "['CTL0164']" "['CT_795']"]
 
+	Repeated Hits
 	Query Subject %_Similarity E_Value Length
 	['TC_RS00910' 'CPn0028' 100.0 1.5 15]
 	['TC_RS00910' 'CTL0164' 70.93 8.999999999999997e-60 461]
@@ -52,6 +55,7 @@ Line 4: ["['TC_RS00910']" "['CPn0028', 'CPn0945']" "['CTL0164']" "['CT_795']"]
 Line 5: ["['TC_RS00310']" "['CPn0690', 'CPn0457']" "['CTL0055', 'CTL0226']"
  "['CT_686', 'CT_853']"]
 
+	Repeated Hits
 	Query Subject %_Similarity E_Value Length
 	['TC_RS00310' 'CPn0690' 69.19 3e-13 172]
 	['TC_RS00310' 'CTL0055' 73.31 0.0 1184]
@@ -73,6 +77,7 @@ Line 5: ["['TC_RS00310']" "['CPn0690', 'CPn0457']" "['CTL0055', 'CTL0226']"
 
 Line 6: ["['TC_RS01340']" "['CPn0454', 'CPn0444']" "['CTL0251']" "['CT_872']"]
 
+	Repeated Hits
 	Query Subject %_Similarity E_Value Length
 	['TC_RS01340' 'CPn0454' 82.35 8e-07 51]
 	['TC_RS01340' 'CTL0251' 75.72 0.0 3027]
@@ -90,6 +95,7 @@ Line 6: ["['TC_RS01340']" "['CPn0454', 'CPn0444']" "['CTL0251']" "['CT_872']"]
 Line 7: ["['TC_RS01260']" "['CPn1019']" "['CTL0235', 'CTL0640']"
  "['CT_860', 'CT_384']"]
 
+	Repeated Hits
 	Query Subject %_Similarity E_Value Length
 	['TC_RS01260' 'CPn1019' 64.84 1e-14 384]
 	['TC_RS01260' 'CTL0235' 74.85 2.999999999999998e-178 970]
@@ -109,6 +115,7 @@ Line 7: ["['TC_RS01260']" "['CPn1019']" "['CTL0235', 'CTL0640']"
 Line 8: ["['TC_RS00600', 'TC_RS00675']" "['CPnr01']" "['CTL_r02', 'CTL_r01']"
  "['CT_r01', 'CT_r04']"]
 
+	Repeated Hits
 	Query Subject %_Similarity E_Value Length
 	['TC_RS00600' 'CPnr01' 94.33 0.0 1552]
 	['TC_RS00600' 'CTL_r02' 98.39 0.0 1550]
@@ -150,6 +157,7 @@ Line 8: ["['TC_RS00600', 'TC_RS00675']" "['CPnr01']" "['CTL_r02', 'CTL_r01']"
 Line 9: ["['TC_RS00510']" "['CPn0459']" "['CTL0093', 'CTL0431']"
  "['CT_724', 'CT_179']"]
 
+	Repeated Hits
 	Query Subject %_Similarity E_Value Length
 	['TC_RS00510' 'CPn0459' 92.0 0.038 25]
 	['TC_RS00510' 'CTL0093' 71.24 2.999999999999998e-66 532]
@@ -168,6 +176,7 @@ Line 9: ["['TC_RS00510']" "['CPn0459']" "['CTL0093', 'CTL0431']"
 
 Line 10: ["['TC_RS03750']" "['CPn1071', 'CPn0572']" "['CTL0716']" "['CT_456']"]
 
+	Repeated Hits
 	Query Subject %_Similarity E_Value Length
 	['TC_RS03750' 'CPn1071' 91.3 0.23 23]
 	['TC_RS03750' 'CTL0716' 68.12 9.999999999999995e-113 1148]
@@ -192,6 +201,7 @@ Line 10: ["['TC_RS03750']" "['CPn1071', 'CPn0572']" "['CTL0716']" "['CT_456']"]
 
 Line 11: ["['TC_RS00765']" "['CPn0126', 'CPn0375']" "['CTL0133']" "['CT_764']"]
 
+	Repeated Hits
 	Query Subject %_Similarity E_Value Length
 	['TC_RS00765' 'CPn0126' 86.21 0.017 29]
 	['TC_RS00765' 'CTL0133' 74.35 4.999999999999997e-148 803]
@@ -208,6 +218,7 @@ Line 11: ["['TC_RS00765']" "['CPn0126', 'CPn0375']" "['CTL0133']" "['CT_764']"]
 
 Line 12: ["['TC_RS03990']" "['CPn0618', 'CPn0487']" "['CTL0761']" "['CT_499']"]
 
+	Repeated Hits
 	Query Subject %_Similarity E_Value Length
 	['TC_RS03990' 'CPn0618' 78.57 1e-16 98]
 	['TC_RS03990' 'CTL0761' 77.48 2.9999999999999977e-156 706]
@@ -224,6 +235,7 @@ Line 12: ["['TC_RS03990']" "['CPn0618', 'CPn0487']" "['CTL0761']" "['CT_499']"]
 
 Line 13: ["['TC_RS03125']" "['CPn0036']" "['CTL0592a', 'CTL0592']" "['CT_338']"]
 
+	Repeated Hits
 	Query Subject %_Similarity E_Value Length
 	['TC_RS03125' 'CPn0036' 77.78 5e-09 72]
 	['TC_RS03125' 'CTL0592a' 84.19 7.999999999999996e-76 253]
@@ -238,6 +250,7 @@ Line 13: ["['TC_RS03125']" "['CPn0036']" "['CTL0592a', 'CTL0592']" "['CT_338']"]
 
 Line 14: ["['TC_RS01350']" "['CPn0279', 'CPn0980']" "['CTL0254']" "['CT_874']"]
 
+	Repeated Hits
 	Query Subject %_Similarity E_Value Length
 	['TC_RS01350' 'CPn0279' 95.65 0.19 23]
 	['TC_RS01350' 'CTL0254' 76.37 0.0 2645]
@@ -253,6 +266,7 @@ Line 14: ["['TC_RS01350']" "['CPn0279', 'CPn0980']" "['CTL0254']" "['CT_874']"]
 
 Line 15: ["['TC_RS01590']" "['CPn1072', 'CPn0131']" "['CTL0303']" "['CT_047']"]
 
+	Repeated Hits
 	Query Subject %_Similarity E_Value Length
 	['TC_RS01590' 'CPn1072' 88.0 0.24 25]
 	['TC_RS01590' 'CTL0303' 77.86 0.0 926]
@@ -269,6 +283,7 @@ Line 15: ["['TC_RS01590']" "['CPn1072', 'CPn0131']" "['CTL0303']" "['CT_047']"]
 
 Line 16: ["['TC_RS03780']" "['CPn1040', 'CPn0579']" "['CTL0722']" "['CT_462']"]
 
+	Repeated Hits
 	Query Subject %_Similarity E_Value Length
 	['TC_RS03780' 'CPn1040' 80.95 0.048 42]
 	['TC_RS03780' 'CTL0722' 80.22 2.9999999999999976e-168 642]
@@ -285,6 +300,7 @@ Line 16: ["['TC_RS03780']" "['CPn1040', 'CPn0579']" "['CTL0722']" "['CT_462']"]
 
 Line 17: ["['TC_RS02850']" "['CPn0061', 'CPn0505']" "['CTL0542']" "['CT_290']"]
 
+	Repeated Hits
 	Query Subject %_Similarity E_Value Length
 	['TC_RS02850' 'CPn0061' 66.72 2e-50 685]
 	['TC_RS02850' 'CTL0542' 81.71 0.0 678]
@@ -299,8 +315,17 @@ Line 17: ["['TC_RS02850']" "['CPn0061', 'CPn0505']" "['CTL0542']" "['CT_290']"]
 	['CT_290' 'CPn0505' 100.0 0.17 17]
 	['CT_290' 'CTL0542' 99.56 0.0 678]
 
+Line 18: ["['TC_RS03075']" "['CPn1060a']" "['CTL0583A']" '[]']
+
+	Missing strain: trachomatis_duw
+	Query Subject %_Similarity E_Value Length
+	['TC_RS03075' 'CT_690' 87.5 0.16 24]
+	['CPn1060a' 'CT_655' 78.38 0.16 37]
+	['CTL0583A' 'CT_161' 100.0 0.54 15]
+
 Line 19: ["['TC_RS01030']" "['CPn0970', 'CPn0969']" "['CTL0189']" "['CT_817']"]
 
+	Repeated Hits
 	Query Subject %_Similarity E_Value Length
 	['TC_RS01030' 'CPn0970' 67.17 2.9999999999999996e-39 533]
 	['TC_RS01030' 'CTL0189' 81.95 0.0 1197]
@@ -322,6 +347,7 @@ Line 19: ["['TC_RS01030']" "['CPn0970', 'CPn0969']" "['CTL0189']" "['CT_817']"]
 Line 20: ["['TC_RS00640']" "['CPn0519', 'CPn0887']" "['CTL0113', 'CTL0689']"
  "['CT_744', 'CT_430']"]
 
+	Repeated Hits
 	Query Subject %_Similarity E_Value Length
 	['TC_RS00640' 'CPn0519' 100.0 0.64 17]
 	['TC_RS00640' 'CTL0113' 75.66 0.0 2473]
@@ -345,6 +371,7 @@ Line 20: ["['TC_RS00640']" "['CPn0519', 'CPn0887']" "['CTL0113', 'CTL0689']"
 Line 21: ["['TC_RS00685', 'TC_RS00610']" "['CPnr03']" "['CTL_r05', 'CTL_r06']"
  "['CT_r03', 'CT_r06']"]
 
+	Repeated Hits
 	Query Subject %_Similarity E_Value Length
 	['TC_RS00685' 'CPnr03' 93.04 1e-44 115]
 	['TC_RS00685' 'CTL_r05' 97.39 3e-51 115]
@@ -385,6 +412,7 @@ Line 21: ["['TC_RS00685', 'TC_RS00610']" "['CPnr03']" "['CTL_r05', 'CTL_r06']"
 
 Line 22: ["['TC_RS03900']" "['CPn0043', 'CPn0687']" "['CTL0743']" "['CT_482']"]
 
+	Repeated Hits
 	Query Subject %_Similarity E_Value Length
 	['TC_RS03900' 'CPn0043' 91.67 0.014 24]
 	['TC_RS03900' 'CTL0743' 80.19 1.999999999999999e-164 631]
@@ -402,6 +430,7 @@ Line 22: ["['TC_RS03900']" "['CPn0043', 'CPn0687']" "['CTL0743']" "['CT_482']"]
 Line 23: ["['TC_RS01610']" "['CPn0925', 'CPn0285']" "['CTL0307', 'CTL0148']"
  "['CT_051', 'CT_779']"]
 
+	Repeated Hits
 	Query Subject %_Similarity E_Value Length
 	['TC_RS01610' 'CPn0925' 92.59 0.008 27]
 	['TC_RS01610' 'CTL0307' 69.22 3.999999999999999e-114 1069]
@@ -423,6 +452,7 @@ Line 23: ["['TC_RS01610']" "['CPn0925', 'CPn0285']" "['CTL0307', 'CTL0148']"
 Line 24: ["['TC_RS02115']" "['CPn0648']" "['CTL0402', 'CTL0791']"
  "['CT_147', 'CT_529']"]
 
+	Repeated Hits
 	Query Subject %_Similarity E_Value Length
 	['TC_RS02115' 'CPn0648' 80.0 0.32 40]
 	['TC_RS02115' 'CTL0402' 67.79 0.0 4291]
@@ -442,6 +472,7 @@ Line 24: ["['TC_RS02115']" "['CPn0648']" "['CTL0402', 'CTL0791']"
 Line 25: ["['TC_RS02840']" "['CPn0288']" "['CTL0540', 'CTL0447']"
  "['CT_288', 'CT_195']"]
 
+	Repeated Hits
 	Query Subject %_Similarity E_Value Length
 	['TC_RS02840' 'CPn0288' 100.0 0.43 17]
 	['TC_RS02840' 'CTL0540' 69.5 0.0 1708]
@@ -461,6 +492,7 @@ Line 25: ["['TC_RS02840']" "['CPn0288']" "['CTL0540', 'CTL0447']"
 Line 26: ["['TC_RS04625']" "['CPn0726']" "['CTL0884', 'CTL0885']"
  "['CT_620', 'CT_621']"]
 
+	Repeated Hits
 	Query Subject %_Similarity E_Value Length
 	['TC_RS04625' 'CPn0726' 73.31 5e-34 236]
 	['TC_RS04625' 'CTL0884' 75.17 0.0 2513]
@@ -481,6 +513,7 @@ Line 26: ["['TC_RS04625']" "['CPn0726']" "['CTL0884', 'CTL0885']"
 
 Line 27: ["['TC_RS02020']" "['CPn0191', 'CPn0280']" "['CTL0385']" "['CT_130']"]
 
+	Repeated Hits
 	Query Subject %_Similarity E_Value Length
 	['TC_RS02020' 'CPn0191' 65.44 9e-31 570]
 	['TC_RS02020' 'CTL0385' 78.47 2.999999999999998e-162 678]
@@ -495,8 +528,28 @@ Line 27: ["['TC_RS02020']" "['CPn0191', 'CPn0280']" "['CTL0385']" "['CT_130']"]
 	['CT_130' 'CPn0280' 82.86 0.004 35]
 	['CT_130' 'CTL0385' 99.15 0.0 702]
 
+Line 28: ["['TC_RS04780']" "['CPns01']" '[]' "['CT_s01']"]
+
+	Missing strain: trachomatis_434
+	Query Subject %_Similarity E_Value Length
+	['TC_RS04780' 'CTL0512' 86.36 3.8 22]
+	['TC_RS04780' 'CTL0249' 81.48 3.8 27]
+	['TC_RS04780' 'CTL0162' 94.12 3.8 17]
+	['CPns01' 'CTL0728' 94.74 0.31 19]
+	['CPns01' 'CTL0411' 90.48 0.31 21]
+	['CT_s01' 'CTL0007' 82.76 0.31 29]
+
+Line 29: ["['TC_RS04670']" "['CPn0749']" "['CTL0893']" '[]']
+
+	Missing strain: trachomatis_duw
+	Query Subject %_Similarity E_Value Length
+	['TC_RS04670' 'CT_816' 88.46 0.47 26]
+	['CPn0749' 'CT_824' 100.0 1.7 15]
+	['CTL0893' 'CT_204' 91.67 0.011 24]
+
 Line 30: ["['TC_RS03860']" "['CPn0593', 'CPn0159']" "['CTL0735']" "['CT_474']"]
 
+	Repeated Hits
 	Query Subject %_Similarity E_Value Length
 	['TC_RS03860' 'CPn0593' 73.91 2e-08 92]
 	['TC_RS03860' 'CTL0735' 78.6 0.0 888]
@@ -513,6 +566,7 @@ Line 30: ["['TC_RS03860']" "['CPn0593', 'CPn0159']" "['CTL0735']" "['CT_474']"]
 
 Line 31: ["['TC_RS02035']" "['CPn0187', 'CPn0072']" "['CTL0388']" "['CT_133']"]
 
+	Repeated Hits
 	Query Subject %_Similarity E_Value Length
 	['TC_RS02035' 'CPn0187' 67.71 5.0000000000000005e-22 288]
 	['TC_RS02035' 'CTL0388' 78.45 0.0 798]
@@ -528,8 +582,471 @@ Line 31: ["['TC_RS02035']" "['CPn0187', 'CPn0072']" "['CTL0388']" "['CT_133']"]
 	['CT_133' 'CPn0072' 90.91 0.21 22]
 	['CT_133' 'CTL0388' 99.5 0.0 804]
 
+Line 32: ["['TC_RS03325']" '[]' "['CTL0631']" "['CT_377']"]
+
+	Missing strain: pneumoniae
+	Query Subject %_Similarity E_Value Length
+	['TC_RS03325' 'CPn0148' 100.0 0.11 16]
+	['CTL0631' 'CPn0639' 100.0 0.39 15]
+	['CT_377' 'CPn0639' 100.0 0.39 15]
+
+Line 33: ["['TC_RS01035']" '[]' "['CTL0190']" "['CT_818']"]
+
+	Missing strain: pneumoniae
+	Query Subject %_Similarity E_Value Length
+	['TC_RS01035' 'CPn0970' 66.05 3e-32 592]
+	['CTL0190' 'CPn0970' 65.8 5e-24 579]
+	['CTL0190' 'CPn0969' 65.8 5e-24 579]
+	['CT_818' 'CPn0970' 65.8 5e-24 579]
+	['CT_818' 'CPn0969' 65.8 5e-24 579]
+
+Line 34: ["['TC_RS02040']" '[]' "['CTL0389']" "['CT_134']"]
+
+	Missing strain: pneumoniae
+	Query Subject %_Similarity E_Value Length
+	['TC_RS02040' 'CPn0712' 88.89 0.008 27]
+	['CTL0389' 'CPn1024' 100.0 1.3 15]
+	['CTL0389' 'CPn0251' 100.0 1.3 15]
+	['CT_134' 'CPn1024' 100.0 1.3 15]
+	['CT_134' 'CPn0251' 100.0 1.3 15]
+
+Line 35: ["['TC_RS03940']" '[]' "['CTL0751']" "['CT_490']"]
+
+	Missing strain: pneumoniae
+	Query Subject %_Similarity E_Value Length
+	['TC_RS03940' 'CPn0101' 95.0 0.061 20]
+	['CTL0751' 'CPn0848' 94.44 0.74 18]
+	['CTL0751' 'CPn0697' 90.0 0.74 20]
+	['CTL0751' 'CPn0310' 94.44 0.74 18]
+	['CTL0751' 'CPn0090' 86.96 0.74 23]
+	['CT_490' 'CPn0848' 94.44 0.74 18]
+	['CT_490' 'CPn0697' 90.0 0.74 20]
+	['CT_490' 'CPn0310' 94.44 0.74 18]
+	['CT_490' 'CPn0090' 86.96 0.74 23]
+
+Line 36: ["['TC_RS03275']" '[]' "['CTL0621']" "['CT_367']"]
+
+	Missing strain: pneumoniae
+	Query Subject %_Similarity E_Value Length
+	['TC_RS03275' 'CPn0651' 100.0 0.14 17]
+	['CTL0621' 'CPn0500' 95.0 0.14 20]
+	['CTL0621' 'CPn0027' 83.33 0.14 30]
+	['CT_367' 'CPn0500' 95.0 0.14 20]
+	['CT_367' 'CPn0027' 83.33 0.14 30]
+
+Line 37: ["['TC_RS01305']" '[]' "['CTL0246']" "['CT_867']"]
+
+	Missing strain: pneumoniae
+	Query Subject %_Similarity E_Value Length
+	['TC_RS01305' 'CPn0018' 84.38 0.019 32]
+	['CTL0246' 'CPn0421' 100.0 0.075 18]
+	['CT_867' 'CPn0421' 100.0 0.075 18]
+
+Line 38: ["['TC_RS03240']" '[]' "['CTL0614']" "['CT_360']"]
+
+	Missing strain: pneumoniae
+	Query Subject %_Similarity E_Value Length
+	['TC_RS03240' 'CPn0074' 95.0 0.16 20]
+	['CTL0614' 'CPn1050' 100.0 1.9 15]
+	['CTL0614' 'CPn0978' 94.44 1.9 18]
+	['CTL0614' 'CPn0959' 100.0 1.9 15]
+	['CTL0614' 'CPn0873' 100.0 1.9 15]
+	['CTL0614' 'CPn0771' 84.0 1.9 25]
+	['CTL0614' 'CPn0383' 94.44 1.9 18]
+	['CTL0614' 'CPn0323' 90.0 1.9 20]
+	['CTL0614' 'CPn0125' 100.0 1.9 15]
+	['CT_360' 'CPn0965' 90.48 0.56 21]
+
+Line 39: ["['TC_RS04630']" '[]' "['CTL0885']" "['CT_621']"]
+
+	Missing strain: pneumoniae
+	Query Subject %_Similarity E_Value Length
+	['TC_RS04630' 'CPn0726' 76.35 3e-24 148]
+	['CTL0885' 'CPn0726' 77.65 1.9999999999999998e-32 170]
+	['CT_621' 'CPn0726' 77.06 9e-31 170]
+
+Line 40: ["['TC_RS03600']" '[]' "['CTL0687']" "['CT_428']"]
+
+	Missing strain: pneumoniae
+	Query Subject %_Similarity E_Value Length
+	['TC_RS03600' 'CPn0274' 94.74 0.61 19]
+	['CTL0687' 'CPn0437' 90.0 2.1 20]
+	['CT_428' 'CPn0437' 90.0 2.1 20]
+
+Line 41: ["['TC_RS02640']" '[]' "['CTL0500A']" "['CT_249']"]
+
+	Missing strain: pneumoniae
+	Query Subject %_Similarity E_Value Length
+	['TC_RS02640' 'CPn0663' 86.96 1.0 23]
+	['CTL0500A' 'CPn0884' 100.0 3.7 14]
+	['CTL0500A' 'CPn0794' 86.36 3.7 22]
+	['CTL0500A' 'CPn0695' 94.12 3.7 17]
+	['CTL0500A' 'CPn0463' 89.47 3.7 19]
+	['CTL0500A' 'CPn0290' 86.36 3.7 22]
+	['CTL0500A' 'CPn0081' 94.12 3.7 17]
+	['CT_249' 'CPn0463' 94.74 0.3 19]
+
+Line 42: ["['TC_RS03035']" '[]' "['CTL0576']" "['CT_324']"]
+
+	Missing strain: pneumoniae
+	Query Subject %_Similarity E_Value Length
+	['TC_RS03035' 'CPn0449' 88.89 0.02 27]
+	['CTL0576' 'CPn0597' 95.0 0.23 20]
+	['CT_324' 'CPn0597' 95.0 0.23 20]
+
+Line 43: ["['TC_RS00395']" '[]' "['CTL0071']" "['CT_702']"]
+
+	Missing strain: pneumoniae
+	Query Subject %_Similarity E_Value Length
+	['TC_RS00395' 'CPn0443' 90.48 0.47 21]
+	['CTL0071' 'CPn0968' 100.0 1.6 15]
+	['CTL0071' 'CPn0344' 84.0 1.6 25]
+	['CTL0071' 'CPn0191' 94.44 1.6 18]
+	['CTL0071' 'CPn0021' 86.96 1.6 23]
+	['CT_702' 'CPn0968' 100.0 1.6 15]
+	['CT_702' 'CPn0344' 84.0 1.6 25]
+	['CT_702' 'CPn0191' 94.44 1.6 18]
+	['CT_702' 'CPn0021' 86.96 1.6 23]
+
+Line 44: ["['TC_RS03610']" '[]' "['CTL0689']" "['CT_430']"]
+
+	Missing strain: pneumoniae
+	Query Subject %_Similarity E_Value Length
+	['TC_RS03610' 'CPn0945' 84.0 2.5 25]
+	['TC_RS03610' 'CPn0827' 100.0 2.5 15]
+	['TC_RS03610' 'CPn0555' 90.0 2.5 20]
+	['TC_RS03610' 'CPn0413' 100.0 2.5 15]
+	['TC_RS03610' 'CPn0239' 90.0 2.5 20]
+	['CTL0689' 'CPn0519' 71.31 1e-30 251]
+	['CT_430' 'CPn0519' 71.31 1e-30 251]
+
+Line 45: ["['TC_RS01355']" '[]' "['CTL0255']" "['CT_875']"]
+
+	Missing strain: pneumoniae
+	Query Subject %_Similarity E_Value Length
+	['TC_RS01355' 'CPn0134' 94.74 1.6 19]
+	['TC_RS01355' 'CPn0082' 90.48 1.6 21]
+	['CTL0255' 'CPnr02' 92.0 0.011 25]
+	['CT_875' 'CPnr02' 92.0 0.011 25]
+
+Line 46: ["['TC_RS01015']" '[]' "['CTL0186']" "['CT_814.1']"]
+
+	Missing strain: pneumoniae
+	Query Subject %_Similarity E_Value Length
+	['TC_RS01015' 'CPn0206' 100.0 0.09 17]
+	['CTL0186' 'CPn0581' 87.5 0.31 24]
+	['CT_814.1' 'CPn0581' 87.5 0.31 24]
+
+Line 47: ["['TC_RS03120']" '[]' "['CTL0592']" "['CT_338']"]
+
+	Missing strain: pneumoniae
+	Query Subject %_Similarity E_Value Length
+	['TC_RS03120' 'CPn0036' 87.5 4e-07 40]
+	['CTL0592' 'CPn0036' 87.8 1e-07 41]
+	['CT_338' 'CPn0036' 87.8 1e-07 41]
+
+Line 48: ["['TC_RS02300']" '[]' "['CTL0439']" "['CT_187']"]
+
+	Missing strain: pneumoniae
+	Query Subject %_Similarity E_Value Length
+	['TC_RS02300' 'CPn0075' 94.74 0.78 19]
+	['CTL0439' 'CPn0419' 100.0 0.22 17]
+	['CT_187' 'CPn0419' 100.0 0.22 17]
+
+Line 49: ["['TC_RS00960']" '[]' "['CTL0173']" "['CT_804']"]
+
+	Missing strain: pneumoniae
+	Query Subject %_Similarity E_Value Length
+	['TC_RS00960' 'CPn0954' 73.44 0.018000000000000002 64]
+	['CTL0173' 'CPn0954' 88.89 0.018000000000000002 27]
+	['CTL0173' 'CPn0815' 95.45 0.018000000000000002 22]
+	['CT_804' 'CPn0954' 88.89 0.018000000000000002 27]
+	['CT_804' 'CPn0815' 95.45 0.018000000000000002 22]
+
+Line 50: ["['TC_RS00145']" '[]' "['CTL0026']" "['CT_657']"]
+
+	Missing strain: pneumoniae
+	Query Subject %_Similarity E_Value Length
+	['TC_RS00145' 'CPn0954' 80.0 0.95 30]
+	['TC_RS00145' 'CPn0885' 90.0 0.95 20]
+	['TC_RS00145' 'CPn0351' 100.0 0.95 15]
+	['TC_RS00145' 'CPn0249' 100.0 0.95 15]
+	['TC_RS00145' 'CPn0212' 100.0 0.95 15]
+	['TC_RS00145' 'CPn0145' 100.0 0.95 15]
+	['CTL0026' 'CPn0719' 90.48 0.27 21]
+	['CT_657' 'CPn0719' 90.48 0.27 21]
+
+Line 51: ["['TC_RS01365']" '[]' "['CTL0257']" "['CT_002']"]
+
+	Missing strain: pneumoniae
+	Query Subject %_Similarity E_Value Length
+	['TC_RS01365' 'CPn0981' 85.19 0.07400000000000001 27]
+	['CTL0257' 'CPn0550' 100.0 0.26 16]
+	['CT_002' 'CPn0550' 100.0 0.26 16]
+
+Line 52: ["['TC_RS01955']" '[]' "['CTL0372']" "['CT_117']"]
+
+	Missing strain: pneumoniae
+	Query Subject %_Similarity E_Value Length
+	['TC_RS01955' 'CPn0872' 90.91 0.07 22]
+	['CTL0372' 'CPn0701' 100.0 0.94 15]
+	['CT_117' 'CPn0466' 100.0 0.27 16]
+
+Line 53: ["['TC_RS02895']" '[]' "['CTL0551']" "['CT_299']"]
+
+	Missing strain: pneumoniae
+	Query Subject %_Similarity E_Value Length
+	['TC_RS02895' 'CPn0281' 84.62 0.65 26]
+	['CTL0551' 'CPn0185' 90.48 0.65 21]
+	['CT_299' 'CPn0185' 90.48 0.65 21]
+
+Line 54: ["['TC_RS01385']" '[]' "['CTL0261']" "['CT_006']"]
+
+	Missing strain: pneumoniae
+	Query Subject %_Similarity E_Value Length
+	['TC_RS01385' 'CPn0434' 90.48 0.52 21]
+	['CTL0261' 'CPn0486' 100.0 0.5 16]
+	['CTL0261' 'CPn0461' 90.48 0.5 21]
+	['CT_006' 'CPn0486' 100.0 0.5 16]
+	['CT_006' 'CPn0461' 90.48 0.5 21]
+
+Line 55: ["['TC_RS02615']" '[]' "['CTL0496']" "['CT_244']"]
+
+	Missing strain: pneumoniae
+	Query Subject %_Similarity E_Value Length
+	['TC_RS02615' 'CPn0781' 100.0 0.026 19]
+	['TC_RS02615' 'CPn0189' 95.83 0.026 24]
+	['CTL0496' 'CPn0612' 95.24 0.08900000000000001 21]
+	['CT_244' 'CPn0612' 95.24 0.08900000000000001 21]
+
+Line 56: ["['TC_RS04345']" '[]' "['CTL0830']" "['CT_567']"]
+
+	Missing strain: pneumoniae
+	Query Subject %_Similarity E_Value Length
+	['TC_RS04345' 'CPn0748' 100.0 1.6 15]
+	['TC_RS04345' 'CPn0094' 100.0 1.6 15]
+	['CTL0830' 'CPn0238' 100.0 0.13 17]
+	['CT_567' 'CPn0238' 100.0 0.13 17]
+
+Line 57: ["['TC_RS03160']" '[]' "['CTL0599']" "['CT_345']"]
+
+	Missing strain: pneumoniae
+	Query Subject %_Similarity E_Value Length
+	['TC_RS03160' 'CPn0153' 90.91 0.091 22]
+	['CTL0599' 'CPn0756' 91.3 0.026 23]
+	['CT_345' 'CPn0756' 91.3 0.026 23]
+
+Line 58: ["['TC_RS04795']" '[]' "['CTL0360']" "['CT_105']"]
+
+	Missing strain: pneumoniae
+	Query Subject %_Similarity E_Value Length
+	['TC_RS04795' 'CPn0858' 100.0 0.21 17]
+	['TC_RS04795' 'CPn0511' 85.19 0.21 27]
+	['CTL0360' 'CPn0765' 95.0 0.51 20]
+	['CTL0360' 'CPn0289' 95.45 0.51 22]
+	['CTL0360' 'CPn0287' 80.0 0.51 35]
+	['CT_105' 'CPn0289' 82.86 0.15 35]
+
+Line 59: ["['TC_RS04680']" '[]' "['CTL0895']" "['CT_631']"]
+
+	Missing strain: pneumoniae
+	Query Subject %_Similarity E_Value Length
+	['TC_RS04680' 'CPn0803' 100.0 0.22 16]
+	['CTL0895' 'CPn0741' 100.0 0.22 16]
+	['CTL0895' 'CPn0420' 100.0 0.22 16]
+	['CT_631' 'CPn0741' 100.0 0.22 16]
+	['CT_631' 'CPn0420' 100.0 0.22 16]
+
+Line 60: ["['TC_RS03260']" '[]' "['CTL0618']" "['CT_364']"]
+
+	Missing strain: pneumoniae
+	Query Subject %_Similarity E_Value Length
+	['TC_RS03260' 'CPn1057' 85.71 0.66 28]
+	['TC_RS03260' 'CPn0680' 100.0 0.66 16]
+	['TC_RS03260' 'CPn0230' 94.74 0.66 19]
+	['CTL0618' 'CPn0854' 84.38 0.19 32]
+	['CTL0618' 'CPn0735' 95.0 0.19 20]
+	['CTL0618' 'CPn0189' 100.0 0.19 17]
+	['CT_364' 'CPn0854' 84.38 0.19 32]
+	['CT_364' 'CPn0735' 95.0 0.19 20]
+	['CT_364' 'CPn0189' 100.0 0.19 17]
+
+Line 61: ["['TC_RS03715']" '[]' "['CTL0709']" "['CT_449']"]
+
+	Missing strain: pneumoniae
+	Query Subject %_Similarity E_Value Length
+	['TC_RS03715' 'CPn0681' 90.48 0.28 21]
+	['CTL0709' 'CPn0176' 100.0 0.024 18]
+	['CT_449' 'CPn0176' 100.0 0.024 18]
+
+Line 62: ["['TC_RS03795']" '[]' "['CTL0725']" "['CT_465']"]
+
+	Missing strain: pneumoniae
+	Query Subject %_Similarity E_Value Length
+	['TC_RS03795' 'CPn0582' 75.0 0.047 48]
+	['CTL0725' 'CPn0406' 90.48 0.57 21]
+	['CT_465' 'CPn0406' 90.48 0.57 21]
+
+Line 63: ["['TC_RS01380']" '[]' "['CTL0260']" "['CT_005']"]
+
+	Missing strain: pneumoniae
+	Query Subject %_Similarity E_Value Length
+	['TC_RS01380' 'CPn0709' 73.85 0.27 65]
+	['TC_RS01380' 'CPn0647' 83.33 0.27 30]
+	['TC_RS01380' 'CPn0274' 91.67 0.27 24]
+	['CTL0260' 'CPn0417' 90.91 0.28 22]
+	['CT_005' 'CPn0417' 90.91 0.28 22]
+
+Line 64: ["['TC_RS04145']" '[]' "['CTL0791']" "['CT_529']"]
+
+	Missing strain: pneumoniae
+	Query Subject %_Similarity E_Value Length
+	['TC_RS04145' 'CPn0999' 100.0 0.23 17]
+	['CTL0791' 'CPn0648' 76.19 0.23 42]
+	['CT_529' 'CPn0648' 72.88 0.019 59]
+
+Line 65: ["['TC_RS04615']" '[]' "['CTL0882']" "['CT_618']"]
+
+	Missing strain: pneumoniae
+	Query Subject %_Similarity E_Value Length
+	['TC_RS04615' 'CPn0807' 89.29 0.059 28]
+	['CTL0882' 'CPn0999' 100.0 0.71 16]
+	['CTL0882' 'CPn0246' 94.74 0.71 19]
+	['CTL0882' 'CPn0150' 100.0 0.71 16]
+	['CT_618' 'CPn0999' 100.0 0.71 16]
+	['CT_618' 'CPn0246' 94.74 0.71 19]
+	['CT_618' 'CPn0150' 100.0 0.71 16]
+
+Line 66: ["['TC_RS03660']" '[]' "['CTL0699']" "['CT_440']"]
+
+	Missing strain: pneumoniae
+	Query Subject %_Similarity E_Value Length
+	['TC_RS03660' 'CPn0938' 100.0 0.006999999999999999 19]
+	['CTL0699' 'CPn0938' 95.0 0.084 20]
+	['CT_440' 'CPn0938' 95.0 0.084 20]
+
+Line 67: ["['TC_RS01345']" '[]' "['CTL0252']" "['CT_873']"]
+
+	Missing strain: pneumoniae
+	Query Subject %_Similarity E_Value Length
+	['TC_RS01345' 'CPn0336' 88.0 0.15 25]
+	['CTL0252' 'CPn0864' 100.0 0.53 16]
+	['CT_873' 'CPn1004' 94.44 0.95 18]
+	['CT_873' 'CPn0395' 100.0 0.95 15]
+	['CT_873' 'CPn0362' 94.44 0.95 18]
+	['CT_873' 'CPn0208' 90.0 0.95 20]
+
+Line 68: ["['TC_RS00905']" '[]' "['CTL0163']" "['CT_794.1']"]
+
+	Missing strain: pneumoniae
+	Query Subject %_Similarity E_Value Length
+	['TC_RS00905' 'CPn0598' 90.91 0.068 22]
+	['CTL0163' 'CPn0444' 100.0 0.86 15]
+	['CTL0163' 'CPn0321' 90.0 0.86 20]
+	['CT_794.1' 'CPn0444' 100.0 0.86 15]
+	['CT_794.1' 'CPn0321' 90.0 0.86 20]
+
+Line 69: ["['TC_RS03670']" '[]' "['CTL0701']" "['CT_442']"]
+
+	Missing strain: pneumoniae
+	Query Subject %_Similarity E_Value Length
+	['TC_RS03670' 'CPn0548' 90.48 0.4 21]
+	['TC_RS03670' 'CPn0462' 85.19 0.4 27]
+	['TC_RS03670' 'CPn0293' 90.48 0.4 21]
+	['CTL0701' 'CPn0495' 85.19 0.11 27]
+	['CT_442' 'CPn0813' 91.3 0.4 23]
+
+Line 70: ["['TC_RS03245']" '[]' "['CTL0615']" "['CT_361']"]
+
+	Missing strain: pneumoniae
+	Query Subject %_Similarity E_Value Length
+	['TC_RS03245' 'CPn1050' 66.36 0.22 107]
+	['CTL0615' 'CPn0466' 91.67 0.22 24]
+	['CT_361' 'CPn0466' 91.67 0.22 24]
+
+Line 71: ["['TC_RS00990']" '[]' "['CTL0178']" "['CT_809']"]
+
+	Missing strain: pneumoniae
+	Query Subject %_Similarity E_Value Length
+	['TC_RS00990' 'CPn0929' 94.74 0.39 19]
+	['TC_RS00990' 'CPn0851' 79.41 0.39 34]
+	['CTL0178' 'CPn0612' 100.0 0.031 18]
+	['CT_809' 'CPn0439' 94.74 0.27 19]
+	['CT_809' 'CPn0241' 87.5 0.27 24]
+	['CT_809' 'CPn0109' 100.0 0.27 16]
+
+Line 72: ["['TC_RS03235']" '[]' "['CTL0613']" "['CT_359']"]
+
+	Missing strain: pneumoniae
+	Query Subject %_Similarity E_Value Length
+	['TC_RS03235' 'CPn0194' 95.24 0.043 21]
+	['CTL0613' 'CPn0315' 95.0 0.15 20]
+	['CTL0613' 'CPn0197' 88.0 0.15 25]
+	['CT_359' 'CPn0315' 95.0 0.15 20]
+	['CT_359' 'CPn0197' 88.0 0.15 25]
+
+Line 73: ["['TC_RS04755']" '[]' "['CTL0157']" "['CT_789']"]
+
+	Missing strain: pneumoniae
+	Query Subject %_Similarity E_Value Length
+	['TC_RS04755' 'CPn1027' 84.62 2.3 26]
+	['TC_RS04755' 'CPn0225' 100.0 2.3 14]
+	['CTL0157' 'CPn0959' 94.44 0.74 18]
+	['CTL0157' 'CPn0900' 90.0 0.74 20]
+	['CTL0157' 'CPn0666' 100.0 0.74 15]
+	['CTL0157' 'CPn0241' 100.0 0.74 15]
+	['CT_789' 'CPn0959' 94.44 0.74 18]
+	['CT_789' 'CPn0900' 90.0 0.74 20]
+	['CT_789' 'CPn0241' 100.0 0.74 15]
+
+Line 74: ["['TC_RS03625']" '[]' "['CTL0692']" "['CT_433']"]
+
+	Missing strain: pneumoniae
+	Query Subject %_Similarity E_Value Length
+	['TC_RS03625' 'CPn0872' 84.0 2.1 25]
+	['TC_RS03625' 'CPn0808' 100.0 2.1 15]
+	['TC_RS03625' 'CPn0615' 100.0 2.1 15]
+	['TC_RS03625' 'CPn0328' 100.0 2.1 15]
+	['TC_RS03625' 'CPn0129' 84.0 2.1 25]
+	['CTL0692' 'CPn0878' 90.91 0.17 22]
+	['CT_433' 'CPn0878' 90.91 0.17 22]
+
+Line 75: ["['TC_RS01325']" '[]' "['CTL0248']" "['CT_869']"]
+
+	Missing strain: pneumoniae
+	Query Subject %_Similarity E_Value Length
+	['TC_RS01325' 'CPn0471' 80.49 0.005 41]
+	['CTL0248' 'CPn0540' 90.0 0.001 30]
+	['CT_869' 'CPn0540' 90.0 0.001 30]
+
+Line 76: ["['TC_RS02880']" '[]' "['CTL0548']" "['CT_296']"]
+
+	Missing strain: pneumoniae
+	Query Subject %_Similarity E_Value Length
+	['TC_RS02880' 'CPn0946' 100.0 1.4 15]
+	['TC_RS02880' 'CPn0926' 100.0 1.4 15]
+	['TC_RS02880' 'CPn0846' 100.0 1.4 15]
+	['TC_RS02880' 'CPn0565' 94.44 1.4 18]
+	['TC_RS02880' 'CPn0329' 90.0 1.4 20]
+	['TC_RS02880' 'CPn0041' 90.0 1.4 20]
+	['CTL0548' 'CPn1030' 94.44 1.4 18]
+	['CTL0548' 'CPn0727' 100.0 1.4 15]
+	['CTL0548' 'CPn0461' 94.44 1.4 18]
+	['CT_296' 'CPn1030' 94.44 1.4 18]
+	['CT_296' 'CPn0727' 100.0 1.4 15]
+
+Line 77: ["['TC_RS00350']" '[]' "['CTL0063']" "['CT_694']"]
+
+	Missing strain: pneumoniae
+	Query Subject %_Similarity E_Value Length
+	['TC_RS00350' 'CPn0197' 100.0 0.021 19]
+	['CTL0063' 'CPn0689' 91.3 0.071 23]
+	['CT_694' 'CPn0689' 91.3 0.07200000000000001 23]
+	['CT_694' 'CPn0176' 88.46 0.07200000000000001 26]
+
 Line 78: ["['TC_RS02095']" "['CPn0254', 'CPn0516']" "['CTL0398']" "['CT_143']"]
 
+	Repeated Hits
 	Query Subject %_Similarity E_Value Length
 	['TC_RS02095' 'CTL0398' 73.49 3.9999999999999975e-143 845]
 	['TC_RS02095' 'CT_143' 74.08 2.9999999999999974e-150 845]
@@ -544,8 +1061,289 @@ Line 78: ["['TC_RS02095']" "['CPn0254', 'CPn0516']" "['CTL0398']" "['CT_143']"]
 	['CT_143' 'CPn0516' 90.91 0.22 22]
 	['CT_143' 'CTL0398' 98.81 0.0 843]
 
+Line 79: ["['TC_RS03060']" '[]' "['CTL0581']" "['CT_327']"]
+
+	Missing strain: pneumoniae
+	Query Subject %_Similarity E_Value Length
+	['TC_RS03060' 'CPn0445' 90.91 0.16 22]
+	['CTL0581' 'CPn0420' 79.41 0.56 34]
+	['CT_327' 'CPn0420' 79.41 0.56 34]
+
+Line 80: ["['TC_RS03080']" '[]' "['CTL0584']" "['CT_330']"]
+
+	Missing strain: pneumoniae
+	Query Subject %_Similarity E_Value Length
+	['TC_RS03080' 'CPn0858' 90.91 0.066 22]
+	['CTL0584' 'CPn0803' 100.0 0.81 15]
+	['CTL0584' 'CPn0153' 100.0 0.81 15]
+	['CT_330' 'CPn0803' 100.0 0.81 15]
+	['CT_330' 'CPn0153' 100.0 0.81 15]
+
+Line 81: ["['TC_RS02445']" '[]' "['CTL0466']" "['CT_214']"]
+
+	Missing strain: pneumoniae
+	Query Subject %_Similarity E_Value Length
+	['TC_RS02445' 'CPn0852' 81.82 1.5 33]
+	['TC_RS02445' 'CPn0803' 90.48 1.5 21]
+	['TC_RS02445' 'CPn0684' 94.74 1.5 19]
+	['TC_RS02445' 'CPn0290' 87.5 1.5 24]
+	['TC_RS02445' 'CPn0012' 91.3 1.5 23]
+	['CTL0466' 'CPn0102' 88.89 0.035 27]
+	['CT_214' 'CPn0102' 88.89 0.035 27]
+
+Line 82: ["['TC_RS02710']" '[]' "['CTL0515']" "['CT_263']"]
+
+	Missing strain: pneumoniae
+	Query Subject %_Similarity E_Value Length
+	['TC_RS02710' 'CPn1010' 89.66 0.013 29]
+	['CTL0515' 'CPn0530' 100.0 0.52 16]
+	['CTL0515' 'CPn0363' 94.74 0.52 19]
+	['CTL0515' 'CPn0345' 90.48 0.52 21]
+	['CT_263' 'CPn0530' 100.0 0.52 16]
+	['CT_263' 'CPn0363' 94.74 0.52 19]
+	['CT_263' 'CPn0345' 90.48 0.52 21]
+
+Line 83: ["['TC_RS03045']" '[]' "['CTL0578']" "['CT_326']"]
+
+	Missing strain: pneumoniae
+	Query Subject %_Similarity E_Value Length
+	['TC_RS03045' 'CPn0023' 89.29 0.012 28]
+	['CTL0578' 'CPn0741' 94.74 1.8 19]
+	['CTL0578' 'CPn0554' 91.3 1.8 23]
+	['CT_326' 'CPn0741' 94.74 1.5 19]
+	['CT_326' 'CPn0554' 91.3 1.5 23]
+
+Line 84: ["['TC_RS04825']" '[]' "['CTL0758']" "['CT_496.1']"]
+
+	Missing strain: pneumoniae
+	Query Subject %_Similarity E_Value Length
+	['TC_RS04825' 'CPn0438' 90.0 0.51 20]
+	['CTL0758' 'CPn0200' 100.0 0.12 16]
+	['CT_496.1' 'CPn0200' 100.0 0.12 16]
+
+Line 85: ["['TC_RS04395']" '[]' "['CTL0840']" "['CT_577']"]
+
+	Missing strain: pneumoniae
+	Query Subject %_Similarity E_Value Length
+	['TC_RS04395' 'CPn1036' 90.91 0.08900000000000001 22]
+	['CTL0840' 'CPn0752' 100.0 0.31 16]
+	['CTL0840' 'CPn0228' 91.3 0.31 23]
+	['CT_577' 'CPn0752' 100.0 0.31 16]
+	['CT_577' 'CPn0228' 91.3 0.31 23]
+
+Line 86: ["['TC_RS02250']" '[]' "['CTL0431']" "['CT_179']"]
+
+	Missing strain: pneumoniae
+	Query Subject %_Similarity E_Value Length
+	['TC_RS02250' 'CPn0751' 95.0 0.16 20]
+	['TC_RS02250' 'CPn0513' 88.0 0.16 25]
+	['TC_RS02250' 'CPn0321' 100.0 0.16 17]
+	['CTL0431' 'CPn0459' 90.91 0.17 22]
+	['CT_179' 'CPn0459' 90.91 0.13 22]
+
+Line 87: ["['TC_RS01770']" '[]' "['CTL0335']" "['CT_079']"]
+
+	Missing strain: pneumoniae
+	Query Subject %_Similarity E_Value Length
+	['TC_RS01770' 'CPn0796' 100.0 0.39 16]
+	['TC_RS01770' 'CPn0415' 100.0 0.39 16]
+	['CTL0335' 'CPn1073' 82.14 1.2 28]
+	['CTL0335' 'CPn0871' 100.0 1.2 15]
+	['CT_079' 'CPn1073' 82.14 1.4 28]
+	['CT_079' 'CPn0871' 100.0 1.4 15]
+
+Line 88: ["['TC_RS02055']" '[]' "['CTL0392']" "['CT_137']"]
+
+	Missing strain: pneumoniae
+	Query Subject %_Similarity E_Value Length
+	['TC_RS02055' 'CPn0925' 91.3 0.062 23]
+	['CTL0392' 'CPn0946' 95.0 0.22 20]
+	['CTL0392' 'CPn0095' 95.0 0.22 20]
+	['CT_137' 'CPn0946' 95.0 0.22 20]
+	['CT_137' 'CPn0095' 95.0 0.22 20]
+
+Line 89: ["['TC_RS04785']" '[]' "['CTL0306']" "['CT_050']"]
+
+	Missing strain: pneumoniae
+	Query Subject %_Similarity E_Value Length
+	['TC_RS04785' 'CPn0880' 100.0 1.0 15]
+	['TC_RS04785' 'CPn0719' 90.91 1.0 22]
+	['TC_RS04785' 'CPn0458' 86.96 1.0 23]
+	['CTL0306' 'CPn0782' 100.0 1.5 16]
+	['CTL0306' 'CPn0219' 82.76 1.5 29]
+	['CTL0306' 'CPn0189' 94.74 1.5 19]
+	['CT_050' 'CPn0321' 88.46 0.12 26]
+
+Line 90: ["['TC_RS01005']" '[]' "['CTL0184']" "['CT_813']"]
+
+	Missing strain: pneumoniae
+	Query Subject %_Similarity E_Value Length
+	['TC_RS01005' 'CPn0471' 90.91 0.16 22]
+	['CTL0184' 'CPn0631' 100.0 0.2 17]
+	['CT_813' 'CPn0631' 100.0 0.2 17]
+	['CT_813' 'CPn0471' 100.0 0.2 17]
+
+Line 91: ["['TC_RS00940']" '[]' "['CTL0169']" "['CT_800']"]
+
+	Missing strain: pneumoniae
+	Query Subject %_Similarity E_Value Length
+	['TC_RS00940' 'CPn0516' 90.48 0.48 21]
+	['TC_RS00940' 'CPn0114' 90.48 0.48 21]
+	['CTL0169' 'CPn0098' 100.0 0.14 17]
+	['CT_800' 'CPn0098' 100.0 0.14 17]
+
+Line 92: ["['TC_RS01445']" '[]' "['CTL0273']" "['CT_018']"]
+
+	Missing strain: pneumoniae
+	Query Subject %_Similarity E_Value Length
+	['TC_RS01445' 'CPn0708' 94.74 0.45 19]
+	['CTL0273' 'CPn0098' 95.0 0.12 20]
+	['CT_018' 'CPn0726' 95.0 0.12 20]
+	['CT_018' 'CPn0098' 95.0 0.12 20]
+
+Line 93: ["['TC_RS04550']" '[]' "['CTL0870']" "['CT_606.1']"]
+
+	Missing strain: pneumoniae
+	Query Subject %_Similarity E_Value Length
+	['TC_RS04550' 'CPn0572' 100.0 0.67 15]
+	['CTL0870' 'CPn0728' 90.91 0.058 22]
+	['CT_606.1' 'CPn0728' 83.33 0.058 30]
+
+Line 94: ["['TC_RS01875']" '[]' "['CTL0356']" "['CT_101']"]
+
+	Missing strain: pneumoniae
+	Query Subject %_Similarity E_Value Length
+	['TC_RS01875' 'CPn1060a' 83.33 0.4 30]
+	['TC_RS01875' 'CPn0993' 90.48 0.4 21]
+	['TC_RS01875' 'CPn0150' 94.74 0.4 19]
+	['CTL0356' 'CPn0255' 100.0 0.4 16]
+	['CT_101' 'CPn0348' 90.91 0.12 22]
+
+Line 95: ["['TC_RS00125']" '[]' "['CTL0023']" "['CT_654']"]
+
+	Missing strain: pneumoniae
+	Query Subject %_Similarity E_Value Length
+	['TC_RS00125' 'CPn1060' 100.0 1.5 15]
+	['TC_RS00125' 'CPn0863' 90.0 1.5 20]
+	['TC_RS00125' 'CPn0513' 94.44 1.5 18]
+	['CTL0023' 'CPn0911' 94.44 1.5 18]
+	['CTL0023' 'CPn0109' 100.0 1.5 15]
+	['CT_654' 'CPn0911' 94.44 1.5 18]
+	['CT_654' 'CPn0109' 100.0 1.5 15]
+
+Line 96: ["['TC_RS02475']" '[]' "['CTL0470']" "['CT_218']"]
+
+	Missing strain: pneumoniae
+	Query Subject %_Similarity E_Value Length
+	['TC_RS02475' 'CPn0198' 91.67 0.018000000000000002 24]
+	['CTL0470' 'CPn0302' 100.0 0.76 16]
+	['CTL0470' 'CPn0145' 80.65 0.76 31]
+	['CT_218' 'CPn0302' 100.0 0.76 16]
+	['CT_218' 'CPn0145' 80.65 0.76 31]
+
+Line 97: ["['TC_RS04805']" '[]' "['CTL0484']" "['CT_232']"]
+
+	Missing strain: pneumoniae
+	Query Subject %_Similarity E_Value Length
+	['TC_RS04805' 'CPn0078' 94.74 0.3 19]
+	['CTL0484' 'CPn0210' 86.96 1.0 23]
+	['CT_232' 'CPn0210' 86.96 1.0 23]
+
+Line 98: ["['TC_RS00715']" '[]' "['CTL0124']" "['CT_755']"]
+
+	Missing strain: pneumoniae
+	Query Subject %_Similarity E_Value Length
+	['TC_RS00715' 'CPn0920' 100.0 0.4 17]
+	['TC_RS00715' 'CPn0707' 95.0 0.4 20]
+	['CTL0124' 'CPn0134' 87.1 0.003 31]
+	['CT_755' 'CPn0134' 87.1 0.003 31]
+
+Line 99: ["['TC_RS00335']" '[]' "['CTL0060']" "['CT_691']"]
+
+	Missing strain: pneumoniae
+	Query Subject %_Similarity E_Value Length
+	['TC_RS00335' 'CPn0216' 78.57 0.17 42]
+	['CTL0060' 'CPn0007' 95.0 0.17 20]
+	['CT_691' 'CPn0007' 95.0 0.17 20]
+
+Line 100: ["['TC_RS01600']" '[]' "['CTL0305']" "['CT_049']"]
+
+	Missing strain: pneumoniae
+	Query Subject %_Similarity E_Value Length
+	['TC_RS01600' 'CPn0005' 100.0 0.34 17]
+	['CTL0305' 'CPn0751' 81.82 0.11 33]
+	['CT_049' 'CPn0751' 81.82 0.11 33]
+
+Line 101: ["['TC_RS03360']" '[]' "['CTL0639']" "['CT_383']"]
+
+	Missing strain: pneumoniae
+	Query Subject %_Similarity E_Value Length
+	['TC_RS03360' 'CPn0458' 90.91 0.19 22]
+	['TC_RS03360' 'CPn0298' 85.19 0.19 27]
+	['CTL0639' 'CPn0317' 88.46 0.053 26]
+	['CT_383' 'CPn0317' 88.46 0.053 26]
+
+Line 102: ["['TC_RS02325']" '[]' "['CTL0444']" "['CT_192']"]
+
+	Missing strain: pneumoniae
+	Query Subject %_Similarity E_Value Length
+	['TC_RS02325' 'CPn0649' 100.0 0.62 16]
+	['CTL0444' 'CPn0789' 82.76 0.62 29]
+	['CT_192' 'CPn0789' 86.21 0.016 29]
+
+Line 103: ["['TC_RS01095']" '[]' "['CTL0202']" "['CT_830']"]
+
+	Missing strain: pneumoniae
+	Query Subject %_Similarity E_Value Length
+	['TC_RS01095' 'CPn1017' 88.0 0.52 25]
+	['CTL0202' 'CPn0898' 94.74 0.52 19]
+	['CT_830' 'CPn0898' 94.74 0.52 19]
+
+Line 104: ["['TC_RS01285']" "['CPn1023']" "['CTL0238b']" '[]']
+
+	Missing strain: trachomatis_duw
+	Query Subject %_Similarity E_Value Length
+	['TC_RS01285' 'CT_696' 100.0 0.23 16]
+	['TC_RS01285' 'CT_314' 94.74 0.23 19]
+	['CPn1023' 'CT_861' 100.0 0.063 17]
+	['CPn1023' 'CT_669' 95.0 0.063 20]
+	['CTL0238b' 'CT_301' 85.19 0.064 27]
+
+Line 105: ["['TC_RS03410']" '[]' "['CTL0648']" "['CT_392']"]
+
+	Missing strain: pneumoniae
+	Query Subject %_Similarity E_Value Length
+	['TC_RS03410' 'CPn0663' 85.71 1.0 28]
+	['TC_RS03410' 'CPn0499' 84.62 1.0 26]
+	['TC_RS03410' 'CPn0034' 100.0 1.0 16]
+	['CTL0648' 'CPn0468' 91.67 0.29 24]
+	['CTL0648' 'CPn0307' 95.0 0.29 20]
+	['CT_392' 'CPn0733' 95.45 0.024 22]
+
+Line 106: ["['TC_RS03355']" '[]' "['CTL0638']" "['CT_382.1']"]
+
+	Missing strain: pneumoniae
+	Query Subject %_Similarity E_Value Length
+	['TC_RS03355' 'CPn0974' 100.0 1.9 14]
+	['TC_RS03355' 'CPn0799' 89.47 1.9 19]
+	['TC_RS03355' 'CPn0728' 100.0 1.9 14]
+	['TC_RS03355' 'CPn0288' 100.0 1.9 14]
+	['TC_RS03355' 'CPn0150' 94.12 1.9 17]
+	['TC_RS03355' 'CPn0055' 100.0 1.9 14]
+	['CTL0638' 'CPn0150' 100.0 0.045 17]
+	['CT_382.1' 'CPn0150' 100.0 0.045 17]
+
+Line 107: ["['TC_RS03685']" '[]' "['CTL0703']" "['CT_444']"]
+
+	Missing strain: pneumoniae
+	Query Subject %_Similarity E_Value Length
+	['TC_RS03685' 'CPn0828' 100.0 0.23 16]
+	['CTL0703' 'CPn0849' 94.44 0.79 18]
+	['CT_444' 'CPn0849' 94.44 0.79 18]
+
 Line 108: ["['TC_RS02185']" "['CPn0267']" "['CTL0421']" "['CT_166', 'CT_168']"]
 
+	Repeated Hits
 	Query Subject %_Similarity E_Value Length
 	['TC_RS02185' 'CTL0421' 76.68 5.999999999999998e-52 283]
 	['TC_RS02185' 'CT_166' 71.79 0.0 1758]
@@ -556,4 +1354,268 @@ Line 108: ["['TC_RS02185']" "['CPn0267']" "['CTL0421']" "['CT_166', 'CT_168']"]
 	['CT_166' 'CPn0267' 100.0 0.5 17]
 	['CT_168' 'TC_RS02185' 76.68 9.999999999999999e-55 283]
 	['CT_168' 'CTL0421' 99.01 8.999999999999994e-152 303]
+
+Line 109: ["['TC_RS03520']" '[]' "['CTL0671']" "['CT_414']"]
+
+	Missing strain: pneumoniae
+	Query Subject %_Similarity E_Value Length
+	['TC_RS03520' 'CPn0540' 68.25 1e-05 126]
+	['CTL0671' 'CPn0540' 82.54 2e-10 63]
+	['CT_414' 'CPn0540' 82.54 2e-10 63]
+
+Line 110: ["['TC_RS02670']" '[]' "['CTL0507']" "['CT_255']"]
+
+	Missing strain: pneumoniae
+	Query Subject %_Similarity E_Value Length
+	['TC_RS02670' 'CPn1049' 100.0 1.2 15]
+	['TC_RS02670' 'CPn0890' 94.44 1.2 18]
+	['TC_RS02670' 'CPn0751' 90.0 1.2 20]
+	['TC_RS02670' 'CPn0680' 85.19 1.2 27]
+	['TC_RS02670' 'CPn0317' 100.0 1.2 15]
+	['TC_RS02670' 'CPn0251' 84.0 1.2 25]
+	['TC_RS02670' 'CPn0014' 100.0 1.2 15]
+	['CTL0507' 'CPn0993' 100.0 0.33 16]
+	['CT_255' 'CPn1049' 100.0 1.2 15]
+	['CT_255' 'CPn0870' 100.0 1.2 15]
+	['CT_255' 'CPn0555' 100.0 1.2 15]
+	['CT_255' 'CPn0389' 100.0 1.2 15]
+	['CT_255' 'CPn0272' 90.0 1.2 20]
+	['CT_255' 'CPn0152' 86.96 1.2 23]
+
+Line 111: ["['TC_RS03690']" '[]' "['CTL0704']" "['CT_444.1']"]
+
+	Missing strain: pneumoniae
+	Query Subject %_Similarity E_Value Length
+	['TC_RS03690' 'CPn0293' 95.24 0.015 21]
+	['CTL0704' 'CPn0880' 100.0 0.66 15]
+	['CTL0704' 'CPn0816' 100.0 0.66 15]
+	['CTL0704' 'CPn0606' 100.0 0.66 15]
+	['CT_444.1' 'CPn0880' 100.0 0.66 15]
+	['CT_444.1' 'CPn0816' 100.0 0.66 15]
+	['CT_444.1' 'CPn0606' 100.0 0.66 15]
+
+Line 112: ["['TC_RS02395']" '[]' "['CTL0458']" "['CT_206']"]
+
+	Missing strain: pneumoniae
+	Query Subject %_Similarity E_Value Length
+	['TC_RS02395' 'CPn0799' 87.5 0.73 24]
+	['TC_RS02395' 'CPn0441' 87.5 0.73 24]
+	['TC_RS02395' 'CPn0283' 94.74 0.73 19]
+	['TC_RS02395' 'CPn0113' 94.74 0.73 19]
+	['TC_RS02395' 'CPn0104' 100.0 0.73 16]
+	['CTL0458' 'CPn0940' 84.0 2.6 25]
+	['CTL0458' 'CPn0841' 94.44 2.6 18]
+	['CTL0458' 'CPn0810' 100.0 2.6 15]
+	['CTL0458' 'CPn0571' 100.0 2.6 15]
+	['CTL0458' 'CPn0527' 94.44 2.6 18]
+	['CTL0458' 'CPn0437' 100.0 2.6 15]
+	['CT_206' 'CPn0940' 84.0 2.6 25]
+	['CT_206' 'CPn0841' 94.44 2.6 18]
+	['CT_206' 'CPn0810' 86.96 2.6 23]
+	['CT_206' 'CPn0571' 100.0 2.6 15]
+	['CT_206' 'CPn0527' 94.44 2.6 18]
+	['CT_206' 'CPn0437' 100.0 2.6 15]
+
+Line 113: ["['TC_RS02705']" '[]' "['CTL0514']" "['CT_262']"]
+
+	Missing strain: pneumoniae
+	Query Subject %_Similarity E_Value Length
+	['TC_RS02705' 'CPn0144' 90.48 0.69 21]
+	['TC_RS02705' 'CPn0003' 94.74 0.69 19]
+	['CTL0514' 'CPn0490' 100.0 0.2 17]
+	['CT_262' 'CPn0490' 100.0 0.2 17]
+
+Line 114: ["['TC_RS03265']" '[]' "['CTL0619']" "['CT_365']"]
+
+	Missing strain: pneumoniae
+	Query Subject %_Similarity E_Value Length
+	['TC_RS03265' 'CPn0715' 95.45 0.037000000000000005 22]
+	['CTL0619' 'CPn0421' 85.71 0.13 28]
+	['CT_365' 'CPn0421' 85.71 0.13 28]
+
+Line 115: ["['TC_RS03290']" '[]' "['CTL0624']" "['CT_370']"]
+
+	Missing strain: pneumoniae
+	Query Subject %_Similarity E_Value Length
+	['TC_RS03290' 'CPn0981' 100.0 1.3 16]
+	['TC_RS03290' 'CPn0737' 90.48 1.3 21]
+	['CTL0624' 'CPn1020' 100.0 1.3 16]
+	['CTL0624' 'CPn0516' 90.48 1.3 21]
+	['CTL0624' 'CPn0171' 90.48 1.3 21]
+	['CTL0624' 'CPn0018' 90.48 1.3 21]
+	['CT_370' 'CPn1020' 100.0 1.3 16]
+	['CT_370' 'CPn0516' 90.48 1.3 21]
+	['CT_370' 'CPn0171' 90.48 1.3 21]
+	['CT_370' 'CPn0018' 90.48 1.3 21]
+
+Line 116: ["['TC_RS00840']" '[]' "['CTL0148']" "['CT_779']"]
+
+	Missing strain: pneumoniae
+	Query Subject %_Similarity E_Value Length
+	['TC_RS00840' 'CPn0972' 94.44 2.1 18]
+	['TC_RS00840' 'CPn0849' 94.44 2.1 18]
+	['TC_RS00840' 'CPn0448' 81.82 2.1 33]
+	['TC_RS00840' 'CPn0395' 100.0 2.1 15]
+	['TC_RS00840' 'CPn0270' 94.44 2.1 18]
+	['TC_RS00840' 'CPn0246' 100.0 2.1 15]
+	['TC_RS00840' 'CPn0081' 100.0 2.1 15]
+	['CTL0148' 'CPn0925' 70.89 0.004 79]
+	['CT_779' 'CPn0925' 70.89 0.004 79]
+
+Line 117: ["['TC_RS00770']" '[]' "['CTL0134']" "['CT_765']"]
+
+	Missing strain: pneumoniae
+	Query Subject %_Similarity E_Value Length
+	['TC_RS00770' 'CPn0275' 91.3 0.024 23]
+	['CTL0134' 'CPn0542' 100.0 0.29 16]
+	['CT_765' 'CPn0542' 100.0 0.29 16]
+
+Line 118: ["['TC_RS01010']" '[]' "['CTL0185']" "['CT_814']"]
+
+	Missing strain: pneumoniae
+	Query Subject %_Similarity E_Value Length
+	['TC_RS01010' 'CPn0946' 91.3 0.021 23]
+	['CTL0185' 'CPn0505' 100.0 0.9 15]
+	['CT_814' 'CPn0505' 100.0 1.2 15]
+
+Line 119: ["['TC_RS00095']" '[]' "['CTL0017']" "['CT_649']"]
+
+	Missing strain: pneumoniae
+	Query Subject %_Similarity E_Value Length
+	['TC_RS00095' 'CPn1049' 90.91 0.14 22]
+	['TC_RS00095' 'CPn0541' 100.0 0.14 17]
+	['CTL0017' 'CPn0315' 100.0 0.47 16]
+	['CT_649' 'CPn1073' 84.62 0.47 26]
+
+Line 120: ["['TC_RS02340']" '[]' "['CTL0447']" "['CT_195']"]
+
+	Missing strain: pneumoniae
+	Query Subject %_Similarity E_Value Length
+	['TC_RS02340' 'CPn0927' 81.25 0.28 32]
+	['TC_RS02340' 'CPn0293' 88.0 0.28 25]
+	['CTL0447' 'CPn0288' 80.95 0.0005 42]
+	['CT_195' 'CPn0288' 80.95 0.0005 42]
+
+Line 121: ["['TC_RS03875']" '[]' "['CTL0738']" "['CT_477']"]
+
+	Missing strain: pneumoniae
+	Query Subject %_Similarity E_Value Length
+	['TC_RS03875' 'CPn0900' 100.0 1.6 15]
+	['TC_RS03875' 'CPn0856' 90.0 1.6 20]
+	['TC_RS03875' 'CPn0602' 79.41 1.6 34]
+	['TC_RS03875' 'CPn0434' 100.0 1.6 15]
+	['TC_RS03875' 'CPn0066' 90.0 1.6 20]
+	['CTL0738' 'CPn0495' 95.0 0.13 20]
+	['CT_477' 'CPn0495' 95.0 0.13 20]
+
+Line 122: ["['TC_RS03905']" '[]' "['CTL0744']" "['CT_483']"]
+
+	Missing strain: pneumoniae
+	Query Subject %_Similarity E_Value Length
+	['TC_RS03905' 'CPn0900' 84.62 0.31 26]
+	['TC_RS03905' 'CPn0016' 90.48 0.31 21]
+	['CTL0744' 'CPn0905' 100.0 0.026 18]
+	['CT_483' 'CPn0905' 100.0 0.026 18]
+
+Line 123: ["['TC_RS00705']" '[]' "['CTL0122']" "['CT_753']"]
+
+	Missing strain: pneumoniae
+	Query Subject %_Similarity E_Value Length
+	['TC_RS00705' 'CPn0896' 80.0 0.19 35]
+	['CTL0122' 'CPn1039' 100.0 0.66 15]
+	['CTL0122' 'CPn0342' 90.91 0.66 22]
+	['CTL0122' 'CPn0115' 94.44 0.66 18]
+	['CT_753' 'CPn1039' 100.0 0.66 15]
+	['CT_753' 'CPn0342' 90.91 0.66 22]
+	['CT_753' 'CPn0115' 94.44 0.66 18]
+
+Line 124: ["['TC_RS01650']" '[]' "['CTL0314']" "['CT_058']"]
+
+	Missing strain: pneumoniae
+	Query Subject %_Similarity E_Value Length
+	['TC_RS01650' 'CPn1071' 95.45 0.29 22]
+	['CTL0314' 'CPn0444' 90.91 0.28 22]
+	['CT_058' 'CPn0444' 90.91 0.28 22]
+
+Line 125: ["['TC_RS02045']" '[]' "['CTL0390']" "['CT_135']"]
+
+	Missing strain: pneumoniae
+	Query Subject %_Similarity E_Value Length
+	['TC_RS02045' 'CPn0127' 85.71 0.081 28]
+	['CTL0390' 'CPn0876' 90.91 0.28 22]
+	['CTL0390' 'CPn0632' 95.0 0.28 20]
+	['CT_135' 'CPn0786' 100.0 3.4 15]
+	['CT_135' 'CPn0632' 90.0 3.4 20]
+	['CT_135' 'CPn0344' 76.32 3.4 38]
+	['CT_135' 'CPn0281' 94.44 3.4 18]
+	['CT_135' 'CPn0247' 94.44 3.4 18]
+	['CT_135' 'CPn0123' 100.0 3.4 15]
+
+Line 126: ["['TC_RS02535']" '[]' "['CTL0480']" "['CT_228']"]
+
+	Missing strain: pneumoniae
+	Query Subject %_Similarity E_Value Length
+	['TC_RS02535' 'CPn0963' 95.0 0.15 20]
+	['CTL0480' 'CPn0791' 95.0 0.15 20]
+	['CTL0480' 'CPn0144' 95.0 0.15 20]
+	['CT_228' 'CPn0791' 95.0 0.15 20]
+	['CT_228' 'CPn0144' 95.0 0.15 20]
+
+Line 127: ["['TC_RS01960']" '[]' "['CTL0373']" "['CT_118']"]
+
+	Missing strain: pneumoniae
+	Query Subject %_Similarity E_Value Length
+	['TC_RS01960' 'CPn0690' 95.45 0.01 22]
+	['CTL0373' 'CPn0005' 95.0 0.13 20]
+	['CT_118' 'CPn0005' 95.0 0.13 20]
+
+Line 128: ["['TC_RS02160']" '[]' "['CTL0409']" "['CT_154']"]
+
+	Missing strain: pneumoniae
+	Query Subject %_Similarity E_Value Length
+	['TC_RS02160' 'CPn1015' 91.3 0.097 23]
+	['TC_RS02160' 'CPn0542' 81.82 0.097 33]
+	['TC_RS02160' 'CPn0307' 95.24 0.097 21]
+	['TC_RS02160' 'CPn0154' 100.0 0.097 18]
+	['CTL0409' 'CPnt35' 100.0 0.031 19]
+	['CT_154' 'CPn0998' 95.0 0.3 20]
+
+Line 129: ['[]' "['CPn0954']" "['CTL0419']" "['CT_163']"]
+
+	Missing strain: muridarum
+	Query Subject %_Similarity E_Value Length
+	['CPn0954' 'TC_RS02950' 90.91 0.2 22]
+	['CPn0954' 'TC_RS01210' 100.0 0.2 17]
+	['CPn0954' 'TC_RS01205' 100.0 0.2 17]
+	['CTL0419' 'TC_RS03960' 95.0 0.35 20]
+	['CTL0419' 'TC_RS02595' 90.91 0.35 22]
+	['CTL0419' 'TC_RS01915' 83.87 0.35 31]
+	['CT_163' 'TC_RS03960' 95.0 0.38 20]
+	['CT_163' 'TC_RS02595' 90.91 0.38 22]
+	['CT_163' 'TC_RS01915' 83.87 0.38 31]
+
+Line 130: ['[]' "['CPn0507']" "['CTL0679']" "['CT_421.1']"]
+
+	Missing strain: muridarum
+	Query Subject %_Similarity E_Value Length
+	['CPn0507' 'TC_RS02705' 90.0 0.41 20]
+	['CTL0679' 'TC_RS03745' 88.0 0.4 25]
+	['CTL0679' 'TC_RS03430' 82.14 0.4 28]
+	['CT_421.1' 'TC_RS03745' 88.0 0.4 25]
+
+Line 131: ['[]' "['CPn0225']" "['CTL0420']" "['CT_167']"]
+
+	Missing strain: muridarum
+	Query Subject %_Similarity E_Value Length
+	['CPn0225' 'TC_RS01405' 91.67 0.012 24]
+	['CTL0420' 'TC_RS02185' 77.27 3e-17 110]
+	['CT_167' 'TC_RS02185' 70.06 4.999999999999998e-138 1109]
+
+Line 132: ['[]' "['CPn0405']" "['CTL0424']" "['CT_171']"]
+
+	Missing strain: muridarum
+	Query Subject %_Similarity E_Value Length
+	['CPn0405' 'TC_RS00620' 84.85 0.05 33]
+	['CTL0424' 'TC_RS02400' 85.19 0.17 27]
+	['CT_171' 'TC_RS02400' 85.19 0.17 27]
 

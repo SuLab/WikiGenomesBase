@@ -29,6 +29,14 @@ def getStrain(tag):
   else:
     return "Unknown"
 
+# find the missing strain in a given dataframe row
+def getMissingStrain(row):
+  print ("Target: " + str(row))
+  for i, j in zip(row, strains):
+    if i == "[]":
+      return j
+  return "Unknown"
+
 line = 1
 # now iterate through each row
 for index, row in data.iterrows():
@@ -46,17 +54,39 @@ for index, row in data.iterrows():
     clique3 = clique3.append(pd.DataFrame([row.values], columns=strains))
     line = line + 1
 
+    outfile.write("Line " + str(line) + ": " + str(row.values) + "\n\n")
+
+    # get list of closest hits to missing  term
+    if size == 3:
+      missing = getMissingStrain(row.values)
+      outfile.write("\tMissing strain: %s\n" % missing)
+      outfile.write("\tQuery Subject %_Similarity E_Value Length\n")
+
+      # list the best hits for the missing strain v all others
+      terms = []
+      for i in row.values:
+        l = ast.literal_eval(i)
+        for item in l:
+          terms.append(item)
+      for query in terms:
+        if getStrain(query) != missing:
+          temp = pd.read_table("parsed_%s_v_%s.tab" % (missing, getStrain(query)), header=0)
+          rows = temp.loc[(temp["Query"] == query)]
+          for index, target in rows.iterrows():
+            outfile.write("\t%s\n" % str(target.values))
+      outfile.write("\n")
+
     # get a list of all terms to search for
     terms = []
     if multiple:
-      outfile.write("Line " + str(line) + ": " + str(row.values) + "\n\n")
+      outfile.write("\tRepeated Hits\n")
       outfile.write("\tQuery Subject %_Similarity E_Value Length\n")
       for i in row.values:
         l = ast.literal_eval(i)
         for item in l:
           terms.append(item)
 
-      # now get all the data for the individual comparisons
+      # now get all the data for the individual comparisons in the repeated strains
       for query in terms:
         for subject in terms:
           if getStrain(query) != getStrain(subject):
