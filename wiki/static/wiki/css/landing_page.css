@@ -5,8 +5,8 @@ html, body {
 
 .main-landing-page {
     background: url("../img/c_banner.jpg") no-repeat top center,
-        radial-gradient(circle, #385d94, #1c2e4a);
-    background-size: 100% 200px;
+        /*radial-gradient(circle, #385d94, #1c2e4a)*/ linear-gradient(0, #385d94, #0c1e3a);
+    background-size: 100% 240px, contain;
     color: whitesmoke;
     border: solid #385d94 3px;
     text-align: center;
@@ -17,7 +17,7 @@ html, body {
 
 #get-started {
 
-    background-color: #1c2e4a;
+    background-color: #e68a00;
     color: rgb(255, 255, 255);
     transition: all 0.5s;
     font-size: 20px;

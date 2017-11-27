@@ -131,32 +131,7 @@ angular.module('orthologView').component('orthologView', {
                                         // all orthologs processed
                                         if (remaining == 0) {
 
-                                            // data to send to muscle
-                                            var content = {
-                                                email: "djow@ucsd.edu",
-                                                title: "ortholog alignment",
-                                                format: "fasta",
-                                                tree: "tree1",
-                                                order: "aligned",
-                                                sequence: data.join()
-                                            };
-
-                                            // submit post to MUSCLE using shorthand method in json
-                                            $http.post('http://www.ebi.ac.uk/Tools/services/rest/muscle/run/', content).then(function (success) {
-
-                                                // JOB ID for muscle
-                                                var id = success.data;
-                                                console.log("Job ID:" + id);
-
-                                                // now check the status of the request
-                                                $scope.checkId(id);
-
-                                                // there was an error with the POST request
-                                            }, function (error) {
-                                                console.log("Error" + error.status);
-                                                console.log(error);
-
-                                                // temporary display w/o alignment
+                                                // display w/o alignment
                                                 var seqs = msa.io.fasta.parse(data.join(""));
 
                                                 // the widget settings
@@ -169,7 +144,6 @@ angular.module('orthologView').component('orthologView', {
                                                 var m = new msa.msa(settings);
                                                 m.render();
 
-                                            }); // error }
                                             
                                         } // remaining }
                                     }); // efetch get }
@@ -189,45 +163,6 @@ angular.module('orthologView').component('orthologView', {
         }); // for each }
 
     }; // update panel function }
-
-    // used to constantly check the sequence status
-    $scope.checkId = function(id) {
-
-                                                
-        // check by using a GET request
-        $http.get('http://www.ebi.ac.uk/Tools/services/rest/muscle/status/' + id).then(function (response) {
-            console.log(response.data);
-
-            // check again if still running
-            if (response.data == "RUNNING") {
-                $scope.checkId(id);
-                return;
-            }
-
-            // display the data
-            if (response.data == "FINISHED") {
-
-                // the widget settings
-                var settings = {
-                    el: document.getElementById("msaDiv"),
-                };
-
-                // the msa viewing panel
-                var m = new msa.msa(settings);
-
-                // data has been aligned, now display it
-                msa.u.file.importURL("http://www.ebi.ac.uk/Tools/services/rest/muscle/result/" + id + "/aln-fasta",
-                function () {
-                    msa.render();
-                });
-
-                // there was a problem
-            } else {
-                console.log(response.data);
-            }
-        });
-
-    }; // check ID }
 
 
     }, // controller function }
