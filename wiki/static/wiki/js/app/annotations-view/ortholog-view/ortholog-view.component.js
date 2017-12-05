@@ -4,7 +4,7 @@ angular.module('orthologView').component('orthologView', {
         data: '<'
     },
 
-    controller: function ($scope, $http) {
+    controller: function ($scope, $http, $httpParamSerializer) {
 
     // called after data binding
     this.$onInit = function () {
@@ -125,14 +125,51 @@ angular.module('orthologView').component('orthologView', {
                                         // efetch has been processed
                                         remaining--;
 
+					// get the human readable name
+					var first = ">" + r.data.substring(r.data.indexOf("Chlamydia") + 10, r.data.indexOf("\n") + 1);
+					first = first.replace(" ", "-");
+					var body = r.data.substring(r.data.indexOf("\n") + 1, r.data.length).replace(/\n/g, "");
+					var next = first + body;
+
                                         // add to the data list
-                                        data.push(r.data);
+                                        data.push(next);
 
                                         // all orthologs processed
                                         if (remaining == 0) {
 
+					     // data to send to muscle
+                                            var content = {
+                                                email: "djow@ucsd.edu",
+                                                title: "ortholog alignment",
+                                                format: "fasta",
+                                                tree: "tree1",
+                                                order: "aligned",
+                                                sequence: data.join("\n")
+                                            };
+
+					    // submit POST to MUSCLE
+					    $http({
+					    	method: 'POST',
+						url: 'http://www.ebi.ac.uk/Tools/services/rest/muscle/run/',
+						data: $httpParamSerializer(content),
+						headers: {'Content-Type':'application/x-www-form-urlencoded'}
+
+					    }).then(function (success) {
+
+                                                // JOB ID for muscle
+                                                var id = success.data;
+                                                console.log("Job ID:" + id);
+
+                                                // now check the status of the request
+                                                $scope.checkId(id);
+
+                                                // there was an error with the POST request
+                                            }, function (error) {
+                                                console.log("MUSCLE Error" + error.status);
+                                                console.log(error);
+
                                                 // display w/o alignment
-                                                var seqs = msa.io.fasta.parse(data.join(""));
+                                                var seqs = msa.io.fasta.parse(data.join("\n"));
 
                                                 // the widget settings
                                                 var settings = {
@@ -143,7 +180,7 @@ angular.module('orthologView').component('orthologView', {
                                                 // the msa viewing panel
                                                 var m = new msa.msa(settings);
                                                 m.render();
-
+					    }); // error
                                             
                                         } // remaining }
                                     }); // efetch get }
@@ -163,6 +200,45 @@ angular.module('orthologView').component('orthologView', {
         }); // for each }
 
     }; // update panel function }
+
+    // used to constantly check the sequence status
+    $scope.checkId = function(id) {
+
+                                                
+        // check by using a GET request
+        $http.get('http://www.ebi.ac.uk/Tools/services/rest/muscle/status/' + id).then(function (response) {
+            console.log(response.data);
+
+            // check again if still running
+            if (response.data == "RUNNING") {
+                $scope.checkId(id);
+                return;
+            }
+
+            // display the data
+            if (response.data == "FINISHED") {
+
+                // the widget settings
+                var settings = {
+                   el: document.getElementById("msaDiv"),
+               };
+
+                // the msa viewing panel
+                var m = new msa.msa(settings);
+
+                // data has been aligned, now display it
+                msa.u.file.importURL("http://www.ebi.ac.uk/Tools/services/rest/muscle/result/" + id + "/aln-fasta",
+                function () {
+                    msa.render();
+                });
+
+                // there was a problem
+            } else {
+                console.log("ERROR: " + response.data);
+            }
+        });
+
+    }; // check ID }
 
 
     }, // controller function }
