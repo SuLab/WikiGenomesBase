@@ -139,20 +139,20 @@ angular.module('orthologView').component('orthologView', {
 
 					     // data to send to muscle
                                             var content = {
-                                                email: "djow@ucsd.edu",
-                                                title: "ortholog alignment",
-                                                format: "fasta",
-                                                tree: "tree1",
-                                                order: "aligned",
-                                                sequence: data.join("\n")
+                                                "email": "djow@ucsd.edu",
+                                                "title": "ortholog alignment",
+                                                "format": "fasta",
+                                                "tree": "tree1",
+                                                "order": "aligned",
+                                                "sequence": data.join("\n")
                                             };
 
 					    // submit POST to MUSCLE
 					    $http({
 					    	method: 'POST',
 						url: 'http://www.ebi.ac.uk/Tools/services/rest/muscle/run/',
-						data: $httpParamSerializer(content),
-						headers: {'Content-Type':'application/x-www-form-urlencoded'}
+						data: JSON.stringify(content),
+						headers: {'Content-Type':'text/plain;charset=UTF-8'}
 
 					    }).then(function (success) {
 

@@ -1,6 +1,9 @@
 import pandas as pd
 import os.path
 import ast
+import numpy as np
+import matplotlib.pyplot as plt
+from math import log10
 
 # the 4 possible strains
 strains = ["muridarum", "pneumoniae", "trachomatis_434", "trachomatis_duw"]
@@ -11,6 +14,7 @@ data = pd.read_table("results/cliques.tab", header=0)
 # the new clique tables
 clique4 = pd.DataFrame(columns=strains)
 clique3 = pd.DataFrame(columns=strains)
+clique2 = pd.DataFrame(columns=strains)
 
 # extra details about strains with multiple hits for 3 clique
 outfile = open("results/cliques_3_details.txt", "w")
@@ -37,6 +41,7 @@ def getMissingStrain(row):
   return "Unknown"
 
 line = 1
+hist = []
 # now iterate through each row
 for index, row in data.iterrows():
   size = 0
@@ -47,10 +52,28 @@ for index, row in data.iterrows():
       size = size + 1
     if len(l) > 1:
       multiple = True
+
+  # add e value to histogram
+  terms = []
+  for i in row.values:
+    l = ast.literal_eval(i)
+    for item in l:
+      terms.append(item)
+  for query in terms:
+    for subject in terms:
+      if getStrain(query) != getStrain(subject):
+        temp = pd.read_table("parsed_%s_v_%s.tab" % (getStrain(subject), getStrain(query)), header=0)
+        rows = temp.loc[(temp["Query"] == query) & (temp["Subject"] == subject)]
+        for index, target in rows.iterrows():
+          val = float(target["E Value"])
+          if val > 0:
+            hist.append(log10(val))
+
   if size == 4 and not multiple:
     clique4 = clique4.append(pd.DataFrame([row.values], columns=strains))
   elif size >= 3:
     clique3 = clique3.append(pd.DataFrame([row.values], columns=strains))
+    
     line = line + 1
 
     outfile.write("Line " + str(line) + ": " + str(row.values) + "\n\n")
@@ -101,8 +124,17 @@ for index, row in data.iterrows():
               outfile.write("\t%s\n" % str(target.values))
       outfile.write("\n")
 
+  elif size == 2:
+    clique2 = clique2.append(pd.DataFrame([row.values], columns=strains))
+
 outfile.close()
+
+# draw the histogram
+print ("Displaying Histogram")
+plt.hist(hist)
+plt.show()
 
 # now save the cliques to file
 clique4.to_csv("results/cliques_4_rbm.tab", index=False, header=True, sep="\t")
 clique3.to_csv("results/cliques_3_rbm.tab", index=False, header=True, sep="\t")
+clique2.to_csv("results/cliques_2_rbm.tab", index=False, header=True, sep="\t")
