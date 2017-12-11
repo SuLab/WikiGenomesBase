@@ -27,8 +27,25 @@
                 </a>
             </div>
         </td>
+	<td title="'Align'">
+		<input type="checkbox" ng-checked="true" 
+			ng-click="select(value)">
+	</td>
     </tr>
 
 
 </table>
+<div ng-show="$ctrl.data.hasOwnProperty('471472')">
+
+	<!-- Display the specified orthologs -->
+	<button type="button" ng-click="updatePanel($ctrl.data)">Display Sequences</button>
+
+	<!-- the MSA Viewer Widget -->
+	<div id="msaDiv"></div>
+</div>
 <div ng-hide="$ctrl.data.hasOwnProperty('471472')">No known orthologs</div>
+
+<!-- citation for using msa viewer -->
+<div ng-show="$ctrl.data.hasOwnProperty('471472')"><p style="font-size: 8px">Yachdav, Guy, Sebastian Wilzbach, Benedikt Rauscher, Robert Sheridan, Ian Sillitoe, 
+James Procter, Suzanna E. Lewis, Burkhard Rost, and Tatyana Goldberg. "MSAViewer: interactive JavaScript 
+visualization of multiple sequence alignments." Bioinformatics (2016): btw474. </p></div>
