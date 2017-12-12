@@ -53,27 +53,29 @@ for index, row in data.iterrows():
     if len(l) > 1:
       multiple = True
 
-  # add e value to histogram
-  terms = []
-  for i in row.values:
-    l = ast.literal_eval(i)
-    for item in l:
-      terms.append(item)
-  for query in terms:
-    for subject in terms:
-      if getStrain(query) != getStrain(subject):
-        temp = pd.read_table("parsed_%s_v_%s.tab" % (getStrain(subject), getStrain(query)), header=0)
-        rows = temp.loc[(temp["Query"] == query) & (temp["Subject"] == subject)]
-        for index, target in rows.iterrows():
-          val = float(target["E Value"])
-          if val > 0:
-            hist.append(log10(val))
-
   if size == 4 and not multiple:
     clique4 = clique4.append(pd.DataFrame([row.values], columns=strains))
   elif size >= 3:
     clique3 = clique3.append(pd.DataFrame([row.values], columns=strains))
     
+    # add e value to histogram
+    terms = []
+    for i in row.values:
+      l = ast.literal_eval(i)
+      for item in l:
+        terms.append(item)
+    for query in terms:
+      for subject in terms:
+        if getStrain(query) != getStrain(subject):
+          temp = pd.read_table("parsed_%s_v_%s.tab" % (getStrain(subject), getStrain(query)), header=0)
+          rows = temp.loc[(temp["Query"] == query) & (temp["Subject"] == subject)]
+          for index, target in rows.iterrows():
+            val = float(target["E Value"])
+            if val > 0:
+              hist.append(log10(val))
+            else:
+              hist.append(-200)
+
     line = line + 1
 
     outfile.write("Line " + str(line) + ": " + str(row.values) + "\n\n")
@@ -132,6 +134,7 @@ outfile.close()
 # draw the histogram
 print ("Displaying Histogram")
 plt.hist(hist)
+#, bins=np.arange(min(hist), max(hist) + 10, 10))
 plt.show()
 
 # now save the cliques to file
