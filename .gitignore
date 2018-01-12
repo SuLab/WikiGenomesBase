@@ -2,6 +2,7 @@
 /WikiGenomes.org/settings_secret.py
 /WikiGenomes.org/oauth_config.py
 /WikiGenomes.org/wikigenomes_conf.py
+wikigenomes_conf.py
 .idea/.name
 .idea/WikiGenomes.org.iml
 .idea/misc.xml
@@ -22,4 +23,3 @@ virtEnv/
 wiki/__pycache__/
 wikigenomes/settings_secret.py
 wikigenomes/__pycache__/
-
