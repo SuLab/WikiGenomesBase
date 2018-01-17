@@ -22,4 +22,5 @@ virtEnv/
 wiki/__pycache__/
 wikigenomes/settings_secret.py
 wikigenomes/__pycache__/
-
+.project
+*.pyc
