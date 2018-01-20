@@ -42,10 +42,11 @@
 
 	<!-- the MSA Viewer Widget -->
 	<div id="msaDiv"></div>
+	
+	<!-- citation for using msa viewer -->
+	<div ng-show="citation"><p style="font-size: 8px">Yachdav, Guy, Sebastian Wilzbach, Benedikt Rauscher, Robert Sheridan, Ian Sillitoe, 
+	James Procter, Suzanna E. Lewis, Burkhard Rost, and Tatyana Goldberg. "MSAViewer: interactive JavaScript 
+	visualization of multiple sequence alignments." Bioinformatics (2016): btw474. </p></div>
+		
 </div>
 <div ng-hide="$ctrl.data.hasOwnProperty('471472')">No known orthologs</div>
-
-<!-- citation for using msa viewer -->
-<div ng-show="$ctrl.data.hasOwnProperty('471472')"><p style="font-size: 8px">Yachdav, Guy, Sebastian Wilzbach, Benedikt Rauscher, Robert Sheridan, Ian Sillitoe, 
-James Procter, Suzanna E. Lewis, Burkhard Rost, and Tatyana Goldberg. "MSAViewer: interactive JavaScript 
-visualization of multiple sequence alignments." Bioinformatics (2016): btw474. </p></div>

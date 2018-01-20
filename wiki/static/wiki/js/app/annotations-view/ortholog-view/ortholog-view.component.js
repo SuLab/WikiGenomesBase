@@ -5,7 +5,7 @@ angular.module('orthologView')
             bindings : {
                 data : '<'
             },
-            controller : "OrthologCtrl",
+            controller : "orthologCtrl",
             templateUrl : '/static/wiki/js/angular_templates/ortholog-view.html'
         })
 
@@ -24,42 +24,40 @@ angular.module('orthologView')
                 "sequence" : data.join("\n")
             };
 
-            // submit POST to MUSCLE
-            $http({
-                method : 'POST',
-                url : 'http://www.ebi.ac.uk/Tools/services/rest/muscle/run/',
-                data : JSON.stringify(content),
+            // for header
+            var config = {
                 headers : {
                     'Content-Type' : 'text/plain;charset=UTF-8'
                 }
-            }).success(function(response) {
+            };
 
-                // JOB ID for muscle
-                var id = response.data;
-                console.log("Job ID:" + id);
+            // submit POST to MUSCLE
+            $http.post('http://www.ebi.ac.uk/Tools/services/rest/muscle/run/', JSON.stringify(content), config)
+                .then(function(response) {
+                    // JOB ID for muscle
+                    var id = response.data;
+                    console.log("Job ID:" + id);
 
-                // check every 3 seconds for 10 attempts
-                $interval(checkId(id), 3000, 10);
+                    // check every 3 seconds for 10 attempts
+                    $interval(checkId(id), 3000, 10);
+                }, function(response) {
+                    console.log("POST TO MUSCLE Error" + response.status);
+                    console.log(response);
 
-            // there was an error with the POST request
-            }).error(function(response) {
-                console.log("POST TO MUSCLE Error" + response.status);
-                console.log(response);
+                    // display w/o alignment
+                    var seqs = msa.io.fasta.parse(data.join("\n"));
 
-                // display w/o alignment
-                var seqs = msa.io.fasta.parse(data.join("\n"));
+                    // the widget settings
+                    var settings = {
+                        el : document
+                            .getElementById("msaDiv"),
+                        seqs : seqs
+                    };
 
-                // the widget settings
-                var settings = {
-                    el : document
-                        .getElementById("msaDiv"),
-                    seqs : seqs
-                };
-
-                // the msa viewing panel
-                var m = new msa.msa(settings);
-                m.render();
-            });
+                    // the msa viewing panel
+                    var m = new msa.msa(settings);
+                    m.render();
+                });
         };
 
         // used to constantly check the sequence status
@@ -92,7 +90,7 @@ angular.module('orthologView')
                             function() {
                                 msa.render();
                             });
-                        
+
                         // cancel the interval
                         $interval.cancel();
 
@@ -104,17 +102,23 @@ angular.module('orthologView')
 
         };
 
+        return {
+            align : align
+        }
+
     })
 
-    .factory('geneSequenceData', function($http) {
+    .factory('geneSequenceData', function($http, $q) {
 
         var getSequence = function(value) {
+
+            var deferred = $q.defer();
 
             // first get the UID from the nuccore database
             $http.get('https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=gene&term=' + value).success(function(response) {
 
                 // data in string as xml, find the ID
-                var xml = response.data;
+                var xml = response;
                 if (xml.includes("<Id>")) {
 
                     // extract the id
@@ -124,7 +128,7 @@ angular.module('orthologView')
                     $http.get('https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esummary.fcgi?db=gene&id=' + id).success(function(resp) {
 
                         // the response is in xml again, take out the stop and start sequences
-                        xml = resp.data;
+                        xml = resp;
                         var start = parseInt(xml.substring(xml.indexOf("<ChrStart>") + 10, xml.indexOf("</ChrStart>"))) + 1;
                         var stop = parseInt(xml.substring(xml.indexOf("<ChrStop>") + 9, xml.indexOf("</ChrStop>"))) + 1;
                         var accession = xml.substring(xml.indexOf("<ChrAccVer>") + 11, xml.indexOf("</ChrAccVer>"));
@@ -148,26 +152,37 @@ angular.module('orthologView')
                             + accession + "&seq_start=" + start + "&seq_stop=" + stop + "&strand=" + strand + "&rettype=fasta").success(function(r) {
 
                             // get the human readable name
-                            var first = ">" + r.data.substring(r.data.indexOf("Chlamydia") + 10, r.data.indexOf("\n") + 1);
-                            first = first.replace(" ", "-");
-                            var body = r.data.substring(r.data.indexOf("\n") + 1, r.data.length).replace(/\n/g, "");
+                            var first = ">" + r.substring(r.indexOf("Chlamydia") + 10, r.indexOf("\n") + 1);
+                            first = first.replace(" ", "_").replace(",", " ");
+                            first = first.substring(0, 2).toUpperCase() + first.substring(2);
+                            var body = r.substring(r.indexOf("\n") + 1, r.length).replace(/\n/g, "");
 
                             // the sequence of the gene
-                            return first + body;
+                            deferred.resolve(first + body);
 
                         }).error(function(response) {
-                        	return null;
+                            deferred.reject(response);
                         });
                     }).error(function(response) {
-                    	return null;
+                        deferred.reject(response);
                     });
                 }
             });
 
+            // return future gene sequence
+            return deferred.promise;
+
         };
+
+        return {
+            getSequence : getSequence
+        }
     })
 
-    .controller('orthologView', function($scope, geneSequenceData, alignOrthologData) {
+    .controller('orthologCtrl', function($scope, geneSequenceData, alignOrthologData) {
+        
+        // whether or not to display the citation
+        $scope.citation = false;
 
         // whether or not to invert selection when selecting all
         $scope.invertSelection = true;
@@ -210,17 +225,21 @@ angular.module('orthologView')
 
             // holds gene sequence data
             var data = [];
+            var done = 0;
 
             // get the sequence data based on ncbi
-            angular.forEach($scope.selected, function(value) {
-                var seq = geneSequenceData.getSequence(value);
-                if (seq != null) {
+            angular.forEach($scope.selected, function(value, key) {
+                var promise = geneSequenceData.getSequence(value);
+                promise.then(function(seq) {
                     data.push(seq);
-                }
+                    done++;
+                    if (done == $scope.selected.length) {
+                        // now align it
+                        alignOrthologData.align(data);
+                        $scope.citation = true;
+                    }
+                });
             });
-
-            // now align it
-            alignOrthologData.align(data);
 
         };
 
