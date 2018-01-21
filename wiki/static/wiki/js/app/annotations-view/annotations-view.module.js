@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('annotationsView', ['resources']);
+angular.module('annotationsView', ['resources', 'cellVisualizer']);
 
 
 
