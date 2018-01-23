@@ -206,7 +206,7 @@ angular
         var endpoint = 'https://query.wikidata.org/sparql?format=json&query=';
         var getAllOrgGenes = function (taxid) {
             var url = endpoint + encodeURIComponent("SELECT ?gene ?geneLabel ?proteinLabel ?protein ?entrez ?refseqProt " +
-                    "?locusTag ?uniprot ?refSeqChromosome  ?genStart ?genEnd ?strand " +
+                    "?locusTag ?uniprot ?chromosome ?chromosomeLabel ?refSeqChromosome ?refSeqChromosomeLabel ?genStart ?genEnd ?strand " +
                     "(group_concat(?aliases;separator=', ') as ?alias) " +
                     "WHERE{ ?taxon wdt:P685 '" + taxid + "'. " +
                     "?gene wdt:P703 ?taxon; " +
@@ -218,13 +218,15 @@ angular
                     "wdt:P2548 ?strand; " +
                     "skos:altLabel ?aliases. " +
                     "OPTIONAL {?gene wdt:P688 ?protein; wdt:P352 ?uniprot; wdt:P637 ?refseqProt. }" +
-                    "OPTIONAL{ ?gene p:P644 ?chr. ?chr pq:P2249 ?refSeqChromosome. } " +
+                    "?gene p:P644 ?chr. ?chr pq:P1057 ?chromosome. " +
+                    "?chromosome wdt:P2249 ?refSeqChromosome." +
                     "SERVICE wikibase:label { " +
                     "bd:serviceParam wikibase:language 'en' ." +
                     "}" +
                     "} " +
                     "GROUP BY ?gene ?geneLabel ?protein ?proteinLabel ?entrez ?refseqProt " +
-                    "?locusTag ?uniprot ?refSeqChromosome  ?genStart ?genEnd ?strand"
+                    "?locusTag ?uniprot ?chromosome ?chromosomeLabel ?genStart ?genEnd ?strand " +
+                    "?refSeqChromosome ?refSeqChromosomeLabel "
                 );
             console.log(url);
             return $http.get(url)
@@ -334,6 +336,34 @@ angular
         };
         return {
             getInterPro: getInterPro
+        }
+
+
+    });
+
+angular
+    .module('resources')
+    .factory('RefSeqChrom', function ($http) {
+        var endpoint = 'https://query.wikidata.org/sparql?format=json&query=';
+        var getRefSeqChrom = function (locusTag) {
+            var url = endpoint + encodeURIComponent(
+                "SELECT ?refSeqChromosome " +
+                "WHERE{ \n" +
+                "  ?gene wdt:P2393 " +
+                "'"+ locusTag +"';" +
+                "        p:P644 ?chr.\n" +
+                "  ?chr pq:P1057 ?chromosome. \n" +
+                "  ?chromosome wdt:P2249 ?refSeqChromosome.\n" +
+                "  SERVICE wikibase:label { bd:serviceParam wikibase:language 'en' .}\n" +
+                "} \n"
+                );
+            return $http.get(url).then(function (response) {
+                return response.data.results.bindings;
+
+            });
+        };
+        return {
+            getRefSeqChrom: getRefSeqChrom
         }
 
 
