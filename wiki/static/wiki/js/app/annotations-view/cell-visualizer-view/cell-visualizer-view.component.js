@@ -6,36 +6,41 @@ angular.module("cellVisualizer")
 
         $scope.makeBlue = function() {
 
-            // temp for testing
-            var go_map = {
-                'GO_0005794' : 'golgi',
-                'GO_0005768' : 'endosome',
-                'GO_0005777' : 'peroxisome'
-            };
+            var goTerm = "GO_0020015";
 
-            angular.forEach(go_map, function(value, key) {
-                if (geneOntologyService.isValid(key)) {
-
-                    var svg = document.getElementById("cell-svg");
-
-                    var svgDoc = svg.contentDocument;
-
-                    var paths = svgDoc.getElementsByClassName(geneOntologyService.getClass(key));
-
-                    for (var i = 0; i < paths.length; i++) {
-                        paths[i].style.fill = "#4784FF";
+            // get next parent that is valid
+            if (!geneOntologyService.isValid(goTerm)) {
+                geneOntologyService.getParent(goTerm).then(function(response) {
+                    for (var i = 0; i < response._embedded.terms.length; i++) {
+                        var term = response._embedded.terms[i];
+                        if (geneOntologyService.isValid(term.short_form)) {
+                            fill(term.short_form);
+                            return;
+                        }
                     }
+                    console.log("No compatible parent  found");
+                }, function(response) {
+                    console.log(response);
+                });
+            } else {
 
-                }
-            });
-
-            geneOntologyService.getParent("GO_0020015").then(function(response) {
-                console.log(response.data);
-            }, function(response) {
-                console.log(response);
-            });
+                // fill the component immediately
+                fill(goTerm);
+            }
 
         };
+
+        function fill(goTerm) {
+            var svg = document.getElementById("cell-svg");
+
+            var svgDoc = svg.contentDocument;
+
+            var paths = svgDoc.getElementsByClassName(geneOntologyService.getClass(goTerm));
+
+            for (var i = 0; i < paths.length; i++) {
+                paths[i].style.fill = "#4784FF";
+            }
+        }
 
     })
     .service("geneOntologyService", function($http, $q) {
@@ -52,9 +57,9 @@ angular.module("cellVisualizer")
 
             var url = 'https://www.ebi.ac.uk';
             var endpoint = '/ols/api/ontologies/go/terms/';
-            var iri = encodeURIComponent('http://purl.obolibrary.org/obo/' + term);
+            var iri = encodeURIComponent(encodeURIComponent('http://purl.obolibrary.org/obo/' + term));
 
-            $http.get(url + endpoint + iri +'/hierarchicalAncestors').success(function(data) {
+            $http.get(url + endpoint + iri + '/hierarchicalAncestors').success(function(data) {
                 deferred.resolve(data);
             }).error(function(response) {
                 deferred.reject(response);
