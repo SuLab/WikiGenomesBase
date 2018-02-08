@@ -179,24 +179,39 @@ angular.module('orthologView')
         }
     })
 
-    .controller('orthologCtrl', function($scope, geneSequenceData, alignOrthologData) {
+    .controller('orthologCtrl', function(geneSequenceData, alignOrthologData) {
+        
+        var ctrl = this;
+        
+        // config settings for table
+        ctrl.tSettings = {
+                "strain": true,
+                "tax": true,
+                "cLocus": true,
+                "dLocus": true,
+                "identity": true,
+                "length": true,
+                "eval": true,
+                "ref": true,
+                "align": true
+        };
         
         // whether or not to display the citation
-        $scope.citation = false;
+        ctrl.citation = false;
 
         // whether or not to invert selection when selecting all
-        $scope.invertSelection = true;
+        ctrl.invertSelection = true;
 
         // for selecting from the check list
-        $scope.select = function(item) {
+        ctrl.select = function(item) {
             item.selected = !item.selected;
         };
 
         // creates a list of the selected orthologs
-        $scope.updateSelected = function(data) {
+        ctrl.updateSelected = function(data) {
 
             // clear the previous selected list
-            $scope.selected = [];
+            ctrl.selected = [];
 
             // loop through the ortholog list and check if selected
             angular.forEach(data, function(value, key) {
@@ -204,39 +219,39 @@ angular.module('orthologView')
                 // true if selected
                 if (value.selected) {
                     // store the ncbi data to use later
-                    $scope.selected.push(value.ncbi);
+                    ctrl.selected.push(value.ncbi);
                 }
             });
         };
 
         // function to update the selected list and align after
-        $scope.updatePanel = function(data) {
+        ctrl.updatePanel = function(data) {
 
             // whether or not to invert selection
-            if ($scope.invertSelection) {
+            if (ctrl.invertSelection) {
                 angular.forEach(data, function(value, key) {
-                    $scope.select(value);
+                    ctrl.select(value);
                 });
-                $scope.invertSelection = false;
+                ctrl.invertSelection = false;
             }
 
             // get the list of selected orthologs by ncbi
-            $scope.updateSelected(data);
+            ctrl.updateSelected(data);
 
             // holds gene sequence data
             var data = [];
             var done = 0;
 
             // get the sequence data based on ncbi
-            angular.forEach($scope.selected, function(value, key) {
+            angular.forEach(ctrl.selected, function(value, key) {
                 var promise = geneSequenceData.getSequence(value);
                 promise.then(function(seq) {
                     data.push(seq);
                     done++;
-                    if (done == $scope.selected.length) {
+                    if (done == ctrl.selected.length) {
                         // now align it
                         alignOrthologData.align(data);
-                        $scope.citation = true;
+                        ctrl.citation = true;
                     }
                 });
             });
