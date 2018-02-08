@@ -25,6 +25,7 @@
 
 <uib-accordion close-others="false">
     <div uib-accordion-group ng-class="{'panel-info': true}"
+    	 ng-if="$ctrl.settings.product"
          template-url="group-template.html" is-open="$ctrl.accordion.product">
         <uib-accordion-heading>
             Gene Product <i class="pull-right glyphicon"
@@ -39,6 +40,7 @@
 
     </div>
     <div uib-accordion-group ng-class="{'panel-info': true}"
+    	ng-if="$ctrl.settings.ortholog"
          template-url="group-template.html" is-open="$ctrl.accordion.ortholog">
         <uib-accordion-heading>
             Ortholog(s) <i class="pull-right glyphicon"
@@ -52,6 +54,7 @@
 
     </div>
     <div uib-accordion-group ng-class="{'panel-info': true}"
+    	 ng-if="$ctrl.settings.expression"
          template-url="group-template.html" is-open="$ctrl.accordion.expression">
         <uib-accordion-heading>
             Expression Timing <i class="pull-right glyphicon"
@@ -65,6 +68,7 @@
 
     </div>
     <div uib-accordion-group is-open="$ctrl.accordion.go" ng-class="{'panel-info': true}"
+    	 ng-if="$ctrl.settings.go"
          template-url="group-template.html">
         <uib-accordion-heading>
             Gene Ontology Annotations ({{$ctrl.annotations.go.molfunc.length + $ctrl.annotations.go.cellcomp.length +
@@ -110,6 +114,7 @@
     </div>
     
     <div uib-accordion-group ng-class="{'panel-info': true}"
+    	 ng-if="$ctrl.settings.operon"
          template-url="group-template.html" is-open="$ctrl.accordion.operon">
         <uib-accordion-heading>
             Operon ({{$ctrl.annotations.operons.length}}) <i class="pull-right glyphicon"
@@ -125,6 +130,7 @@
     </div>
     <div uib-accordion-group ng-class="{'panel-info': true}"
          is-open="$ctrl.accordion.interpro"
+         ng-if="$ctrl.settings.interpro"
          template-url="group-template.html">
         <uib-accordion-heading>
             InterPro Domains ({{$ctrl.annotations.interpro.length}})<i class="pull-right glyphicon"
@@ -139,6 +145,7 @@
     </div>
     <div uib-accordion-group ng-class="{'panel-info': true}"
          is-open="$ctrl.accordion.enzyme"
+         ng-if="$ctrl.settings.enzyme"
          template-url="group-template.html">
         <uib-accordion-heading>
             Enzyme ({{$ctrl.annotations.ecnumber.length}})<i class="pull-right glyphicon"
@@ -152,6 +159,7 @@
     </div>
     <div uib-accordion-group ng-class="{'panel-info': true}"
          is-open="$ctrl.accordion.mutants"
+         ng-if="$ctrl.settings.mutants"
          template-url="group-template.html">
         <uib-accordion-heading>
             Mutants ({{ $ctrl.annotations.mutants.mutants.length }})<i class="pull-right glyphicon"
@@ -164,7 +172,8 @@
         </div>
     </div>
     <div uib-accordion-group ng-class="{'panel-info': true}"
-         is-open="$ctrl.annotations.hostpath"
+         is-open="$ctrl.accordion.hostpath"
+         ng-if="$ctrl.settings.hostpath"
          template-url="group-template.html">
         <uib-accordion-heading>
             Host-Pathogen Interactions <i class="pull-right glyphicon"
@@ -178,6 +187,7 @@
     </div>
     <div uib-accordion-group ng-class="{'panel-info': true}"
          is-open="$ctrl.accordion.pubs"
+         ng-if="$ctrl.settings.pubs"
          template-url="group-template.html">
         <uib-accordion-heading>
             Related Publications <i class="pull-right glyphicon"
