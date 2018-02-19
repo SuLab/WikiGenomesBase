@@ -15,7 +15,7 @@ angular.module("cellVisualizer")
                 ctrl.highlight(id);
             });
             ctrl.status = "No Components to Show";
-        }, 2000);
+        }, 4000);
 
         this.displayCell = false;
         

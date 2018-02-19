@@ -112,8 +112,9 @@ angular
 
 
                         // Get ortholog data from local json file
-                        orthoData.getOrthologs(function (data) {
+                        orthoData.getOrthologs(ctrl.currentLocusTag).then(function (data) {
                             ctrl.orthologs = data;
+                            console.log(data);
                             var current = $filter('keywordFilter')(data, ctrl.currentLocusTag);
 
                             ctrl.currentOrtholog = {};
