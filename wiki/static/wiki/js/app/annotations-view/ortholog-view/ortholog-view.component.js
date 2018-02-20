@@ -3,7 +3,8 @@ angular.module('orthologView')
     .component('orthologView',
         {
             bindings : {
-                data : '<'
+                data : '<',
+                hasOrthologs : '<'
             },
             controller : "orthologCtrl",
             templateUrl : '/static/wiki/js/angular_templates/ortholog-view.html'
@@ -188,10 +189,10 @@ angular.module('orthologView')
                 "strain": true,
                 "tax": true,
                 "cLocus": true,
-                "dLocus": true,
-                "identity": true,
-                "length": true,
-                "eval": true,
+                "dLocus": false,
+                "identity": false,
+                "length": false,
+                "eval": false,
                 "ref": true,
                 "align": true
         };
