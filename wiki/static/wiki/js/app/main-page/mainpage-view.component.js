@@ -18,7 +18,10 @@ angular
                               sendToView,
                               expressionTimingData,
                               hostPathogen,
-                              appData) {
+                              appData,
+                              RefSeqChrom
+
+        ) {
 
             // Main gene page component. Loaded when a gene is selected.  Parses the url for taxid and locus tag and uses
             // those to make API calls to wikidata.
@@ -45,9 +48,7 @@ angular
                 });
 
                 appData.getAppData(function (data) {
-                    console.log("i'm trying");
                     ctrl.appName = data[0].appName;
-                    console.log(ctrl.appName);
 
                 });
                 //
@@ -64,7 +65,6 @@ angular
                     }
                 }).finally(function () {
                     wdGetEntities.wdGetEntities(ctrl.currentGene.geneQID).then(function (data) {
-
                         var entity = data.entities[ctrl.currentGene.geneQID];
                         ctrl.currentGene.entrez = entity.claims.P351[0].mainsnak.datavalue.value;
                         ctrl.currentGene.geneLabel = entity.labels.en.value;
@@ -73,7 +73,6 @@ angular
                         ctrl.currentGene.genStart = entity.claims.P644[0].mainsnak.datavalue.value;
                         ctrl.currentGene.genEnd = entity.claims.P645[0].mainsnak.datavalue.value;
                         ctrl.currentGene.strand = entity.claims.P2548[0].mainsnak.datavalue.value;
-                        ctrl.currentGene.refseqGenome = entity.claims.P644[0].qualifiers.P2249[0].datavalue.value;
                         ctrl.currentGene.geneType = entity.claims.P279[0].mainsnak.datavalue.value;
                         ctrl.currentGene.geneAliases = [];
                         angular.forEach(entity.aliases.en, function (alias) {
@@ -109,6 +108,16 @@ angular
                                     ctrl.annotations.operons = [];
                                 }
                             });
+
+                        // Get chromosome refseq id
+                        RefSeqChrom.getRefSeqChrom(ctrl.currentLocusTag).then(function (data) {
+                            console.log(data);
+                            console.log('chromosome');
+
+                            ctrl.currentGene.refseqGenome =  data[0]['refSeqChromosome'].value;
+
+                        });
+
 
 
                         // Get ortholog data from local json file
@@ -179,14 +188,12 @@ angular
                                     if (value.hasOwnProperty('ecnumber')) {
                                         ctrl.annotations.ecnumber.push(value.ecnumber.value);
                                         angular.forEach(ctrl.annotations.ecnumber, function (value) {
-                                            console.log(value.indexOf('-'));
                                             if (value.indexOf('-') === -1) {
                                                 expasyData.getReactionData(value).then(function (data) {
                                                     ctrl.annotations.reaction[data.ecnumber] = data.reaction;
                                                 });
                                             }
                                         });
-                                        console.log(ctrl.annotations);
                                     }
                                     if (value.goclass.value === 'http://www.wikidata.org/entity/Q5058355') {
                                         ctrl.annotations.go.cellcomp.push(value);
