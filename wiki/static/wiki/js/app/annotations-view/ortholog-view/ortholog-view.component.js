@@ -153,7 +153,12 @@ angular.module('orthologView')
                             + accession + "&seq_start=" + start + "&seq_stop=" + stop + "&strand=" + strand + "&rettype=fasta").success(function(r) {
 
                             // get the human readable name
-                            var first = ">" + r.substring(r.indexOf("Chlamydia") + 10, r.indexOf("\n") + 1);
+                            var first = "";
+                            if (r.indexOf("Chlamydia") != -1) {
+                                first = ">" + r.substring(r.indexOf("Chlamydia") + 10, r.indexOf("\n") + 1);
+                            } else {
+                                first = ">" + r.substring(r.indexOf("Chlamydophila") + 14, r.indexOf("\n") + 1);
+                            }
                             first = first.replace(" ", "_").replace(",", " ");
                             first = first.substring(0, 2).toUpperCase() + first.substring(2);
                             var body = r.substring(r.indexOf("\n") + 1, r.length).replace(/\n/g, "");
@@ -181,79 +186,52 @@ angular.module('orthologView')
     })
 
     .controller('orthologCtrl', function(geneSequenceData, alignOrthologData) {
-        
+
         var ctrl = this;
-        
+
         // config settings for table
         ctrl.tSettings = {
-                "strain": true,
-                "tax": true,
-                "cLocus": true,
-                "dLocus": false,
-                "identity": false,
-                "length": false,
-                "eval": false,
-                "ref": true,
-                "align": true
+            "strain" : true,
+            "tax" : true,
+            "cLocus" : true,
+            "dLocus" : false,
+            "identity" : false,
+            "length" : false,
+            "eval" : false,
+            "ref" : true,
+            "align" : true
         };
-        
+
         // whether or not to display the citation
         ctrl.citation = false;
 
-        // whether or not to invert selection when selecting all
-        ctrl.invertSelection = true;
+        // list of selected orthologs to align
+        ctrl.selected = []
 
         // for selecting from the check list
-        ctrl.select = function(item) {
-            item.selected = !item.selected;
-        };
-
-        // creates a list of the selected orthologs
-        ctrl.updateSelected = function(data) {
-
-            // clear the previous selected list
-            ctrl.selected = [];
-
-            // loop through the ortholog list and check if selected
-            angular.forEach(data, function(value, key) {
-
-                // true if selected
-                if (value.selected) {
-                    // store the ncbi data to use later
-                    ctrl.selected.push(value.ncbi);
-                }
-            });
+        ctrl.select = function(index, checked, value) {
+            if (checked) {
+                ctrl.selected[index] = value;
+            } else {
+                ctrl.selected[index] = "";
+            }
         };
 
         // function to update the selected list and align after
         ctrl.updatePanel = function(data) {
 
-            // whether or not to invert selection
-            if (ctrl.invertSelection) {
-                angular.forEach(data, function(value, key) {
-                    ctrl.select(value);
-                });
-                ctrl.invertSelection = false;
-            }
-
-            // get the list of selected orthologs by ncbi
-            ctrl.updateSelected(data);
-
             // holds gene sequence data
             var data = [];
-            var done = 0;
 
             // get the sequence data based on ncbi
-            angular.forEach(ctrl.selected, function(value, key) {
+            angular.forEach(ctrl.selected, function(value) {
                 var promise = geneSequenceData.getSequence(value);
                 promise.then(function(seq) {
                     data.push(seq);
-                    done++;
-                    if (done == ctrl.selected.length) {
-                        // now align it
-                        alignOrthologData.align(data);
-                        ctrl.citation = true;
-                    }
+                    
+                    // now align it
+                    alignOrthologData.align(data);
+                    ctrl.citation = true;
                 });
             });
 

@@ -34,8 +34,8 @@
             </div>
         </td>
 		<td ng-if="$ctrl.tSettings['align']" title="'Align'">
-			<input type="checkbox" ng-checked="true" 
-				ng-click="$ctrl.select(value)">
+			<input type="checkbox" ng-model="checked" ng-init="checked=false"
+				ng-click="$ctrl.select($index, checked, value)">
 		</td>
     </tr>
 
