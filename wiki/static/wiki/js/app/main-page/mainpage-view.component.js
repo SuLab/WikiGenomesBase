@@ -113,17 +113,18 @@ angular
 
                         // Get ortholog data from local json file
                         orthoData.getOrthologs(ctrl.currentLocusTag).then(function (data) {
-                            ctrl.orthologs = data;
-                            console.log(data);
-                            var current = $filter('keywordFilter')(data, ctrl.currentLocusTag);
+                            
+                            // first add current current gene
+                            ctrl.annotations.orthologs = {}
+                            ctrl.annotations.orthologs[ctrl.currentTaxid] = ctrl.currentLocusTag;
 
-                            ctrl.currentOrtholog = {};
-                            angular.forEach(current[0], function (value, key) {
-                                if (key != '_id' && key != '$oid' && key != 'timestamp') {
-                                    ctrl.currentOrtholog[key] = value;
-                                }
+                            // now add results from sparql query
+                            angular.forEach(data.results.bindings, function (obj) {
+                                var tax = obj.orthoTaxid.value;
+                                var tag = obj.orthoLocusTag.value;
+                                ctrl.annotations.orthologs[tax] = tag;
+                                ctrl.annotations.hasOrthologs = true;
                             });
-                            ctrl.annotations.orthologs = ctrl.currentOrtholog;
                         });
 
                         expressionTimingData.getExpression(function (data) {

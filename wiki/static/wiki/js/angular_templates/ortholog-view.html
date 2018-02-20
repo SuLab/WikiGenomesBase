@@ -4,7 +4,7 @@
     <col width="20%"/>
     <col width="20%"/>
     <col width="10%"/>
-    <tr ng-show="$ctrl.data.hasOwnProperty('471472')" ng-repeat="(key, value) in $ctrl.data">
+    <tr ng-show="$ctrl.hasOrthologs" ng-repeat="(key, value) in $ctrl.data">
         <td ng-if="$ctrl.tSettings['strain']" title="'Strain'">
             <a href="/organism/{{ key }}">{{ key | taxid2Name }}</a>
         </td>
@@ -12,10 +12,10 @@
             <a href="/organism/{{ key }}">{{ key }}</a>
         </td>
         <td ng-if="$ctrl.tSettings['cLocus']" title="'Current Locus Tag'">
-            <a href="/organism/{{ key }}/gene/{{ value.ncbi }}">{{ value.current }}</a>
+            <a href="/organism/{{ key }}/gene/{{ value }}">{{ value }}</a>
         </td>
         <td ng-if="$ctrl.tSettings['dLocus']" title="'Deprecated Locus Tag'">
-            {{ value.depricated }}
+            {{ value }}
         </td>
         <td ng-if="$ctrl.tSettings['identity']" title="'% Identity'">
         </td>
@@ -34,14 +34,14 @@
             </div>
         </td>
 		<td ng-if="$ctrl.tSettings['align']" title="'Align'">
-			<input type="checkbox" ng-checked="true" 
-				ng-click="$ctrl.select(value)">
+			<input type="checkbox" ng-model="checked" ng-init="checked=false"
+				ng-click="$ctrl.select($index, checked, value)">
 		</td>
     </tr>
 
 
 </table>
-<div ng-show="$ctrl.data.hasOwnProperty('471472')">
+<div ng-show="$ctrl.hasOrthologs">
 
 	<!-- Display the specified orthologs -->
 	<button type="button" ng-click="$ctrl.updatePanel($ctrl.data)">Display Sequences</button>
@@ -55,4 +55,4 @@
 	visualization of multiple sequence alignments." Bioinformatics (2016): btw474. </p></div>
 		
 </div>
-<div ng-hide="$ctrl.data.hasOwnProperty('471472')">No known orthologs</div>
+<div ng-hide="$ctrl.hasOrthologs">No known orthologs</div>
