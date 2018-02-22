@@ -73,7 +73,6 @@ angular
 angular
     .module('resources')
     .factory('orthoData', function ($http, $q) {
-        console.log('orthoData');
         var deferred = $q.defer();
         var endpoint = 'https://query.wikidata.org/sparql?format=json&query=';
         var getOrthologs = function (locusTag) {
@@ -86,7 +85,6 @@ angular
                     "?orthoTaxon wdt:P685 ?orthoTaxid." +
                     "}"
                 );
-            console.log(url);
             $http.get(url)
             .success(function (response) {
                 deferred.resolve(response);

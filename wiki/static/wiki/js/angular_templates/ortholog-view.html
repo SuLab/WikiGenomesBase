@@ -34,8 +34,8 @@
             </div>
         </td>
 		<td ng-if="$ctrl.tSettings['align']" title="'Align'">
-			<input type="checkbox" ng-model="checked" ng-init="checked=false"
-				ng-click="$ctrl.select($index, checked, value)">
+			<input type="checkbox" ng-model="checked" ng-init="checked=true"
+				ng-click="$ctrl.select(checked, value)">
 		</td>
     </tr>
 
@@ -44,7 +44,7 @@
 <div ng-show="$ctrl.hasOrthologs">
 
 	<!-- Display the specified orthologs -->
-	<button type="button" ng-click="$ctrl.updatePanel($ctrl.data)">Display Sequences</button>
+	<button type="button" ng-click="$ctrl.updatePanel()">Display Sequences</button>
 
 	<!-- the MSA Viewer Widget -->
 	<div id="msaDiv"></div>

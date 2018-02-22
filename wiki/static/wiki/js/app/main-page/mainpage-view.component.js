@@ -7,7 +7,6 @@ angular
                               allChlamOrgs,
                               wdGetEntities,
                               entrez2QID,
-                              orthoData,
                               GOTerms,
                               InterPro,
                               OperonData,
@@ -114,26 +113,10 @@ angular
                             console.log(data);
                             console.log('chromosome');
 
-                            ctrl.currentGene.refseqGenome =  data[0]['refSeqChromosome'].value;
+                            if (data[0]) {
+                                ctrl.currentGene.refseqGenome =  data[0]['refSeqChromosome'].value;
+                            }
 
-                        });
-
-
-
-                        // Get ortholog data from local json file
-                        orthoData.getOrthologs(ctrl.currentLocusTag).then(function (data) {
-                            
-                            // first add current current gene
-                            ctrl.annotations.orthologs = {}
-                            ctrl.annotations.orthologs[ctrl.currentTaxid] = ctrl.currentLocusTag;
-
-                            // now add results from sparql query
-                            angular.forEach(data.results.bindings, function (obj) {
-                                var tax = obj.orthoTaxid.value;
-                                var tag = obj.orthoLocusTag.value;
-                                ctrl.annotations.orthologs[tax] = tag;
-                                ctrl.annotations.hasOrthologs = true;
-                            });
                         });
 
                         expressionTimingData.getExpression(function (data) {

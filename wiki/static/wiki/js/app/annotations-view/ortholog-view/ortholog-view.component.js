@@ -3,8 +3,8 @@ angular.module('orthologView')
     .component('orthologView',
         {
             bindings : {
-                data : '<',
-                hasOrthologs : '<'
+                locusTag : '<',
+                taxId : '<'
             },
             controller : "orthologCtrl",
             templateUrl : '/static/wiki/js/angular_templates/ortholog-view.html'
@@ -185,9 +185,39 @@ angular.module('orthologView')
         }
     })
 
-    .controller('orthologCtrl', function(geneSequenceData, alignOrthologData) {
+    .controller('orthologCtrl', function(orthoData, geneSequenceData, alignOrthologData) {
 
         var ctrl = this;
+
+        ctrl.data = {};
+
+        // list of selected orthologs to align
+        ctrl.projection = {}
+        ctrl.numOrthologs = 1;
+
+        // Get ortholog data from wikidata
+        console.log("GETTING DATA FOR LOCUS TAG: " + ctrl.locusTag);
+        orthoData.getOrthologs(ctrl.locusTag).then(function(data) {
+
+            // first add current current gene
+            ctrl.data[ctrl.taxId] = ctrl.locusTag;
+            ctrl.projection[ctrl.locusTag] = true;
+            
+            console.log(data.results.bindings);
+            console.log(ctrl.locusTag);
+
+            // now add results from sparql query
+            angular.forEach(data.results.bindings, function(obj) {
+                var tax = obj.orthoTaxid.value;
+                var tag = obj.orthoLocusTag.value;
+                ctrl.data[tax] = tag;
+                ctrl.hasOrthologs = true;
+                ctrl.numOrthologs++;
+                ctrl.projection[tag] = true;
+            });
+            
+            console.log(ctrl.data);
+        });
 
         // config settings for table
         ctrl.tSettings = {
@@ -205,34 +235,37 @@ angular.module('orthologView')
         // whether or not to display the citation
         ctrl.citation = false;
 
-        // list of selected orthologs to align
-        ctrl.selected = []
-
         // for selecting from the check list
-        ctrl.select = function(index, checked, value) {
-            if (checked) {
-                ctrl.selected[index] = value;
-            } else {
-                ctrl.selected[index] = "";
-            }
+        ctrl.select = function(checked, value) {
+            ctrl.projection[value] = checked;
         };
 
         // function to update the selected list and align after
-        ctrl.updatePanel = function(data) {
+        ctrl.updatePanel = function() {
 
             // holds gene sequence data
             var data = [];
+            var index = 0;
 
             // get the sequence data based on ncbi
-            angular.forEach(ctrl.selected, function(value) {
-                var promise = geneSequenceData.getSequence(value);
-                promise.then(function(seq) {
-                    data.push(seq);
-                    
-                    // now align it
-                    alignOrthologData.align(data);
-                    ctrl.citation = true;
-                });
+            angular.forEach(ctrl.projection, function(value, key) {
+                if (value) {
+                    var promise = geneSequenceData.getSequence(key);
+                    promise.then(function(seq) {
+                        index++;
+                        data.push(seq);
+
+                        if(index == ctrl.numOrthologs) {
+                            // now align it
+                            alignOrthologData.align(data);
+                            ctrl.citation = true;
+                        }
+                    }, function (error) {
+                        index++;
+                    });
+                } else {
+                    index++;
+                }
             });
 
         };
