@@ -5,20 +5,26 @@ angular.module("cellVisualizer")
     .controller("cellVisualizerCtrl", function(geneOntologyService, $timeout) {
 
         var ctrl = this;
-        
+
         this.status = "Loading Component Viewer...";
 
+        function load() {
+            if (ctrl.cellComp) {
+                angular.forEach(ctrl.cellComp, function(value) {
+                    var id = (value.goID.value).replace(":", "_");
+                    ctrl.highlight(id);
+                });
+                ctrl.status = "No Components to Show";
+            } else {
+                $timeout(load, 1000);
+            }
+        }
+
         // go values are loaded with a delay
-        $timeout(function() {
-            angular.forEach(ctrl.cellComp.go.cellcomp, function(value) {
-                var id = (value.goID.value).replace(":", "_");
-                ctrl.highlight(id);
-            });
-            ctrl.status = "No Components to Show";
-        }, 4000);
+        $timeout(load, 1000);
 
         this.displayCell = false;
-        
+
         this.highlight = function(goTerm) {
 
             // get next parent that is valid
@@ -31,7 +37,7 @@ angular.module("cellVisualizer")
                     console.log(response);
                 });
             } else {
-                
+
                 // fill the component immediately
                 ctrl.displayCell = true;
                 fill(goTerm);
@@ -47,7 +53,7 @@ angular.module("cellVisualizer")
             var paths = svgDoc.getElementsByClassName(geneOntologyService.getClass(goTerm));
 
             if (geneOntologyService.isPlasmaMembrane(goTerm)) {
-                
+
                 // fill outside  minus the inside
                 paths[0].style.fill = "#4784FF";
                 svgDoc.getElementsByClassName("cytoplasm")[0].style.fill = "#FFFFFF";
@@ -133,24 +139,3 @@ angular.module("cellVisualizer")
             cellComp : "<"
         }
     });
-
-    /*
-    Peroxisome
-    Cytoskeleton
-    Actin
-    Microtubules
-    Cytosol
-    Extracellular or secreted
-    Plasma membrane
-    Lipid droplet
-    RB
-    EB
-    Inclusion
-    Inclusion membrane
-    Lysosome
-    Endosome
-    Mitochondria
-    Centrosome
-    Golgi
-    ER
-    */

@@ -193,30 +193,23 @@ angular.module('orthologView')
 
         // list of selected orthologs to align
         ctrl.projection = {}
-        ctrl.numOrthologs = 1;
 
         // Get ortholog data from wikidata
-        console.log("GETTING DATA FOR LOCUS TAG: " + ctrl.locusTag);
-        orthoData.getOrthologs(ctrl.locusTag).then(function(data) {
+        orthoData.getOrthologs(ctrl.locusTag).then(function(response) {
 
             // first add current current gene
             ctrl.data[ctrl.taxId] = ctrl.locusTag;
             ctrl.projection[ctrl.locusTag] = true;
             
-            console.log(data.results.bindings);
-            console.log(ctrl.locusTag);
-
             // now add results from sparql query
-            angular.forEach(data.results.bindings, function(obj) {
+            angular.forEach(response.results.bindings, function(obj) {
                 var tax = obj.orthoTaxid.value;
                 var tag = obj.orthoLocusTag.value;
                 ctrl.data[tax] = tag;
                 ctrl.hasOrthologs = true;
-                ctrl.numOrthologs++;
                 ctrl.projection[tag] = true;
             });
             
-            console.log(ctrl.data);
         });
 
         // config settings for table
@@ -246,7 +239,7 @@ angular.module('orthologView')
             // holds gene sequence data
             var data = [];
             var index = 0;
-
+            
             // get the sequence data based on ncbi
             angular.forEach(ctrl.projection, function(value, key) {
                 if (value) {
@@ -255,7 +248,7 @@ angular.module('orthologView')
                         index++;
                         data.push(seq);
 
-                        if(index == ctrl.numOrthologs) {
+                        if(index == Object.keys(ctrl.projection).length) {
                             // now align it
                             alignOrthologData.align(data);
                             ctrl.citation = true;

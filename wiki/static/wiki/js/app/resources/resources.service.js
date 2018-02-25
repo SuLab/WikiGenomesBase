@@ -73,9 +73,9 @@ angular
 angular
     .module('resources')
     .factory('orthoData', function ($http, $q) {
-        var deferred = $q.defer();
-        var endpoint = 'https://query.wikidata.org/sparql?format=json&query=';
         var getOrthologs = function (locusTag) {
+            var deferred = $q.defer();
+            var endpoint = 'https://query.wikidata.org/sparql?format=json&query=';
             var url = endpoint + encodeURIComponent("SELECT ?orthoLocusTag ?orthoTaxid " +
                     "WHERE{ " +
                     "?gene wdt:P2393 '" + locusTag + "';" +
