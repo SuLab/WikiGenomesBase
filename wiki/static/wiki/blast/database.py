@@ -158,8 +158,12 @@ for index, query in enumerate(databases):
         # now iterate through all entries in the table
         for index, row in data.iterrows():
 
+          # e value threshold
+          threshold = float(1e-25)
+          evalue = float(row["E Value"])
+
           # do a comparison check if id is already in the dict
-          if row["Query"] in ids and row["Query"] != row["Subject"]:
+          if row["Query"] in ids and row["Query"] != row["Subject"] and evalue < threshold:
 
             # get the dictionary associated with the query
             dic = ids[row["Query"]]
@@ -178,7 +182,7 @@ for index, query in enumerate(databases):
               dic[row["Subject"]] = row["% Similarity"]
   
           # Add a probable reciprocal best hit with this row by default if not itself
-          elif row["Query"] != row["Subject"]:
+          elif row["Query"] != row["Subject"] and evalue < threshold:
               ids[row["Query"]] = {row["Subject"] : row["% Similarity"]}
 
           # No best match found

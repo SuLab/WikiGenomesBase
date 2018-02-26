@@ -4,20 +4,26 @@
     <col width="20%"/>
     <col width="20%"/>
     <col width="10%"/>
-    <tr ng-show="$ctrl.data.hasOwnProperty('471472')" ng-repeat="(key, value) in $ctrl.data">
-        <td title="'Strain'">
+    <tr ng-show="$ctrl.hasOrthologs" ng-repeat="(key, value) in $ctrl.data">
+        <td ng-if="$ctrl.tSettings['strain']" title="'Strain'">
             <a href="/organism/{{ key }}">{{ key | taxid2Name }}</a>
         </td>
-        <td title="'Taxid'">
+        <td ng-if="$ctrl.tSettings['tax']" title="'Taxid'">
             <a href="/organism/{{ key }}">{{ key }}</a>
         </td>
-        <td title="'Current Locus Tag'">
-            <a href="/organism/{{ key }}/gene/{{ value.ncbi }}">{{ value.current }}</a>
+        <td ng-if="$ctrl.tSettings['cLocus']" title="'Current Locus Tag'">
+            <a href="/organism/{{ key }}/gene/{{ value }}">{{ value }}</a>
         </td>
-        <td title="'Deprecated Locus Tag'">
-            {{ value.depricated }}
+        <td ng-if="$ctrl.tSettings['dLocus']" title="'Deprecated Locus Tag'">
+            {{ value }}
         </td>
-        <td title="'References'">
+        <td ng-if="$ctrl.tSettings['identity']" title="'% Identity'">
+        </td>
+        <td ng-if="$ctrl.tSettings['length']" title="'Length'">
+        </td>
+        <td ng-if="$ctrl.tSettings['eval']" title="'E-Value'">
+        </td>
+        <td ng-if="$ctrl.tSettings['ref']" title="'References'">
             <!-- Button trigger modal -->
             <div style="padding: 3px">
                 <a data-toggle="modal"
@@ -27,25 +33,26 @@
                 </a>
             </div>
         </td>
-	<td title="'Align'">
-		<input type="checkbox" ng-checked="true" 
-			ng-click="select(value)">
-	</td>
+		<td ng-if="$ctrl.tSettings['align']" title="'Align'">
+			<input type="checkbox" ng-model="checked" ng-init="checked=true"
+				ng-click="$ctrl.select(checked, value)">
+		</td>
     </tr>
 
 
 </table>
-<div ng-show="$ctrl.data.hasOwnProperty('471472')">
+<div ng-show="$ctrl.hasOrthologs">
 
 	<!-- Display the specified orthologs -->
-	<button type="button" ng-click="updatePanel($ctrl.data)">Display Sequences</button>
+	<button type="button" ng-click="$ctrl.updatePanel()">Display Sequences</button>
 
 	<!-- the MSA Viewer Widget -->
 	<div id="msaDiv"></div>
+	
+	<!-- citation for using msa viewer -->
+	<div ng-show="$ctrl.citation"><p style="font-size: 8px">Yachdav, Guy, Sebastian Wilzbach, Benedikt Rauscher, Robert Sheridan, Ian Sillitoe, 
+	James Procter, Suzanna E. Lewis, Burkhard Rost, and Tatyana Goldberg. "MSAViewer: interactive JavaScript 
+	visualization of multiple sequence alignments." Bioinformatics (2016): btw474. </p></div>
+		
 </div>
-<div ng-hide="$ctrl.data.hasOwnProperty('471472')">No known orthologs</div>
-
-<!-- citation for using msa viewer -->
-<div ng-show="$ctrl.data.hasOwnProperty('471472')"><p style="font-size: 8px">Yachdav, Guy, Sebastian Wilzbach, Benedikt Rauscher, Robert Sheridan, Ian Sillitoe, 
-James Procter, Suzanna E. Lewis, Burkhard Rost, and Tatyana Goldberg. "MSAViewer: interactive JavaScript 
-visualization of multiple sequence alignments." Bioinformatics (2016): btw474. </p></div>
+<div ng-hide="$ctrl.hasOrthologs">No known orthologs</div>

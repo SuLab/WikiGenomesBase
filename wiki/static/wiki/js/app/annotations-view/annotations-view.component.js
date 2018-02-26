@@ -9,6 +9,21 @@ angular
         },
         controller: function () {
             var ctrl = this;
+            
+            // settings for visibility of each annotation view
+            ctrl.settings = {
+                    go: true,
+                    operon: true,
+                    interpro: true,
+                    enzyme: true,
+                    mutants: true,
+                    pubs: true,
+                    product: true,
+                    ortholog: true,
+                    expression: true,
+                    hostpath: true
+            };
+            
             ctrl.$onInit = function () {
 
                 //buttons for expanding and collapsing accordion
@@ -28,8 +43,7 @@ angular
                     product: true,
                     ortholog: true,
                     expression: true,
-                    hostpath: true,
-
+                    hostpath: true
                 };
 
                 ctrl.toggleOpen = function (openAll) {
@@ -42,6 +56,7 @@ angular
                     ctrl.accordion.product = openAll;
                     ctrl.accordion.ortholog = openAll;
                     ctrl.accordion.hostpath = openAll;
+                    ctrl.accordion.expression = openAll;
                 };
 
                 ctrl.status = {

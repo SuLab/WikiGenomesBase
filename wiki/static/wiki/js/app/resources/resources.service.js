@@ -72,16 +72,31 @@ angular
 
 angular
     .module('resources')
-    .factory('orthoData', function ($resource) {
-        var url = '/static/wiki/json/new_orthologs.json';
-        return $resource(url, {}, {
-            getOrthologs: {
-                method: "GET",
-                params: {},
-                isArray: true,
-                cache: true
-            }
-        });
+    .factory('orthoData', function ($http, $q) {
+        var getOrthologs = function (locusTag) {
+            var deferred = $q.defer();
+            var endpoint = 'https://query.wikidata.org/sparql?format=json&query=';
+            var url = endpoint + encodeURIComponent("SELECT ?orthoLocusTag ?orthoTaxid " +
+                    "WHERE{ " +
+                    "?gene wdt:P2393 '" + locusTag + "';" +
+                    "wdt:P684 ?ortholog." +
+                    "?ortholog wdt:P2393 ?orthoLocusTag;" +
+                    "wdt:P703 ?orthoTaxon." +
+                    "?orthoTaxon wdt:P685 ?orthoTaxid." +
+                    "}"
+                );
+            $http.get(url)
+            .success(function (response) {
+                deferred.resolve(response);
+            })
+            .error(function (response) {
+                deferred.reject(response);
+            })
+            return deferred.promise;
+        };
+        return {
+            getOrthologs: getOrthologs
+        }
     });
 
 //server communication
