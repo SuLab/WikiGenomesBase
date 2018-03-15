@@ -8,7 +8,9 @@
             {{x.gotermValueLabel.value }}
         </td>
         <td title="'Evidence'">
-            {{ x.determinationLabel.value }}
+			<div title="{{$ctrl.evidenceCodes[x.determinationLabel.value]}}">
+				{{ x.determinationLabel.value }}
+			</div>
         </td>
         <td title="'Source'">
             <!-- Button trigger modal -->
