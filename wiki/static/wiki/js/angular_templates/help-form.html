@@ -1,0 +1,13 @@
+<form name='helpForm' class="form-group" ng-hide="$ctrl.submitted">
+	<div style="min-height:200px">
+		Subject:{{$ctrl.subject}}<br>
+		Name:<br>
+		<input type="text" ng-model="$ctrl.name"><br>
+		Email:<br>
+		<input type="email" ng-model="$ctrl.email"><br>
+		Description of Problem:<br>
+		<textarea rows="4" cols="50" ng-model="$ctrl.description"></textarea><br>
+		<input type="submit" value="Submit" ng-click="$ctrl.submit()">
+	</div>
+</form>
+<p ng-show=$ctrl.submitted>Thank you for submitting your response! We will get back to you when we can.</p>
