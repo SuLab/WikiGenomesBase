@@ -13,7 +13,7 @@ import os
 import djcelery
 
 djcelery.setup_loader()
-from wikigenomes_conf import secret_key, allowed_hosts, wg_timezone
+from wikigenomes_conf import secret_key, allowed_hosts, wg_timezone, user_key, user_password
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
@@ -85,6 +85,13 @@ DATABASES = {
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
+
+#EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+EMAIL_HOST = 'email-smtp.us-east-1.amazonaws.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = user_key
+EMAIL_HOST_PASSWORD = user_password
+EMAIL_USE_TLS = True
 
 
 # Password validation

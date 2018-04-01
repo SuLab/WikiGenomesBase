@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse
 from django.views.decorators.csrf import ensure_csrf_cookie
+from django.core.mail import send_mail
 
 import requests
 from time import strftime, gmtime
@@ -24,6 +25,11 @@ def index(request):
     return render(request, "wiki/index.html", context=context)
     return render(request, "wiki/index.html", context=context)
 
+def email(request):
+  subject = request.GET['subject']
+  body = request.GET['body']
+  send_mail(subject, body, "help@chlambase.org", ['help@chlambase.org'])
+  return JsonResponse({})
 
 @ensure_csrf_cookie
 def go_form(request):

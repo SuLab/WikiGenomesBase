@@ -59,7 +59,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content" style="padding:10px">
             <go-form gene="$ctrl.gene" goclass="$ctrl.goclass" ng-hide="showHelp"></go-form>
-            <help-form subject="$ctrl.goclass" ng-show="showHelp"></help-form>
+            <help-form ng-show="showHelp"></help-form>
             <div class="modal-footer">
             	<button type="button" class="btn btn-default" style="float:left" ng-click="showHelp = !showHelp">
             		<span ng-hide="showHelp">Need Help?</span>
