@@ -99,10 +99,15 @@
                 </button>
             </div>
             <div class="modal-body">
-                <mutant-form></mutant-form>
+                <mutant-form ng-hide="showHelp"></mutant-form>
+                <help-form ng-show="showHelp"></help-form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            	<button type="button" class="btn btn-default" style="float:left" ng-click="showHelp = !showHelp">
+            		<span ng-hide="showHelp">Need Help?</span>
+            		<span ng-show="showHelp">Back</span>
+            	</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" ng-click="showHelp = false">Close</button>
             </div>
         </div>
     </div>

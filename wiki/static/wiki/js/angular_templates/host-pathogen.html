@@ -70,9 +70,14 @@
      aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content" style="padding:10px">
-            <hostpath-form data=""></hostpath-form>
+            <hostpath-form data="" ng-hide="showHelp"></hostpath-form>
+            <help-form ng-show="showHelp"></help-form>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            	<button type="button" class="btn btn-default" style="float:left" ng-click="showHelp = !showHelp">
+            		<span ng-hide="showHelp">Need Help?</span>
+            		<span ng-show="showHelp">Back</span>
+            	</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" ng-click="showHelp = false">Close</button>
             </div>
         </div>
     </div>
