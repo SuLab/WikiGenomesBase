@@ -8,7 +8,9 @@
             {{x.gotermValueLabel.value }}
         </td>
         <td title="'Evidence'">
-            {{ x.determinationLabel.value }}
+			<div title="{{$ctrl.evidenceCodes[x.determinationLabel.value]}}">
+				{{ x.determinationLabel.value }}
+			</div>
         </td>
         <td title="'Source'">
             <!-- Button trigger modal -->
@@ -56,12 +58,15 @@
      aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content" style="padding:10px">
-            <go-form gene="$ctrl.gene" goclass="$ctrl.goclass"></go-form>
+            <go-form gene="$ctrl.gene" goclass="$ctrl.goclass" ng-hide="showHelp"></go-form>
+            <help-form ng-show="showHelp"></help-form>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            	<button type="button" class="btn btn-default" style="float:left" ng-click="showHelp = !showHelp">
+            		<span ng-hide="showHelp">Need Help?</span>
+            		<span ng-show="showHelp">Back</span>
+            	</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" ng-click="showHelp = false">Close</button>
             </div>
         </div>
     </div>
 </div>
-
-
