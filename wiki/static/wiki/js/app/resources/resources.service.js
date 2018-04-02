@@ -523,7 +523,7 @@ angular
     .module('resources')
     .factory('locusTag2Pub', function ($http) {
         var getlocusTag2Pub = function (val) {
-            var endpoint = 'http://www.ebi.ac.uk/europepmc/webservices/rest/search?query=chlamydia%20{locusTag}&format=json';
+            var endpoint = 'https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=chlamydia%20{locusTag}&format=json';
             var url = endpoint.replace('{locusTag}', val);
             return $http.get(url)
                 .success(function (response) {
@@ -544,7 +544,7 @@ angular
     .module('resources')
     .factory('euroPubData', function ($http) {
         var getEuroPubData = function (val) {
-            var endpoint = 'http://www.ebi.ac.uk/europepmc/webservices/rest/search?query={pubmedID}&resulttype=core&format=json';
+            var endpoint = 'https://www.ebi.ac.uk/europepmc/webservices/rest/search?query={pubmedID}&resulttype=core&format=json';
             var url = endpoint.replace('{pubmedID}', val);
             return $http.get(url)
                 .success(function (response) {
