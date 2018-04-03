@@ -13,7 +13,10 @@ angular.module('helpForm')
                 this.subject = "Chlambase Help";
             }
             
-            var body = 'Name: ' + this.name + '\nSender: ' + this.email + '\nDescription: ' + this.description;
+            var body = 'Name: ' + this.name + 
+            '\nSender: ' + this.email + 
+            '\nUrl: ' + window.location.href +
+            '\nDescription: ' + this.description;
             
             var url = 'email?subject=' + encodeURIComponent(this.subject) + '&body=' + encodeURIComponent(body);
             
