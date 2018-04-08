@@ -13,5 +13,6 @@ urlpatterns = [
     url(r'^organism/\d+/gene/.+/wd_mutant_edit', views.mutant_form, name='mutantForm'),
     url(r'^organism/\d+/gene/.+/mg_mutant_view', views.mongo_annotations, name='mongoAnnotations'),
     url(r'^wd_oauth', views.wd_oauth, name='wd_oauth'),
-    url(r'^email', views.email, name='helpForm')
+    url(r'^email', views.email, name='helpForm'),
+    url(r'^alignOrthologs', views.align, name='orthologAlignment'),
 ]
