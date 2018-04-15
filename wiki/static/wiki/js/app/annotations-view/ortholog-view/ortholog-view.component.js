@@ -13,7 +13,7 @@ angular.module('orthologView')
     .factory('alignOrthologData', function($http, $timeout) {
 
         // data in form of array of sequences
-        var align = function(data) {
+        var align = function(data, ctrl) {
             
             // submit POST request
            $http.get("alignOrthologs?sequence=" + encodeURIComponent(data.join("\n")) + "&length=" + encodeURIComponent(data.length)).then(function(response) {
@@ -22,7 +22,7 @@ angular.module('orthologView')
                     console.log("Job ID:" + id);
 
                     // now repeatedly check the status
-                    checkId(id);
+                    checkId(id, ctrl);
                 }, function(response) {
                     console.log("POST TO MUSCLE Error" + response.status);
                     console.log(response);
@@ -44,7 +44,7 @@ angular.module('orthologView')
         };
 
         // used to constantly check the sequence status
-        var checkId = function(id) {
+        var checkId = function(id, ctrl) {
 
             // check by using a GET request
             $http.get('http://www.ebi.ac.uk/Tools/services/rest/muscle/status/' + id).then(
@@ -53,12 +53,14 @@ angular.module('orthologView')
 
                     // check again if still running
                     if (response.data == "RUNNING") {
-                        $timeout(checkId(id), 2000);
+                        $timeout(checkId(id, ctrl), 2000);
                         return;
                     }
 
                     // display the data
                     if (response.data == "FINISHED") {
+                        
+                        ctrl.aligning = false;
 
                         // the widget settings
                         var settings = {
@@ -78,6 +80,7 @@ angular.module('orthologView')
                     // there was a problem
                     } else {
                         console.log("ERROR: " + response.data);
+                        ctrl.aligning = false;
                     }
                 });
 
@@ -168,7 +171,9 @@ angular.module('orthologView')
     .controller('orthologCtrl', function(orthoData, geneSequenceData, alignOrthologData) {
 
         var ctrl = this;
-
+        
+        ctrl.alignMessage = "Aligning Orthologs. Please be patient.";
+        
         ctrl.data = {};
 
         // list of selected orthologs to align
@@ -229,12 +234,15 @@ angular.module('orthologView')
                         data.push(seq);
 
                         if(index == Object.keys(ctrl.projection).length) {
+                            ctrl.aligning = true;
+                            
                             // now align it
-                            alignOrthologData.align(data);
+                            alignOrthologData.align(data, ctrl);
                             ctrl.citation = true;
                         }
                     }, function (error) {
                         index++;
+                        ctrl.aligning = false;
                     });
                 } else {
                     index++;

@@ -296,8 +296,9 @@ angular
                     "SELECT  distinct ?gotermValueLabel ?goID ?gotermValue ?goclass ?determinationLabel ?reference_stated_inLabel ?reference_retrievedLabel ?ecnumber WHERE { ?protein wdt:P352 " +
                     "'" + uniprot + "'. " +
                     "{?protein p:P680 ?goterm} UNION {?protein p:P681 ?goterm} UNION {?protein p:P682 ?goterm}.  " +
-                    "?goterm pq:P459 ?determination .  ?goterm prov:wasDerivedFrom/pr:P248 ?reference_stated_in . " +
-                    "?goterm prov:wasDerivedFrom/pr:P813 ?reference_retrieved . " +
+                    "?goterm pq:P459 ?determination ." + 
+                    "OPTIONAL {?goterm prov:wasDerivedFrom/pr:P248 ?reference_stated_in .}" +
+                    "OPTIONAL {?goterm prov:wasDerivedFrom/pr:P813 ?reference_retrieved .}" +
                     "OPTIONAL {?goterm prov:wasDerivedFrom/pr:P698 ?pmid .}" +
                     "{?goterm ps:P680 ?gotermValue} UNION {?goterm ps:P681 ?gotermValue} UNION {?goterm ps:P682 ?gotermValue}.  " +
                     "?gotermValue wdt:P279* ?goclass; wdt:P686 ?goID. FILTER ( ?goclass = wd:Q2996394 || ?goclass = wd:Q5058355 || ?goclass = wd:Q14860489) " +

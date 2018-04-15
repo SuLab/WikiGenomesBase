@@ -76,14 +76,14 @@ angular.module("cellVisualizer")
         var go_map = {
             'GO_0044177' : 'golgi',
             'GO_0044174' : 'endosome',
-            'GO_0005777' : 'peroxisome',
+            'GO_0120149' : 'peroxisome',
             'GO_0042025' : 'nucleus',
             'GO_0033650' : 'mitochondria',
             'GO_0044165' : 'er',
-            'GO_0010168' : 'eb',
+            'BTO_0000377' : 'eb',
             'GO_0044187' : 'lysosome',
             'GO_0044186' : 'ld',
-            'GO_0005813' : 'centrosome',
+            'GO_0120148' : 'centrosome',
             'GO_0044163' : 'cytoskeleton',
             'GO_0020002' : 'plasma_membrane',
             'GO_0030430' : 'cytoplasm'
