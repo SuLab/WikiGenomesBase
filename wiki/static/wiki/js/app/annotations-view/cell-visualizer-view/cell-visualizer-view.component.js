@@ -56,7 +56,11 @@ angular.module("cellVisualizer")
 
                 // fill outside  minus the inside
                 paths[0].style.fill = "#4784FF";
-                svgDoc.getElementsByClassName("cytoplasm")[0].style.fill = "#FFFFFF";
+                
+                // subtract inside only if cytoplasm is not also filled
+                if (!svgDoc.getElementsByClassName("cytoplasm")[0].style.fill == "#4784FF") {
+                    svgDoc.getElementsByClassName("cytoplasm")[0].style.fill = "#FFFFFF";
+                }
 
             } else {
                 for (var i = 0; i < paths.length; i++) {
@@ -70,19 +74,19 @@ angular.module("cellVisualizer")
     .service("geneOntologyService", function($http, $q) {
 
         var go_map = {
-            'GO_0005794' : 'golgi',
-            'GO_0005768' : 'endosome',
+            'GO_0044177' : 'golgi',
+            'GO_0044174' : 'endosome',
             'GO_0005777' : 'peroxisome',
-            'GO_0005634' : 'nucleus',
-            'GO_0005739' : 'mitochondria',
-            'GO_0005783' : 'er',
+            'GO_0042025' : 'nucleus',
+            'GO_0033650' : 'mitochondria',
+            'GO_0044165' : 'er',
             'GO_0010168' : 'eb',
-            'GO_0005764' : 'lysosome',
-            'GO_0005811' : 'ld',
+            'GO_0044187' : 'lysosome',
+            'GO_0044186' : 'ld',
             'GO_0005813' : 'centrosome',
-            'GO_0005856' : 'cytoskeleton',
-            'GO_0005886' : 'plasma_membrane',
-            'GO_0005737' : 'cytoplasm'
+            'GO_0044163' : 'cytoskeleton',
+            'GO_0020002' : 'plasma_membrane',
+            'GO_0030430' : 'cytoplasm'
         };
 
         var getParent = function(term) {

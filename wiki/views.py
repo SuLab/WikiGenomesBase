@@ -31,6 +31,21 @@ def email(request):
   send_mail(subject, body, "help@chlambase.org", ['help@chlambase.org'])
   return JsonResponse({})
 
+def align(request):
+  content = {
+    "email": "djow@ucsd.edu",
+    "title": "ortholog alignment",
+    "format": "fasta",
+    "tree": "tree1",
+    "order": "aligned",
+    "sequence": request.GET['sequence']
+  }
+  if int(request.GET['length']) > 1:
+    r = requests.post("http://www.ebi.ac.uk/Tools/services/rest/muscle/run/", data=content)
+    return JsonResponse({"id":r.text})
+  else:
+    return JsonResponse({"message": "Need more than 1 sequence"}, status=415)
+
 @ensure_csrf_cookie
 def go_form(request):
     """

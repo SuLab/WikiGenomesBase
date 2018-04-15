@@ -52,7 +52,8 @@ angular
                         ctrl.genStart = entity.claims.P644[0].mainsnak.datavalue.value;
                         ctrl.genEnd = entity.claims.P645[0].mainsnak.datavalue.value;
                         ctrl.strand = entity.claims.P2548[0].mainsnak.datavalue.value;
-                        ctrl.mutantAnnotation.chromosome = entity.claims.P644[0].qualifiers.P2249[0].datavalue.value;
+                        //ctrl.mutantAnnotation.chromosome = entity.claims.P644[0].qualifiers.P2249[0].datavalue.value;
+                        ctrl.mutantAnnotation.chromosome = entity.claims.P644[0].qualifiers.P1057[0].datavalue.value;
                     });
                 });
 

@@ -10,37 +10,19 @@ angular.module('orthologView')
             templateUrl : '/static/wiki/js/angular_templates/ortholog-view.html'
         })
 
-    .factory('alignOrthologData', function($http, $interval) {
+    .factory('alignOrthologData', function($http, $timeout) {
 
         // data in form of array of sequences
         var align = function(data) {
-
-            // data to send to muscle
-            var content = {
-                "email" : "djow@ucsd.edu",
-                "title" : "ortholog alignment",
-                "format" : "fasta",
-                "tree" : "tree1",
-                "order" : "aligned",
-                "sequence" : data.join("\n")
-            };
-
-            // for header
-            var config = {
-                headers : {
-                    'Content-Type' : 'text/plain;charset=UTF-8'
-                }
-            };
-
-            // submit POST to MUSCLE
-            $http.post('http://www.ebi.ac.uk/Tools/services/rest/muscle/run/', JSON.stringify(content), config)
-                .then(function(response) {
+            
+            // submit POST request
+           $http.get("alignOrthologs?sequence=" + encodeURIComponent(data.join("\n")) + "&length=" + encodeURIComponent(data.length)).then(function(response) {
                     // JOB ID for muscle
-                    var id = response.data;
+                    var id = response.data.id;
                     console.log("Job ID:" + id);
 
-                    // check every 3 seconds for 10 attempts
-                    $interval(checkId(id), 3000, 10);
+                    // now repeatedly check the status
+                    checkId(id);
                 }, function(response) {
                     console.log("POST TO MUSCLE Error" + response.status);
                     console.log(response);
@@ -71,6 +53,7 @@ angular.module('orthologView')
 
                     // check again if still running
                     if (response.data == "RUNNING") {
+                        $timeout(checkId(id), 2000);
                         return;
                     }
 
@@ -87,13 +70,10 @@ angular.module('orthologView')
                         var m = new msa.msa(settings);
 
                         // data has been aligned, now display it
-                        msa.u.file.importURL("http://www.ebi.ac.uk/Tools/services/rest/muscle/result/" + id + "/aln-fasta",
+                        m.u.file.importURL("http://www.ebi.ac.uk/Tools/services/rest/muscle/result/" + id + "/aln-fasta",
                             function() {
-                                msa.render();
+                                m.render();
                             });
-
-                        // cancel the interval
-                        $interval.cancel();
 
                     // there was a problem
                     } else {
