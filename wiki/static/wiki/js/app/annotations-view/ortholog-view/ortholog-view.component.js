@@ -24,6 +24,7 @@ angular.module('orthologView')
                     // now repeatedly check the status
                     checkId(id, ctrl);
                 }, function(response) {
+                    ctrl.aligning = false;
                     console.log("POST TO MUSCLE Error" + response.status);
                     console.log(response);
 
