@@ -49,8 +49,14 @@ angular.module("cellVisualizer")
             var svg = document.getElementById("cell-svg");
 
             var svgDoc = svg.contentDocument;
-
-            var paths = svgDoc.getElementsByClassName(geneOntologyService.getClass(goTerm));
+            
+            var paths = []
+            
+            if (geneOntologyService.isInclusion(goTerm)) {
+                paths = svgDoc.getElementsByClassName("inclusion");
+            } else {
+                paths = svgDoc.getElementsByClassName(geneOntologyService.getClass(goTerm));
+            }
 
             if (geneOntologyService.isPlasmaMembrane(goTerm)) {
 
@@ -62,12 +68,18 @@ angular.module("cellVisualizer")
                     svgDoc.getElementsByClassName("cytoplasm")[0].style.fill = "#FFFFFF";
                 }
 
+            } else if (geneOntologyService.isInclusion(goTerm)) {
+                if (geneOntologyService.isInclusionMembrane(goTerm)) {
+                    paths[0].style.stroke = "#4784FF";
+                } else {
+                    paths[0].style.fill = "#4784FF";
+                }
             } else {
                 for (var i = 0; i < paths.length; i++) {
                     paths[i].style.fill = "#4784FF";
                 }
             }
-
+            
         }
 
     })
@@ -80,6 +92,9 @@ angular.module("cellVisualizer")
             'GO_0042025' : 'nucleus',
             'GO_0033650' : 'mitochondria',
             'GO_0044165' : 'er',
+            'GO_0140221' : 'inclusion_membrane',
+            'GO_0140222' : 'inclusion_lumen',
+            'BTO_0001172' : 'rb',
             'BTO_0000377' : 'eb',
             'GO_0044187' : 'lysosome',
             'GO_0044186' : 'ld',
@@ -128,12 +143,23 @@ angular.module("cellVisualizer")
         var isPlasmaMembrane = function(goTerm) {
             return go_map[goTerm] == 'plasma_membrane';
         }
+        
+
+        var isInclusion = function(goTerm) {
+            return go_map[goTerm] == 'inclusion_membrane' || go_map[goTerm] == 'inclusion_lumen';
+        }
+        
+        var isInclusionMembrane = function(goTerm) {
+            return go_map[goTerm] == 'inclusion_membrane';
+        }
 
         return {
             getParent : getParent,
             isValid : isValid,
             getClass : getClass,
-            isPlasmaMembrane : isPlasmaMembrane
+            isPlasmaMembrane : isPlasmaMembrane,
+            isInclusion : isInclusion,
+            isInclusionMembrane: isInclusionMembrane
         }
     })
     .component("cellVisualizer", {
