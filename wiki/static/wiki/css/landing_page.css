@@ -4,9 +4,12 @@ html, body {
 }
 
 .main-landing-page {
-    background: url("../img/c_banner.jpg") no-repeat top center,
-        /*radial-gradient(circle, #385d94, #1c2e4a)*/ linear-gradient(0, #385d94, #0c1e3a);
-    background-size: 100% 240px, contain;
+    /*background: url("../img/chlambase_banner.png") no-repeat top center,
+        linear-gradient(0, #385d94, #0c1e3a);
+    */
+    background: url("../img/chlambase_banner.png")no-repeat top left;
+    background-color: #000000;
+    background-size: 100% 100%;
     color: whitesmoke;
     border: solid #385d94 3px;
     text-align: center;
