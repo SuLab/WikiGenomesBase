@@ -7,8 +7,7 @@ html, body {
     /*background: url("../img/chlambase_banner.png") no-repeat top center,
         linear-gradient(0, #385d94, #0c1e3a);
     */
-    background: url("../img/chlambase_banner.png")no-repeat top left;
-    background-color: #000000;
+    background: url("../img/chlam_background.jpg")no-repeat top left;
     background-size: 100% 100%;
     color: whitesmoke;
     border: solid #385d94 3px;

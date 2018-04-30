@@ -7,6 +7,7 @@ angular.module("cellVisualizer")
         var ctrl = this;
 
         this.status = "Loading Component Viewer...";
+        this.loading = true;
 
         function load() {
             if (ctrl.cellComp) {
@@ -14,6 +15,7 @@ angular.module("cellVisualizer")
                     var id = (value.goID.value).replace(":", "_");
                     ctrl.highlight(id);
                 });
+                ctrl.loading = false;
                 ctrl.status = "No Components to Show";
             } else {
                 $timeout(load, 1000);
