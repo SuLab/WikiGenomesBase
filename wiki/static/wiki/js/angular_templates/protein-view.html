@@ -1,41 +1,36 @@
 <div class="table-responsive">
-    <table class="table table-hover">
-        <col width="50%"/>
-        <col width="20%"/>
-        <col width="22%"/>
-        <col width="5%"/>
-        <col width="3%"/>
-        <tbody>
-        <th>Product type</th>
-        <th>UniProt ID</th>
-        <th>NCBI RefSeq ID</th>
-        <th>References</th>
-        <th>Download</th>
-        <tr>
-            <td>{{ $ctrl.protein.productType.id | typeFilter}}</td>
-            <td>{{ $ctrl.protein.uniprot}}</td>
-            <td>{{ $ctrl.protein.refseqProt}}</td>
-            <td title="'Reference'">
-                <a target="_blank" href="http://www.uniprot.org/uniprot/{{$ctrl.protein.uniprot}}">
-                    <img uib-tooltip="UniProt Database Entry" style="height: 14px; margin-top: -3px"
-                         data-ng-src="/static/wiki/img/uniprot-logo.png">
-                </a>
-                <a target="_blank" href="https://www.ncbi.nlm.nih.gov/protein?term={{$ctrl.protein.refseqProt}}">
-                    <img uib-tooltip="NCBI Database Entry" style="height: 14px; margin-top: -3px"
-                         data-ng-src="/static/wiki/img/NCBI-logo-2.png">
-                </a>
-                <a target="_blank" href="http://www.wikidata.org/wiki/{{$ctrl.protein.proteinQID}}">
-                    <img uib-tooltip="Wikidata Database Item" style="height: 14px; margin-top: -3px"
-                         data-ng-src="/static/wiki/img/GeneWikidata-logo-en.png">
-                </a>
-            </td>
-            <td>
-                <a uib-tooltip="Download Protein Fasta" class="glyphicon glyphicon-download" href="https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=protein&rettype=FASTA&id={{$ctrl.protein.refseqProt}}">
-
-                </a>
-            </td>
-        </tr>
-        </tbody>
-    </table>
+<table class="table table-hover">
+<col width="50%"/>
+<col width="20%"/>
+<col width="22%"/>
+<col width="5%"/>
+<col width="3%"/>
+<tbody>
+<th>Product type</th>
+<th>UniProt ID</th>
+<th>NCBI RefSeq ID</th>
+<th>References</th>
+<th>Download</th>
+<tr>
+<td>{{ $ctrl.protein.productType.id | typeFilter}}</td>
+<td>{{ $ctrl.protein.uniprot}}</td>
+<td>{{ $ctrl.protein.refseqProt}}</td>
+<td title="'Reference'">
+<a target="_blank" href="http://www.uniprot.org/uniprot/{{$ctrl.protein.uniprot}}">
+<img uib-tooltip="UniProt Database Entry" style="height:14px;margin-top:-3px" data-ng-src="/static/wiki/img/uniprot-logo.png">
+</a>
+<a target="_blank" href="https://www.ncbi.nlm.nih.gov/protein?term={{$ctrl.protein.refseqProt}}">
+<img uib-tooltip="NCBI Database Entry" style="height:14px;margin-top:-3px" data-ng-src="/static/wiki/img/NCBI-logo-2.png">
+</a>
+<a target="_blank" href="http://www.wikidata.org/wiki/{{$ctrl.protein.proteinQID}}">
+<img uib-tooltip="Wikidata Database Item" style="height:14px;margin-top:-3px" data-ng-src="/static/wiki/img/GeneWikidata-logo-en.png">
+</a>
+</td>
+<td>
+<a uib-tooltip="Download Protein Fasta" class="glyphicon glyphicon-download" href="https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=protein&rettype=FASTA&id={{$ctrl.protein.refseqProt}}">
+</a>
+</td>
+</tr>
+</tbody>
+</table>
 </div>
-

@@ -1,82 +1,45 @@
-<style>
-    label {
-        margin-top: 10px;
-    }
-</style>
+<style>label{margin-top:10px}</style>
 <div>
-    <form ng-model="$ctrl.hostpathAnnotation" ng-show="$ctrl.pageCount==0">
-        <div class="form-group">
-            <label for="host_species">Host Species</label>
-            <select id='host_species' class="form-control" ng-model="$ctrl.hostpathAnnotation.host_species"
-                    required="required"
-                    ng-options="option.name for option in $ctrl.species"
-                    ng-change="$ctrl.getSpeciesGenes()"
-                    >
-                <option style="display:none" value="">Host Species</option>
-            </select>
-        </div>
-        <div class="form-group" ng-show="$ctrl.hostpathAnnotation.host_species">
-            <label for="genesInput">Host Protein</label>
-            <input id="genesInput"
-                   type="text"
-                   ng-model="$ctrl.proteinValue"
-                   placeholder="host protein"
-                   uib-typeahead="protein.proteinLabel.value for protein in $ctrl.speciesGenes | filter:$viewValue | limitTo:200"
-                   typeahead-loading="loadingGenes"
-                   typeahead-no-results="noResults"
-                   class="form-control"
-                   typeahead-wait-ms="900"
-                   typeahead-on-select="$ctrl.selectProtein($item, $model, $value)"
-                    >
-            <i ng-show="loadingGenes" class="glyphicon glyphicon-refresh"></i>
-
-            <div ng-show="noResults">
-                <i class="glyphicon glyphicon-remove"></i> No Results Found
-            </div>
-        </div>
-        <div class="form-group" ng-show="$ctrl.hostpathAnnotation.host_protein">
-            <label for="determination_method">Determination Method</label>
-            <select id='determination_method' class="form-control" ng-model="$ctrl.hostpathAnnotation.determination"
-                    required="required"
-                    ng-options="option.itemLabel for option in $ctrl.determination_methods"
-                    >
-                <option style="display:none" value="">Determination Method</option>
-            </select>
-        </div>
-        <div class="form-group" ng-show="$ctrl.hostpathAnnotation.determination">
-            <label for="pubInput">Reference Publication</label>
-            <input id="pubInput"
-                   type="text"
-                   ng-model="$ctrl.hostpathAnnotation.pub"
-                   placeholder="PMID"
-                   uib-typeahead="pmid as pmid.title +  ' PMID:' + pmid.uid for pmid in $ctrl.getPMID($viewValue)"
-                   typeahead-loading="loadingPub"
-                   typeahead-no-results="noPubResults"
-                   class="form-control"
-                   typeahead-wait-ms="900"
-                   typeahead-on-select="$ctrl.selectPub($item, $model, $value)"
-                    >
-            <i ng-show="loadingPub" class="glyphicon glyphicon-refresh"></i>
-
-            <div ng-show="noPubResults">
-                <i class="glyphicon glyphicon-remove"></i> No Results Found
-            </div>
-        </div>
-    </form>
-    <div class="btn btn-default" ng-click="$ctrl.nextClick()" ng-show="$ctrl.hostpathAnnotation.pub && $ctrl.pageCount==0">Review for Submission</div>
-    <div ng-show="$ctrl.pageCount==1">
-        <p> The protein encoded by <strong>{{ $ctrl.hostpathAnnotation.obj_locus_tag }}</strong> physically interacts with the <strong><i>{{ $ctrl.hostpathAnnotation.host_species.name }}</i></strong> protein <strong>{{ $ctrl.hostpathAnnotation.host_protein.proteinLabel.value }}</strong>.
-            This interaction was determined by <strong>{{ $ctrl.hostpathAnnotation.pub.authors[0].name }} et al. {{ $ctrl.hostpathAnnotation.pub.pubdate }}</strong> using <strong>{{ $ctrl.hostpathAnnotation.determination.itemLabel }}</strong>.
-        </p>
-            <div style="clear:both; width:100%; margin-top: 10px">
-        <div class="btn btn-warning" ng-click="$ctrl.resetForm()">Reset</div>
-        <div style="float:right" class="btn btn-success"
-             ng-click="$ctrl.sendData($ctrl.hostpathAnnotation)">
-            Submit Annotation
-        </div>
-
-
-    </div>
-    </div>
-
+<form ng-model="$ctrl.hostpathAnnotation" ng-show="$ctrl.pageCount==0">
+<div class="form-group">
+<label for="host_species">Host Species</label>
+<select id='host_species' class="form-control" ng-model="$ctrl.hostpathAnnotation.host_species" required="required" ng-options="option.name for option in $ctrl.species" ng-change="$ctrl.getSpeciesGenes()">
+<option style="display:none" value="">Host Species</option>
+</select>
+</div>
+<div class="form-group" ng-show="$ctrl.hostpathAnnotation.host_species">
+<label for="genesInput">Host Protein</label>
+<input id="genesInput" type="text" ng-model="$ctrl.proteinValue" placeholder="host protein" uib-typeahead="protein.proteinLabel.value for protein in $ctrl.speciesGenes | filter:$viewValue | limitTo:200" typeahead-loading="loadingGenes" typeahead-no-results="noResults" class="form-control" typeahead-wait-ms="900" typeahead-on-select="$ctrl.selectProtein($item, $model, $value)">
+<i ng-show="loadingGenes" class="glyphicon glyphicon-refresh"></i>
+<div ng-show="noResults">
+<i class="glyphicon glyphicon-remove"></i> No Results Found
+</div>
+</div>
+<div class="form-group" ng-show="$ctrl.hostpathAnnotation.host_protein">
+<label for="determination_method">Determination Method</label>
+<select id='determination_method' class="form-control" ng-model="$ctrl.hostpathAnnotation.determination" required="required" ng-options="option.itemLabel for option in $ctrl.determination_methods">
+<option style="display:none" value="">Determination Method</option>
+</select>
+</div>
+<div class="form-group" ng-show="$ctrl.hostpathAnnotation.determination">
+<label for="pubInput">Reference Publication</label>
+<input id="pubInput" type="text" ng-model="$ctrl.hostpathAnnotation.pub" placeholder="PMID" uib-typeahead="pmid as pmid.title +  ' PMID:' + pmid.uid for pmid in $ctrl.getPMID($viewValue)" typeahead-loading="loadingPub" typeahead-no-results="noPubResults" class="form-control" typeahead-wait-ms="900" typeahead-on-select="$ctrl.selectPub($item, $model, $value)">
+<i ng-show="loadingPub" class="glyphicon glyphicon-refresh"></i>
+<div ng-show="noPubResults">
+<i class="glyphicon glyphicon-remove"></i> No Results Found
+</div>
+</div>
+</form>
+<div class="btn btn-default" ng-click="$ctrl.nextClick()" ng-show="$ctrl.hostpathAnnotation.pub && $ctrl.pageCount==0">Review for Submission</div>
+<div ng-show="$ctrl.pageCount==1">
+<p> The protein encoded by <strong>{{ $ctrl.hostpathAnnotation.obj_locus_tag }}</strong> physically interacts with the <strong><i>{{ $ctrl.hostpathAnnotation.host_species.name }}</i></strong> protein <strong>{{ $ctrl.hostpathAnnotation.host_protein.proteinLabel.value }}</strong>.
+This interaction was determined by <strong>{{ $ctrl.hostpathAnnotation.pub.authors[0].name }} et al. {{ $ctrl.hostpathAnnotation.pub.pubdate }}</strong> using <strong>{{ $ctrl.hostpathAnnotation.determination.itemLabel }}</strong>.
+</p>
+<div style="clear:both;width:100%;margin-top:10px">
+<div class="btn btn-warning" ng-click="$ctrl.resetForm()">Reset</div>
+<div style="float:right" class="btn btn-success" ng-click="$ctrl.sendData($ctrl.hostpathAnnotation)">
+Submit Annotation
+</div>
+</div>
+</div>
 </div>

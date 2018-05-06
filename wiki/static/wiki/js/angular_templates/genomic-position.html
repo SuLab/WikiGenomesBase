@@ -1,46 +1,42 @@
-
 <table ng-table="$ctrl.tableParams" class="table">
-    <tr>
-        <td title="'Gene Name'">
-            <strong>{{$ctrl.data.geneLabel }}</strong>
-        </td>
-        <td title="'Locus Tag'">
-            {{$ctrl.data.locusTag }}
-        </td>
-        <td title="'Entrez ID'">
-            {{$ctrl.data.entrez }}
-        </td>
-        <td title="'Aliases'">
-            {{$ctrl.data.geneAliases | list2CSV}}
-        </td>
-        <td title="'Chromosome'">
-            {{$ctrl.data.refseqGenome }}
-        </td>
-        <td title="'Start'">
-            {{$ctrl.data.genStart }}
-        </td>
-        <td title="'End'">
-            {{$ctrl.data.genEnd}}
-        </td>
-        <td title="'Strand'">
-            {{ $ctrl.data.strand | convertStrand }}
-        </td>
-        <td style="text-align: center" title="'Reference'">
-            <a target="_blank" href="https://www.ncbi.nlm.nih.gov/gene?term={{ $ctrl.data.entrez }}">
-                <img uib-tooltip="NCBI Database Entry" style="height: 14px; margin-top: -3px"
-                     data-ng-src="/static/wiki/img/NCBI-logo-2.png">
-            </a>
-            <a target="_blank" href="http://www.wikidata.org/wiki/{{ $ctrl.data.geneQID }}">
-                <img uib-tooltip="Wikidata Database Item" style="height: 14px; margin-top: -3px"
-                     data-ng-src="/static/wiki/img/GeneWikidata-logo-en.png">
-            </a>
-        </td>
-        <td title="'Download'">
-            <a uib-tooltip="Download Nucleotide Fasta" class="glyphicon glyphicon-download"
-               href="https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=nuccore&id=
+<tr>
+<td title="'Gene Name'">
+<strong>{{$ctrl.data.geneLabel }}</strong>
+</td>
+<td title="'Locus Tag'">
+{{$ctrl.data.locusTag }}
+</td>
+<td title="'Entrez ID'">
+{{$ctrl.data.entrez }}
+</td>
+<td title="'Aliases'">
+{{$ctrl.data.geneAliases | list2CSV}}
+</td>
+<td title="'Chromosome'">
+{{$ctrl.data.refseqGenome }}
+</td>
+<td title="'Start'">
+{{$ctrl.data.genStart }}
+</td>
+<td title="'End'">
+{{$ctrl.data.genEnd}}
+</td>
+<td title="'Strand'">
+{{ $ctrl.data.strand | convertStrand }}
+</td>
+<td style="text-align:center" title="'Reference'">
+<a target="_blank" href="https://www.ncbi.nlm.nih.gov/gene?term={{ $ctrl.data.entrez }}">
+<img uib-tooltip="NCBI Database Entry" style="height:14px;margin-top:-3px" data-ng-src="/static/wiki/img/NCBI-logo-2.png">
+</a>
+<a target="_blank" href="http://www.wikidata.org/wiki/{{ $ctrl.data.geneQID }}">
+<img uib-tooltip="Wikidata Database Item" style="height:14px;margin-top:-3px" data-ng-src="/static/wiki/img/GeneWikidata-logo-en.png">
+</a>
+</td>
+<td title="'Download'">
+<a uib-tooltip="Download Nucleotide Fasta" class="glyphicon glyphicon-download" href="https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=nuccore&id=
                        {{$ctrl.data.refseqGenome }}&seq_start={{$ctrl.data.genStart }}&seq_stop=
                        {{$ctrl.data.genEnd}}&strand={{ $ctrl.data.strand | strandNum  }}&rettype=fasta&retmode=json">
-            </a>
-        </td>
-    </tr>
+</a>
+</td>
+</tr>
 </table>
