@@ -464,7 +464,7 @@ angular
 angular
     .module('resources')
     .factory('expasyData', function ($http) {
-        var expasy_endpoint = 'http://enzyme.expasy.org/EC/{ecnumber}.txt';
+        var expasy_endpoint = 'https://enzyme.expasy.org/EC/{ecnumber}.txt';
 
         var getReactionData = function (ecNumber) {
             var url = expasy_endpoint.replace('{ecnumber}', ecNumber);
@@ -747,11 +747,11 @@ angular
     .factory('abstractSPARQL', function ($http) {
         var endpoint = 'https://query.wikidata.org/sparql?format=json&query=';
         var getAbstractSPARQL = function (pqid, pred, idprop) {
-            var preq = "PREFIX wd: <http://www.wikidata.org/entity/> " +
-                "PREFIX prov: <http://www.w3.org/ns/prov#> " +
-                "PREFIX pr: <http://www.wikidata.org/prop/reference/> " +
-                "PREFIX p: <http://www.wikidata.org/prop/> " +
-                "PREFIX ps: <http://www.wikidata.org/prop/statement/> " +
+            var preq = "PREFIX wd: <https://www.wikidata.org/entity/> " +
+                "PREFIX prov: <https://www.w3.org/ns/prov#> " +
+                "PREFIX pr: <https://www.wikidata.org/prop/reference/> " +
+                "PREFIX p: <https://www.wikidata.org/prop/> " +
+                "PREFIX ps: <https://www.wikidata.org/prop/statement/> " +
                 "SELECT (wd:prot_qid as ?sub) " +
                 "?obj ?objLabel ?objDescription ?obj_id " +
                 "?stated_in ?stated_inLabel " +
