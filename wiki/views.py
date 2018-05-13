@@ -323,7 +323,7 @@ def wd_oauth(request):
         pprint(body)
         # initiate the handshake by sendin consumer token to wikidata by redirect
         if 'initiate' in body.keys():
-            callbackURI = 'http://chlambase.org{}/authorized/'.format(body['current_path'])
+            callbackURI = 'https://chlambase.org{}/authorized/'.format(body['current_path'])
             authentication = wdi_login.WDLogin(consumer_key=consumer_key,
                                                consumer_secret=consumer_secret,
                                                callback_url=callbackURI)

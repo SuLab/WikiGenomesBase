@@ -48,7 +48,7 @@ angular.module('orthologView')
         var checkId = function(id, ctrl) {
 
             // check by using a GET request
-            $http.get('http://www.ebi.ac.uk/Tools/services/rest/muscle/status/' + id).then(
+            $http.get('https://www.ebi.ac.uk/Tools/services/rest/muscle/status/' + id).then(
                 function(response) {
                     console.log(response.data);
 
