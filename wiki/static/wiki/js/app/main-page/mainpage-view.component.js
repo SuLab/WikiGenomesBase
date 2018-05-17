@@ -168,11 +168,13 @@ angular
                                 var dataResults = data.data.results.bindings;
                                 // gather ec numbers from go terms
                                 angular.forEach(dataResults, function (value, key) {
-                                    if (value.hasOwnProperty('ecnumber')) {
+                                    if (value.hasOwnProperty('ecnumber') && ctrl.annotations.ecnumber.indexOf(value.ecnumber.value) == -1) {
                                         ctrl.annotations.ecnumber.push(value.ecnumber.value);
                                         angular.forEach(ctrl.annotations.ecnumber, function (value) {
+                                            console.log(value);
                                             if (value.indexOf('-') === -1) {
                                                 expasyData.getReactionData(value).then(function (data) {
+                                                    console.log(data);
                                                     ctrl.annotations.reaction[data.ecnumber] = data.reaction;
                                                 });
                                             }
