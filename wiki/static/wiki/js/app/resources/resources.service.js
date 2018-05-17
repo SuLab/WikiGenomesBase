@@ -464,7 +464,7 @@ angular
 angular
     .module('resources')
     .factory('expasyData', function ($http) {
-        var expasy_endpoint = 'https://enzyme.expasy.org/EC/{ecnumber}.txt';
+        var expasy_endpoint = 'https://chlambase.org/expasy/EC/{ecnumber}.txt';
 
         var getReactionData = function (ecNumber) {
             var url = expasy_endpoint.replace('{ecnumber}', ecNumber);
