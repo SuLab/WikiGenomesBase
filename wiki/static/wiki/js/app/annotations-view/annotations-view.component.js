@@ -5,7 +5,8 @@ angular
         bindings: {
             data: '<',
             annotations: '<',
-            org: '<'
+            org: '<',
+            allorggenes: "<"
         },
         controller: function () {
             var ctrl = this;

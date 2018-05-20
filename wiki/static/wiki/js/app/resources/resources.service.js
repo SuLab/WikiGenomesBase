@@ -99,22 +99,6 @@ angular
         }
     });
 
-//server communication
-angular
-    .module('resources')
-    .factory('appData', function ($resource) {
-        console.log('resources appData');
-        var url = '/static/wiki/json/appData.json';
-        return $resource(url, {}, {
-            getAppData: {
-                method: "GET",
-                params: {},
-                isArray: true,
-                cache: true
-            }
-        });
-    });
-
 angular
     .module('resources')
     .factory('sendToView', function ($http) {
@@ -186,7 +170,6 @@ angular
 angular
     .module('resources')
     .factory('speciesGenes', function ($http) {
-        console.log('speciesGenes');
         var endpoint = 'https://query.wikidata.org/sparql?format=json&query=';
         var getSpeciesGenes = function (taxid) {
             var url = endpoint + encodeURIComponent("SELECT ?protein ?proteinLabel ?uniprot " +
@@ -243,7 +226,7 @@ angular
                     "?locusTag ?uniprot ?chromosome ?chromosomeLabel ?genStart ?genEnd ?strand " +
                     "?refSeqChromosome ?refSeqChromosomeLabel "
                 );
-            console.log(url);
+            console.log("Loading all organism genes");
             return $http.get(url)
                 .success(function (response) {
                     return response
@@ -410,7 +393,7 @@ angular
                     "GROUP BY ?protein ?hostGeneLabel ?proteinLabel ?reference_stated_in ?reference_stated_inLabel ?pmid ?hostProtein ?hostProteinLabel ?host ?hostLabel"
                 );
 
-            console.log(url);
+            console.log("Loading host pathogen with uniprot " + uniprot);
             return $http.get(url).then(function (response) {
                 return response.data.results.bindings;
             });

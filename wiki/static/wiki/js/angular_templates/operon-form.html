@@ -51,7 +51,7 @@
                type="text"
                ng-model="$ctrl.geneValue"
                placeholder="genes under operon regulation"
-               uib-typeahead="gene.geneLabel.value for gene in $ctrl.allOrgGenes | filter:$viewValue | limitTo:200"
+               uib-typeahead="gene.geneLabel.value for gene in $ctrl.allorggenes | filter:$viewValue | limitTo:200"
                typeahead-loading="loadingGenes"
                typeahead-no-results="noResults"
                class="form-control"

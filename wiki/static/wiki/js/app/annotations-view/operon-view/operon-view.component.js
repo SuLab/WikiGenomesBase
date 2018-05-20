@@ -4,7 +4,8 @@ angular
         templateUrl: '/static/wiki/js/angular_templates/operon-view.html',
         bindings: {
             data: '<',
-            operon: '<'
+            operon: '<',
+            allorggenes: '<'
         },
         controller: function () {
             var ctrl = this;

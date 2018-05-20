@@ -3,18 +3,12 @@ angular
     .component('geneForm', {
         templateUrl: '/static/wiki/js/angular_templates/gene-form.html',
         bindings: {
-            taxid: '<'
+            taxid: '<',
+            genes: '<'
         },
-        controller: function ($location, allOrgGenes) {
+        controller: function ($location) {
             var ctrl = this;
-            ctrl.$onChanges = function (changesObj) {
-                if (changesObj.taxid) {
-                    allOrgGenes.getAllOrgGenes(ctrl.taxid)
-                        .then(function (data) {
-                            ctrl.currentAllGenes = data.data.results.bindings;
-                        });
-                }
-            };
+            
             ctrl.onSelect = function ($item) {
                 $location.path('/organism/' + ctrl.taxid + "/gene/" + $item.locusTag.value);
             };
