@@ -1,7 +1,7 @@
 angular
     .module('operonForm')
     .component('operonForm', {
-        controller: function ($routeParams, $location, $filter, pubMedData, locusTag2QID, allOrgGenes, allOrgOperons, allChlamOrgs,
+        controller: function ($routeParams, $location, $filter, pubMedData, locusTag2QID, allOrgOperons, allChlamOrgs,
                               sendToView) {
             var ctrl = this;
             ctrl.$onInit = function () {
@@ -30,10 +30,6 @@ angular
                     ctrl.backClick = function () {
                         ctrl.pageCount -= 1;
                     };
-
-                    allOrgGenes.getAllOrgGenes(ctrl.currentTaxid).then(function (data) {
-                        ctrl.allOrgGenes = data.data.results.bindings;
-                    });
 
                     allChlamOrgs.getAllOrgs(function (data) {
                         ctrl.orgList = data;
@@ -153,6 +149,7 @@ angular
         templateUrl: '/static/wiki/js/angular_templates/operon-form.html',
         bindings: {
             data: '<',
-            operon: '<'
+            operon: '<',
+            allorggenes: '<'
         }
     });

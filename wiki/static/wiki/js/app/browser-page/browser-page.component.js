@@ -24,7 +24,6 @@ angular
                         var dataResults = data.data.results.bindings;
                         ctrl.currentAllGenes = $filter('orderObjectBy')(dataResults, 'genStart');
                         ctrl.initialGene = ctrl.currentAllGenes[0];
-                        console.log('hello all org genes');
                         console.log(ctrl.currentAllGenes);
 
                     }).finally(function(){

@@ -36,7 +36,6 @@ angular
                     'success': false,
                     'error': false
                 };
-                console.log(ctrl.mutantAnnotation.locusTag);
                 locusTag2QID.getLocusTag2QID(ctrl.mutantAnnotation.locusTag, ctrl.mutantAnnotation.taxid).then(function (data) {
                     var results = data.data.results.bindings;
                     if (results.length > 0) {

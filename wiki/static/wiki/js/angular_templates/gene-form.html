@@ -3,7 +3,7 @@
        id="geneForm"
        type="text"
        ng-model="gene.name"
-       uib-typeahead="gene.geneLabel.value for gene in $ctrl.currentAllGenes | filter:$viewValue | limitTo:200"
+       uib-typeahead="gene.geneLabel.value for gene in $ctrl.genes | filter:$viewValue | limitTo:200"
        typeahead-on-select="$ctrl.onSelect($item)"
        class="form-control"
        data-ng-click="gene.name=''"

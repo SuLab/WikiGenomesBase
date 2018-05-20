@@ -9,6 +9,7 @@ html, body {
     */
     background: url("../img/chlam_background.jpg")no-repeat top left;
     background-size: 100% 100%;
+    background-attachment: fixed;
     color: whitesmoke;
     border: solid #385d94 3px;
     text-align: center;

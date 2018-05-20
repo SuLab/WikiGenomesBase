@@ -45,7 +45,7 @@
                 <div class="panel-heading">
                     <form class="form-inline" style="padding: 5px;  margin-bottom: 5px">
                         <div class="form-group">
-                            <gene-form taxid="$ctrl.currentTaxid"></gene-form>
+                            <gene-form taxid="$ctrl.currentTaxid" genes="$ctrl.currentAllGenes"></gene-form>
                         </div>
                         <div class="form-group">
                             <keyword-form></keyword-form>
@@ -73,7 +73,7 @@
                     </div>
                     <div style="padding: 20px 30px 5px 30px;">
 
-                        <annotations-view annotations="$ctrl.annotations" data="$ctrl.currentGene"></annotations-view>
+                        <annotations-view annotations="$ctrl.annotations" data="$ctrl.currentGene" allorggenes="$ctrl.currentAllGenes"></annotations-view>
                     </div>
                 </div>
             </div>
