@@ -91,12 +91,12 @@ angular
             })
             .error(function (response) {
                 deferred.reject(response);
-            })
+            });
             return deferred.promise;
         };
         return {
             getOrthologs: getOrthologs
-        }
+        };
     });
 
 angular
@@ -107,15 +107,15 @@ angular
             var url = url_suffix;
             return $http.post(url, data)
                 .success(function (data) {
-                    return data
+                    return data;
                 })
                 .error(function (data, status) {
-                    return status
+                    return status;
                 });
         };
         return {
             sendToView: sendToView
-        }
+        };
 
     });
 
@@ -129,15 +129,15 @@ angular
             //};
             return $http.post(url, data)
                 .success(function (data) {
-                    return data
+                    return data;
                 })
                 .error(function (data, status) {
-                    return status
+                    return status;
                 });
         };
         return {
             uploadFile: uploadFile
-        }
+        };
 
     });
 
@@ -157,13 +157,13 @@ angular
                     taxid: taxid,
                     taxon: results[0].taxon.value,
                     taxonLabel: results[0].taxonLabel.value
-                }
+                };
             });
         };
 
         return {
             getCurrentOrg: getCurrentOrg
-        }
+        };
 
 
     });
@@ -184,15 +184,15 @@ angular
             console.log(url);
             return $http.get(url)
                 .success(function (response) {
-                    return response
+                    return response;
                 })
                 .error(function (response) {
-                    return response
-                })
+                    return response;
+                });
         };
         return {
             getSpeciesGenes: getSpeciesGenes
-        }
+        };
     });
 
 
@@ -229,15 +229,15 @@ angular
             console.log("Loading all organism genes");
             return $http.get(url)
                 .success(function (response) {
-                    return response
+                    return response;
                 })
                 .error(function (response) {
-                    return response
-                })
+                    return response;
+                });
         };
         return {
             getAllOrgGenes: getAllOrgGenes
-        }
+        };
     });
 
 angular
@@ -257,15 +257,15 @@ angular
                 );
             return $http.get(url)
                 .success(function (response) {
-                    return response
+                    return response;
                 })
                 .error(function (response) {
-                    return response
-                })
+                    return response;
+                });
         };
         return {
             getAllOrgOperons: getAllOrgOperons
-        }
+        };
     });
 
 
@@ -290,11 +290,11 @@ angular
                 );
             return $http.get(url)
                 .success(function (response) {
-                    return response.data
+                    return response.data;
 
                 })
                 .error(function (response) {
-                    return response
+                    return response;
                 });
 
             //    .then(function (response) {
@@ -305,7 +305,7 @@ angular
         };
         return {
             getGoTerms: getGoTerms
-        }
+        };
 
 
     });
@@ -335,7 +335,7 @@ angular
         };
         return {
             getInterPro: getInterPro
-        }
+        };
 
 
     });
@@ -363,7 +363,7 @@ angular
         };
         return {
             getRefSeqChrom: getRefSeqChrom
-        }
+        };
 
 
     });
@@ -400,7 +400,7 @@ angular
         };
         return {
             getHostPathogen: getHostPathogen
-        }
+        };
 
 
     });
@@ -432,16 +432,16 @@ angular
                 );
             return $http.get(url)
                 .success(function (response) {
-                    return response.data
+                    return response.data;
 
                 })
                 .error(function (response) {
-                    return response
+                    return response;
                 });
         };
         return {
             getOperonData: getOperonData
-        }
+        };
     });
 
 angular
@@ -478,7 +478,7 @@ angular
         };
         return {
             getReactionData: getReactionData
-        }
+        };
 
 
     });
@@ -494,12 +494,12 @@ angular
                     return response.result[val];
                 })
                 .error(function (response) {
-                    return response
+                    return response;
                 });
         };
         return {
             getPMID: getPMID
-        }
+        };
     });
 
 
@@ -514,12 +514,12 @@ angular
                     return response;
                 })
                 .error(function (response) {
-                    return response
+                    return response;
                 });
         };
         return {
             getlocusTag2Pub: getlocusTag2Pub
-        }
+        };
     });
 
 
@@ -535,12 +535,12 @@ angular
                     return response;
                 })
                 .error(function (response) {
-                    return response
+                    return response;
                 });
         };
         return {
             getEuroPubData: getEuroPubData
-        }
+        };
     });
 
 angular
@@ -552,15 +552,15 @@ angular
             var url = endpoint.replace('{entrez}', entrez);
             return $http.get(url)
                 .success(function (response) {
-                    return response
+                    return response;
                 })
                 .error(function (response) {
-                    return response
+                    return response;
                 });
         };
         return {
             getPubLinks: getPubLinks
-        }
+        };
     });
 
 angular
@@ -570,15 +570,15 @@ angular
             var url = 'https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=pubmed&term=chlamydia trachomatis&reldate=10&datetype=edat&retmax=100&usehistory=y&retmode=json';
             return $http.get(url)
                 .success(function (response) {
-                    return response
+                    return response;
                 })
                 .error(function (response) {
-                    return response
+                    return response;
                 });
         };
         return {
             getRecentChlamPubLinks: getRecentChlamPubLinks
-        }
+        };
     });
 
 angular
@@ -598,12 +598,12 @@ angular
                     return response.data;
                 })
                 .error(function (response) {
-                    return response
+                    return response;
                 });
         };
         return {
             getGoTermsAll: getGoTermsAll
-        }
+        };
 
     });
 
@@ -632,12 +632,12 @@ angular
                     return response.data;
                 })
                 .error(function (response) {
-                    return response
+                    return response;
                 });
         };
         return {
             getAllChlamGenes: getAllChlamGenes
-        }
+        };
     });
 
 angular
@@ -655,17 +655,17 @@ angular
                 },
                 xhrFields: {withCredentials: true},
                 success: function (response) {
-                    return response
+                    return response;
                 },
                 error: function (response) {
-                    return response
+                    return response;
                 }
             });
         };
         return {
             wdGetEntities: wdGetEntities
 
-        }
+        };
     });
 
 
@@ -683,13 +683,13 @@ angular
                     return response;
                 })
                 .error(function (response) {
-                    return response
+                    return response;
                 });
 
         };
         return {
             getEntrez2QID: getEntrez2QID
-        }
+        };
 
 
     });
@@ -713,13 +713,13 @@ angular
                 })
                 .error(function (response) {
 
-                    return response
+                    return response;
                 });
 
         };
         return {
             getLocusTag2QID: getLocusTag2QID
-        }
+        };
 
 
     });
@@ -767,12 +767,12 @@ angular
                 })
                 .error(function (response) {
 
-                    return response
+                    return response;
                 });
         };
         return {
             getAbstractSPARQL: getAbstractSPARQL
-        }
+        };
 
 
     });

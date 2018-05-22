@@ -123,7 +123,7 @@ angular
 
                 ctrl.selectPub = function ($item, $model, $label) {
                     ctrl.mutantAnnotation.pub = $item;
-                    ctrl.pubValue = ''
+                    ctrl.pubValue = '';
                 };
 
                 ctrl.resetForm = function () {

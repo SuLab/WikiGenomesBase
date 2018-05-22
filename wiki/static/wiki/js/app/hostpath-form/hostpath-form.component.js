@@ -5,6 +5,7 @@ angular
             data: '<'
         },
         controller: function ($location, $routeParams, speciesGenes, pubMedData, sendToView) {
+            'use strict';
             var ctrl = this;
 
             ctrl.pageCount = 0;
@@ -75,7 +76,7 @@ angular
                 sendToView.sendToView(url_suf, formData).then(function (data) {
                     if (data.data.authentication === false){
                         console.log(data);
-                        alert('please authorize ChlamBase to edit Wikidata on your behalf!')
+                        alert('please authorize ChlamBase to edit Wikidata on your behalf!');
                     }
                     if (data.data.success === true) {
                         console.log(data);

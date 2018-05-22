@@ -7,6 +7,8 @@ angular
             taxid: '<'
         },
         controller: function () {
+            
+            'use strict';
 
             var ctrl = this;
 
@@ -30,7 +32,7 @@ angular
                             "wdt:P637 ?refseqProt." +
                             "OPTIONAL{ ?gene p:P644 ?chr. ?chr pq:P2249 ?refSeqChromosome.} " +
                             "SERVICE wikibase:label { bd:serviceParam wikibase:language 'en' . } }";
-                    }
+                    };
 
                 }
 

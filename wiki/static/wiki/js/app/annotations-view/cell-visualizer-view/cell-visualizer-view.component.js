@@ -1,8 +1,7 @@
-"use strict";
-
 angular.module("cellVisualizer")
 
     .controller("cellVisualizerCtrl", function(geneOntologyService, $timeout) {
+        'use strict';
 
         var ctrl = this;
 
@@ -45,14 +44,14 @@ angular.module("cellVisualizer")
                 fill(goTerm);
             }
 
-        }
+        };
 
         function fill(goTerm) {
             var svg = document.getElementById("cell-svg");
 
             var svgDoc = svg.contentDocument;
             
-            var paths = []
+            var paths = [];
             
             if (geneOntologyService.isInclusion(goTerm)) {
                 paths = svgDoc.getElementsByClassName("inclusion");
@@ -66,7 +65,7 @@ angular.module("cellVisualizer")
                 paths[0].style.fill = "#4784FF";
                 
                 // subtract inside only if cytoplasm is not also filled
-                if (!svgDoc.getElementsByClassName("cytoplasm")[0].style.fill == "#4784FF") {
+                if (svgDoc.getElementsByClassName("cytoplasm")[0].style.fill != "#4784FF") {
                     svgDoc.getElementsByClassName("cytoplasm")[0].style.fill = "#FFFFFF";
                 }
 
@@ -144,16 +143,16 @@ angular.module("cellVisualizer")
 
         var isPlasmaMembrane = function(goTerm) {
             return go_map[goTerm] == 'plasma_membrane';
-        }
+        };
         
 
         var isInclusion = function(goTerm) {
             return go_map[goTerm] == 'inclusion_membrane' || go_map[goTerm] == 'inclusion_lumen';
-        }
+        };
         
         var isInclusionMembrane = function(goTerm) {
             return go_map[goTerm] == 'inclusion_membrane';
-        }
+        };
 
         return {
             getParent : getParent,
@@ -162,7 +161,7 @@ angular.module("cellVisualizer")
             isPlasmaMembrane : isPlasmaMembrane,
             isInclusion : isInclusion,
             isInclusionMembrane: isInclusionMembrane
-        }
+        };
     })
     .component("cellVisualizer", {
         controller : "cellVisualizerCtrl",

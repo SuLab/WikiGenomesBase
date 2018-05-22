@@ -11,6 +11,8 @@ angular.module('orthologView')
         })
 
     .factory('alignOrthologData', function($http, $timeout) {
+        
+        'use strict';
 
         // data in form of array of sequences
         var align = function(data, ctrl) {
@@ -89,11 +91,13 @@ angular.module('orthologView')
 
         return {
             align : align
-        }
+        };
 
     })
 
     .factory('geneSequenceData', function($http, $q) {
+        
+        'use strict';
 
         var getSequence = function(value) {
 
@@ -133,8 +137,7 @@ angular.module('orthologView')
                         }
 
                         // now do the efetch
-                        $http.get("https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=nuccore&id="
-                            + accession + "&seq_start=" + start + "&seq_stop=" + stop + "&strand=" + strand + "&rettype=fasta").success(function(r) {
+                        $http.get("https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=nuccore&id=" + accession + "&seq_start=" + start + "&seq_stop=" + stop + "&strand=" + strand + "&rettype=fasta").success(function(r) {
 
                             // get the human readable name
                             var first = "";
@@ -166,10 +169,12 @@ angular.module('orthologView')
 
         return {
             getSequence : getSequence
-        }
+        };
     })
 
     .controller('orthologCtrl', function(orthoData, geneSequenceData, alignOrthologData) {
+        
+        'use strict';
 
         var ctrl = this;
         
@@ -178,7 +183,7 @@ angular.module('orthologView')
         ctrl.data = {};
 
         // list of selected orthologs to align
-        ctrl.projection = {}
+        ctrl.projection = {};
 
         // Get ortholog data from wikidata
         orthoData.getOrthologs(ctrl.locusTag).then(function(response) {

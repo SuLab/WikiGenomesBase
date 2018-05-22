@@ -5,6 +5,7 @@ angular
             data: '<'
         },
         controller: function ($timeout, uploadFile, Upload) {
+            'use strict';
             var ctrl = this;
             ctrl.uploadFiles = function (file, errFiles) {
                 ctrl.f = file;

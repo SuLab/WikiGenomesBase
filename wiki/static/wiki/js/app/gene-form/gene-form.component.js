@@ -7,6 +7,7 @@ angular
             genes: '<'
         },
         controller: function ($location) {
+            'use strict';
             var ctrl = this;
             
             ctrl.onSelect = function ($item) {

@@ -26,6 +26,7 @@ angular
             // those to make API calls to wikidata.
             var ctrl = this;
             ctrl.$onInit = function() {
+                'use strict';
                 ctrl.currentTaxid = $routeParams.taxid;
                 ctrl.currentLocusTag = $routeParams.locusTag;
                 ctrl.currentGene = {
@@ -126,7 +127,7 @@ angular
                             ctrl.currentExpression = {};
                             angular.forEach(current[0], function(value, key) {
                                 if (key != '_id' && key != '$oid' && key != 'timestamp') {
-                                    ctrl.currentExpression[key] = value
+                                    ctrl.currentExpression[key] = value;
                                 }
                             });
                             ctrl.annotations.expression = ctrl.currentExpression;

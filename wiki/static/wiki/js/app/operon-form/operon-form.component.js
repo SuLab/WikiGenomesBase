@@ -3,6 +3,7 @@ angular
     .component('operonForm', {
         controller: function ($routeParams, $location, $filter, pubMedData, locusTag2QID, allOrgOperons, allChlamOrgs,
                               sendToView) {
+            'use strict';
             var ctrl = this;
             ctrl.$onInit = function () {
                 ctrl.currentTaxid = $routeParams.taxid;
@@ -50,7 +51,7 @@ angular
 
                     ctrl.selectPub = function ($item, $model, $label) {
                         ctrl.opFormModel.pub.push($item);
-                        ctrl.pubValue = ''
+                        ctrl.pubValue = '';
                     };
 
                     ctrl.removePub = function (delpub) {
@@ -64,7 +65,7 @@ angular
                                 else {
                                 }
                             });
-                            return goodPubs
+                            return goodPubs;
                         };
                         ctrl.opFormModel.pub = removeValue('uid', delpub.uid,
                             ctrl.opFormModel.pub);
@@ -88,7 +89,7 @@ angular
                                 locusTag: $item.locusTag.value
                             }
                         );
-                        ctrl.geneValue = ''
+                        ctrl.geneValue = '';
                     };
 
                     ctrl.removeGene = function (gene) {
@@ -101,7 +102,7 @@ angular
                                 else {
                                 }
                             });
-                            return goodGenes
+                            return goodGenes;
                         };
                         ctrl.opFormModel.genes = removeValue('locusTag', gene.locusTag,
                             ctrl.opFormModel.genes);
@@ -110,7 +111,7 @@ angular
                     //form validation, must be true to allow submission
                     ctrl.validateFields = function () {
                         if (ctrl.opFormModel.operon && ctrl.opFormModel.pub && ctrl.opFormModel.genes.length > 0) {
-                            return true
+                            return true;
                         }
                     };
 

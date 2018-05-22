@@ -1,5 +1,3 @@
-'use strict';
-
 angular.module('cmod', [
     //external
     'ui.bootstrap',

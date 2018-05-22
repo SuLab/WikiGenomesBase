@@ -23,7 +23,6 @@ def index(request):
     # launch landing page
     context = {'data': 'None'}
     return render(request, "wiki/index.html", context=context)
-    return render(request, "wiki/index.html", context=context)
 
 def email(request):
   subject = request.GET['subject']

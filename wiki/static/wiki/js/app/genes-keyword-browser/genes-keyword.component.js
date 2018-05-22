@@ -2,6 +2,7 @@ angular
     .module('genesKeyword')
     .component('genesKeyword', {
         controller: function ($location, $filter, allChlamOrgs, allChlamydiaGenes) {
+            'use strict';
             var ctrl = this;
 
             ctrl.$onInit = function () {
