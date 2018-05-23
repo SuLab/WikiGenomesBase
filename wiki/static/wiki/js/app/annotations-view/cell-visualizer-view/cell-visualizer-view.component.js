@@ -111,7 +111,7 @@ angular.module("cellVisualizer")
 
             var url = 'https://www.ebi.ac.uk';
             var endpoint = '/ols/api/ontologies/go/terms/';
-            var iri = encodeURIComponent(encodeURIComponent('http://purl.obolibrary.org/obo/' + term));
+            var iri = encodeURIComponent(encodeURIComponent('https://purl.obolibrary.org/obo/' + term));
 
             $http.get(url + endpoint + iri + '/hierarchicalAncestors').success(function(data) {
 

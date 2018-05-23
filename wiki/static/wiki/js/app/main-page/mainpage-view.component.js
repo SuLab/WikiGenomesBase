@@ -174,15 +174,15 @@ angular
                                     if (value.hasOwnProperty('ecnumber') && ctrl.annotations.ecnumber.indexOf(value.ecnumber.value) == -1) {
                                         ctrl.annotations.ecnumber.push(value.ecnumber.value);
                                     }
-                                    if (value.goclass.value === 'http://www.wikidata.org/entity/Q5058355') {
+                                    if (value.goclass.value === 'https://www.wikidata.org/entity/Q5058355') {
                                         ctrl.annotations.go.cellcomp.push(value);
 
                                     }
-                                    if (value.goclass.value === 'http://www.wikidata.org/entity/Q14860489') {
+                                    if (value.goclass.value === 'https://www.wikidata.org/entity/Q14860489') {
                                         ctrl.annotations.go.molfunc.push(value);
 
                                     }
-                                    if (value.goclass.value === 'http://www.wikidata.org/entity/Q2996394') {
+                                    if (value.goclass.value === 'https://www.wikidata.org/entity/Q2996394') {
                                         ctrl.annotations.go.bioproc.push(value);
                                     }
 

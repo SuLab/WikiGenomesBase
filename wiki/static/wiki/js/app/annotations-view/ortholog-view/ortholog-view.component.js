@@ -75,7 +75,7 @@ angular.module('orthologView')
                         var m = new msa.msa(settings);
 
                         // data has been aligned, now display it
-                        m.u.file.importURL("http://www.ebi.ac.uk/Tools/services/rest/muscle/result/" + id + "/aln-fasta",
+                        m.u.file.importURL("https://www.ebi.ac.uk/Tools/services/rest/muscle/result/" + id + "/aln-fasta",
                             function() {
                                 m.render();
                             });

@@ -37,11 +37,11 @@ angular
             ];
 
             ctrl.determination_methods = [{
-                "item": "http://www.wikidata.org/entity/Q32860428",
+                "item": "https://www.wikidata.org/entity/Q32860428",
                 "itemLabel": "immunoprecipitation evidence",
                 "eco": "ECO:0000085"
             }, {
-                "item": "http://www.wikidata.org/entity/Q32860432",
+                "item": "https://www.wikidata.org/entity/Q32860432",
                 "itemLabel": "co-localization evidence",
                 "eco": "ECO:0001026"
             }];
