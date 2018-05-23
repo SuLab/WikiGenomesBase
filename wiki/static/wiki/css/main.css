@@ -1,139 +1,22 @@
-/**{border: dashed crimson 1px;}*/
-html, body {
-    /*min-height: 600px;*/
-    /*min-width: 1150px;*/
-    /*max-width: 2000px;*/
-    /*max-height: 1200px;*/
-    /*height: 100%;*/
-    padding: 2px;
-    margin: auto auto;
-    font-family: Tahoma, Geneva, sans-serif;
-    overflow: auto;
-
-}
-
-.mainPage {
-    /*height: 100%;*/
-
-}
-
-.wd-logo {
-    max-height: 40px;
-    float: right;
-    clear: right;
-}
-
-.box {
-    height: 100%;
-}
-
-.wg-header {
-    height: 100%;
-    border: solid #385d94 2px;
-    border-radius: 15px 15px 3px 3px;
-    padding: 10px 25px 10px 25px;
-    background-color: #385d94;
-    color: whitesmoke;
-}
-
-.bottomRow {
-    height: 100%;
-}
-
-
-
-.formBorder {
-    border-bottom: solid #99c2ff 3px;
-    border-radius: 3px;
-    padding: 10px;
-}
-
-div[class^="col-md-"] {
-    height: 100%;
-    padding: 1px;
-}
-
-.typeahead-demo .custom-popup-wrapper {
-    position: absolute;
-    top: 100%;
-    left: 0;
-    z-index: 1000;
-    display: none;
-    background-color: #f9f9f9;
-}
-
-.typeahead-demo .custom-popup-wrapper > .message {
-    padding: 10px 20px;
-    border-bottom: 1px solid #ddd;
-    color: #868686;
-}
-
-.typeahead-demo .custom-popup-wrapper > .dropdown-menu {
-    position: static;
-    float: none;
-    display: block;
-    min-width: 160px;
-    background-color: transparent;
-    border: none;
-    border-radius: 0;
-    box-shadow: none;
-
-}
-
-.dropdown-menu {
-    max-height: 100px;
-    width: 600px;
-    overflow: auto;
-}
-
-#hpylori {
-    max-width: 60%;
-    height: auto;
-    text-align: center;
-}
-
-.ng-table-header {
-    text-align: left;
-    color: #385d94;
-}
-
-td {
-    color: #385d94;
-}
-
-.my-custom-table-class tbody tr:hover {
-    background-color: #dddddd;
-}
-
-.node1 {
-    border-radius: 10px;
-}
-
-a:hover {
-    cursor: pointer;
-}
-
-.fadedColor {
-    color: lightgrey;
-}
-
-.strongColor {
-    color: #385d94;
-}
-
-.loading-img {
-    /*background: url(http://preloaders.net/preloaders/360/Velocity.gif) center center no-repeat;*/
-    background: url("../../../../static/wiki/img/gears.gif") center center no-repeat;
-    height: 100%;
-    z-index: 20;
-}
-
-.overlay {
-    background: #e9e9e9;
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    opacity: 0.5;
-}
+html, body{padding:2px;margin:auto auto;font-family:Tahoma, Geneva, sans-serif;overflow:auto;}
+.mainPage{}
+.wd-logo{max-height:40px;float:right;clear:right;}
+.box{height:100%;}
+.wg-header{height:100%;border:solid #385d94 2px;border-radius:15px 15px 3px 3px;padding:10px 25px 10px 25px;background-color:#385d94;color:whitesmoke;}
+.bottomRow{height:100%;}
+.formBorder{border-bottom:solid #99c2ff 3px;border-radius:3px;padding:10px;}
+div[class^="col-md-"]{height:100%;padding:1px;}
+.typeahead-demo .custom-popup-wrapper{position:absolute;top:100%;left:0;z-index:1000;display:none;background-color:#f9f9f9;}
+.typeahead-demo .custom-popup-wrapper > .message{padding:10px 20px;border-bottom:1px solid #ddd;color:#868686;}
+.typeahead-demo .custom-popup-wrapper > .dropdown-menu{position:static;float:none;display:block;min-width:160px;background-color:transparent;border:none;border-radius:0;box-shadow:none;}
+.dropdown-menu{max-height:100px;width:600px;overflow:auto;}
+#hpylori{max-width:60%;height:auto;text-align:center;}
+.ng-table-header{text-align:left;color:#385d94;}
+td{color:#385d94;}
+.my-custom-table-class tbody tr:hover{background-color:#dddddd;}
+.node1{border-radius:10px;}
+a:hover{cursor:pointer;}
+.fadedColor{color:lightgrey;}
+.strongColor{color:#385d94;}
+.loading-img{background:url("../../../../static/wiki/img/gears.gif") center center no-repeat;height:100%;z-index:20;}
+.overlay{background:#e9e9e9;position:absolute;top:0;right:0;bottom:0;left:0;opacity:0.5;}
