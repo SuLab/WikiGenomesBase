@@ -10,6 +10,7 @@ angular
             config: '<'
         },
         controller: function () {
+            'use strict';
             var ctrl = this;
             ctrl.$onInit = function () {
                 ctrl.title = ctrl.config.title + " ({title})".replace('{title}', ctrl.data.length);

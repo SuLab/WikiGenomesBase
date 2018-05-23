@@ -9,6 +9,9 @@ angular
             allorggenes: "<"
         },
         controller: function () {
+            
+            'use strict';
+            
             var ctrl = this;
             
             // settings for visibility of each annotation view

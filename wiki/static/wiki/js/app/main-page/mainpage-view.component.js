@@ -26,6 +26,7 @@ angular
             // those to make API calls to wikidata.
             var ctrl = this;
             ctrl.$onInit = function() {
+                'use strict';
                 ctrl.currentTaxid = $routeParams.taxid;
                 ctrl.currentLocusTag = $routeParams.locusTag;
                 ctrl.currentGene = {
@@ -126,7 +127,7 @@ angular
                             ctrl.currentExpression = {};
                             angular.forEach(current[0], function(value, key) {
                                 if (key != '_id' && key != '$oid' && key != 'timestamp') {
-                                    ctrl.currentExpression[key] = value
+                                    ctrl.currentExpression[key] = value;
                                 }
                             });
                             ctrl.annotations.expression = ctrl.currentExpression;
@@ -173,15 +174,15 @@ angular
                                     if (value.hasOwnProperty('ecnumber') && ctrl.annotations.ecnumber.indexOf(value.ecnumber.value) == -1) {
                                         ctrl.annotations.ecnumber.push(value.ecnumber.value);
                                     }
-                                    if (value.goclass.value === 'http://www.wikidata.org/entity/Q5058355') {
+                                    if (value.goclass.value === 'https://www.wikidata.org/entity/Q5058355') {
                                         ctrl.annotations.go.cellcomp.push(value);
 
                                     }
-                                    if (value.goclass.value === 'http://www.wikidata.org/entity/Q14860489') {
+                                    if (value.goclass.value === 'https://www.wikidata.org/entity/Q14860489') {
                                         ctrl.annotations.go.molfunc.push(value);
 
                                     }
-                                    if (value.goclass.value === 'http://www.wikidata.org/entity/Q2996394') {
+                                    if (value.goclass.value === 'https://www.wikidata.org/entity/Q2996394') {
                                         ctrl.annotations.go.bioproc.push(value);
                                     }
 

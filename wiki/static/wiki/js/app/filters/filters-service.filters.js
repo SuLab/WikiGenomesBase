@@ -7,7 +7,7 @@ angular
                 return inList.slice(-1)[0];
             }
             else {
-                return "None"
+                return "None";
             }
         };
     });
@@ -23,10 +23,10 @@ angular
         };
         return function (input) {
             if (input) {
-                return chlamMap[input]
+                return chlamMap[input];
             }
             else {
-                return "None"
+                return "None";
             }
         };
     });
@@ -67,14 +67,14 @@ angular
                 //var inList = input.split('/');
                 //var qid = inList.slice(-1)[0];
                 if (input === 'Q22809711') {
-                    return 'reverse'
+                    return 'reverse';
                 }
                 else {
-                    return 'forward'
+                    return 'forward';
                 }
             }
             else {
-                return 'None'
+                return 'None';
             }
         };
     });
@@ -85,14 +85,14 @@ angular
         return function (input) {
             if (input) {
                 if (input === 'Q22809711') {
-                    return '2'
+                    return '2';
                 }
                 else {
-                    return '1'
+                    return '1';
                 }
             }
             else {
-                return 'None'
+                return 'None';
             }
         };
     });
@@ -111,7 +111,7 @@ angular
                     }
                 });
             });
-            return newList
+            return newList;
         };
     });
 
@@ -129,7 +129,7 @@ angular
         };
 
         return function (input) {
-            return goclasses[input]
+            return goclasses[input];
         };
 
     });
@@ -140,7 +140,7 @@ angular
         return function (input, start) {
             start = +start; //parse to int
             return input.slice(start);
-        }
+        };
     });
 
 angular
@@ -151,10 +151,10 @@ angular
               return input.join(", ");
             }
             else{
-                return 'None'
+                return 'None';
             }
 
-        }
+        };
     });
 
 angular
@@ -167,11 +167,11 @@ angular
                     curGene = value;
                 }
                 else {
-                    return 'none'
+                    return 'none';
                 }
             });
-            return curGene
-        }
+            return curGene;
+        };
     });
 
 angular
@@ -184,11 +184,11 @@ angular
                     curGene.push(value);
                 }
                 else {
-                    return 'none'
+                    return 'none';
                 }
             });
-            return curGene
-        }
+            return curGene;
+        };
     });
 
 angular
@@ -203,8 +203,8 @@ angular
                     goodGenes.push(value);
                 }
             });
-            return goodGenes
-        }
+            return goodGenes;
+        };
     });
 
 angular
@@ -219,8 +219,8 @@ angular
                     }
                 });
             });
-            return hits
-        }
+            return hits;
+        };
     });
 
 
@@ -234,11 +234,11 @@ angular
                     curGene = value;
                 }
                 else {
-                    return 'none'
+                    return 'none';
                 }
             });
-            return curGene
-        }
+            return curGene;
+        };
     });
 
 angular
@@ -258,7 +258,7 @@ angular
                 return a - b;
             });
             return array;
-        }
+        };
     });
 
 
@@ -276,7 +276,7 @@ angular
                 }
             });
             return data;
-        }
+        };
     }]);
 
 
@@ -315,6 +315,6 @@ angular
             'Q8054': 'protein'
         };
         return function (input) {
-            return types[input]
+            return types[input];
         };
     });

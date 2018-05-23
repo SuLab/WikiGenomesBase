@@ -5,6 +5,7 @@ angular
             data: '<'
         },
         controller: function ($filter, $location) {
+            'use strict';
             var ctrl = this;
             ctrl.$onInit = function(){
                 ctrl.submitKeyword = function ($item) {

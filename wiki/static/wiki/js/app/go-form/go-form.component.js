@@ -52,12 +52,12 @@ angular
 
                     ctrl.selectGoTerm = function ($item, $model, $label) {
                         ctrl.goFormModel.go = $item;
-                        ctrl.goValue = ''
+                        ctrl.goValue = '';
                     };
 
                     ctrl.selectPub = function ($item, $model, $label) {
                         ctrl.goFormModel.pub = $item;
-                        ctrl.pubValue = ''
+                        ctrl.pubValue = '';
                     };
 
 
@@ -89,7 +89,7 @@ angular
                     //form validation, must be true to allow submission
                     ctrl.validateFields = function () {
                         if (ctrl.goFormModel.evi && ctrl.goFormModel.pub && ctrl.goFormModel.go) {
-                            return true
+                            return true;
                         }
                     };
 
@@ -105,7 +105,7 @@ angular
                                 ctrl.resetForm();
                             }
                             else{
-                                alert("Something went wrong.  Give it another shot!")
+                                alert("Something went wrong.  Give it another shot!");
                             }
                         }).finally(function(){
                             ctrl.loading = false;

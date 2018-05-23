@@ -3,6 +3,7 @@ angular
     .component('oauthView', {
         bindings: {},
         controller: function ($window, $routeParams, $location, sendToView) {
+            'use strict';
             var ctrl = this;
             if ($routeParams.oauth_verifier) {
                 sendToView.sendToView(

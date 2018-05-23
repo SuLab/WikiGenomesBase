@@ -2,6 +2,7 @@ angular
     .module('landingPage')
     .component('landingPage', {
         controller : function(allChlamOrgs, recentChlamPubLinks, euroPubData) {
+            'use strict';
             var ctrl = this;
             ctrl.myInterval = 5000;
             ctrl.noWrapSlides = false;
@@ -21,7 +22,7 @@ angular
 
 
                     }
-                    )
+                    );
 
                 });
             });

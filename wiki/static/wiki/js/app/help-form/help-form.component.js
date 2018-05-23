@@ -1,6 +1,6 @@
-'use strict';
 angular.module('helpForm')
     .controller('helpFormCtrl', function($http) {
+        'use strict';
         
         this.name = "";
         this.email = "";

@@ -1,5 +1,3 @@
-'use strict';
-
 angular.module('cmod')
     .config(
     function ($locationProvider,
@@ -7,6 +5,8 @@ angular.module('cmod')
               $httpProvider,
               $interpolateProvider,
               $compileProvider) {
+        
+        'use strict';
 
         $locationProvider.html5Mode({
             enabled: true

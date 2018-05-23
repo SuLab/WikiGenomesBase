@@ -2,6 +2,7 @@ angular
     .module('organismTree')
     .component('organismTree', {
         controller: function () {
+            'use strict';
             var ctrl = this;
             ctrl.$onInit = function () {
                 google.charts.load('current', {packages: ["orgchart"]});

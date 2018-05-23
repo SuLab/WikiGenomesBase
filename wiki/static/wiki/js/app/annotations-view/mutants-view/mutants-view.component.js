@@ -5,6 +5,7 @@ angular
             data: '<'
         },
         controller: function ($location, sendToView) {
+            'use strict';
             var ctrl = this;
             ctrl.$onInit = function (){
             };
