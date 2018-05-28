@@ -10,7 +10,9 @@ angular
                 locusTag2QID.getLocusTag2QID(ctrl.currentLocusTag, ctrl.currentTaxid).then(function (data) {
 
                     ctrl.geneQID = $filter('parseQID')(data.data.results.bindings[0].gene.value);
-                    ctrl.proteinQID = $filter('parseQID')(data.data.results.bindings[0].protein.value);
+                    if (data.data.results.bindings[0].protein) {
+                        ctrl.proteinQID = $filter('parseQID')(data.data.results.bindings[0].protein.value);
+                    } 
 
                     var goClassMap = {
                         'mf_button': {
