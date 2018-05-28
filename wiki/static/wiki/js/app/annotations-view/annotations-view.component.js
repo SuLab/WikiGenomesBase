@@ -1,56 +1,61 @@
 angular
     .module('annotationsView')
     .component('annotationsView', {
-        templateUrl: '/static/wiki/js/angular_templates/annotations-view.html',
-        bindings: {
-            data: '<',
-            annotations: '<',
-            org: '<',
-            allorggenes: "<"
+        templateUrl : '/static/wiki/js/angular_templates/annotations-view.html',
+        bindings : {
+            data : '<',
+            annotations : '<',
+            org : '<',
+            allorggenes : "<",
+            hasprotein : "<"
         },
-        controller: function () {
-            
+        controller : function() {
+
             'use strict';
-            
+
             var ctrl = this;
-            
-            // settings for visibility of each annotation view
-            ctrl.settings = {
-                    go: true,
-                    operon: true,
-                    interpro: true,
-                    enzyme: true,
-                    mutants: true,
-                    pubs: true,
-                    product: true,
-                    ortholog: true,
-                    expression: true,
-                    hostpath: true
-            };
-            
-            ctrl.$onInit = function () {
+
+            ctrl.$onChanges = function(changes) {
+                if (changes.hasprotein) {
+                    // settings for visibility of each annotation view
+                    ctrl.settings = {
+                        go : changes.hasprotein.currentValue,
+                        operon : true,
+                        interpro : changes.hasprotein.currentValue,
+                        enzyme : changes.hasprotein.currentValue,
+                        mutants : true,
+                        pubs : true,
+                        product : changes.hasprotein.currentValue,
+                        ortholog : true,
+                        expression : true,
+                        hostpath : true
+                    };
+                }
+            }
+
+            ctrl.$onInit = function() {
 
                 //buttons for expanding and collapsing accordion
-                ctrl.expandAll = function () {
+                ctrl.expandAll = function() {
                     ctrl.toggleOpen(true);
                 };
-                ctrl.collapseAll = function () {
+                ctrl.collapseAll = function() {
                     ctrl.toggleOpen(false);
                 };
                 ctrl.accordion = {
-                    go: true,
-                    operon: true,
-                    interpro: true,
-                    enzyme: true,
-                    mutants: true,
-                    pubs: true,
-                    product: true,
-                    ortholog: true,
-                    expression: true,
-                    hostpath: true
+                    go : true,
+                    operon : true,
+                    interpro : true,
+                    enzyme : true,
+                    mutants : true,
+                    pubs : true,
+                    product : true,
+                    ortholog : true,
+                    expression : true,
+                    hostpath : true
                 };
 
-                ctrl.toggleOpen = function (openAll) {
+                ctrl.toggleOpen = function(openAll) {
                     ctrl.accordion.go = openAll;
                     ctrl.accordion.operon = openAll;
                     ctrl.accordion.interpro = openAll;
@@ -64,13 +69,11 @@ angular
                 };
 
                 ctrl.status = {
-                    isCustomHeaderOpen: false,
-                    isFirstOpen: true,
-                    isFirstDisabled: false
+                    isCustomHeaderOpen : false,
+                    isFirstOpen : true,
+                    isFirstDisabled : false
                 };
             };
 
         }
     });
-
-

@@ -702,10 +702,10 @@ angular
             var query = "SELECT distinct ?gene ?protein WHERE{" +
                 "?strain wdt:P685 '{taxid}'. " +
                 "?gene wdt:P2393 '{locusTag}'; " +
-                "wdt:P703 ?strain; " +
-                "wdt:P688 ?protein.}";
-            var url1 = query.replace('{taxid}', taxid);
-            var url = endpoint + encodeURIComponent(url1.replace('{locusTag}', locusTag));
+                "wdt:P703 ?strain. " +
+                "OPTIONAL {?gene wdt:P688 ?protein.}}";
+            var url1 = query.replace('{taxid}', taxid).replace('{locusTag}', locusTag);
+            var url = endpoint + encodeURIComponent(url1);
             return $http.get(url)
                 .success(function (response) {
                     return response;
