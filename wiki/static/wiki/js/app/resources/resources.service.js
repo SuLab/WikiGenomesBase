@@ -460,11 +460,11 @@ angular
                     angular.forEach(responseData, function (value, key) {
 
                         if (value.match("^ID")) {
-                            reactionData['ecnumber'] = value.slice(5);
+                            reactionData.ecnumber = value.slice(5);
                         }
                         if (value.match("^CA ")) {
                             var trimmedReaction = value.replace(/^(CA)/, "");
-                            reactionData['reaction'].push(trimmedReaction);
+                            reactionData.reaction.push(trimmedReaction);
                         }
 
                     });

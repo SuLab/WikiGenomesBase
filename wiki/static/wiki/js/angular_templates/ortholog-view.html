@@ -33,31 +33,8 @@
                 </a>
             </div>
         </td>
-		<td ng-if="$ctrl.tSettings['align']" title="'Align'">
-			<input type="checkbox" ng-model="checked" ng-init="checked=true"
-				ng-click="$ctrl.select(checked, value)">
-		</td>
     </tr>
 
 
 </table>
-<div ng-show="$ctrl.hasOrthologs">
-
-	<!-- Display the specified orthologs -->
-	<button type="button" ng-click="$ctrl.updatePanel()" ng-hide="$ctrl.aligning">Display Sequences</button>
-	
-	<div ng-show="$ctrl.aligning">
-		{{$ctrl.alignMessage}} 
-		<img src="static/wiki/img/spin.gif">
-	</div>
-
-	<!-- the MSA Viewer Widget -->
-	<div id="msaDiv" ng-hide="$ctrl.aligning"></div>
-	
-	<!-- citation for using msa viewer -->
-	<div ng-show="$ctrl.citation && !$ctrl.aligning"><p style="font-size: 8px">Yachdav, Guy, Sebastian Wilzbach, Benedikt Rauscher, Robert Sheridan, Ian Sillitoe, 
-	James Procter, Suzanna E. Lewis, Burkhard Rost, and Tatyana Goldberg. "MSAViewer: interactive JavaScript 
-	visualization of multiple sequence alignments." Bioinformatics (2016): btw474. </p></div>
-		
-</div>
 <div ng-hide="$ctrl.hasOrthologs">No known orthologs</div>

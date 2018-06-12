@@ -194,7 +194,7 @@ angular
                         console.log(data);
 
                         if (data[0]) {
-                            ctrl.currentGene.refseqGenome = data[0]['refSeqChromosome'].value;
+                            ctrl.currentGene.refseqGenome = data[0].refSeqChromosome.value;
                         }
 
                     });
