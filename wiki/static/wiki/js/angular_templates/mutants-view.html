@@ -1,6 +1,7 @@
+<div ng-if="$ctrl.data.mutants.length!=0">Search:<input type="text" placeholder="synonymous..." ng-model="keyword"></div>
 <table ng-table="$ctrl.tableParams" class="table table-hover">
     <caption style="color:#385d94">Chemical Mutagenesis</caption>
-    <tr ng-show="$ctrl.data.length!=0" ng-repeat="x in $ctrl.data.mutants" ng-if="x.mutant_type.key==1">
+    <tr ng-show="$ctrl.data.length!=0" ng-repeat="x in $ctrl.data.mutants | filter: keyword" ng-if="x.mutant_type.key==1">
         <td title="'Mutant Strain'">
             {{ x.name }}
         </td>
@@ -29,12 +30,6 @@
             </a>
         </td>
 
-
-        <td title="'Delete Annotation'">
-            <a class="glyphicon glyphicon-remove"
-               ng-click="$ctrl.deleteAnnotation(x); $ctrl.data.mutants.splice($index,1)">
-            </a>
-        </td>
     </tr>
     <tr>
         <td ng-show="$ctrl.data.mutants.length==0">
@@ -45,7 +40,7 @@
 
 <table ng-table="$ctrl.tableParams" class="table table-hover">
     <caption style="color:#385d94">Transposon Mutagenesis</caption>
-    <tr ng-show="$ctrl.data.length!=0" ng-repeat="x in $ctrl.data.mutants" ng-if="x.mutant_type.key==2">
+    <tr ng-show="$ctrl.data.length!=0" ng-repeat="x in $ctrl.data.mutants | filter: keyword" ng-if="x.mutant_type.key==2">
         <td title="'Mutant Strain'">
             {{ x.name }}
         </td>
@@ -68,11 +63,7 @@
                      data-ng-src="/static/wiki/img/pubmedGlyph.png">
             </a>
         </td>
-        <td title="'Delete Annotation'">
-            <a class="glyphicon glyphicon-remove"
-               ng-click="$ctrl.deleteAnnotation(x); $ctrl.data.mutants.splice($index,1)">
-            </a>
-        </td>
+
     </tr>
     <tr>
         <td ng-show="$ctrl.data.mutants.length==0">
