@@ -53,9 +53,9 @@ angular
                         $location.path('/');
                     }
                 });
-                
+
                 ctrl.hasprotein = true;
-                
+
                 locusTag2QID.getLocusTag2QID(ctrl.currentLocusTag, ctrl.currentTaxid).then(function(data) {
                     var results = data.data.results.bindings;
                     if (results.length > 0) {
@@ -65,7 +65,7 @@ angular
                         } else {
                             ctrl.hasprotein = false;
                         }
-                       
+
                     } else {
                         alert(ctrl.currentLocusTag + " doesn't seem to be a gene in this genome.");
                         $location.path('/organism/' + ctrl.currentTaxid);
@@ -104,49 +104,6 @@ angular
                                 ctrl.currentGene.proteinAliases.push(alias.value);
                             });
 
-                            // Get operon data from wikidata sparql query
-                            OperonData.getOperonData(ctrl.currentGene.entrez).then(
-                                function(data) {
-                                    var dataResults = data.data.results.bindings;
-                                    if (dataResults.length > 0) {
-                                        ctrl.annotations.currentOperon = dataResults[0].operonItemLabel.value;
-                                        ctrl.opData = dataResults;
-                                        ctrl.annotations.operons = dataResults;
-                                    } else {
-                                        ctrl.opData = [];
-                                        ctrl.annotations.operons = [];
-                                    }
-                                });
-
-                            // Get chromosome refseq id
-                            RefSeqChrom.getRefSeqChrom(ctrl.currentLocusTag).then(function(data) {
-                                console.log(data);
-
-                                if (data[0]) {
-                                    ctrl.currentGene.refseqGenome = data[0]['refSeqChromosome'].value;
-                                }
-
-                            });
-
-                            expressionTimingData.getExpression(function(data) {
-                                ctrl.expression = data;
-                                var current = $filter('keywordFilter')(data, ctrl.currentLocusTag);
-                                ctrl.currentExpression = {};
-                                angular.forEach(current[0], function(value, key) {
-                                    if (key != '_id' && key != '$oid' && key != 'timestamp') {
-                                        ctrl.currentExpression[key] = value;
-                                    }
-                                });
-                                ctrl.annotations.expression = ctrl.currentExpression;
-                            });
-
-
-                            // Get related publications from eutils
-                            var locus_tag = ctrl.currentGene.locusTag.replace('_', '');
-                            locusTag2Pub.getlocusTag2Pub(locus_tag).then(function(data) {
-                                ctrl.annotations.pubList = data.data.resultList.result;
-                            });
-
                             // Get InterPro Domains from Wikidata SPARQL
                             InterPro.getInterPro(ctrl.currentGene.uniprot).then(
                                 function(data) {
@@ -162,8 +119,8 @@ angular
 
 
                             // Get go terms and EC numbers from WIKIDATA SPARQL
-                            GOTerms.getGoTerms(ctrl.currentGene.uniprot).then(
-                                function(data) {
+                            GOTerms.getGoTerms(ctrl.currentGene.uniprot).then(function(data) {
+                                
                                     ctrl.annotations.go = {
                                         cellcomp : [],
                                         bioproc : [],
@@ -181,20 +138,20 @@ angular
                                         if (value.hasOwnProperty('ecnumber') && ctrl.annotations.ecnumber.indexOf(value.ecnumber.value) == -1) {
                                             ctrl.annotations.ecnumber.push(value.ecnumber.value);
                                         }
-                                        if (value.goclass.value === 'https://www.wikidata.org/entity/Q5058355') {
+                                        if (value.goclass.value === 'http://www.wikidata.org/entity/Q5058355') {
                                             ctrl.annotations.go.cellcomp.push(value);
 
                                         }
-                                        if (value.goclass.value === 'https://www.wikidata.org/entity/Q14860489') {
+                                        if (value.goclass.value === 'http://www.wikidata.org/entity/Q14860489') {
                                             ctrl.annotations.go.molfunc.push(value);
 
                                         }
-                                        if (value.goclass.value === 'https://www.wikidata.org/entity/Q2996394') {
+                                        if (value.goclass.value === 'http://www.wikidata.org/entity/Q2996394') {
                                             ctrl.annotations.go.bioproc.push(value);
                                         }
 
                                     });
-
+                                    
                                     // now update enzyme data from ec numbers
                                     angular.forEach(ctrl.annotations.ecnumber, function(value) {
                                         if (value.indexOf('-') === -1 && value.indexOf('.') != -1) {
@@ -215,12 +172,55 @@ angular
                                     getServerAnnotationData(annotation_keys);
                                 });
                         });
+
                     }
 
+                    // Get operon data from wikidata sparql query
+                    OperonData.getOperonData(ctrl.currentGene.entrez).then(
+                        function(data) {
+                            var dataResults = data.data.results.bindings;
+                            if (dataResults.length > 0) {
+                                ctrl.annotations.currentOperon = dataResults[0].operonItemLabel.value;
+                                ctrl.opData = dataResults;
+                                ctrl.annotations.operons = dataResults;
+                            } else {
+                                ctrl.opData = [];
+                                ctrl.annotations.operons = [];
+                            }
+                        });
+
+                    // Get chromosome refseq id
+                    RefSeqChrom.getRefSeqChrom(ctrl.currentLocusTag).then(function(data) {
+                        console.log(data);
+
+                        if (data[0]) {
+                            ctrl.currentGene.refseqGenome = data[0]['refSeqChromosome'].value;
+                        }
+
+                    });
+
+                    expressionTimingData.getExpression(function(data) {
+                        ctrl.expression = data;
+                        var current = $filter('keywordFilter')(data, ctrl.currentLocusTag);
+                        ctrl.currentExpression = {};
+                        angular.forEach(current[0], function(value, key) {
+                            if (key != '_id' && key != '$oid' && key != 'timestamp') {
+                                ctrl.currentExpression[key] = value;
+                            }
+                        });
+                        ctrl.annotations.expression = ctrl.currentExpression;
+                    });
+
+
+                    // Get related publications from eutils
+                    var locus_tag = ctrl.currentGene.locusTag.replace('_', '');
+                    locusTag2Pub.getlocusTag2Pub(locus_tag).then(function(data) {
+                        ctrl.annotations.pubList = data.data.resultList.result;
+                    });
 
                 });
 
-                ////send fo rm data to server to edit wikidata
+                ////send form data to server to edit wikidata
                 var getServerAnnotationData = function(anno_keys) {
                     var url_suf = $location.path() + '/mg_mutant_view';
 

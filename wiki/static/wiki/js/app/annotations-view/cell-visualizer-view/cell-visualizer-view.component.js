@@ -1,6 +1,6 @@
 angular.module("cellVisualizer")
 
-    .controller("cellVisualizerCtrl", function(geneOntologyService, $timeout) {
+    .controller("cellVisualizerCtrl", function(geneOntologyService) {
         'use strict';
 
         var ctrl = this;
@@ -8,7 +8,7 @@ angular.module("cellVisualizer")
         this.status = "Loading Component Viewer...";
         this.loading = true;
 
-        function load() {
+        ctrl.$onChanges = function load() {
             if (ctrl.cellComp) {
                 angular.forEach(ctrl.cellComp, function(value) {
                     var id = (value.goID.value).replace(":", "_");
@@ -16,13 +16,8 @@ angular.module("cellVisualizer")
                 });
                 ctrl.loading = false;
                 ctrl.status = "No Components to Show";
-            } else {
-                $timeout(load, 1000);
             }
-        }
-
-        // go values are loaded with a delay
-        $timeout(load, 1000);
+        };
 
         this.displayCell = false;
 
@@ -50,9 +45,9 @@ angular.module("cellVisualizer")
             var svg = document.getElementById("cell-svg");
 
             var svgDoc = svg.contentDocument;
-            
+
             var paths = [];
-            
+
             if (geneOntologyService.isInclusion(goTerm)) {
                 paths = svgDoc.getElementsByClassName("inclusion");
             } else {
@@ -63,7 +58,7 @@ angular.module("cellVisualizer")
 
                 // fill outside  minus the inside
                 paths[0].style.fill = "#4784FF";
-                
+
                 // subtract inside only if cytoplasm is not also filled
                 if (svgDoc.getElementsByClassName("cytoplasm")[0].style.fill != "#4784FF") {
                     svgDoc.getElementsByClassName("cytoplasm")[0].style.fill = "#FFFFFF";
@@ -80,7 +75,7 @@ angular.module("cellVisualizer")
                     paths[i].style.fill = "#4784FF";
                 }
             }
-            
+
         }
 
     })
@@ -115,12 +110,14 @@ angular.module("cellVisualizer")
 
             $http.get(url + endpoint + iri + '/hierarchicalAncestors').success(function(data) {
 
-                for (var i = 0; i < data._embedded.terms.length; i++) {
-                    var next = data._embedded.terms[i];
-                    if (isValid(next.short_form)) {
-                        console.log("Go term " + term + " has parent " + next.label);
-                        deferred.resolve(next.short_form);
-                        return;
+                if (data._embedded) {
+                    for (var i = 0; i < data._embedded.terms.length; i++) {
+                        var next = data._embedded.terms[i];
+                        if (isValid(next.short_form)) {
+                            console.log("Go term " + term + " has parent " + next.label);
+                            deferred.resolve(next.short_form);
+                            return;
+                        }
                     }
                 }
 
@@ -144,12 +141,12 @@ angular.module("cellVisualizer")
         var isPlasmaMembrane = function(goTerm) {
             return go_map[goTerm] == 'plasma_membrane';
         };
-        
+
 
         var isInclusion = function(goTerm) {
             return go_map[goTerm] == 'inclusion_membrane' || go_map[goTerm] == 'inclusion_lumen';
         };
-        
+
         var isInclusionMembrane = function(goTerm) {
             return go_map[goTerm] == 'inclusion_membrane';
         };
@@ -160,7 +157,7 @@ angular.module("cellVisualizer")
             getClass : getClass,
             isPlasmaMembrane : isPlasmaMembrane,
             isInclusion : isInclusion,
-            isInclusionMembrane: isInclusionMembrane
+            isInclusionMembrane : isInclusionMembrane
         };
     })
     .component("cellVisualizer", {
