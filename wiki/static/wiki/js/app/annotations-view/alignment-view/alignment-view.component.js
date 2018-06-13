@@ -16,10 +16,6 @@ angular.module("alignmentView")
         ctrl.data = {};
         orthoData.getOrthologs(ctrl.locusTag).then(function(response) {
 
-            // first add current current gene
-            ctrl.data[ctrl.taxId] = ctrl.locusTag;
-            ctrl.projection[ctrl.locusTag] = true;
-            
             // now add results from sparql query
             angular.forEach(response.results.bindings, function(obj) {
                 var tax = obj.orthoTaxid.value;

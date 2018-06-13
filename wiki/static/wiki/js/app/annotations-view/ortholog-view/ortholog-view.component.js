@@ -3,35 +3,64 @@ angular.module('orthologView')
     .component('orthologView',
         {
             bindings : {
-                locusTag : '<',
-                taxId : '<'
+                locusTag : '<'
             },
             controller : "orthologCtrl",
             templateUrl : '/static/wiki/js/angular_templates/ortholog-view.html'
         })
 
-    .controller('orthologCtrl', function(orthoData) {
-        
+    .controller('orthologCtrl', function(orthoData, InterPro, hostPathogen, GOTerms, OperonData, expressionTimingData, $filter) {
+
         'use strict';
 
         var ctrl = this;
-        
-        // Get ortholog data from wikidata
+
         ctrl.data = {};
-        console.log(ctrl.locusTag);
         orthoData.getOrthologs(ctrl.locusTag).then(function(response) {
-            
-            // first add current current gene
-            ctrl.data[ctrl.taxId] = ctrl.locusTag;
-            
+
             // now add results from sparql query
             angular.forEach(response.results.bindings, function(obj) {
                 ctrl.hasOrthologs = true;
-                var tax = obj.orthoTaxid.value;
-                var tag = obj.orthoLocusTag.value;
-                ctrl.data[tax] = tag;
+
+                ctrl.data[obj.orthoTaxid.value] = {
+                    "locusTag" : obj.orthoLocusTag.value,
+                    "taxid" : obj.orthoTaxid.value
+                };
+
+                // Get InterPro Domains from Wikidata SPARQL
+                InterPro.getInterPro(obj.uniprot.value).then(
+                    function(data) {
+                        ctrl.data[obj.orthoTaxid.value].ip = data.length > 0;
+                    });
+
+                hostPathogen.getHostPathogen(obj.uniprot.value).then(
+                    function(data) {
+                        ctrl.data[obj.orthoTaxid.value].hp = data.length > 0;
+                    });
+
+
+                GOTerms.getGoTerms(obj.uniprot.value).then(function(data) {
+                    ctrl.data[obj.orthoTaxid.value].go = data.data.results.bindings.length > 0;
+                });
+
+                OperonData.getOperonData(obj.entrez.value).then(
+                    function(data) {
+                        ctrl.data[obj.orthoTaxid.value].operon = data.data.results.bindings.length > 0;
+                    });
+
+                expressionTimingData.getExpression(function(data) {
+                    var current = $filter('keywordFilter')(data, obj.orthoLocusTag.value);
+                    var currentExpression = {};
+                    angular.forEach(current[0], function(value, key) {
+                        if (key != '_id' && key != '$oid' && key != 'timestamp') {
+                            currentExpression[key] = value;
+                        }
+                    });
+                    ctrl.data[obj.orthoTaxid.value].expression = currentExpression.RB_EXPRESSION_TIMING != undefined;
+                });
+
             });
-            
+
         });
 
         // config settings for table
@@ -43,7 +72,13 @@ angular.module('orthologView')
             "identity" : false,
             "length" : false,
             "eval" : false,
-            "ref" : true
+            "ref" : true,
+            "expression" : true,
+            "go" : true,
+            "operons" : true,
+            "mutants" : false,
+            "interpro" : true,
+            "hostPathogen" : true
         };
 
     });

@@ -76,14 +76,33 @@ angular
         var getOrthologs = function (locusTag) {
             var deferred = $q.defer();
             var endpoint = 'https://query.wikidata.org/sparql?format=json&query=';
-            var url = endpoint + encodeURIComponent("SELECT ?orthoLocusTag ?orthoTaxid " +
-                    "WHERE{ " +
-                    "?gene wdt:P2393 '" + locusTag + "';" +
-                    "wdt:P684 ?ortholog." +
-                    "?ortholog wdt:P2393 ?orthoLocusTag;" +
-                    "wdt:P703 ?orthoTaxon." +
-                    "?orthoTaxon wdt:P685 ?orthoTaxid." +
-                    "}"
+            var url = endpoint + encodeURIComponent(
+                    "SELECT ?orthoLocusTag ?orthoTaxid ?entrez ?uniprot WHERE {" +
+                       "{" +
+                          "?gene wdt:P2393 '"+locusTag+"'." +
+                          "?gene wdt:P684 ?ortholog." +
+                          "?ortholog wdt:P2393 ?orthoLocusTag." +
+                          "?ortholog wdt:P703 ?orthoTaxon." +
+                          "?orthoTaxon wdt:P685 ?orthoTaxid." +
+                          "OPTIONAL {" +
+                            "?ortholog wdt:P351 ?entrez." +
+                            "?ortholog wdt:P688 ?protein." +
+                            "?protein wdt:P352 ?uniprot." +
+                          "}" +
+                        "}" +
+                        "UNION" +
+                        "{" +
+                          "?gene wdt:P2393 '"+locusTag+"'." +
+                          "?gene wdt:P2393 ?orthoLocusTag." +
+                          "?gene wdt:P703 ?orthoTaxon." +
+                          "?orthoTaxon wdt:P685 ?orthoTaxid." +
+                          "OPTIONAL {" +
+                            "?gene wdt:P351 ?entrez." +
+                            "?gene wdt:P688 ?protein." +
+                            "?protein wdt:P352 ?uniprot." +
+                          "}" +
+                        "}" +
+                      "}"
                 );
             $http.get(url)
             .success(function (response) {
