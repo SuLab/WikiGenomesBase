@@ -26,7 +26,7 @@
 			<td title="'Strain'"><a href="/organism/{{ key }}">{{ key |
 					taxid2Name }}</a></td>
 			<td title="'Target'"><input type="checkbox" ng-model="checked"
-				ng-init="checked=true" ng-click="$ctrl.select(checked, value)">
+				ng-init="checked=true" ng-click="$ctrl.select(checked, key)">
 			</td>
 		</tr>
 

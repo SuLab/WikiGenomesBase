@@ -77,7 +77,7 @@ angular
             var deferred = $q.defer();
             var endpoint = 'https://query.wikidata.org/sparql?format=json&query=';
             var url = endpoint + encodeURIComponent(
-                    "SELECT ?orthoLocusTag ?orthoTaxid ?entrez ?uniprot WHERE {" +
+                    "SELECT ?orthoLocusTag ?orthoTaxid ?entrez ?uniprot ?refseq WHERE {" +
                        "{" +
                           "?gene wdt:P2393 '"+locusTag+"'." +
                           "?gene wdt:P684 ?ortholog." +
@@ -88,6 +88,7 @@ angular
                             "?ortholog wdt:P351 ?entrez." +
                             "?ortholog wdt:P688 ?protein." +
                             "?protein wdt:P352 ?uniprot." +
+                            "?protein wdt:P637 ?refseq." +
                           "}" +
                         "}" +
                         "UNION" +
@@ -100,6 +101,7 @@ angular
                             "?gene wdt:P351 ?entrez." +
                             "?gene wdt:P688 ?protein." +
                             "?protein wdt:P352 ?uniprot." +
+                            "?protein wdt:P637 ?refseq." +
                           "}" +
                         "}" +
                       "}"

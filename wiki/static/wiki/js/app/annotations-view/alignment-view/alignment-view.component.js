@@ -1,17 +1,17 @@
 angular.module("alignmentView")
 
-    .controller("alignmentCtrl", function(orthoData, geneSequenceData, alignOrthologData) {
+    .controller("alignmentCtrl", function(orthoData, geneSequenceData, alignOrthologData, proteinSequenceData) {
         'use strict';
         var ctrl = this;
-        
-        
+
+
         // initial variable setup
         ctrl.projection = {};
         ctrl.type = "dna";
         ctrl.alignMessage = "Aligning Orthologs. Please be patient.";
         ctrl.citation = false;
         ctrl.isRendered = false;
-        
+
         // Get ortholog data from wikidata
         ctrl.data = {};
         orthoData.getOrthologs(ctrl.locusTag).then(function(response) {
@@ -21,41 +21,46 @@ angular.module("alignmentView")
                 var tax = obj.orthoTaxid.value;
                 var tag = obj.orthoLocusTag.value;
                 ctrl.hasOrthologs = true;
-                ctrl.projection[tag] = true;
-                ctrl.data[tax] = tag;
+                ctrl.projection[tax] = true;
+                ctrl.data[tax] = [tag, obj.refseq.value];
             });
-            
+
         });
-        
+
         // for selecting from the check list
         ctrl.select = function(checked, value) {
             ctrl.projection[value] = checked;
         };
-
+        
         // function to update the selected list and align after
         ctrl.alignData = function() {
 
             // holds gene sequence data
             var data = [];
             var index = 0;
-            
+
             // get the sequence data based on ncbi
-            //key = locus tag, value = true/false
+            //key = taxid, value = true/false
             angular.forEach(ctrl.projection, function(value, key) {
                 if (value) {
-                    var promise = geneSequenceData.getSequence(key);
+                    var promise;
+                    if (ctrl.type == "dna") {
+                        promise = geneSequenceData.getSequence(ctrl.data[key][0]);
+                    } else {
+                        promise = proteinSequenceData.getSequence(ctrl.data[key][1]);
+                    }
                     promise.then(function(seq) {
                         index++;
                         data.push(seq);
 
-                        if(index == Object.keys(ctrl.projection).length) {
+                        if (index == Object.keys(ctrl.projection).length) {
                             ctrl.aligning = true;
-                            
+
                             // now align it
                             alignOrthologData.align(data, ctrl);
                             ctrl.citation = true;
                         }
-                    }, function (error) {
+                    }, function(error) {
                         index++;
                         ctrl.aligning = false;
                     });
@@ -144,6 +149,39 @@ angular.module("alignmentView")
         };
     })
 
+    .factory('proteinSequenceData', function($http, $q) {
+        'use strict';
+
+        // value = ref seq ID of protein
+        var getSequence = function(refseq) {
+
+            var deferred = $q.defer();
+
+            // first get the UID from the nuccore database
+            $http.get("https://www.ncbi.nlm.nih.gov/protein/" + refseq +"?report=fasta")
+            
+                // success
+            .then(function(response) {
+                
+                console.log(response);
+                deferred.resolve(response);
+                
+                // error
+            }, function (response) {
+                console.log("Error reading protein sequence");
+                deferred.reject(response);
+            });
+
+            // return future gene sequence
+            return deferred.promise;
+
+        };
+
+        return {
+            getSequence : getSequence
+        };
+    })
+
     .factory('alignOrthologData', function($http, $timeout, $sce) {
 
         'use strict';
@@ -166,7 +204,7 @@ angular.module("alignmentView")
 
                 // display w/o alignment
                 var seqs = msa.io.fasta.parse(data.join("\n"));
-                
+
                 // the widget settings
                 var settings = {
                     el : document
@@ -215,7 +253,7 @@ angular.module("alignmentView")
                                 m.render();
                             }
                         );
-                        
+
                         ctrl.isRendered = true;
                         ctrl.alignmentURL = $sce.trustAsResourceUrl("https://www.ebi.ac.uk/Tools/services/rest/muscle/result/" + id + "/aln-fasta");
                         console.log(ctrl.alignmentURL);
@@ -241,6 +279,6 @@ angular.module("alignmentView")
         bindings : {
             locusTag : '<',
             taxId : '<',
-            allorggenes: '<'
+            allorggenes : '<'
         },
     });
