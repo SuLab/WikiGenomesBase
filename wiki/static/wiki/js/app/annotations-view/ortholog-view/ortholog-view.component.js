@@ -9,7 +9,7 @@ angular.module('orthologView')
             templateUrl : '/static/wiki/js/angular_templates/ortholog-view.html'
         })
 
-    .controller('orthologCtrl', function(orthoData, InterPro, hostPathogen, GOTerms, OperonData, expressionTimingData, $filter) {
+    .controller('orthologCtrl', function(orthoData, InterPro, hostPathogen, GOTerms, OperonData, expressionTimingData, $filter, sendToView, $location) {
 
         'use strict';
 
@@ -43,7 +43,9 @@ angular.module('orthologView')
 
 
                     GOTerms.getGoTerms(obj.uniprot.value).then(function(data) {
+                        
                         ctrl.data[obj.orthoTaxid.value].go = data.data.results.bindings.length > 0;
+                        
                     });
                 } else {
                     ctrl.data[obj.orthoTaxid.value].ip = false;
@@ -66,6 +68,17 @@ angular.module('orthologView')
                     });
                     ctrl.data[obj.orthoTaxid.value].expression = currentExpression.RB_EXPRESSION_TIMING != undefined;
                 });
+                
+                // get mutant data
+                var annotation_keys = {
+                        locusTag : obj.orthoLocusTag.value,
+                        taxid : obj.orthoTaxid.value,
+                        ec_number: []
+                };
+                var url_suf = $location.path() + '/mg_mutant_view';
+                sendToView.sendToView(url_suf, annotation_keys).then(function(data) {
+                    ctrl.data[obj.orthoTaxid.value].mutant = data.data.mutants > 0;
+                });
 
             });
 
@@ -84,7 +97,7 @@ angular.module('orthologView')
             "expression" : true,
             "go" : true,
             "operons" : true,
-            "mutants" : false,
+            "mutants" : true,
             "interpro" : true,
             "hostPathogen" : true
         };
