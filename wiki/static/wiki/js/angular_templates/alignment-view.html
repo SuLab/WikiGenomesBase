@@ -14,9 +14,10 @@
 	<button type="button" ng-click="$ctrl.alignData()"
 		ng-hide="$ctrl.aligning" class="submit">Align</button>
 
-	<button type="button" ng-click=""
-		ng-hide="$ctrl.aligning || !$ctrl.isRendered" class="submit">Download</button>
-
+	<form method="get" action="{{$ctrl.alignmentURL}}" ng-hide="$ctrl.aligning || !$ctrl.isRendered" style="display:inline;" target="_blank">
+   		<button type="submit">Download <span class="glyphicon glyphicon-download"></span></button>
+	</form>
+	
 	<table ng-table="$ctrl.tableParams" class="table table-hover">
 		<col width="90%" />
 		<col width="10%" />

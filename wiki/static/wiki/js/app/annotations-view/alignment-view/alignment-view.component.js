@@ -144,7 +144,7 @@ angular.module("alignmentView")
         };
     })
 
-    .factory('alignOrthologData', function($http, $timeout) {
+    .factory('alignOrthologData', function($http, $timeout, $sce) {
 
         'use strict';
 
@@ -166,7 +166,7 @@ angular.module("alignmentView")
 
                 // display w/o alignment
                 var seqs = msa.io.fasta.parse(data.join("\n"));
-
+                
                 // the widget settings
                 var settings = {
                     el : document
@@ -217,6 +217,8 @@ angular.module("alignmentView")
                         );
                         
                         ctrl.isRendered = true;
+                        ctrl.alignmentURL = $sce.trustAsResourceUrl("https://www.ebi.ac.uk/Tools/services/rest/muscle/result/" + id + "/aln-fasta");
+                        console.log(ctrl.alignmentURL);
 
                     // there was a problem
                     } else {
