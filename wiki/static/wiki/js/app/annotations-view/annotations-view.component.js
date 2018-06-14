@@ -27,11 +27,12 @@ angular
                         pubs : true,
                         product : changes.hasprotein.currentValue,
                         ortholog : true,
+                        alignment: true,
                         expression : true,
                         hostpath : true
                     };
                 }
-            }
+            };
 
             ctrl.$onInit = function() {
 
@@ -51,6 +52,7 @@ angular
                     pubs : true,
                     product : true,
                     ortholog : true,
+                    alignment: true,
                     expression : true,
                     hostpath : true
                 };
@@ -64,6 +66,7 @@ angular
                     ctrl.accordion.pubs = openAll;
                     ctrl.accordion.product = openAll;
                     ctrl.accordion.ortholog = openAll;
+                    ctrl.accordion.alignment = openAll;
                     ctrl.accordion.hostpath = openAll;
                     ctrl.accordion.expression = openAll;
                 };

@@ -48,7 +48,21 @@
         </uib-accordion-heading>
         <div class="panel " style="border-bottom: solid #bce8f1 1px;">
             <div class="panel-body">
-                <ortholog-view locus-tag="$ctrl.data.locusTag" tax-id="$ctrl.data.taxid"></ortholog-view>
+                <ortholog-view locus-tag="$ctrl.data.locusTag"></ortholog-view>
+            </div>
+        </div>
+
+    </div>
+    <div uib-accordion-group ng-class="{'panel-info': true}"
+    	ng-if="$ctrl.settings.alignment"
+         template-url="group-template.html" is-open="$ctrl.accordion.alignment">
+        <uib-accordion-heading>
+            Ortholog Alignment(s) <i class="pull-right glyphicon"
+                          ng-class="{'glyphicon-chevron-down': $ctrl.accordion.alignment, 'glyphicon-chevron-right': !$ctrl.accordion.alignment}"></i>
+        </uib-accordion-heading>
+        <div class="panel " style="border-bottom: solid #bce8f1 1px;">
+            <div class="panel-body">
+                <alignment-view locus-tag="$ctrl.data.locusTag" tax-id="$ctrl.data.taxid" allorggenes="$ctrl.allorggenes"></alignment-view>
             </div>
         </div>
 

@@ -1,27 +1,45 @@
 <table ng-table="$ctrl.tableParams" class="table table-hover">
-    <col width="30%"/>
-    <col width="20%"/>
-    <col width="20%"/>
-    <col width="20%"/>
-    <col width="10%"/>
-    <tr ng-show="$ctrl.hasOrthologs" ng-repeat="(key, value) in $ctrl.data">
+    <tr ng-show="$ctrl.hasOrthologs" ng-repeat="(key, gene) in $ctrl.data">
         <td ng-if="$ctrl.tSettings['strain']" title="'Strain'">
-            <a href="/organism/{{ key }}">{{ key | taxid2Name }}</a>
+            <a href="/organism/{{ gene.taxid }}">{{ gene.taxid | taxid2Name }}</a>
         </td>
         <td ng-if="$ctrl.tSettings['tax']" title="'Taxid'">
-            <a href="/organism/{{ key }}">{{ key }}</a>
+            <a href="/organism/{{ gene.taxid }}">{{ gene.taxid }}</a>
         </td>
         <td ng-if="$ctrl.tSettings['cLocus']" title="'Current Locus Tag'">
-            <a href="/organism/{{ key }}/gene/{{ value }}">{{ value }}</a>
+            <a href="/organism/{{ gene.taxid }}/gene/{{ gene.locusTag }}">{{ gene.locusTag }}</a>
         </td>
         <td ng-if="$ctrl.tSettings['dLocus']" title="'Deprecated Locus Tag'">
-            {{ value }}
         </td>
         <td ng-if="$ctrl.tSettings['identity']" title="'% Identity'">
         </td>
         <td ng-if="$ctrl.tSettings['length']" title="'Length'">
         </td>
         <td ng-if="$ctrl.tSettings['eval']" title="'E-Value'">
+        </td>
+        <td ng-if="$ctrl.tSettings['expression']" title="'Expression Data'">
+        	<span class="glyphicon glyphicon-ok" ng-show="gene.expression"></span>
+        	<span class="glyphicon glyphicon-remove" ng-hide="gene.expression"></span>
+        </td>
+        <td ng-if="$ctrl.tSettings['interpro']" title="'InterPro Data'">
+        	<span class="glyphicon glyphicon-ok" ng-show="gene.ip"></span>
+        	<span class="glyphicon glyphicon-remove" ng-hide="gene.ip"></span>
+        </td>
+        <td ng-if="$ctrl.tSettings['hostPathogen']" title="'HostPathogen Data'">
+        	<span class="glyphicon glyphicon-ok" ng-show="gene.hp"></span>
+        	<span class="glyphicon glyphicon-remove" ng-hide="gene.hp"></span>
+        </td>
+        <td ng-if="$ctrl.tSettings['go']" title="'GO Data'">
+        	<span class="glyphicon glyphicon-ok" ng-show="gene.go"></span>
+        	<span class="glyphicon glyphicon-remove" ng-hide="gene.go"></span>
+        </td>
+        <td ng-if="$ctrl.tSettings['operons']" title="'Operon Data'">
+        	<span class="glyphicon glyphicon-ok" ng-show="gene.operon"></span>
+        	<span class="glyphicon glyphicon-remove" ng-hide="gene.operon"></span>
+        </td>
+        <td ng-if="$ctrl.tSettings['mutants']" title="'Mutant Data'">
+        	<span class="glyphicon glyphicon-ok" ng-show="gene.mutant"></span>
+        	<span class="glyphicon glyphicon-remove" ng-hide="gene.mutant"></span>
         </td>
         <td ng-if="$ctrl.tSettings['ref']" title="'References'">
             <!-- Button trigger modal -->
@@ -33,31 +51,8 @@
                 </a>
             </div>
         </td>
-		<td ng-if="$ctrl.tSettings['align']" title="'Align'">
-			<input type="checkbox" ng-model="checked" ng-init="checked=true"
-				ng-click="$ctrl.select(checked, value)">
-		</td>
     </tr>
 
 
 </table>
-<div ng-show="$ctrl.hasOrthologs">
-
-	<!-- Display the specified orthologs -->
-	<button type="button" ng-click="$ctrl.updatePanel()" ng-hide="$ctrl.aligning">Display Sequences</button>
-	
-	<div ng-show="$ctrl.aligning">
-		{{$ctrl.alignMessage}} 
-		<img src="static/wiki/img/spin.gif">
-	</div>
-
-	<!-- the MSA Viewer Widget -->
-	<div id="msaDiv" ng-hide="$ctrl.aligning"></div>
-	
-	<!-- citation for using msa viewer -->
-	<div ng-show="$ctrl.citation && !$ctrl.aligning"><p style="font-size: 8px">Yachdav, Guy, Sebastian Wilzbach, Benedikt Rauscher, Robert Sheridan, Ian Sillitoe, 
-	James Procter, Suzanna E. Lewis, Burkhard Rost, and Tatyana Goldberg. "MSAViewer: interactive JavaScript 
-	visualization of multiple sequence alignments." Bioinformatics (2016): btw474. </p></div>
-		
-</div>
 <div ng-hide="$ctrl.hasOrthologs">No known orthologs</div>

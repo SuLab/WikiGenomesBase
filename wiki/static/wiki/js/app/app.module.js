@@ -41,5 +41,6 @@ angular.module('cmod', [
     'functionalAnnotation',
     'expressionView',
     'hostPathogen',
-    'hostpathForm'
+    'hostpathForm',
+    'alignmentView'
 ]);

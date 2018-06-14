@@ -76,14 +76,35 @@ angular
         var getOrthologs = function (locusTag) {
             var deferred = $q.defer();
             var endpoint = 'https://query.wikidata.org/sparql?format=json&query=';
-            var url = endpoint + encodeURIComponent("SELECT ?orthoLocusTag ?orthoTaxid " +
-                    "WHERE{ " +
-                    "?gene wdt:P2393 '" + locusTag + "';" +
-                    "wdt:P684 ?ortholog." +
-                    "?ortholog wdt:P2393 ?orthoLocusTag;" +
-                    "wdt:P703 ?orthoTaxon." +
-                    "?orthoTaxon wdt:P685 ?orthoTaxid." +
-                    "}"
+            var url = endpoint + encodeURIComponent(
+                    "SELECT ?orthoLocusTag ?orthoTaxid ?entrez ?uniprot ?refseq WHERE {" +
+                       "{" +
+                          "?gene wdt:P2393 '"+locusTag+"'." +
+                          "?gene wdt:P684 ?ortholog." +
+                          "?ortholog wdt:P2393 ?orthoLocusTag." +
+                          "?ortholog wdt:P703 ?orthoTaxon." +
+                          "?orthoTaxon wdt:P685 ?orthoTaxid." +
+                          "?ortholog wdt:P351 ?entrez." +
+                          "OPTIONAL {" +
+                            "?ortholog wdt:P688 ?protein." +
+                            "?protein wdt:P352 ?uniprot." +
+                            "?protein wdt:P637 ?refseq." +
+                          "}" +
+                        "}" +
+                        "UNION" +
+                        "{" +
+                          "?gene wdt:P2393 '"+locusTag+"'." +
+                          "?gene wdt:P2393 ?orthoLocusTag." +
+                          "?gene wdt:P703 ?orthoTaxon." +
+                          "?orthoTaxon wdt:P685 ?orthoTaxid." +
+                          "?gene wdt:P351 ?entrez." +
+                          "OPTIONAL {" +
+                            "?gene wdt:P688 ?protein." +
+                            "?protein wdt:P352 ?uniprot." +
+                            "?protein wdt:P637 ?refseq." +
+                          "}" +
+                        "}" +
+                      "}"
                 );
             $http.get(url)
             .success(function (response) {
@@ -460,11 +481,11 @@ angular
                     angular.forEach(responseData, function (value, key) {
 
                         if (value.match("^ID")) {
-                            reactionData['ecnumber'] = value.slice(5);
+                            reactionData.ecnumber = value.slice(5);
                         }
                         if (value.match("^CA ")) {
                             var trimmedReaction = value.replace(/^(CA)/, "");
-                            reactionData['reaction'].push(trimmedReaction);
+                            reactionData.reaction.push(trimmedReaction);
                         }
 
                     });
