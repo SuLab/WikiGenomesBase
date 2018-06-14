@@ -17,31 +17,39 @@ angular.module('orthologView')
 
         ctrl.data = {};
         orthoData.getOrthologs(ctrl.locusTag).then(function(response) {
-
+            
             // now add results from sparql query
             angular.forEach(response.results.bindings, function(obj) {
                 ctrl.hasOrthologs = true;
-
+                
                 ctrl.data[obj.orthoTaxid.value] = {
                     "locusTag" : obj.orthoLocusTag.value,
                     "taxid" : obj.orthoTaxid.value
                 };
+                
+                
+                // only query for protein coding genes
+                if (obj.uniprot) {
+                    // Get InterPro Domains from Wikidata SPARQL
+                    InterPro.getInterPro(obj.uniprot.value).then(
+                        function(data) {
+                            ctrl.data[obj.orthoTaxid.value].ip = data.length > 0;
+                        });
 
-                // Get InterPro Domains from Wikidata SPARQL
-                InterPro.getInterPro(obj.uniprot.value).then(
-                    function(data) {
-                        ctrl.data[obj.orthoTaxid.value].ip = data.length > 0;
+                    hostPathogen.getHostPathogen(obj.uniprot.value).then(
+                        function(data) {
+                            ctrl.data[obj.orthoTaxid.value].hp = data.length > 0;
+                        });
+
+
+                    GOTerms.getGoTerms(obj.uniprot.value).then(function(data) {
+                        ctrl.data[obj.orthoTaxid.value].go = data.data.results.bindings.length > 0;
                     });
-
-                hostPathogen.getHostPathogen(obj.uniprot.value).then(
-                    function(data) {
-                        ctrl.data[obj.orthoTaxid.value].hp = data.length > 0;
-                    });
-
-
-                GOTerms.getGoTerms(obj.uniprot.value).then(function(data) {
-                    ctrl.data[obj.orthoTaxid.value].go = data.data.results.bindings.length > 0;
-                });
+                } else {
+                    ctrl.data[obj.orthoTaxid.value].ip = false;
+                    ctrl.data[obj.orthoTaxid.value].hp = false;
+                    ctrl.data[obj.orthoTaxid.value].go = false;
+                }
 
                 OperonData.getOperonData(obj.entrez.value).then(
                     function(data) {

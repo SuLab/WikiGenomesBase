@@ -22,7 +22,8 @@ angular.module("alignmentView")
                 var tag = obj.orthoLocusTag.value;
                 ctrl.hasOrthologs = true;
                 ctrl.projection[tax] = true;
-                ctrl.data[tax] = [tag, obj.refseq.value];
+                var refseq = obj.refseq ? obj.refseq.value : "";
+                ctrl.data[tax] = [ tag, refseq ];
             });
 
         });
@@ -31,7 +32,7 @@ angular.module("alignmentView")
         ctrl.select = function(checked, value) {
             ctrl.projection[value] = checked;
         };
-        
+
         // function to update the selected list and align after
         ctrl.alignData = function() {
 
@@ -157,20 +158,31 @@ angular.module("alignmentView")
 
             var deferred = $q.defer();
 
-            // first get the UID from the nuccore database
-            $http.get("https://www.ncbi.nlm.nih.gov/protein/" + refseq +"?report=fasta")
-            
-                // success
-            .then(function(response) {
-                
-                console.log(response);
-                deferred.resolve(response);
-                
-                // error
-            }, function (response) {
-                console.log("Error reading protein sequence");
-                deferred.reject(response);
-            });
+            if (refseq) {
+
+                // first get the UID from the nuccore database
+                $http.get("https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=protein&id=" + refseq + "&rettype=fasta")
+
+                    // success
+                    .then(function(response) {
+
+                        var fasta = response.data;
+
+                        // parse out strain name
+                        var data = ">" + fasta.substring(fasta.indexOf("[") + 1, fasta.indexOf("]")).replace("Chlamydia ", "").replace(" ", "_") +
+                        "\n" + fasta.substring(fasta.indexOf("\n")).replace(/\n/g, "");
+
+                        deferred.resolve(data);
+
+                    // error
+                    }, function(response) {
+                        console.log("Error reading protein sequence");
+                        deferred.reject(response);
+                    });
+            } else {
+                console.log("No Ref Seq ID");
+                deferred.reject();
+            }
 
             // return future gene sequence
             return deferred.promise;
@@ -256,7 +268,6 @@ angular.module("alignmentView")
 
                         ctrl.isRendered = true;
                         ctrl.alignmentURL = $sce.trustAsResourceUrl("https://www.ebi.ac.uk/Tools/services/rest/muscle/result/" + id + "/aln-fasta");
-                        console.log(ctrl.alignmentURL);
 
                     // there was a problem
                     } else {

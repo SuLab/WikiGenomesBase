@@ -1,30 +1,39 @@
 <div ng-show="$ctrl.hasOrthologs">
 	<div class="dropdown" style="display: inline">
 		<span>Select Type:</span>
-        <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-            {{$ctrl.type}}
-            <span class="caret"></span>
-        </button>
-        <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-            <li><a href="#" ng-click="$ctrl.type = 'dna'">DNA</a></li>
-            <li><a href="#" ng-click="$ctrl.type = 'protein'">PROTEIN</a></li>
-        </ul>
-    </div>
+		<button class="btn btn-default dropdown-toggle" type="button"
+			id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true"
+			aria-expanded="true">
+			{{$ctrl.type}} <span class="caret"></span>
+		</button>
+		<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+			<li><a href="#" ng-click="$ctrl.type = 'dna'">DNA</a></li>
+			<li><a href="#" ng-click="$ctrl.type = 'protein'">PROTEIN</a></li>
+		</ul>
+	</div>
 
 	<button type="button" ng-click="$ctrl.alignData()"
 		ng-hide="$ctrl.aligning" class="submit">Align</button>
 
-	<form method="get" action="{{$ctrl.alignmentURL}}" ng-hide="$ctrl.aligning || !$ctrl.isRendered" style="display:inline;" target="_blank">
-   		<button type="submit">Download <span class="glyphicon glyphicon-download"></span></button>
+	<form method="get" action="{{$ctrl.alignmentURL}}"
+		ng-hide="$ctrl.aligning || !$ctrl.isRendered" style="display: inline;"
+		target="_blank">
+		<button type="submit">
+			Download <span class="glyphicon glyphicon-download"></span>
+		</button>
 	</form>
-	
+
 	<table ng-table="$ctrl.tableParams" class="table table-hover">
-		<col width="90%" />
-		<col width="10%" />
 		<tr ng-show="$ctrl.hasOrthologs"
 			ng-repeat="(key, value) in $ctrl.data">
 			<td title="'Strain'"><a href="/organism/{{ key }}">{{ key |
 					taxid2Name }}</a></td>
+			<td title="'Taxid'"><a
+				href="/organism/{{ key }}">{{ key }}</a></td>
+			<td title="'Current Locus Tag'">
+				<a href="/organism/{{ key }}/gene/{{ value[0] }}">
+				{{ value[0] }}</a>
+			</td>
 			<td title="'Target'"><input type="checkbox" ng-model="checked"
 				ng-init="checked=true" ng-click="$ctrl.select(checked, key)">
 			</td>

@@ -84,8 +84,8 @@ angular
                           "?ortholog wdt:P2393 ?orthoLocusTag." +
                           "?ortholog wdt:P703 ?orthoTaxon." +
                           "?orthoTaxon wdt:P685 ?orthoTaxid." +
+                          "?ortholog wdt:P351 ?entrez." +
                           "OPTIONAL {" +
-                            "?ortholog wdt:P351 ?entrez." +
                             "?ortholog wdt:P688 ?protein." +
                             "?protein wdt:P352 ?uniprot." +
                             "?protein wdt:P637 ?refseq." +
@@ -97,8 +97,8 @@ angular
                           "?gene wdt:P2393 ?orthoLocusTag." +
                           "?gene wdt:P703 ?orthoTaxon." +
                           "?orthoTaxon wdt:P685 ?orthoTaxid." +
+                          "?gene wdt:P351 ?entrez." +
                           "OPTIONAL {" +
-                            "?gene wdt:P351 ?entrez." +
                             "?gene wdt:P688 ?protein." +
                             "?protein wdt:P352 ?uniprot." +
                             "?protein wdt:P637 ?refseq." +
