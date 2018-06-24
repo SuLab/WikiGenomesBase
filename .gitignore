@@ -14,8 +14,7 @@ Untitled.ipynb
 __pycache__/wikigenomes_conf.cpython-35.pyc
 scripts/__pycache__/flatfile_ingestion.cpython-35.pyc
 wiki/__pycache__/tasks.cpython-35.pyc
-wiki/static/wiki/js/JBrowse-1.12.1/extlib/lib/perl5/5.18.2/
-wiki/static/wiki/js/JBrowse-1.12.1/sparql_data/
+wiki/static/wiki/js/JBrowse-1.14.1/extlib
 wikigenomes/settings.py
 wikigenomes_conf.py
 scripts/__pycache__/

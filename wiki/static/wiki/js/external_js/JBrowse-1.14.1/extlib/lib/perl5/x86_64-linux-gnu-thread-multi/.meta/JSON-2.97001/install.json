@@ -1,1 +1,0 @@
-{"target":"JSON","dist":"JSON-2.97001","pathname":"I/IS/ISHIGAKI/JSON-2.97001.tar.gz","version":"2.97001","name":"JSON","provides":{"JSON::Backend::PP":{"version":"2.97001","file":"lib/JSON.pm"},"JSON":{"version":"2.97001","file":"lib/JSON.pm"}}}
