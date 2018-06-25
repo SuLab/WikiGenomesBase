@@ -16,6 +16,9 @@ angular.module('orthologView')
         var ctrl = this;
 
         ctrl.data = {};
+        
+        ctrl.reference = "";
+        
         orthoData.getOrthologs(ctrl.locusTag).then(function(response) {
             
             // now add results from sparql query
@@ -27,6 +30,9 @@ angular.module('orthologView')
                     "taxid" : obj.orthoTaxid.value
                 };
                 
+                if (obj.reference) {
+                	ctrl.reference = obj.reference.value;
+                }
                 
                 // only query for protein coding genes
                 if (obj.uniprot) {

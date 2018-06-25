@@ -77,14 +77,16 @@ angular
             var deferred = $q.defer();
             var endpoint = 'https://query.wikidata.org/sparql?format=json&query=';
             var url = endpoint + encodeURIComponent(
-                    "SELECT ?orthoLocusTag ?orthoTaxid ?entrez ?uniprot ?refseq WHERE {" +
+                    "SELECT ?orthoLocusTag ?orthoTaxid ?entrez ?uniprot ?refseq ?reference WHERE {" +
                        "{" +
                           "?gene wdt:P2393 '"+locusTag+"'." +
-                          "?gene wdt:P684 ?ortholog." +
+                          "?gene p:P684 ?statement." +
+                          "?statement ps:P684 ?ortholog." + 
                           "?ortholog wdt:P2393 ?orthoLocusTag." +
                           "?ortholog wdt:P703 ?orthoTaxon." +
                           "?orthoTaxon wdt:P685 ?orthoTaxid." +
                           "?ortholog wdt:P351 ?entrez." +
+                          "?statement prov:wasDerivedFrom/pr:P248 ?reference." + 
                           "OPTIONAL {" +
                             "?ortholog wdt:P688 ?protein." +
                             "?protein wdt:P352 ?uniprot." +
