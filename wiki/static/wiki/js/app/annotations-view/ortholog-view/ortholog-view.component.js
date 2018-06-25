@@ -44,8 +44,6 @@ angular.module('orthologView')
 
                     GOTerms.getGoTerms(obj.uniprot.value).then(function(data) {
                     	
-                    	console.log("Getting go term data");
-                    	
                     	 var dataResults = data.data.results.bindings;
                         
                         ctrl.data[obj.orthoTaxid.value].go = dataResults.length > 0;
@@ -60,9 +58,6 @@ angular.module('orthologView')
 
                         });
                         
-                        console.log("EC NUMBERS:");
-                        console.log(ecnumber);
-                        
                         // get mutant data
                         var annotation_keys = {
                                 locusTag : obj.orthoLocusTag.value,
@@ -72,10 +67,7 @@ angular.module('orthologView')
                         var url_suf = $location.path() + '/mg_mutant_view';
                         sendToView.sendToView(url_suf, annotation_keys).then(function(data) {
                         	
-                        	console.log("FROM ORTHOLOG");
-                        	console.log(annotation_keys);
-                        	console.log(data);
-                            ctrl.data[obj.orthoTaxid.value].mutant = data.data.mutants > 0;
+                            ctrl.data[obj.orthoTaxid.value].mutant = data.data.mutants.length > 0;
                         });
                         
                     });
