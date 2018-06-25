@@ -225,6 +225,10 @@ angular
                     var url_suf = $location.path() + '/mg_mutant_view';
 
                     sendToView.sendToView(url_suf, anno_keys).then(function(data) {
+                    	
+                    	console.log("FROM MAIN PAGE");
+                    	console.log(anno_keys);
+                    	console.log(data);
 
                         ctrl.annotations.mutants = {
                             mutants : data.data.mutants,
