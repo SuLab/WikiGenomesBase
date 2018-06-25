@@ -115,8 +115,9 @@ def hostpath_form(request):
     """
     uses wdi to make go annotation edit to wikidata
     :param request: includes go annotation json for writing to wikidata
-    :return: response data oject with a write success boolean
+    :return: response data object with a write success boolean
     """
+    print("Host Path Form")
     if request.method == 'POST':
         body_unicode = request.body.decode('utf-8')
         body = json.loads(body_unicode)
@@ -128,6 +129,8 @@ def hostpath_form(request):
             return JsonResponse(responseData)
         else:
             responseData['authentication'] = True
+			
+        print("Authorization: " + str(responseData['authentication']))	
 
         login = jsonpickle.decode(request.session['login'])
         eutilsPMID = body['pub']['uid']
@@ -168,7 +171,7 @@ def hostpath_form(request):
             wd_item_protein = wdi_core.WDItemEngine(wd_item_id=body['proteinQID'], domain=None,
                                                     data=statements, use_sparql=True,
                                                     append_value='P129')
-            wd_item_protein.write(login=login)
+            #wd_item_protein.write(login=login)
             responseData['write_success'] = True
 
         except Exception as e:

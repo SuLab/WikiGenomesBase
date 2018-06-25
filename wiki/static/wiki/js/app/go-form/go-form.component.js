@@ -99,7 +99,7 @@ angular
                     ctrl.sendData = function (formData) {
                         ctrl.loading = true;
 
-                        var url_suf = $location.path() + '/wd_go_edit';
+                        var url_suf = $location.path().replace("/authorized/", "") + '/wd_go_edit';
                         console.log(url_suf);
                         sendToView.sendToView(url_suf, formData).then(function (data) {
                             if(data.data.write_success === true){

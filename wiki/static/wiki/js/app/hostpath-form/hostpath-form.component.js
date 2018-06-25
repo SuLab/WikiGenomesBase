@@ -72,18 +72,23 @@ angular
             };
             ctrl.sendData = function (formData) {
                 ctrl.loading = true;
-                var url_suf = $location.path() + '/wd_hostpath_edit';
+                
+                var url_suf = $location.path().replace("/authorized/", "") + '/wd_hostpath_edit';
+                console.log(url_suf);
+                
                 sendToView.sendToView(url_suf, formData).then(function (data) {
-                    if (data.data.authentication === false){
-                        console.log(data);
-                        alert('please authorize ChlamBase to edit Wikidata on your behalf!');
-                    }
                     if (data.data.success === true) {
+                    	console.log("SUCCESS");
                         console.log(data);
                         alert("Successfully Annotated! Well Done! The annotation will appear here in a few minutes.");
                         ctrl.resetForm();
+                    } else if (data.data.authentication === false){
+                        console.log("FAILURE: AUTHENTICATION");
+                    	console.log(data);
+                        alert('Please authorize ChlamBase to edit Wikidata on your behalf!');
                     }
                     else {
+                    	console.log("FAILURE: UNKNOWN");
                         console.log(data);
                         alert("Something went wrong.  Give it another shot!");
                     }

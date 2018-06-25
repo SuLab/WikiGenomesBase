@@ -134,7 +134,7 @@ angular
                 ctrl.sendData = function (formData) {
                     ctrl.loading = true;
                     formData.action = 'annotate';
-                    var url_suf = $location.path() + '/wd_mutant_edit';
+                    var url_suf = $location.path().replace("/authorized/", "") + '/wd_mutant_edit';
                     console.log(url_suf);
                     sendToView.sendToView(url_suf, formData).then(function (data) {
                         if (data.data.write_success === true) {
