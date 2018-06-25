@@ -16,3 +16,10 @@ A central feature of ChlamBase is to allow users to view, add, and edit:
 
 Instructions to create a model organism database for the microbes of your choice, go to the [wikigenomes_base](https://github.com/SuLab/wikigenomes_base)
 repository and follow the build instructions.
+
+# Developer Note
+Need to install grunt in order to rebuild code
+Install NPM
+npm install grunt-cli -g
+From chlambase directory, npm install
+Then, do "grunt minify" to minify and rebuild classes

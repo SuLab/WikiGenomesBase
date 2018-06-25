@@ -43,8 +43,32 @@ angular.module('orthologView')
 
 
                     GOTerms.getGoTerms(obj.uniprot.value).then(function(data) {
+                    	
+                    	 var dataResults = data.data.results.bindings;
                         
-                        ctrl.data[obj.orthoTaxid.value].go = data.data.results.bindings.length > 0;
+                        ctrl.data[obj.orthoTaxid.value].go = dataResults.length > 0;
+                        
+                        var ecnumber = [];
+                        
+                        // gather ec numbers from go terms
+                        angular.forEach(dataResults, function(value, key) {
+                            if (value.hasOwnProperty('ecnumber') && ecnumber.indexOf(value.ecnumber.value) == -1) {
+                                ecnumber.push(value.ecnumber.value);
+                            }
+
+                        });
+                        
+                        // get mutant data
+                        var annotation_keys = {
+                                locusTag : obj.orthoLocusTag.value,
+                                taxid : obj.orthoTaxid.value,
+                                ec_number: ecnumber
+                        };
+                        var url_suf = $location.path() + '/mg_mutant_view';
+                        sendToView.sendToView(url_suf, annotation_keys).then(function(data) {
+                        	
+                            ctrl.data[obj.orthoTaxid.value].mutant = data.data.mutants.length > 0;
+                        });
                         
                     });
                 } else {
@@ -67,17 +91,6 @@ angular.module('orthologView')
                         }
                     });
                     ctrl.data[obj.orthoTaxid.value].expression = currentExpression.RB_EXPRESSION_TIMING != undefined;
-                });
-                
-                // get mutant data
-                var annotation_keys = {
-                        locusTag : obj.orthoLocusTag.value,
-                        taxid : obj.orthoTaxid.value,
-                        ec_number: []
-                };
-                var url_suf = $location.path() + '/mg_mutant_view';
-                sendToView.sendToView(url_suf, annotation_keys).then(function(data) {
-                    ctrl.data[obj.orthoTaxid.value].mutant = data.data.mutants > 0;
                 });
 
             });
