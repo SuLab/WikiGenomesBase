@@ -77,7 +77,7 @@ angular
                 console.log(url_suf);
                 
                 sendToView.sendToView(url_suf, formData).then(function (data) {
-                    if (data.data.success === true) {
+                    if (data.data.write_success === true) {
                     	console.log("SUCCESS");
                         console.log(data);
                         alert("Successfully Annotated! Well Done! The annotation will appear here in a few minutes.");
