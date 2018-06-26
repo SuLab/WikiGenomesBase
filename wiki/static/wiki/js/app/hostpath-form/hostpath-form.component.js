@@ -9,13 +9,11 @@ angular
             var ctrl = this;
             
             locusTag2QID.getLocusTag2QID($routeParams.locusTag, $routeParams.taxid).then(function(data) {
-            	console.log("Getting PROTEIN QID");
                 var results = data.data.results.bindings;
                 if (results.length > 0) {
                     if (results[0].protein) {
                         ctrl.proteinQID = $filter('parseQID')(results[0].protein.value);
-                        console.log("PROTEIN QID");
-                        console.log(ctrl.proteinQID);
+                        ctrl.hostpathAnnotation.proteinQID = ctrl.proteinQID;
                     } 
 
                 }
