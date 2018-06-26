@@ -137,6 +137,7 @@ def hostpath_form(request):
         refs = []
         # #
         # # contstruct the references using WDI_core and PMID_tools if necessary
+        print("Constructing reference")
         try:
             refs.append(wdi_core.WDItemID(value='Q26489220', prop_nr='P1640', is_reference=True))
             refs.append(wdi_core.WDTime(str(strftime("+%Y-%m-%dT00:00:00Z", gmtime())), prop_nr='P813',
@@ -146,7 +147,9 @@ def hostpath_form(request):
 
             if pmid_result.json()['success'] == True:
                 refs.append(wdi_core.WDItemID(value=pmid_result.json()['result'], prop_nr='P248', is_reference=True))
-            pprint(pmid_result.json())
+                
+            print("PMID Json Result:")
+            print(pmid_result.json())
             responseData['ref_success'] = True
         except Exception as e:
             responseData['ref_success'] = False
@@ -154,6 +157,7 @@ def hostpath_form(request):
 
         statements = []
         # #contstruct the statements using WDI_core
+        print("Constructing statements")
         try:
             eviCodeQID = body['determination']['item'].split("/")[-1]
             hostProtein = body['host_protein']['protein']['value'].split("/")[-1]
@@ -161,16 +165,29 @@ def hostpath_form(request):
             statements.append(wdi_core.WDItemID(value=hostProtein, prop_nr='P129', references=[refs],
                                                 qualifiers=[evidence]))
             responseData['statement_success'] = True
+            print("Evicode/hostProtein/statements result: ")
+            print(eviCodeQID)
+            print(hostProtein)
+            print(statements)
         except Exception as e:
             responseData['statement_success'] = False
             print(e)
 
         #write the statement to WD using WDI_core
+        print("Writing the statement")
         try:
+            print("protein id:")
+            print(body['proteinQID'])
+            
             # find the appropriate item in wd
-            wd_item_protein = wdi_core.WDItemEngine(wd_item_id=body['proteinQID'], domain=None,
-                                                    data=statements, use_sparql=True,
-                                                    append_value='P129')
+            print("Constructing wd protein")
+            #wd_item_protein = wdi_core.WDItemEngine(wd_item_id=body['proteinQID'], domain=None,
+            #                                        data=statements, use_sparql=True,
+            #                                        append_value='P129')
+            wd_item_protein = wdi_core.WDItemEngine(wd_item_id='Q21168345')
+            print(wd_item_protein.get_wd_json_representation())
+            
+            print("Writing protein with login")
             #wd_item_protein.write(login=login)
             responseData['write_success'] = True
 
