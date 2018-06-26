@@ -128,8 +128,6 @@ def hostpath_form(request):
     if request.method == 'POST':
         body_unicode = request.body.decode('utf-8')
         body = json.loads(body_unicode)
-        obj = WDSparqlQueries(prop='P2393', string=body['obj_locus_tag'])
-        body['proteinQID'] = obj.wd_prop2qid()
         responseData = {}
         if 'login' not in request.session.keys():
             responseData['authentication'] = False
