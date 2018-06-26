@@ -56,6 +56,13 @@ def go_form(request):
         body_unicode = request.body.decode('utf-8')
         body = json.loads(body_unicode)
         responseData = {}
+        
+        if 'login' not in request.session.keys():
+            responseData['authentication'] = False
+            return JsonResponse(responseData)
+        else:
+            responseData['authentication'] = True
+        
         login = jsonpickle.decode(request.session['login'])
         pprint(login)
         goclass = body['goClass']
@@ -129,8 +136,6 @@ def hostpath_form(request):
             return JsonResponse(responseData)
         else:
             responseData['authentication'] = True
-			
-        print("Authorization: " + str(responseData['authentication']))	
 
         login = jsonpickle.decode(request.session['login'])
         eutilsPMID = body['pub']['uid']
@@ -165,10 +170,6 @@ def hostpath_form(request):
             statements.append(wdi_core.WDItemID(value=hostProtein, prop_nr='P129', references=[refs],
                                                 qualifiers=[evidence]))
             responseData['statement_success'] = True
-            print("Evicode/hostProtein/statements result: ")
-            print(eviCodeQID)
-            print(hostProtein)
-            print(statements)
         except Exception as e:
             responseData['statement_success'] = False
             print(e)
@@ -180,15 +181,13 @@ def hostpath_form(request):
             print(body['proteinQID'])
             
             # find the appropriate item in wd
-            print("Constructing wd protein")
-            #wd_item_protein = wdi_core.WDItemEngine(wd_item_id=body['proteinQID'], domain=None,
-            #                                        data=statements, use_sparql=True,
-            #                                        append_value='P129')
-            wd_item_protein = wdi_core.WDItemEngine(wd_item_id='Q21168345')
+            wd_item_protein = wdi_core.WDItemEngine(wd_item_id=body['proteinQID'], domain=None,
+                                                    data=statements, use_sparql=True,
+                                                    append_value='P129')
             print(wd_item_protein.get_wd_json_representation())
             
             print("Writing protein with login")
-            #wd_item_protein.write(login=login)
+            wd_item_protein.write(login=login)
             responseData['write_success'] = True
 
         except Exception as e:
@@ -209,7 +208,8 @@ def operon_form(request):
         body = json.loads(body_unicode)
         responseData = {}
         if 'login' not in request.session.keys():
-            return JsonResponse({'authenticated': False})
+            responseData['authentication'] = False
+            return JsonResponse(responseData)
 
         login = jsonpickle.decode(request.session['login'])
         # statements for operon item
@@ -355,14 +355,16 @@ def wd_oauth(request):
         # parse the url from wikidata for the oauth token and secret
         if 'url' in body.keys():
             authentication = jsonpickle.decode(request.session['authOBJ'])
-            authentication.continue_oauth(oauth_callback_data=body['url'])
+            authentication.continue_oauth(oauth_callback_data=body['url'].encode("utf-8"))
             request.session['login'] = jsonpickle.encode(authentication)
             return JsonResponse(body)
 
         # clear the authenitcation if user wants to revoke
         if 'deauthenticate' in body.keys():
-            request.session['authentication'] = None
-            request.session['login'] = None
+            if 'authentication' in request.session.keys():
+                 del request.session['authentication']
+            if 'login' in request.session.keys():
+                 del request.session['login']
             return JsonResponse({'deauthenicate': True})
 
 
@@ -389,7 +391,6 @@ def mongo_annotations(request):
         mg_mutants = annotations.get_mutants(locus_tag=body['locusTag'])
 
         for mut in mg_mutants:
-            print(mut)
             annotation_data['mutants'].append(mut)
         ecs = [x for x in body['ec_number'] if '-' not in x]
         if len(ecs) > 0:
