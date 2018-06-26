@@ -4,11 +4,12 @@ angular
         bindings: {
             data: '<'
         },
-        controller: function ($location, $routeParams, speciesGenes, pubMedData, sendToView, locusTag2QID) {
+        controller: function ($location, $routeParams, speciesGenes, pubMedData, sendToView, locusTag2QID, $filter) {
             'use strict';
             var ctrl = this;
             
             locusTag2QID.getLocusTag2QID($routeParams.locusTag, $routeParams.taxid).then(function(data) {
+            	console.log("Getting PROTEIN QID");
                 var results = data.data.results.bindings;
                 if (results.length > 0) {
                     if (results[0].protein) {
