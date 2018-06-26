@@ -123,6 +123,10 @@ angular
                             if (data.data.operonWrite_success === true) {
                                 alert("Successfully Annotated! Well Done! The annotation will appear here in a few minutes.");
                                 ctrl.resetForm();
+                            } else if (data.data.authentication === false){
+                                console.log("FAILURE: AUTHENTICATION");
+                            	console.log(data);
+                                alert('Please authorize ChlamBase to edit Wikidata on your behalf!');
                             }
                             else {
                                 alert("Something went wrong.  Give it another shot!");
