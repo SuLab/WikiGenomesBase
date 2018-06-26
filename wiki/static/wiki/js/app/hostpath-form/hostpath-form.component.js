@@ -4,9 +4,20 @@ angular
         bindings: {
             data: '<'
         },
-        controller: function ($location, $routeParams, speciesGenes, pubMedData, sendToView) {
+        controller: function ($location, $routeParams, speciesGenes, pubMedData, sendToView, locusTag2QID, $filter) {
             'use strict';
             var ctrl = this;
+            
+            locusTag2QID.getLocusTag2QID($routeParams.locusTag, $routeParams.taxid).then(function(data) {
+                var results = data.data.results.bindings;
+                if (results.length > 0) {
+                    if (results[0].protein) {
+                        ctrl.proteinQID = $filter('parseQID')(results[0].protein.value);
+                        ctrl.hostpathAnnotation.proteinQID = ctrl.proteinQID;
+                    } 
+
+                }
+            });
 
             ctrl.pageCount = 0;
 
@@ -19,7 +30,7 @@ angular
             };
 
             ctrl.hostpathAnnotation = {
-                obj_locus_tag: $routeParams.locusTag,
+                proteinQID: ctrl.proteinQID,
                 host_species: null
             };
 
@@ -72,30 +83,40 @@ angular
             };
             ctrl.sendData = function (formData) {
                 ctrl.loading = true;
-                var url_suf = $location.path() + '/wd_hostpath_edit';
-                sendToView.sendToView(url_suf, formData).then(function (data) {
-                    if (data.data.authentication === false){
-                        console.log(data);
-                        alert('please authorize ChlamBase to edit Wikidata on your behalf!');
-                    }
-                    if (data.data.success === true) {
-                        console.log(data);
-                        alert("Successfully Annotated! Well Done! The annotation will appear here in a few minutes.");
-                        ctrl.resetForm();
-                    }
-                    else {
-                        console.log(data);
-                        alert("Something went wrong.  Give it another shot!");
-                    }
-                }).finally(function () {
-                    ctrl.loading = false;
-                });
-
+                
+                var url_suf = $location.path().replace("/authorized/", "") + '/wd_hostpath_edit';
+                console.log(url_suf);
+                
+                if (ctrl.proteinQID) {
+                	sendToView.sendToView(url_suf, formData).then(function (data) {
+                        if (data.data.write_success === true) {
+                        	console.log("SUCCESS");
+                            console.log(data);
+                            alert("Successfully Annotated! Well Done! The annotation will appear here in a few minutes.");
+                            ctrl.resetForm();
+                        } else if (data.data.authentication === false){
+                            console.log("FAILURE: AUTHENTICATION");
+                        	console.log(data);
+                            alert('Please authorize ChlamBase to edit Wikidata on your behalf!');
+                        }
+                        else {
+                        	console.log("FAILURE: UNKNOWN");
+                            console.log(data);
+                            alert("Something went wrong.  Give it another shot!");
+                        }
+                    }).finally(function () {
+                        ctrl.loading = false;
+                    });
+                } else {
+                	console.log("FAILURE: NO CHLAMYDIA PROTEIN");
+                    alert("There doesn't seem to be a protein associated with this gene!");
+                }
+                
             };
             ctrl.resetForm = function () {
                 ctrl.pageCount = 0;
                 ctrl.hostpathAnnotation = {
-                    obj_locus_tag: $routeParams.locusTag,
+                	proteinQID: ctrl.proteinQID,
                     host_species: null
                 };
 

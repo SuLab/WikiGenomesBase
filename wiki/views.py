@@ -56,6 +56,13 @@ def go_form(request):
         body_unicode = request.body.decode('utf-8')
         body = json.loads(body_unicode)
         responseData = {}
+        
+        if 'login' not in request.session.keys():
+            responseData['authentication'] = False
+            return JsonResponse(responseData)
+        else:
+            responseData['authentication'] = True
+        
         login = jsonpickle.decode(request.session['login'])
         pprint(login)
         goclass = body['goClass']
@@ -115,13 +122,12 @@ def hostpath_form(request):
     """
     uses wdi to make go annotation edit to wikidata
     :param request: includes go annotation json for writing to wikidata
-    :return: response data oject with a write success boolean
+    :return: response data object with a write success boolean
     """
+    print("Host Path Form")
     if request.method == 'POST':
         body_unicode = request.body.decode('utf-8')
         body = json.loads(body_unicode)
-        obj = WDSparqlQueries(prop='P2393', string=body['obj_locus_tag'])
-        body['proteinQID'] = obj.wd_prop2qid()
         responseData = {}
         if 'login' not in request.session.keys():
             responseData['authentication'] = False
@@ -134,6 +140,7 @@ def hostpath_form(request):
         refs = []
         # #
         # # contstruct the references using WDI_core and PMID_tools if necessary
+        print("Constructing reference")
         try:
             refs.append(wdi_core.WDItemID(value='Q26489220', prop_nr='P1640', is_reference=True))
             refs.append(wdi_core.WDTime(str(strftime("+%Y-%m-%dT00:00:00Z", gmtime())), prop_nr='P813',
@@ -143,7 +150,9 @@ def hostpath_form(request):
 
             if pmid_result.json()['success'] == True:
                 refs.append(wdi_core.WDItemID(value=pmid_result.json()['result'], prop_nr='P248', is_reference=True))
-            pprint(pmid_result.json())
+                
+            print("PMID Json Result:")
+            print(pmid_result.json())
             responseData['ref_success'] = True
         except Exception as e:
             responseData['ref_success'] = False
@@ -151,6 +160,7 @@ def hostpath_form(request):
 
         statements = []
         # #contstruct the statements using WDI_core
+        print("Constructing statements")
         try:
             eviCodeQID = body['determination']['item'].split("/")[-1]
             hostProtein = body['host_protein']['protein']['value'].split("/")[-1]
@@ -163,11 +173,18 @@ def hostpath_form(request):
             print(e)
 
         #write the statement to WD using WDI_core
+        print("Writing the statement")
         try:
+            print("protein id:")
+            print(body['proteinQID'])
+            
             # find the appropriate item in wd
             wd_item_protein = wdi_core.WDItemEngine(wd_item_id=body['proteinQID'], domain=None,
                                                     data=statements, use_sparql=True,
                                                     append_value='P129')
+            print(wd_item_protein.get_wd_json_representation())
+            
+            print("Writing protein with login")
             wd_item_protein.write(login=login)
             responseData['write_success'] = True
 
@@ -189,7 +206,8 @@ def operon_form(request):
         body = json.loads(body_unicode)
         responseData = {}
         if 'login' not in request.session.keys():
-            return JsonResponse({'authenticated': False})
+            responseData['authentication'] = False
+            return JsonResponse(responseData)
 
         login = jsonpickle.decode(request.session['login'])
         # statements for operon item
@@ -335,14 +353,16 @@ def wd_oauth(request):
         # parse the url from wikidata for the oauth token and secret
         if 'url' in body.keys():
             authentication = jsonpickle.decode(request.session['authOBJ'])
-            authentication.continue_oauth(oauth_callback_data=body['url'])
+            authentication.continue_oauth(oauth_callback_data=body['url'].encode("utf-8"))
             request.session['login'] = jsonpickle.encode(authentication)
             return JsonResponse(body)
 
         # clear the authenitcation if user wants to revoke
         if 'deauthenticate' in body.keys():
-            request.session['authentication'] = None
-            request.session['login'] = None
+            if 'authentication' in request.session.keys():
+                 del request.session['authentication']
+            if 'login' in request.session.keys():
+                 del request.session['login']
             return JsonResponse({'deauthenicate': True})
 
 
@@ -369,7 +389,6 @@ def mongo_annotations(request):
         mg_mutants = annotations.get_mutants(locus_tag=body['locusTag'])
 
         for mut in mg_mutants:
-            print(mut)
             annotation_data['mutants'].append(mut)
         ecs = [x for x in body['ec_number'] if '-' not in x]
         if len(ecs) > 0:

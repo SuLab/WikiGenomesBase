@@ -118,11 +118,15 @@ angular
                     ////send form data to server to edit wikidata
                     ctrl.sendData = function (formData) {
                         ctrl.loading = true;
-                        var url_suf = $location.path() + '/wd_operon_edit';
+                        var url_suf = $location.path().replace("/authorized/", "") + '/wd_operon_edit';
                         sendToView.sendToView(url_suf, formData).then(function (data) {
                             if (data.data.operonWrite_success === true) {
                                 alert("Successfully Annotated! Well Done! The annotation will appear here in a few minutes.");
                                 ctrl.resetForm();
+                            } else if (data.data.authentication === false){
+                                console.log("FAILURE: AUTHENTICATION");
+                            	console.log(data);
+                                alert('Please authorize ChlamBase to edit Wikidata on your behalf!');
                             }
                             else {
                                 alert("Something went wrong.  Give it another shot!");
