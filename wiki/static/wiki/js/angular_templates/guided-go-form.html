@@ -43,7 +43,7 @@
                        placeholder="{{$ctrl.goclass | goClass}}"
                        uib-typeahead="go as go.goterm_label.value for go in $ctrl.getGoTermsAll($viewValue)"
                        class="form-control"
-                       typeahead-wait-ms="900"
+                       typeahead-wait-ms="500"
                        typeahead-on-select="$ctrl.selectGoTerm($item, $model, $value)"
                         >
 
@@ -54,6 +54,14 @@
             <div class="col-md-1">
                 <i ng-show="loadingTerms" class="glyphicon glyphicon-refresh"></i>
                 <i ng-show="noResults" class="glyphicon glyphicon-remove"></i>
+            </div>
+        </div>
+        <div ng-show="$ctrl.goFormModel.go">
+            <div style="padding:10px 2px 2px 2px">
+                <button class="btn btn-info" ng-click="$ctrl.goFormModel.go=null">
+                    {{$ctrl.goFormModel.go.goterm_label.value}} ({{$ctrl.goFormModel.go.goID.value}})
+                    <div class="glyphicon glyphicon-remove"></div>
+                </button>
             </div>
         </div>
     </div>
@@ -77,9 +85,9 @@
         </div>
         <div ng-show="$ctrl.goFormModel.evi">
             <div style="padding:2px 2px 2px 2px">
-                <button class="btn btn-info">
+                <button class="btn btn-info" ng-click="$ctrl.goFormModel.evi=null">
                     {{ $ctrl.goFormModel.evi.name }}
-                    <div data-ng-click="$ctrl.goFormModel.evi=null" class="glyphicon glyphicon-remove"></div>
+                    <div class="glyphicon glyphicon-remove"></div>
                 </button>
             </div>
         </div>
@@ -98,7 +106,7 @@
                        typeahead-loading="loadingTerms"
                        typeahead-no-results="noResults"
                        class="form-control"
-                       typeahead-wait-ms="900"
+                       typeahead-wait-ms="500"
                        typeahead-on-select="$ctrl.selectPub($item, $model, $value)"
                         ></div>
             <div class="col-md-1">
@@ -108,9 +116,9 @@
 
         <div ng-show="$ctrl.goFormModel.pub">
             <div style="padding:10px 2px 2px 2px">
-                <button class="btn btn-info">
+                <button class="btn btn-info" ng-click="$ctrl.goFormModel.pub=null">
                     {{$ctrl.goFormModel.pub.authors[0].name}} <i>et al.</i> {{$ctrl.goFormModel.pub.pubdate}}
-                    <div data-ng-click="$ctrl.goFormModel.pub=null" class="glyphicon glyphicon-remove"></div>
+                    <div class="glyphicon glyphicon-remove"></div>
                 </button>
             </div>
         </div>

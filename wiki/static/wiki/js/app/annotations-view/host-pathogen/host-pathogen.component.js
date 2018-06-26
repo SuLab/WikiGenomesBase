@@ -8,7 +8,5 @@ angular
         controller: function () {
             'use strict';
             var ctrl = this;
-            ctrl.$onInit = function () {
-            };
         }
     });

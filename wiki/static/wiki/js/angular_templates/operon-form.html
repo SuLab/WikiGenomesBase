@@ -55,7 +55,7 @@
                typeahead-loading="loadingGenes"
                typeahead-no-results="noResults"
                class="form-control"
-               typeahead-wait-ms="900"
+               typeahead-wait-ms="500"
                typeahead-on-select="$ctrl.selectGene($item, $model, $value)"
                 >
         <i ng-show="loadingGenes" class="glyphicon glyphicon-refresh"></i>
@@ -65,9 +65,9 @@
         </div>
         <div style="display: inline-block" ng-repeat="gene in $ctrl.opFormModel.genes">
             <div style="padding:10px 2px 2px 2px">
-                <button class="btn btn-info">
+                <button class="btn btn-info" ng-click="$ctrl.removeGene(gene)">
                     {{ gene.locusTag }}
-                    <div data-ng-click="$ctrl.removeGene(gene)" class="glyphicon glyphicon-remove"></div>
+                    <div class="glyphicon glyphicon-remove"></div>
                 </button>
             </div>
         </div>
@@ -82,7 +82,7 @@
                typeahead-loading="loadingPub"
                typeahead-no-results="noPubResults"
                class="form-control"
-               typeahead-wait-ms="900"
+               typeahead-wait-ms="500"
                typeahead-on-select="$ctrl.selectPub($item, $model, $value)"
                 >
         <i ng-show="loadingPub" class="glyphicon glyphicon-refresh"></i>
@@ -92,9 +92,9 @@
         </div>
         <div ng-show="$ctrl.opFormModel.pub">
             <div style="padding:10px 2px 2px 2px" ng-repeat="pub in $ctrl.opFormModel.pub">
-                <button class="btn btn-info">
+                <button class="btn btn-info" ng-click="$ctrl.removePub(pub)">
                     {{ pub.authors[0].name}} et. al {{ pub.pubdate }}
-                    <div data-ng-click="$ctrl.removePub(pub)" class="glyphicon glyphicon-remove"></div>
+                    <div class="glyphicon glyphicon-remove"></div>
                 </button>
             </div>
         </div>
