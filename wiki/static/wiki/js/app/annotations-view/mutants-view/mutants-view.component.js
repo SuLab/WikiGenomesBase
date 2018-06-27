@@ -8,6 +8,12 @@ angular
             'use strict';
             var ctrl = this;
             ctrl.$onInit = function() {};
+            
+            ctrl.$onChanges = function() {
+            	console.log("MUTANT DATA");
+            	console.log(data);
+            };
+            
             ctrl.deleteAnnotation = function(mutant) {
                 console.log(mutant);
                 ctrl.loading = true;
