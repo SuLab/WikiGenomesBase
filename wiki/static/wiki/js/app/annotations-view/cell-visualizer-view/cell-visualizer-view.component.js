@@ -39,6 +39,11 @@ angular.module("cellVisualizer")
                     console.log("No compatible parent  found for " + goTerm);
                     console.log(response);
                     ctrl.pending--;
+                    
+                    if (ctrl.pending == 0) {
+                    	ctrl.loading = false;
+                    	ctrl.status = "No Components to Show";
+                    }
                 });
             } else {
 
