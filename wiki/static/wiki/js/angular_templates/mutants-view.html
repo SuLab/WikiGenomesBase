@@ -23,10 +23,14 @@
         <td title="'Reference'">
             <!-- Button trigger modal -->
 
-
-            <a target="_blank" href="https://www.ncbi.nlm.nih.gov/pubmed/{{ x.pub.result.uids[0]}}">
+            <a ng-show="x.pub" target="_blank" href="https://www.ncbi.nlm.nih.gov/pubmed/{{ x.pub.result.uids[0]}}">
                 <img uib-tooltip="Link to publication in PubMed" style="height: 14px; margin-top: -3px"
                      data-ng-src="/static/wiki/img/pubmedGlyph.png">
+            </a>
+            
+            <a ng-show="x.doi" target="_blank" href="https://doi.org/{{ x.doi}}">
+                <img uib-tooltip="Link to publication in Figshare" style="height: 14px; margin-top: -3px"
+                     data-ng-src="/static/wiki/img/figshare-logo.png">
             </a>
         </td>
 
