@@ -54,7 +54,7 @@
         <td title="'Percent Left Intact'">
             {{ x.percent_gene_intact }}
         </td>
-        <td title="'Inesert Direction'">
+        <td title="'Insert Direction'">
             {{ x.insert_direction }}
         </td>
         <td title="'Type of Insert'">
@@ -65,6 +65,12 @@
             <a target="_blank" href="https://www.ncbi.nlm.nih.gov/pubmed/{{ x.pub.uid }}">
                 <img uib-tooltip="Link to publication in PubMed" style="height: 14px; margin-top: -3px"
                      data-ng-src="/static/wiki/img/pubmedGlyph.png">
+            </a>
+        </td>
+        
+        <td title="'Delete Annotation'">
+            <a class="glyphicon glyphicon-remove"
+               ng-click="$ctrl.deleteAnnotation(x); $ctrl.data.mutants.splice($index,1)">
             </a>
         </td>
 

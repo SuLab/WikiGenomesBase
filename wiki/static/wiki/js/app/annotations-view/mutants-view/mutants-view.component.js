@@ -11,7 +11,7 @@ angular
             
             ctrl.$onChanges = function() {
             	console.log("MUTANT DATA");
-            	console.log(data);
+            	console.log(ctrl.data);
             };
             
             ctrl.deleteAnnotation = function(mutant) {
