@@ -3,6 +3,9 @@
     <tr>
         <td title="'Gene Name'">
             <strong>{{$ctrl.data.geneLabel }}</strong>
+            <button title="Edit Gene Name" type="button" class="btn btn-xs btn-info" data-toggle="modal" data-target="#geneName_button" >
+    			<div class="glyphicon glyphicon-pencil"></div>
+			</button>
         </td>
         <td title="'Locus Tag'">
             {{$ctrl.data.locusTag }}
@@ -44,3 +47,21 @@
         </td>
     </tr>
 </table>
+<!-- Modal -->
+<div class="modal" id="geneName_button" tabindex="-1" role="dialog"
+     aria-labelledby="refModalTitle"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content" style="padding:10px">
+            <gene-name-form gene="$ctrl.data" ng-hide="showHelp"></gene-name-form>
+            <help-form ng-show="showHelp"></help-form>
+            <div class="modal-footer">
+            	<button type="button" class="btn btn-default" style="float:left" ng-click="showHelp = !showHelp">
+            		<span ng-hide="showHelp">Need Help?</span>
+            		<span ng-show="showHelp">Back</span>
+            	</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" ng-click="showHelp = false">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
