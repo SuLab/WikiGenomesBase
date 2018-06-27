@@ -182,8 +182,6 @@ def hostpath_form(request):
             wd_item_protein = wdi_core.WDItemEngine(wd_item_id=body['proteinQID'], domain=None,
                                                     data=statements, use_sparql=True,
                                                     append_value='P129')
-            print(wd_item_protein.get_wd_json_representation())
-            
             print("Writing protein with login")
             wd_item_protein.write(login=login)
             responseData['write_success'] = True
@@ -427,14 +425,16 @@ def geneName_form(request):
             print("gene id:")
             print(body['geneQID'])
             if body['geneQID'] != "":
-                wd_item_gene = wdi_core.WDItemEngine(wd_item_id=body['geneQID'], domain=None, item_name=body['geneName'])
+                wd_item_gene = wdi_core.WDItemEngine(wd_item_id=body['geneQID'], domain=None)
+                wd_item_gene.set_label(body['geneName'])
                 wd_item_gene.write(login=login)		
 			
             print("protein id:")
             print(body['proteinQID'])
             if body['proteinQID'] != "":
-                body['geneName'] = body['geneName'][0:1].uppercase() + body['geneName'][1:]
-                wd_item_protein = wdi_core.WDItemEngine(wd_item_id=body['proteinQID'], domain=None, item_name=body['geneName'])
+                body['geneName'] = body['geneName'][0:1].upper() + body['geneName'][1:]
+                wd_item_protein = wdi_core.WDItemEngine(wd_item_id=body['proteinQID'], domain=None)
+                wd_item_protein.set_label(body['geneName'])
                 wd_item_protein.write(login=login)
 				
             responseData['write_success'] = True
