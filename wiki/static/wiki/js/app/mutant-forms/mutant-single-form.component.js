@@ -7,6 +7,10 @@ angular
 
         controller: function (pubMedData, $filter, $location, $routeParams, locusTag2QID, wdGetEntities, sendToView) {
             var ctrl = this;
+            
+            
+            ctrl.reftype = "PMID";
+            
             ctrl.$onInit = function () {
 
                 ctrl.mutantAnnotation = {
@@ -26,6 +30,7 @@ angular
                     percent_gene_intact: null,
                     insert_direction: null,
                     pub: null,
+                    doi: null,
                     ref_base: null,
                     variant_base: null,
                     variant_type: {alias: null, name: null, id: null},
@@ -45,13 +50,6 @@ angular
                 }).finally(function () {
                     wdGetEntities.wdGetEntities(ctrl.geneQID).then(function (data) {
                         var entity = data.entities[ctrl.geneQID];
-                        ctrl.entrez = entity.claims.P351[0].mainsnak.datavalue.value;
-                        ctrl.geneLabel = entity.labels.en.value;
-                        ctrl.geneDescription = entity.descriptions.en.value;
-                        ctrl.genStart = entity.claims.P644[0].mainsnak.datavalue.value;
-                        ctrl.genEnd = entity.claims.P645[0].mainsnak.datavalue.value;
-                        ctrl.strand = entity.claims.P2548[0].mainsnak.datavalue.value;
-                        //ctrl.mutantAnnotation.chromosome = entity.claims.P644[0].qualifiers.P2249[0].datavalue.value;
                         ctrl.mutantAnnotation.chromosome = entity.claims.P644[0].qualifiers.P1057[0].datavalue.value;
                     });
                 });
