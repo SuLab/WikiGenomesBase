@@ -1,28 +1,35 @@
 angular.module("cellVisualizer")
 
-    .controller("cellVisualizerCtrl", function(geneOntologyService) {
+    .controller("cellVisualizerCtrl", function(geneOntologyService, $timeout) {
         'use strict';
 
         var ctrl = this;
 
-        this.status = "Loading Component Viewer...";
-        this.loading = true;
-
+        ctrl.status = "Loading Component Viewer...";
+        ctrl.loading = true;
+        
         ctrl.$onChanges = function load() {
             if (ctrl.cellComp) {
+            	
+            	// list of terms still loading
+                ctrl.pending = ctrl.cellComp.length;
+            	
                 angular.forEach(ctrl.cellComp, function(value) {
                     var id = (value.goID.value).replace(":", "_");
                     ctrl.highlight(id);
                 });
-                ctrl.loading = false;
-                ctrl.status = "No Components to Show";
+                
+                if (ctrl.pending == 0) {
+                	ctrl.loading = false;
+                	ctrl.status = "No Components to Show";
+                }
             }
         };
 
         this.displayCell = false;
 
         this.highlight = function(goTerm) {
-
+        	
             // get next parent that is valid
             if (!geneOntologyService.isValid(goTerm)) {
                 geneOntologyService.getParent(goTerm).then(function(response) {
@@ -31,6 +38,7 @@ angular.module("cellVisualizer")
                 }, function(response) {
                     console.log("No compatible parent  found for " + goTerm);
                     console.log(response);
+                    ctrl.pending--;
                 });
             } else {
 
@@ -40,8 +48,9 @@ angular.module("cellVisualizer")
             }
 
         };
-
+        
         function fill(goTerm) {
+
             var svg = document.getElementById("cell-svg");
 
             var svgDoc = svg.contentDocument;
@@ -53,28 +62,40 @@ angular.module("cellVisualizer")
             } else {
                 paths = svgDoc.getElementsByClassName(geneOntologyService.getClass(goTerm));
             }
+            
+            // CHROME and SAFARI do not instantly load paths (takes them a second)
+            // without the delay, paths[0] will be empty
+            $timeout(function() {
+            	
+            	ctrl.pending--;
+            	
+            	if (geneOntologyService.isPlasmaMembrane(goTerm)) {
 
-            if (geneOntologyService.isPlasmaMembrane(goTerm)) {
-
-                // fill outside  minus the inside
-                paths[0].style.fill = "#4784FF";
-
-                // subtract inside only if cytoplasm is not also filled
-                if (svgDoc.getElementsByClassName("cytoplasm")[0].style.fill != "#4784FF") {
-                    svgDoc.getElementsByClassName("cytoplasm")[0].style.fill = "#FFFFFF";
-                }
-
-            } else if (geneOntologyService.isInclusion(goTerm)) {
-                if (geneOntologyService.isInclusionMembrane(goTerm)) {
-                    paths[0].style.stroke = "#4784FF";
-                } else {
+                    // fill outside  minus the inside
                     paths[0].style.fill = "#4784FF";
+
+                    // subtract inside only if cytoplasm is not also filled
+                    if (svgDoc.getElementsByClassName("cytoplasm")[0].style.fill != "#4784FF") {
+                        svgDoc.getElementsByClassName("cytoplasm")[0].style.fill = "#FFFFFF";
+                    }
+
+                } else if (geneOntologyService.isInclusion(goTerm)) {
+                    if (geneOntologyService.isInclusionMembrane(goTerm)) {
+                        paths[0].style.stroke = "#4784FF";
+                    } else {
+                        paths[0].style.fill = "#4784FF";
+                    }
+                } else {
+                    for (var i = 0; i < paths.length; i++) {
+                        paths[i].style.fill = "#4784FF";
+                    }
                 }
-            } else {
-                for (var i = 0; i < paths.length; i++) {
-                    paths[i].style.fill = "#4784FF";
+            	
+            	if (ctrl.pending == 0) {
+                	ctrl.loading = false;
                 }
-            }
+            	
+            }, 1000);
 
         }
 
