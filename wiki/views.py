@@ -399,5 +399,47 @@ def mongo_annotations(request):
                     annotation_data['reactions'].append(rxn)
         return JsonResponse(annotation_data, safe=False)
 
+@ensure_csrf_cookie
+def geneName_form(request):
+    """
+    uses wdi to make go annotation edit to wikidata
+    :param request: includes go annotation json for writing to wikidata
+    :return: response data object with a write success boolean
+    """
+    print("Gene Name Form")
+    if request.method == 'POST':
+        body_unicode = request.body.decode('utf-8')
+        body = json.loads(body_unicode)
+		
+        responseData = {}
+        if 'login' not in request.session.keys():
+            responseData['authentication'] = False
+            return JsonResponse(responseData)
+        else:
+            responseData['authentication'] = True
 
+        login = jsonpickle.decode(request.session['login'])
 
+        #write the name to the gene and protein
+        try:
+		
+            print("Writing Gene")
+            print("gene id:")
+            print(body['geneQID'])
+            if body['geneQID'] != "":
+                wd_item_gene = wdi_core.WDItemEngine(wd_item_id=body['geneQID'], domain=None, item_name=body['geneName'])
+                wd_item_gene.write(login=login)		
+			
+            print("protein id:")
+            print(body['proteinQID'])
+            if body['proteinQID'] != "":
+                body['geneName'] = body['geneName'][0:1].uppercase() + body['geneName'][1:]
+                wd_item_protein = wdi_core.WDItemEngine(wd_item_id=body['proteinQID'], domain=None, item_name=body['geneName'])
+                wd_item_protein.write(login=login)
+				
+            responseData['write_success'] = True
+
+        except Exception as e:
+            responseData['write_success'] = False
+            print(e)
+        return JsonResponse(responseData)

@@ -42,5 +42,6 @@ angular.module('cmod', [
     'expressionView',
     'hostPathogen',
     'hostpathForm',
-    'alignmentView'
+    'alignmentView',
+    'geneNameForm'
 ]);
