@@ -9,10 +9,11 @@ angular
             var ctrl = this;
             ctrl.$onInit = function() {};
             
-            ctrl.$onChanges = function() {
-            	console.log("MUTANT DATA");
-            	console.log(ctrl.data);
-            };
+            if ($location.path().includes("authorized")) {
+            	ctrl.authorized = true;
+            } else {
+            	ctrl.authorized = false;
+            }
             
             ctrl.deleteAnnotation = function(mutant) {
                 console.log(mutant);
