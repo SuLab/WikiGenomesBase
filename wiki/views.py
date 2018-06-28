@@ -316,7 +316,7 @@ def mutant_form(request):
             try:
                 annotation = MutantMongo(mut_json=body, taxid=body['taxid'], refseq=body['chromosome'])
                 delete_result = annotation.delete_one_mongo()
-				body['delete_success'] = delete_result['delete_success']
+                body['delete_success'] = delete_result['delete_success']
             except Exception as e:
                 body['delete_success'] = False
         return JsonResponse(body)
