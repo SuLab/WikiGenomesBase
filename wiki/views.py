@@ -396,7 +396,6 @@ def mongo_annotations(request):
                 annotation_data['mutants'].append(mut)
             else:
                 annotation_data['mutants'].append(mut)
-            pprint(mut)
 				
         ecs = [x for x in body['ec_number'] if '-' not in x]
         if len(ecs) > 0:
