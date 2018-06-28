@@ -1,6 +1,6 @@
 angular
 	.module("geneNameForm")
-	.controller("geneNameCtrl",	function($location, sendToView, orthoData, $routeParams) {
+	.controller("geneNameCtrl",	function($location, sendToView, orthoData, $routeParams, locusTag2QID) {
 			'use strict';
 			
 			var ctrl = this;
