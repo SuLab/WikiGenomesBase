@@ -148,7 +148,7 @@
             </div>
         </div>
     </div>
-    <div class="well" ng-show="$ctrl.pageCount==4" style="height:200px">
+    <div class="well" ng-show="$ctrl.pageCount==4" style="height:220px">
         <h4>Review for submission</h4>
 
         <div>
@@ -158,6 +158,11 @@
                 " <strong>{{$ctrl.goFormModel.pub.authors[0].name}} <i>et al.</i>
                     {{$ctrl.goFormModel.pub.pubdate}}</strong>"
                 and determined by "<strong>{{$ctrl.goFormModel.evi.name}}</strong>"
+                <br><br>
+                This annotation will be applied to:
+                <ul>
+                	<li ng-repeat="(key,value) in $ctrl.projection" ng-show="value == true">{{$ctrl.data[key]}}</li>
+                </ul>
             </p>
         </div>
         <div>
@@ -168,13 +173,13 @@
         <div ng-hide="$ctrl.pageCount==0" class="btn btn-default" ng-click="$ctrl.backClick()">
             Previous
         </div>
-        <div style="float:right" ng-hide="$ctrl.pageCount==3" class="btn btn-default" ng-click="$ctrl.nextClick()">
+        <div style="float:right" ng-hide="$ctrl.pageCount==4" class="btn btn-default" ng-click="$ctrl.nextClick()">
             Next
         </div>
     </div>
     <div style="clear:both; width:100%; margin-top: 10px">
         <div class="btn btn-warning" ng-click="$ctrl.resetForm()">Reset</div>
-        <div style="float:right" ng-show="$ctrl.validateFields() && $ctrl.pageCount==3" class="btn btn-success"
+        <div style="float:right" ng-show="$ctrl.validateFields() && $ctrl.pageCount==4" class="btn btn-success"
              ng-click="$ctrl.sendData()">
             Submit Annotation
         </div>

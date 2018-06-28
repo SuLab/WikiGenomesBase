@@ -119,7 +119,11 @@ angular
                 var success = true;
                 var authorize = false;
                 
-                console.log(ctrl.projection);
+                if (!$location.path().includes("authorized")) {
+                    alert('Please authorize ChlamBase to edit Wikidata on your behalf!');
+                    return;
+                }
+                
                 angular.forEach(ctrl.projection, function(value, key) {
                 	console.log(value);
                 	if (value) {
@@ -139,6 +143,7 @@ angular
                             } 
                             
                             var url_suf = '/organism/' + key + '/gene/' + ctrl.data[key] +  '/wd_go_edit';
+                            
                             console.log(url_suf);
                             sendToView.sendToView(url_suf, formData).then(function (data) {
                                 if (data.data.authentication === false){
