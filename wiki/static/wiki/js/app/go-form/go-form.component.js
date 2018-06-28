@@ -126,7 +126,6 @@ angular
                 }
                 
                 angular.forEach(ctrl.projection, function(value, key) {
-                	console.log(value);
                 	if (value) {
                         locusTag2QID.getLocusTag2QID(ctrl.data[key], key).then(function (data) {
                         	
@@ -138,7 +137,6 @@ angular
                                     goClass: ctrl.goFormModel.goClass
                             };
 
-                            ctrl.geneQID = $filter('parseQID')(data.data.results.bindings[0].gene.value);
                             if (data.data.results.bindings[0].protein) {
                                 formData.proteinQID = $filter('parseQID')(data.data.results.bindings[0].protein.value);
                             } 
@@ -163,7 +161,6 @@ angular
                             			ctrl.resetForm();
                             		} else if (authorize) {
                             			console.log("FAILURE: AUTHENTICATION");
-                                    	console.log(data);
                                         alert('Please authorize ChlamBase to edit Wikidata on your behalf!');
                             		} else {
                             			alert("Something went wrong.  Give it another shot!");
@@ -183,7 +180,6 @@ angular
                     			ctrl.resetForm();
                     		} else if (authorize) {
                     			console.log("FAILURE: AUTHENTICATION");
-                            	console.log(data);
                                 alert('Please authorize ChlamBase to edit Wikidata on your behalf!');
                     		} else {
                     			alert("Something went wrong.  Give it another shot!");
