@@ -7,7 +7,10 @@ angular
 
         controller: function (pubMedData, $filter, $location, $routeParams, locusTag2QID, wdGetEntities, sendToView) {
             var ctrl = this;
+            
             ctrl.$onInit = function () {
+            	
+            	ctrl.reftype = "PMID";
 
                 ctrl.mutantAnnotation = {
                     taxid: $routeParams.taxid,
@@ -26,16 +29,13 @@ angular
                     percent_gene_intact: null,
                     insert_direction: null,
                     pub: null,
+                    doi: null,
                     ref_base: null,
                     variant_base: null,
                     variant_type: {alias: null, name: null, id: null},
                     aa_effect: null
                 };
                 ctrl.pageCount = 0;
-                ctrl.alerts = {
-                    'success': false,
-                    'error': false
-                };
                 locusTag2QID.getLocusTag2QID(ctrl.mutantAnnotation.locusTag, ctrl.mutantAnnotation.taxid).then(function (data) {
                     var results = data.data.results.bindings;
                     if (results.length > 0) {
@@ -45,13 +45,6 @@ angular
                 }).finally(function () {
                     wdGetEntities.wdGetEntities(ctrl.geneQID).then(function (data) {
                         var entity = data.entities[ctrl.geneQID];
-                        ctrl.entrez = entity.claims.P351[0].mainsnak.datavalue.value;
-                        ctrl.geneLabel = entity.labels.en.value;
-                        ctrl.geneDescription = entity.descriptions.en.value;
-                        ctrl.genStart = entity.claims.P644[0].mainsnak.datavalue.value;
-                        ctrl.genEnd = entity.claims.P645[0].mainsnak.datavalue.value;
-                        ctrl.strand = entity.claims.P2548[0].mainsnak.datavalue.value;
-                        //ctrl.mutantAnnotation.chromosome = entity.claims.P644[0].qualifiers.P2249[0].datavalue.value;
                         ctrl.mutantAnnotation.chromosome = entity.claims.P644[0].qualifiers.P1057[0].datavalue.value;
                     });
                 });
@@ -134,14 +127,28 @@ angular
                 ctrl.sendData = function (formData) {
                     ctrl.loading = true;
                     formData.action = 'annotate';
+                    
+                    if (!$location.path().includes("authorized")) {
+                    	alert('Please authorize ChlamBase to edit Wikidata on your behalf!');
+                    	return;
+                    }
+                    
                     var url_suf = $location.path().replace("/authorized/", "") + '/wd_mutant_edit';
                     console.log(url_suf);
                     sendToView.sendToView(url_suf, formData).then(function (data) {
-                        if (data.data.write_success === true) {
-                            ctrl.alerts.success = true;
+                    	if (data.data.write_success === true) {
+                        	console.log("SUCCESS");
+                            console.log(data);
+                            alert("Successfully Annotated! Well Done! The annotation will appear here soon.");
+                            ctrl.resetForm();
+                        } else if (data.data.authentication === false){
+                            console.log("FAILURE: AUTHENTICATION");
+                            alert('Please authorize ChlamBase to edit Wikidata on your behalf!');
                         }
                         else {
-                            ctrl.alerts.error = true;
+                        	console.log("FAILURE: UNKNOWN");
+                            console.log(data);
+                            alert("Something went wrong.  Give it another shot!");
                         }
                     }).finally(function () {
                         ctrl.loading = false;

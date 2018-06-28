@@ -8,6 +8,13 @@ angular
             'use strict';
             var ctrl = this;
             ctrl.$onInit = function() {};
+            
+            if ($location.path().includes("authorized")) {
+            	ctrl.authorized = true;
+            } else {
+            	ctrl.authorized = false;
+            }
+            
             ctrl.deleteAnnotation = function(mutant) {
                 console.log(mutant);
                 ctrl.loading = true;
