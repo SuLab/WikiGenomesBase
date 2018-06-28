@@ -3,12 +3,14 @@
 </div>
 <div style="padding:20px">
     <table style="width:100%">
-        <col width="20%"/>
-        <col width="6%"/>
-        <col width="20%"/>
-        <col width="6%"/>
-        <col width="20%"/>
-        <col width="8%"/>
+        <col width="15%"/>
+        <col width="5%"/>
+        <col width="15%"/>
+        <col width="5%"/>
+        <col width="15%"/>
+        <col width="5%"/>
+        <col width="15%">
+        <col width="5%">
         <col width="20%"/>
         <tr>
             <th class="strongColor">Function</th>
@@ -17,11 +19,15 @@
             <th ng-class="{ 'fadedColor': $ctrl.pageCount < 1, 'strongColor': $ctrl.pageCount >= 1 }">Method</th>
             <th ng-class="{ 'fadedColor': $ctrl.pageCount < 1, 'strongColor': $ctrl.pageCount >= 1 }"
                 class="glyphicon glyphicon-arrow-right"></th>
-
-            <th ng-class="{ 'fadedColor': $ctrl.pageCount < 2, 'strongColor': $ctrl.pageCount >= 2}">Reference</th>
+                
+            <th ng-class="{ 'fadedColor': $ctrl.pageCount < 2, 'strongColor': $ctrl.pageCount >= 2 }">Orthologs</th>
             <th ng-class="{ 'fadedColor': $ctrl.pageCount < 2, 'strongColor': $ctrl.pageCount >= 2 }"
                 class="glyphicon glyphicon-arrow-right"></th>
-            <th ng-class="{ 'fadedColor': $ctrl.pageCount < 4, 'strongColor': $ctrl.pageCount == 3}">Review</th>
+
+            <th ng-class="{ 'fadedColor': $ctrl.pageCount < 3, 'strongColor': $ctrl.pageCount >= 3 }">Reference</th>
+            <th ng-class="{ 'fadedColor': $ctrl.pageCount < 3, 'strongColor': $ctrl.pageCount >= 3 }"
+                class="glyphicon glyphicon-arrow-right"></th>
+            <th ng-class="{ 'fadedColor': $ctrl.pageCount < 4, 'strongColor': $ctrl.pageCount == 4}">Review</th>
         </tr>
     </table>
 
@@ -92,7 +98,26 @@
             </div>
         </div>
     </div>
-    <div class="well" ng-show="$ctrl.pageCount==2" style="height:200px">
+    <div class="well" ng-show="$ctrl.pageCount==2" style="min-height:200px">
+		<h4>Select all genes you wish to apply this annotation to:</h4>
+		<table class="table table-hover">
+			<tr>
+				<td title="'Strain'">Strain</td>
+				<td title="'Taxid'">Taxid</td>
+				<td title="'Locus Tag'">Locus Tag</td>
+				<td title="'Target'">Target</td>
+			</tr>
+			<tr ng-repeat="(key, value) in $ctrl.data">
+				<td title="'Strain'">{{ key | taxid2Name }}</td>
+				<td title="'Taxid'">{{ key }}</td>
+				<td title="'Locus Tag'">{{value}}</td>
+				<td title="'Target'"><input type="checkbox" ng-model="checked"
+					ng-init="checked=false" ng-click="$ctrl.select(checked, key)">
+				</td>
+			</tr>
+		</table>
+    </div>
+    <div class="well" ng-show="$ctrl.pageCount==3" style="height:200px">
 
         <div class="row">
             <div class="col-md-1"></div>
@@ -123,7 +148,7 @@
             </div>
         </div>
     </div>
-    <div class="well" ng-show="$ctrl.pageCount==3" style="height:200px">
+    <div class="well" ng-show="$ctrl.pageCount==4" style="height:200px">
         <h4>Review for submission</h4>
 
         <div>
@@ -150,7 +175,7 @@
     <div style="clear:both; width:100%; margin-top: 10px">
         <div class="btn btn-warning" ng-click="$ctrl.resetForm()">Reset</div>
         <div style="float:right" ng-show="$ctrl.validateFields() && $ctrl.pageCount==3" class="btn btn-success"
-             ng-click="$ctrl.sendData($ctrl.goFormModel)">
+             ng-click="$ctrl.sendData()">
             Submit Annotation
         </div>
     </div>
