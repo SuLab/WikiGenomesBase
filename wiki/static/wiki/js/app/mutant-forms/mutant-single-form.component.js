@@ -116,6 +116,9 @@ angular
 
                 ctrl.selectPub = function ($item, $model, $label) {
                     ctrl.mutantAnnotation.pub = $item.uid;
+                    ctrl.pubtitle = $item.title;
+                    ctrl.pubauthor = $item.authors[0].name;
+                    ctrl.pubdate = $item.pubdate;
                 };
 
                 ctrl.resetForm = function () {
