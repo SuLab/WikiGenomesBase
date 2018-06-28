@@ -384,7 +384,7 @@ def mongo_annotations(request):
         mg_mutants = annotations.get_mutants(locus_tag=body['locusTag'])
 
         for mut in mg_mutants:
-            if "result" in mut['pub'].keys():
+            if type(mut['pub']) is dict:
                 #rewrite annotation with just uid
                 annotation = MutantMongo(mut_json=mut, taxid=body['taxid'], refseq=mut['chromosome'])
                 annotation.delete_one_mongo()
