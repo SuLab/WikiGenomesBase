@@ -95,7 +95,6 @@ angular
                 ctrl.pubValue = $item;
             };
             
-            
             // send form data to server to edit wikidata
             ctrl.sendData = function () {
                 ctrl.loading = true;
