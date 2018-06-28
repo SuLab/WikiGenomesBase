@@ -1,13 +1,33 @@
 <form name='geneNameAnnotationForm' class="form-group">
 
 	<div class="well" ng-show="$ctrl.pageCount==0" style="min-height: 160px">
-		<h4>Enter a name for the gene and protein product:</h4>
+		<h4>Enter a name for the gene without the locus tag at the end:</h4>
 
 		<div class="input-group">
 			<input ng-model="$ctrl.geneNameData.geneName" type="text" style="width: 500px;"
-				class="form-control ui-widget" id="geneName" placeholder="aspartyl/glutamyl-tRNA amidotransferase subunit A CT_003">
+				class="form-control ui-widget" id="geneName" placeholder="aspartyl/glutamyl-tRNA amidotransferase subunit A">
 		</div>
 
+	</div>
+	
+	<div class="well" ng-show="$ctrl.pageCount==0" style="min-height: 200px">
+		<h4>Select all genes you wish to apply this name change to:</h4>
+		<table class="table table-hover">
+			<tr>
+				<td title="'Strain'">Strain</td>
+				<td title="'Taxid'">Taxid</td>
+				<td title="'Locus Tag'">Locus Tag</td>
+				<td title="'Target'">Target</td>
+			</tr>
+			<tr ng-repeat="(key, value) in $ctrl.orthoData">
+				<td title="'Strain'">{{ key | taxid2Name }}</td>
+				<td title="'Taxid'">{{ key }}</td>
+				<td title="'Locus Tag'">{{value}}</td>
+				<td title="'Target'"><input type="checkbox" ng-model="checked"
+					ng-init="checked=false" ng-click="$ctrl.select(checked, key)">
+				</td>
+			</tr>
+		</table>
 	</div>
 
 	<div class="well" ng-show="$ctrl.pageCount==1"
@@ -17,7 +37,12 @@
 		<div>
 			<p ng-show="$ctrl.geneNameData.geneName != ''">
 				The gene with locus tag "<strong>{{$ctrl.gene.locusTag}}</strong>"
-				will be renamed from "<strong>{{$ctrl.gene.geneLabel}}</strong>" to "<strong>{{$ctrl.geneNameData.geneName}}</strong>".
+				will be renamed from "<strong>{{$ctrl.gene.geneLabel}}</strong>" to "<strong>{{$ctrl.geneNameData.geneName}} {{$ctrl.locusTag}}</strong>".
+				<br><br> This labeling will be applied with its respective locus tag to:
+				<ul>
+					<li ng-repeat="(key,value) in $ctrl.projection"
+						ng-show="value == true">{{$ctrl.orthoData[key]}}</li>
+				</ul>
 			</p>
 		</div>
 		<div>
@@ -33,10 +58,10 @@
 	</div>
 	<div style="clear: both; width: 100%; margin-top: 10px">
 		<div class="btn btn-warning"
-			ng-click="$ctrl.geneNameData.geneName = ''; $ctrl.pageCount = 0">Reset</div>
+			ng-click="$ctrl.resetForm()">Reset</div>
 		<div style="float: right"
 			ng-show="$ctrl.geneNameData.geneName != '' && $ctrl.pageCount==1"
-			class="btn btn-success" ng-click="$ctrl.sendData($ctrl.geneNameData)">
+			class="btn btn-success" ng-click="$ctrl.sendData()">
 			Submit Annotation</div>
 
 
