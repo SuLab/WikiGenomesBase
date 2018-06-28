@@ -41,7 +41,10 @@ angular
 
             ctrl.hostpathAnnotation = {
                 proteinQID: null,
-                host_species: null
+                host_species: null,
+                pub: null,
+                host_protein: null,
+                determination: null,
             };
 
             ctrl.species = [
@@ -113,7 +116,10 @@ angular
                         	
                             var formData = {
                             		proteinQID: null,
-                                    host_species: ctrl.hostpathAnnotation.host_species
+                                    host_species: ctrl.hostpathAnnotation.host_species,
+                                    pub: ctrl.hostpathAnnotation.pub,
+                                    host_protein: ctrl.hostpathAnnotation.host_protein,
+                                    determination: ctrl.hostpathAnnotation.determination
                             };
                             
                             if (data.data.results.bindings[0].protein) {
