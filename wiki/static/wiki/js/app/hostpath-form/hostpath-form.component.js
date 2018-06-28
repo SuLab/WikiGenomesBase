@@ -113,7 +113,7 @@ angular
                         	
                             var formData = {
                             		proteinQID: null,
-                                    host_species: $ctrl.hostpathAnnotation.host_species
+                                    host_species: ctrl.hostpathAnnotation.host_species
                             };
                             
                             if (data.data.results.bindings[0].protein) {
