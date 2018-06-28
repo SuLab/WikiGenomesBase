@@ -30,7 +30,13 @@
             
             <a ng-show="x.doi" target="_blank" href="https://doi.org/{{ x.doi}}">
                 <img uib-tooltip="Link to publication in Figshare" style="height: 14px; margin-top: -3px"
-                     data-ng-src="/static/wiki/img/figshare-logo.png">
+                     data-ng-src="/static/wiki/img/fs-logo.png">
+            </a>
+        </td>
+        
+        <td ng-if="$ctrl.authorized" title="'Delete Annotation'">
+            <a class="glyphicon glyphicon-remove"
+               ng-click="$ctrl.deleteAnnotation(x); $ctrl.data.mutants.splice($index,1)">
             </a>
         </td>
 
@@ -54,7 +60,7 @@
         <td title="'Percent Left Intact'">
             {{ x.percent_gene_intact }}
         </td>
-        <td title="'Inesert Direction'">
+        <td title="'Insert Direction'">
             {{ x.insert_direction }}
         </td>
         <td title="'Type of Insert'">
@@ -62,9 +68,20 @@
         </td>
 
         <td title="'Reference'">
-            <a target="_blank" href="https://www.ncbi.nlm.nih.gov/pubmed/{{ x.pub.uid }}">
+            <a ng-show="x.pub" target="_blank" href="https://www.ncbi.nlm.nih.gov/pubmed/{{ x.pub.result.uids[0]}}">
                 <img uib-tooltip="Link to publication in PubMed" style="height: 14px; margin-top: -3px"
                      data-ng-src="/static/wiki/img/pubmedGlyph.png">
+            </a>
+            
+            <a ng-show="x.doi" target="_blank" href="https://doi.org/{{ x.doi}}">
+                <img uib-tooltip="Link to publication in Figshare" style="height: 14px; margin-top: -3px"
+                     data-ng-src="/static/wiki/img/fs-logo.png">
+            </a>
+        </td>
+        
+        <td ng-if="$ctrl.authorized" title="'Delete Annotation'">
+            <a class="glyphicon glyphicon-remove"
+               ng-click="$ctrl.deleteAnnotation(x); $ctrl.data.mutants.splice($index,1)">
             </a>
         </td>
 
