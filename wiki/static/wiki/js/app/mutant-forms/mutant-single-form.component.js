@@ -11,6 +11,9 @@ angular
             ctrl.$onInit = function () {
             	
             	ctrl.reftype = "PMID";
+            	ctrl.pubtitle = "";
+                ctrl.pubauthor = "";
+                ctrl.pubdate = "";
 
                 ctrl.mutantAnnotation = {
                     taxid: $routeParams.taxid,
