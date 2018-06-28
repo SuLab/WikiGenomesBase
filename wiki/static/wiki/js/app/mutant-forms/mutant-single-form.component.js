@@ -11,6 +11,9 @@ angular
             ctrl.$onInit = function () {
             	
             	ctrl.reftype = "PMID";
+            	ctrl.pubtitle = "";
+                ctrl.pubauthor = "";
+                ctrl.pubdate = "";
 
                 ctrl.mutantAnnotation = {
                     taxid: $routeParams.taxid,
@@ -115,8 +118,10 @@ angular
                 };
 
                 ctrl.selectPub = function ($item, $model, $label) {
-                    ctrl.mutantAnnotation.pub = $item;
-                    ctrl.pubValue = '';
+                    ctrl.mutantAnnotation.pub = $item.uid;
+                    ctrl.pubtitle = $item.title;
+                    ctrl.pubauthor = $item.authors[0].name;
+                    ctrl.pubdate = $item.pubdate;
                 };
 
                 ctrl.resetForm = function () {

@@ -1,4 +1,4 @@
-<div align="right" ng-if="$ctrl.data.mutants.length!=0">Search:<input type="text" placeholder="synonymous..." ng-model="$ctrl.keyword"></div>
+<div align="right" ng-if="$ctrl.data.mutants.length!=0">Search: <input type="text" placeholder="Ex. silent_mutation" ng-model="$ctrl.keyword" class="form-control" style="width: 200px; display:inline"></div>
 <table ng-table="$ctrl.tableParams" class="table table-hover">
     <caption style="color:#385d94">Chemical Mutagenesis</caption>
     <tr ng-show="$ctrl.data.length!=0" ng-repeat="x in $ctrl.data.mutants | filter: $ctrl.keyword" ng-if="x.mutant_type.key==1">
@@ -23,7 +23,7 @@
         <td title="'Reference'">
             <!-- Button trigger modal -->
 
-            <a ng-show="x.pub" target="_blank" href="https://www.ncbi.nlm.nih.gov/pubmed/{{ x.pub.result.uids[0]}}">
+            <a ng-show="x.pub" target="_blank" href="https://www.ncbi.nlm.nih.gov/pubmed/{{ x.pub}}">
                 <img uib-tooltip="Link to publication in PubMed" style="height: 14px; margin-top: -3px"
                      data-ng-src="/static/wiki/img/pubmedGlyph.png">
             </a>
@@ -68,7 +68,7 @@
         </td>
 
         <td title="'Reference'">
-            <a ng-show="x.pub" target="_blank" href="https://www.ncbi.nlm.nih.gov/pubmed/{{ x.pub.result.uids[0]}}">
+            <a ng-show="x.pub" target="_blank" href="https://www.ncbi.nlm.nih.gov/pubmed/{{ x.pub}}">
                 <img uib-tooltip="Link to publication in PubMed" style="height: 14px; margin-top: -3px"
                      data-ng-src="/static/wiki/img/pubmedGlyph.png">
             </a>

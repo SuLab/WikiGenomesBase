@@ -101,7 +101,7 @@
             <input ng-show="$ctrl.reftype == 'PMID'"
             	   id="getPMID"
                    type="text"
-                   ng-model="$ctrl.mutantAnnotation.pub"
+                   ng-model="$ctrl.pubtitle"
                    placeholder="PMID"
                    uib-typeahead="pmid as pmid.title +  ' PMID:' + pmid.uid for pmid in $ctrl.getPMID($viewValue)"
                    typeahead-loading="loadingTerms"
@@ -128,8 +128,8 @@
 
 <div class="well" ng-show="$ctrl.pageCount == 1 && $ctrl.reftype == 'PMID'">
     <p>Submit the mutation annotation <strong><i>{{ $ctrl.mutantAnnotation.name }}</i>
-    </strong> from <strong>{{ $ctrl.mutantAnnotation.pub.authors[0].name }}
-        <i>et. al</i> {{ $ctrl.mutantAnnotation.pub.pubdate }}</strong></p>
+    </strong> from <strong>{{ $ctrl.pubauthor }}
+        <i>et. al</i> {{ $ctrl.pubdate }}</strong></p>
 </div>
 
 <div class="well" ng-show="$ctrl.pageCount == 1 && $ctrl.reftype == 'DOI'">
