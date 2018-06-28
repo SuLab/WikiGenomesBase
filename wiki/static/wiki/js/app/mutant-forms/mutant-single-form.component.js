@@ -127,6 +127,12 @@ angular
                 ctrl.sendData = function (formData) {
                     ctrl.loading = true;
                     formData.action = 'annotate';
+                    
+                    if (!$location.path().includes("authorized")) {
+                    	alert('Please authorize ChlamBase to edit Wikidata on your behalf!');
+                    	return;
+                    }
+                    
                     var url_suf = $location.path().replace("/authorized/", "") + '/wd_mutant_edit';
                     console.log(url_suf);
                     sendToView.sendToView(url_suf, formData).then(function (data) {
