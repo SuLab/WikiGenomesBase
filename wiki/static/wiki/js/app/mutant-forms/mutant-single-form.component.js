@@ -115,8 +115,7 @@ angular
                 };
 
                 ctrl.selectPub = function ($item, $model, $label) {
-                    ctrl.mutantAnnotation.pub = $item;
-                    ctrl.pubValue = '';
+                    ctrl.mutantAnnotation.pub = $item.uid;
                 };
 
                 ctrl.resetForm = function () {

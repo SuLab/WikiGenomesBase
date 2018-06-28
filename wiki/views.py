@@ -384,7 +384,20 @@ def mongo_annotations(request):
         mg_mutants = annotations.get_mutants(locus_tag=body['locusTag'])
 
         for mut in mg_mutants:
-            annotation_data['mutants'].append(mut)
+            if "result" in mut['pub'].keys():
+                #rewrite annotation with just uid
+                annotation = MutantMongo(mut_json=mut, taxid=body['taxid'], refseq=mut['chromosome'])
+                annotation.delete_one_mongo()
+                mut['pub'] = mut['pub']['result']['uids'][0]
+                annotation = MutantMongo(mut_json=mut, taxid=body['taxid'], refseq=mut['chromosome'])
+                annotation.generate_full_json()
+                annotation.add_gff_from_json()
+                annotation.push2mongo()
+                annotation_data['mutants'].append(mut)
+            else:
+                annotation_data['mutants'].append(mut)
+            pprint(mut)
+				
         ecs = [x for x in body['ec_number'] if '-' not in x]
         if len(ecs) > 0:
             for ec in ecs:
