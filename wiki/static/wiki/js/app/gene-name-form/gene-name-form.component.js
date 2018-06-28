@@ -42,6 +42,11 @@ angular
 					geneName: null
 			};
 			
+			ctrl.resetForm = function() {
+				ctrl.geneNameData.geneName = "";
+        		ctrl.pageCount = 0;
+			};
+			
 			ctrl.$onChanges = function() {
 				ctrl.geneNameData.geneQID = ctrl.gene.geneQID;
 				ctrl.geneNameData.proteinQID = ctrl.gene.proteinQID;
@@ -97,7 +102,7 @@ angular
                             			alert("Something went wrong.  Give it another shot!");
                             		}
                             		
-                            		ctrl.geneNameData.geneName = "";
+                            		ctrl.resetForm();
                             	}
                             });
 
@@ -116,7 +121,7 @@ angular
                     			alert("Something went wrong.  Give it another shot!");
                     		}
                     		
-                    		ctrl.geneNameData.geneName = "";
+                    		ctrl.resetForm();
                     	}
                 	}
                 });

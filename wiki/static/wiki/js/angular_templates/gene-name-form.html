@@ -58,7 +58,7 @@
 	</div>
 	<div style="clear: both; width: 100%; margin-top: 10px">
 		<div class="btn btn-warning"
-			ng-click="$ctrl.geneNameData.geneName = ''; $ctrl.pageCount = 0">Reset</div>
+			ng-click="$ctrl.resetForm()">Reset</div>
 		<div style="float: right"
 			ng-show="$ctrl.geneNameData.geneName != '' && $ctrl.pageCount==1"
 			class="btn btn-success" ng-click="$ctrl.sendData()">
