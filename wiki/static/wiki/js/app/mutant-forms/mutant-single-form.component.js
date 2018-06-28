@@ -8,10 +8,9 @@ angular
         controller: function (pubMedData, $filter, $location, $routeParams, locusTag2QID, wdGetEntities, sendToView) {
             var ctrl = this;
             
-            
-            ctrl.reftype = "PMID";
-            
             ctrl.$onInit = function () {
+            	
+            	ctrl.reftype = "PMID";
 
                 ctrl.mutantAnnotation = {
                     taxid: $routeParams.taxid,
@@ -37,10 +36,6 @@ angular
                     aa_effect: null
                 };
                 ctrl.pageCount = 0;
-                ctrl.alerts = {
-                    'success': false,
-                    'error': false
-                };
                 locusTag2QID.getLocusTag2QID(ctrl.mutantAnnotation.locusTag, ctrl.mutantAnnotation.taxid).then(function (data) {
                     var results = data.data.results.bindings;
                     if (results.length > 0) {
@@ -135,11 +130,19 @@ angular
                     var url_suf = $location.path().replace("/authorized/", "") + '/wd_mutant_edit';
                     console.log(url_suf);
                     sendToView.sendToView(url_suf, formData).then(function (data) {
-                        if (data.data.write_success === true) {
-                            ctrl.alerts.success = true;
+                    	if (data.data.write_success === true) {
+                        	console.log("SUCCESS");
+                            console.log(data);
+                            alert("Successfully Annotated! Well Done! The annotation will appear here soon.");
+                            ctrl.resetForm();
+                        } else if (data.data.authentication === false){
+                            console.log("FAILURE: AUTHENTICATION");
+                            alert('Please authorize ChlamBase to edit Wikidata on your behalf!');
                         }
                         else {
-                            ctrl.alerts.error = true;
+                        	console.log("FAILURE: UNKNOWN");
+                            console.log(data);
+                            alert("Something went wrong.  Give it another shot!");
                         }
                     }).finally(function () {
                         ctrl.loading = false;

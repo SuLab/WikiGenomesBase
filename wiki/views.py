@@ -291,6 +291,12 @@ def mutant_form(request):
     if request.method == 'POST':
         body_unicode = request.body.decode('utf-8')
         body = json.loads(body_unicode)
+		
+        responseData = {}
+        if 'login' not in request.session.keys():
+            responseData['authentication'] = False
+            return JsonResponse(responseData)
+		
         if body['action'] == 'annotate':
             print('annotate')
             pprint(body)
@@ -299,10 +305,9 @@ def mutant_form(request):
                 annotation.generate_full_json()
                 annotation.add_gff_from_json()
                 write_result = annotation.push2mongo()
-                body['write_result'] = write_result
                 refObj = FeatureDataRetrieval(taxid=body['taxid'])
                 refObj.mutants2gff()
-                if write_result['write_success'] is True:
+                if write_result is True:
                     body['write_success'] = True
                 else:
                     body['write_success'] = False
@@ -315,7 +320,7 @@ def mutant_form(request):
             try:
                 annotation = MutantMongo(mut_json=body, taxid=body['taxid'], refseq=body['chromosome'])
                 delete_result = annotation.delete_one_mongo()
-                if delete_result['delete_success'] is True:
+                if delete_result is True:
                     body['delete_success'] = True
                 else:
                     body['delete_success'] = False
