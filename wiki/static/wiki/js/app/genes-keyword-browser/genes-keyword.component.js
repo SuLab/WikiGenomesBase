@@ -1,7 +1,7 @@
 angular
     .module('genesKeyword')
     .component('genesKeyword', {
-        controller: function ($location, $filter, allChlamOrgs, allChlamydiaGenes) {
+        controller: function ($location, $filter, allChlamOrgs, allChlamydiaGenes, searchBuilder) {
             'use strict';
             var ctrl = this;
 
@@ -39,4 +39,17 @@ angular
             };
         },
         templateUrl: '/static/wiki/js/angular_templates/genes-keyword-browser.html'
+    }).factory('searchBuilder', function () {
+    	
+    	
+    	
+    	var buildQuery = function(binary_data, value_data) {
+    		
+    	};
+
+        return {
+            buildQuery: buildQuery
+        };
+
+
     });
