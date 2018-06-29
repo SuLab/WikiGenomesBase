@@ -658,8 +658,28 @@ angular
                     return response;
                 });
         };
+        var getAllChlamGeneLabels = function () {
+            var endpoint = 'https://query.wikidata.org/sparql?format=json&query=';
+            var url = endpoint + encodeURIComponent(
+                    "SELECT ?geneLabel ?locusTag ?taxid WHERE { " +
+            			"?taxon wdt:P171* wd:Q846309. " +
+            			"?gene wdt:P279 wd:Q7187." +
+            			"?gene wdt:P703 ?taxon." +
+            			"?gene wdt:P2393 ?locusTag." +
+            			"?taxon wdt:P685 ?taxid. " +
+            			"SERVICE wikibase:label { bd:serviceParam wikibase:language 'en'. }" +
+        			"}");
+            return $http.get(url)
+                .success(function (response) {
+                    return response.data;
+                })
+                .error(function (response) {
+                    return response;
+                });
+        };
         return {
-            getAllChlamGenes: getAllChlamGenes
+            getAllChlamGenes: getAllChlamGenes,
+            getAllChlamGeneLabels: getAllChlamGeneLabels
         };
     });
 

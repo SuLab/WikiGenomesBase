@@ -41,6 +41,30 @@ angular
         templateUrl: '/static/wiki/js/angular_templates/genes-keyword-browser.html'
     }).factory('searchBuilder', function () {
     	
+    	/*SELECT ?taxon ?taxid ?taxonLabel ?geneLabel ?entrez ?uniprot ?proteinLabel ?locusTag ?refseq_prot ?aliases ?goLabel ?host_protein WHERE {
+  ?taxon wdt:P171* wd:Q846309.
+  ?gene wdt:P279 wd:Q7187.
+  ?gene wdt:P703 ?taxon.
+  ?gene wdt:P351 ?entrez.
+  ?gene wdt:P2393 ?locusTag.
+  ?gene skos:altLabel ?aliases.
+  OPTIONAL {
+      ?gene wdt:P688 ?protein.
+      ?protein wdt:P352 ?uniprot.
+      ?protein wdt:P637 ?refseq_prot.
+    
+      OPTIONAL {
+         ?protein (wdt:P680 | wdt:P681 | wdt:P682)* ?goTerm; rdfs:label ?goLabel.
+      }
+    
+      OPTIONAL {
+        ?protein wdt:P129 ?host_protein
+      }
+  }
+  ?taxon wdt:P685 ?taxid.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+}*/
+    	
     	
     	
     	var buildQuery = function(binary_data, value_data) {
