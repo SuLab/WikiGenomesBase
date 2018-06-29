@@ -28,8 +28,8 @@
         </div>
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="col-md-5"></div>
-        <div class="col-md-3 form-inline">
-            <organism-form orgs="$ctrl.orgList"></organism-form>
+        <div class="col-md-3">
+            <keyword-form taxid="$ctrl.currentTaxid" genes="$ctrl.currentAllGenes"></keyword-form>
         </div>
         <div class="col-md-2" style="padding-right: 15px">
             <oauth-view style="float:right"></oauth-view>
@@ -42,16 +42,6 @@
         </div>
         <div class="col-md-10">
             <div class="panel panel-info">
-                <div class="panel-heading">
-                    <form class="form-inline" style="padding: 5px;  margin-bottom: 5px">
-                        <div class="form-group">
-                            <gene-form taxid="$ctrl.currentTaxid" genes="$ctrl.currentAllGenes"></gene-form>
-                        </div>
-                        <div class="form-group">
-                            <keyword-form></keyword-form>
-                        </div>
-                    </form>
-                </div>
                 <div class="panel-body">
                     <div class="panel">
 
@@ -169,9 +159,9 @@
                 <a target="_blank" href="https://academic.oup.com/database/article-lookup/doi/10.1093/database/bax025">
                     Tim E. Putman Sebastien Lelong, Sebastian Burgstaller-Muehlbacher, Andra Waagmeester, Colin Diesh,
                     Nathan Dunn, Monica
-                    Munoz-Torres, Gregory S. Stupp, Chunlei Wu, Andrew I. Su, and Benjamin M. Good. 2017. <strong>“WikiGenomes:
+                    Munoz-Torres, Gregory S. Stupp, Chunlei Wu, Andrew I. Su, and Benjamin M. Good. 2017. <strong>â€œWikiGenomes:
                     An Open Web Application for
-                    Community Consumption and Curation of Gene Annotation Data in Wikidata.” Database 2017 (March).
+                    Community Consumption and Curation of Gene Annotation Data in Wikidata.â€� Database 2017 (March).
                     doi:10.1093/database/baw028.</strong>
                 </a>
 

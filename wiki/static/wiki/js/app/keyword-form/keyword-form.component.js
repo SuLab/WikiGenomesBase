@@ -2,7 +2,8 @@ angular
     .module('keywordForm')
     .component('keywordForm', {
         bindings: {
-            data: '<'
+            taxid: '<',
+            genes: '<'
         },
         controller: function ($filter, $location) {
             'use strict';
@@ -14,6 +15,10 @@ angular
                     } else{
                         $location.path('keyword/' + $item);
                     }
+                };
+                
+                ctrl.onSelect = function ($item) {
+                    $location.path('/organism/' + ctrl.taxid + "/gene/" + $item.locusTag.value);
                 };
             };
         },
