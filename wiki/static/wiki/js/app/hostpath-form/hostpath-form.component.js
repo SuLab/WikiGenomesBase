@@ -20,16 +20,11 @@ angular
                 angular.forEach(response.results.bindings, function(obj) {
                     var tax = obj.orthoTaxid.value;
                     var tag = obj.orthoLocusTag.value;
-                    ctrl.projection[tax] = false;
+                    ctrl.projection[tax] = tag == ctrl.currentLocusTag;
                     ctrl.orthoData[tax] = tag;
                 });
 
             });
-            
-            // for selecting from the check list
-            ctrl.select = function(checked, value) {
-                ctrl.projection[value] = checked;
-            };
 
             ctrl.nextClick = function () {
                 ctrl.pageCount += 1;
@@ -102,6 +97,19 @@ angular
                 var index = 0;
                 var success = true;
                 var authorize = false;
+                
+                var atleastone = false;
+                angular.forEach(ctrl.projection, function(value) {
+                	if (value == true) {
+                		atleastone = true;
+                	}
+                });
+                
+                if (!atleastone) {
+                	alert('Please select at least one gene to annotate!');
+                	ctrl.loading = false;
+                    return;
+                }
                 
                 if (!$location.path().includes("authorized")) {
                     alert('Please authorize ChlamBase to edit Wikidata on your behalf!');
@@ -182,9 +190,14 @@ angular
             
             ctrl.resetForm = function () {
                 ctrl.pageCount = 0;
+                ctrl.proteinValue = "";
+                ctrl.pubValue = null;
                 ctrl.hostpathAnnotation = {
-                	proteinQID: null,
-                    host_species: null
+                		proteinQID: null,
+                        host_species: null,
+                        pub: null,
+                        host_protein: null,
+                        determination: null,
                 };
 
             };

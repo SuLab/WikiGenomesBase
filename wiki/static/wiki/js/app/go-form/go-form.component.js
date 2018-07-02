@@ -44,16 +44,11 @@ angular
                 angular.forEach(response.results.bindings, function(obj) {
                     var tax = obj.orthoTaxid.value;
                     var tag = obj.orthoLocusTag.value;
-                    ctrl.projection[tax] = false;
+                    ctrl.projection[tax] = tag == ctrl.currentLocusTag;
                     ctrl.data[tax] = tag;
                 });
 
             });
-            
-            // for selecting from the check list
-            ctrl.select = function(checked, value) {
-                ctrl.projection[value] = checked;
-            };
             
             // controls for navigating form
             ctrl.nextClick = function () {
@@ -118,6 +113,19 @@ angular
                 var index = 0;
                 var success = true;
                 var authorize = false;
+                
+                var atleastone = false;
+                angular.forEach(ctrl.projection, function(value) {
+                	if (value == true) {
+                		atleastone = true;
+                	}
+                });
+                
+                if (!atleastone) {
+                	alert('Please select at least one gene to annotate!');
+                	ctrl.loading = false;
+                    return;
+                }
                 
                 if (!$location.path().includes("authorized")) {
                     alert('Please authorize ChlamBase to edit Wikidata on your behalf!');

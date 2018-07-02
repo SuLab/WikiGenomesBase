@@ -111,8 +111,7 @@
 				<td title="'Strain'">{{ key | taxid2Name }}</td>
 				<td title="'Taxid'">{{ key }}</td>
 				<td title="'Locus Tag'">{{value}}</td>
-				<td title="'Target'"><input type="checkbox" ng-model="checked"
-					ng-init="checked=false" ng-click="$ctrl.select(checked, key)">
+				<td title="'Target'"><input type="checkbox" ng-model="$ctrl.projection[key]">
 				</td>
 			</tr>
 		</table>
