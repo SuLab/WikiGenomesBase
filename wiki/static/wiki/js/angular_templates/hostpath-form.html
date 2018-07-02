@@ -64,23 +64,12 @@ label {
 				<td title="'Strain'">{{ key | taxid2Name }}</td>
 				<td title="'Taxid'">{{ key }}</td>
 				<td title="'Locus Tag'">{{value}}</td>
-				<td title="'Target'"><input type="checkbox" ng-model="checked"
-					ng-init="checked=false" ng-click="$ctrl.select(checked, key)">
+				<td title="'Target'"><input type="checkbox" ng-model="$ctrl.projection[key]">
 				</td>
 			</tr>
 		</table>
 	</div>
-
-	<div style="float: right" class="btn btn-default" ng-click="$ctrl.nextClick()"
-		ng-show="$ctrl.hostpathAnnotation.pub && $ctrl.pageCount==1">Review
-		for Submission</div>
-	<div style="height: 30px; width: 100%; margin-bottom:10px">
-		<div ng-show="$ctrl.pageCount==1" class="btn btn-default"
-			ng-click="$ctrl.backClick()">Previous</div>
-		<div style="float: right; margin-bottom:10px"
-			ng-show="$ctrl.pageCount==0 && $ctrl.hostpathAnnotation.pub"
-			class="btn btn-default" ng-click="$ctrl.nextClick()">Next</div>
-	</div>
+	
 	<div ng-show="$ctrl.pageCount==2">
 		<p>
 			The protein encoded by <strong>{{
@@ -98,13 +87,23 @@ label {
 				ng-show="value == true">{{$ctrl.orthoData[key]}}</li>
 		</ul>
 		</p>
-		<div style="clear: both; width: 100%; margin-top: 10px">
-			<div class="btn btn-warning" ng-click="$ctrl.resetForm()">Reset</div>
-			<div style="float: right" class="btn btn-success"
-				ng-click="$ctrl.sendData()" ng-show="$ctrl.hostpathAnnotation.pub">
-				Submit Annotation</div>
+	</div>
 
-
+	<div style="float: right" class="btn btn-default" ng-click="$ctrl.nextClick()"
+		ng-show="$ctrl.hostpathAnnotation.pub && $ctrl.pageCount==1">Review
+		for Submission</div>
+	<div style="height: 30px; width: 100%; margin-bottom:10px">
+		<div ng-show="$ctrl.pageCount>=1" class="btn btn-default"
+			ng-click="$ctrl.backClick()">Previous</div>
+		<div style="float: right; margin-bottom:10px"
+			ng-show="$ctrl.pageCount==0 && $ctrl.pubValue != null"
+			class="btn btn-default" ng-click="$ctrl.nextClick()">Next</div>
+	</div>
+	<div ng-show="$ctrl.pageCount==2" style="clear: both; width: 100%; margin-top: 10px">
+		<div class="btn btn-warning" ng-click="$ctrl.resetForm()">Reset</div>
+		<div style="float: right" class="btn btn-success"
+			ng-click="$ctrl.sendData()" ng-show="$ctrl.hostpathAnnotation.pub">
+			Submit Annotation
 		</div>
 	</div>
 </form>

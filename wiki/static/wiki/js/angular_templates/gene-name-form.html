@@ -23,8 +23,7 @@
 				<td title="'Strain'">{{ key | taxid2Name }}</td>
 				<td title="'Taxid'">{{ key }}</td>
 				<td title="'Locus Tag'">{{value}}</td>
-				<td title="'Target'"><input type="checkbox" ng-model="checked"
-					ng-init="checked=false" ng-click="$ctrl.select(checked, key)">
+				<td title="'Target'"><input type="checkbox" ng-model="$ctrl.projection[key]">
 				</td>
 			</tr>
 		</table>
@@ -35,7 +34,7 @@
 		<h4>Review for submission</h4>
 
 		<div>
-			<p ng-show="$ctrl.geneNameData.geneName != ''">
+			<p>
 				The gene with locus tag "<strong>{{$ctrl.gene.locusTag}}</strong>"
 				will be renamed from "<strong>{{$ctrl.gene.geneLabel}}</strong>" to "<strong>{{$ctrl.geneNameData.geneName}} {{$ctrl.locusTag}}</strong>".
 				<br><br> This labeling will be applied with its respective locus tag to:
@@ -53,7 +52,7 @@
 	<div style="height: 30px; width: 100%">
 		<div ng-hide="$ctrl.pageCount==0" class="btn btn-default"
 			ng-click="$ctrl.backClick()">Previous</div>
-		<div style="float: right" ng-hide="$ctrl.pageCount==1"
+		<div style="float: right" ng-hide="$ctrl.geneNameData.geneName == '' || $ctrl.pageCount==1"
 			class="btn btn-default" ng-click="$ctrl.nextClick()">Review Submission</div>
 	</div>
 	<div style="clear: both; width: 100%; margin-top: 10px">
