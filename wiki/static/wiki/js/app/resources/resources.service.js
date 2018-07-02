@@ -634,20 +634,32 @@ angular
         var getAllChlamGenes = function () {
             var endpoint = 'https://query.wikidata.org/sparql?format=json&query=';
             var url = endpoint + encodeURIComponent(
-                    "SELECT ?taxon ?taxid ?taxonLabel ?gene ?geneLabel ?entrez  ?uniprot ?protein ?proteinLabel ?locusTag " +
-                    "?geneDescription ?refseq_prot ?aliases " +
-                    "WHERE {  " +
-                    "?taxon wdt:P171* wd:Q846309.  " +
-                    "?gene wdt:P279 wd:Q7187;  " +
-                    "wdt:P703 ?taxon;  " +
-                    "wdt:P351 ?entrez;  " +
-                    "wdt:P2393 ?locusTag;  " +
-                    "wdt:P688 ?protein;  " +
-                    "skos:altLabel ?aliases." +
-                    "?protein wdt:P352 ?uniprot;  " +
-                    "wdt:P637 ?refseq_prot. " +
-                    "?taxon wdt:P685 ?taxid." +
-                    "SERVICE wikibase:label {bd:serviceParam wikibase:language 'en'.}}");
+                    "SELECT ?taxon ?taxid ?taxonLabel ?geneLabel ?entrez ?uniprot ?proteinLabel ?locusTag ?refseq_prot ?gene" +
+                    "(GROUP_CONCAT(DISTINCT ?aliases) AS ?aliases) (GROUP_CONCAT(DISTINCT ?goLabel) AS ?goLabel) (GROUP_CONCAT(DISTINCT ?host_protein) AS ?host_protein) WHERE {" +
+                    	"?taxon wdt:P171* wd:Q846309." +
+                    	"?gene wdt:P279 wd:Q7187." +
+                    	"?gene wdt:P703 ?taxon." +
+                    	"?gene wdt:P351 ?entrez." +
+                    	"?gene wdt:P2393 ?locusTag." +
+                    	"?gene skos:altLabel ?aliases." +
+                    	"OPTIONAL {" +
+                    		"?gene wdt:P688 ?protein." +
+                    		"?protein wdt:P352 ?uniprot." +
+                    		"?protein wdt:P637 ?refseq_prot." +
+    
+                    		"OPTIONAL {" +
+                    			"?protein (wdt:P680 | wdt:P681 | wdt:P682)+/rdfs:label ?goLabel." +
+                    			"FILTER(LANG(?goLabel) = 'en')." +
+        					"}" +
+    
+        					"OPTIONAL {" +
+        						"?protein wdt:P129+/rdfs:label ?host_protein" +
+        					"}" +
+        				"}" +
+        				"?taxon wdt:P685 ?taxid." +
+        				"SERVICE wikibase:label { bd:serviceParam wikibase:language 'en'. }" +
+        			"}" +
+        			"GROUP BY ?locusTag ?taxon ?taxid ?taxonLabel ?geneLabel ?entrez ?uniprot ?proteinLabel ?refseq_prot ?gene");
             return $http.get(url)
                 .success(function (response) {
                     return response.data;
