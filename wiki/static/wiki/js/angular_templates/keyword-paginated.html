@@ -19,11 +19,14 @@
                     <div class="col-md-10" style="text-align: left">
                         <div style="padding-left: 20px">
                          <strong><u>{{x.geneLabel.value | limitTo : 80}}</u>{{x.geneLabel.value.length > 80 ? '...' : ''}}</strong>
-
-                            <h6>Aliases: <i>{{x.aliases.value}}</i>
-                            </h6><h6>Strain: <i>{{x.taxonLabel.value}}</i></h6>
-                            <h6>Locus Tag: {{x.locusTag.value}} </h6>
-                            <h6>Entrez: {{x.entrez.value}} </h6>
+							<br>
+							<div style="font-size: 13px; overflow: hidden; text-overflow: ellipsis">
+	                            <span>Aliases: {{x.aliases.value}} </span><span>Strain: {{x.taxonLabel.value}}</span><br>
+	                            <span>Locus Tag: {{x.locusTag.value}} </span><span>Entrez: {{x.entrez.value}} </span>
+	                            <span ng-show="x.uniprot.value">Uniprot: {{x.uniprot.value}} </span><span ng-show="x.refseq_prot.value">RefSeq: {{x.refseq_prot.value}}</span><br>
+	                            <span ng-show="x.goLabel.value">Go Terms: {{x.goLabel.value}}</span><br>
+	                            <span ng-show="x.host_protein.value">Host Protein: {{x.host_protein.value}}</span>
+                            </div>
                         </div>
                     </div>
                     <div class="col-md-2" style="text-align: right"><a target="_blank"
@@ -130,9 +133,9 @@
                 <a target="_blank" href="https://academic.oup.com/database/article-lookup/doi/10.1093/database/bax025">
                     Tim E. Putman Sebastien Lelong, Sebastian Burgstaller-Muehlbacher, Andra Waagmeester, Colin Diesh,
                     Nathan Dunn, Monica
-                    Munoz-Torres, Gregory S. Stupp, Chunlei Wu, Andrew I. Su, and Benjamin M. Good. 2017. <strong>“WikiGenomes:
+                    Munoz-Torres, Gregory S. Stupp, Chunlei Wu, Andrew I. Su, and Benjamin M. Good. 2017. <strong>â€œWikiGenomes:
                     An Open Web Application for
-                    Community Consumption and Curation of Gene Annotation Data in Wikidata.” Database 2017 (March).
+                    Community Consumption and Curation of Gene Annotation Data in Wikidata.â€� Database 2017 (March).
                     doi:10.1093/database/baw028.</strong>
                 </a>
 
