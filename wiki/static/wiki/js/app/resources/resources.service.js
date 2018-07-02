@@ -634,7 +634,7 @@ angular
         var getAllChlamGenes = function () {
             var endpoint = 'https://query.wikidata.org/sparql?format=json&query=';
             var url = endpoint + encodeURIComponent(
-                    "SELECT ?taxon ?taxid ?taxonLabel ?geneLabel ?entrez ?uniprot ?proteinLabel ?locusTag ?refseq_prot" +
+                    "SELECT ?taxon ?taxid ?taxonLabel ?geneLabel ?entrez ?uniprot ?proteinLabel ?locusTag ?refseq_prot ?gene" +
                     "(GROUP_CONCAT(DISTINCT ?aliases) AS ?aliases) (GROUP_CONCAT(DISTINCT ?goLabel) AS ?goLabel) (GROUP_CONCAT(DISTINCT ?host_protein) AS ?host_protein) WHERE {" +
                     	"?taxon wdt:P171* wd:Q846309." +
                     	"?gene wdt:P279 wd:Q7187." +
@@ -659,7 +659,7 @@ angular
         				"?taxon wdt:P685 ?taxid." +
         				"SERVICE wikibase:label { bd:serviceParam wikibase:language 'en'. }" +
         			"}" +
-        			"GROUP BY ?locusTag ?taxon ?taxid ?taxonLabel ?geneLabel ?entrez ?uniprot ?proteinLabel ?refseq_prot");
+        			"GROUP BY ?locusTag ?taxon ?taxid ?taxonLabel ?geneLabel ?entrez ?uniprot ?proteinLabel ?refseq_prot ?gene");
             return $http.get(url)
                 .success(function (response) {
                     return response.data;

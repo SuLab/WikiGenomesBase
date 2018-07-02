@@ -23,6 +23,7 @@ angular
                         ctrl.chlamGenes.keywordAll = $filter('keywordFilter')(ctrl.chlamGenes.allGenes, ctrl.keyword);
                         ctrl.chlamGenes.currentKW = ctrl.chlamGenes.keywordAll;
                         
+                        console.log(ctrl.chlamGenes.currentKW);
                     }).finally(function () {
                         ctrl.loading = false;
                     });
