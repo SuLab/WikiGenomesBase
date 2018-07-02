@@ -18,13 +18,29 @@ angular
             expressionTimingData,
             hostPathogen,
             RefSeqChrom,
-            allOrgGenes
+            allOrgGenes,
+            $http
 
         ) {
 
             // Main gene page component. Loaded when a gene is selected.  Parses the url for taxid and locus tag and uses
             // those to make API calls to wikidata.
             var ctrl = this;
+            
+            // check session key
+            if ($location.path().includes("authorized")) {
+            	console.log("Is authorized");
+            	$http.get("validateSession").then(function(data) {
+            		console.log("Login: " + data.data.login);
+            		
+            		if (!data.data.login) {
+            			alert("Your session has expired!");
+            			$location.path($location.path().replace("authorized/", ""));
+            			return;
+            		}
+            	});
+            }
+            
             ctrl.$onInit = function() {
                 'use strict';
                 ctrl.currentTaxid = $routeParams.taxid;

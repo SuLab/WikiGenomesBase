@@ -16,4 +16,5 @@ urlpatterns = [
     url(r'^wd_oauth', views.wd_oauth, name='wd_oauth'),
     url(r'^email', views.email, name='helpForm'),
     url(r'^alignOrthologs', views.align, name='orthologAlignment'),
+	url(r'^validateSession', views.validate_session, name='validateSession'),
 ]

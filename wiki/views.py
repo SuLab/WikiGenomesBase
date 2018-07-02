@@ -405,6 +405,10 @@ def mongo_annotations(request):
                     rxn = removekey(rxn, '_id')
                     annotation_data['reactions'].append(rxn)
         return JsonResponse(annotation_data, safe=False)
+		
+@ensure_csrf_cookie
+def validate_session(request):
+    return JsonResponse({'login': 'login' in request.session.keys()})
 
 @ensure_csrf_cookie
 def geneName_form(request):
