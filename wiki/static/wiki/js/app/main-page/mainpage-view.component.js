@@ -226,9 +226,6 @@ angular
 
                     sendToView.sendToView(url_suf, anno_keys).then(function(data) {
                     	
-                    	console.log("MUTANTS");
-                    	console.log(data);
-                    	
                         ctrl.annotations.mutants = {
                             mutants : data.data.mutants,
                             refseq : ctrl.currentGene.refseqGenome

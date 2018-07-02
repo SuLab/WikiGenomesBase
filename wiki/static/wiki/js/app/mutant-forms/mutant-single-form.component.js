@@ -48,7 +48,11 @@ angular
                 }).finally(function () {
                     wdGetEntities.wdGetEntities(ctrl.geneQID).then(function (data) {
                         var entity = data.entities[ctrl.geneQID];
-                        ctrl.mutantAnnotation.chromosome = entity.claims.P644[0].qualifiers.P1057[0].datavalue.value;
+                        if (entity.claims.P644[0].qualifiers.P1057) {
+                        	ctrl.mutantAnnotation.chromosome = entity.claims.P644[0].qualifiers.P1057[0].datavalue.value;
+                        } else if (entity.claims.P644[0].qualifiers.P2249) {
+                        	ctrl.mutantAnnotation.chromosome = entity.claims.P644[0].qualifiers.P2249[0].datavalue.value;
+                        }
                     });
                 });
 

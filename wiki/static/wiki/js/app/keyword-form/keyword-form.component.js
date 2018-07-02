@@ -51,6 +51,13 @@ angular
             	}
             	
             };
+            
+            ctrl.select = function($item, $event) {
+            	ctrl.selected = $item; 
+            	if ($event.type == 'click') {
+            		ctrl.onSelect($item);
+            	}
+            };
 
         },
         templateUrl: '/static/wiki/js/angular_templates/keyword-form.html'

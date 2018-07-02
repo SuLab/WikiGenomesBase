@@ -126,7 +126,6 @@ angular
     .module('resources')
     .factory('sendToView', function ($http) {
         var sendToView = function (url_suffix, data) {
-            console.log(data);
             var url = url_suffix;
             return $http.post(url, data)
                 .success(function (data) {
@@ -416,7 +415,6 @@ angular
                     "GROUP BY ?protein ?hostGeneLabel ?proteinLabel ?reference_stated_in ?reference_stated_inLabel ?pmid ?hostProtein ?hostProteinLabel ?host ?hostLabel"
                 );
 
-            console.log("Loading host pathogen with uniprot " + uniprot);
             return $http.get(url).then(function (response) {
                 return response.data.results.bindings;
             });
