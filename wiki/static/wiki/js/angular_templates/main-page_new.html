@@ -204,3 +204,25 @@
         </div>
     </div>
 </div>
+
+<!-- Modal -->
+<div class="modal fade" id="authorization_button" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content" style="padding:10px">
+        	<div class="modal-header">
+        		<h4 class="modal-title strongColor">Chlambase Authorization</h4>
+        	</div>
+        	<div class="modal-body">
+        		<oauth-form ng-hide="showHelp"></oauth-form>
+            	<help-form ng-show="showHelp"></help-form>
+        	</div>
+            <div class="modal-footer">
+            	<button type="button" class="btn btn-default" style="float:left" ng-click="showHelp = !showHelp">
+            		<span ng-hide="showHelp">Need Help?</span>
+            		<span ng-show="showHelp">Back</span>
+            	</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" ng-click="showHelp = false">Close</button>
+            </div>
+        </div>
+    </div>
+</div>

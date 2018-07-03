@@ -43,5 +43,6 @@ angular.module('cmod', [
     'hostPathogen',
     'hostpathForm',
     'alignmentView',
-    'geneNameForm'
+    'geneNameForm',
+    'oauthForm'
 ]);
