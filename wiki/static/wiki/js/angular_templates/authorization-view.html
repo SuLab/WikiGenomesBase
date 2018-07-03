@@ -1,6 +1,2 @@
-<div ng-show="!$ctrl.authorization" ng-click="$ctrl.oauthAuthorization()" class="btn btn-success">
-    Authorize to edit
-</div>
-<div ng-show="$ctrl.authorization" ng-click="$ctrl.revokeAuthorization()" class="btn btn-warning">
-    Revoke Authorization
-</div>
+<button type="button" ng-show="!$ctrl.authorization" class="btn btn-success" data-toggle="modal" data-target="#authorization_button"><span class="glyphicon glyphicon-cog"></span></button>
+<button type="button" ng-show="$ctrl.authorization" class="btn btn-warning" data-toggle="modal" data-target="#authorization_button"><span class="glyphicon glyphicon-cog"></span></button>
