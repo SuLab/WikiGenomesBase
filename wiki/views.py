@@ -358,6 +358,8 @@ def wd_oauth(request):
                  del request.session['authentication']
             if 'login' in request.session.keys():
                  del request.session['login']
+            if 'authOBJ' in request.session.keys():
+                 del request.session['authOBJ']
             return JsonResponse({'deauthenicate': True})
 
 
@@ -408,7 +410,8 @@ def mongo_annotations(request):
 		
 @ensure_csrf_cookie
 def validate_session(request):
-    return JsonResponse({'login': 'login' in request.session.keys()})
+     validated = 'authOBJ' in request.session.keys() or 'login' in request.session.keys()
+     return JsonResponse({'login': validated})
 
 @ensure_csrf_cookie
 def geneName_form(request):
