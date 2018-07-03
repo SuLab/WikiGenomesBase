@@ -1,6 +1,7 @@
 <form ng-model="$ctrl.oauth">
-	<div class="form-group" >
-		<label class="strongColor">Don't have an account? </label><button class="btn btn-info" data-toggle="collapse" data-target="#instructions">Show</button>
+	<div class="form-group" ng-show="!$ctrl.authorization">
+		<label class="strongColor">Don't have an account? </label>
+    <button class="btn btn-default btn-xs" data-toggle="collapse" data-target="#instructions"><span class="glyphicon glyphicon-plus"></span></button>
 		<div class="collapse" id="instructions">
 			<ol>
 				<li>Create an account through WikiData: <a class="btn btn-warning" href="https://www.wikidata.org/w/index.php?title=Special:CreateAccount&returnto=Wikidata%3AMain+Page" target="_blank">Create Account</a></li>
@@ -11,11 +12,11 @@
 	<div class="form-group">
 		<div  ng-show="!$ctrl.authorization">
 			<label class="strongColor">Already have an account? </label>
-			<button ng-click="$ctrl.oauthAuthorization()" class="btn btn-success">Sign in</button>
+			<button ng-click="$ctrl.oauthAuthorization()" class="btn btn-success" data-dismiss="modal">Sign in</button>
 		</div>
 		<div ng-show="$ctrl.authorization">
 			<label class="strongColor">You are currently logged in. </label>
-		    <button ng-click="$ctrl.revokeAuthorization()" class="btn btn-warning">Sign out</button>
+		    <button ng-click="$ctrl.revokeAuthorization()" class="btn btn-warning" data-dismiss="modal">Sign out</button>
 		</div>
 	</div>
 </form>

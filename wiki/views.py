@@ -410,8 +410,8 @@ def mongo_annotations(request):
 		
 @ensure_csrf_cookie
 def validate_session(request):
-    valid = 'login' in request.session.keys() or 'authOBJ' in request.session.keys()
-    return JsonResponse({'login': valid})
+     validated = 'authOBJ' in request.session.keys() or 'login' in request.session.keys()
+     return JsonResponse({'login': validated})
 
 @ensure_csrf_cookie
 def geneName_form(request):
