@@ -1,26 +1,28 @@
-<table ng-table="$ctrl.tableParams" class="table">
-    <col width="50%"/>
-    <col width="45%"/>
-    <col width="5%%"/>
-    <tr ng-show="!$ctrl.ecnumber==0" ng-repeat="(key,value) in $ctrl.reaction">
-        <td title="'EC Number'">
-            {{ key }}
-        </td>
-        <td title="'Reaction(s)'">
-            <ul ng-repeat="x in value">
-                <li>{{ x }}</li>
-            </ul>
-        </td>
-        <td title="'Reference'">
-            <a target="_blank" href="https://enzyme.expasy.org/EC/{{ key }}">
-                <img uib-tooltip="Link to ExPASy" style="height: 14px; margin-top: -3px"
-                     data-ng-src="/static/wiki/img/sib_logo.png">
-            </a>
-        </td>
-    </tr>
-    <tr>
-        <td ng-show="$ctrl.ecnumber==0">
-            No data
-        </td>
-    </tr>
-</table>
+<div class="table-responsive">
+	<table ng-table="$ctrl.tableParams" class="table">
+	    <col width="50%"/>
+	    <col width="45%"/>
+	    <col width="5%%"/>
+	    <tr ng-show="!$ctrl.ecnumber==0" ng-repeat="(key,value) in $ctrl.reaction">
+	        <td title="'EC Number'">
+	            {{ key }}
+	        </td>
+	        <td title="'Reaction(s)'">
+	            <ul ng-repeat="x in value">
+	                <li>{{ x }}</li>
+	            </ul>
+	        </td>
+	        <td title="'Reference'">
+	            <a target="_blank" href="https://enzyme.expasy.org/EC/{{ key }}">
+	                <img uib-tooltip="Link to ExPASy" style="height: 14px; margin-top: -3px"
+	                     data-ng-src="/static/wiki/img/sib_logo.png">
+	            </a>
+	        </td>
+	    </tr>
+	    <tr>
+	        <td ng-show="$ctrl.ecnumber==0">
+	            No data
+	        </td>
+	    </tr>
+	</table>
+</div>

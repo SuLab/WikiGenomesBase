@@ -1,57 +1,58 @@
-<table ng-table="$ctrl.tableParams" class="table table-hover">
-    <tr ng-show="$ctrl.hasOrthologs" ng-repeat="(key, gene) in $ctrl.data">
-        <td ng-if="$ctrl.tSettings['strain']" title="'Strain'">
-            <a href="/organism/{{ gene.taxid }}">{{ gene.taxid | taxid2Name }}</a>
-        </td>
-        <td ng-if="$ctrl.tSettings['tax']" title="'Taxid'">
-            <a href="/organism/{{ gene.taxid }}">{{ gene.taxid }}</a>
-        </td>
-        <td ng-if="$ctrl.tSettings['cLocus']" title="'Current Locus Tag'">
-            <a href="/organism/{{ gene.taxid }}/gene/{{ gene.locusTag }}">{{ gene.locusTag }}</a>
-        </td>
-        <td ng-if="$ctrl.tSettings['dLocus']" title="'Deprecated Locus Tag'">
-        </td>
-        <td ng-if="$ctrl.tSettings['identity']" title="'% Identity'">
-        </td>
-        <td ng-if="$ctrl.tSettings['length']" title="'Length'">
-        </td>
-        <td ng-if="$ctrl.tSettings['eval']" title="'E-Value'">
-        </td>
-        <td ng-if="$ctrl.tSettings['expression']" title="'Expression Data'">
-        	<span class="glyphicon glyphicon-ok" ng-show="gene.expression"></span>
-        	<span class="glyphicon glyphicon-remove" ng-hide="gene.expression"></span>
-        </td>
-        <td ng-if="$ctrl.tSettings['interpro']" title="'InterPro Data'">
-        	<span class="glyphicon glyphicon-ok" ng-show="gene.ip"></span>
-        	<span class="glyphicon glyphicon-remove" ng-hide="gene.ip"></span>
-        </td>
-        <td ng-if="$ctrl.tSettings['hostPathogen']" title="'HostPathogen Data'">
-        	<span class="glyphicon glyphicon-ok" ng-show="gene.hp"></span>
-        	<span class="glyphicon glyphicon-remove" ng-hide="gene.hp"></span>
-        </td>
-        <td ng-if="$ctrl.tSettings['go']" title="'GO Data'">
-        	<span class="glyphicon glyphicon-ok" ng-show="gene.go"></span>
-        	<span class="glyphicon glyphicon-remove" ng-hide="gene.go"></span>
-        </td>
-        <td ng-if="$ctrl.tSettings['operons']" title="'Operon Data'">
-        	<span class="glyphicon glyphicon-ok" ng-show="gene.operon"></span>
-        	<span class="glyphicon glyphicon-remove" ng-hide="gene.operon"></span>
-        </td>
-        <td ng-if="$ctrl.tSettings['mutants']" title="'Mutant Data'">
-        	<span class="glyphicon glyphicon-ok" ng-show="gene.mutant"></span>
-        	<span class="glyphicon glyphicon-remove" ng-hide="gene.mutant"></span>
-        </td>
-        <td ng-if="$ctrl.tSettings['ref']" title="'References'">
-            <!-- Button trigger modal -->
-            <div style="padding: 3px">
-                <a href="{{$ctrl.reference}}" target="_blank">
-                    <img uib-tooltip="Cited Publication" style="height: 14px; margin-top: -3px"
-                         data-ng-src="/static/wiki/img/GeneWikidata-logo-en.png">
-                </a>
-            </div>
-        </td>
-    </tr>
+<div class="table-responsive">
+	<table ng-table="$ctrl.tableParams" class="table table-hover" style="overflow: hidden">
+	    <tr ng-show="$ctrl.hasOrthologs" ng-repeat="(key, gene) in $ctrl.data">
+	        <td ng-if="$ctrl.tSettings['strain']" title="'Strain'">
+	            <a href="/organism/{{ gene.taxid }}">{{ gene.taxid | taxid2Name }}</a>
+	        </td>
+	        <td ng-if="$ctrl.tSettings['tax']" title="'Taxid'">
+	            <a href="/organism/{{ gene.taxid }}">{{ gene.taxid }}</a>
+	        </td>
+	        <td ng-if="$ctrl.tSettings['cLocus']" title="'Current Locus Tag'">
+	            <a href="/organism/{{ gene.taxid }}/gene/{{ gene.locusTag }}">{{ gene.locusTag }}</a>
+	        </td>
+	        <td ng-if="$ctrl.tSettings['dLocus']" title="'Deprecated Locus Tag'">
+	        </td>
+	        <td ng-if="$ctrl.tSettings['identity']" title="'% Identity'">
+	        </td>
+	        <td ng-if="$ctrl.tSettings['length']" title="'Length'">
+	        </td>
+	        <td ng-if="$ctrl.tSettings['eval']" title="'E-Value'">
+	        </td>
+	        <td ng-if="$ctrl.tSettings['expression']" title="'Expression Data'">
+	        	<span class="glyphicon glyphicon-ok" ng-show="gene.expression"></span>
+	        	<span class="glyphicon glyphicon-remove" ng-hide="gene.expression"></span>
+	        </td>
+	        <td ng-if="$ctrl.tSettings['interpro']" title="'InterPro Data'">
+	        	<span class="glyphicon glyphicon-ok" ng-show="gene.ip"></span>
+	        	<span class="glyphicon glyphicon-remove" ng-hide="gene.ip"></span>
+	        </td>
+	        <td ng-if="$ctrl.tSettings['hostPathogen']" title="'HostPathogen Data'">
+	        	<span class="glyphicon glyphicon-ok" ng-show="gene.hp"></span>
+	        	<span class="glyphicon glyphicon-remove" ng-hide="gene.hp"></span>
+	        </td>
+	        <td ng-if="$ctrl.tSettings['go']" title="'GO Data'">
+	        	<span class="glyphicon glyphicon-ok" ng-show="gene.go"></span>
+	        	<span class="glyphicon glyphicon-remove" ng-hide="gene.go"></span>
+	        </td>
+	        <td ng-if="$ctrl.tSettings['operons']" title="'Operon Data'">
+	        	<span class="glyphicon glyphicon-ok" ng-show="gene.operon"></span>
+	        	<span class="glyphicon glyphicon-remove" ng-hide="gene.operon"></span>
+	        </td>
+	        <td ng-if="$ctrl.tSettings['mutants']" title="'Mutant Data'">
+	        	<span class="glyphicon glyphicon-ok" ng-show="gene.mutant"></span>
+	        	<span class="glyphicon glyphicon-remove" ng-hide="gene.mutant"></span>
+	        </td>
+	        <td ng-if="$ctrl.tSettings['ref']" title="'References'">
+	            <!-- Button trigger modal -->
+	            <div style="padding: 3px">
+	                <a href="{{$ctrl.reference}}" target="_blank">
+	                    <img uib-tooltip="Cited Publication" style="height: 14px; margin-top: -3px"
+	                         data-ng-src="/static/wiki/img/GeneWikidata-logo-en.png">
+	                </a>
+	            </div>
+	        </td>
+	    </tr>
+	</table>
+</div>
 
-
-</table>
 <div ng-hide="$ctrl.hasOrthologs">No known orthologs</div>
