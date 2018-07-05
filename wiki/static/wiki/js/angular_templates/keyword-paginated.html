@@ -1,7 +1,10 @@
 <style>
     .wrapbreaker {
         word-break: break-all;
-
+    }
+    
+    .navbar-toggle .icon-bar{ 
+    	background-color: #fff;
     }
 </style>
 <div class="panel-body">
@@ -17,8 +20,8 @@
                  style="margin-top:15px; width:100%; color:#385d94">
                 <div class="row">
                     <div class="col-md-10" style="text-align: left">
-                        <div style="padding-left: 20px">
-                         <strong><u>{{x.geneLabel.value | limitTo : 80}}</u>{{x.geneLabel.value.length > 80 ? '...' : ''}}</strong>
+                        <div style="padding-left: 20px; overflow: hidden; text-overflow: ellipsis">
+                         <strong><u>{{x.geneLabel.value | limitTo : 80}}</u></strong>
 							<br>
 							<div style="font-size: 13px; overflow: hidden; text-overflow: ellipsis">
 	                            <span>Aliases: {{x.aliases.value}} </span><span>Strain: {{x.taxonLabel.value}}</span><br>
@@ -48,7 +51,11 @@
 </div>
 <div class="navbar-custom navbar navbar-fixed-bottom">
 
-    <div class="row">
+    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="glyphicon glyphicon-list"></span>
+    </button>
+
+    <div class="row collapse navbar-collapse" id="myNavbar">
         <div class="col-md-2"></div>
         <div style="padding-top:4px; text-align: center" class="col-md-2">
             <div data-target="#about_modal" data-toggle="modal" class="btn">About</div>

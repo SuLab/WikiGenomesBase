@@ -67,7 +67,7 @@ angular
                     console.log("Tutorial already completed");
                 }
             });
-
+            
         },
         templateUrl : '/static/wiki/js/angular_templates/landing-page.html'
     });

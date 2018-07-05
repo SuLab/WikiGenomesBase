@@ -14,26 +14,30 @@
         background-color: #385d94;
         color: whitesmoke;
     }
+    
+     .navbar-toggle .icon-bar{ 
+    	background-color: #fff;
+    }
+    
 </style>
 <div ng-show="$ctrl.loading" class="overlay">
     <div class="loading-img"></div>
 </div>
 <nav class="navbar navbar-custom navbar-fixed-top">
-    <div class="container-fluid">
-        <!-- Brand and toggle get grouped for better mobile display -->
-        <div class="navbar-header">
-            <a style="color: whitesmoke" class="navbar-brand" href="/">ChlamBase</a>
-        </div>
-
-        <!-- Collect the nav links, forms, and other content for toggling -->
-        <div style="float: right" class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <form class="navbar-form navbar-left">
-                <keyword-form></keyword-form>
-            </form>
-        </div>
-        <!-- /.navbar-collapse -->
-    </div>
-    <!-- /.container-fluid -->
+	 <div class="navbar-header" style="padding: 20px">
+           <a style="color: whitesmoke; font-size:20px" href="/">ChlamBase</a>
+           <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbarHeader">
+		        <span class="icon-bar"></span>
+		        <span class="icon-bar"></span>
+		        <span class="icon-bar"></span>
+      		</button>
+       </div>
+       
+       <div class="collapse navbar-collapse" id="myNavbarHeader">
+       	<ul class="nav navbar-nav navbar-right" style="padding-top: 15px; margin-right: 20px">
+       		<li><keyword-form></keyword-form></li>
+       	</ul>
+       </div>
 </nav>
 <div class="container-fluid" style="color:#385d94">
     <div class="row">
@@ -81,7 +85,7 @@
                 <ul style="text-align: left;list-style: none;" class="example-animate-container">
                     <li dir-paginate="x in $ctrl.currentAllGenes | itemsPerPage: 10">
                         <div ng-click="$ctrl.onSelect(x)" class="btn btn-default"
-                             style="margin-top:15px; width:100%; color:#385d94">
+                             style="margin-top:15px; width:100%; color:#385d94; overflow: hidden; text-overflow: ellipsis">
                             <div class="col-md-7" style="text-align: left"><h4>{{ x.geneLabel.value }}</h4></div>
                             <div class="col-md-2"><h4>Locus Tag: {{ x.locusTag.value }} </h4></div>
                             <div class="col-md-2"><h4>Entrez: {{ x.entrez.value }} </h4></div>
@@ -108,7 +112,11 @@
 </div>
 <div class="navbar-custom navbar navbar-fixed-bottom">
 
-    <div class="row">
+    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="glyphicon glyphicon-list"></span>
+    </button>
+
+    <div class="row collapse navbar-collapse" id="myNavbar">
         <div class="col-md-2"></div>
         <div style="padding-top:4px; text-align: center" class="col-md-2">
             <div data-target="#about_modal" data-toggle="modal" class="btn">About</div>

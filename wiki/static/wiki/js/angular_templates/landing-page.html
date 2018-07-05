@@ -3,17 +3,32 @@
         color: #385d94
     }
     .carousel-control.left, .carousel-control.right {
-        background-image: none
+        background-image: none;
     }
+    
+    .carousel {
+    	overflow: auto;
+    	height: 100%;
+    }
+    
     .modal-text-color{
         color: black;
+    }
+    
+    .center {
+    	margin-left: auto;
+    	margin-right: auto;
+    }
+    
+    .navbar-toggle .icon-bar{ 
+    	background-color: #fff;
     }
 
 </style>
 <div class="container-fluid main-landing-page" style="padding: 50px">
     <div class="row" style="">
         <div class="col-md-12">
-            <img data-intro="Welcome to Chlambase! Follow this quick tutorial to get started!" data-step="1" src="static/wiki/img/chlambase_logo.png" width="473px" height="200px">
+            <img class="img-responsive center" data-intro="Welcome to Chlambase! Follow this quick tutorial to get started!" data-step="1" src="static/wiki/img/chlambase_logo.png">
 
             <h3>An open, editable, and centralized model organism database <br> for
                 the
@@ -29,8 +44,8 @@
     <div class="row">
         <div class="col-md-3"></div>
         <div class="col-md-6">
-            <div class="row form-inline">
-             	<keyword-form data-intro="You can also search for terms here." data-step="3"></keyword-form>
+            <div class="row form-inline" data-intro="You can search for terms here, like 'CTL0260' or 'plasma membrane'." data-step="3">
+             	<keyword-form></keyword-form>
             </div>
         </div>
         <div class="col-md-3"></div>
@@ -42,7 +57,7 @@
              style="padding: 60px">
             <h2 data-intro="Lastly, make sure you stay up to date with the latest Chlam research in this scroll carousel." data-step="4">See what's happening in the most recent <i><strong>Chlamydia</strong></i> Related Research:</h2>
             <div style="background-color: transparent; padding-top: 30px;">
-                <div style="height: 100px;" class="carousel slide" data-ride=carousel id="slider">
+                <div class="carousel slide" data-ride=carousel id="slider">
                     <div class="carousel-inner" role="listbox">
                         <div style="text-align: center;padding-left: 20%; padding-right: 20%" class="item"
                              ng-class="{active:!$index}"
@@ -78,7 +93,11 @@
 </div>
 <div style="background: #385d94; color: #FFFFFF" class="navbar-custom navbar navbar-fixed-bottom">
 
-    <div class="row">
+	<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="glyphicon glyphicon-list"></span>
+    </button>
+
+    <div class="row collapse navbar-collapse" id="myNavbar">
         <div class="col-md-2"></div>
         <div style="padding-top:4px; text-align: center" class="col-md-2">
             <div data-target="#about_modal" data-toggle="modal" class="btn">About</div>
