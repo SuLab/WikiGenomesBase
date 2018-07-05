@@ -48,6 +48,10 @@ angular
                 }).finally(function () {
                     wdGetEntities.wdGetEntities(ctrl.geneQID).then(function (data) {
                         var entity = data.entities[ctrl.geneQID];
+                        
+                        ctrl.genStart = entity.claims.P644[0].mainsnak.datavalue.value;
+                        ctrl.genEnd = entity.claims.P645[0].mainsnak.datavalue.value;
+                        
                         if (entity.claims.P644[0].qualifiers.P1057) {
                         	ctrl.mutantAnnotation.chromosome = entity.claims.P644[0].qualifiers.P1057[0].datavalue.value;
                         } else if (entity.claims.P644[0].qualifiers.P2249) {
@@ -163,6 +167,30 @@ angular
                         ctrl.loading = false;
                     });
 
+                };
+                
+                ctrl.validatePosition = function() {
+                	return ctrl.mutantAnnotation.coordinate.start >= ctrl.genStart && ctrl.mutantAnnotation.coordinate.start <= ctrl.genEnd;
+                };
+                
+                ctrl.validateBase = function() {
+                	return (ctrl.mutantAnnotation.ref_base && ctrl.mutantAnnotation.variant_base) &&
+                		(ctrl.mutantAnnotation.ref_base != ctrl.mutantAnnotation.variant_base);
+                };
+                
+                ctrl.validateFields = function() {
+                	
+                	if (!ctrl.mutantAnnotation.name || !ctrl.mutantAnnotation.mutant_type || 
+                			(ctrl.reftype == 'DOI' && !ctrl.mutantAnnotation.doi) || 
+                			(ctrl.reftype == 'PMID' && !ctrl.mutantAnnotation.pub) || !ctrl.validatePosition()) {
+                		return false;
+                	}
+                	
+                	if (ctrl.mutantAnnotation.mutant_type.key == 1) {
+                		return ctrl.validateBase() && ctrl.mutantAnnotation.variant_type && ctrl.mutantAnnotation.aa_effect;
+                	} else {
+                		return ctrl.mutantAnnotation.percent_gene_intact && ctrl.mutantAnnotation.insert_direction;
+                	}
                 };
             };
 
