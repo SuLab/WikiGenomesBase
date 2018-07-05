@@ -19,7 +19,9 @@
 
             <div style="margin-top: 15px" class="well" ng-show="$ctrl.mutantAnnotation.mutant_type.key===1"><label
                     for="mutant">Mutant Strain</label>
-                <label for="genomic_position1">Genomic Position</label>
+                <label for="genomic_position1">Genomic Position </label>
+                <span ng-class="{'glyphicon glyphicon-ok': $ctrl.validatePosition(),
+				 'glyphicon glyphicon-remove': !$ctrl.validatePosition()}"></span>
                 <input ng-model="$ctrl.mutantAnnotation.coordinate.start" type="text" class="form-control"
                        id="genomic_position1" placeholder="coordinate in range: {{ $ctrl.genStart}}-{{$ctrl.genEnd}}">
 
@@ -36,7 +38,9 @@
                            uib-btn-radio="'T'">T</label>
                 </div>
                 <div class="btn-group" style="margin-left: 20px">
-                    <label>Variant Base</label>
+                    <label>Variant Base </label>
+                    <span ng-class="{'glyphicon glyphicon-ok': $ctrl.validateBase(),
+				 		'glyphicon glyphicon-remove': !$ctrl.validateBase()}"></span>
                     <br/>
                     <label class="btn btn-default" ng-model="$ctrl.mutantAnnotation.variant_base"
                            uib-btn-radio="'A'">A</label>
@@ -62,7 +66,9 @@
             </div>
             <div style="margin-top: 15px" class="well" ng-show="$ctrl.mutantAnnotation.mutant_type.key===2">
 
-                <label for="genomic_position1">Genomic Position of Insert</label>
+                <label for="genomic_position1">Genomic Position of Insert </label>
+                <span ng-class="{'glyphicon glyphicon-ok': $ctrl.validatePosition(),
+				 'glyphicon glyphicon-remove': !$ctrl.validatePosition()}"></span>
                 <input ng-model="$ctrl.mutantAnnotation.coordinate.start" type="text" class="form-control"
                        id="genomic_position1" placeholder="coordinate in range: {{ $ctrl.genStart}}-{{$ctrl.genEnd}}">
 
@@ -126,15 +132,20 @@
     </form>
 </div>
 
-<div class="well" ng-show="$ctrl.pageCount == 1 && $ctrl.reftype == 'PMID'">
-    <p>Submit the mutation annotation <strong><i>{{ $ctrl.mutantAnnotation.name }}</i>
-    </strong> from <strong>{{ $ctrl.pubauthor }}
-        <i>et. al</i> {{ $ctrl.pubdate }}</strong></p>
+<div ng-show="$ctrl.validateFields()">
+	<div class="well" ng-show="$ctrl.pageCount == 1 && $ctrl.reftype == 'PMID'">
+	    <p>Submit the mutation annotation <strong><i>{{ $ctrl.mutantAnnotation.name }}</i>
+	    </strong> from <strong>{{ $ctrl.pubauthor }}
+	        <i>et. al</i> {{ $ctrl.pubdate }}</strong></p>
+	</div>
+	
+	<div class="well" ng-show="$ctrl.pageCount == 1 && $ctrl.reftype == 'DOI'">
+	    <p>Submit the mutation annotation <strong><i>{{ $ctrl.mutantAnnotation.name }}</i>
+	    </strong> from <strong>{{ $ctrl.mutantAnnotation.doi }}</strong></p>
+	</div>
 </div>
-
-<div class="well" ng-show="$ctrl.pageCount == 1 && $ctrl.reftype == 'DOI'">
-    <p>Submit the mutation annotation <strong><i>{{ $ctrl.mutantAnnotation.name }}</i>
-    </strong> from <strong>{{ $ctrl.mutantAnnotation.doi }}</strong></p>
+<div class="well" ng-show="$ctrl.pageCount == 1 && !$ctrl.validateFields()">
+	<p>Please check all fields in the annotation form!</p>
 </div>
 
 <div style="height:30px; width:100%">
@@ -147,7 +158,7 @@
 </div>
 <div style="clear:both; width:100%; margin-top: 10px">
     <div class="btn btn-warning" ng-click="$ctrl.resetForm()">Reset</div>
-    <div ng-show="$ctrl.pageCount==1" style="float:right" class="btn btn-success"
+    <div ng-show="$ctrl.pageCount==1 && $ctrl.validateFields()" style="float:right" class="btn btn-success"
          ng-click="$ctrl.sendData($ctrl.mutantAnnotation)">
         Submit Annotation
     </div>
