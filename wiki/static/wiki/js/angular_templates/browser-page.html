@@ -24,18 +24,20 @@
     <div class="loading-img"></div>
 </div>
 <nav class="navbar navbar-custom navbar-fixed-top">
-    <div class="row" style="padding: 10px"><!-- Brand and toggle get grouped for better mobile display -->
-        <div class="col-md-2" style="padding-left: 15px">
-            <a style="color: whitesmoke" href="/"><h4>ChlamBase</h4></a>
-        </div>
-        <!-- Collect the nav links, forms, and other content for toggling -->
-        <div style="float: right; padding-right: 15px" class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <form class="navbar-form navbar-left">
-                <keyword-form></keyword-form>
-            </form>
-        </div>
-
-    </div>
+	 <div class="navbar-header" style="padding: 20px">
+           <a style="color: whitesmoke; font-size:20px" href="/">ChlamBase</a>
+           <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbarHeader">
+		        <span class="icon-bar"></span>
+		        <span class="icon-bar"></span>
+		        <span class="icon-bar"></span>
+      		</button>
+       </div>
+       
+       <div class="collapse navbar-collapse" id="myNavbarHeader">
+       	<ul class="nav navbar-nav navbar-right" style="padding-top: 15px; margin-right: 20px">
+       		<li><keyword-form></keyword-form></li>
+       	</ul>
+       </div>
 </nav>
 <div class="container-fluid" style="color:#385d94">
     <div class="row">
@@ -111,9 +113,7 @@
 <div class="navbar-custom navbar navbar-fixed-bottom">
 
     <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
+        <span class="glyphicon glyphicon-list"></span>
     </button>
 
     <div class="row collapse navbar-collapse" id="myNavbar">
