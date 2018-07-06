@@ -104,9 +104,7 @@ module.exports = function(grunt) {
 
     // register tasks here
     // first check for errors, then do dependency injection, then minify, then remove annotation files
-    grunt.registerTask('minify', [ 'jshint', 'clean:dist2', 'uglify:dist2']);
-    
-    //grunt.registerTask('minify', [ 'jshint', 'ngAnnotate:dist', 'uglify:dist', 'clean:dist' ]);
-    //grunt.registerTask('minify', [ 'jshint', 'html2js:dist', 'concat:dist', 'uglify:dist', 'clean:temp' ]);
+    //grunt.registerTask('minify', [ 'jshint', 'clean:dist2', 'uglify:dist2']);
+    grunt.registerTask('minify', [ 'jshint', 'clean:dist2', 'ngAnnotate:dist', 'uglify:dist', 'clean:dist']);
 
 };
