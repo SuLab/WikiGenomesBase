@@ -66,13 +66,28 @@ module.exports = function(grunt) {
         clean : {
             dist : {
                 expand : true,
-                src : [ 'wiki/static/build/**/*.annotated.js' ]
+                src : [ 'wiki/static/build/js' ]
             },
             dist2: {
                 expand : true,
-                src : [ 'wiki/static/build/**/*.min.js' ]
+                src : [ 
+                	'wiki/static/build/js/app/app.module.min.js', 
+                	'wiki/static/build/js/app/app.config.min.js',
+                	'wiki/static/build/js/app/filters/filters-service.module.min.js', 
+                	'wiki/static/build/js/app/filters/filters-service.filters.min.js',
+                	'wiki/static/build/js/app/resources/resources.module.min.js', 
+                	'wiki/static/build/js/app/resources/resources.service.min.js'
+                	]
+            },
+            dist3 : {
+                expand : true,
+                src : [ 'wiki/static/build/js/**/*.annotated.js' ]
+            },
+            dist4: {
+            	expand : true,
+                src : [ 'wiki/static/build/app.min.js' ]
             }
-        }
+        },
 
         //html2js : {
         //    dist : {
@@ -81,15 +96,30 @@ module.exports = function(grunt) {
         //    }
         //},
 
-        //concat : {
-        //    options : {
-        //        separator : ';'
-        //    },
-        //    dist : {
-        //        src : [ 'wiki/static/wiki/js/app/*.js', 'wiki/static/wiki/js/app/**/*.js' ],
-        //        dest : 'wiki/static/build/app.js'
-        //    }
-        //},
+        concat : {
+            options : {
+                separator : ''
+            },
+            dist : {
+                src : [ 
+                	'wiki/static/build/js/app/app.module.min.js', 
+                	'wiki/static/build/js/app/app.config.min.js',
+                	'wiki/static/build/js/app/filters/filters-service.module.min.js', 
+                	'wiki/static/build/js/app/filters/filters-service.filters.min.js',
+                	'wiki/static/build/js/app/resources/resources.module.min.js', 
+                	'wiki/static/build/js/app/resources/resources.service.min.js'
+                	],
+                dest : 'wiki/static/build/app.min.js'
+            },
+            dist2 : {
+                src : [ 
+                	'wiki/static/build/app.min.js', 
+                	'wiki/static/build/js/app/**/*.module.min.js',
+                	'wiki/static/build/js/app/**/*.component.min.js'
+                	],
+                dest : 'wiki/static/build/app.min.js'
+            }
+        }
 
     });
 
@@ -100,11 +130,11 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-ng-annotate');
 
     //grunt.loadNpmTasks('grunt-html2js');
-    //grunt.loadNpmTasks('grunt-contrib-concat');
+    grunt.loadNpmTasks('grunt-contrib-concat');
 
     // register tasks here
     // first check for errors, then do dependency injection, then minify, then remove annotation files
     //grunt.registerTask('minify', [ 'jshint', 'clean:dist2', 'uglify:dist2']);
-    grunt.registerTask('minify', [ 'jshint', 'clean:dist2', 'ngAnnotate:dist', 'uglify:dist', 'clean:dist']);
+    grunt.registerTask('minify', [ 'jshint', 'clean:dist4', 'ngAnnotate:dist', 'uglify:dist', 'clean:dist3', 'concat:dist', 'clean:dist2', 'concat:dist2', 'clean:dist']);
 
 };
