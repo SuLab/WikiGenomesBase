@@ -204,7 +204,7 @@ angular
         },
 
 
-        templateUrl: '/static/wiki/js/angular_templates/hostpath-form.html'
+        templateUrl: '/static/build/js/angular_templates/hostpath-form.min.html'
     });
 
 

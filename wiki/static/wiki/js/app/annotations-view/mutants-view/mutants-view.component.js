@@ -26,5 +26,5 @@ angular
             };
 
         },
-        templateUrl : '/static/wiki/js/angular_templates/mutants-view.html'
+        templateUrl : '/static/build/js/angular_templates/mutants-view.min.html'
     });

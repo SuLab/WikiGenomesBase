@@ -19,6 +19,6 @@ angular
                 }
             };
         },
-        templateUrl: '/static/wiki/js/angular_templates/keyword-paginated.html'
+        templateUrl: '/static/build/js/angular_templates/keyword-paginated.min.html'
 
     });

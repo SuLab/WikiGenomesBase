@@ -1,7 +1,7 @@
 angular
     .module('operonAnnotations')
     .component('operonAnnotations', {
-        templateUrl: '/static/wiki/js/angular_templates/operon-view.html',
+        templateUrl: '/static/build/js/angular_templates/operon-view.min.html',
         bindings: {
             data: '<',
             operon: '<',

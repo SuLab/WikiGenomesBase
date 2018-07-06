@@ -1,7 +1,7 @@
 angular
     .module('geneOntology')
     .component('geneOntology', {
-        templateUrl: '/static/wiki/js/angular_templates/gene-ontology-view.html',
+        templateUrl: '/static/build/js/angular_templates/gene-ontology-view.min.html',
         bindings: {
             data: '<',
             goclass: '@',

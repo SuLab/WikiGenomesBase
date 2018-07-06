@@ -10,6 +10,7 @@ wikigenomes_conf.py
 .idea/vcs.xml
 .idea/workspace.xml
 .ipynb_checkpoints/
+.settings/
 Untitled.ipynb
 __pycache__/wikigenomes_conf.cpython-35.pyc
 scripts/__pycache__/flatfile_ingestion.cpython-35.pyc
@@ -25,3 +26,4 @@ wikigenomes/__pycache__/
 .project
 *.pyc
 node_modules/
+db.sqlite3

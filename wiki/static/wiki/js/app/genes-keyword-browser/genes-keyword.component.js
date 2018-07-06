@@ -39,7 +39,7 @@ angular
                 ctrl.chlamGenes.currentKW = $filter('deleteJsonItemValuesList')('taxid', ctrl.currentOrgsList, ctrl.chlamGenes.keywordAll);
             };
         },
-        templateUrl: '/static/wiki/js/angular_templates/genes-keyword-browser.html'
+        templateUrl: '/static/build/js/angular_templates/genes-keyword-browser.min.html'
     }).factory('searchBuilder', function () {
     	
     	var buildQuery = function(binary_data, value_data) {

@@ -36,8 +36,6 @@ angular.module("cellVisualizer")
                     ctrl.displayCell = true;
                     fill(response);
                 }, function(response) {
-                    console.log("No compatible parent  found for " + goTerm);
-                    console.log(response);
                     ctrl.pending--;
                     
                     if (ctrl.pending == 0) {
@@ -188,7 +186,7 @@ angular.module("cellVisualizer")
     })
     .component("cellVisualizer", {
         controller : "cellVisualizerCtrl",
-        templateUrl : "/static/wiki/js/angular_templates/cell-visualizer-view.html",
+        templateUrl : "/static/build/js/angular_templates/cell-visualizer-view.min.html",
         bindings : {
             cellComp : "<"
         }

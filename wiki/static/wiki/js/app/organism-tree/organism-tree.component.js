@@ -81,7 +81,7 @@ angular
             };
 
         },
-        templateUrl: '/static/wiki/js/angular_templates/organism-tree.html',
+        templateUrl: '/static/build/js/angular_templates/organism-tree.min.html',
         bindings: {
             orgs: '<'
         }

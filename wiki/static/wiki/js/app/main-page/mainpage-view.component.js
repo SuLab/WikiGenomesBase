@@ -253,5 +253,5 @@ angular
             };
 
         },
-        templateUrl : '/static/wiki/js/angular_templates/main-page_new.html'
+        templateUrl : '/static/build/js/angular_templates/main-page_new.min.html'
     });

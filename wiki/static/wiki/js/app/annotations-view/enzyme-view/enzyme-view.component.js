@@ -1,7 +1,7 @@
 angular
     .module('enzymeView')
     .component('enzymeView', {
-        templateUrl: '/static/wiki/js/angular_templates/enzyme-view.html',
+        templateUrl: '/static/build/js/angular_templates/enzyme-view.min.html',
         bindings: {
             reaction: '<',
             ecnumber: '<'

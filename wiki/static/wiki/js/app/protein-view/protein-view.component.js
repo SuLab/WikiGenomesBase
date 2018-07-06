@@ -1,7 +1,7 @@
 angular
     .module('proteinView')
     .component('proteinView', {
-        templateUrl: '/static/wiki/js/angular_templates/protein-view.html',
+        templateUrl: '/static/build/js/angular_templates/protein-view.min.html',
         controller: function () {
             'use strict';
             var ctrl = this;

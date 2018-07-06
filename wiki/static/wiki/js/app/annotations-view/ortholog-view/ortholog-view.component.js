@@ -6,7 +6,7 @@ angular.module('orthologView')
                 locusTag : '<'
             },
             controller : "orthologCtrl",
-            templateUrl : '/static/wiki/js/angular_templates/ortholog-view.html'
+            templateUrl : '/static/build/js/angular_templates/ortholog-view.min.html'
         })
 
     .controller('orthologCtrl', function(orthoData, InterPro, hostPathogen, GOTerms, OperonData, expressionTimingData, $filter, sendToView, $location) {

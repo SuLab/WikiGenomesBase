@@ -1,7 +1,7 @@
 angular
     .module('geneForm')
     .component('geneForm', {
-        templateUrl: '/static/wiki/js/angular_templates/gene-form.html',
+        templateUrl: '/static/build/js/angular_templates/gene-form.min.html',
         bindings: {
             taxid: '<',
             genes: '<'

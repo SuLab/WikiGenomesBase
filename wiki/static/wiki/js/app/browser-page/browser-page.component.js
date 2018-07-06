@@ -35,5 +35,5 @@ angular
                 };
             };
         },
-        templateUrl: '/static/wiki/js/angular_templates/browser-page.html'
+        templateUrl: '/static/build/js/angular_templates/browser-page.min.html'
     });

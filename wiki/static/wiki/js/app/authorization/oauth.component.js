@@ -22,6 +22,6 @@ angular
             ctrl.authorization = $location.path().includes('authorized');
 
         },
-        templateUrl: '/static/wiki/js/angular_templates/authorization-view.html'
+        templateUrl: '/static/build/js/angular_templates/authorization-view.min.html'
     });
 

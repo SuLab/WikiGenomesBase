@@ -201,7 +201,7 @@ angular
             };
             
         },
-        templateUrl: '/static/wiki/js/angular_templates/guided-go-form.html',
+        templateUrl: '/static/build/js/angular_templates/guided-go-form.min.html',
         bindings: {
             goclass: '<',
             gene: '<'

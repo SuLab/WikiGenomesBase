@@ -69,5 +69,5 @@ angular
             });
             
         },
-        templateUrl : '/static/wiki/js/angular_templates/landing-page.html'
+        templateUrl : '/static/build/js/angular_templates/landing-page.min.html'
     });

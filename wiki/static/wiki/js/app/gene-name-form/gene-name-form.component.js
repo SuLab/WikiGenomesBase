@@ -139,6 +139,6 @@ angular
 		bindings: {
 			gene: "<"
 		},
-		templateUrl: "/static/wiki/js/angular_templates/gene-name-form.html",
+		templateUrl: "/static/build/js/angular_templates/gene-name-form.min.html",
 		controller : "geneNameCtrl"
 	});

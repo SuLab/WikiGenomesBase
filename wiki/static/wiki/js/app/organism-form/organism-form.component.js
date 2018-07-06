@@ -8,7 +8,7 @@ angular
                 $location.path('/organism/' + $item.taxid);
             };
         },
-        templateUrl: '/static/wiki/js/angular_templates/organism-form.html',
+        templateUrl: '/static/build/js/angular_templates/organism-form.min.html',
         bindings: {
             orgs: '<'
         }

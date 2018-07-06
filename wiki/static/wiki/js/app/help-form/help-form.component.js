@@ -30,6 +30,6 @@ angular.module('helpForm')
         
     })
     .component('helpForm', {
-        templateUrl: '/static/wiki/js/angular_templates/help-form.html',
+        templateUrl: '/static/build/js/angular_templates/help-form.min.html',
         controller: 'helpFormCtrl'
     });

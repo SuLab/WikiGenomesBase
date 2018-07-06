@@ -1,7 +1,7 @@
 angular
     .module('expressionView')
     .component('expressionView', {
-        templateUrl: '/static/wiki/js/angular_templates/expression-view.html',
+        templateUrl: '/static/build/js/angular_templates/expression-view.min.html',
         bindings: {
             data: '<'
         },

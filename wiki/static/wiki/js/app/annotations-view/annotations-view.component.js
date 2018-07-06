@@ -1,7 +1,7 @@
 angular
     .module('annotationsView')
     .component('annotationsView', {
-        templateUrl : '/static/wiki/js/angular_templates/annotations-view.html',
+        templateUrl : '/static/build/js/angular_templates/annotations-view.min.html',
         bindings : {
             data : '<',
             annotations : '<',
