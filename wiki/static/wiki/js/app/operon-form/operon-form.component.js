@@ -158,7 +158,7 @@ angular
             };
 
         },
-        templateUrl: '/static/wiki/js/angular_templates/operon-form.html',
+        templateUrl: '/static/build/js/angular_templates/operon-form.min.html',
         bindings: {
             data: '<',
             operon: '<',

@@ -35,6 +35,6 @@ angular
             };
 
         },
-        templateUrl: '/static/wiki/js/angular_templates/oauth-form.html'
+        templateUrl: '/static/build/js/angular_templates/oauth-form.min.html'
     });
 

@@ -195,5 +195,5 @@ angular
             };
 
         },
-        templateUrl: '/static/wiki/js/angular_templates/mutant-form.html'
+        templateUrl: '/static/build/js/angular_templates/mutant-form.min.html'
     });

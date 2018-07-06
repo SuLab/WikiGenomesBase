@@ -60,5 +60,5 @@ angular
             };
 
         },
-        templateUrl: '/static/wiki/js/angular_templates/keyword-form.html'
+        templateUrl: '/static/build/js/angular_templates/keyword-form.min.html'
     });

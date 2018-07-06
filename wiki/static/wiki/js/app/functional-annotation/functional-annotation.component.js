@@ -4,7 +4,7 @@
 angular
     .module('functionalAnnotation')
     .component('functionalAnnotation', {
-        templateUrl: '/static/wiki/js/angular_templates/functional-annotation.html',
+        templateUrl: '/static/build/js/angular_templates/functional-annotation.min.html',
         bindings: {
             data: '<',
             config: '<'

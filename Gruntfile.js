@@ -89,12 +89,25 @@ module.exports = function(grunt) {
             }
         },
 
-        //html2js : {
-        //    dist : {
-        //        src : [ 'wiki/static/wiki/js/angular_templates/*.html' ],
-        //        dest : 'tmp/templates.js'
-        //    }
-        //},
+        htmlmin: {
+        	options: {
+        		removeComments: true,
+        		collapseWhitespace: true,
+        		collapseInlineTagWhitespace: true,
+        		minifyCSS: true,
+        		removeEmptyAttributes: true
+        	},
+        	dist: {
+        		files: [ {
+        			expand: true,
+                    src : [ 'wiki/static/wiki/js/angular_templates/*.html' ],
+                    dest : 'wiki/static/build',
+                    rename : function(dest, src) {
+                        return dest + '/' + src.replace('wiki/static/wiki/', '').replace('.html', '.min.html');
+                    }
+        		}]
+        	}
+        },
 
         concat : {
             options : {
@@ -128,13 +141,12 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-clean');
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-ng-annotate');
-
-    //grunt.loadNpmTasks('grunt-html2js');
+    grunt.loadNpmTasks('grunt-contrib-htmlmin');
     grunt.loadNpmTasks('grunt-contrib-concat');
 
     // register tasks here
     // first check for errors, then do dependency injection, then minify, then remove annotation files
     //grunt.registerTask('minify', [ 'jshint', 'clean:dist2', 'uglify:dist2']);
-    grunt.registerTask('minify', [ 'jshint', 'clean:dist4', 'ngAnnotate:dist', 'uglify:dist', 'clean:dist3', 'concat:dist', 'clean:dist2', 'concat:dist2', 'clean:dist']);
+    grunt.registerTask('minify', [ 'jshint', 'clean:dist4', 'ngAnnotate:dist', 'uglify:dist', 'clean:dist3', 'concat:dist', 'clean:dist2', 'concat:dist2', 'clean:dist', 'htmlmin:dist']);
 
 };

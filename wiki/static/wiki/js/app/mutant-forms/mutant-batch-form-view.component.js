@@ -39,6 +39,6 @@ angular
             },
                 templateUrl
             :
-            '/static/wiki/js/angular_templates/mutant-batch.html'
+            '/static/build/js/angular_templates/mutant-batch.min.html'
         });
 

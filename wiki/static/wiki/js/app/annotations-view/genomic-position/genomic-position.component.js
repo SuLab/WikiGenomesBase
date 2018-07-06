@@ -1,7 +1,7 @@
 angular
     .module('genomicPosition')
     .component('genomicPosition', {
-        templateUrl: '/static/wiki/js/angular_templates/genomic-position.html',
+        templateUrl: '/static/build/js/angular_templates/genomic-position.min.html',
         bindings: {
             data: '<'
         },

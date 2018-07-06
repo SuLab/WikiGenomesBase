@@ -32,7 +32,7 @@ def email(request):
 
 def align(request):
   content = {
-    "email": "djow@ucsd.edu",
+    "email": "help@chlambase.org",
     "title": "ortholog alignment",
     "format": "fasta",
     "tree": "tree1",
@@ -298,8 +298,6 @@ def mutant_form(request):
             return JsonResponse(responseData)
 		
         if body['action'] == 'annotate':
-            print('annotate')
-            pprint(body)
             try:
                 annotation = MutantMongo(mut_json=body, taxid=body['taxid'], refseq=body['chromosome'])
                 annotation.generate_full_json()
@@ -437,16 +435,13 @@ def geneName_form(request):
         #write the name to the gene and protein
         try:
 		
-            print("Writing Gene")
-            print("gene id:")
-            print(body['geneQID'])
+            print("Writing to gene " + body['geneQID'])
             if body['geneQID'] != "":
                 wd_item_gene = wdi_core.WDItemEngine(wd_item_id=body['geneQID'], domain=None)
                 wd_item_gene.set_label(body['geneName'])
                 wd_item_gene.write(login=login)		
 			
-            print("protein id:")
-            print(body['proteinQID'])
+            print("Writing to protein " + body['proteinQID'])
             if body['proteinQID'] != "":
                 body['geneName'] = body['geneName'][0:1].upper() + body['geneName'][1:]
                 wd_item_protein = wdi_core.WDItemEngine(wd_item_id=body['proteinQID'], domain=None)

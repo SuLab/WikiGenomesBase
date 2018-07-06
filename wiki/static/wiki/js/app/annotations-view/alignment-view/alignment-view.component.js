@@ -286,7 +286,7 @@ angular.module("alignmentView")
 
     .component("alignmentView", {
         controller : "alignmentCtrl",
-        templateUrl : "/static/wiki/js/angular_templates/alignment-view.html",
+        templateUrl : "/static/build/js/angular_templates/alignment-view.min.html",
         bindings : {
             locusTag : '<',
             taxId : '<',

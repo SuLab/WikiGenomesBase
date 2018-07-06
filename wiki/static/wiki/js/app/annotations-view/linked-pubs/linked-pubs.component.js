@@ -1,7 +1,7 @@
 angular
     .module('linkedPubs')
     .component('linkedPubs', {
-        templateUrl: '/static/wiki/js/angular_templates/linked-pubs.html',
+        templateUrl: '/static/build/js/angular_templates/linked-pubs.min.html',
         bindings: {
             pubs: '<'
         },

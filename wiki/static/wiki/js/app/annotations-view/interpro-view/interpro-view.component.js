@@ -1,7 +1,7 @@
 angular
     .module('interPro')
     .component('interPro', {
-        templateUrl: '/static/wiki/js/angular_templates/interpro-view.html',
+        templateUrl: '/static/build/js/angular_templates/interpro-view.min.html',
         bindings: {
             data: '<'
         },
