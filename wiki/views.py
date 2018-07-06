@@ -375,7 +375,6 @@ def mongo_annotations(request):
     if request.method == 'POST':
         body_unicode = request.body.decode('utf-8')
         body = json.loads(body_unicode)
-        pprint(body)
         annotations = GetMongoAnnotations()
         annotation_data = {
             'mutants': [],
