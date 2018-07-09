@@ -63,9 +63,9 @@
             </div>
         </div>
         <div ng-show="$ctrl.goFormModel.go">
-            <div style="padding:10px 2px 2px 2px">
+            <div style="padding:10px 2px 2px 2px; overflow: hidden;">
                 <button class="btn btn-info" ng-click="$ctrl.goFormModel.go=null">
-                    {{$ctrl.goFormModel.go.goterm_label.value}} ({{$ctrl.goFormModel.go.goID.value}})
+                    {{$ctrl.goFormModel.go.goterm_label.value | limitTo: 60}}<span ng-show="$ctrl.goFormModel.go.goterm_label.value.length > 60">...</span> ({{$ctrl.goFormModel.go.goID.value}})
                     <div class="glyphicon glyphicon-remove"></div>
                 </button>
             </div>
@@ -148,15 +148,15 @@
         </div>
     </div>
     <div class="well" ng-show="$ctrl.pageCount==4" style="height:260px">
-        <h4>Review for submission</h4>
+        <h4>Review for submission: {{$ctrl.goclass | goClass}}</h4>
 
         <div>
-            <p ng-show="$ctrl.validateFields()"> The protein "<strong>{{$ctrl.gene.proteinLabel}}</strong>"is
-                involved in
+            <p ng-show="$ctrl.validateFields()"> The protein "<strong>{{$ctrl.gene.proteinLabel}}</strong>" has
+                {{$ctrl.goclass | goClass}} 
                 "<strong>{{$ctrl.goFormModel.go.goterm_label.value}}</strong>". This claim was stated in
-                " <strong>{{$ctrl.goFormModel.pub.authors[0].name}} <i>et al.</i>
+                "<strong>{{$ctrl.goFormModel.pub.authors[0].name}} <i>et al.</i>
                     {{$ctrl.goFormModel.pub.pubdate}}</strong>"
-                and determined by "<strong>{{$ctrl.goFormModel.evi.name}}</strong>"
+                and determined by "<strong>{{$ctrl.goFormModel.evi.name}}</strong>".
                 <br><br>
                 This annotation will be applied to:
                 <ul>
