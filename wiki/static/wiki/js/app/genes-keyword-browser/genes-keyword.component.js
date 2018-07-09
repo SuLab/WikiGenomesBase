@@ -9,6 +9,7 @@ angular
                 ctrl.loading = true;
                 ctrl.chlamGenes = {};
                 ctrl.keyword = $location.path().split("/")[2];
+                ctrl.keywordResult = ctrl.keyword;
                 ctrl.orgData = [];
                 allChlamOrgs.getAllOrgs(function (data) {
                     angular.forEach(data, function (value) {
@@ -23,7 +24,6 @@ angular
                         ctrl.chlamGenes.keywordAll = $filter('keywordFilter')(ctrl.chlamGenes.allGenes, ctrl.keyword);
                         ctrl.chlamGenes.currentKW = ctrl.chlamGenes.keywordAll;
                         
-                        console.log(ctrl.chlamGenes.currentKW);
                     }).finally(function () {
                         ctrl.loading = false;
                     });
@@ -41,6 +41,11 @@ angular
             
             ctrl.advSearch = function() {
             	ctrl.loading = true;
+            	ctrl.keywordResult = ctrl.keyword;
+            	ctrl.chlamGenes.currentKW = [];
+            	
+            	$('.collapse').collapse("hide");
+            	
                 var endpoint = 'https://query.wikidata.org/sparql?format=json&query=';
                 var url = endpoint + encodeURIComponent(ctrl.buildQuery());
                 $http.get(url).then(function(data) {
@@ -52,36 +57,74 @@ angular
                 });
             };
             
+            ctrl.startJS = function() {
+            	
+            	$('.collapse').collapse("show");
+            	
+            	// set options for introjs
+                var intro = introJs().setOption("skipLabel", "Exit");
+                intro.setOption("showStepNumbers", "false");
+                intro.hideHints();
+
+                // now start it
+                intro.start();
+            };
+            
             ctrl.buildQuery = function() {
             	var query = queryBuilder.beginning();
             	
-            	if (ctrl.entrez && ctrl.entrez_text) {
-            		query += queryBuilder.equals("?gene", "entrez", ctrl.entrez_text);
+            	if (ctrl.entrez) {
+            		if (ctrl.entrez_text) {
+            			query += queryBuilder.equals("?gene", "entrez", ctrl.entrez_text);
+            		} else {
+            			query += queryBuilder.triple("?gene", "entrez", "?entrez");
+            		}
             	} else {
-            		query += queryBuilder.triple("?gene", "entrez", "?entrez");
+            		query += queryBuilder.optional(queryBuilder.triple("?gene", "entrez", "?entrez"));
             	}
             	
             	var inner = "";
             	
             	if (ctrl.uniprot) {
-            		inner += queryBuilder.equals("?protein", "uniprot", ctrl.uniprot_text);
+            		if (ctrl.uniprot_text) {
+            			inner += queryBuilder.equals("?protein", "uniprot", ctrl.uniprot_text);
+            		} else {
+            			inner += queryBuilder.triple("?protein", "uniprot", "?uniprot");
+            		}
             	} else {
             		inner += queryBuilder.optional(queryBuilder.triple("?protein", "uniprot", "?uniprot"));
             	}
             	
             	if (ctrl.refseq) {
-            		inner += queryBuilder.equals("?protein", "refseq", ctrl.refseq_text);
+            		if (ctrl.refseq_text) {
+            			inner += queryBuilder.equals("?protein", "refseq", ctrl.refseq_text);
+            		} else {
+            			inner += queryBuilder.triple("?protein", "refseq", "?refseq");
+            		}
+            		
             	} else {
             		inner += queryBuilder.optional(queryBuilder.triple("?protein", "refseq", "?refseq"));
             	}
             	
-            	if (ctrl.mf || ctrl.bp || ctrl.cc) {
-            		inner += queryBuilder.goQuery(ctrl.mf, ctrl.cc, ctrl.bp);
-            		inner += queryBuilder.filterEnglish('?goLabel');
+            	if (ctrl.mf) {
+            		inner += queryBuilder.addLabel("?protein", "mf", "?mfLabel");
+            		inner += queryBuilder.filterEnglish('?mfLabel');
             	} else {
-            		inner = queryBuilder.goQuery(true, true, true);
-            		inner += queryBuilder.filterEnglish('?goLabel');
-            		inner = queryBuilder.optional(inner);
+            		inner += queryBuilder.optional(queryBuilder.addLabel("?protein", "mf", "?mfLabel") + queryBuilder.filterEnglish('?mfLabel'));
+            	}
+            	
+            	if (ctrl.bp) {
+            		inner += queryBuilder.addLabel("?protein", "bp", "?bpLabel");
+            		inner += queryBuilder.filterEnglish('?bpLabel');
+            	} else {
+            		inner += queryBuilder.optional(queryBuilder.addLabel("?protein", "bp", "?bpLabel") + queryBuilder.filterEnglish('?bpLabel'));
+            	}
+            	
+            	if (ctrl.cc) {
+            		inner += queryBuilder.addLabel("?protein", "cc", "?ccLabel");
+            		inner += queryBuilder.filterEnglish('?ccLabel');
+            	} else {
+            		inner += queryBuilder.optional(queryBuilder.addLabel("?protein", "cc", "?ccLabel") + queryBuilder.filterEnglish('?ccLabel'));
             	}
             	
             	if (ctrl.hp) {
@@ -98,16 +141,16 @@ angular
             		query += queryBuilder.optional(inner);
             	}
             	
-            	if (ctrl.uniprot && ctrl.uniprot_text) {
-            		query += queryBuilder.filter("?uniprot", ctrl.uniprot_text);
+            	if (ctrl.mf && ctrl.mf_text) {
+            		query += queryBuilder.filter("?mfLabel", ctrl.mf_text);
             	}
             	
-            	if (ctrl.refseq && ctrl.refseq_text) {
-            		query += queryBuilder.filter("?refseq_prot", ctrl.refseq_text);
+            	if (ctrl.cc && ctrl.cc_text) {
+            		query += queryBuilder.filter("?ccLabel", ctrl.cc_text);
             	}
             	
-            	if ((ctrl.mf && ctrl.mf_text) || (ctrl.cc && ctrl.cc_text) || (ctrl.bp && ctrl.bp_text)) {
-            		query += queryBuilder.goFilter(ctrl.mf_text, ctrl.cc_text, ctrl.bp_text);
+            	if (ctrl.bp && ctrl.bp_text) {
+            		query += queryBuilder.filter("?bpLabel", ctrl.bp_text);
             	}
             	
             	if (ctrl.hp && ctrl.hp_text) {
@@ -145,27 +188,6 @@ angular
     		return "FILTER(CONTAINS(" + term + ", '" + keyword + "')).";
     	};
     	
-    	var goFilter = function(mf, cc, bp) {
-    		var input = "";
-    		if (mf) {
-    			input = "CONTAINS(?goLabel, '" + mf + "')";
-    		}
-    		if (cc) {
-    			if (input.length > 1) {
-    				input += " || ";
-    			}
-    			input += "CONTAINS(?goLabel, '" + cc + "')";
-    		}
-    		if (bp) {
-    			if (input.length > 1) {
-    				input += " || ";
-    			}
-    			input += "CONTAINS(?goLabel, '" + bp + "')";
-    		}
-    		
-    		return "FILTER("+input+").";
-    	};
-    	
     	var equals = function(key, property, value) {
     		return key + " " + pMap[property] + " '" + value + "'.";
     	};
@@ -176,7 +198,8 @@ angular
     	
     	var beginning = function() {
     		return "SELECT ?taxon ?taxid ?taxonLabel ?geneLabel ?entrez ?uniprot ?proteinLabel ?locusTag ?refseq_prot ?gene" +
-                    "(GROUP_CONCAT(DISTINCT ?aliases) AS ?aliases) (GROUP_CONCAT(DISTINCT ?goLabel) AS ?goLabel) (GROUP_CONCAT(DISTINCT ?host_protein) AS ?host_protein) WHERE {" +
+                    "(GROUP_CONCAT(DISTINCT ?aliases) AS ?aliases) (GROUP_CONCAT(DISTINCT ?mfLabel) AS ?mfLabel) " +
+                    "(GROUP_CONCAT(DISTINCT ?bpLabel) AS ?bpLabel) (GROUP_CONCAT(DISTINCT ?ccLabel) AS ?ccLabel) (GROUP_CONCAT(DISTINCT ?host_protein) AS ?host_protein) WHERE {" +
                     	"?taxon wdt:P171* wd:Q846309." +
                     	"?gene wdt:P279 wd:Q7187." +
                     	"?gene wdt:P703 ?taxon."+
@@ -189,29 +212,6 @@ angular
         			"SERVICE wikibase:label { bd:serviceParam wikibase:language 'en'. }" +
         			"}" +
         			"GROUP BY ?locusTag ?taxon ?taxid ?taxonLabel ?geneLabel ?entrez ?uniprot ?proteinLabel ?refseq_prot ?gene";
-    	};
-    	
-    	var goQuery = function(mf, cc, bp) {
-    		
-    		var text = "(";
-    		if (mf) {
-    			text += "wdt:P680";
-    		}
-    		if (cc) {
-    			if (text.length > 1) {
-    				text += " | ";
-    			}
-    			text += "wdt:P681";
-    		}
-    		if (bp) {
-    			if (text.length > 1) {
-    				text += " | ";
-    			}
-    			text += "wdt:P682";
-    		}
-    		text += ")";
-    		
-    		return "?protein "+text+"+/rdfs:label ?goLabel.";
     	};
     	
     	var addLabel = function(keyword, property, term) {
@@ -229,10 +229,8 @@ angular
             filterEnglish: filterEnglish,
             beginning: beginning,
             ending: ending,
-            goQuery: goQuery,
             addLabel: addLabel,
             triple: triple,
-            goFilter: goFilter
             
         };
 
