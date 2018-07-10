@@ -1,7 +1,7 @@
 angular
     .module('landingPage')
     .component('landingPage', {
-        controller : function(allChlamOrgs, recentChlamPubLinks, euroPubData) {
+        controller : function(allChlamOrgs, recentChlamPubLinks, euroPubData, recentChanges, allChlamydiaGenes) {
             'use strict';
             var ctrl = this;
             ctrl.myInterval = 5000;
@@ -26,6 +26,21 @@ angular
 
                 });
             });
+            
+            /*
+            allChlamydiaGenes.getAllChlamGeneQIDS().then(function (data) {
+            	var ids = [];
+            	angular.forEach(data.data.results.bindings, function(obj) {
+            		if (ids.length < 50) {
+            			ids.push(obj.gene.value.substring(obj.gene.value.indexOf("Q")));
+            		}
+            	});
+            	
+                recentChanges.getRecentChanges(ids).then(function(data) {
+                	console.log(data);
+                });
+                
+            });*/
 
             // run the tutorial after clicking the button
             document.getElementById("get-started").onclick = function() {

@@ -358,6 +358,34 @@ angular
 
     });
 
+//annotations data
+angular
+    .module('resources')
+    .factory('recentChanges', function ($http) {
+    	
+        var getRecentChanges = function (ids) {
+        	
+            var url = "https://www.wikidata.org/w/api.php?" +
+            		"action=query&prop=revisions&" +
+            		"titles="+ids.join("|") + "&" +
+            		"rvprop=timestamp|comment|user&" +
+            		"format=json";
+            return $http.get(url)
+                .success(function (response) {
+                    return response.data;
+
+                })
+                .error(function (response) {
+                    return response;
+                });
+        };
+        return {
+        	getRecentChanges: getRecentChanges
+        };
+
+
+    });
+
 angular
     .module('resources')
     .factory('InterPro', function ($http) {
@@ -715,9 +743,26 @@ angular
                     return response;
                 });
         };
+        var getAllChlamGeneQIDS = function () {
+            var endpoint = 'https://query.wikidata.org/sparql?format=json&query=';
+            var url = endpoint + encodeURIComponent(
+                    "SELECT ?gene WHERE { " +
+            			"?taxon wdt:P171* wd:Q846309. " +
+            			"?gene wdt:P279 wd:Q7187." +
+            			"?gene wdt:P703 ?taxon." +
+        			"}");
+            return $http.get(url)
+                .success(function (response) {
+                    return response.data;
+                })
+                .error(function (response) {
+                    return response;
+                });
+        };
         return {
             getAllChlamGenes: getAllChlamGenes,
-            getAllChlamGeneLabels: getAllChlamGeneLabels
+            getAllChlamGeneLabels: getAllChlamGeneLabels,
+            getAllChlamGeneQIDS: getAllChlamGeneQIDS
         };
     });
 
