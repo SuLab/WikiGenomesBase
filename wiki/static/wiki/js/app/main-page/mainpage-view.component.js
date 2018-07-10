@@ -19,7 +19,8 @@ angular
             hostPathogen,
             RefSeqChrom,
             allOrgGenes,
-            $http
+            $http,
+            ECNumbers
 
         ) {
 
@@ -148,12 +149,10 @@ angular
                                     ctrl.cc = 'cc_button';
 
                                     var dataResults = data.data.results.bindings;
-
-                                    // gather ec numbers from go terms
+                                    
+                                    // classify go terms
                                     angular.forEach(dataResults, function(value, key) {
-                                        if (value.hasOwnProperty('ecnumber') && ctrl.annotations.ecnumber.indexOf(value.ecnumber.value) == -1) {
-                                            ctrl.annotations.ecnumber.push(value.ecnumber.value);
-                                        }
+
                                         if (value.goclass.value === 'http://www.wikidata.org/entity/Q5058355') {
                                             ctrl.annotations.go.cellcomp.push(value);
 
@@ -168,25 +167,33 @@ angular
 
                                     });
                                     
-                                    // now update enzyme data from ec numbers
-                                    angular.forEach(ctrl.annotations.ecnumber, function(value) {
-                                        if (value.indexOf('-') === -1 && value.indexOf('.') != -1) {
-                                            expasyData.getReactionData(value).then(function(data) {
-                                                console.log(data);
-                                                ctrl.annotations.reaction[data.ecnumber] = data.reaction;
-                                            });
-                                        }
-                                    });
+                            });
+                            
+                            ECNumbers.getECNumbers(ctrl.currentGene.uniprot).then(function(data) {
+                            	 var dataResults = data.data.results.bindings;
+                            	 angular.forEach(dataResults, function(value) {
+                            		   if (value.hasOwnProperty('ecnumber') && ctrl.annotations.ecnumber.indexOf(value.ecnumber.value) == -1 && 
+                            				   value.ecnumber.value.indexOf('-') == -1) {
+                                           ctrl.annotations.ecnumber.push(value.ecnumber.value);
+                                       }
+                            	 });
+                            }).finally(function() {
+                            	
+                            	 // now update enzyme data from ec numbers
+                                 angular.forEach(ctrl.annotations.ecnumber, function(value) {
+                                     expasyData.getReactionData(value).then(function(data) {
+                                         console.log(data);
+                                         ctrl.annotations.reaction[data.ecnumber] = data.reaction;
+                                     });
+                                 });
 
-                                    // This gets server side mongodb annotations.  Nested in GO Terms function because of AJAX
-                                    // issues waiting for EC Number.  NEED to refactor so it can be called outside of this.
-                                    var annotation_keys = {
-                                        locusTag : ctrl.currentGene.locusTag,
-                                        taxid : ctrl.currentGene.taxid,
-                                        ec_number : ctrl.annotations.ecnumber
-                                    };
-                                    getServerAnnotationData(annotation_keys);
-                                });
+                                 var annotation_keys = {
+                                     locusTag : ctrl.currentGene.locusTag,
+                                     taxid : ctrl.currentGene.taxid,
+                                     ec_number : ctrl.annotations.ecnumber
+                                 };
+                                 getServerAnnotationData(annotation_keys);
+                            });
                         });
 
                     }
