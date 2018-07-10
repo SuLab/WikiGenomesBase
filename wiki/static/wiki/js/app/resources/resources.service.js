@@ -495,8 +495,9 @@ angular
 
 angular
     .module('resources')
-    .factory('expasyData', function ($http) {
-        var expasy_endpoint = 'https://chlambase.org/expasy/EC/{ecnumber}.txt';
+    .factory('expasyData', function ($http, $location) {
+    	
+        var expasy_endpoint = $location.host() + "/expasy/EC/{ecnumber}.txt";
 
         var getReactionData = function (ecNumber) {
             var url = expasy_endpoint.replace('{ecnumber}', ecNumber);
