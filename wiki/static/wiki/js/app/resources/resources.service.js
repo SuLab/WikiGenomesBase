@@ -303,14 +303,12 @@ angular
             		  "(GROUP_CONCAT(DISTINCT ?determination; SEPARATOR = ';') AS ?determinationLabel) WHERE {" +
             		  "?protein wdt:P352 '" + uniprot + "'." +
             		  "?protein (p:P680|p:P681|p:P682)+ ?goterm." +
-            		  "?goterm pq:P459/rdfs:label ?determination." +
-            		  "OPTIONAL { ?goterm (prov:wasDerivedFrom/pr:P248)/rdfs:label ?reference_stated_label.}" +
+            		  "OPTIONAL { ?goterm pq:P459/rdfs:label ?determination. FILTER(LANG(?determination) = 'en').}" +
+            		  "OPTIONAL { ?goterm (prov:wasDerivedFrom/pr:P248)/rdfs:label ?reference_stated_label. FILTER(LANG(?reference_stated_label) = 'en').}" +
             		  "OPTIONAL { ?goterm (prov:wasDerivedFrom/pr:P813) ?reference_retrieved. }" +
             		  "?goterm (ps:P680|ps:P681|ps:P682)+ ?gotermValue." +
             		  "?gotermValue wdt:P31 ?goclass." +
             		  "?gotermValue wdt:P686 ?goID." +
-            		  "FILTER(LANG(?determination) = 'en')." +
-                      "FILTER(LANG(?reference_stated_label) = 'en')." +
             		  "SERVICE wikibase:label { bd:serviceParam wikibase:language 'en'. }" +
             		"}" +
             		"GROUP BY ?gotermValueLabel ?goID ?gotermValue ?goclass ?determinationLabel ?reference_retrievedLabel"
