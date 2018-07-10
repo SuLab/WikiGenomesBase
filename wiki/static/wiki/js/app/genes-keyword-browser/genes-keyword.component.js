@@ -1,7 +1,7 @@
 angular
     .module('genesKeyword')
     .component('genesKeyword', {
-        controller: function ($location, $filter, allChlamOrgs, allChlamydiaGenes, queryBuilder, $http) {
+        controller: function ($location, $filter, allChlamOrgs, allChlamydiaGenes, queryBuilder, $http, allGoTerms) {
             'use strict';
             var ctrl = this;
 
@@ -27,6 +27,47 @@ angular
                     }).finally(function () {
                         ctrl.loading = false;
                     });
+                
+                
+                var goClassMap = {
+                        'mf_button': {
+                            name: 'Molecular Function',
+                            QID: 'Q14860489'
+                        },
+                        'cc_button': {
+                            name: 'Cellular Component',
+                            QID: 'Q5058355'
+                        },
+                        'bp_button': {
+                            name: 'Biological Process',
+                            QID: 'Q2996394'
+                        }
+                };
+                
+                ctrl.mfTerms = function (val) {
+                    return allGoTerms.getGoTermsAll(val, goClassMap.mf_button.QID).then(function (data) {
+                            return data.data.results.bindings.map(function (item) {
+                                return item;
+                            });
+                        });
+                };
+                
+                ctrl.ccTerms = function (val) {
+                    return allGoTerms.getGoTermsAll(val, goClassMap.cc_button.QID).then(function (data) {
+                            return data.data.results.bindings.map(function (item) {
+                                return item;
+                            });
+                        });
+                };
+                
+                ctrl.bpTerms = function (val) {
+                    return allGoTerms.getGoTermsAll(val, goClassMap.bp_button.QID).then(function (data) {
+                            return data.data.results.bindings.map(function (item) {
+                                return item;
+                            });
+                        });
+                };
+                
             };
             
             ctrl.facetOrganism = function (organism) {
@@ -185,7 +226,7 @@ angular
     	};
     	
     	var filter = function(term, keyword) {
-    		return "FILTER(CONTAINS(" + term + ", '" + keyword + "')).";
+    		return "FILTER(CONTAINS(LCASE(" + term + "), '" + keyword.toLowerCase() + "')).";
     	};
     	
     	var equals = function(key, property, value) {
