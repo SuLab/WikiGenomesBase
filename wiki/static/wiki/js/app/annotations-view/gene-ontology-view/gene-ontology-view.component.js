@@ -10,7 +10,13 @@ angular
         controller: function () {
             'use strict';
             var ctrl = this;
-            ctrl.$onInit = function () {
+            ctrl.$onChanges = function () {
+            	
+            	if (ctrl.data) {
+	            	angular.forEach(ctrl.data, function(value) {
+	            		value.determinationLabel.values = value.determinationLabel.value.split(";");
+	            	});
+            	}
             };
             
             ctrl.evidenceCodes = {

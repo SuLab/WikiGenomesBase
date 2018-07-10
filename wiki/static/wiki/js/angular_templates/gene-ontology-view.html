@@ -6,20 +6,20 @@
 	
 	    <tr ng-repeat="x in $ctrl.data">
 	        <td title="'GO Term'">
-	            {{x.gotermValueLabel.value }}
+	            <div title="{{x.goID.value }}">{{x.gotermValueLabel.value }}</div>
 	        </td>
 	        <td title="'Evidence'">
-				<div title="{{$ctrl.evidenceCodes[x.determinationLabel.value]}}">
-					{{ x.determinationLabel.value }}
+				<div ng-repeat="val in x.determinationLabel.values" title="{{$ctrl.evidenceCodes[val]}}">
+					{{ val }}
 				</div>
 	        </td>
 	        <td title="'Source'">
 	            <!-- Button trigger modal -->
 	            <a class="glyphicon glyphicon-new-window" data-toggle="modal"
-	               data-target="#{{ x.goID.value | replaceColon }}{{x.determinationLabel.value}}">
+	               data-target="#{{ x.goID.value | replaceColon }}">
 	            </a>
 	            <!-- Modal -->
-	            <div class="modal" id="{{x.goID.value | replaceColon}}{{x.determinationLabel.value}}" tabindex="-1"
+	            <div class="modal" id="{{x.goID.value | replaceColon}}" tabindex="-1"
 	                 role="dialog"
 	                 aria-labelledby="refModalTitle"
 	                 aria-hidden="true">
@@ -34,7 +34,7 @@
 	                            </button>
 	                        </div>
 	                        <div class="modal-body">
-	                            <div class="well"><h4>Stated in: </h4> {{ x.reference_stated_inLabel.value}} <br/>
+	                            <div class="well"><h4>Stated in: </h4> {{ x.reference_stated_label.value}} <br/>
 	                                <h4>Retrieved on: </h4> {{ x.reference_retrievedLabel.value}} <br/>
 	                                <h4>Gene Ontology ID: </h4> {{x.goID.value }} <br/>
 	                                <h4>Wikidata ID: </h4> {{ x.gotermValue.value | parseQID}}

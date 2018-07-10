@@ -298,17 +298,20 @@ angular
         var endpoint = 'https://query.wikidata.org/sparql?format=json&query=';
         var getGoTerms = function (uniprot) {
             var url = endpoint + encodeURIComponent(
-                    "SELECT  distinct ?gotermValueLabel ?goID ?gotermValue ?goclass ?determinationLabel ?reference_stated_inLabel ?reference_retrievedLabel ?ecnumber WHERE { ?protein wdt:P352 " +
-                    "'" + uniprot + "'. " +
-                    "{?protein p:P680 ?goterm} UNION {?protein p:P681 ?goterm} UNION {?protein p:P682 ?goterm}.  " +
-                    "?goterm pq:P459 ?determination ." + 
-                    "OPTIONAL {?goterm prov:wasDerivedFrom/pr:P248 ?reference_stated_in .}" +
-                    "OPTIONAL {?goterm prov:wasDerivedFrom/pr:P813 ?reference_retrieved .}" +
-                    "OPTIONAL {?goterm prov:wasDerivedFrom/pr:P698 ?pmid .}" +
-                    "{?goterm ps:P680 ?gotermValue} UNION {?goterm ps:P681 ?gotermValue} UNION {?goterm ps:P682 ?gotermValue}.  " +
-                    "?gotermValue wdt:P279* ?goclass; wdt:P686 ?goID. FILTER ( ?goclass = wd:Q2996394 || ?goclass = wd:Q5058355 || ?goclass = wd:Q14860489) " +
-                    "OPTIONAL {?gotermValue wdt:P591 ?ecnumber.}" +
-                    "SERVICE wikibase:label { bd:serviceParam wikibase:language \"en\" .}}"
+            		"SELECT ?gotermValueLabel ?goID ?gotermValue ?goclass ?reference_retrievedLabel " +
+            		  "(GROUP_CONCAT(DISTINCT ?reference_stated_label; SEPARATOR = '; ') AS ?reference_stated_label) " +
+            		  "(GROUP_CONCAT(DISTINCT ?determination; SEPARATOR = ';') AS ?determinationLabel) WHERE {" +
+            		  "?protein wdt:P352 '" + uniprot + "'." +
+            		  "?protein (p:P680|p:P681|p:P682)+ ?goterm." +
+            		  "OPTIONAL { ?goterm pq:P459/rdfs:label ?determination. FILTER(LANG(?determination) = 'en').}" +
+            		  "OPTIONAL { ?goterm (prov:wasDerivedFrom/pr:P248)/rdfs:label ?reference_stated_label. FILTER(LANG(?reference_stated_label) = 'en').}" +
+            		  "OPTIONAL { ?goterm (prov:wasDerivedFrom/pr:P813) ?reference_retrieved. }" +
+            		  "?goterm (ps:P680|ps:P681|ps:P682)+ ?gotermValue." +
+            		  "?gotermValue wdt:P31 ?goclass." +
+            		  "?gotermValue wdt:P686 ?goID." +
+            		  "SERVICE wikibase:label { bd:serviceParam wikibase:language 'en'. }" +
+            		"}" +
+            		"GROUP BY ?gotermValueLabel ?goID ?gotermValue ?goclass ?determinationLabel ?reference_retrievedLabel"
                 );
             return $http.get(url)
                 .success(function (response) {
@@ -318,15 +321,38 @@ angular
                 .error(function (response) {
                     return response;
                 });
-
-            //    .then(function (response) {
-            //
-            //    return response.data.results.bindings;
-            //
-            //});
         };
         return {
             getGoTerms: getGoTerms
+        };
+
+
+    });
+
+//annotations data
+angular
+    .module('resources')
+    .factory('ECNumbers', function ($http) {
+        var endpoint = 'https://query.wikidata.org/sparql?format=json&query=';
+        var getECNumbers = function (uniprot) {
+            var url = endpoint + encodeURIComponent(
+            		  "SELECT ?ecnumber WHERE {" +
+            			  "?protein wdt:P352 '" + uniprot + "'." +
+                		  "?protein (wdt:P680|wdt:P681|wdt:P682)+ ?gotermValue." +
+                		  "?gotermValue wdt:P591 ?ecnumber." +
+                		"}"
+                );
+            return $http.get(url)
+                .success(function (response) {
+                    return response.data;
+
+                })
+                .error(function (response) {
+                    return response;
+                });
+        };
+        return {
+            getECNumbers: getECNumbers
         };
 
 
@@ -467,8 +493,9 @@ angular
 
 angular
     .module('resources')
-    .factory('expasyData', function ($http) {
-        var expasy_endpoint = 'https://chlambase.org/expasy/EC/{ecnumber}.txt';
+    .factory('expasyData', function ($http, $location) {
+    	
+        var expasy_endpoint = "https://" + $location.host() + "/expasy/EC/{ecnumber}.txt";
 
         var getReactionData = function (ecNumber) {
             var url = expasy_endpoint.replace('{ecnumber}', ecNumber);
@@ -614,6 +641,7 @@ angular
                     "FILTER(CONTAINS(LCASE(?goterm_label), '" +
                     val.toLowerCase() + "' ))}"
                 );
+            
             return $http.get(url)
                 .success(function (response) {
                     return response.data;
