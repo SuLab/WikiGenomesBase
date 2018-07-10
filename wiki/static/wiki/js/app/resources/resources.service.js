@@ -303,7 +303,7 @@ angular
             		  "(GROUP_CONCAT(DISTINCT ?determination; SEPARATOR = ';') AS ?determinationLabel) WHERE {" +
             		  "?protein wdt:P352 '" + uniprot + "'." +
             		  "?protein (p:P680|p:P681|p:P682)+ ?goterm." +
-            		  "OPTIONAL { ?goterm pq:P459/rdfs:label ?determination. FILTER(LANG(?determination) = 'en').}" +
+            		  "?goterm pq:P459/rdfs:label ?determination. FILTER(LANG(?determination) = 'en')." +
             		  "OPTIONAL { ?goterm (prov:wasDerivedFrom/pr:P248)/rdfs:label ?reference_stated_label. FILTER(LANG(?reference_stated_label) = 'en').}" +
             		  "OPTIONAL { ?goterm (prov:wasDerivedFrom/pr:P813) ?reference_retrieved. }" +
             		  "?goterm (ps:P680|ps:P681|ps:P682)+ ?gotermValue." +
