@@ -5,7 +5,7 @@ import datetime
 client = MongoClient()
 db = client.chlamdb
 collection = db.mutants
-documents = collection.find({"mutant_type": 0})
+documents = collection.find({"locusTag": ""})
 
 for document in documents:
     pprint.pprint(document)
