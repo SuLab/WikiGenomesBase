@@ -97,26 +97,28 @@ angular
                 	ctrl.loading = false;
                 });
                 
+                var url_surf = "organism/1/gene/1/mg_mutant_view";
+                
                 if (ctrl.cm) {
-                	 sendToView.sendToView($location.host() + '/organism/1/gene/1/mg_mutant_view', {"action" : "chemical"}).then(function(data) {
+                	 sendToView.sendToView(url_surf, {"action" : "chemical"}).then(function(data) {
                      	console.log(data);
                      });
                 }
                 
                 if (ctrl.tm) {
-               	 sendToView.sendToView($location.host() + '/organism/1/gene/1/mg_mutant_view', {"action" : "transposition"}).then(function(data) {
+               	 sendToView.sendToView(url_surf, {"action" : "transposition"}).then(function(data) {
                     	console.log(data);
                     });
                }
                 
                 if (ctrl.rm) {
-               	 sendToView.sendToView($location.host() + '/organism/1/gene/1/mg_mutant_view', {"action" : "recombination"}).then(function(data) {
+               	 sendToView.sendToView(url_surf, {"action" : "recombination"}).then(function(data) {
                     	console.log(data);
                     });
                }
                 
                 if (ctrl.im) {
-               	 sendToView.sendToView($location.host() + '/organism/1/gene/1/mg_mutant_view', {"action" : "insertion"}).then(function(data) {
+               	 sendToView.sendToView(url_surf, {"action" : "insertion"}).then(function(data) {
                     	console.log(data);
                     });
                }
