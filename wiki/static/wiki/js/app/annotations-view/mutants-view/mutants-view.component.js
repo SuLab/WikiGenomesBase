@@ -9,11 +9,7 @@ angular
             var ctrl = this;
             ctrl.$onInit = function() {};
             
-            if ($location.path().includes("authorized")) {
-            	ctrl.authorized = true;
-            } else {
-            	ctrl.authorized = false;
-            }
+            ctrl.authorized = $location.path().includes("authorized");
             
             ctrl.deleteAnnotation = function(mutant) {
                 console.log(mutant);

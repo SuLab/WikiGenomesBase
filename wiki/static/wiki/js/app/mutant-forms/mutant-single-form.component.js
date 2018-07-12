@@ -5,8 +5,74 @@ angular
             data: '<'
         },
 
-        controller: function (pubMedData, $filter, $location, $routeParams, locusTag2QID, wdGetEntities, sendToView) {
+        controller: function (pubMedData, $filter, $location, $routeParams, locusTag2QID, wdGetEntities, sendToView, RefSeqChrom) {
             var ctrl = this;
+            
+            locusTag2QID.getLocusTag2QID($routeParams.locusTag, $routeParams.taxid).then(function (data) {
+                var results = data.data.results.bindings;
+                if (results.length > 0) {
+                    ctrl.geneQID = $filter('parseQID')(results[0].gene.value);
+                }
+
+            }).finally(function () {
+                wdGetEntities.wdGetEntities(ctrl.geneQID).then(function (data) {
+                    var entity = data.entities[ctrl.geneQID];
+                    
+                    ctrl.genStart = entity.claims.P644[0].mainsnak.datavalue.value;
+                    ctrl.genEnd = entity.claims.P645[0].mainsnak.datavalue.value;
+                    
+                });
+            });
+            
+            RefSeqChrom.getRefSeqChrom($routeParams.locusTag).then(function(data) {
+
+                if (data[0]) {
+                    ctrl.chromosome = data[0].refSeqChromosome.value;
+                    
+                    if (ctrl.mutantAnnotation) {
+                    	ctrl.mutantAnnotation.chromosome = ctrl.chromosome;
+                    }
+                }
+
+            });
+            
+            ctrl.seq_ontology_map = {
+      		  "synonymous": "SO:0001815",
+      		  "non-synonymous": "SO:0001816",
+      		  "non_transcribed_region": "SO:0000183",
+      		  "silent_mutation": "SO:0001017",
+      		  "stop_gained": "SO:0001587"
+            };
+              
+            ctrl.seq_ontology_list = ["synonymous","non-synonymous","non_transcribed_region","silent_mutation","stop_gained" ];
+              
+            ctrl.mutant_type_map = {
+              	"chemically induced mutation": "EFO_0000370",
+              	"transposition": "EFO_0004021",
+              	"recombination": "EFO_0004293",
+              	"insertion": "EFO_0004016"
+            };
+              
+            ctrl.mutant_type_list = ["chemically induced mutation",	"transposition", "recombination", "insertion" ];
+            
+            ctrl.getPMID = function (val) {
+                return pubMedData.getPMID(val).then(
+                    function (data) {
+
+                        var resultData = [data.data.result[val]];
+                        return resultData.map(function (item) {
+                            return item;
+                        });
+                    }
+                );
+            };
+            
+            ctrl.selectPub = function ($item, $model, $label) {
+                ctrl.mutantAnnotation.pub = $item.uid;
+                ctrl.pubtitle = $item.title;
+                ctrl.pubauthor = $item.authors[0].name;
+                ctrl.pubdate = $item.pubdate;
+            };
             
             ctrl.$onInit = function () {
             	
@@ -14,184 +80,98 @@ angular
             	ctrl.pubtitle = "";
                 ctrl.pubauthor = "";
                 ctrl.pubdate = "";
+                ctrl.pageCount = 0;
 
                 ctrl.mutantAnnotation = {
                     taxid: $routeParams.taxid,
                     locusTag: $routeParams.locusTag,
-                    chromosome: null,
-                    name: null,
-                    mutant_type: {
-                        "alias": null,
-                        "name": null,
-                        "id": null,
-                        "key": null
-                    },
-                    coordinate: {
-                        start: null
-                    },
-                    percent_gene_intact: null,
-                    insert_direction: null,
-                    pub: null,
-                    doi: null,
-                    ref_base: null,
-                    variant_base: null,
-                    variant_type: {alias: null, name: null, id: null},
-                    aa_effect: null
+                    coordinate: {},
+                    chromosome: ctrl.chromosome
                 };
-                ctrl.pageCount = 0;
-                locusTag2QID.getLocusTag2QID(ctrl.mutantAnnotation.locusTag, ctrl.mutantAnnotation.taxid).then(function (data) {
-                    var results = data.data.results.bindings;
-                    if (results.length > 0) {
-                        ctrl.geneQID = $filter('parseQID')(results[0].gene.value);
+                
+            };
+            
+            ctrl.resetForm = function () {
+                ctrl.$onInit();
+            };
+            
+            // send form data to server to edit wikidata
+            ctrl.sendData = function (formData) {
+                ctrl.loading = true;
+                formData.action = 'annotate';
+                
+                if (!$location.path().includes("authorized")) {
+                	alert('Please authorize ChlamBase to edit Wikidata on your behalf!');
+                	return;
+                }
+                
+                var url_suf = $location.path().replace("/authorized/", "") + '/wd_mutant_edit';
+                console.log(url_suf);
+                sendToView.sendToView(url_suf, formData).then(function (data) {
+                	if (data.data.write_success === true) {
+                    	console.log("SUCCESS");
+                        console.log(data);
+                        alert("Successfully Annotated! Well Done! The annotation will appear here soon.");
+                        ctrl.resetForm();
+                    } else if (data.data.authentication === false){
+                        console.log("FAILURE: AUTHENTICATION");
+                        alert('Please authorize ChlamBase to edit Wikidata on your behalf!');
                     }
-
+                    else {
+                    	console.log("FAILURE: UNKNOWN");
+                        console.log(data);
+                        alert("Something went wrong.  Give it another shot!");
+                    }
                 }).finally(function () {
-                    wdGetEntities.wdGetEntities(ctrl.geneQID).then(function (data) {
-                        var entity = data.entities[ctrl.geneQID];
-                        
-                        ctrl.genStart = entity.claims.P644[0].mainsnak.datavalue.value;
-                        ctrl.genEnd = entity.claims.P645[0].mainsnak.datavalue.value;
-                        
-                        if (entity.claims.P644[0].qualifiers.P1057) {
-                        	ctrl.mutantAnnotation.chromosome = entity.claims.P644[0].qualifiers.P1057[0].datavalue.value;
-                        } else if (entity.claims.P644[0].qualifiers.P2249) {
-                        	ctrl.mutantAnnotation.chromosome = entity.claims.P644[0].qualifiers.P2249[0].datavalue.value;
-                        }
-                    });
+                    ctrl.loading = false;
                 });
 
-                //controls for navigating form
-                ctrl.nextClick = function () {
-                    ctrl.pageCount += 1;
-                };
-                ctrl.backClick = function () {
-                    ctrl.pageCount -= 1;
-                };
-
-                ctrl.seq_ontology_map = [
-                    {
-                        alias: 'SYNONYMOUS',
-                        name: 'synonymous',
-                        id: 'SO:0001814'
-                    },
-                    {
-                        alias: 'Non-neutral',
-                        name: 'non-synonymous',
-                        id: 'SO:0001816'
-                    },
-                    {
-                        alias: 'NON-CODING',
-                        name: 'non_transcribed_region',
-                        id: 'SO:0000183'
-                    },
-                    {
-                        alias: 'Neutral',
-                        name: 'silent_mutation',
-                        id: 'SO:0001017'
-                    },
-                    {
-                        alias: 'NONSENSE',
-                        name: 'stop_gained',
-                        id: 'SO:0001017'
-                    }
-
-                ];
-
-                ctrl.mutant_type_map = [
-                    {
-                        alias: 'chemical mutagenesis',
-                        name: 'chemically induced mutation',
-                        id: 'EFO_0000370',
-                        key: 1
-                    },
-                    {
-                        alias: 'transposon mutagenesis',
-                        name: 'tbd',
-                        id: 'tbd',
-                        key: 2
-                    }
-                ];
-
-
-                ctrl.getPMID = function (val) {
-                    return pubMedData.getPMID(val).then(
-                        function (data) {
-
-                            var resultData = [data.data.result[val]];
-                            return resultData.map(function (item) {
-                                return item;
-                            });
-                        }
-                    );
-                };
-
-                ctrl.selectPub = function ($item, $model, $label) {
-                    ctrl.mutantAnnotation.pub = $item.uid;
-                    ctrl.pubtitle = $item.title;
-                    ctrl.pubauthor = $item.authors[0].name;
-                    ctrl.pubdate = $item.pubdate;
-                };
-
-                ctrl.resetForm = function () {
-                    ctrl.$onInit();
-                };
-
-                //send form data to server to edit wikidata
-                ctrl.sendData = function (formData) {
-                    ctrl.loading = true;
-                    formData.action = 'annotate';
-                    
-                    if (!$location.path().includes("authorized")) {
-                    	alert('Please authorize ChlamBase to edit Wikidata on your behalf!');
-                    	return;
-                    }
-                    
-                    var url_suf = $location.path().replace("/authorized/", "") + '/wd_mutant_edit';
-                    console.log(url_suf);
-                    sendToView.sendToView(url_suf, formData).then(function (data) {
-                    	if (data.data.write_success === true) {
-                        	console.log("SUCCESS");
-                            console.log(data);
-                            alert("Successfully Annotated! Well Done! The annotation will appear here soon.");
-                            ctrl.resetForm();
-                        } else if (data.data.authentication === false){
-                            console.log("FAILURE: AUTHENTICATION");
-                            alert('Please authorize ChlamBase to edit Wikidata on your behalf!');
-                        }
-                        else {
-                        	console.log("FAILURE: UNKNOWN");
-                            console.log(data);
-                            alert("Something went wrong.  Give it another shot!");
-                        }
-                    }).finally(function () {
-                        ctrl.loading = false;
-                    });
-
-                };
-                
-                ctrl.validatePosition = function() {
-                	return ctrl.mutantAnnotation.coordinate.start >= ctrl.genStart && ctrl.mutantAnnotation.coordinate.start <= ctrl.genEnd;
-                };
-                
-                ctrl.validateBase = function() {
-                	return (ctrl.mutantAnnotation.ref_base && ctrl.mutantAnnotation.variant_base) &&
-                		(ctrl.mutantAnnotation.ref_base != ctrl.mutantAnnotation.variant_base);
-                };
-                
-                ctrl.validateFields = function() {
-                	
-                	if (!ctrl.mutantAnnotation.name || !ctrl.mutantAnnotation.mutant_type || 
-                			(ctrl.reftype == 'DOI' && !ctrl.mutantAnnotation.doi) || 
-                			(ctrl.reftype == 'PMID' && !ctrl.mutantAnnotation.pub) || !ctrl.validatePosition()) {
-                		return false;
-                	}
-                	
-                	if (ctrl.mutantAnnotation.mutant_type.key == 1) {
-                		return ctrl.validateBase() && ctrl.mutantAnnotation.variant_type && ctrl.mutantAnnotation.aa_effect;
-                	} else {
-                		return ctrl.mutantAnnotation.percent_gene_intact && ctrl.mutantAnnotation.insert_direction;
-                	}
-                };
+            };
+            
+            // controls for navigating form
+            ctrl.nextClick = function () {
+                ctrl.pageCount += 1;
+            };
+            ctrl.backClick = function () {
+                ctrl.pageCount -= 1;
+            };
+            
+            ctrl.changeType = function() {
+            	var tmp = ctrl.mutantAnnotation.mutation_name;
+            	ctrl.resetForm();
+            	ctrl.mutantAnnotation.mutation_name = tmp;
+            	ctrl.mutantAnnotation.mutation_id = ctrl.mutant_type_map[tmp];
+            };
+            
+            ctrl.validatePosition = function() {
+            	return ctrl.mutantAnnotation.coordinate.start >= ctrl.genStart && ctrl.mutantAnnotation.coordinate.start <= ctrl.genEnd;
+            };
+            
+            ctrl.validateEndPosition = function() {
+            	return ctrl.validatePosition() && ctrl.mutantAnnotation.coordinate.end >= ctrl.mutantAnnotation.coordinate.start &&
+            		ctrl.mutantAnnotation.coordinate.end <= ctrl.genEnd;
+            };
+            
+            ctrl.validateBase = function() {
+            	return (ctrl.mutantAnnotation.ref_base && ctrl.mutantAnnotation.variant_base) &&
+            		(ctrl.mutantAnnotation.ref_base != ctrl.mutantAnnotation.variant_base);
+            };
+            
+            ctrl.validateFields = function() {
+            	
+            	if (!ctrl.mutantAnnotation.name || !ctrl.mutantAnnotation.mutation_name || 
+            			(ctrl.reftype == 'DOI' && !ctrl.mutantAnnotation.doi) || 
+            			(ctrl.reftype == 'PMID' && !ctrl.mutantAnnotation.pub) || !ctrl.validatePosition()) {
+            		return false;
+            	}
+            	
+            	if (ctrl.mutantAnnotation.mutation_name == "chemically induced mutation") {
+            		return ctrl.validateBase() && ctrl.mutantAnnotation.snv_name && ctrl.mutantAnnotation.aa_effect;
+            	} else if (ctrl.mutantAnnotation.mutation_name == "transposition" || ctrl.mutantAnnotation.mutation_name == "insertion") {
+            		return ctrl.mutantAnnotation.percent_gene_intact && ctrl.mutantAnnotation.insert_direction;
+            	} else {
+            		return ctrl.validateEndPosition() && ctrl.mutantAnnotation.genes_inserted && ctrl.mutantAnnotation.insert_direction;
+            	}
             };
 
         },
