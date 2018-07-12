@@ -305,7 +305,7 @@ def mutant_form(request):
             except Exception as e:
                 body['write_success'] = False
 
-        if body['action'] == 'delete':
+        if 'action' in body.keys() and body['action'] == 'delete':
             try:
                 annotation = MutantMongo(mut_json=body)
                 body['delete_success'] = annotation.delete_one_mongo()['delete_success']
