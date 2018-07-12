@@ -81,17 +81,24 @@ angular
                 ctrl.pubauthor = "";
                 ctrl.pubdate = "";
                 ctrl.pageCount = 0;
+                
+                var name = null;
+                if (ctrl.mutantAnnotation && ctrl.mutantAnnotation.name) {
+                	name = ctrl.mutantAnnotation.name;
+                }
 
                 ctrl.mutantAnnotation = {
                     taxid: $routeParams.taxid,
                     locusTag: $routeParams.locusTag,
                     coordinate: {},
-                    chromosome: ctrl.chromosome
+                    chromosome: ctrl.chromosome,
+                    name: name
                 };
                 
             };
             
             ctrl.resetForm = function () {
+            	ctrl.mutantAnnotation.name = null;
                 ctrl.$onInit();
             };
             
@@ -138,7 +145,7 @@ angular
             
             ctrl.changeType = function() {
             	var tmp = ctrl.mutantAnnotation.mutation_name;
-            	ctrl.resetForm();
+            	ctrl.$onInit();
             	ctrl.mutantAnnotation.mutation_name = tmp;
             	ctrl.mutantAnnotation.mutation_id = ctrl.mutant_type_map[tmp];
             };
