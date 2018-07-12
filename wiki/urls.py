@@ -3,7 +3,7 @@ from . import views
 
 urlpatterns = [
     url(r'^$', views.index, name='index'),
-    url(r'^keyword/..', views.index, name='index'),
+    url(r'^keyword/.*', views.index, name='index'),
     url(r'^upload-full-form/$', views.index, name='index'),
     url(r'^organism/\d+/$', views.index, name='main'),
     url(r'^organism/\d+/gene/.+/$', views.index, name='main'),
