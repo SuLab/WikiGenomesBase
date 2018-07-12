@@ -1,7 +1,7 @@
 angular
     .module('genesKeyword')
     .component('genesKeyword', {
-        controller: function ($location, $filter, allChlamOrgs, allChlamydiaGenes, queryBuilder, $http, allGoTerms) {
+        controller: function ($location, $filter, allChlamOrgs, allChlamydiaGenes, queryBuilder, $http, allGoTerms, sendToView) {
             'use strict';
             var ctrl = this;
 
@@ -96,6 +96,30 @@ angular
                 }).finally(function() {
                 	ctrl.loading = false;
                 });
+                
+                if (ctrl.cm) {
+                	 sendToView.sendToView($location.host() + '/organism/1/gene/1/mg_mutant_view', {"action" : "chemical"}).then(function(data) {
+                     	console.log(data);
+                     });
+                }
+                
+                if (ctrl.tm) {
+               	 sendToView.sendToView($location.host() + '/organism/1/gene/1/mg_mutant_view', {"action" : "transposition"}).then(function(data) {
+                    	console.log(data);
+                    });
+               }
+                
+                if (ctrl.rm) {
+               	 sendToView.sendToView($location.host() + '/organism/1/gene/1/mg_mutant_view', {"action" : "recombination"}).then(function(data) {
+                    	console.log(data);
+                    });
+               }
+                
+                if (ctrl.im) {
+               	 sendToView.sendToView($location.host() + '/organism/1/gene/1/mg_mutant_view', {"action" : "insertion"}).then(function(data) {
+                    	console.log(data);
+                    });
+               }
             };
             
             ctrl.startJS = function() {

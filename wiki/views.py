@@ -371,8 +371,18 @@ def mongo_annotations(request):
         annotation_data = {
             'mutants': []
         }
-        mg_mutants = annotations.get_mutants(locus_tag=body['locusTag'])
-
+        if "action" in body.keys():
+            if body["action"] == "chemical":
+                mg_mutants = annotations.get_chemically_induced_mutants()
+            elif body["action"] == "transposition":
+                mg_mutants = annotations.get_transposition_mutants()
+            elif body["action"] == "recombination":
+                mg_mutants = annotations.get_recombination_mutants()
+            else:
+                mg_mutants = annotations.get_insertion_mutants()
+        else:
+            mg_mutants = annotations.get_mutants(locus_tag=body['locusTag'])
+            
         for mut in mg_mutants:
             annotation_data['mutants'].append(mut)
                 

@@ -105,6 +105,22 @@
 	                <input type="checkbox" ng-checked="false" ng-model="$ctrl.refseq">
 	                <input type="text" ng-model="$ctrl.refseq_text" class="form-control">
 	            </form>
+	            <form class="form-inline" style="white-space: nowrap; margin: 5px">
+	            	<label>Chemically Induced Mutants: </label>
+	                <input type="checkbox" ng-checked="false" ng-model="$ctrl.cm">
+	            </form>
+	            <form class="form-inline" style="white-space: nowrap; margin: 5px">
+	            	<label>Transposition Mutants: </label>
+	                <input type="checkbox" ng-checked="false" ng-model="$ctrl.tm">
+	            </form>
+	            <form class="form-inline" style="white-space: nowrap; margin: 5px">
+	            	<label>Intron Mutants: </label>
+	                <input type="checkbox" ng-checked="false" ng-model="$ctrl.im">
+	            </form>
+	            <form class="form-inline" style="white-space: nowrap; margin: 5px">
+	            	<label>Recombination Mutants: </label>
+	                <input type="checkbox" ng-checked="false" ng-model="$ctrl.rm">
+	            </form>
 			</div>
 			<div ng-show="$ctrl.mf || $ctrl.bp || $ctrl.cc || $ctrl.hp || $ctrl.entrez || $ctrl.uniprot || $ctrl.refseq" style="margin: 5px">
 				<span class="glyphicon glyphicon-exclamation-sign"> You have the following filters applied: </span>
