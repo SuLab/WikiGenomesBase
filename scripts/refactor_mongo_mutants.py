@@ -5,10 +5,17 @@ import datetime
 client = MongoClient()
 db = client.chlamdb
 collection = db.mutants
-documents = collection.find({"locusTag": ""})
+documents = collection.find()
+
+seq_map = {
+  "synonymous": "SO:0001815",
+  "non-synonymous": "SO:0001816",
+  "non_transcribed_region": "SO:0000183",
+  "silent_mutation": "SO:0001017",
+  "stop_gained": "SO:0001587"
+}
 
 for document in documents:
-    pprint.pprint(document)
 
     pub = None
     
@@ -23,25 +30,29 @@ for document in documents:
         
     entry = None
 
-    if type(document["mutant_type"]) is dict:
+    if "mutant_type" in document.keys() and type(document["mutant_type"]) is dict:
       # chemical mutagenesis
       if document['mutant_type']['key'] == 1:
       
           entry = {
             "_id": document["_id"],
+            "chromosome": document["chromosome"],
+            "taxid": document["taxid"],
             "aa_effect": document["aa_effect"],
             "coordinate": {
                             "start": document["coordinate"]["start"],
                             "end": document["gff"]["end"]
                           },
             "locusTag": document["locusTag"],
-            "mutant_type": 0,
+            "mutation_id": document["mutant_type"]["id"],
+            "mutation_name": document["mutant_type"]["name"],
             "name": document["name"],
             "pub": pub,
             "doi": doi,
             "ref_base": document["ref_base"],
             "variant_base": document["variant_base"],
-            "snv_type": document["variant_type"]["id"],
+            "snv_id": seq_map[document["variant_type"]["name"]],
+            "snv_name": document["variant_type"]["name"],
             "date": datetime.datetime.utcnow()
           }
   
@@ -50,12 +61,15 @@ for document in documents:
       
           entry = {
             "_id": document["_id"],
+            "chromosome": document["chromosome"],
+            "taxid": document["taxid"],
             "coordinate": {
                             "start": document["coordinate"]["start"],
                             "end": document["gff"]["end"]
                           },
             "locusTag": document["locusTag"],
-            "mutant_type": 1,
+            "mutation_id": "EFO_0004021",
+            "mutation_name": "transposition",
             "name": document["name"],
             "pub": pub,
             "doi": doi,
@@ -64,8 +78,8 @@ for document in documents:
             "date": datetime.datetime.utcnow()
           }
         
-      #if entry is not None:
+      if entry is not None:
         # delete then re-insert
-        #collection.delete_one({"_id": entry["_id"]})
-        #collection.insert_one(entry)
+        collection.delete_one({"_id": entry["_id"]})
+        collection.insert_one(entry)
         #print(entry)
