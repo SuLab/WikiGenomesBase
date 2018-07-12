@@ -279,6 +279,21 @@ angular
         };
     }]);
 
+angular
+.module('filters')
+.filter('locusTagFilter', ['$filter', function ($filter) {
+    return function (data, tags) {
+
+        var parsed = [];
+        
+        angular.forEach(data, function (gene) {
+            if (tags.indexOf(gene.locusTag.value) != -1) {
+                parsed.append(gene);
+            }
+        });
+        return parsed;
+    };
+}]);
 
 angular
     .module('filters')

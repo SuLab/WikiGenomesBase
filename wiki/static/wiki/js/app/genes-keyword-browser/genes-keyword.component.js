@@ -93,35 +93,70 @@ angular
                 	ctrl.chlamGenes.allGenes = data.data.results.bindings;
                     ctrl.chlamGenes.keywordAll = $filter('keywordFilter')(ctrl.chlamGenes.allGenes, ctrl.keyword);
                     ctrl.chlamGenes.currentKW = ctrl.chlamGenes.keywordAll;
+                    
+                    var url_surf = "organism/1/gene/1/mg_mutant_view";
+                    
+                    if (ctrl.cm) {
+                    	 sendToView.sendToView(url_surf, {"action" : "chemical"}).then(function(data) {
+                         	var mutants = data.data.mutants;
+                         	var tags = [];
+                         	angular.forEach(mutants, function(mutant) {
+                         		if (tags.indexOf(mutant.locusTag) == -1) {
+                         			tags.append(mutant.locusTag);
+                         		}
+                         	});
+                         	console.log(tags);
+                         	ctrl.chlamGenes.keywordAll = $filter('locusTagFilter')(ctrl.chlamGenes.keywordAll, tags);
+                            ctrl.chlamGenes.currentKW = ctrl.chlamGenes.keywordAll;
+                         });
+                    }
+                    
+                    if (ctrl.tm) {
+                   	 sendToView.sendToView(url_surf, {"action" : "transposition"}).then(function(data) {
+                   		var mutants = data.data.mutants;
+                     	var tags = [];
+                     	angular.forEach(mutants, function(mutant) {
+                     		if (tags.indexOf(mutant.locusTag) == -1) {
+                     			tags.append(mutant.locusTag);
+                     		}
+                     	});
+                     	ctrl.chlamGenes.keywordAll = $filter('locusTagFilter')(ctrl.chlamGenes.keywordAll, tags);
+                        ctrl.chlamGenes.currentKW = ctrl.chlamGenes.keywordAll;
+                        });
+                   }
+                    
+                    if (ctrl.rm) {
+                   	 sendToView.sendToView(url_surf, {"action" : "recombination"}).then(function(data) {
+                   		var mutants = data.data.mutants;
+                     	var tags = [];
+                     	angular.forEach(mutants, function(mutant) {
+                     		if (tags.indexOf(mutant.locusTag) == -1) {
+                     			tags.append(mutant.locusTag);
+                     		}
+                     	});
+                     	ctrl.chlamGenes.keywordAll = $filter('locusTagFilter')(ctrl.chlamGenes.keywordAll, tags);
+                        ctrl.chlamGenes.currentKW = ctrl.chlamGenes.keywordAll;
+                        });
+                   }
+                    
+                    if (ctrl.im) {
+                   	 sendToView.sendToView(url_surf, {"action" : "insertion"}).then(function(data) {
+                   		var mutants = data.data.mutants;
+                     	var tags = [];
+                     	angular.forEach(mutants, function(mutant) {
+                     		if (tags.indexOf(mutant.locusTag) == -1) {
+                     			tags.append(mutant.locusTag);
+                     		}
+                     	});
+                     	ctrl.chlamGenes.keywordAll = $filter('locusTagFilter')(ctrl.chlamGenes.keywordAll, tags);
+                        ctrl.chlamGenes.currentKW = ctrl.chlamGenes.keywordAll;
+                        });
+                   }
+                    
                 }).finally(function() {
                 	ctrl.loading = false;
                 });
                 
-                var url_surf = "organism/1/gene/1/mg_mutant_view";
-                
-                if (ctrl.cm) {
-                	 sendToView.sendToView(url_surf, {"action" : "chemical"}).then(function(data) {
-                     	console.log(data);
-                     });
-                }
-                
-                if (ctrl.tm) {
-               	 sendToView.sendToView(url_surf, {"action" : "transposition"}).then(function(data) {
-                    	console.log(data);
-                    });
-               }
-                
-                if (ctrl.rm) {
-               	 sendToView.sendToView(url_surf, {"action" : "recombination"}).then(function(data) {
-                    	console.log(data);
-                    });
-               }
-                
-                if (ctrl.im) {
-               	 sendToView.sendToView(url_surf, {"action" : "insertion"}).then(function(data) {
-                    	console.log(data);
-                    });
-               }
             };
             
             ctrl.startJS = function() {
