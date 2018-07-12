@@ -291,33 +291,29 @@ def mutant_form(request):
     if request.method == 'POST':
         body_unicode = request.body.decode('utf-8')
         body = json.loads(body_unicode)
-		
+        
         responseData = {}
         if 'login' not in request.session.keys():
             responseData['authentication'] = False
             return JsonResponse(responseData)
-		
+        
         if body['action'] == 'annotate':
+            del body['action']
             try:
-                annotation = MutantMongo(mut_json=body, taxid=body['taxid'], refseq=body['chromosome'])
-                annotation.generate_full_json()
-                annotation.add_gff_from_json()
-                write_result = annotation.push2mongo()
-                body['write_success'] = write_result['write_success']
-                #refObj = FeatureDataRetrieval(taxid=body['taxid'])
-                #refObj.mutants2gff()
+                annotation = MutantMongo(mut_json=body)
+                body['write_success'] = annotation.push2mongo()['write_success']
             except Exception as e:
-                print('error')
                 body['write_success'] = False
 
-        if body['action'] == 'delete':
+        if 'action' in body.keys() and body['action'] == 'delete':
             try:
-                annotation = MutantMongo(mut_json=body, taxid=body['taxid'], refseq=body['chromosome'])
-                delete_result = annotation.delete_one_mongo()
-                body['delete_success'] = delete_result['delete_success']
+                annotation = MutantMongo(mut_json=body)
+                body['delete_success'] = annotation.delete_one_mongo()['delete_success']
             except Exception as e:
                 body['delete_success'] = False
         return JsonResponse(body)
+    else:
+        return JsonResponse({"error": "only accept POST requests"})
 
 
 @ensure_csrf_cookie
@@ -367,44 +363,31 @@ def mongo_annotations(request):
     :param request:
     :return:
     """
-    def removekey(d, key):
-        r = dict(d)
-        del r[key]
-        return r
 
     if request.method == 'POST':
         body_unicode = request.body.decode('utf-8')
         body = json.loads(body_unicode)
         annotations = GetMongoAnnotations()
         annotation_data = {
-            'mutants': [],
-            'reactions': []
+            'mutants': []
         }
-        mg_mutants = annotations.get_mutants(locus_tag=body['locusTag'])
-
-        for mut in mg_mutants:
-            if type(mut['pub']) is dict:
-                #rewrite annotation with just uid
-                annotation = MutantMongo(mut_json=mut, taxid=body['taxid'], refseq=mut['chromosome'])
-                annotation.delete_one_mongo()
-                mut['pub'] = mut['pub']['result']['uids'][0]
-                annotation = MutantMongo(mut_json=mut, taxid=body['taxid'], refseq=mut['chromosome'])
-                annotation.generate_full_json()
-                annotation.add_gff_from_json()
-                annotation.push2mongo()
-                annotation_data['mutants'].append(mut)
+        if "action" in body.keys():
+            if body["action"] == "chemical":
+                mg_mutants = annotations.get_chemically_induced_mutants()
+            elif body["action"] == "transposition":
+                mg_mutants = annotations.get_transposition_mutants()
+            elif body["action"] == "recombination":
+                mg_mutants = annotations.get_recombination_mutants()
             else:
-                annotation_data['mutants'].append(mut)
-				
-        ecs = [x for x in body['ec_number'] if '-' not in x]
-        if len(ecs) > 0:
-            for ec in ecs:
-                reactions = annotations.get_reactions(ec_number=ec)
-                for rxn in reactions:
-                    rxn = removekey(rxn, '_id')
-                    annotation_data['reactions'].append(rxn)
+                mg_mutants = annotations.get_insertion_mutants()
+        else:
+            mg_mutants = annotations.get_mutants(locus_tag=body['locusTag'])
+            
+        for mut in mg_mutants:
+            annotation_data['mutants'].append(mut)
+                
         return JsonResponse(annotation_data, safe=False)
-		
+        
 @ensure_csrf_cookie
 def validate_session(request):
      validated = 'authOBJ' in request.session.keys() or 'login' in request.session.keys()
@@ -421,7 +404,7 @@ def geneName_form(request):
     if request.method == 'POST':
         body_unicode = request.body.decode('utf-8')
         body = json.loads(body_unicode)
-		
+        
         responseData = {}
         if 'login' not in request.session.keys():
             responseData['authentication'] = False
@@ -433,20 +416,20 @@ def geneName_form(request):
 
         #write the name to the gene and protein
         try:
-		
+        
             print("Writing to gene " + body['geneQID'])
             if body['geneQID'] != "":
                 wd_item_gene = wdi_core.WDItemEngine(wd_item_id=body['geneQID'], domain=None)
                 wd_item_gene.set_label(body['geneName'])
-                wd_item_gene.write(login=login)		
-			
+                wd_item_gene.write(login=login)        
+            
             print("Writing to protein " + body['proteinQID'])
             if body['proteinQID'] != "":
                 body['geneName'] = body['geneName'][0:1].upper() + body['geneName'][1:]
                 wd_item_protein = wdi_core.WDItemEngine(wd_item_id=body['proteinQID'], domain=None)
                 wd_item_protein.set_label(body['geneName'])
                 wd_item_protein.write(login=login)
-				
+                
             responseData['write_success'] = True
 
         except Exception as e:

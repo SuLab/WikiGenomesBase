@@ -214,7 +214,6 @@ angular
 
                     // Get chromosome refseq id
                     RefSeqChrom.getRefSeqChrom(ctrl.currentLocusTag).then(function(data) {
-                        console.log(data);
 
                         if (data[0]) {
                             ctrl.currentGene.refseqGenome = data[0].refSeqChromosome.value;
@@ -249,10 +248,7 @@ angular
 
                     sendToView.sendToView(url_suf, anno_keys).then(function(data) {
                     	
-                        ctrl.annotations.mutants = {
-                            mutants : data.data.mutants,
-                            refseq : ctrl.currentGene.refseqGenome
-                        };
+                        ctrl.annotations.mutants = data.data.mutants;
                     });
                 };
 
