@@ -102,7 +102,7 @@ angular
                          	var tags = [];
                          	angular.forEach(mutants, function(mutant) {
                          		if (tags.indexOf(mutant.locusTag) == -1) {
-                         			tags.append(mutant.locusTag);
+                         			tags.push(mutant.locusTag);
                          		}
                          	});
                          	console.log(tags);
@@ -117,7 +117,7 @@ angular
                      	var tags = [];
                      	angular.forEach(mutants, function(mutant) {
                      		if (tags.indexOf(mutant.locusTag) == -1) {
-                     			tags.append(mutant.locusTag);
+                     			tags.push(mutant.locusTag);
                      		}
                      	});
                      	ctrl.chlamGenes.keywordAll = $filter('locusTagFilter')(ctrl.chlamGenes.keywordAll, tags);
@@ -131,7 +131,7 @@ angular
                      	var tags = [];
                      	angular.forEach(mutants, function(mutant) {
                      		if (tags.indexOf(mutant.locusTag) == -1) {
-                     			tags.append(mutant.locusTag);
+                     			tags.push(mutant.locusTag);
                      		}
                      	});
                      	ctrl.chlamGenes.keywordAll = $filter('locusTagFilter')(ctrl.chlamGenes.keywordAll, tags);
@@ -145,7 +145,7 @@ angular
                      	var tags = [];
                      	angular.forEach(mutants, function(mutant) {
                      		if (tags.indexOf(mutant.locusTag) == -1) {
-                     			tags.append(mutant.locusTag);
+                     			tags.push(mutant.locusTag);
                      		}
                      	});
                      	ctrl.chlamGenes.keywordAll = $filter('locusTagFilter')(ctrl.chlamGenes.keywordAll, tags);

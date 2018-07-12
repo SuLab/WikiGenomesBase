@@ -288,7 +288,7 @@ angular
         
         angular.forEach(data, function (gene) {
             if (tags.indexOf(gene.locusTag.value) != -1) {
-                parsed.append(gene);
+                parsed.push(gene);
             }
         });
         return parsed;
