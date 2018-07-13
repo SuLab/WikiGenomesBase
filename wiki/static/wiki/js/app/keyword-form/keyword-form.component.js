@@ -33,7 +33,7 @@ angular
             	
                 ctrl.submitKeyword = function ($item) {
                     if ($item == undefined){
-                        alert("Please enter a keyword or ID");
+                    	$location.path('keyword/');
                     } else{
                         $location.path('keyword/' + $item);
                     }
