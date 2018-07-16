@@ -30,32 +30,37 @@
         <div class="col-md-12">
             <img class="img-responsive center" data-intro="Welcome to Chlambase! Follow this quick tutorial to get started!" data-step="1" src="static/wiki/img/chlambase_logo.png">
 
-            <h3>An open, editable, and centralized model organism database <br> for
+            <h3 data-intro="Chlambase is an easily editable model organism database for Chlamydia. We allow you to lookup, add, and modify data in real time. 
+            	Your data will instantly be visible without going through the lengthy publication process!" data-step="2">An open, editable, and centralized model organism database <br> for
                 the
                 chlamydial research community.</h3>
 	    <button id="get-started" type="button" class="btn btn-default"><span>Get Started </span></button>
         </div>
     </div>
-
-    <div style="padding: 40px" data-intro="This is the chlamydia navigation tree. Click one of the four strains at the bottom to get more information on that particular strain." data-step="2" data-position="bottom">
-        <organism-tree orgs="$ctrl.orgList"></organism-tree>
-    </div>
-
-    <div class="row">
-        <div class="col-md-3"></div>
-        <div class="col-md-6">
-            <div class="row form-inline" data-intro="You can search for terms here, like 'CTL0260' or 'plasma membrane'." data-step="3">
-             	<keyword-form></keyword-form>
-            </div>
-        </div>
-        <div class="col-md-3"></div>
+    <br>
+    <div data-intro="You have two options to explore ChlamBase. The first way is to search for a gene or protein product by keyword. The second is to browse by organism genome." data-step="3">
+   	    <div class="row" data-intro="Using this search bar, you can quick select to any known gene like 'CTL260' and select the dropdown.
+	            	Or, you can type a keyword like 'actin' and click search to get a list of all genes that contain 'actin' in its data." data-step="4">
+	      <div class="col-md-3"></div>
+	        <div class="col-md-6">
+	            <div class="row form-inline">
+	             	<advanced-keyword-form></advanced-keyword-form>
+	            </div>
+	        </div>
+	        <div class="col-md-3"></div>
+	    </div>
+	
+	    <div style="padding: 40px" data-intro="This is the chlamydia navigation tree. Click one of the four strains at the bottom to navigate to the organism specific browser page. 
+	    	Here, you can browse through all genes of that genome, and see a visualization widget of the genes in a genome browser." data-step="5" data-position="bottom">
+	        <organism-tree orgs="$ctrl.orgList"></organism-tree>
+	    </div>
     </div>
 
     <div class="row">
         <div class="col-md-1"></div>
         <div class="col-md-10"
              style="padding: 60px">
-            <h2 data-intro="Lastly, make sure you stay up to date with the latest Chlam research in this scroll carousel." data-step="4">See what's happening in the most recent <i><strong>Chlamydia</strong></i> Related Research:</h2>
+            <h2 data-intro="Lastly, new edits and changes to ChlamBase will appear here, in addition to related publications. That concludes the tutorial!" data-step="6">See what's happening in the most recent <i><strong>Chlamydia</strong></i> Related Research:</h2>
             <div style="background-color: transparent; padding-top: 30px;">
                 <div class="carousel slide" data-ride=carousel id="slider">
                     <div class="carousel-inner" role="listbox">

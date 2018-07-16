@@ -1,15 +1,44 @@
 angular
     .module('genesKeyword')
     .component('genesKeyword', {
-        controller: function ($location, $filter, allChlamOrgs, allChlamydiaGenes, queryBuilder, $http, allGoTerms, sendToView) {
+        controller: function ($location, $filter, allChlamOrgs, allChlamydiaGenes, queryBuilder, $http, allGoTerms, sendToView, $cacheFactory) {
             'use strict';
             var ctrl = this;
 
             ctrl.$onInit = function () {
                 ctrl.loading = true;
                 ctrl.chlamGenes = {};
+                
                 ctrl.keyword = $location.path().split("/")[2];
                 ctrl.keywordResult = ctrl.keyword;
+                var cache = $cacheFactory.get("advSearch");
+                if (cache) {
+                	ctrl.adv_cache = true;
+                	ctrl.mf = cache.get("mf")[0];
+                	ctrl.mf_text = cache.get("mf")[1];
+                	ctrl.bp = cache.get("bp")[0];
+                	ctrl.bp_text = cache.get("bp")[1];
+                	ctrl.cc = cache.get("cc")[0];
+                	ctrl.cc_text = cache.get("cc")[1];
+                	ctrl.hp = cache.get("hp")[0];
+                	ctrl.hp_text = cache.get("hp")[1];
+                	ctrl.entrez = cache.get("entrez")[0];
+                	ctrl.entrez_text = cache.get("entrez")[1];
+                	ctrl.uniprot = cache.get("uniprot")[0];
+                	ctrl.uniprot_text = cache.get("uniprot")[1];
+                	ctrl.refseq = cache.get("refseq")[0];
+                	ctrl.refseq_text = cache.get("refseq")[1];
+                	ctrl.cm = cache.get("cm");
+                	ctrl.tm = cache.get("tm");
+                	ctrl.im = cache.get("im");
+                	ctrl.rm = cache.get("rm");
+                	
+                	cache.removeAll();
+                	cache.destroy();
+                	
+                	ctrl.advSearch();
+                }
+
                 ctrl.orgData = [];
                 allChlamOrgs.getAllOrgs(function (data) {
                     angular.forEach(data, function (value) {
@@ -17,17 +46,18 @@ angular
                         ctrl.orgData.push(value);
                     });
                 });
-                ctrl.getChlamGenes = allChlamydiaGenes.getAllChlamGenes().then(
-                    function (data) {
-
-                        ctrl.chlamGenes.allGenes = data.data.results.bindings;
-                        ctrl.chlamGenes.keywordAll = $filter('keywordFilter')(ctrl.chlamGenes.allGenes, ctrl.keyword);
-                        ctrl.chlamGenes.currentKW = ctrl.chlamGenes.keywordAll;
-                        
-                    }).finally(function () {
-                        ctrl.loading = false;
-                    });
-                
+                if (!ctrl.adv_cache) {
+	                ctrl.getChlamGenes = allChlamydiaGenes.getAllChlamGenes().then(
+	                    function (data) {
+	
+	                        ctrl.chlamGenes.allGenes = data.data.results.bindings;
+	                        ctrl.chlamGenes.keywordAll = $filter('keywordFilter')(ctrl.chlamGenes.allGenes, ctrl.keyword);
+	                        ctrl.chlamGenes.currentKW = ctrl.chlamGenes.keywordAll;
+	                        
+	                    }).finally(function () {
+	                        ctrl.loading = false;
+	                    });
+                }
                 
                 var goClassMap = {
                         'mf_button': {
@@ -305,6 +335,7 @@ angular
             	return query;
             	
             };
+            
         },
         templateUrl: '/static/build/js/angular_templates/genes-keyword-browser.min.html'
     }).factory('queryBuilder', function () {

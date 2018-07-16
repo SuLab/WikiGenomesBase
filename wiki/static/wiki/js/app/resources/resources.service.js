@@ -690,7 +690,27 @@ angular
         			"GROUP BY ?locusTag ?taxon ?taxid ?taxonLabel ?geneLabel ?entrez ?uniprot ?proteinLabel ?refseq_prot ?gene");
             return $http.get(url)
                 .success(function (response) {
-                    return response.data;
+                	var genes = response.results.bindings;
+            		var pattern = /(TC|CTL|CT|CPn)_?(RS)?\d+/;
+            		angular.forEach(genes, function(gene) {
+            			var value = gene.geneLabel.value;
+            			var locusTag = value.match(pattern)[0];
+            			
+            			// add locus without _
+            			if (value.indexOf("_") != -1) {
+            				gene.geneLabel.value += "/" + locusTag.replace("_", "");
+            			}
+            			
+            			// add locus without beginning 0s in number
+            			var prefix = locusTag.match(/(TC|CTL|CT|CPn)_?(RS)?/)[0];
+            			var num = parseInt(locusTag.substring(prefix.length));
+            			gene.geneLabel.value += "/" + prefix + num;
+            			
+            			if (prefix.indexOf("_") != -1) {
+            				gene.geneLabel.value += "/" + prefix.replace("_", "") + num;
+            			}
+            		});
+                    return genes;
                 })
                 .error(function (response) {
                     return response;
@@ -709,7 +729,27 @@ angular
         			"}");
             return $http.get(url)
                 .success(function (response) {
-                    return response.data;
+                	var genes = response.results.bindings;
+            		var pattern = /(TC|CTL|CT|CPn)_?(RS)?\d+/;
+            		angular.forEach(genes, function(gene) {
+            			var value = gene.geneLabel.value;
+            			var locusTag = value.match(pattern)[0];
+            			
+            			// add locus without _
+            			if (value.indexOf("_") != -1) {
+            				gene.geneLabel.value += "/" + locusTag.replace("_", "");
+            			}
+            			
+            			// add locus without beginning 0s in number
+            			var prefix = locusTag.match(/(TC|CTL|CT|CPn)_?(RS)?/)[0];
+            			var num = parseInt(locusTag.substring(prefix.length));
+            			gene.geneLabel.value += "/" + prefix + num;
+            			
+            			if (prefix.indexOf("_") != -1) {
+            				gene.geneLabel.value += "/" + prefix.replace("_", "") + num;
+            			}
+            		});
+                    return genes;
                 })
                 .error(function (response) {
                     return response;

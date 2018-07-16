@@ -79,7 +79,7 @@
 						<td>
 							<form class="form-inline" >
 				            	<label data-intro="This is the filter name, or the criteria you wish to search by." data-step="2">Molecular Function: </label>
-				                <input data-intro="Check this box if you wish to apply this filter." data-step="3" type="checkbox" ng-checked="false" ng-model="$ctrl.mf">
+				                <input data-intro="Check this box if you wish to apply this filter." data-step="3" type="checkbox" ng-checked="$ctrl.mf" ng-model="$ctrl.mf">
 				                <input data-intro="Enter the value of the criteria you wish to search by. Or, leave it blank if you don't care what it is." data-step="4" 
 				                	type="text" ng-model="$ctrl.mf_text"class="form-control" uib-typeahead="go as go.goterm_label.value for go in $ctrl.mfTerms($viewValue)"
 				                      typeahead-wait-ms="500" typeahead-on-select="$ctrl.mf_text = $item.goterm_label.value">
@@ -88,14 +88,14 @@
 						<td>
 							<form class="form-inline" >
 				            	<label>Entrez: </label>
-				                <input type="checkbox" ng-checked="false" ng-model="$ctrl.entrez">
+				                <input type="checkbox" ng-checked="$ctrl.entrez" ng-model="$ctrl.entrez">
 				                <input type="text" ng-model="$ctrl.entrez_text" class="form-control">
 				            </form>
 						</td>
 						<td>
 							<form class="form-inline" >
 				            	<label>Chemically Induced Mutants: </label>
-				                <input type="checkbox" ng-checked="false" ng-model="$ctrl.cm">
+				                <input type="checkbox" ng-checked="$ctrl.cm" ng-model="$ctrl.cm">
 				            </form>
 						</td>
 					</tr>
@@ -103,7 +103,7 @@
 						<td>
 							<form class="form-inline" >
 				            	<label>Biological Process: </label>
-				                <input type="checkbox" ng-checked="false" ng-model="$ctrl.bp">
+				                <input type="checkbox" ng-checked="$ctrl.bp" ng-model="$ctrl.bp">
 				                <input type="text" ng-model="$ctrl.bp_text" class="form-control" uib-typeahead="go as go.goterm_label.value for go in $ctrl.bpTerms($viewValue)"
 			                       typeahead-wait-ms="500" typeahead-on-select="$ctrl.bp_text = $item.goterm_label.value">
 				            </form>
@@ -111,14 +111,14 @@
 						<td>
 							<form class="form-inline" >
 				            	<label>Uniprot: </label>
-				                <input type="checkbox" ng-checked="false" ng-model="$ctrl.uniprot">
+				                <input type="checkbox" ng-checked="$ctrl.uniprot" ng-model="$ctrl.uniprot">
 				                <input type="text" ng-model="$ctrl.uniprot_text" class="form-control">
 				            </form>
 						</td>
 						<td>
 							<form class="form-inline" >
 				            	<label>Transposition Mutants: </label>
-				                <input type="checkbox" ng-checked="false" ng-model="$ctrl.tm">
+				                <input type="checkbox" ng-checked="$ctrl.tm" ng-model="$ctrl.tm">
 				            </form>
 						</td>
 					</tr>
@@ -126,7 +126,7 @@
 						<td>
 							<form class="form-inline" >
 				            	<label>Cellular Component: </label>
-				                <input type="checkbox" ng-checked="false" ng-model="$ctrl.cc">
+				                <input type="checkbox" ng-checked="$ctrl.cc" ng-model="$ctrl.cc">
 				                <input type="text" ng-model="$ctrl.cc_text" class="form-control" uib-typeahead="go as go.goterm_label.value for go in $ctrl.ccTerms($viewValue)"
 			                       typeahead-wait-ms="500" typeahead-on-select="$ctrl.cc_text = $item.goterm_label.value">
 				            </form>
@@ -134,14 +134,14 @@
 						<td>
 							<form class="form-inline" >
 				            	<label>RefSeq: </label>
-				                <input type="checkbox" ng-checked="false" ng-model="$ctrl.refseq">
+				                <input type="checkbox" ng-checked="$ctrl.refseq" ng-model="$ctrl.refseq">
 				                <input type="text" ng-model="$ctrl.refseq_text" class="form-control">
 				            </form>
 						</td>
 						<td>
 							<form class="form-inline" >
 				            	<label>Intron Mutants: </label>
-				                <input type="checkbox" ng-checked="false" ng-model="$ctrl.im">
+				                <input type="checkbox" ng-checked="$ctrl.im" ng-model="$ctrl.im">
 				            </form>
 						</td>
 					</tr>
@@ -149,7 +149,7 @@
 						<td>
 							<form class="form-inline" >
 				            	<label>Host Pathogen Interaction: </label>
-				                <input type="checkbox" ng-checked="false" ng-model="$ctrl.hp">
+				                <input type="checkbox" ng-checked="$ctrl.hp" ng-model="$ctrl.hp">
 				                <input type="text" ng-model="$ctrl.hp_text" class="form-control">
 				            </form>
 						</td>
@@ -157,7 +157,7 @@
 						<td>
 							 <form class="form-inline" >
 				            	<label>Recombination Mutants: </label>
-				                <input type="checkbox" ng-checked="false" ng-model="$ctrl.rm">
+				                <input type="checkbox" ng-checked="$ctrl.rm" ng-model="$ctrl.rm">
 				            </form>
 						</td>
 					</tr>

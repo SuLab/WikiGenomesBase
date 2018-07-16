@@ -10,25 +10,6 @@ angular
             	
             	allChlamydiaGenes.getAllChlamGeneLabels().then(function(data) {
             		ctrl.genes = data.data.results.bindings;
-            		var pattern = /(TC|CTL|CT|CPn)_?(RS)?\d+/;
-            		angular.forEach(ctrl.genes, function(gene) {
-            			var value = gene.geneLabel.value;
-            			var locusTag = value.match(pattern)[0];
-            			
-            			// add locus without _
-            			if (value.indexOf("_") != -1) {
-            				gene.geneLabel.value += "/" + locusTag.replace("_", "");
-            			}
-            			
-            			// add locus without beginning 0s in number
-            			var prefix = locusTag.match(/(TC|CTL|CT|CPn)_?(RS)?/)[0];
-            			var num = parseInt(locusTag.substring(prefix.length));
-            			gene.geneLabel.value += "/" + prefix + num;
-            			
-            			if (prefix.indexOf("_") != -1) {
-            				gene.geneLabel.value += "/" + prefix.replace("_", "") + num;
-            			}
-            		});
             	});
             	
                 ctrl.submitKeyword = function ($item) {

@@ -44,5 +44,6 @@ angular.module('cmod', [
     'hostpathForm',
     'alignmentView',
     'geneNameForm',
-    'oauthForm'
+    'oauthForm',
+    'advancedKeywordForm'
 ]);
