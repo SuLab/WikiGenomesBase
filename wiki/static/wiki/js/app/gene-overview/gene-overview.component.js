@@ -6,7 +6,7 @@ angular
             data: '<',
             annotations: '<'
         },
-        controller: function ($routeParams, sendToView, $location) {
+        controller: function ($routeParams, sendToView) {
             'use strict';
             var ctrl = this;
             ctrl.$onInit = function () {
@@ -14,19 +14,19 @@ angular
             	ctrl.cm = ctrl.tm = ctrl.rm = ctrl.im = 0;
             };
             
-            var url_surf = $location.path() + '/mg_mutant_view';
+            ctrl.$onChanges = function() {
+            	angular.forEach(ctrl.annotations.mutants, function(x) {
+            		if (x.mutation_id=='EFO_0000370') {
+            			ctrl.cm++;
+            		} else if (x.mutation_id=='EFO_0004021') {
+            			ctrl.tm++;
+            		} else if (x.mutation_id=='EFO_0004016') {
+            			ctrl.im++;
+            		} else if (x.mutation_id=='EFO_0004293'){
+            			ctrl.rm++;
+            		}
+            	});
+            };
             
-		   	sendToView.sendToView(url_surf, {"action" : "chemical"}).then(function(data) {
-		        ctrl.cm = data.data.mutants.length;
-		    });
-		   	sendToView.sendToView(url_surf, {"action" : "transposition"}).then(function(data) {
-	        	ctrl.tm = data.data.mutants.length;
-		   	});
-		   	sendToView.sendToView(url_surf, {"action" : "recombination"}).then(function(data) {
-	        	ctrl.rm = data.data.mutants.length;
-		   	});
-		   	sendToView.sendToView(url_surf, {"action" : "insertion"}).then(function(data) {
-	        	ctrl.im = data.data.mutants.length;
-		   	});
         }
     });
