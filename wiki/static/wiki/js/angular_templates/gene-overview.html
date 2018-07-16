@@ -25,10 +25,10 @@
     </div>
     <div class="col-sm-2">
       <strong>Host Targets: </strong><span ng-repeat="x in $ctrl.annotations.hostpath">{{x.hostProteinLabel.value}}</span><br>
-      <strong>Chemical Mutants: </strong>{{$ctrl.annotations.length}}<br>
-      <strong>Transposon Mutants: </strong>{{$ctrl.annotations.length}}<br>
-      <strong>Intron Mutants: </strong>{{$ctrl.annotations.length}}<br>
-      <strong>Recombination Mutants: </strong>{{$ctrl.annotations.length}}
+      <strong>Chemical Mutants: </strong>{{$ctrl.cm}}<br>
+      <strong>Transposon Mutants: </strong>{{$ctrl.tm}}<br>
+      <strong>Intron Mutants: </strong>{{$ctrl.im}}<br>
+      <strong>Recombination Mutants: </strong>{{$ctrl.rm}}
     </div>
     <div class="col-sm-5">
       <strong>Expression: </strong>{{$ctrl.annotations.expression.RB_EXPRESSION_TIMING}}<br>
