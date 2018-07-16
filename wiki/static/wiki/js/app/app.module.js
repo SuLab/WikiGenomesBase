@@ -25,7 +25,7 @@ angular.module('cmod', [
     'operonAnnotations',
     'goForm',
     'operonForm',
-    'genomicPosition',
+    'geneOverview',
     'enzymeView',
     'mutantsView',
     'allgenesDownload',

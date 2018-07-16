@@ -1,4 +1,46 @@
-<div class="table-responsive">
+<h2 style="display: inline; margin-right: 20px">{{$ctrl.data.geneLabel}}</h2>
+<button style="display: inline" title="Edit Gene Name" type="button" class="btn btn-xs btn-info" data-toggle="modal" data-target="#geneName_button"><span class="glyphicon glyphicon-pencil"></span></button>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-sm-3">
+      <strong>Type: </strong>{{$ctrl.data.productType.id | typeFilter}}<br>
+      <strong>Locus Tag: </strong>{{$ctrl.data.locusTag}}<br>
+      <strong>Aliases: </strong>{{$ctrl.data.geneAliases | list2CSV}}<br>
+      <br>
+      <strong>Species: </strong>{{$ctrl.taxid | taxid2Species}}<br>
+      <strong>Strain: </strong>{{$ctrl.taxid | taxid2Strain}}<br>
+      <strong>Subtype: </strong>Reference Strain<br>
+      <br>
+      <strong>References: </strong>
+      <span>
+      	<a target="_blank" href="https://www.ncbi.nlm.nih.gov/gene?term={{ $ctrl.data.entrez }}">
+            <img uib-tooltip="NCBI Database Entry" style="height: 14px; margin-top: -3px"
+                 data-ng-src="/static/wiki/img/NCBI-logo-2.png">
+        </a>
+        <a target="_blank" href="http://www.wikidata.org/wiki/{{ $ctrl.data.geneQID }}">
+            <img uib-tooltip="Wikidata Database Item" style="height: 14px; margin-top: -3px"
+                 data-ng-src="/static/wiki/img/GeneWikidata-logo-en.png">
+        </a>
+      </span>
+    </div>
+    <div class="col-sm-2">
+      <strong>Host Targets: </strong><span ng-repeat="x in $ctrl.annotations.hostpath">{{x.hostProteinLabel.value}}</span><br>
+      <strong>Chemical Mutants: </strong>{{$ctrl.annotations.length}}<br>
+      <strong>Transposon Mutants: </strong>{{$ctrl.annotations.length}}<br>
+      <strong>Intron Mutants: </strong>{{$ctrl.annotations.length}}<br>
+      <strong>Recombination Mutants: </strong>{{$ctrl.annotations.length}}
+    </div>
+    <div class="col-sm-5">
+      <strong>Expression: </strong>{{$ctrl.annotations.expression.RB_EXPRESSION_TIMING}}<br>
+      <strong>Localizations: </strong>Coming Soon
+      <cell-visualizer cell-comp="$ctrl.annotations.go.cellcomp"></cell-visualizer>
+    </div>
+    <div class="col-sm-2">
+      <strong>PDB Structure: </strong>Coming Soon
+    </div>
+  </div>
+</div>
+<!-- <div class="table-responsive">
 	<table ng-table="$ctrl.tableParams" class="table">
 	    <tr>
 	        <td title="'Gene Name'">
@@ -48,6 +90,7 @@
 	    </tr>
 	</table>
 </div>
+-->
 <!-- Modal -->
 <div class="modal" id="geneName_button" tabindex="-1" role="dialog"
      aria-labelledby="refModalTitle"

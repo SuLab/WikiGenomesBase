@@ -1,14 +1,17 @@
 angular.module("cellVisualizer")
 
-    .controller("cellVisualizerCtrl", function(geneOntologyService, $timeout) {
+    .controller("cellVisualizerCtrl", function(geneOntologyService) {
         'use strict';
+        
+        //var color = "#4784FF";
+        var color = "#cc0000";
 
         var ctrl = this;
 
         ctrl.status = "Loading Component Viewer...";
         ctrl.loading = true;
         
-        ctrl.$onChanges = function load() {
+        ctrl.$onChanges = function() {
             if (ctrl.cellComp) {
             	
             	// list of terms still loading
@@ -53,53 +56,43 @@ angular.module("cellVisualizer")
         };
         
         function fill(goTerm) {
-
-            var svg = document.getElementById("cell-svg");
-
-            var svgDoc = svg.contentDocument;
-
+        	
             var paths = [];
 
             if (geneOntologyService.isInclusion(goTerm)) {
-                paths = svgDoc.getElementsByClassName("inclusion");
+                paths = document.getElementsByClassName("inclusion");
             } else {
-                paths = svgDoc.getElementsByClassName(geneOntologyService.getClass(goTerm));
+                paths = document.getElementsByClassName(geneOntologyService.getClass(goTerm));
             }
             
-            // CHROME and SAFARI do not instantly load paths (takes them a second)
-            // without the delay, paths[0] will be empty
-            $timeout(function() {
-            	
-            	ctrl.pending--;
-            	
-            	if (geneOntologyService.isPlasmaMembrane(goTerm)) {
+        	ctrl.pending--;
+        	
+        	if (geneOntologyService.isPlasmaMembrane(goTerm)) {
 
-                    // fill outside  minus the inside
-                    paths[0].style.fill = "#4784FF";
+                // fill outside  minus the inside
+                paths[0].style.fill = color;
 
-                    // subtract inside only if cytoplasm is not also filled
-                    if (svgDoc.getElementsByClassName("cytoplasm")[0].style.fill != "#4784FF") {
-                        svgDoc.getElementsByClassName("cytoplasm")[0].style.fill = "#FFFFFF";
-                    }
+                // subtract inside only if cytoplasm is not also filled
+                if (svgDoc.getElementsByClassName("cytoplasm")[0].style.fill != color) {
+                    svgDoc.getElementsByClassName("cytoplasm")[0].style.fill = "#FFFFFF";
+                }
 
-                } else if (geneOntologyService.isInclusion(goTerm)) {
-                    if (geneOntologyService.isInclusionMembrane(goTerm)) {
-                        paths[0].style.stroke = "#4784FF";
-                    } else {
-                        paths[0].style.fill = "#4784FF";
-                    }
+            } else if (geneOntologyService.isInclusion(goTerm)) {
+                if (geneOntologyService.isInclusionMembrane(goTerm)) {
+                    paths[0].style.stroke = color;
                 } else {
-                    for (var i = 0; i < paths.length; i++) {
-                        paths[i].style.fill = "#4784FF";
-                    }
+                    paths[0].style.fill = color;
                 }
-            	
-            	if (ctrl.pending == 0) {
-                	ctrl.loading = false;
+            } else {
+                for (var i = 0; i < paths.length; i++) {
+                    paths[i].style.fill = color;
                 }
+            }
+        	
+        	if (ctrl.pending == 0) {
+            	ctrl.loading = false;
+            }
             	
-            }, 1000);
-
         }
 
     })
