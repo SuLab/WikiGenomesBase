@@ -32,6 +32,44 @@ angular
     });
 
 angular
+.module('filters')
+.filter('taxid2Species', function () {
+    var chlamMap = {
+      '471472':'Chlamydia trachomatis',
+      '272561': 'Chlamydia trachomatis',
+      '243161': 'Chlamydia muridarum',
+      '115713': 'Chlamydia pneumoniae'
+    };
+    return function (input) {
+        if (input) {
+            return chlamMap[input];
+        }
+        else {
+            return "None";
+        }
+    };
+});
+
+angular
+.module('filters')
+.filter('taxid2Strain', function () {
+    var chlamMap = {
+      '471472':'434/BU',
+      '272561': 'D/UW-3/CX',
+      '243161': 'Str. Nigg',
+      '115713': 'CWL209'
+    };
+    return function (input) {
+        if (input) {
+            return chlamMap[input];
+        }
+        else {
+            return "None";
+        }
+    };
+});
+
+angular
     .module('filters')
     .filter('replaceColon', function () {
         return function (input) {
