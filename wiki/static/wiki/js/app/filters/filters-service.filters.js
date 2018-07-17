@@ -35,10 +35,10 @@ angular
 .module('filters')
 .filter('taxid2Species', function () {
     var chlamMap = {
-      '471472':'Chlamydia Trachomatis',
-      '272561': 'Chlamydia Trachomatis',
-      '243161': 'Chlamydia Muridarum',
-      '115713': 'Chlamydia Pneumoniae'
+      '471472':'Chlamydia trachomatis',
+      '272561': 'Chlamydia trachomatis',
+      '243161': 'Chlamydia muridarum',
+      '115713': 'Chlamydia pneumoniae'
     };
     return function (input) {
         if (input) {
