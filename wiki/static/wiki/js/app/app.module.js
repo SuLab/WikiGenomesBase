@@ -45,5 +45,7 @@ angular.module('cmod', [
     'alignmentView',
     'geneNameForm',
     'oauthForm',
-    'advancedKeywordForm'
+    'advancedKeywordForm',
+    'localizationView',
+    'localizationForm'
 ]);

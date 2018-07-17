@@ -73,8 +73,8 @@ angular.module("cellVisualizer")
                 paths[0].style.fill = color;
 
                 // subtract inside only if cytoplasm is not also filled
-                if (svgDoc.getElementsByClassName("cytoplasm")[0].style.fill != color) {
-                    svgDoc.getElementsByClassName("cytoplasm")[0].style.fill = "#FFFFFF";
+                if (document.getElementsByClassName("cytoplasm")[0].style.fill != color) {
+                	document.getElementsByClassName("cytoplasm")[0].style.fill = "#FFFFFF";
                 }
 
             } else if (geneOntologyService.isInclusion(goTerm)) {
@@ -114,7 +114,8 @@ angular.module("cellVisualizer")
             'GO_0120148' : 'centrosome',
             'GO_0044163' : 'cytoskeleton',
             'GO_0020002' : 'plasma_membrane',
-            'GO_0030430' : 'cytoplasm'
+            'GO_0030430' : 'cytoplasm',
+            'GO_0044164' : 'cytoplasm'
         };
 
         var getParent = function(term) {
