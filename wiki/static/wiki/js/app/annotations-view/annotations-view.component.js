@@ -29,7 +29,8 @@ angular
                         ortholog : true,
                         alignment: true,
                         expression : true,
-                        hostpath : true
+                        hostpath : true,
+                        localizations: changes.hasprotein.currentValue
                     };
                 }
             };
@@ -54,7 +55,8 @@ angular
                     ortholog : true,
                     alignment: true,
                     expression : true,
-                    hostpath : true
+                    hostpath : true,
+                    localizations : true,
                 };
 
                 ctrl.toggleOpen = function(openAll) {
@@ -69,6 +71,7 @@ angular
                     ctrl.accordion.alignment = openAll;
                     ctrl.accordion.hostpath = openAll;
                     ctrl.accordion.expression = openAll;
+                    ctrl.accordion.localizations = openAll;
                 };
 
                 ctrl.status = {

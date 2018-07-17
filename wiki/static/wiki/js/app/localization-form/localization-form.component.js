@@ -1,42 +1,15 @@
 angular
-    .module('goForm')
-    .component('goForm', {
-        controller: function ($routeParams, $filter, $location, evidenceCodes, sendToView, pubMedData, allGoTerms, locusTag2QID, orthoData) {
+    .module('localizationForm')
+    .component('localizationForm', {
+        controller: function ($location, $routeParams, pubMedData, sendToView, locusTag2QID, orthoData, $filter) {
+            'use strict';
             var ctrl = this;
             
             ctrl.currentTaxid = $routeParams.taxid;
-            ctrl.currentLocusTag = $routeParams.locusTag;
+            ctrl.currentLocusTag = $routeParams.locusTag; 
             ctrl.pageCount = 0;
-            	
-            var goClassMap = {
-                    'mf_button': {
-                        name: 'Molecular Function',
-                        QID: 'Q14860489'
-                    },
-                    'cc_button': {
-                        name: 'Cellular Component',
-                        QID: 'Q5058355'
-                    },
-                    'bp_button': {
-                        name: 'Biological Process',
-                        QID: 'Q2996394'
-                    }
-            };
             
-            ctrl.goFormModel = {
-                    evi: null,
-                    pub: null,
-                    go: null,
-                    proteinQID: null,
-                    goClass: goClassMap[ctrl.goclass].QID
-            };
-            
-            // data collection for form query sets
-            evidenceCodes.getevidenceCodes(function (data) {
-                ctrl.evidence = data;
-            });
-
-            ctrl.data = {};
+            ctrl.orthoData = {};
             ctrl.projection = {};
             orthoData.getOrthologs(ctrl.currentLocusTag).then(function(response) {
 
@@ -45,45 +18,39 @@ angular
                     var tax = obj.orthoTaxid.value;
                     var tag = obj.orthoLocusTag.value;
                     ctrl.projection[tax] = tag == ctrl.currentLocusTag;
-                    ctrl.data[tax] = tag;
+                    ctrl.orthoData[tax] = tag;
                 });
 
             });
-            
-            // controls for navigating form
+
             ctrl.nextClick = function () {
                 ctrl.pageCount += 1;
             };
+
             ctrl.backClick = function () {
                 ctrl.pageCount -= 1;
             };
-            
-            ctrl.selectGoTerm = function ($item, $model, $label) {
-                ctrl.goFormModel.go = $item;
-                ctrl.goValue = '';
+
+            ctrl.localizationAnnotation = {
+                proteinQID: null,
+                pub: null,
+                localizationQID: null
             };
 
-            ctrl.selectPub = function ($item, $model, $label) {
-                ctrl.goFormModel.pub = $item;
-                ctrl.pubValue = '';
-            };
-            
-            ctrl.getGoTermsAll = function (val) {
-                ctrl.goTermLoading = true;
-                return allGoTerms.getGoTermsAll(val, goClassMap[ctrl.goclass].QID).then(
-                    function (data) {
-                        return data.data.results.bindings.map(function (item) {
-                            return item;
-                        });
-                    }).finally(function(){
-                        ctrl.goTermLoading = false;
-                    }
-                );
-            };
+            ctrl.map = [
+                {
+                    name: 'elementary body',
+                    qid: 'Q51955212',
+                },
+                {
+                    name: 'reticulate body',
+                    qid: 'Q51955198',
+                }
+            ];
+
             ctrl.getPMID = function (val) {
                 return pubMedData.getPMID(val).then(
                     function (data) {
-
                         var resultData = [data.data.result[val]];
                         return resultData.map(function (item) {
                             return item;
@@ -91,19 +58,8 @@ angular
                     }
                 );
             };
-            
-            ctrl.resetForm = function () {
-                ctrl.pageCount = 0;
-                ctrl.goFormModel.evi = null;
-                ctrl.goFormModel.pub = null;
-                ctrl.goFormModel.go = null;
-            };
-            
-            // form validation, must be true to allow submission
-            ctrl.validateFields = function () {
-                if (ctrl.goFormModel.evi && ctrl.goFormModel.pub && ctrl.goFormModel.go) {
-                    return true;
-                }
+            ctrl.selectPub = function ($item, $model, $label) {
+                ctrl.pubValue = $item;
             };
             
             // send form data to server to edit wikidata
@@ -135,21 +91,23 @@ angular
                 
                 angular.forEach(ctrl.projection, function(value, key) {
                 	if (value) {
-                        locusTag2QID.getLocusTag2QID(ctrl.data[key], key).then(function (data) {
+                        locusTag2QID.getLocusTag2QID(ctrl.orthoData[key], key).then(function (data) {
                         	
                             var formData = {
-                                    evi: ctrl.goFormModel.evi,
-                                    pub: ctrl.goFormModel.pub,
-                                    go: ctrl.goFormModel.go,
-                                    proteinQID: null,
-                                    goClass: ctrl.goFormModel.goClass
+                            		proteinQID: null,
+                                    pub: ctrl.pubValue.uid,
+                                    localizationQID: ctrl.localizationAnnotation.localizationQID.qid
                             };
-
+                            
                             if (data.data.results.bindings[0].protein) {
                                 formData.proteinQID = $filter('parseQID')(data.data.results.bindings[0].protein.value);
-                            } 
+                            }
                             
-                            var url_suf = '/organism/' + key + '/gene/' + ctrl.data[key] +  '/wd_go_edit';
+                            if (formData.proteinQID == null) {
+                                return;
+                            }
+                            
+                            var url_suf = '/organism/' + key + '/gene/' + ctrl.orthoData[key] +  '/wd_localization_edit';
                             
                             console.log(url_suf);
                             sendToView.sendToView(url_suf, formData).then(function (data) {
@@ -200,15 +158,20 @@ angular
                 
             };
             
+            ctrl.resetForm = function () {
+                ctrl.pageCount = 0;
+                ctrl.pubValue = null;
+                ctrl.localizationAnnotation = {
+                        proteinQID: null,
+                        pub: null,
+                        localizationQID: null
+                };
+
+            };
         },
-        templateUrl: '/static/build/js/angular_templates/guided-go-form.min.html',
-        bindings: {
-            goclass: '<',
-            gene: '<'
-        }
 
+
+        templateUrl: '/static/build/js/angular_templates/localization-form.min.html'
     });
-
-
 
 
