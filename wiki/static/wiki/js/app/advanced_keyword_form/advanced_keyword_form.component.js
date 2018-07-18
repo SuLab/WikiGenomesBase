@@ -53,6 +53,7 @@ angular
             	cache.put("entrez", [ctrl.entrez, ctrl.entrez_text]);
             	cache.put("uniprot", [ctrl.uniprot, ctrl.uniprot_text]);
             	cache.put("refseq", [ctrl.refseq, ctrl.refseq_text]);
+            	cache.put("pdb", [ctrl.pdb, ctrl.pdb_text]);
             	cache.put("cm", ctrl.cm);
             	cache.put("tm", ctrl.tm);
             	cache.put("im", ctrl.im);

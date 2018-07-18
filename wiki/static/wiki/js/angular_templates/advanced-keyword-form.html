@@ -110,7 +110,13 @@
 	                <input type="text" ng-model="$ctrl.hp_text" class="form-control">
 	            </form>
 			</td>
-			<td></td>
+			<td>
+				<form class="form-inline" >
+	            	<label>PDB: </label>
+	                <input type="checkbox" ng-checked="$ctrl.pdb" ng-model="$ctrl.pdb">
+	                <input type="text" ng-model="$ctrl.pdb_text" class="form-control">
+	            </form>
+			</td>
 			<td>
 				 <form class="form-inline" >
 	            	<label>Recombination Mutants: </label>

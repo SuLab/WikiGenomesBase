@@ -153,7 +153,13 @@
 				                <input type="text" ng-model="$ctrl.hp_text" class="form-control">
 				            </form>
 						</td>
-						<td></td>
+						<td>
+							<form class="form-inline" >
+				            	<label>PDB: </label>
+				                <input type="checkbox" ng-checked="$ctrl.pdb" ng-model="$ctrl.pdb">
+				                <input type="text" ng-model="$ctrl.pdb_text" class="form-control">
+				            </form>
+						</td>
 						<td>
 							 <form class="form-inline" >
 				            	<label>Recombination Mutants: </label>
@@ -163,7 +169,7 @@
 					</tr>
 				</table>
 			</div>
-			<div ng-show="$ctrl.mf || $ctrl.bp || $ctrl.cc || $ctrl.hp || $ctrl.entrez || $ctrl.uniprot || $ctrl.refseq || $ctrl.cm || $ctrl.tm || $ctrl.im|| $ctrl.rm" style="margin: 5px">
+			<div ng-show="$ctrl.mf || $ctrl.bp || $ctrl.cc || $ctrl.hp || $ctrl.entrez || $ctrl.uniprot || $ctrl.refseq || $ctrl.cm || $ctrl.tm || $ctrl.im|| $ctrl.rm || $ctrl.pdb" style="margin: 5px">
 				<span class="glyphicon glyphicon-exclamation-sign"> You have the following filters applied: </span>
 				<button class="btn btn-default btn-xs" ng-show="$ctrl.mf" ng-click="$ctrl.mf = false" style="display: inline">Molecular Function <span class="glyphicon glyphicon-remove"></span></button>
 				<button class="btn btn-default btn-xs" ng-show="$ctrl.bp" ng-click="$ctrl.bp = false" style="display: inline">Biological Process <span class="glyphicon glyphicon-remove"></span></button>
@@ -172,6 +178,7 @@
 				<button class="btn btn-default btn-xs" ng-show="$ctrl.entrez" ng-click="$ctrl.entrez = false" style="display: inline">Entrez <span class="glyphicon glyphicon-remove"></span></button>
 				<button class="btn btn-default btn-xs" ng-show="$ctrl.uniprot" ng-click="$ctrl.uniprot = false" style="display: inline">Uniprot <span class="glyphicon glyphicon-remove"></span></button>
 				<button class="btn btn-default btn-xs" ng-show="$ctrl.refseq" ng-click="$ctrl.refseq = false" style="display: inline">RefSeq <span class="glyphicon glyphicon-remove"></span></button>
+				<button class="btn btn-default btn-xs" ng-show="$ctrl.pdb" ng-click="$ctrl.pdb = false" style="display: inline">PDB <span class="glyphicon glyphicon-remove"></span></button>
 				<button class="btn btn-default btn-xs" ng-show="$ctrl.cm" ng-click="$ctrl.cm = false" style="display: inline">Chemical Mutants<span class="glyphicon glyphicon-remove"></span></button>
 				<button class="btn btn-default btn-xs" ng-show="$ctrl.tm" ng-click="$ctrl.tm = false" style="display: inline">Transposition Mutants<span class="glyphicon glyphicon-remove"></span></button>
 				<button class="btn btn-default btn-xs" ng-show="$ctrl.im" ng-click="$ctrl.im = false" style="display: inline">Intron Mutants<span class="glyphicon glyphicon-remove"></span></button>
