@@ -28,6 +28,8 @@ angular
                 	ctrl.uniprot_text = cache.get("uniprot")[1];
                 	ctrl.refseq = cache.get("refseq")[0];
                 	ctrl.refseq_text = cache.get("refseq")[1];
+                	ctrl.pdb = cache.get("pdb")[0];
+                	ctrl.pdb_text = cache.get("pdb")[1];
                 	ctrl.cm = cache.get("cm");
                 	ctrl.tm = cache.get("tm");
                 	ctrl.im = cache.get("im");
@@ -265,6 +267,16 @@ angular
             		inner += queryBuilder.optional(queryBuilder.triple("?protein", "uniprot", "?uniprot"));
             	}
             	
+            	if (ctrl.pdb) {
+            		if (ctrl.pdb_text) {
+            			inner += queryBuilder.equals("?protein", "pdb", ctrl.pdb_text);
+            		} else {
+            			inner += queryBuilder.triple("?protein", "pdb", "?pdb");
+            		}
+            	} else {
+            		inner += queryBuilder.optional(queryBuilder.triple("?protein", "pdb", "?pdb"));
+            	}
+            	
             	if (ctrl.refseq) {
             		if (ctrl.refseq_text) {
             			inner += queryBuilder.equals("?protein", "refseq", ctrl.refseq_text);
@@ -303,7 +315,7 @@ angular
             		inner += queryBuilder.optional(queryBuilder.addLabel("?protein", "hp", "?host_protein"));
             	}
             	
-            	if (ctrl.uniprot || ctrl.refseq || ctrl.mf || ctrl.bp || ctrl.cc || ctrl.hp) {
+            	if (ctrl.uniprot || ctrl.refseq || ctrl.mf || ctrl.bp || ctrl.cc || ctrl.hp || ctrl.pdb) {
             		query += queryBuilder.triple("?gene", "protein", "?protein");
             		query += inner;
             	} else {
@@ -348,7 +360,8 @@ angular
     			cc: 'wdt:P681',
     			bp: 'wdt:P682',
     			protein: 'wdt:P688',
-    			hp: 'wdt:P129'
+    			hp: 'wdt:P129',
+    			pdb: 'wdt:P638'
     	};
     	
     	var optional = function(input) {
@@ -368,7 +381,7 @@ angular
     	};
     	
     	var beginning = function() {
-    		return "SELECT ?taxon ?taxid ?taxonLabel ?geneLabel ?entrez ?uniprot ?proteinLabel ?locusTag ?refseq_prot ?gene" +
+    		return "SELECT ?taxon ?taxid ?taxonLabel ?geneLabel ?entrez ?uniprot ?proteinLabel ?locusTag ?refseq_prot ?gene ?pdb" +
                     "(GROUP_CONCAT(DISTINCT ?aliases) AS ?aliases) (GROUP_CONCAT(DISTINCT ?mfLabel) AS ?mfLabel) " +
                     "(GROUP_CONCAT(DISTINCT ?bpLabel) AS ?bpLabel) (GROUP_CONCAT(DISTINCT ?ccLabel) AS ?ccLabel) (GROUP_CONCAT(DISTINCT ?host_protein) AS ?host_protein) WHERE {" +
                     	"?taxon wdt:P171* wd:Q846309." +
@@ -382,7 +395,7 @@ angular
     		return "?taxon wdt:P685 ?taxid." +
         			"SERVICE wikibase:label { bd:serviceParam wikibase:language 'en'. }" +
         			"}" +
-        			"GROUP BY ?locusTag ?taxon ?taxid ?taxonLabel ?geneLabel ?entrez ?uniprot ?proteinLabel ?refseq_prot ?gene";
+        			"GROUP BY ?locusTag ?taxon ?taxid ?taxonLabel ?geneLabel ?entrez ?uniprot ?proteinLabel ?refseq_prot ?gene ?pdb";
     	};
     	
     	var addLabel = function(keyword, property, term) {
