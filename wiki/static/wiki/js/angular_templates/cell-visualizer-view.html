@@ -1,5 +1,6 @@
+<img src="static/wiki/img/spin.gif" ng-show="$ctrl.loading">
 <svg
-   ng-show="$ctrl.displayCell"
+   ng-hide="$ctrl.loading"
    xmlns:i="&amp;#38;ns_ai;"
    xmlns:dc="http://purl.org/dc/elements/1.1/"
    xmlns:cc="http://creativecommons.org/ns#"
@@ -708,4 +709,3 @@
    transform="translate(902.0723,796.543)">ER</text>
 
 </g></switch></svg>
-<p ng-show="!$ctrl.displayCell">{{$ctrl.status}} <img src="static/wiki/img/spin.gif" ng-show="$ctrl.loading"></p>

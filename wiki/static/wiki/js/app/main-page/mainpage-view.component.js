@@ -20,7 +20,8 @@ angular
             RefSeqChrom,
             allOrgGenes,
             $http,
-            ECNumbers
+            ECNumbers,
+            pdbData
 
         ) {
 
@@ -119,6 +120,17 @@ angular
                             ctrl.currentGene.proteinAliases = [];
                             angular.forEach(entity.aliases.en, function(alias) {
                                 ctrl.currentGene.proteinAliases.push(alias.value);
+                            });
+                            
+                            // get PDB data
+                            pdbData.getPdbData(ctrl.currentGene.uniprot).then(function(data) {
+                            	if (data.data.results.bindings.length == 1) {
+                            		ctrl.currentGene.pdbId = data.data.results.bindings[0].pdbId.value;
+                            		ctrl.currentGene.image = data.data.results.bindings[0].image.value;
+                            	} else {
+                            		ctrl.currentGene.pdbId = "None";
+                            		ctrl.currentGene.image = "None";
+                            	}
                             });
 
                             // Get InterPro Domains from Wikidata SPARQL

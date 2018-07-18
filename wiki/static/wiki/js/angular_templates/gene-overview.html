@@ -2,7 +2,7 @@
 <button style="display: inline" title="Edit Gene Name" type="button" class="btn btn-xs btn-info" data-toggle="modal" data-target="#geneName_button"><span class="glyphicon glyphicon-pencil"></span></button>
 <div class="container-fluid">
   <div class="row">
-    <div class="col-sm-3">
+    <div class="col-sm-2">
       <strong>Type: </strong>{{$ctrl.data.productType.id | typeFilter}}<br>
       <strong>Locus Tag: </strong>{{$ctrl.data.locusTag}}<br>
       <strong>Aliases: </strong>{{$ctrl.data.geneAliases | list2CSV}}<br>
@@ -30,13 +30,16 @@
       <strong>Intron Mutants: </strong>{{$ctrl.im}}<br>
       <strong>Recombination Mutants: </strong>{{$ctrl.rm}}
     </div>
-    <div class="col-sm-5">
+    <div class="col-sm-4">
       <strong>Expression: </strong>{{$ctrl.annotations.expression.RB_EXPRESSION_TIMING}}<br>
-      <strong>Localizations: </strong>Coming Soon
+      <strong>Localizations: </strong><span ng-show="$ctrl.annotations.go.cellcomp.length > 0" ng-repeat="x in $ctrl.annotations.go.cellcomp">{{x.gotermValueLabel.value}}; </span>
+      								  <span ng-hide="$ctrl.annotations.go.cellcomp.length > 0">None</span><br>
       <cell-visualizer cell-comp="$ctrl.annotations.go.cellcomp"></cell-visualizer>
     </div>
-    <div class="col-sm-2">
-      <strong>PDB Structure: </strong>Coming Soon
+    <div class="col-sm-4">
+      <strong>PDB Structure: </strong>{{$ctrl.data.pdbId}}<br>
+		      <img src="static/wiki/img/spin.gif" ng-hide="$ctrl.data.image">
+		      <img ng-show="$ctrl.data.image != 'None'" ng-src="{{$ctrl.data.image}}" width="100%">
     </div>
   </div>
 </div>

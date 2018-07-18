@@ -71,6 +71,34 @@ angular
     });
 
 angular
+.module('resources')
+    .factory('pdbData', function ($http) {
+        var endpoint = 'https://query.wikidata.org/sparql?format=json&query=';
+        var getPdbData = function (uniprot) {
+            var url = endpoint + encodeURIComponent(
+            		"SELECT ?pdbId ?image WHERE {" +
+            			"?protein wdt:P352 '" + uniprot + "'." +
+            			"?protein wdt:P638 ?pdbId." +
+            			"OPTIONAL {?protein wdt:P18 ?image}" + 
+        			"}"
+                );
+            return $http.get(url)
+                .success(function (response) {
+                    return response.data;
+
+                })
+                .error(function (response) {
+                    return response;
+                });
+        };
+        return {
+        	getPdbData: getPdbData
+        };
+
+
+    });
+
+angular
     .module('resources')
     .factory('orthoData', function ($http, $q) {
         var getOrthologs = function (locusTag) {
