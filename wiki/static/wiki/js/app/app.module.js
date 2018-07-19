@@ -47,5 +47,6 @@ angular.module('cmod', [
     'oauthForm',
     'advancedKeywordForm',
     'localizationView',
-    'localizationForm'
+    'localizationForm',
+    'footer'
 ]);
