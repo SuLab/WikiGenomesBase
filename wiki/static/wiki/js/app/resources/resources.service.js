@@ -71,6 +71,34 @@ angular
     });
 
 angular
+.module('resources')
+    .factory('pdbData', function ($http) {
+        var endpoint = 'https://query.wikidata.org/sparql?format=json&query=';
+        var getPdbData = function (uniprot) {
+            var url = endpoint + encodeURIComponent(
+            		"SELECT ?pdbId ?image WHERE {" +
+            			"?protein wdt:P352 '" + uniprot + "'." +
+            			"?protein wdt:P638 ?pdbId." +
+            			"OPTIONAL {?protein wdt:P18 ?image}" + 
+        			"}"
+                );
+            return $http.get(url)
+                .success(function (response) {
+                    return response.data;
+
+                })
+                .error(function (response) {
+                    return response;
+                });
+        };
+        return {
+        	getPdbData: getPdbData
+        };
+
+
+    });
+
+angular
     .module('resources')
     .factory('orthoData', function ($http, $q) {
         var getOrthologs = function (locusTag) {
@@ -303,7 +331,7 @@ angular
             		  "(GROUP_CONCAT(DISTINCT ?determination; SEPARATOR = ';') AS ?determinationLabel) WHERE {" +
             		  "?protein wdt:P352 '" + uniprot + "'." +
             		  "?protein (p:P680|p:P681|p:P682)+ ?goterm." +
-            		  "OPTIONAL { ?goterm pq:P459/rdfs:label ?determination. FILTER(LANG(?determination) = 'en').}" +
+            		  "?goterm pq:P459/rdfs:label ?determination. FILTER(LANG(?determination) = 'en')." +
             		  "OPTIONAL { ?goterm (prov:wasDerivedFrom/pr:P248)/rdfs:label ?reference_stated_label. FILTER(LANG(?reference_stated_label) = 'en').}" +
             		  "OPTIONAL { ?goterm (prov:wasDerivedFrom/pr:P813) ?reference_retrieved. }" +
             		  "?goterm (ps:P680|ps:P681|ps:P682)+ ?gotermValue." +
@@ -450,23 +478,17 @@ angular
         var endpoint = 'https://query.wikidata.org/sparql?format=json&query=';
         var getHostPathogen = function (uniprot) {
             var url = endpoint + encodeURIComponent(
-                    "SELECT ?host ?hostLabel ?protein ?proteinLabel ?hostProtein ?hostGeneLabel ?hostProteinLabel ?reference_stated_in ?reference_stated_inLabel ?pmid " +
-                    "(group_concat(distinct ?determination ;separator=\", \") as ?dmethod) " +
-                    "(group_concat(distinct ?det_label ;separator=\", \") as ?dmethodLabel) " +
-                    "WHERE{ " +
-                    "?protein wdt:P352 '" + uniprot + "'; " +
-                    "wdt:P129 ?hostProtein; " +
-                    "p:P129 ?hpClaim. " +
-                    "?hpClaim prov:wasDerivedFrom/pr:P248 ?reference_stated_in; " +
-                    "pq:P459 ?determination. " +
-                    "?determination rdfs:label ?det_label. " +
-                    "?reference_stated_in wdt:P698 ?pmid. " +
-                    "?hostProtein wdt:P703 ?host; " +
-                    "wdt:P702 ?hostGene. " +
-                    "FILTER (lang(?det_label) = \"en\") " +
-                    "SERVICE wikibase:label { bd:serviceParam wikibase:language \"en\" .}" +
-                    "} " +
-                    "GROUP BY ?protein ?hostGeneLabel ?proteinLabel ?reference_stated_in ?reference_stated_inLabel ?pmid ?hostProtein ?hostProteinLabel ?host ?hostLabel"
+            		"SELECT DISTINCT ?hostGeneLabel ?hostProteinLabel ?hostLabel ?reference_stated_inLabel ?determinationLabel ?pmid WHERE {" +
+            			  "?protein wdt:P352 '" + uniprot + "'." +
+            			  "?protein p:P129 ?hpClaim." +
+            			  "?hpClaim (prov:wasDerivedFrom/pr:P248) ?reference_stated_in." +
+            			  "?hpClaim pq:P459 ?determination." +
+            			  "?reference_stated_in wdt:P698 ?pmid." +
+            			  "?hpClaim ps:P129 ?hostProtein." +
+            			  "?hostProtein wdt:P703 ?host." +
+            			  "?hostProtein wdt:P702 ?hostGene." +
+            			  "SERVICE wikibase:label { bd:serviceParam wikibase:language 'en'. }" +
+            			"}"
                 );
 
             return $http.get(url).then(function (response) {
@@ -718,7 +740,27 @@ angular
         			"GROUP BY ?locusTag ?taxon ?taxid ?taxonLabel ?geneLabel ?entrez ?uniprot ?proteinLabel ?refseq_prot ?gene");
             return $http.get(url)
                 .success(function (response) {
-                    return response.data;
+                	var genes = response.results.bindings;
+            		var pattern = /(TC|CTL|CT|CPn)_?(RS)?\d+/;
+            		angular.forEach(genes, function(gene) {
+            			var value = gene.geneLabel.value;
+            			var locusTag = value.match(pattern)[0];
+            			
+            			// add locus without _
+            			if (value.indexOf("_") != -1) {
+            				gene.geneLabel.value += "/" + locusTag.replace("_", "");
+            			}
+            			
+            			// add locus without beginning 0s in number
+            			var prefix = locusTag.match(/(TC|CTL|CT|CPn)_?(RS)?/)[0];
+            			var num = parseInt(locusTag.substring(prefix.length));
+            			gene.geneLabel.value += "/" + prefix + num;
+            			
+            			if (prefix.indexOf("_") != -1) {
+            				gene.geneLabel.value += "/" + prefix.replace("_", "") + num;
+            			}
+            		});
+                    return genes;
                 })
                 .error(function (response) {
                     return response;
@@ -737,7 +779,27 @@ angular
         			"}");
             return $http.get(url)
                 .success(function (response) {
-                    return response.data;
+                	var genes = response.results.bindings;
+            		var pattern = /(TC|CTL|CT|CPn)_?(RS)?\d+/;
+            		angular.forEach(genes, function(gene) {
+            			var value = gene.geneLabel.value;
+            			var locusTag = value.match(pattern)[0];
+            			
+            			// add locus without _
+            			if (value.indexOf("_") != -1) {
+            				gene.geneLabel.value += "/" + locusTag.replace("_", "");
+            			}
+            			
+            			// add locus without beginning 0s in number
+            			var prefix = locusTag.match(/(TC|CTL|CT|CPn)_?(RS)?/)[0];
+            			var num = parseInt(locusTag.substring(prefix.length));
+            			gene.geneLabel.value += "/" + prefix + num;
+            			
+            			if (prefix.indexOf("_") != -1) {
+            				gene.geneLabel.value += "/" + prefix.replace("_", "") + num;
+            			}
+            		});
+                    return genes;
                 })
                 .error(function (response) {
                     return response;

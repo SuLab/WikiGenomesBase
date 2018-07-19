@@ -124,7 +124,6 @@ def hostpath_form(request):
     :param request: includes go annotation json for writing to wikidata
     :return: response data object with a write success boolean
     """
-    print("Host Path Form")
     if request.method == 'POST':
         body_unicode = request.body.decode('utf-8')
         body = json.loads(body_unicode)
@@ -150,9 +149,7 @@ def hostpath_form(request):
 
             if pmid_result.json()['success'] == True:
                 refs.append(wdi_core.WDItemID(value=pmid_result.json()['result'], prop_nr='P248', is_reference=True))
-                
-            print("PMID Json Result:")
-            print(pmid_result.json())
+
             responseData['ref_success'] = True
         except Exception as e:
             responseData['ref_success'] = False
@@ -185,6 +182,75 @@ def hostpath_form(request):
             print("Writing protein with login")
             wd_item_protein.write(login=login)
             responseData['write_success'] = True
+
+        except Exception as e:
+            responseData['write_success'] = False
+            print(e)
+        return JsonResponse(responseData)
+
+@ensure_csrf_cookie
+def localization_form(request):
+    """
+    uses wdi to make go annotation edit to wikidata
+    :param request: includes go annotation json for writing to wikidata
+    :return: response data object with a write success boolean
+    """
+    print("Localization Form")
+    if request.method == 'POST':
+        body_unicode = request.body.decode('utf-8')
+        body = json.loads(body_unicode)
+        responseData = {}
+        if 'login' not in request.session.keys():
+            responseData['authentication'] = False
+            return JsonResponse(responseData)
+        else:
+            responseData['authentication'] = True
+
+        login = jsonpickle.decode(request.session['login'])
+        eutilsPMID = body['pub']
+        refs = []
+        # #
+        # # contstruct the references using WDI_core and PMID_tools if necessary
+        print("Constructing reference")
+        try:
+            refs.append(wdi_core.WDItemID(value='Q26489220', prop_nr='P1640', is_reference=True))
+            refs.append(wdi_core.WDTime(str(strftime("+%Y-%m-%dT00:00:00Z", gmtime())), prop_nr='P813',
+                                        is_reference=True))
+            pmid_url = 'https://tools.wmflabs.org/pmidtool/get_or_create/{}'.format(eutilsPMID)
+            pmid_result = requests.get(url=pmid_url)
+
+            if pmid_result.json()['success'] == True:
+                refs.append(wdi_core.WDItemID(value=pmid_result.json()['result'], prop_nr='P248', is_reference=True))
+                
+            responseData['ref_success'] = True
+        except Exception as e:
+            responseData['ref_success'] = False
+            print("reference construction error: " + str(e))
+
+        statements = []
+        # #contstruct the statements using WDI_core
+        print("Constructing statements")
+        try:
+            # Replace P129 with upregulated_in PID
+            statements.append(wdi_core.WDItemID(value=body["localizationQID"], prop_nr='P129', references=[refs]))
+            responseData['statement_success'] = True
+        except Exception as e:
+            responseData['statement_success'] = False
+            print(e)
+
+        #write the statement to WD using WDI_core
+        print("Writing the statement")
+        try:
+            print("protein id:")
+            print(body['proteinQID'])
+            
+            # find the appropriate item in wd, TODO replace P129 with upregulated_in
+            wd_item_protein = wdi_core.WDItemEngine(wd_item_id=body['proteinQID'], domain=None,
+                                                    data=statements, use_sparql=True,
+                                                    append_value='P129')
+            print("Writing protein with login")
+            #wd_item_protein.write(login=login)
+            responseData['write_success'] = False
 
         except Exception as e:
             responseData['write_success'] = False
@@ -291,33 +357,29 @@ def mutant_form(request):
     if request.method == 'POST':
         body_unicode = request.body.decode('utf-8')
         body = json.loads(body_unicode)
-		
+        
         responseData = {}
         if 'login' not in request.session.keys():
             responseData['authentication'] = False
             return JsonResponse(responseData)
-		
+        
         if body['action'] == 'annotate':
+            del body['action']
             try:
-                annotation = MutantMongo(mut_json=body, taxid=body['taxid'], refseq=body['chromosome'])
-                annotation.generate_full_json()
-                annotation.add_gff_from_json()
-                write_result = annotation.push2mongo()
-                body['write_success'] = write_result['write_success']
-                #refObj = FeatureDataRetrieval(taxid=body['taxid'])
-                #refObj.mutants2gff()
+                annotation = MutantMongo(mut_json=body)
+                body['write_success'] = annotation.push2mongo()['write_success']
             except Exception as e:
-                print('error')
                 body['write_success'] = False
 
-        if body['action'] == 'delete':
+        if 'action' in body.keys() and body['action'] == 'delete':
             try:
-                annotation = MutantMongo(mut_json=body, taxid=body['taxid'], refseq=body['chromosome'])
-                delete_result = annotation.delete_one_mongo()
-                body['delete_success'] = delete_result['delete_success']
+                annotation = MutantMongo(mut_json=body)
+                body['delete_success'] = annotation.delete_one_mongo()['delete_success']
             except Exception as e:
                 body['delete_success'] = False
         return JsonResponse(body)
+    else:
+        return JsonResponse({"error": "only accept POST requests"})
 
 
 @ensure_csrf_cookie
@@ -367,44 +429,31 @@ def mongo_annotations(request):
     :param request:
     :return:
     """
-    def removekey(d, key):
-        r = dict(d)
-        del r[key]
-        return r
 
     if request.method == 'POST':
         body_unicode = request.body.decode('utf-8')
         body = json.loads(body_unicode)
         annotations = GetMongoAnnotations()
         annotation_data = {
-            'mutants': [],
-            'reactions': []
+            'mutants': []
         }
-        mg_mutants = annotations.get_mutants(locus_tag=body['locusTag'])
-
-        for mut in mg_mutants:
-            if type(mut['pub']) is dict:
-                #rewrite annotation with just uid
-                annotation = MutantMongo(mut_json=mut, taxid=body['taxid'], refseq=mut['chromosome'])
-                annotation.delete_one_mongo()
-                mut['pub'] = mut['pub']['result']['uids'][0]
-                annotation = MutantMongo(mut_json=mut, taxid=body['taxid'], refseq=mut['chromosome'])
-                annotation.generate_full_json()
-                annotation.add_gff_from_json()
-                annotation.push2mongo()
-                annotation_data['mutants'].append(mut)
+        if "action" in body.keys():
+            if body["action"] == "chemical":
+                mg_mutants = annotations.get_chemically_induced_mutants()
+            elif body["action"] == "transposition":
+                mg_mutants = annotations.get_transposition_mutants()
+            elif body["action"] == "recombination":
+                mg_mutants = annotations.get_recombination_mutants()
             else:
-                annotation_data['mutants'].append(mut)
-				
-        ecs = [x for x in body['ec_number'] if '-' not in x]
-        if len(ecs) > 0:
-            for ec in ecs:
-                reactions = annotations.get_reactions(ec_number=ec)
-                for rxn in reactions:
-                    rxn = removekey(rxn, '_id')
-                    annotation_data['reactions'].append(rxn)
+                mg_mutants = annotations.get_insertion_mutants()
+        else:
+            mg_mutants = annotations.get_mutants(locus_tag=body['locusTag'])
+            
+        for mut in mg_mutants:
+            annotation_data['mutants'].append(mut)
+                
         return JsonResponse(annotation_data, safe=False)
-		
+        
 @ensure_csrf_cookie
 def validate_session(request):
      validated = 'authOBJ' in request.session.keys() or 'login' in request.session.keys()
@@ -421,7 +470,7 @@ def geneName_form(request):
     if request.method == 'POST':
         body_unicode = request.body.decode('utf-8')
         body = json.loads(body_unicode)
-		
+        
         responseData = {}
         if 'login' not in request.session.keys():
             responseData['authentication'] = False
@@ -433,20 +482,20 @@ def geneName_form(request):
 
         #write the name to the gene and protein
         try:
-		
+        
             print("Writing to gene " + body['geneQID'])
             if body['geneQID'] != "":
                 wd_item_gene = wdi_core.WDItemEngine(wd_item_id=body['geneQID'], domain=None)
                 wd_item_gene.set_label(body['geneName'])
-                wd_item_gene.write(login=login)		
-			
+                wd_item_gene.write(login=login)        
+            
             print("Writing to protein " + body['proteinQID'])
             if body['proteinQID'] != "":
                 body['geneName'] = body['geneName'][0:1].upper() + body['geneName'][1:]
                 wd_item_protein = wdi_core.WDItemEngine(wd_item_id=body['proteinQID'], domain=None)
                 wd_item_protein.set_label(body['geneName'])
                 wd_item_protein.write(login=login)
-				
+                
             responseData['write_success'] = True
 
         except Exception as e:

@@ -26,6 +26,9 @@ angular.module('cmod')
             when("/keyword/:keyword", {
                 template: '<genes-keyword></genes-keyword>'
             }).
+            when("/keyword/", {
+                template: '<genes-keyword></genes-keyword>'
+            }).
             when("/organism/:taxid/gene/:locusTag", {
                 template: '<main-page></main-page>'
             }).

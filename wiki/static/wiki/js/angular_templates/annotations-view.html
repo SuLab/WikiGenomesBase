@@ -86,15 +86,14 @@
     	 ng-if="$ctrl.settings.go"
          template-url="group-template.html">
         <uib-accordion-heading>
-            Gene Ontology Annotations ({{$ctrl.annotations.go.molfunc.length + $ctrl.annotations.go.cellcomp.length +
-                $ctrl.annotations.go.bioproc.length}})
+            Function(s) ({{$ctrl.annotations.go.molfunc.length + $ctrl.annotations.go.bioproc.length}})
             <i class="pull-right glyphicon"
                ng-class="{'glyphicon-chevron-down': $ctrl.accordion.go, 'glyphicon-chevron-right': !$ctrl.accordion.go}"></i>
         </uib-accordion-heading>
         <div class="panel">
             <div class="panel-body" style="border-bottom: solid #bce8f1 1px">
                 <div class="row">
-                    <div class="col-md-4 385d94" style="padding:3px">
+                    <div class="col-sm-6 385d94" style="padding:3px">
                         <div class="panel">
                             <div class="panel-heading">Molecular Function</div>
                             <div class="panel-body">
@@ -104,7 +103,7 @@
 
                         </div>
                     </div>
-                    <div class="col-md-4" style="padding:3px">
+                    <div class="col-sm-6" style="padding:3px">
                         <div class="panel ">
                             <div class="panel-heading">Biological Process</div>
                             <div class="panel-body">
@@ -113,17 +112,21 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-4" style="padding:3px">
-                        <div class="panel">
-                            <div class="panel-heading">Cellular Component</div>
-                            <div class="panel-body">
-                                <gene-ontology gene="$ctrl.data" goclass='cc_button'
-                                               data="$ctrl.annotations.go.cellcomp"></gene-ontology>
-                            </div>
-                        </div>
-                    </div>
                 </div>
-                <cell-visualizer cell-comp="$ctrl.annotations.go.cellcomp" style="display: block; margin-left: auto; margin-right: auto; width: 50%;"></cell-visualizer>
+            </div>
+        </div>
+    </div>
+    <div uib-accordion-group is-open="$ctrl.accordion.localizations" ng-class="{'panel-info': true}"
+    	 ng-if="$ctrl.settings.localizations"
+         template-url="group-template.html">
+        <uib-accordion-heading>
+            Localization(s) ({{$ctrl.annotations.go.cellcomp.length}})
+            <i class="pull-right glyphicon"
+               ng-class="{'glyphicon-chevron-down': $ctrl.accordion.go, 'glyphicon-chevron-right': !$ctrl.accordion.go}"></i>
+        </uib-accordion-heading>
+        <div class="panel">
+            <div class="panel-body" style="border-bottom: solid #bce8f1 1px">
+              <localization-view gene="$ctrl.data" components="$ctrl.annotations.go.cellcomp"></localization-view>
             </div>
         </div>
     </div>
@@ -177,7 +180,7 @@
          ng-if="$ctrl.settings.mutants"
          template-url="group-template.html">
         <uib-accordion-heading>
-            Mutants ({{ $ctrl.annotations.mutants.mutants.length }})<i class="pull-right glyphicon"
+            Mutants ({{ $ctrl.annotations.mutants.length }})<i class="pull-right glyphicon"
                                                                        ng-class="{'glyphicon-chevron-down': $ctrl.accordion.mutants, 'glyphicon-chevron-right': !$ctrl.accordion.mutants}"></i>
         </uib-accordion-heading>
         <div class="panel " style="border-bottom: solid #bce8f1 1px;">
@@ -191,7 +194,7 @@
          ng-if="$ctrl.settings.hostpath"
          template-url="group-template.html">
         <uib-accordion-heading>
-            Host-Pathogen Interactions <i class="pull-right glyphicon"
+            Protein Interaction(s) ({{$ctrl.annotations.hostpath.length}}) <i class="pull-right glyphicon"
                                           ng-class="{'glyphicon-chevron-down': $ctrl.accordion.hostpath, 'glyphicon-chevron-right': !$ctrl.accordion.hostpath}"></i>
         </uib-accordion-heading>
         <div class="panel " style="border-bottom: solid #bce8f1 1px;">

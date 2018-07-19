@@ -10,20 +10,21 @@
             <input ng-model="$ctrl.mutantAnnotation.name" type="text" class="form-control" id="mutant"
                    placeholder="L2 Mutant 1">
             <label for="mutant_type">Type of Mutation</label>
-            <select id='mutant_type' class="form-control" ng-model="$ctrl.mutantAnnotation.mutant_type"
+            <select id='mutant_type' class="form-control" ng-model="$ctrl.mutantAnnotation.mutation_name"
                     required="required"
-                    ng-options="option.alias for option in $ctrl.mutant_type_map">
+                    ng-options="option for option in $ctrl.mutant_type_list"
+                    ng-change="$ctrl.changeType()">
                 <option style="display:none" value="">Mutation Type</option>
             </select>
 
-
-            <div style="margin-top: 15px" class="well" ng-show="$ctrl.mutantAnnotation.mutant_type.key===1"><label
+            <div style="margin-top: 15px" class="well" ng-show="$ctrl.mutantAnnotation.mutation_id=='EFO_0000370'"><label
                     for="mutant">Mutant Strain</label>
                 <label for="genomic_position1">Genomic Position </label>
                 <span ng-class="{'glyphicon glyphicon-ok': $ctrl.validatePosition(),
 				 'glyphicon glyphicon-remove': !$ctrl.validatePosition()}"></span>
                 <input ng-model="$ctrl.mutantAnnotation.coordinate.start" type="text" class="form-control"
-                       id="genomic_position1" placeholder="coordinate in range: {{ $ctrl.genStart}}-{{$ctrl.genEnd}}">
+                       id="genomic_position1" placeholder="coordinate in range: {{ $ctrl.genStart}}-{{$ctrl.genEnd}}"
+                       ng-change="$ctrl.mutantAnnotation.coordinate.end = $ctrl.mutantAnnotation.coordinate.start">
 
                 <div class="btn-group">
                     <label>Reference Base</label>
@@ -53,9 +54,10 @@
                 </div>
                 <br/>
                 <label for="varInput">Variant Type</label>
-                <select id='varInput' class="form-control" ng-model="$ctrl.mutantAnnotation.variant_type"
+                <select id='varInput' class="form-control" ng-model="$ctrl.mutantAnnotation.snv_name"
                         required="required"
-                        ng-options="option.name for option in $ctrl.seq_ontology_map">
+                        ng-options="option for option in $ctrl.seq_ontology_list"
+                        ng-change="$ctrl.mutantAnnotation.snv_id = $ctrl.seq_ontology_map[$ctrl.mutantAnnotation.snv_name]">
                     <option style="display:none" value="">Variant Type</option>
                 </select>
 
@@ -64,19 +66,52 @@
                        placeholder="R172C">
 
             </div>
-            <div style="margin-top: 15px" class="well" ng-show="$ctrl.mutantAnnotation.mutant_type.key===2">
+            <div style="margin-top: 15px" class="well" ng-show="$ctrl.mutantAnnotation.mutation_id=='EFO_0004021' || $ctrl.mutantAnnotation.mutation_id=='EFO_0004016'">
 
                 <label for="genomic_position1">Genomic Position of Insert </label>
                 <span ng-class="{'glyphicon glyphicon-ok': $ctrl.validatePosition(),
 				 'glyphicon glyphicon-remove': !$ctrl.validatePosition()}"></span>
                 <input ng-model="$ctrl.mutantAnnotation.coordinate.start" type="text" class="form-control"
-                       id="genomic_position1" placeholder="coordinate in range: {{ $ctrl.genStart}}-{{$ctrl.genEnd}}">
+                       id="genomic_position1" placeholder="coordinate in range: {{ $ctrl.genStart}}-{{$ctrl.genEnd}}"
+                       ng-change="$ctrl.mutantAnnotation.coordinate.end = $ctrl.mutantAnnotation.coordinate.start">
 
                 <label for="percent_gene_intact">Percent Gene Intact Prior to Insert</label>
                 <input ng-model="$ctrl.mutantAnnotation.percent_gene_intact" type="text"
                        class="form-control"
                        id="percent_gene_intact" placeholder="e.g. 12%">
 
+
+                <label>Insert Directionality</label>
+                <br/>
+
+                <div class="btn-group" style="margin-left: 20px">
+                    <label class="btn btn-default glyphicon glyphicon-arrow-left"
+                           ng-model="$ctrl.mutantAnnotation.insert_direction"
+                           uib-btn-radio="'reverse'"></label>
+                    <label class="btn btn-default glyphicon glyphicon-arrow-right"
+                           ng-model="$ctrl.mutantAnnotation.insert_direction"
+                           uib-btn-radio="'forward'"></label>
+                </div>
+            </div>
+            
+            <div style="margin-top: 15px" class="well" ng-show="$ctrl.mutantAnnotation.mutation_id=='EFO_0004293'">
+
+                <label for="genomic_position1">Start Position</label>
+                <span ng-class="{'glyphicon glyphicon-ok': $ctrl.validatePosition(),
+				 'glyphicon glyphicon-remove': !$ctrl.validatePosition()}"></span>
+                <input ng-model="$ctrl.mutantAnnotation.coordinate.start" type="text" class="form-control"
+                       id="genomic_position1" placeholder="coordinate in range: {{ $ctrl.genStart}}-{{$ctrl.genEnd}}">
+                       
+                <label for="genomic_position1">End Position</label>
+                <span ng-class="{'glyphicon glyphicon-ok': $ctrl.validateEndPosition(),
+				 'glyphicon glyphicon-remove': !$ctrl.validateEndPosition()}"></span>
+                <input ng-model="$ctrl.mutantAnnotation.coordinate.end" type="text" class="form-control"
+                       id="genomic_position1" placeholder="coordinate in range: {{ $ctrl.mutantAnnotation.coordinate.start}}-{{$ctrl.genEnd}}">
+
+                <label for="genes_inserted">Gene(s) Inserted</label>
+                <input ng-model="$ctrl.mutantAnnotation.genes_inserted" type="text"
+                       class="form-control"
+                       id="genes_inserted" placeholder="e.g. bla, gfp">
 
                 <label>Insert Directionality</label>
                 <br/>

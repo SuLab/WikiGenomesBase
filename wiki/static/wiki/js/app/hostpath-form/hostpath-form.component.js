@@ -52,9 +52,34 @@ angular
                     name: 'Mus musculus',
                     qid: 'Q83310',
                     taxid: '10090'
-                }
+                },
+                {
+                    name: 'Chlamydia trachomatis D/UW-3/CX',
+                    qid: 'Q20800373',
+                    taxid: '272561'
+                },
+                {
+                    name: 'Chlamydia trachomatis 434/BU',
+                    qid: 'Q20800254',
+                    taxid: '471472'
+                },
+                {
+                    name: 'Chlamydia muridarum Nigg',
+                    qid: 'Q21398805',
+                    taxid: '243161'
+                },
+                {
+                    name: 'Chlamydophila pneumoniae CWL029',
+                    qid: 'Q21397863',
+                    taxid: '115713'
+                },
             ];
-
+            
+            ctrl.isChlamydia = function() {
+            	return ctrl.hostpathAnnotation.host_species != null && ctrl.hostpathAnnotation.host_species.name != 'Homo sapiens' &&
+            		ctrl.hostpathAnnotation.host_species.name != 'Mus musculus';
+            };
+            
             ctrl.determination_methods = [{
                 "item": "https://www.wikidata.org/entity/Q32860428",
                 "itemLabel": "immunoprecipitation evidence",
@@ -66,6 +91,17 @@ angular
             }];
 
             ctrl.getSpeciesGenes = function () {
+            	
+            	ctrl.proteinValue = "";
+                ctrl.pubValue = null;
+                ctrl.hostpathAnnotation = {
+                		proteinQID: null,
+                        host_species: ctrl.hostpathAnnotation.host_species,
+                        pub: null,
+                        host_protein: null,
+                        determination: null,
+                };
+            	
                 var taxid = ctrl.hostpathAnnotation.host_species.taxid;
                 speciesGenes.getSpeciesGenes(taxid)
                     .then(function (data) {

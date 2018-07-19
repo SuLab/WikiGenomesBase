@@ -1,0 +1,128 @@
+<style>
+
+	th {
+		color: #385d94;
+		text-align: center;
+	}
+
+</style>
+<div class="form-inline" style="white-space: nowrap; margin-bottom: 10px">
+	<label for="keywordSearch">Search: </label>
+	<input ng-keyup="$ctrl.keyPressed($event)"
+		   autocomplete="off"
+		   ng-model="$ctrl.keyword" 
+		   type="text" 
+		   class="form-control ui-widget" 
+		   id="keywordSearch"
+	       placeholder="Ex. Kinase or CTL0260"
+	       uib-typeahead="gene.geneLabel.value for gene in $ctrl.genes | filter:$viewValue | limitTo:20"
+	   	   typeahead-on-select="$ctrl.select($item, $event)"
+	   	   typeahead-wait-ms="500"
+	   	   typeahead-should-select="$ctrl.scrolled"
+	   	   style="width: 70%; display: inline">
+	<button ng-click="$ctrl.advSearch()" class="btn btn-default" style="display: inline"><span class="glyphicon glyphicon-search"></span></button>
+	<a data-toggle="collapse" data-target="#options" style="color: white">Advanced Search <span class="glyphicon glyphicon-chevron-down"></span></a>
+</div>
+<div id="options" class="collapse table-responsive" style="margin-bottom: 10px">
+	<table class="table table-hover" style="overflow: hidden; background-color: white">
+		<col width="40%">
+		<col width="30%">
+		<col width="30%">
+		<tr>
+			<th>Terms and Interactions</th>
+			<th>Identifiers</th>
+			<th>Mutations</th>
+		</tr>
+		<tr>
+			<td>
+				<form class="form-inline" >
+	            	<label>Molecular Function: </label>
+	                <input type="checkbox" ng-checked="false" ng-model="$ctrl.mf">
+	                <input type="text" ng-model="$ctrl.mf_text"class="form-control" uib-typeahead="go as go.goterm_label.value for go in $ctrl.mfTerms($viewValue)"
+	                      typeahead-wait-ms="500" typeahead-on-select="$ctrl.mf_text = $item.goterm_label.value">
+	            </form>
+			</td>
+			<td>
+				<form class="form-inline" >
+	            	<label>Entrez: </label>
+	                <input type="checkbox" ng-checked="false" ng-model="$ctrl.entrez">
+	                <input type="text" ng-model="$ctrl.entrez_text" class="form-control">
+	            </form>
+			</td>
+			<td>
+				<form class="form-inline" >
+	            	<label>Chemically Induced Mutants: </label>
+	                <input type="checkbox" ng-checked="false" ng-model="$ctrl.cm">
+	            </form>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<form class="form-inline" >
+	            	<label>Biological Process: </label>
+	                <input type="checkbox" ng-checked="false" ng-model="$ctrl.bp">
+	                <input type="text" ng-model="$ctrl.bp_text" class="form-control" uib-typeahead="go as go.goterm_label.value for go in $ctrl.bpTerms($viewValue)"
+                       typeahead-wait-ms="500" typeahead-on-select="$ctrl.bp_text = $item.goterm_label.value">
+	            </form>
+			</td>
+			<td>
+				<form class="form-inline" >
+	            	<label>Uniprot: </label>
+	                <input type="checkbox" ng-checked="false" ng-model="$ctrl.uniprot">
+	                <input type="text" ng-model="$ctrl.uniprot_text" class="form-control">
+	            </form>
+			</td>
+			<td>
+				<form class="form-inline" >
+	            	<label>Transposition Mutants: </label>
+	                <input type="checkbox" ng-checked="false" ng-model="$ctrl.tm">
+	            </form>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<form class="form-inline" >
+	            	<label>Cellular Component: </label>
+	                <input type="checkbox" ng-checked="false" ng-model="$ctrl.cc">
+	                <input type="text" ng-model="$ctrl.cc_text" class="form-control" uib-typeahead="go as go.goterm_label.value for go in $ctrl.ccTerms($viewValue)"
+                       typeahead-wait-ms="500" typeahead-on-select="$ctrl.cc_text = $item.goterm_label.value">
+	            </form>
+			</td>
+			<td>
+				<form class="form-inline" >
+	            	<label>RefSeq: </label>
+	                <input type="checkbox" ng-checked="false" ng-model="$ctrl.refseq">
+	                <input type="text" ng-model="$ctrl.refseq_text" class="form-control">
+	            </form>
+			</td>
+			<td>
+				<form class="form-inline" >
+	            	<label>Intron Mutants: </label>
+	                <input type="checkbox" ng-checked="false" ng-model="$ctrl.im">
+	            </form>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<form class="form-inline" >
+	            	<label>Host Pathogen Interaction: </label>
+	                <input type="checkbox" ng-checked="false" ng-model="$ctrl.hp">
+	                <input type="text" ng-model="$ctrl.hp_text" class="form-control">
+	            </form>
+			</td>
+			<td>
+				<form class="form-inline" >
+	            	<label>PDB: </label>
+	                <input type="checkbox" ng-checked="$ctrl.pdb" ng-model="$ctrl.pdb">
+	                <input type="text" ng-model="$ctrl.pdb_text" class="form-control">
+	            </form>
+			</td>
+			<td>
+				 <form class="form-inline" >
+	            	<label>Recombination Mutants: </label>
+	                <input type="checkbox" ng-checked="false" ng-model="$ctrl.rm">
+	            </form>
+			</td>
+		</tr>
+	</table>
+</div>

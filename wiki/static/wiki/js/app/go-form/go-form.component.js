@@ -22,7 +22,7 @@ angular
                         QID: 'Q2996394'
                     }
             };
-        	
+            
             ctrl.goFormModel = {
                     evi: null,
                     pub: null,

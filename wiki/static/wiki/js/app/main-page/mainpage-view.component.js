@@ -20,7 +20,8 @@ angular
             RefSeqChrom,
             allOrgGenes,
             $http,
-            ECNumbers
+            ECNumbers,
+            pdbData
 
         ) {
 
@@ -120,6 +121,17 @@ angular
                             angular.forEach(entity.aliases.en, function(alias) {
                                 ctrl.currentGene.proteinAliases.push(alias.value);
                             });
+                            
+                            // get PDB data
+                            pdbData.getPdbData(ctrl.currentGene.uniprot).then(function(data) {
+                            	if (data.data.results.bindings.length == 1) {
+                            		ctrl.currentGene.pdbId = data.data.results.bindings[0].pdbId.value;
+                            		ctrl.currentGene.image = data.data.results.bindings[0].image.value;
+                            	} else {
+                            		ctrl.currentGene.pdbId = "None";
+                            		ctrl.currentGene.image = "None";
+                            	}
+                            });
 
                             // Get InterPro Domains from Wikidata SPARQL
                             InterPro.getInterPro(ctrl.currentGene.uniprot).then(
@@ -214,7 +226,6 @@ angular
 
                     // Get chromosome refseq id
                     RefSeqChrom.getRefSeqChrom(ctrl.currentLocusTag).then(function(data) {
-                        console.log(data);
 
                         if (data[0]) {
                             ctrl.currentGene.refseqGenome = data[0].refSeqChromosome.value;
@@ -249,10 +260,7 @@ angular
 
                     sendToView.sendToView(url_suf, anno_keys).then(function(data) {
                     	
-                        ctrl.annotations.mutants = {
-                            mutants : data.data.mutants,
-                            refseq : ctrl.currentGene.refseqGenome
-                        };
+                        ctrl.annotations.mutants = data.data.mutants;
                     });
                 };
 
