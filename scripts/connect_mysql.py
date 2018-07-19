@@ -5,15 +5,15 @@ from sshtunnel import SSHTunnelForwarder
 from os.path import expanduser
 
 home = expanduser('~')
-mypkey = paramiko.RSAKey.from_private_key_file(home + "/.ssh/id_rsa")
-#mypkey = paramiko.RSAKey.from_private_key_file(r"C:\Users\Derek\DOCUME~1\MobaXterm\home\.ssh\id_rsa")
+#mypkey = paramiko.RSAKey.from_private_key_file(home + "/.ssh/id_rsa")
+mypkey = paramiko.RSAKey.from_private_key_file(r"C:\Users\Derek\DOCUME~1\MobaXterm\home\.ssh\id_rsa")
 
 sql_hostname = 'wikidatawiki.labsdb'
 sql_main_database = 'wikidatawiki_p'
 sql_user = "u16054"
 sql_pass = "pnuifBwgDTY3xmVG"
 ssh_host = 'tools-login.wmflabs.org'
-ssh_user = 'derek'
+ssh_user = 'Derek'
 ssh_port = 22
 sql_port = 3306
 
