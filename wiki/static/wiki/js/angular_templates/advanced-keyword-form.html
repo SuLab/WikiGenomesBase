@@ -15,9 +15,9 @@
 		   class="form-control ui-widget" 
 		   id="keywordSearch"
 	       placeholder="Ex. Kinase or CTL0260"
-	       uib-typeahead="gene.geneLabel.value for gene in $ctrl.genes | filter:$viewValue | limitTo:20"
+	       uib-typeahead="gene.geneLabel.value for gene in ($ctrl.geneList = ($ctrl.genes | filter:$viewValue | limitTo:20))"
 	   	   typeahead-on-select="$ctrl.select($item, $event)"
-	   	   typeahead-wait-ms="500"
+	   	   typeahead-wait-ms="300"
 	   	   typeahead-should-select="$ctrl.scrolled"
 	   	   style="width: 70%; display: inline">
 	<button ng-click="$ctrl.advSearch()" class="btn btn-default" style="display: inline"><span class="glyphicon glyphicon-search"></span></button>
