@@ -14,7 +14,6 @@ angular.module('cmod', [
     'geneForm',
     'organismForm',
     'resources',
-    'geneView',
     'proteinView',
     'organismView',
     'jbrowseView',
