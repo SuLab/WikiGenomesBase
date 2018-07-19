@@ -450,23 +450,17 @@ angular
         var endpoint = 'https://query.wikidata.org/sparql?format=json&query=';
         var getHostPathogen = function (uniprot) {
             var url = endpoint + encodeURIComponent(
-                    "SELECT ?host ?hostLabel ?protein ?proteinLabel ?hostProtein ?hostGeneLabel ?hostProteinLabel ?reference_stated_in ?reference_stated_inLabel ?pmid " +
-                    "(group_concat(distinct ?determination ;separator=\", \") as ?dmethod) " +
-                    "(group_concat(distinct ?det_label ;separator=\", \") as ?dmethodLabel) " +
-                    "WHERE{ " +
-                    "?protein wdt:P352 '" + uniprot + "'; " +
-                    "wdt:P129 ?hostProtein; " +
-                    "p:P129 ?hpClaim. " +
-                    "?hpClaim prov:wasDerivedFrom/pr:P248 ?reference_stated_in; " +
-                    "pq:P459 ?determination. " +
-                    "?determination rdfs:label ?det_label. " +
-                    "?reference_stated_in wdt:P698 ?pmid. " +
-                    "?hostProtein wdt:P703 ?host; " +
-                    "wdt:P702 ?hostGene. " +
-                    "FILTER (lang(?det_label) = \"en\") " +
-                    "SERVICE wikibase:label { bd:serviceParam wikibase:language \"en\" .}" +
-                    "} " +
-                    "GROUP BY ?protein ?hostGeneLabel ?proteinLabel ?reference_stated_in ?reference_stated_inLabel ?pmid ?hostProtein ?hostProteinLabel ?host ?hostLabel"
+            		"SELECT DISTINCT ?hostGeneLabel ?hostProteinLabel ?hostLabel ?reference_stated_inLabel ?determinationLabel ?pmid WHERE {" +
+            			  "?protein wdt:P352 '" + uniprot + "'." +
+            			  "?protein p:P129 ?hpClaim." +
+            			  "?hpClaim (prov:wasDerivedFrom/pr:P248) ?reference_stated_in." +
+            			  "?hpClaim pq:P459 ?determination." +
+            			  "?reference_stated_in wdt:P698 ?pmid." +
+            			  "?hpClaim ps:P129 ?hostProtein." +
+            			  "?hostProtein wdt:P703 ?host." +
+            			  "?hostProtein wdt:P702 ?hostGene." +
+            			  "SERVICE wikibase:label { bd:serviceParam wikibase:language 'en'. }" +
+            			"}"
                 );
 
             return $http.get(url).then(function (response) {

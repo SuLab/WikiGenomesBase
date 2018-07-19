@@ -70,6 +70,36 @@ angular
 });
 
 angular
+.module('filters')
+.filter('interactions2bacteria', function () {
+    return function (input) {
+        var hp = [];
+        angular.forEach(input, function(value) {
+        	var label = value.hostLabel.value;
+        	if (label != 'Homo sapiens' && label != 'Mus musculus') {
+        		hp.push(value);
+        	}
+        });
+        return hp;
+    };
+});
+
+angular
+.module('filters')
+.filter('interactions2host', function () {
+    return function (input) {
+        var hp = [];
+        angular.forEach(input, function(value) {
+        	var label = value.hostLabel.value;
+        	if (label == 'Homo sapiens' || label == 'Mus musculus') {
+        		hp.push(value);
+        	}
+        });
+        return hp;
+    };
+});
+
+angular
     .module('filters')
     .filter('replaceColon', function () {
         return function (input) {
