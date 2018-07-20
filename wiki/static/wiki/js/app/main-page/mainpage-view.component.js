@@ -21,7 +21,8 @@ angular
             allOrgGenes,
             $http,
             ECNumbers,
-            pdbData
+            pdbData,
+            proteinSequenceData
 
         ) {
 
@@ -131,6 +132,11 @@ angular
                             angular.forEach(entity.aliases.en, function(alias) {
                                 ctrl.currentGene.proteinAliases.push(alias.value);
                             });
+                            
+                            // get protein sequence data used in protein view for BLAST query
+                            proteinSequenceData.getSequence(ctrl.currentGene.refseqProt).then(function(data) {
+                    			ctrl.currentGene.sequenceProt = encodeURIComponent(data);
+                    		});
                             
                             // get PDB data
                             pdbData.getPdbData(ctrl.currentGene.uniprot).then(function(data) {
