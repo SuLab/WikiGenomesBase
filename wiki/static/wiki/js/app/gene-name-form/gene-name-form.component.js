@@ -78,7 +78,7 @@ angular
                             var formData = {
                             		geneQID: $filter('parseQID')(data.data.results.bindings[0].gene.value),
                 					proteinQID: null,
-                					geneName: ctrl.geneNameData.geneName + " " + ctrl.orthoData[key]
+                					geneName: ctrl.geneNameData.geneName
                             };
                             
                             if (data.data.results.bindings[0].protein) {
