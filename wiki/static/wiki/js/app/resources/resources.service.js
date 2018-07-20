@@ -480,24 +480,21 @@ angular
         var endpoint = 'https://query.wikidata.org/sparql?format=json&query=';
         var getOperonData = function (entrez) {
             var url = endpoint + encodeURIComponent(
-                    "SELECT ?gene ?locusTag ?entrez ?operon ?operonLabel ?operonItem  ?operonItemLabel ?genStart ?genEnd ?strand " +
-                    "?strandLabel ?op_genes ?reference_stated_in ?reference_stated_inLabel ?op_genesLabel " +
-                    "?reference_pmid " +
-                    "WHERE { " +
-                    "?gene wdt:P351 '" + entrez + "'; " +
-                    "p:P361 ?operon. " +
-                    "?operon ps:P361 ?operonItem. " +
-                    "?operonItem wdt:P279 wd:Q139677; " +
-                    "wdt:P527 ?op_genes. " +
-                    "?op_genes wdt:P2393 ?locusTag; " +
-                    "wdt:P351 ?entrez; " +
-                    "wdt:P644 ?genStart; " +
-                    "wdt:P645 ?genEnd; " +
-                    "wdt:P2548 ?strand." +
-                    "OPTIONAL { " +
-                    "?operon prov:wasDerivedFrom/pr:P248 ?reference_stated_in. " +
-                    "?reference_stated_in wdt:P698 ?reference_pmid. } " +
-                    "SERVICE wikibase:label { bd:serviceParam wikibase:language 'en' . }}"
+            		"SELECT ?operonItemLabel ?op_genesLabel ?locusTag ?entrez ?genStart ?genEnd ?strandLabel ?reference_stated_inLabel ?reference_pmid WHERE {" +
+            			  "?gene wdt:P351 '"+entrez+"'." +
+            			  "?gene p:P361 ?operon." +
+            			  "?operon ps:P361 ?operonItem." +
+            			  "?operonItem wdt:P31 wd:Q139677." +
+            			  "?operonItem wdt:P527 ?op_genes." +
+            			  "?op_genes wdt:P2393 ?locusTag." +
+            			  "?op_genes wdt:P351 ?entrez." +
+            			  "?op_genes wdt:P644 ?genStart." +
+            			  "?op_genes wdt:P645 ?genEnd." +
+            			  "?op_genes wdt:P2548 ?strand." +
+            			  "?operon (prov:wasDerivedFrom/pr:P248) ?reference_stated_in." +
+            			  "?reference_stated_in wdt:P698 ?reference_pmid." +
+            			  "SERVICE wikibase:label { bd:serviceParam wikibase:language 'en'. }" +
+            			"}"
                 );
             return $http.get(url)
                 .success(function (response) {

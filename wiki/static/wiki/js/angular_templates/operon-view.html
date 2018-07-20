@@ -1,4 +1,4 @@
-<div style="border-bottom: solid darkgrey 2px; padding-bottom: 5px"><h5><strong>Name: </strong></h5>{{$ctrl.operon}}</div>
+<div style="border-bottom: solid darkgrey 2px; padding-bottom: 5px; overflow: hidden; text-overflow: ellipsis"><h5><strong>Name: </strong></h5>{{$ctrl.operon[0].operonItemLabel.value}}</div>
 <div class="table-responsive">
 	<table ng-table="$ctrl.tableParams" class="table table-hover">
 	    <col width="35%"/>
@@ -9,7 +9,7 @@
 	    <col width="8%"/>
 	    <col width="10%"/>
 	    <col width="5%"/>
-	    <tr ng-show="$ctrl.data.length!=0" ng-repeat="x in $ctrl.data">
+	    <tr ng-show="$ctrl.operon.length > 0" ng-repeat="x in $ctrl.operon">
 	        <td title="'Regulated Genes'">
 	            {{x.op_genesLabel.value }}
 	        </td>
@@ -19,9 +19,6 @@
 	        <td title="'NCBI Locus Tag'">
 	            {{x.locusTag.value }}
 	        </td>
-	        <td title="'QID'">
-	            {{x.op_genes.value | parseQID}}
-	        </td>
 	        <td title="'Genomic Start'">
 	            {{x.genStart.value }}
 	        </td>
@@ -29,7 +26,7 @@
 	            {{x.genEnd.value }}
 	        </td>
 	        <td title="'Strand'">
-	            {{x.strand.value | convertStrand }}
+	            {{x.strandLabel.value }}
 	        </td>
 	
 	        <td title="'Reference'">

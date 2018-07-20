@@ -106,6 +106,16 @@ angular
                                 ctrl.currentGene.geneAliases.push(alias.value);
                             }
                         });
+                        
+	                    OperonData.getOperonData(ctrl.currentGene.entrez).then(
+	                        function(data) {
+	                            var dataResults = data.data.results.bindings;
+	                            if (dataResults.length > 0) {
+	                                ctrl.annotations.operon = dataResults;
+	                            } else {
+	                                ctrl.annotations.operon = [];
+	                            }
+	                        });
                     });
 
                     if (ctrl.currentGene.proteinQID) {
@@ -209,20 +219,6 @@ angular
                         });
 
                     }
-
-                    // Get operon data from wikidata sparql query
-                    OperonData.getOperonData(ctrl.currentGene.entrez).then(
-                        function(data) {
-                            var dataResults = data.data.results.bindings;
-                            if (dataResults.length > 0) {
-                                ctrl.annotations.currentOperon = dataResults[0].operonItemLabel.value;
-                                ctrl.opData = dataResults;
-                                ctrl.annotations.operons = dataResults;
-                            } else {
-                                ctrl.opData = [];
-                                ctrl.annotations.operons = [];
-                            }
-                        });
 
                     // Get chromosome refseq id
                     RefSeqChrom.getRefSeqChrom(ctrl.currentLocusTag).then(function(data) {
