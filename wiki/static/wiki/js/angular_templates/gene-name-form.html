@@ -1,17 +1,17 @@
 <form name='geneNameAnnotationForm' class="form-group">
 
 	<div class="well" ng-show="$ctrl.pageCount==0" style="min-height: 160px">
-		<h4>Enter a name for the gene without the locus tag at the end:</h4>
+		<h4>Enter a new alias for the gene:</h4>
 
 		<div class="input-group">
 			<input ng-model="$ctrl.geneNameData.geneName" type="text" style="width: 500px;"
-				class="form-control ui-widget" id="geneName" placeholder="aspartyl/glutamyl-tRNA amidotransferase subunit A">
+				class="form-control ui-widget" id="geneName" placeholder="inclusion membrane protein V">
 		</div>
 
 	</div>
 	
 	<div class="well" ng-show="$ctrl.pageCount==0" style="min-height: 200px">
-		<h4>Select all genes you wish to apply this name change to:</h4>
+		<h4>Select all genes to add this alias to:</h4>
 		<table class="table table-hover">
 			<tr>
 				<td title="'Strain'">Strain</td>
@@ -35,9 +35,8 @@
 
 		<div>
 			<p>
-				The gene with locus tag "<strong>{{$ctrl.gene.locusTag}}</strong>"
-				will be renamed from "<strong>{{$ctrl.gene.geneLabel}}</strong>" to "<strong>{{$ctrl.geneNameData.geneName}} {{$ctrl.locusTag}}</strong>".
-				<br><br> This labeling will be applied with its respective locus tag to:
+				The gene with label "<strong>{{$ctrl.gene.geneLabel}}</strong>" will add the alias "<strong>{{$ctrl.geneNameData.geneName}}</strong>".
+				<br><br> This alias will be added to:
 				<ul>
 					<li ng-repeat="(key,value) in $ctrl.projection"
 						ng-show="value == true">{{$ctrl.orthoData[key]}}</li>
