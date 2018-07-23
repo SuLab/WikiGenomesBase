@@ -1,20 +1,15 @@
 <div class="table-responsive">
     <table class="table table-hover">
-        <col width="47%"/>
-        <col width="20%"/>
-        <col width="22%"/>
-        <col width="5%"/>
-        <col width="3%"/>
-        <col width="3%"/>
-        <tbody>
         <th>Product type</th>
+        <th>Mass</th>
         <th>UniProt ID</th>
         <th>NCBI RefSeq ID</th>
         <th>References</th>
-        <th>Download</th>
         <th>BLAST</th>
+        <th>Download</th>
         <tr>
             <td>{{ $ctrl.protein.productType.id | typeFilter}}</td>
+            <td>{{$ctrl.protein.mass}}</td>
             <td>{{ $ctrl.protein.uniprot}}</td>
             <td>{{ $ctrl.protein.refseqProt}}</td>
             <td>
@@ -32,16 +27,15 @@
                 </a>
             </td>
             <td>
-                <a uib-tooltip="Download Protein Fasta" class="glyphicon glyphicon-download" href="https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=protein&rettype=FASTA&id={{$ctrl.protein.refseqProt}}">
-                </a>
-            </td>
-            <td>
                 <a uib-tooltip="Blast Protein" href="https://blast.ncbi.nlm.nih.gov/Blast.cgi?PROGRAM=blastp&PAGE_TYPE=BlastSearch&LINK_LOC=blasthome&QUERY={{$ctrl.protein.sequenceProt}}" target="_blank">
                 	<img style="height: 14px; margin-top: -3px" data-ng-src="/static/wiki/img/NCBI-logo-2.png">
                 </a>
             </td>
+            <td>
+                <a uib-tooltip="Download Protein Fasta" class="glyphicon glyphicon-download" href="https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=protein&rettype=FASTA&id={{$ctrl.protein.refseqProt}}">
+                </a>
+            </td>
         </tr>
-        </tbody>
     </table>
 </div>
 
