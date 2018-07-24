@@ -289,7 +289,7 @@ class FeatureDataRetrieval(object):
                         mutant['mutation_name'],
                         "mutation", # type
                         mutant['coordinate']['start'],
-                        mutant['coordinate']['end'],,
+                        mutant['coordinate']['end'],
                         ".", # score
                         ".", # strand
                         ".", # phase
