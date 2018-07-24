@@ -15,7 +15,7 @@ from scripts.jbrowse_configuration import FeatureDataRetrieval
 from scripts.get_mongo_annotations import GetMongoAnnotations
 from scripts.WD_Utils import WDSparqlQueries
 
-from wikigenomes_conf import consumer_key, consumer_secret
+from secret_settings import consumer_key, consumer_secret
 from wikidataintegrator import wdi_login, wdi_core
 
 
