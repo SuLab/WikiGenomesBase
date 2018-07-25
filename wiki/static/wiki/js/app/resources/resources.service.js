@@ -318,6 +318,34 @@ angular
         };
     });
 
+//annotations data
+angular
+  .module('resources')
+  .factory('proteinMass', function ($http, $q) {
+      var endpoint = 'https://www.uniprot.org/uniprot/{}.xml';
+      var getMass = function (uniprot) {
+          var url = endpoint.replace("{}", uniprot);
+          var deferred = $q.defer();
+          $http.get(url)
+          .success(function (response) {
+              
+              var pattern = /mass="\d+"/;
+              
+              return deferred.resolve(response.match(pattern)[0].match(/\d+/)[0]);
+
+          })
+          .error(function (response) {
+              return deferred.reject(response);
+          });
+          return deferred.promise;
+      };
+      return {
+          getMass: getMass
+      };
+
+
+  });
+
 
 //annotations data
 angular

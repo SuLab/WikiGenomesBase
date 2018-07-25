@@ -22,7 +22,8 @@ angular
             $http,
             ECNumbers,
             pdbData,
-            proteinSequenceData
+            proteinSequenceData,
+            proteinMass
 
         ) {
 
@@ -137,6 +138,11 @@ angular
                             proteinSequenceData.getSequence(ctrl.currentGene.refseqProt).then(function(data) {
                     			ctrl.currentGene.sequenceProt = encodeURIComponent(data);
                     		});
+                            
+                            // get protein mass
+                            proteinMass.getMass(ctrl.currentGene.uniprot).then(function(data) {
+                               ctrl.currentGene.mass = data;
+                            });
                             
                             // get PDB data
                             pdbData.getPdbData(ctrl.currentGene.uniprot).then(function(data) {
