@@ -78,7 +78,7 @@ INST_MAN3DIR = blib/man3
 MAN1EXT = 1p
 MAN3EXT = 3pm
 INSTALLDIRS = site
-INSTALL_BASE = /home/derek/eclipse-workspace/ChlamBase.org/wiki/static/wiki/js/external_js/JBrowse-1.14.1/extlib
+INSTALL_BASE = /home/ubuntu/cb_production/wiki/static/wiki/js/external_js/JBrowse-1.14.1/extlib
 DESTDIR = 
 PREFIX = $(INSTALL_BASE)
 INSTALLPRIVLIB = $(INSTALL_BASE)/lib/perl5
@@ -662,78 +662,18 @@ manifypods : pure_all  \
 
 EXE_FILES = bin/ucsc-to-json.pl bin/remove-track.pl bin/generate-names.pl bin/maker2jbrowse bin/prepare-refseqs.pl bin/biodb-to-json.pl bin/draw-basepair-track.pl bin/flatfile-to-json.pl bin/new-plugin.pl bin/add-bw-track.pl bin/add-bam-track.pl bin/add-json.pl bin/add-track-json.pl bin/json2conf.pl
 
-pure_all :: $(INST_SCRIPT)/add-bw-track.pl $(INST_SCRIPT)/add-json.pl $(INST_SCRIPT)/ucsc-to-json.pl $(INST_SCRIPT)/remove-track.pl $(INST_SCRIPT)/new-plugin.pl $(INST_SCRIPT)/prepare-refseqs.pl $(INST_SCRIPT)/draw-basepair-track.pl $(INST_SCRIPT)/biodb-to-json.pl $(INST_SCRIPT)/add-track-json.pl $(INST_SCRIPT)/add-bam-track.pl $(INST_SCRIPT)/flatfile-to-json.pl $(INST_SCRIPT)/generate-names.pl $(INST_SCRIPT)/maker2jbrowse $(INST_SCRIPT)/json2conf.pl
+pure_all :: $(INST_SCRIPT)/flatfile-to-json.pl $(INST_SCRIPT)/ucsc-to-json.pl $(INST_SCRIPT)/new-plugin.pl $(INST_SCRIPT)/add-bam-track.pl $(INST_SCRIPT)/add-track-json.pl $(INST_SCRIPT)/json2conf.pl $(INST_SCRIPT)/prepare-refseqs.pl $(INST_SCRIPT)/generate-names.pl $(INST_SCRIPT)/biodb-to-json.pl $(INST_SCRIPT)/add-bw-track.pl $(INST_SCRIPT)/maker2jbrowse $(INST_SCRIPT)/add-json.pl $(INST_SCRIPT)/draw-basepair-track.pl $(INST_SCRIPT)/remove-track.pl
 	$(NOECHO) $(NOOP)
 
 realclean ::
 	$(RM_F) \
-	  $(INST_SCRIPT)/add-bw-track.pl $(INST_SCRIPT)/add-json.pl \
-	  $(INST_SCRIPT)/ucsc-to-json.pl $(INST_SCRIPT)/remove-track.pl \
-	  $(INST_SCRIPT)/new-plugin.pl $(INST_SCRIPT)/prepare-refseqs.pl \
-	  $(INST_SCRIPT)/draw-basepair-track.pl $(INST_SCRIPT)/biodb-to-json.pl \
-	  $(INST_SCRIPT)/add-track-json.pl $(INST_SCRIPT)/add-bam-track.pl \
-	  $(INST_SCRIPT)/flatfile-to-json.pl $(INST_SCRIPT)/generate-names.pl \
-	  $(INST_SCRIPT)/maker2jbrowse $(INST_SCRIPT)/json2conf.pl 
-
-$(INST_SCRIPT)/add-bw-track.pl : bin/add-bw-track.pl $(FIRST_MAKEFILE) $(INST_SCRIPT)$(DFSEP).exists $(INST_BIN)$(DFSEP).exists
-	$(NOECHO) $(RM_F) $(INST_SCRIPT)/add-bw-track.pl
-	$(CP) bin/add-bw-track.pl $(INST_SCRIPT)/add-bw-track.pl
-	$(FIXIN) $(INST_SCRIPT)/add-bw-track.pl
-	-$(NOECHO) $(CHMOD) $(PERM_RWX) $(INST_SCRIPT)/add-bw-track.pl
-
-$(INST_SCRIPT)/add-json.pl : bin/add-json.pl $(FIRST_MAKEFILE) $(INST_SCRIPT)$(DFSEP).exists $(INST_BIN)$(DFSEP).exists
-	$(NOECHO) $(RM_F) $(INST_SCRIPT)/add-json.pl
-	$(CP) bin/add-json.pl $(INST_SCRIPT)/add-json.pl
-	$(FIXIN) $(INST_SCRIPT)/add-json.pl
-	-$(NOECHO) $(CHMOD) $(PERM_RWX) $(INST_SCRIPT)/add-json.pl
-
-$(INST_SCRIPT)/ucsc-to-json.pl : bin/ucsc-to-json.pl $(FIRST_MAKEFILE) $(INST_SCRIPT)$(DFSEP).exists $(INST_BIN)$(DFSEP).exists
-	$(NOECHO) $(RM_F) $(INST_SCRIPT)/ucsc-to-json.pl
-	$(CP) bin/ucsc-to-json.pl $(INST_SCRIPT)/ucsc-to-json.pl
-	$(FIXIN) $(INST_SCRIPT)/ucsc-to-json.pl
-	-$(NOECHO) $(CHMOD) $(PERM_RWX) $(INST_SCRIPT)/ucsc-to-json.pl
-
-$(INST_SCRIPT)/remove-track.pl : bin/remove-track.pl $(FIRST_MAKEFILE) $(INST_SCRIPT)$(DFSEP).exists $(INST_BIN)$(DFSEP).exists
-	$(NOECHO) $(RM_F) $(INST_SCRIPT)/remove-track.pl
-	$(CP) bin/remove-track.pl $(INST_SCRIPT)/remove-track.pl
-	$(FIXIN) $(INST_SCRIPT)/remove-track.pl
-	-$(NOECHO) $(CHMOD) $(PERM_RWX) $(INST_SCRIPT)/remove-track.pl
-
-$(INST_SCRIPT)/new-plugin.pl : bin/new-plugin.pl $(FIRST_MAKEFILE) $(INST_SCRIPT)$(DFSEP).exists $(INST_BIN)$(DFSEP).exists
-	$(NOECHO) $(RM_F) $(INST_SCRIPT)/new-plugin.pl
-	$(CP) bin/new-plugin.pl $(INST_SCRIPT)/new-plugin.pl
-	$(FIXIN) $(INST_SCRIPT)/new-plugin.pl
-	-$(NOECHO) $(CHMOD) $(PERM_RWX) $(INST_SCRIPT)/new-plugin.pl
-
-$(INST_SCRIPT)/prepare-refseqs.pl : bin/prepare-refseqs.pl $(FIRST_MAKEFILE) $(INST_SCRIPT)$(DFSEP).exists $(INST_BIN)$(DFSEP).exists
-	$(NOECHO) $(RM_F) $(INST_SCRIPT)/prepare-refseqs.pl
-	$(CP) bin/prepare-refseqs.pl $(INST_SCRIPT)/prepare-refseqs.pl
-	$(FIXIN) $(INST_SCRIPT)/prepare-refseqs.pl
-	-$(NOECHO) $(CHMOD) $(PERM_RWX) $(INST_SCRIPT)/prepare-refseqs.pl
-
-$(INST_SCRIPT)/draw-basepair-track.pl : bin/draw-basepair-track.pl $(FIRST_MAKEFILE) $(INST_SCRIPT)$(DFSEP).exists $(INST_BIN)$(DFSEP).exists
-	$(NOECHO) $(RM_F) $(INST_SCRIPT)/draw-basepair-track.pl
-	$(CP) bin/draw-basepair-track.pl $(INST_SCRIPT)/draw-basepair-track.pl
-	$(FIXIN) $(INST_SCRIPT)/draw-basepair-track.pl
-	-$(NOECHO) $(CHMOD) $(PERM_RWX) $(INST_SCRIPT)/draw-basepair-track.pl
-
-$(INST_SCRIPT)/biodb-to-json.pl : bin/biodb-to-json.pl $(FIRST_MAKEFILE) $(INST_SCRIPT)$(DFSEP).exists $(INST_BIN)$(DFSEP).exists
-	$(NOECHO) $(RM_F) $(INST_SCRIPT)/biodb-to-json.pl
-	$(CP) bin/biodb-to-json.pl $(INST_SCRIPT)/biodb-to-json.pl
-	$(FIXIN) $(INST_SCRIPT)/biodb-to-json.pl
-	-$(NOECHO) $(CHMOD) $(PERM_RWX) $(INST_SCRIPT)/biodb-to-json.pl
-
-$(INST_SCRIPT)/add-track-json.pl : bin/add-track-json.pl $(FIRST_MAKEFILE) $(INST_SCRIPT)$(DFSEP).exists $(INST_BIN)$(DFSEP).exists
-	$(NOECHO) $(RM_F) $(INST_SCRIPT)/add-track-json.pl
-	$(CP) bin/add-track-json.pl $(INST_SCRIPT)/add-track-json.pl
-	$(FIXIN) $(INST_SCRIPT)/add-track-json.pl
-	-$(NOECHO) $(CHMOD) $(PERM_RWX) $(INST_SCRIPT)/add-track-json.pl
-
-$(INST_SCRIPT)/add-bam-track.pl : bin/add-bam-track.pl $(FIRST_MAKEFILE) $(INST_SCRIPT)$(DFSEP).exists $(INST_BIN)$(DFSEP).exists
-	$(NOECHO) $(RM_F) $(INST_SCRIPT)/add-bam-track.pl
-	$(CP) bin/add-bam-track.pl $(INST_SCRIPT)/add-bam-track.pl
-	$(FIXIN) $(INST_SCRIPT)/add-bam-track.pl
-	-$(NOECHO) $(CHMOD) $(PERM_RWX) $(INST_SCRIPT)/add-bam-track.pl
+	  $(INST_SCRIPT)/flatfile-to-json.pl $(INST_SCRIPT)/ucsc-to-json.pl \
+	  $(INST_SCRIPT)/new-plugin.pl $(INST_SCRIPT)/add-bam-track.pl \
+	  $(INST_SCRIPT)/add-track-json.pl $(INST_SCRIPT)/json2conf.pl \
+	  $(INST_SCRIPT)/prepare-refseqs.pl $(INST_SCRIPT)/generate-names.pl \
+	  $(INST_SCRIPT)/biodb-to-json.pl $(INST_SCRIPT)/add-bw-track.pl \
+	  $(INST_SCRIPT)/maker2jbrowse $(INST_SCRIPT)/add-json.pl \
+	  $(INST_SCRIPT)/draw-basepair-track.pl $(INST_SCRIPT)/remove-track.pl 
 
 $(INST_SCRIPT)/flatfile-to-json.pl : bin/flatfile-to-json.pl $(FIRST_MAKEFILE) $(INST_SCRIPT)$(DFSEP).exists $(INST_BIN)$(DFSEP).exists
 	$(NOECHO) $(RM_F) $(INST_SCRIPT)/flatfile-to-json.pl
@@ -741,11 +681,59 @@ $(INST_SCRIPT)/flatfile-to-json.pl : bin/flatfile-to-json.pl $(FIRST_MAKEFILE) $
 	$(FIXIN) $(INST_SCRIPT)/flatfile-to-json.pl
 	-$(NOECHO) $(CHMOD) $(PERM_RWX) $(INST_SCRIPT)/flatfile-to-json.pl
 
+$(INST_SCRIPT)/ucsc-to-json.pl : bin/ucsc-to-json.pl $(FIRST_MAKEFILE) $(INST_SCRIPT)$(DFSEP).exists $(INST_BIN)$(DFSEP).exists
+	$(NOECHO) $(RM_F) $(INST_SCRIPT)/ucsc-to-json.pl
+	$(CP) bin/ucsc-to-json.pl $(INST_SCRIPT)/ucsc-to-json.pl
+	$(FIXIN) $(INST_SCRIPT)/ucsc-to-json.pl
+	-$(NOECHO) $(CHMOD) $(PERM_RWX) $(INST_SCRIPT)/ucsc-to-json.pl
+
+$(INST_SCRIPT)/new-plugin.pl : bin/new-plugin.pl $(FIRST_MAKEFILE) $(INST_SCRIPT)$(DFSEP).exists $(INST_BIN)$(DFSEP).exists
+	$(NOECHO) $(RM_F) $(INST_SCRIPT)/new-plugin.pl
+	$(CP) bin/new-plugin.pl $(INST_SCRIPT)/new-plugin.pl
+	$(FIXIN) $(INST_SCRIPT)/new-plugin.pl
+	-$(NOECHO) $(CHMOD) $(PERM_RWX) $(INST_SCRIPT)/new-plugin.pl
+
+$(INST_SCRIPT)/add-bam-track.pl : bin/add-bam-track.pl $(FIRST_MAKEFILE) $(INST_SCRIPT)$(DFSEP).exists $(INST_BIN)$(DFSEP).exists
+	$(NOECHO) $(RM_F) $(INST_SCRIPT)/add-bam-track.pl
+	$(CP) bin/add-bam-track.pl $(INST_SCRIPT)/add-bam-track.pl
+	$(FIXIN) $(INST_SCRIPT)/add-bam-track.pl
+	-$(NOECHO) $(CHMOD) $(PERM_RWX) $(INST_SCRIPT)/add-bam-track.pl
+
+$(INST_SCRIPT)/add-track-json.pl : bin/add-track-json.pl $(FIRST_MAKEFILE) $(INST_SCRIPT)$(DFSEP).exists $(INST_BIN)$(DFSEP).exists
+	$(NOECHO) $(RM_F) $(INST_SCRIPT)/add-track-json.pl
+	$(CP) bin/add-track-json.pl $(INST_SCRIPT)/add-track-json.pl
+	$(FIXIN) $(INST_SCRIPT)/add-track-json.pl
+	-$(NOECHO) $(CHMOD) $(PERM_RWX) $(INST_SCRIPT)/add-track-json.pl
+
+$(INST_SCRIPT)/json2conf.pl : bin/json2conf.pl $(FIRST_MAKEFILE) $(INST_SCRIPT)$(DFSEP).exists $(INST_BIN)$(DFSEP).exists
+	$(NOECHO) $(RM_F) $(INST_SCRIPT)/json2conf.pl
+	$(CP) bin/json2conf.pl $(INST_SCRIPT)/json2conf.pl
+	$(FIXIN) $(INST_SCRIPT)/json2conf.pl
+	-$(NOECHO) $(CHMOD) $(PERM_RWX) $(INST_SCRIPT)/json2conf.pl
+
+$(INST_SCRIPT)/prepare-refseqs.pl : bin/prepare-refseqs.pl $(FIRST_MAKEFILE) $(INST_SCRIPT)$(DFSEP).exists $(INST_BIN)$(DFSEP).exists
+	$(NOECHO) $(RM_F) $(INST_SCRIPT)/prepare-refseqs.pl
+	$(CP) bin/prepare-refseqs.pl $(INST_SCRIPT)/prepare-refseqs.pl
+	$(FIXIN) $(INST_SCRIPT)/prepare-refseqs.pl
+	-$(NOECHO) $(CHMOD) $(PERM_RWX) $(INST_SCRIPT)/prepare-refseqs.pl
+
 $(INST_SCRIPT)/generate-names.pl : bin/generate-names.pl $(FIRST_MAKEFILE) $(INST_SCRIPT)$(DFSEP).exists $(INST_BIN)$(DFSEP).exists
 	$(NOECHO) $(RM_F) $(INST_SCRIPT)/generate-names.pl
 	$(CP) bin/generate-names.pl $(INST_SCRIPT)/generate-names.pl
 	$(FIXIN) $(INST_SCRIPT)/generate-names.pl
 	-$(NOECHO) $(CHMOD) $(PERM_RWX) $(INST_SCRIPT)/generate-names.pl
+
+$(INST_SCRIPT)/biodb-to-json.pl : bin/biodb-to-json.pl $(FIRST_MAKEFILE) $(INST_SCRIPT)$(DFSEP).exists $(INST_BIN)$(DFSEP).exists
+	$(NOECHO) $(RM_F) $(INST_SCRIPT)/biodb-to-json.pl
+	$(CP) bin/biodb-to-json.pl $(INST_SCRIPT)/biodb-to-json.pl
+	$(FIXIN) $(INST_SCRIPT)/biodb-to-json.pl
+	-$(NOECHO) $(CHMOD) $(PERM_RWX) $(INST_SCRIPT)/biodb-to-json.pl
+
+$(INST_SCRIPT)/add-bw-track.pl : bin/add-bw-track.pl $(FIRST_MAKEFILE) $(INST_SCRIPT)$(DFSEP).exists $(INST_BIN)$(DFSEP).exists
+	$(NOECHO) $(RM_F) $(INST_SCRIPT)/add-bw-track.pl
+	$(CP) bin/add-bw-track.pl $(INST_SCRIPT)/add-bw-track.pl
+	$(FIXIN) $(INST_SCRIPT)/add-bw-track.pl
+	-$(NOECHO) $(CHMOD) $(PERM_RWX) $(INST_SCRIPT)/add-bw-track.pl
 
 $(INST_SCRIPT)/maker2jbrowse : bin/maker2jbrowse $(FIRST_MAKEFILE) $(INST_SCRIPT)$(DFSEP).exists $(INST_BIN)$(DFSEP).exists
 	$(NOECHO) $(RM_F) $(INST_SCRIPT)/maker2jbrowse
@@ -753,11 +741,23 @@ $(INST_SCRIPT)/maker2jbrowse : bin/maker2jbrowse $(FIRST_MAKEFILE) $(INST_SCRIPT
 	$(FIXIN) $(INST_SCRIPT)/maker2jbrowse
 	-$(NOECHO) $(CHMOD) $(PERM_RWX) $(INST_SCRIPT)/maker2jbrowse
 
-$(INST_SCRIPT)/json2conf.pl : bin/json2conf.pl $(FIRST_MAKEFILE) $(INST_SCRIPT)$(DFSEP).exists $(INST_BIN)$(DFSEP).exists
-	$(NOECHO) $(RM_F) $(INST_SCRIPT)/json2conf.pl
-	$(CP) bin/json2conf.pl $(INST_SCRIPT)/json2conf.pl
-	$(FIXIN) $(INST_SCRIPT)/json2conf.pl
-	-$(NOECHO) $(CHMOD) $(PERM_RWX) $(INST_SCRIPT)/json2conf.pl
+$(INST_SCRIPT)/add-json.pl : bin/add-json.pl $(FIRST_MAKEFILE) $(INST_SCRIPT)$(DFSEP).exists $(INST_BIN)$(DFSEP).exists
+	$(NOECHO) $(RM_F) $(INST_SCRIPT)/add-json.pl
+	$(CP) bin/add-json.pl $(INST_SCRIPT)/add-json.pl
+	$(FIXIN) $(INST_SCRIPT)/add-json.pl
+	-$(NOECHO) $(CHMOD) $(PERM_RWX) $(INST_SCRIPT)/add-json.pl
+
+$(INST_SCRIPT)/draw-basepair-track.pl : bin/draw-basepair-track.pl $(FIRST_MAKEFILE) $(INST_SCRIPT)$(DFSEP).exists $(INST_BIN)$(DFSEP).exists
+	$(NOECHO) $(RM_F) $(INST_SCRIPT)/draw-basepair-track.pl
+	$(CP) bin/draw-basepair-track.pl $(INST_SCRIPT)/draw-basepair-track.pl
+	$(FIXIN) $(INST_SCRIPT)/draw-basepair-track.pl
+	-$(NOECHO) $(CHMOD) $(PERM_RWX) $(INST_SCRIPT)/draw-basepair-track.pl
+
+$(INST_SCRIPT)/remove-track.pl : bin/remove-track.pl $(FIRST_MAKEFILE) $(INST_SCRIPT)$(DFSEP).exists $(INST_BIN)$(DFSEP).exists
+	$(NOECHO) $(RM_F) $(INST_SCRIPT)/remove-track.pl
+	$(CP) bin/remove-track.pl $(INST_SCRIPT)/remove-track.pl
+	$(FIXIN) $(INST_SCRIPT)/remove-track.pl
+	-$(NOECHO) $(CHMOD) $(PERM_RWX) $(INST_SCRIPT)/remove-track.pl
 
 
 

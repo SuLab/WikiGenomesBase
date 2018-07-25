@@ -27,32 +27,6 @@
          "trackType" : "CanvasFeatures",
          "type" : "CanvasFeatures",
          "urlTemplate" : "tracks/genes/{refseq}/trackData.json"
-      },
-      {
-         "compress" : 0,
-         "key" : "operons",
-         "label" : "operons",
-         "storeClass" : "JBrowse/Store/SeqFeature/NCList",
-         "style" : {
-            "className" : "feature",
-            "color" : "#385d94"
-         },
-         "trackType" : "CanvasFeatures",
-         "type" : "CanvasFeatures",
-         "urlTemplate" : "tracks/operons/{refseq}/trackData.json"
-      },
-      {
-         "compress" : 0,
-         "key" : "mutants",
-         "label" : "mutants",
-         "storeClass" : "JBrowse/Store/SeqFeature/NCList",
-         "style" : {
-            "className" : "feature",
-            "color" : "red"
-         },
-         "trackType" : "CanvasFeatures",
-         "type" : "CanvasFeatures",
-         "urlTemplate" : "tracks/mutants/{refseq}/trackData.json"
       }
    ]
 }
