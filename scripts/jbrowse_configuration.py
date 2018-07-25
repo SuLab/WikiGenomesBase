@@ -77,17 +77,20 @@ class GenomeDataRetrieval(object):
         filepath = self.dirpath + "trackList.json"
 
         geneTrack = {
-            "type": "JBrowse/View/Track/CanvasFeatures",
+            "compress" : 0,
+            "key" : "genes",
+            "label" : "genes",
+            "storeClass" : "JBrowse/Store/SeqFeature/NCList",
+            "trackType" : "CanvasFeatures",
+            "type" : "CanvasFeatures",
+            "urlTemplate" : "tracks/genes/{refseq}/trackData.json",
             "style": {
+                "className" : "feature",
                 "color": "#99c2ff"
             },
-            "label": "genes_canvas_mod",
-            "storeClass": "JBrowse/Store/SeqFeature/GFF3",
-            "urlTemplate": "{}_genes.gff".format(self.taxid),
-            "key": "genes_canvas_mod",
             "onClick": {
                 "label": "right-click for more options",
-                "action": "function( track, feature, div ){var top_url = (window.location != window.parent.location)? document.referrer: document.location.href; var pre_url = top_url.split('/');  var taxid = pre_url[4]; var new_url = ['http:/' , pre_url[2], 'organism', taxid, 'gene', this.feature.data.id].join('/'); return window.parent.location=new_url}"
+                "action": "function( track, feature, div ){var top_url = (window.location != window.parent.location)? document.referrer: document.location.href; var pre_url = top_url.split('/');  var taxid = this.feature[7]; var new_url = ['https:/' , pre_url[2], 'organism', taxid, 'gene', this.feature[4]].join('/'); return window.parent.location=new_url}"
             },
             "menuTemplate": [
                 {
@@ -99,48 +102,58 @@ class GenomeDataRetrieval(object):
                 {
                     "label": "load this gene page",
                     "iconClass": "dijitIconDatabase",
-                    "action": "function( track, feature, div ){var top_url = (window.location != window.parent.location)? document.referrer: document.location.href; var pre_url = top_url.split('/');  var taxid = pre_url[4]; var new_url = ['http:/' , pre_url[2], 'organism', taxid, 'gene', this.feature.data.id].join('/'); return window.parent.location=new_url}"
+                    "action": "function( track, feature, div ){var top_url = (window.location != window.parent.location)? document.referrer: document.location.href; var pre_url = top_url.split('/');  var taxid = this.feature[7]; var new_url = ['https:/' , pre_url[2], 'organism', taxid, 'gene', this.feature[4]].join('/'); return window.parent.location=new_url}"
                 }
             ]
 
         }
 
         mutantTrack = {
-            "type": "JBrowse/View/Track/CanvasFeatures",
-            "style": {
-                "color": "red"
-            },
-            "label": "mutants_canvas_mod",
-            "storeClass": "JBrowse/Store/SeqFeature/GFF3",
-            "urlTemplate": "{}_mutants.gff".format(self.taxid),  # name of mutant gff file
-            "key": "mutants_canvas_mod"
+         "compress" : 0,
+         "key" : "mutants",
+         "label" : "mutants",
+         "storeClass" : "JBrowse/Store/SeqFeature/NCList",
+         "style" : {
+            "className" : "feature",
+            "color": "#FF0000"
+         },
+         "trackType" : "CanvasFeatures",
+         "type" : "CanvasFeatures",
+         "urlTemplate" : "tracks/mutants/{refseq}/trackData.json"
         }
 
         operonTrack = {
-            "type": "JBrowse/View/Track/CanvasFeatures",
-            "style": {
-                "color": "#385d94"
-            },
-            "label": "operons_canvas_mod",
-            "storeClass": "JBrowse/Store/SeqFeature/GFF3",
-            "urlTemplate": "{}_operons.gff".format(self.taxid),  # name of mutant gff file
-            "key": "operons_canvas_mod"
+         "compress" : 0,
+         "key" : "operons",
+         "label" : "operons",
+         "storeClass" : "JBrowse/Store/SeqFeature/NCList",
+         "style" : {
+            "className" : "feature",
+            "color": "#134ca0"
+         },
+         "trackType" : "CanvasFeatures",
+         "type" : "CanvasFeatures",
+         "urlTemplate" : "tracks/operons/{refseq}/trackData.json"
         }
 
         trackList_json = {
-            "trackSelector": {
-                "type": "Faceted"
+            "formatVersion" : 1,
+            "names" : {
+              "type" : "Hash",
+              "url" : "names/"
             },
-            "formatVersion": 1,
+            "trackSelector" : {
+              "type" : "Faceted"
+            },
             "tracks": [
                 {
-                    "urlTemplate": "seq/{refseq_dirpath}/{refseq}-",
-                    "storeClass": "JBrowse/Store/Sequence/StaticChunked",
-                    "key": "Reference sequence",
-                    "type": "SequenceTrack",
-                    "chunkSize": 20000,
-                    "label": "DNA",
-                    "category": "Reference sequence"
+                 "category" : "Reference sequence",
+                 "chunkSize" : 20000,
+                 "key" : "Reference sequence",
+                 "label" : "DNA",
+                 "storeClass" : "JBrowse/Store/Sequence/StaticChunked",
+                 "type" : "SequenceTrack",
+                 "urlTemplate" : "seq/{refseq_dirpath}/{refseq}-"
                 },
                 mutantTrack,
                 geneTrack,
@@ -209,7 +222,7 @@ class FeatureDataRetrieval(object):
             
             Will overwrite the previous gff file
             
-            Does not automatically integrate data to JBrowse
+            Does automatically integrate data to JBrowse
         """
         filepath = self.dirpath + '{}_genes.gff'.format(self.taxid)
         with open(filepath, 'w', newline='\n') as csvfile:
@@ -219,7 +232,7 @@ class FeatureDataRetrieval(object):
             for gene in genes:
                 featurewriter.writerow(
                     [gene['refSeq'], 'NCBI Gene', 'Gene', gene['start'], gene['end'], '.', gene['strand'],
-                     '.', 'id={}'.format(gene['locusTag'])])
+                     '.', 'id={};'.format(gene['locusTag']) + 'taxid={}'.format(self.taxid)])
         self.write_to_canvas(type="genes")
 
     def get_wd_operons(self):
@@ -257,7 +270,7 @@ class FeatureDataRetrieval(object):
             
             Will overwrite the previous gff file
             
-            Does not automatically integrate data to JBrowse
+            Does automatically integrate data to JBrowse
         """
         filepath = self.dirpath + '{}_operons.gff'.format(self.taxid)
         with open(filepath, 'w', newline='\n') as csvfile:
@@ -289,7 +302,7 @@ class FeatureDataRetrieval(object):
             
             Will overwrite the previous gff file
             
-            Does not automatically integrate data to JBrowse
+            Does automatically integrate data to JBrowse
         """
         filepath = self.dirpath + '{}_mutants.gff'.format(self.taxid)
         with open(filepath, 'w', newline='\n') as csvfile:

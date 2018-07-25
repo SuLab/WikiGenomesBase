@@ -23,3 +23,6 @@ Install NPM
 npm install grunt-cli -g
 From chlambase directory, npm install
 Then, do "grunt minify" to minify and rebuild classes
+
+Also need to run ./setup in the JBROWSE directory
+(Does not work on windows)
