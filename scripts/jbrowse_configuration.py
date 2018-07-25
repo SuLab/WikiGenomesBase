@@ -158,6 +158,20 @@ class FeatureDataRetrieval(object):
         """
         self.taxid = taxid
         self.dirpath = BASE_DIR + '/wiki/static/wiki/js/external_js/JBrowse-1.14.1/{}_data/'.format(self.taxid)
+        
+    def write_to_canvas(self, type):
+        """
+        write_to_canvas(type)
+            Adds a gff file to the JBrowse Canvas
+        :param type: String; takes one of three values: genes, mutants, operons
+        """
+        prep_cf = BASE_DIR + '/wiki/static/wiki/js/external_js/JBrowse-1.14.1/bin/flatfile-to-json.pl'
+        sub_args = [prep_cf, "--gff", self.dirpath + self.taxid + "_{}.gff".format(type), "--trackType", 
+            "CanvasFeatures", "--trackLabel", type, "--out", self.dirpath]
+        subprocess.call(sub_args)
+        
+        # now index the names to let users search by feature name or ID
+        subprocess.call([BASE_DIR + '/wiki/static/wiki/js/external_js/JBrowse-1.14.1/bin/generate-names.pl', "--out", self.dirpath])
 
     def get_wd_genes(self):
         """
@@ -171,7 +185,6 @@ class FeatureDataRetrieval(object):
             tidGenes = queryObj.genes4tid()
             for gene in tidGenes:
                 geneObj = {
-                    '_id': gene['uniqueID']['value'],
                     'entrez': gene['entrezGeneID']['value'],
                     'start': gene['start']['value'],
                     'end': gene['end']['value'],
@@ -180,13 +193,12 @@ class FeatureDataRetrieval(object):
                     'locusTag': gene['name']['value'],
                     'label': gene['description']['value'],
                     'refSeq': gene['refSeq']['value'],
-                    'taxid': self.taxid,
-                    'timestamp': strftime("%Y-%m-%d %H:%M:%S", gmtime())
+                    'taxid': self.taxid
                 }
                 tidGeneList.append(geneObj)
             return tidGeneList
         except Exception as e:
-            print(e)
+            print("Exception in get_wd_genes for " + self.taxid + ": " + e)
             return []
        
     def genes2gff(self):
@@ -203,11 +215,12 @@ class FeatureDataRetrieval(object):
         with open(filepath, 'w', newline='\n') as csvfile:
             featurewriter = csv.writer(csvfile, delimiter='\t')
             # genewriter.writerow(['seqid', 'source', 'type', 'start', 'end', 'score', 'strand', 'phase', 'attributes'])
-            genes = get_wd_genes()
+            genes = self.get_wd_genes()
             for gene in genes:
                 featurewriter.writerow(
                     [gene['refSeq'], 'NCBI Gene', 'Gene', gene['start'], gene['end'], '.', gene['strand'],
                      '.', 'id={}'.format(gene['locusTag'])])
+        self.write_to_canvas(type="genes")
 
     def get_wd_operons(self):
         """
@@ -219,7 +232,7 @@ class FeatureDataRetrieval(object):
             tidOperonsList = []
             queryObj = WDSparqlQueries(taxid=self.taxid)
             tidOperons = queryObj.operons4tid()
-
+            
             for operon in tidOperons:
                 oepronObj = {
                     'start': operon['start']['value'],
@@ -228,13 +241,12 @@ class FeatureDataRetrieval(object):
                     'uri': operon['uri']['value'],
                     'label': operon['description']['value'],
                     'refSeq': operon['refSeq']['value'],
-                    'taxid': self.taxid,
-                    'timestamp': strftime("%Y-%m-%d %H:%M:%S", gmtime())
+                    'taxid': self.taxid
                 }
                 tidOperonsList.append(oepronObj)
             return tidOperonsList
         except Exception as e:
-            print(e)
+            print("Exception in get_wd_operons for " + self.taxid + ": " + e)
             return []
             
     def operons2gff(self):
@@ -250,11 +262,12 @@ class FeatureDataRetrieval(object):
         filepath = self.dirpath + '{}_operons.gff'.format(self.taxid)
         with open(filepath, 'w', newline='\n') as csvfile:
             featurewriter = csv.writer(csvfile, delimiter='\t')
-            operons = get_wd_operons()
+            operons = self.get_wd_operons()
             for operon in operons:
                 featurewriter.writerow(
                     [operon['refSeq'], 'PubMed', 'Operon', operon['start'], operon['end'], '.', operon['strand'],
                      '.', 'id={}'.format(operon['label'])])
+        self.write_to_canvas(type="operons")
 
     def get_mutants(self):
         """
@@ -281,7 +294,7 @@ class FeatureDataRetrieval(object):
         filepath = self.dirpath + '{}_mutants.gff'.format(self.taxid)
         with open(filepath, 'w', newline='\n') as csvfile:
             featurewriter = csv.writer(csvfile, delimiter='\t')
-            mutants = get_mutants()
+            mutants = self.get_mutants()
             for mutant in mutants:
                 featurewriter.writerow(
                     [
@@ -297,3 +310,4 @@ class FeatureDataRetrieval(object):
                     ]
 
                 )
+        self.write_to_canvas(type="mutants")

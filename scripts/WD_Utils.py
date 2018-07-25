@@ -57,55 +57,47 @@ class WDSparqlQueries(object):
         return final_qid[0]
 
     def genes4tid(self):
-        queryPrefixes = '''PREFIX wdt: <http://www.wikidata.org/prop/direct/>
-        PREFIX wd: <http://www.wikidata.org/entity/> PREFIX qualifier:
-        <http://www.wikidata.org/prop/qualifier/>'''
-        preQuery = '''SELECT ?start ?end ?uniqueID ?strand ?uri ?entrezGeneID ?name ?description ?refSeq
-        WHERE {
-        ?gene wdt:P279 wd:Q7187;
-        wdt:P703 ?strain;
-        wdt:P351 ?uniqueID;
-        wdt:P351 ?entrezGeneID;
-        wdt:P2393 ?name;
-        rdfs:label ?description;
-        wdt:P644 ?start;
-        wdt:P645 ?end;
-        wdt:P2548 ?wdstrand ;
-        p:P644 ?chr.
-        ?strain wdt:P685 '{TAXID}'.
-        bind( IF(?wdstrand = wd:Q22809680, '+', '-') as ?strand).
-        bind(str(?gene) as ?uri).
-        filter (lang(?description) = "en").
-        OPTIONAL {?chr qualifier:P2249 ?refSeq.}
-         }'''
+        preQuery = '''
+        SELECT ?start ?end ?strand ?uri ?entrezGeneID ?name ?description ?refSeq WHERE {
+          ?gene wdt:P279 wd:Q7187;
+                wdt:P703 ?strain;
+                wdt:P351 ?entrezGeneID;
+                wdt:P2393 ?name;
+                rdfs:label ?description;
+                wdt:P644 ?start;
+                wdt:P645 ?end;
+                wdt:P2548 ?wdstrand ;
+                p:P644 ?claim.
+          ?strain wdt:P685 '{TAXID}'.
+          ?claim pq:P1057/wdt:P2249 ?refSeq.
+          bind( IF(?wdstrand = wd:Q22809680, '+', '-') as ?strand).
+          bind(str(?gene) as ?uri).
+          filter (lang(?description) = "en").
+        }'''
         query = preQuery.replace('{TAXID}', self.taxid)
-        results = self.execute_query(queryPrefixes + query)
+        results = self.execute_query(query)
         return results['results']['bindings']
 
     def operons4tid(self):
-        queryPrefixes = '''PREFIX wdt: <http://www.wikidata.org/prop/direct/>
-        PREFIX wd: <http://www.wikidata.org/entity/>
-        PREFIX qualifier: <http://www.wikidata.org/prop/qualifier/>'''
-        preQuery = '''SELECT ?uniqueID ?description ?strand  (MIN(?gstart) AS ?start)  (MAX(?gend) AS ?end) ?uri ?refSeq
-        WHERE {
-        ?strain wdt:P685 '{TAXID}'.
-        ?operon wdt:P279 wd:Q139677;
-        wdt:P703 ?strain;
-        rdfs:label ?description;
-        wdt:P2548 ?wdstrand;
-        wdt:P527 ?genes.
-        ?genes wdt:P644 ?gstart;
-        wdt:P645 ?gend;
-        p:P644 ?chr.
-        filter (lang(?description) = "en").
-        OPTIONAL {?chr qualifier:P2249 ?refSeq.}
-        bind( IF(?wdstrand = wd:Q22809680, '1', '-1') as ?strand).
-        bind(str(?operon) as ?uri)
-        bind( strafter( str(?operon), "entity/" ) as ?uniqueID ).
+        preQuery = '''
+        SELECT DISTINCT ?description ?strand  (MIN(?gstart) AS ?start)  (MAX(?gend) AS ?end) ?uri ?refSeq WHERE {
+          ?strain wdt:P685 '{TAXID}'.
+          ?operon (wdt:P279|wdt:P31) wd:Q139677;
+                  wdt:P703 ?strain;
+                  rdfs:label ?description;
+                  wdt:P2548 ?wdstrand;
+                  wdt:P527+ ?genes.
+          ?genes wdt:P644 ?gstart;
+                 wdt:P645 ?gend;
+                 p:P644 ?claim.
+          ?claim pq:P1057/wdt:P2249 ?refSeq.
+          bind( IF(?wdstrand = wd:Q22809680, '+', '-') as ?strand).
+          bind(str(?operon) as ?uri)
+            filter (lang(?description) = "en").
         }
         GROUP BY ?uniqueID ?description ?strand ?uri ?prefix ?refSeq'''
         query = preQuery.replace('{TAXID}', self.taxid)
-        results = self.execute_query(queryPrefixes + query)
+        results = self.execute_query(query)
         return results['results']['bindings']
 
 

@@ -19,12 +19,13 @@ def generate_org_list():
     """
     orgList = []
     for id in taxids:
-        org = {}
         sparql = WD_Utils.WDSparqlQueries(prop='P685', string=str(id))
         qid = sparql.wd_prop2qid()
-        org.taxon = 'http://www.wikidata.org/entity/{}'.format(qid)
-        org.taxonLabel = sparql.wd_qid2label()
-        org.taxid = id
+        org = {
+            'taxon': 'http://www.wikidata.org/entity/{}'.format(qid),
+            'taxonLabel': sparql.wd_qid2label(),
+            'taxid': id
+        }
         orgList.append(org)
 
     filepath = BASE_DIR + '/wiki/static/wiki/json/orgsList.json'
