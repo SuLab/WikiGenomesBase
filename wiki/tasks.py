@@ -53,44 +53,34 @@ def update_jbrowse_genes():
         refObj.genes2gff()
       
 @shared_task
-def update_jbrowse_mutants():
+def update_jbrowse_mutants(taxid=None):
     """
     update_jbrowse_mutants()
         Updates mutant information in JBrowse window for all taxids
-    """
-    for taxid in taxids:
-        refObj = jbrowse_configuration.FeatureDataRetrieval(taxid=taxid)
-        refObj.mutants2gff()
-        
-@shared_task
-def update_jbrowse_mutants(taxid):
-    """
-    update_jbrowse_mutants(taxid)
-        Updates mutant information in JBrowse window for a given taxid
     :param taxid: the taxid of the JBrowse mutant canvas to update
     """
-    refObj = jbrowse_configuration.FeatureDataRetrieval(taxid=taxid)
-    refObj.mutants2gff()
+    if taxid is None:
+        for taxid in taxids:
+            refObj = jbrowse_configuration.FeatureDataRetrieval(taxid=taxid)
+            refObj.mutants2gff()
+    else:
+        refObj = jbrowse_configuration.FeatureDataRetrieval(taxid=taxid)
+        refObj.mutants2gff()
     
 @shared_task
-def update_jbrowse_operons():
+def update_jbrowse_operons(taxid=None):
     """
     update_jbrowse_operons()
         Updates operon information in JBrowse window for all taxids
-    """
-    for taxid in taxids:
-        refObj = jbrowse_configuration.FeatureDataRetrieval(taxid=taxid)
-        refObj.operons2gff()
-        
-@shared_task
-def update_jbrowse_operons(taxid):
-    """
-    update_jbrowse_operons()
-        Updates operon information in JBrowse window for a given taxid
     :param taxid: the taxid of the JBrowse operon canvas to udpate
     """
-    refObj = jbrowse_configuration.FeatureDataRetrieval(taxid=taxid)
-    refObj.operons2gff()
+    if taxid is None:
+        for taxid in taxids:
+            refObj = jbrowse_configuration.FeatureDataRetrieval(taxid=taxid)
+            refObj.operons2gff()
+    else:
+        refObj = jbrowse_configuration.FeatureDataRetrieval(taxid=taxid)
+        refObj.operons2gff()
 
 def generate_app_name():
     """
