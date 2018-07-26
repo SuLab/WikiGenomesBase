@@ -135,4 +135,4 @@ STATIC_URL = '/static/'
 # CELERYBEAT_SCHEDULER = 'djcelery.schedulers.DatabaseScheduler'
 # CELERY_RESULT_BACKEND = 'djcelery.backends.database:DatabaseBackend'
 CELERY_TIMEZONE = wg_timezone
-BROKER_URL = "amqp://guest:guest@localhost:5672//"
+CELERY_BROKER_URL = "amqp://guest:guest@localhost//"
