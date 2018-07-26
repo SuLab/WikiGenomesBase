@@ -339,7 +339,7 @@ def operon_form(request):
                 pprint(e)
                 responseData['gene_write_success'] = False
 
-        update_jbrowse_operons.delay()
+        update_jbrowse_operons.delay(taxid=body['taxid'])
         pprint(responseData)
         return JsonResponse(responseData)
 
@@ -366,7 +366,7 @@ def mutant_form(request):
             try:
                 annotation = MutantMongo(mut_json=body)
                 body['write_success'] = annotation.push2mongo()['write_success']
-                update_jbrowse_mutants.delay()
+                update_jbrowse_mutants.delay(taxid=body['taxid'])
             except Exception as e:
                 body['write_success'] = False
 
@@ -374,7 +374,7 @@ def mutant_form(request):
             try:
                 annotation = MutantMongo(mut_json=body)
                 body['delete_success'] = annotation.delete_one_mongo()['delete_success']
-                update_jbrowse_mutants.delay()
+                update_jbrowse_mutants.delay(taxid=body['taxid'])
             except Exception as e:
                 body['delete_success'] = False
         return JsonResponse(body)
