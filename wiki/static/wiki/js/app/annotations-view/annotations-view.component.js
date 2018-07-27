@@ -9,30 +9,87 @@ angular
             allorggenes : "<",
             hasprotein : "<"
         },
-        controller : function() {
-
+        controller : function(annotationSettings) {
             'use strict';
-
             var ctrl = this;
+            
+            ctrl.settings = {
+                	product : true,
+                	ortholog : true,
+                	alignment: true,
+                	expression : true,
+                    go : true,
+                    localizations: true,
+                    operon : true,
+                    interpro : true,
+                    enzyme : true,
+                    mutants : true,
+                    hostpath : true,
+                    pubs : true
+                };
+            
+            ctrl.map = {
+            		product : "Gene Product",
+                	ortholog : "Orthologs",
+                	alignment: "Alignments",
+                	expression : "Expression",
+                    go : "Functions",
+                    localizations: "Localizations",
+                    operon : "Operons",
+                    interpro : "Interpro",
+                    enzyme : "Enzyme",
+                    mutants : "Mutants",
+                    hostpath : "Protein Interactions",
+                    pubs : "Related Pubs"
+            };
+            
+            annotationSettings.getSettings().then(function(response) {
+            	
+            	ctrl.settings = {
+                    	product : ctrl.settings.product && response.data["protein-view"],
+                    	ortholog : ctrl.settings.ortholog && response.data["ortholog-view"],
+                    	alignment: ctrl.settings.alignment && response.data["alignment-view"],
+                    	expression : ctrl.settings.expression && response.data["expression-view"],
+                        go : ctrl.settings.go && response.data["function-view"],
+                        localizations: ctrl.settings.localizations && response.data["localization-view"],
+                        operon : ctrl.settings.operon && response.data["operon-view"],
+                        interpro : ctrl.settings.interpro && response.data["interpro-view"],
+                        enzyme : ctrl.settings.enzyme && response.data["enzyme-view"],
+                        mutants : ctrl.settings.mutants && response.data["mutant-view"],
+                        hostpath : ctrl.settings.hostpath && response.data["protein-interaction-view"],
+                        pubs : ctrl.settings.pubs && response.data["related-publication-view"]
+                    };
+            	
+                ctrl.table = [];
+                var index = 0;
+                var count = 0;
+                angular.forEach(ctrl.settings, function(value, key) {
+                	 if (value) {
+                		 if (count != 0 && count % 6 == 0) {
+                			 index++;
+                		 }
+                		 if (!ctrl.table[index]) {
+                			 ctrl.table[index] = [key];
+                		 } else {
+                			 ctrl.table[index].push(key);
+                		 }
+                		 count++;
+                	 }
+                });
+                
+            });
 
             ctrl.$onChanges = function(changes) {
-                if (changes.hasprotein) {
+                if (changes.hasprotein === false) {
                     // settings for visibility of each annotation view
-                    ctrl.settings = {
-                        go : changes.hasprotein.currentValue,
-                        operon : true,
-                        interpro : changes.hasprotein.currentValue,
-                        enzyme : changes.hasprotein.currentValue,
-                        mutants : true,
-                        pubs : true,
-                        product : changes.hasprotein.currentValue,
-                        ortholog : true,
-                        alignment: true,
-                        expression : true,
-                        hostpath : true,
-                        localizations: changes.hasprotein.currentValue
-                    };
+                    ctrl.settings.product = false;
+                    ctrl.settings.go = false;
+                    ctrl.settings.localizations = false;
+                    ctrl.settings.interpro = false;
+                    ctrl.settings.enzyme = false;
+                    ctrl.settings.hostpath = false;
                 }
+                
             };
 
             ctrl.$onInit = function() {
@@ -80,6 +137,6 @@ angular
                     isFirstDisabled : false
                 };
             };
-
+       
         }
     });

@@ -503,6 +503,20 @@ angular
     });
 
 angular
+	.module('resources')
+	.factory('annotationSettings', function($http){
+		var getSettings = function() {
+			return $http.get("/static/wiki/json/module_settings.json").then(function(response) {
+				return response;
+			});
+		};
+		
+		return {
+			getSettings: getSettings
+		};
+	});
+
+angular
     .module('resources')
     .factory('OperonData', function ($http) {
         var endpoint = 'https://query.wikidata.org/sparql?format=json&query=';

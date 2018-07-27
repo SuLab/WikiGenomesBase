@@ -7,6 +7,9 @@ from application_settings import mongo_database
 client = MongoClient()
 db = client[mongo_database]
 
+print("Generating Module Settings")
+tasks.generate_module_settings()
+
 print("Generating Reference Genomes")
 tasks.generate_org_list()        # generate the list of organisms in json so front end can access easily
 tasks.generate_jbrowse_data()    # generate the core Jbrowse data (ref seq and gene annotations)

@@ -13,17 +13,27 @@
     </div>
 </script>
 
-<div class="row">
-    <div class="col-md-1"><h4>Annotations</h4></div>
-    <div class="col-md-8"></div>
-    <div class="col-md-1">
-    </div>
-    <div class="col-md-1 btn btn-default btn-sm" ng-click="$ctrl.expandAll()">Expand all
-    </div>
-    <div class="col-md-1 btn btn-default btn-sm" ng-click="$ctrl.collapseAll()">Collapse all
+<h4>Module Dashboard</h4>
+<div class="well container-fluid">
+	<div class="col-sm-1">
+		<label>Show:</label>
+	</div>
+	<div class="col-sm-10">
+		<table>
+			<tr ng-repeat="x in $ctrl.table">
+				<td ng-repeat="key in x">
+					<input type="checkbox" ng-model="$ctrl.accordion[key]"> {{$ctrl.map[key]}} &nbsp;
+				</td>
+			</tr>
+		</table>
+	</div>
+	<div class="col-sm-1">
+		<div class="btn btn-default btn-xs" ng-click="$ctrl.expandAll()">Expand all</div><br>
+		<div class="btn btn-default btn-xs" ng-click="$ctrl.collapseAll()">Collapse all</div>
     </div>
 </div>
 
+<h4>Annotations</h4>
 <uib-accordion close-others="false">
     <div uib-accordion-group ng-class="{'panel-info': true}"
     	 ng-if="$ctrl.settings.product"

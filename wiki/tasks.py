@@ -2,7 +2,7 @@ from __future__ import absolute_import, unicode_literals
 from wikigenomes.settings import BASE_DIR
 from celery import shared_task
 from scripts import jbrowse_configuration, flatfile_ingestion, WD_Utils
-from application_settings import taxids, title
+from application_settings import taxids, title, modules
 from pymongo import MongoClient
 from bson.json_util import dumps
 from pprint import pprint
@@ -31,6 +31,17 @@ def generate_org_list():
     filepath = BASE_DIR + '/wiki/static/wiki/json/orgsList.json'
     with open(filepath, 'w') as outFile:
         print(dumps(orgList), file=outFile)
+		
+def generate_module_settings():
+    """
+    generate_module_settings()
+        Generates a json setting file of the modules specified in application_settings
+        
+        Used to determine which modules to display in the annotation view
+    """
+    filepath = BASE_DIR + '/wiki/static/wiki/json/module_settings.json'
+    with open(filepath, 'w') as outFile:
+        print(dumps(modules), file=outFile)
 
 def generate_jbrowse_data():
     """
