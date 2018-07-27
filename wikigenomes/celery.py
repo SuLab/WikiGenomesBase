@@ -28,18 +28,8 @@ def debug_task(self):
 
 app.conf.beat_schedule = {
     'weekly-genome-operations': {
-        'task': 'wiki.tasks.get_wd_genome_data',
+        'task': 'wiki.tasks.update_jbrowse_genes',
         'schedule': crontab(hour=0, minute=5, day_of_week=6),
-        'args': ()
-    },
-    'weekly-feature-operations': {
-        'task': 'wiki.tasks.get_wd_features',
-        'schedule': crontab(hour=0, minute=25, day_of_week=6),
-        'args': ()
-    },
-    'weekly-update-orthologues': {
-        'task': 'wiki.tasks.update_orthologues',
-        'schedule': 10.0,
         'args': ()
     }
 }

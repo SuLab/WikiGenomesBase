@@ -318,6 +318,34 @@ angular
         };
     });
 
+//annotations data
+angular
+  .module('resources')
+  .factory('proteinMass', function ($http, $q) {
+      var endpoint = 'https://www.uniprot.org/uniprot/{}.xml';
+      var getMass = function (uniprot) {
+          var url = endpoint.replace("{}", uniprot);
+          var deferred = $q.defer();
+          $http.get(url)
+          .success(function (response) {
+              
+              var pattern = /mass="\d+"/;
+              
+              return deferred.resolve(response.match(pattern)[0].match(/\d+/)[0]);
+
+          })
+          .error(function (response) {
+              return deferred.reject(response);
+          });
+          return deferred.promise;
+      };
+      return {
+          getMass: getMass
+      };
+
+
+  });
+
 
 //annotations data
 angular
@@ -508,24 +536,21 @@ angular
         var endpoint = 'https://query.wikidata.org/sparql?format=json&query=';
         var getOperonData = function (entrez) {
             var url = endpoint + encodeURIComponent(
-                    "SELECT ?gene ?locusTag ?entrez ?operon ?operonLabel ?operonItem  ?operonItemLabel ?genStart ?genEnd ?strand " +
-                    "?strandLabel ?op_genes ?reference_stated_in ?reference_stated_inLabel ?op_genesLabel " +
-                    "?reference_pmid " +
-                    "WHERE { " +
-                    "?gene wdt:P351 '" + entrez + "'; " +
-                    "p:P361 ?operon. " +
-                    "?operon ps:P361 ?operonItem. " +
-                    "?operonItem wdt:P279 wd:Q139677; " +
-                    "wdt:P527 ?op_genes. " +
-                    "?op_genes wdt:P2393 ?locusTag; " +
-                    "wdt:P351 ?entrez; " +
-                    "wdt:P644 ?genStart; " +
-                    "wdt:P645 ?genEnd; " +
-                    "wdt:P2548 ?strand." +
-                    "OPTIONAL { " +
-                    "?operon prov:wasDerivedFrom/pr:P248 ?reference_stated_in. " +
-                    "?reference_stated_in wdt:P698 ?reference_pmid. } " +
-                    "SERVICE wikibase:label { bd:serviceParam wikibase:language 'en' . }}"
+            		"SELECT ?operonItemLabel ?op_genesLabel ?locusTag ?entrez ?genStart ?genEnd ?strandLabel ?reference_stated_inLabel ?reference_pmid WHERE {" +
+            			  "?gene wdt:P351 '"+entrez+"'." +
+            			  "?gene p:P361 ?operon." +
+            			  "?operon ps:P361 ?operonItem." +
+            			  "?operonItem wdt:P31 wd:Q139677." +
+            			  "?operonItem wdt:P527 ?op_genes." +
+            			  "?op_genes wdt:P2393 ?locusTag." +
+            			  "?op_genes wdt:P351 ?entrez." +
+            			  "?op_genes wdt:P644 ?genStart." +
+            			  "?op_genes wdt:P645 ?genEnd." +
+            			  "?op_genes wdt:P2548 ?strand." +
+            			  "?operon (prov:wasDerivedFrom/pr:P248) ?reference_stated_in." +
+            			  "?reference_stated_in wdt:P698 ?reference_pmid." +
+            			  "SERVICE wikibase:label { bd:serviceParam wikibase:language 'en'. }" +
+            			"}"
                 );
             return $http.get(url)
                 .success(function (response) {
@@ -540,6 +565,130 @@ angular
             getOperonData: getOperonData
         };
     });
+
+angular
+	.module('resources')
+	.factory('geneSequenceData', function($http, $q) {
+    'use strict';
+
+    var getSequence = function(value) {
+
+        var deferred = $q.defer();
+
+        // first get the UID from the nuccore database
+        $http.get('https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=gene&term=' + value).success(function(response) {
+
+            // data in string as xml, find the ID
+            var xml = response;
+            if (xml.includes("<Id>")) {
+
+                // extract the id
+                var id = xml.substring(xml.indexOf("<Id>") + 4, xml.indexOf("</Id>"));
+
+                // now that we have the ID, get the start and stop from the summary
+                $http.get('https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esummary.fcgi?db=gene&id=' + id).success(function(resp) {
+
+                    // the response is in xml again, take out the stop and start sequences
+                    xml = resp;
+                    var start = parseInt(xml.substring(xml.indexOf("<ChrStart>") + 10, xml.indexOf("</ChrStart>"))) + 1;
+                    var stop = parseInt(xml.substring(xml.indexOf("<ChrStop>") + 9, xml.indexOf("</ChrStop>"))) + 1;
+                    var accession = xml.substring(xml.indexOf("<ChrAccVer>") + 11, xml.indexOf("</ChrAccVer>"));
+
+                    // which strand to use
+                    var strand = 1;
+
+                    if (start > stop) {
+
+                        // strand 2 when start > stop
+                        strand = 2;
+
+                        // now swap the start and stop
+                        var temp = start;
+                        start = stop;
+                        stop = temp;
+                    }
+
+                    // now do the efetch
+                    $http.get("https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=nuccore&id=" + accession + "&seq_start=" + start + "&seq_stop=" + stop + "&strand=" + strand + "&rettype=fasta").success(function(r) {
+
+                        // get the human readable name
+                        var first = "";
+                        if (r.indexOf("Chlamydia") != -1) {
+                            first = ">" + r.substring(r.indexOf("Chlamydia") + 10, r.indexOf("\n") + 1);
+                        } else {
+                            first = ">" + r.substring(r.indexOf("Chlamydophila") + 14, r.indexOf("\n") + 1);
+                        }
+                        first = first.replace(" ", "_").replace(",", " ");
+                        first = first.substring(0, 2).toUpperCase() + first.substring(2);
+                        var body = r.substring(r.indexOf("\n") + 1, r.length).replace(/\n/g, "");
+
+                        // the sequence of the gene
+                        deferred.resolve(first + body);
+
+                    }).error(function(response) {
+                        deferred.reject(response);
+                    });
+                }).error(function(response) {
+                    deferred.reject(response);
+                });
+            }
+        });
+
+        // return future gene sequence
+        return deferred.promise;
+
+    };
+
+    return {
+        getSequence : getSequence
+    };
+});
+
+angular
+	.module('resources')
+	.factory('proteinSequenceData', function($http, $q) {
+    'use strict';
+
+    // value = ref seq ID of protein
+    var getSequence = function(refseq) {
+
+        var deferred = $q.defer();
+
+        if (refseq) {
+
+            // first get the UID from the nuccore database
+            $http.get("https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=protein&id=" + refseq + "&rettype=fasta")
+
+                // success
+                .then(function(response) {
+
+                    var fasta = response.data;
+
+                    // parse out strain name
+                    var data = ">" + fasta.substring(fasta.indexOf("[") + 1, fasta.indexOf("]")).replace("Chlamydia ", "").replace(" ", "_") +
+                    "\n" + fasta.substring(fasta.indexOf("\n")).replace(/\n/g, "");
+
+                    deferred.resolve(data);
+
+                // error
+                }, function(response) {
+                    console.log("Error reading protein sequence");
+                    deferred.reject(response);
+                });
+        } else {
+            console.log("No Ref Seq ID");
+            deferred.reject();
+        }
+
+        // return future gene sequence
+        return deferred.promise;
+
+    };
+
+    return {
+        getSequence : getSequence
+    };
+});
 
 angular
     .module('resources')

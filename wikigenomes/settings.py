@@ -13,7 +13,8 @@ import os
 import djcelery
 
 djcelery.setup_loader()
-from wikigenomes_conf import secret_key, allowed_hosts, wg_timezone, user_key, user_password
+from secret_settings import secret_key, user_key, user_password, allowed_hosts, debug_mode
+from application_settings import wg_timezone
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
@@ -25,7 +26,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = secret_key
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = debug_mode
 
 ALLOWED_HOSTS = allowed_hosts
 
@@ -135,4 +136,4 @@ STATIC_URL = '/static/'
 # CELERYBEAT_SCHEDULER = 'djcelery.schedulers.DatabaseScheduler'
 # CELERY_RESULT_BACKEND = 'djcelery.backends.database:DatabaseBackend'
 CELERY_TIMEZONE = wg_timezone
-BROKER_URL = "amqp://guest:guest@localhost:5672//"
+CELERY_BROKER_URL = "amqp://guest:guest@localhost//"

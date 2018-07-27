@@ -5,6 +5,7 @@ angular
         controller: function () {
             'use strict';
             var ctrl = this;
+            
         },
         bindings: {
             protein: '<'

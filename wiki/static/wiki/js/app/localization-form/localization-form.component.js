@@ -40,11 +40,15 @@ angular
             ctrl.map = [
                 {
                     name: 'elementary body',
-                    qid: 'Q51955212',
+                    qid: ['Q51955212'],
                 },
                 {
                     name: 'reticulate body',
-                    qid: 'Q51955198',
+                    qid: ['Q51955198'],
+                },
+                {
+                	name: 'elementary body AND reticulate body',
+                	qid: ['Q51955212', 'Q51955198']
                 }
             ];
 
@@ -93,50 +97,53 @@ angular
                 	if (value) {
                         locusTag2QID.getLocusTag2QID(ctrl.orthoData[key], key).then(function (data) {
                         	
-                            var formData = {
-                            		proteinQID: null,
-                                    pub: ctrl.pubValue.uid,
-                                    localizationQID: ctrl.localizationAnnotation.localizationQID.qid
-                            };
-                            
-                            if (data.data.results.bindings[0].protein) {
-                                formData.proteinQID = $filter('parseQID')(data.data.results.bindings[0].protein.value);
-                            }
-                            
-                            if (formData.proteinQID == null) {
-                                return;
-                            }
-                            
-                            var url_suf = '/organism/' + key + '/gene/' + ctrl.orthoData[key] +  '/wd_localization_edit';
-                            
-                            console.log(url_suf);
-                            sendToView.sendToView(url_suf, formData).then(function (data) {
-                                if (data.data.authentication === false){
-                                    authorize = true;
-                                    success = false;
+                        	angular.forEach(ctrl.localizationAnnotation.localizationQID.qid, function(qid) {
+                        		var formData = {
+                                		proteinQID: null,
+                                        pub: ctrl.pubValue.uid,
+                                        localizationQID: qid
+                                };
+                                
+                                if (data.data.results.bindings[0].protein) {
+                                    formData.proteinQID = $filter('parseQID')(data.data.results.bindings[0].protein.value);
                                 }
-                                else if (!data.data.write_success){
-                                    success = false;
+                                
+                                if (formData.proteinQID == null) {
+                                    return;
                                 }
-                            }).finally(function () {
-                            	index++;
-                            	
-                            	if (index == Object.keys(ctrl.projection).length) {
-                            		if (success) {
-                            			alert("Successfully Annotated! Well Done! The annotation will appear here in a few minutes.");
-                            			ctrl.resetForm();
-                            		} else if (authorize) {
-                            			console.log("FAILURE: AUTHENTICATION");
-                                        alert('Please authorize ChlamBase to edit Wikidata on your behalf!');
-                            		} else {
-                            			alert("Something went wrong.  Give it another shot!");
-                            		}
-                            		
-                            		ctrl.loading = false;
-                            	}
-                            });
+                                
+                                var url_suf = '/organism/' + key + '/gene/' + ctrl.orthoData[key] +  '/wd_localization_edit';
+                                
+                                console.log(url_suf);
+                                sendToView.sendToView(url_suf, formData).then(function (data) {
+                                    if (data.data.authentication === false){
+                                        authorize = true;
+                                        success = false;
+                                    }
+                                    else if (!data.data.write_success){
+                                        success = false;
+                                    }
+                                }).finally(function () {
+                                	index++;
+                                	
+                                	if (index == Object.keys(ctrl.projection).length) {
+                                		if (success) {
+                                			alert("Successfully Annotated! Well Done! The annotation will appear here in a few minutes.");
+                                			ctrl.resetForm();
+                                		} else if (authorize) {
+                                			console.log("FAILURE: AUTHENTICATION");
+                                            alert('Please authorize ChlamBase to edit Wikidata on your behalf!');
+                                		} else {
+                                			alert("Something went wrong.  Give it another shot!");
+                                		}
+                                		
+                                		ctrl.loading = false;
+                                	}
+                                });
 
+                            });
                         });
+                        	
                 	} else {
                 		index++;
                 		

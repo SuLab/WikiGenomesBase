@@ -2,20 +2,17 @@ from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse
 from django.views.decorators.csrf import ensure_csrf_cookie
 from django.core.mail import send_mail
-
 import requests
 from time import strftime, gmtime
 from pprint import pprint
-
 import json
 import jsonpickle
-
+from wiki.tasks import update_jbrowse_mutants, update_jbrowse_operons
 from scripts.mutant_annotations import  MutantMongo
 from scripts.jbrowse_configuration import FeatureDataRetrieval
 from scripts.get_mongo_annotations import GetMongoAnnotations
 from scripts.WD_Utils import WDSparqlQueries
-
-from wikigenomes_conf import consumer_key, consumer_secret
+from secret_settings import consumer_key, consumer_secret
 from wikidataintegrator import wdi_login, wdi_core
 
 
@@ -342,6 +339,7 @@ def operon_form(request):
                 pprint(e)
                 responseData['gene_write_success'] = False
 
+        update_jbrowse_operons.delay(taxid=body['taxid'])
         pprint(responseData)
         return JsonResponse(responseData)
 
@@ -368,6 +366,7 @@ def mutant_form(request):
             try:
                 annotation = MutantMongo(mut_json=body)
                 body['write_success'] = annotation.push2mongo()['write_success']
+                update_jbrowse_mutants.delay(taxid=body['taxid'])
             except Exception as e:
                 body['write_success'] = False
 
@@ -375,6 +374,7 @@ def mutant_form(request):
             try:
                 annotation = MutantMongo(mut_json=body)
                 body['delete_success'] = annotation.delete_one_mongo()['delete_success']
+                update_jbrowse_mutants.delay(taxid=body['taxid'])
             except Exception as e:
                 body['delete_success'] = False
         return JsonResponse(body)
@@ -486,14 +486,14 @@ def geneName_form(request):
             print("Writing to gene " + body['geneQID'])
             if body['geneQID'] != "":
                 wd_item_gene = wdi_core.WDItemEngine(wd_item_id=body['geneQID'], domain=None)
-                wd_item_gene.set_label(body['geneName'])
+                wd_item_gene.set_aliases(aliases=[body['geneName']])
                 wd_item_gene.write(login=login)        
             
             print("Writing to protein " + body['proteinQID'])
             if body['proteinQID'] != "":
                 body['geneName'] = body['geneName'][0:1].upper() + body['geneName'][1:]
                 wd_item_protein = wdi_core.WDItemEngine(wd_item_id=body['proteinQID'], domain=None)
-                wd_item_protein.set_label(body['geneName'])
+                wd_item_protein.set_aliases(aliases=[body['geneName']])
                 wd_item_protein.write(login=login)
                 
             responseData['write_success'] = True

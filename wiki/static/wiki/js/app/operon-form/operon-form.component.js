@@ -19,7 +19,8 @@ angular
                         pub: [],
                         genes: [],
                         geneQID: ctrl.geneQID,
-                        organism: null
+                        organism: null,
+                        taxid: ctrl.currentTaxid
                     };
 
                     //controls for navigating form

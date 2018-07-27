@@ -14,7 +14,6 @@ angular.module('cmod', [
     'geneForm',
     'organismForm',
     'resources',
-    'geneView',
     'proteinView',
     'organismView',
     'jbrowseView',
@@ -47,5 +46,6 @@ angular.module('cmod', [
     'oauthForm',
     'advancedKeywordForm',
     'localizationView',
-    'localizationForm'
+    'localizationForm',
+    'footer'
 ]);

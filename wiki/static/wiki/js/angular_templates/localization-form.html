@@ -5,13 +5,13 @@ label {
 </style>
 <form ng-model="$ctrl.localizationAnnotation">
 	<div class="form-group" ng-show="$ctrl.pageCount==0">
-		<label>Localization Body</label> 
+		<label>Developmental Body for Protein Enrichment</label> 
 		<select
 			class="form-control"
 			ng-model="$ctrl.localizationAnnotation.localizationQID" 
 			required="required"
 			ng-options="option.name for option in $ctrl.map">
-			<option style="display: none" value="">Localization</option>
+			<option style="display: none" value="">Developmental Body</option>
 		</select>
 	</div>
 	<div class="form-group"
@@ -52,7 +52,7 @@ label {
 	<div ng-show="$ctrl.pageCount==2">
 		<p>
 			The protein encoded by <strong>{{
-				$ctrl.currentLocusTag }}</strong> is upregulated in the <strong>{{
+				$ctrl.currentLocusTag }}</strong> is developed in the <strong>{{
 					$ctrl.localizationAnnotation.localizationQID.name }}</strong> form of Chlamydia. This
 				regulation was determined by <strong>{{
 				$ctrl.localizationAnnotation.pub.authors[0].name }} et al. {{

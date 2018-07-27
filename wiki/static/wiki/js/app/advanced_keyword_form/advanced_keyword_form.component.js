@@ -96,6 +96,10 @@ angular
             		// if user has scrolled, select that item
             		if (ctrl.scrolled) {
             			ctrl.onSelect(ctrl.selected);
+            			
+            		// or if there is only 1 item in the dropdown
+            		} else if(ctrl.geneList && ctrl.geneList.length == 1){
+            			ctrl.onSelect(ctrl.geneList[0]);
             		
             		// else go to advanced search
             		} else {

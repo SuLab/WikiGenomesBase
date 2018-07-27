@@ -3,9 +3,7 @@ angular
     .component('operonAnnotations', {
         templateUrl: '/static/build/js/angular_templates/operon-view.min.html',
         bindings: {
-            data: '<',
-            operon: '<',
-            allorggenes: '<'
+            operon: '<'
         },
         controller: function () {
             var ctrl = this;
