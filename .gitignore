@@ -1,3 +1,4 @@
+celerybeat-schedule
 /WikiGenomes.org/settings.py
 secret_settings.py
 WikiGenomes.org/settings_secret.py
@@ -28,3 +29,4 @@ wikigenomes/__pycache__/
 *.pyc
 node_modules/
 db.sqlite3
+__pycache__/
