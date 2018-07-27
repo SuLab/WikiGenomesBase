@@ -10,10 +10,10 @@ mypkey = paramiko.RSAKey.from_private_key_file(r"C:\Users\Derek\DOCUME~1\MobaXte
 
 sql_hostname = 'wikidatawiki.labsdb'
 sql_main_database = 'wikidatawiki_p'
-sql_user = "u16054"
-sql_pass = "pnuifBwgDTY3xmVG"
+sql_user = "u19774"
+sql_pass = "pTLErvrxsBQG3mzf"
 ssh_host = 'tools-login.wmflabs.org'
-ssh_user = 'Derek'
+ssh_user = 'djow2019'
 ssh_port = 22
 sql_port = 3306
 
