@@ -135,12 +135,13 @@ angular.module("alignmentView")
                             el : document.getElementById("msaDiv"),
                             vis: {
                             	conserv: true,
-                            	seqlogo: true,
+                            	seqlogo: false,
                             	labelId: false
                             },
                             zoomer: {
                             	labelNameLength: 110,
-                            }
+                            },
+                            colorscheme: {"scheme": "clustal2"}
                         };
 
                         // the msa viewing panel
