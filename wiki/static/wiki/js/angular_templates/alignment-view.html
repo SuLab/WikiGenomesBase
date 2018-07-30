@@ -35,6 +35,9 @@
 					<a href="/organism/{{ key }}/gene/{{ value[0] }}">
 					{{ value[0] }}</a>
 				</td>
+				<td title="'RefSeq ID'">
+					{{value[1]}}
+				</td>
 				<td title="'Target'"><input type="checkbox" ng-model="checked" class="checkbox"
 					ng-init="checked=true" ng-click="$ctrl.select(checked, key)">
 				</td>
@@ -47,6 +50,7 @@
 	</div>
 
 	<!-- the MSA Viewer Widget -->
+	<div id="menuDiv" ng-hide="$ctrl.aligning"></div>
 	<div id="msaDiv" ng-hide="$ctrl.aligning"></div>
 
 	<!-- citation for using msa viewer -->

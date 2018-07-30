@@ -598,14 +598,7 @@ angular
                     $http.get("https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=nuccore&id=" + accession + "&seq_start=" + start + "&seq_stop=" + stop + "&strand=" + strand + "&rettype=fasta").success(function(r) {
 
                         // get the human readable name
-                        var first = "";
-                        if (r.indexOf("Chlamydia") != -1) {
-                            first = ">" + r.substring(r.indexOf("Chlamydia") + 10, r.indexOf("\n") + 1);
-                        } else {
-                            first = ">" + r.substring(r.indexOf("Chlamydophila") + 14, r.indexOf("\n") + 1);
-                        }
-                        first = first.replace(" ", "_").replace(",", " ");
-                        first = first.substring(0, 2).toUpperCase() + first.substring(2);
+                        var first = ">" + value + "\n";
                         var body = r.substring(r.indexOf("\n") + 1, r.length).replace(/\n/g, "");
 
                         // the sequence of the gene
@@ -651,8 +644,7 @@ angular
                     var fasta = response.data;
 
                     // parse out strain name
-                    var data = ">" + fasta.substring(fasta.indexOf("[") + 1, fasta.indexOf("]")).replace("Chlamydia ", "").replace(" ", "_") +
-                    "\n" + fasta.substring(fasta.indexOf("\n")).replace(/\n/g, "");
+                    var data = ">" + refseq + "\n" + fasta.substring(fasta.indexOf("\n") + 1).replace(/\n/g, "");
 
                     deferred.resolve(data);
 

@@ -132,8 +132,15 @@ angular.module("alignmentView")
 
                         // the widget settings
                         var settings = {
-                            el : document
-                                .getElementById("msaDiv"),
+                            el : document.getElementById("msaDiv"),
+                            vis: {
+                            	conserv: true,
+                            	seqlogo: true,
+                            	labelId: false
+                            },
+                            zoomer: {
+                            	labelNameLength: 110,
+                            }
                         };
 
                         // the msa viewing panel
@@ -145,6 +152,12 @@ angular.module("alignmentView")
                                 m.render();
                             }
                         );
+                        
+                        var menu = new msa.menu.defaultmenu({
+                        	el: document.getElementById("menuDiv"),
+                        	msa: m
+                        });
+                        menu.render();
 
                         ctrl.isRendered = true;
                         ctrl.alignmentURL = $sce.trustAsResourceUrl("https://www.ebi.ac.uk/Tools/services/rest/muscle/result/" + id + "/aln-fasta");
