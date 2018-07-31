@@ -52,9 +52,9 @@
 				<a target="_blank" href="http://www.rcsb.org/structure/{{ x.pdbId.value }}">{{x.pdbId.value}}</a>
 			</td>
 			<td style="text-align: center">
-				<img ng-src="https://www.ebi.ac.uk/pdbe/static/entry/{{x.pdbId.value}}_deposited_chain_front_image-800x800.png" width="200px">
-				<img ng-src="https://www.ebi.ac.uk/pdbe/static/entry/{{x.pdbId.value}}_deposited_chain_side_image-800x800.png" width="200px">
-				<img ng-src="https://www.ebi.ac.uk/pdbe/static/entry/{{x.pdbId.value}}_deposited_chain_top_image-800x800.png" width="200px">
+				<img ng-src="https://www.ebi.ac.uk/pdbe/static/entry/{{x.pdbId.value | lowercase}}_deposited_chain_front_image-800x800.png" width="200px">
+				<img ng-src="https://www.ebi.ac.uk/pdbe/static/entry/{{x.pdbId.value | lowercase}}_deposited_chain_side_image-800x800.png" width="200px">
+				<img ng-src="https://www.ebi.ac.uk/pdbe/static/entry/{{x.pdbId.value | lowercase}}_deposited_chain_top_image-800x800.png" width="200px">
 			</td>
 			<td>
 				<a target="_blank" href="https://www.ncbi.nlm.nih.gov/pubmed/{{ x.pmid.value}}">

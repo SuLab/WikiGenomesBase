@@ -37,8 +37,8 @@
       <cell-visualizer cell-comp="$ctrl.annotations.go.cellcomp"></cell-visualizer>
     </div>
     <div class="col-sm-4">
-      <strong>PDB Structure: </strong><span ng-hide="$ctrl.data.pdbIds.length > 1">None</span><span ng-repeat="x in $ctrl.data.pdbIds">{{x.pdbId.value}};&nbsp;</span><br>
-      <img ng-show="$ctrl.data.pdbIds.length > 0" ng-src="https://www.ebi.ac.uk/pdbe/static/entry/{{$ctrl.data.pdbIds[0].pdbId.value}}_deposited_chain_front_image-800x800.png" width="100%">
+      <strong>PDB Structure: </strong><span ng-hide="$ctrl.data.pdbIds.length > 0">None</span><span ng-repeat="x in $ctrl.data.pdbIds">{{x.pdbId.value}};&nbsp;</span><br>
+      <img ng-show="$ctrl.data.pdbIds.length > 0" ng-src="https://www.ebi.ac.uk/pdbe/static/entry/{{$ctrl.data.pdbIds[0].pdbId.value | lowercase}}_deposited_chain_front_image-800x800.png" width="100%">
     </div>
   </div>
 </div>
