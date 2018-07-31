@@ -32,15 +32,11 @@
     <div class="well" ng-show="$ctrl.pageCount==0" style="min-height:160px">
         <h4>Create a new operon</h4>
 
-        <div class="input-group">
-            <input ng-model="$ctrl.opNewName" type="text" class="form-control ui-widget" id="operonName"
-                   placeholder="operon">
-      <span class="input-group-btn">
-        <div ng-click="$ctrl.nameOperon($ctrl.opNewName)" class="btn btn-default">Go!</div>
-      </span>
-        </div>
-
-        <div ng-show="$ctrl.opFormModel.operon" class="glyphicon glyphicon-ok">
+        <div class="form-inline" style="white-space: nowrap">
+            <input ng-model="$ctrl.opFormModel.name" type="text" class="form-control" id="operonName"
+                   placeholder="operon" style="display: inline">
+            <span ng-show="$ctrl.opFormModel.name" class="glyphicon glyphicon-ok"></span>
+            <span ng-show="!$ctrl.opFormModel.name" class="glyphicon glyphicon-remove"></span>
         </div>
 
     </div>
@@ -50,7 +46,7 @@
                type="text"
                ng-model="$ctrl.geneValue"
                placeholder="genes under operon regulation"
-               uib-typeahead="gene.geneLabel.value for gene in $ctrl.allorggenes | filter:$viewValue | limitTo:200"
+               uib-typeahead="gene.geneLabel.value for gene in $ctrl.allorggenes | filter:$viewValue | limitTo:20"
                typeahead-loading="loadingGenes"
                typeahead-no-results="noResults"
                class="form-control"
@@ -103,15 +99,15 @@
 
         <div>
             <p ng-show="$ctrl.validateFields()"> The operon
-                "<strong>{{$ctrl.opFormModel.operon.operonLabel.value}}</strong>" regulates
+                "<strong>{{$ctrl.opFormModel.name}}</strong>" regulates
                 the
                 expression of the genes:
             <ul ng-repeat="gene in $ctrl.opFormModel.genes">
                 <li>{{ gene.locusTag }}</li>
             </ul>
             This claim was stated in
-            " <strong>{{$ctrl.opFormModel.pub.authors[0].name}} <i>et al.</i>
-            {{$ctrl.opFormModel.pub.pubdate}}</strong>".
+            " <strong>{{$ctrl.opFormModel.pub[0].authors[0].name}} <i>et al.</i>
+            {{$ctrl.opFormModel.pub[0].pubdate}}</strong>".
             </p>
         </div>
         <div>

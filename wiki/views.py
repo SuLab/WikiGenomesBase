@@ -288,17 +288,14 @@ def operon_form(request):
                     refs.append(wdi_core.WDItemID(value=pmid_result.json()['result'], prop_nr='P248', is_reference=True))
                 else:
                     return JsonResponse({'pmid': False})
-                pprint(pmid_result.json())
                 responseData['ref_success'] = True
             except Exception as e:
                 responseData['ref_success'] = False
                 print("reference construction error: " + str(e))
-        print(refs)
 
-        #
-        # # create new operon item statements
+        # create new operon item statements
         try:
-            operon_statements.append(wdi_core.WDItemID(prop_nr='P279', value='Q139677', references=[refs]))
+            operon_statements.append(wdi_core.WDItemID(prop_nr='P31', value='Q139677', references=[refs]))
             for gene in body['genes']:
                 qid = gene['gene'].split('/')[-1]
                 operon_statements.append(wdi_core.WDItemID(prop_nr='P527', value=qid, references=[refs]))
@@ -307,19 +304,16 @@ def operon_form(request):
         except Exception as e:
             pprint(e)
             responseData['operon_success'] = False
-        pprint(responseData)
 
         # write the operon Item
         operon_qid = None
         try:
-            pprint(body['operon']['operonLabel'])
             pprint(operon_statements)
-            wd_item_operon = wdi_core.WDItemEngine(item_name=body['operon']['operonLabel']['value'], domain='genes',
+            wd_item_operon = wdi_core.WDItemEngine(item_name=body['name'], domain='genes',
                                                    data=operon_statements, use_sparql=True, append_value=['P527'])
             pprint(vars(wd_item_operon))
-            wd_item_operon.set_label(body['operon']['operonLabel']['value'])
-            wd_item_operon.set_description("Microbial operon found in " + body['organism']['taxonLabel'])
-            pprint(wd_item_operon.get_wd_json_representation())
+            wd_item_operon.set_label(body['name'])
+            wd_item_operon.set_description("Microbial operon found in " + body['taxLabel'])
             wd_item_operon.write(login=login)
             operon_qid = wd_item_operon.wd_item_id
             responseData['operonWrite_success'] = True

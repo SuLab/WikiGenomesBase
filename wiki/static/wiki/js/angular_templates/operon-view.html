@@ -80,7 +80,7 @@
      aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content" style="padding:10px">
-            <operon-form operon="$ctrl.operon" data="$ctrl.data" ng-hide="showHelp" allorggenes="$ctrl.allorggenes"></operon-form>
+            <operon-form ng-hide="showHelp" allorggenes="$ctrl.allorggenes"></operon-form>
             <help-form ng-show="showHelp"></help-form>
             <div class="modal-footer">
             	<button type="button" class="btn btn-default" style="float:left" ng-click="showHelp = !showHelp">

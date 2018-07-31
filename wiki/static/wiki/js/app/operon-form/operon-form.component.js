@@ -1,7 +1,7 @@
 angular
     .module('operonForm')
     .component('operonForm', {
-        controller: function ($routeParams, $location, $filter, pubMedData, locusTag2QID, allOrgOperons, allChlamOrgs,
+        controller: function ($routeParams, $location, $filter, pubMedData, locusTag2QID, allOrgOperons,
                               sendToView) {
             'use strict';
             var ctrl = this;
@@ -12,32 +12,27 @@ angular
                     'success': false,
                     'error': false
                 };
+                
+                ctrl.opFormModel = {};
                 locusTag2QID.getLocusTag2QID(ctrl.currentLocusTag, ctrl.currentTaxid).then(function (data) {
                     ctrl.geneQID = $filter('parseQID')(data.data.results.bindings[0].gene.value);
                     ctrl.opFormModel = {
-                        operon: null,
+                        name: null,
                         pub: [],
                         genes: [],
                         geneQID: ctrl.geneQID,
-                        organism: null,
-                        taxid: ctrl.currentTaxid
+                        taxid: ctrl.currentTaxid,
+                        taxLabel: $filter("taxid2Name")(ctrl.currentTaxid)
                     };
 
                     //controls for navigating form
                     ctrl.pageCount = 0;
                     ctrl.nextClick = function () {
                         ctrl.pageCount += 1;
-                        console.log(ctrl.data);
                     };
                     ctrl.backClick = function () {
                         ctrl.pageCount -= 1;
                     };
-
-                    allChlamOrgs.getAllOrgs(function (data) {
-                        ctrl.orgList = data;
-                        ctrl.opFormModel.organism = $filter('getJsonItemOrg')('taxid', ctrl.currentTaxid,
-                            ctrl.orgList);
-                    });
 
                     ctrl.getPMID = function (val) {
                         return pubMedData.getPMID(val).then(
@@ -72,17 +67,6 @@ angular
                             ctrl.opFormModel.pub);
                     };
 
-
-                    ctrl.nameOperon = function (name) {
-                        if (name) {
-                            ctrl.opFormModel.operon = {
-                                operon: {value: 'None'},
-                                operonLabel: {value: name}
-                            };
-                        }
-
-                    };
-
                     ctrl.selectGene = function ($item, $model, $value) {
                         ctrl.opFormModel.genes.push(
                             {
@@ -111,7 +95,7 @@ angular
 
                     //form validation, must be true to allow submission
                     ctrl.validateFields = function () {
-                        if (ctrl.opFormModel.operon && ctrl.opFormModel.pub && ctrl.opFormModel.genes.length > 0) {
+                        if (ctrl.opFormModel.name && ctrl.opFormModel.pub && ctrl.opFormModel.genes.length > 0) {
                             return true;
                         }
                     };
@@ -146,10 +130,9 @@ angular
                     };
                     ctrl.resetForm = function () {
                         ctrl.pageCount = 0;
-                        ctrl.opFormModel.operon = null;
+                        ctrl.opFormModel.name = null;
                         ctrl.opFormModel.pub = null;
                         ctrl.opFormModel.genes = [];
-                        ctrl.operonValue = '';
                         ctrl.geneValue = '';
                         ctrl.pubValue = '';
                     };
@@ -161,8 +144,6 @@ angular
         },
         templateUrl: '/static/build/js/angular_templates/operon-form.min.html',
         bindings: {
-            data: '<',
-            operon: '<',
             allorggenes: '<'
         }
     });
