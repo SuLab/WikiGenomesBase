@@ -76,11 +76,12 @@ angular
         var endpoint = 'https://query.wikidata.org/sparql?format=json&query=';
         var getPdbData = function (uniprot) {
             var url = endpoint + encodeURIComponent(
-            		"SELECT ?pdbId ?image WHERE {" +
-            			"?protein wdt:P352 '" + uniprot + "'." +
-            			"?protein wdt:P638 ?pdbId." +
-            			"OPTIONAL {?protein wdt:P18 ?image}" + 
-        			"}"
+            		"SELECT ?pdbId ?pmid WHERE {" +
+            			  "?protein wdt:P352 '"+uniprot+"'." +
+            			  "?protein p:P638 ?pdbClaim." +
+            			  "?pdbClaim ps:P638 ?pdbId." +
+            			  "?pdbClaim prov:wasDerivedFrom/pr:P248/wdt:P698 ?pmid." +
+            			"}"
                 );
             return $http.get(url)
                 .success(function (response) {
