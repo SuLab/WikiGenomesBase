@@ -503,6 +503,28 @@ angular
     });
 
 angular
+.module('resources')
+.factory('tax2QID', function ($http) {
+    var endpoint = 'https://query.wikidata.org/sparql?format=json&query=';
+    var getQID = function (taxid) {
+        var url = endpoint + encodeURIComponent(
+        		"SELECT ?taxon WHERE {" +
+				  "?taxon wdt:P685 '"+taxid+"'." +  
+				"}"
+            );
+
+        return $http.get(url).then(function (response) {
+            return response.data.results.bindings;
+        });
+    };
+    return {
+    	getQID: getQID
+    };
+
+
+});
+
+angular
 	.module('resources')
 	.factory('annotationSettings', function($http){
 		var getSettings = function() {

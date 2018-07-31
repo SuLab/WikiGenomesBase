@@ -296,6 +296,8 @@ def operon_form(request):
         # create new operon item statements
         try:
             operon_statements.append(wdi_core.WDItemID(prop_nr='P31', value='Q139677', references=[refs]))
+            operon_statements.append(wdi_core.WDItemID(prop_nr='P703', value=body['taxQID'], references=[refs]))
+            operon_statements.append(wdi_core.WDItemID(prop_nr='P2548', value=body['strand'], references=[refs]))
             for gene in body['genes']:
                 qid = gene['gene'].split('/')[-1]
                 operon_statements.append(wdi_core.WDItemID(prop_nr='P527', value=qid, references=[refs]))
@@ -333,8 +335,7 @@ def operon_form(request):
                 pprint(e)
                 responseData['gene_write_success'] = False
 
-        update_jbrowse_operons.delay(taxid=body['taxid'])
-        pprint(responseData)
+        update_jbrowse_operons.apply_async([body['taxid']], countdown=60)
         return JsonResponse(responseData)
 
 
