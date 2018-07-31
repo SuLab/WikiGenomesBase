@@ -47,5 +47,6 @@ angular.module('cmod', [
     'advancedKeywordForm',
     'localizationView',
     'localizationForm',
-    'footer'
+    'footer',
+    'pdbForm'
 ]);

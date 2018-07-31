@@ -43,7 +43,7 @@ label {
 			placeholder="PMID"
 			uib-typeahead="pmid as pmid.title +  ' PMID:' + pmid.uid for pmid in $ctrl.getPMID($viewValue)"
 			typeahead-loading="loadingPub" typeahead-no-results="noPubResults"
-			class="form-control" typeahead-wait-ms="900"
+			class="form-control" typeahead-wait-ms="500"
 			typeahead-on-select="$ctrl.selectPub($item, $model, $value)">
 		<i ng-show="loadingPub" class="glyphicon glyphicon-refresh"></i>
 

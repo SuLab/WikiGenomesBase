@@ -37,67 +37,12 @@
       <cell-visualizer cell-comp="$ctrl.annotations.go.cellcomp"></cell-visualizer>
     </div>
     <div class="col-sm-4">
-      <strong>PDB Structure: </strong>{{$ctrl.data.pdbId}}
-      	<a ng-show="$ctrl.data.pdbId != null && $ctrl.data.pdbId != 'None'" target="_blank" href="http://www.rcsb.org/structure/{{ $ctrl.data.pdbId }}">
-            <img uib-tooltip="Protein Data Bank Item" style="height: 14px; margin-top: -3px"
-                 data-ng-src="/static/wiki/img/rcsb_logo.png">
-     	 </a><br>
-		      <img src="static/wiki/img/spin.gif" ng-hide="$ctrl.data.image">
-		      <img ng-show="$ctrl.data.image != 'None'" ng-src="{{$ctrl.data.image}}" width="100%">
+      <strong>PDB Structure: </strong>{{$ctrl.data.pdbId}}<br>
+      <img src="static/wiki/img/spin.gif" ng-hide="$ctrl.data.image">
+      <img ng-show="$ctrl.data.image != 'None'" ng-src="{{$ctrl.data.image}}" width="100%">
     </div>
   </div>
 </div>
-<!-- <div class="table-responsive">
-	<table ng-table="$ctrl.tableParams" class="table">
-	    <tr>
-	        <td title="'Gene Name'">
-	            <strong>{{$ctrl.data.geneLabel }}</strong>
-	            <button title="Edit Gene Name" type="button" class="btn btn-xs btn-info" data-toggle="modal" data-target="#geneName_button" >
-	    			<div class="glyphicon glyphicon-pencil"></div>
-				</button>
-	        </td>
-	        <td title="'Locus Tag'">
-	            {{$ctrl.data.locusTag }}
-	        </td>
-	        <td title="'Entrez ID'">
-	            {{$ctrl.data.entrez }}
-	        </td>
-	        <td title="'Aliases'">
-	            {{$ctrl.data.geneAliases | list2CSV}}
-	        </td>
-	        <td title="'Chromosome'">
-	            {{$ctrl.data.refseqGenome }}
-	        </td>
-	        <td title="'Start'">
-	            {{$ctrl.data.genStart }}
-	        </td>
-	        <td title="'End'">
-	            {{$ctrl.data.genEnd}}
-	        </td>
-	        <td title="'Strand'">
-	            {{ $ctrl.data.strand | convertStrand }}
-	        </td>
-	        <td style="text-align: center" title="'Reference'">
-	            <a target="_blank" href="https://www.ncbi.nlm.nih.gov/gene?term={{ $ctrl.data.entrez }}">
-	                <img uib-tooltip="NCBI Database Entry" style="height: 14px; margin-top: -3px"
-	                     data-ng-src="/static/wiki/img/NCBI-logo-2.png">
-	            </a>
-	            <a target="_blank" href="http://www.wikidata.org/wiki/{{ $ctrl.data.geneQID }}">
-	                <img uib-tooltip="Wikidata Database Item" style="height: 14px; margin-top: -3px"
-	                     data-ng-src="/static/wiki/img/GeneWikidata-logo-en.png">
-	            </a>
-	        </td>
-	        <td title="'Download'">
-	            <a uib-tooltip="Download Nucleotide Fasta" class="glyphicon glyphicon-download"
-	               href="https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=nuccore&id=
-	                       {{$ctrl.data.refseqGenome }}&seq_start={{$ctrl.data.genStart }}&seq_stop=
-	                       {{$ctrl.data.genEnd}}&strand={{ $ctrl.data.strand | strandNum  }}&rettype=fasta&retmode=json">
-	            </a>
-	        </td>
-	    </tr>
-	</table>
-</div>
--->
 <!-- Modal -->
 <div class="modal fade" id="geneName_button" tabindex="-1" role="dialog"
      aria-labelledby="refModalTitle"

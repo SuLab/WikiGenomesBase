@@ -11,6 +11,7 @@ urlpatterns = [
     url(r'^organism/\d+/gene/.+/wd_hostpath_edit', views.hostpath_form, name='hostpathForm'),
 	url(r'^organism/\d+/gene/.+/wd_localization_edit', views.localization_form, name='localizationForm'),
     url(r'^organism/\d+/gene/.+/wd_operon_edit', views.operon_form, name='operonForm'),
+    url(r'^organism/\d+/gene/.+/wd_pdb_edit', views.pdb_form, name='pdbForm'),
     url(r'^organism/\d+/gene/.+/wd_mutant_edit', views.mutant_form, name='mutantForm'),
 	url(r'^organism/\d+/gene/.+/wd_gene_name_edit', views.geneName_form, name='geneNameForm'),
     url(r'^organism/\d+/gene/.+/mg_mutant_view', views.mongo_annotations, name='mongoAnnotations'),

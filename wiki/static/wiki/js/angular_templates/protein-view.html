@@ -1,3 +1,4 @@
+<h5>Protein Overview</h5>
 <div class="table-responsive">
     <table class="table table-hover">
         <th>Product type</th>
@@ -38,4 +39,46 @@
         </tr>
     </table>
 </div>
-
+<h5>Protein DataBank ID(s)</h5>
+<div class="table-responsive">
+	<table class="table table-hover">
+	
+		<th>PDB ID</th>
+		<th>Image</th>
+		<th>References</th>
+		
+		<tr ng-repeat="x in [$ctrl.protein.pdbId]">
+			<td>
+				<a target="_blank" href="http://www.rcsb.org/structure/{{ x }}">{{x}}</a>
+			</td>
+			<td style="text-align: center">
+				<img ng-show="$ctrl.protein.image != 'None'" ng-src="{{$ctrl.protein.image}}" width="200px">
+			</td>
+			<td>
+				Coming Soon
+			</td>
+		</tr>
+	</table>
+</div>
+<button type="button" class="btn btn-default" data-toggle="modal"
+        data-target="#pdbForm_button">
+    Add an annotation
+</button>
+<!-- Modal -->
+<div class="modal fade" id="pdbForm_button" tabindex="-1" role="dialog"
+     aria-labelledby="refModalTitle"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content" style="padding:10px">
+            <pdb-form ng-hide="showHelp" gene="$ctrl.protein"></pdb-form>
+            <help-form ng-show="showHelp"></help-form>
+            <div class="modal-footer">
+            	<button type="button" class="btn btn-default" style="float:left" ng-click="showHelp = !showHelp">
+            		<span ng-hide="showHelp">Need Help?</span>
+            		<span ng-show="showHelp">Back</span>
+            	</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" ng-click="showHelp = false">Close</button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -186,6 +186,75 @@ def hostpath_form(request):
         return JsonResponse(responseData)
 
 @ensure_csrf_cookie
+def pdb_form(request):
+    """
+    uses wdi to make go annotation edit to wikidata
+    :param request: includes go annotation json for writing to wikidata
+    :return: response data object with a write success boolean
+    """
+    if request.method == 'POST':
+        body_unicode = request.body.decode('utf-8')
+        body = json.loads(body_unicode)
+        responseData = {}
+        if 'login' not in request.session.keys():
+            responseData['authentication'] = False
+            return JsonResponse(responseData)
+        else:
+            responseData['authentication'] = True
+
+        login = jsonpickle.decode(request.session['login'])
+        eutilsPMID = body['pub']
+        refs = []
+        # construct the references using WDI_core and PMID_tools if necessary
+        print("Constructing reference")
+        try:
+            refs.append(wdi_core.WDItemID(value='Q26489220', prop_nr='P1640', is_reference=True))
+            refs.append(wdi_core.WDTime(str(strftime("+%Y-%m-%dT00:00:00Z", gmtime())), prop_nr='P813',
+                                        is_reference=True))
+            pmid_url = 'https://tools.wmflabs.org/pmidtool/get_or_create/{}'.format(eutilsPMID)
+            pmid_result = requests.get(url=pmid_url)
+
+            if pmid_result.json()['success'] == True:
+                refs.append(wdi_core.WDItemID(value=pmid_result.json()['result'], prop_nr='P248', is_reference=True))
+
+            responseData['ref_success'] = True
+        except Exception as e:
+            responseData['ref_success'] = False
+            print("reference construction error: " + str(e))
+
+        statements = []
+        # #contstruct the statements using WDI_core
+        print("Constructing statements")
+        try:
+            statements.append(wdi_core.WDItemID(value=body['id'], prop_nr='P638', references=[refs]))
+            statements.append(wdi_core.WDItemID(value=body['image']['front'], prop_nr='P18', references=[refs]))
+            statements.append(wdi_core.WDItemID(value=body['image']['side'], prop_nr='P18', references=[refs]))
+            statements.append(wdi_core.WDItemID(value=body['image']['top'], prop_nr='P18', references=[refs]))
+            responseData['statement_success'] = True
+        except Exception as e:
+            responseData['statement_success'] = False
+            print(e)
+
+        #write the statement to WD using WDI_core
+        print("Writing the statement")
+        try:
+            print("protein id:")
+            print(body['proteinQID'])
+            
+            # find the appropriate item in wd
+            wd_item_protein = wdi_core.WDItemEngine(wd_item_id=body['qid'], domain=None,
+                                                    data=statements, use_sparql=True,
+                                                    append_value=['P638', 'P18'])
+            print("Writing protein with login")
+            wd_item_protein.write(login=login)
+            responseData['write_success'] = True
+
+        except Exception as e:
+            responseData['write_success'] = False
+            print(e)
+        return JsonResponse(responseData)        
+
+@ensure_csrf_cookie
 def localization_form(request):
     """
     uses wdi to make go annotation edit to wikidata
