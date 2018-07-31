@@ -310,10 +310,8 @@ def operon_form(request):
         # write the operon Item
         operon_qid = None
         try:
-            pprint(operon_statements)
             wd_item_operon = wdi_core.WDItemEngine(item_name=body['name'], domain='genes',
                                                    data=operon_statements, use_sparql=True, append_value=['P527'])
-            pprint(vars(wd_item_operon))
             wd_item_operon.set_label(body['name'])
             wd_item_operon.set_description("Microbial operon found in " + body['taxLabel'])
             wd_item_operon.write(login=login)
@@ -335,7 +333,8 @@ def operon_form(request):
                 pprint(e)
                 responseData['gene_write_success'] = False
 
-        update_jbrowse_operons.apply_async([body['taxid']], countdown=60)
+        if responseData['operonWrite_success']:
+            update_jbrowse_operons.apply_async([body['taxid']], countdown=60)
         return JsonResponse(responseData)
 
 
