@@ -226,10 +226,10 @@ def pdb_form(request):
         # #contstruct the statements using WDI_core
         print("Constructing statements")
         try:
-            statements.append(wdi_core.WDItemID(value=body['id'], prop_nr='P638', references=[refs]))
-            statements.append(wdi_core.WDItemID(value=body['image']['front'], prop_nr='P18', references=[refs]))
-            statements.append(wdi_core.WDItemID(value=body['image']['side'], prop_nr='P18', references=[refs]))
-            statements.append(wdi_core.WDItemID(value=body['image']['top'], prop_nr='P18', references=[refs]))
+            statements.append(wdi_core.WDExternalID(value=body['id'], prop_nr='P638', references=[refs]))
+            #statements.append(wdi_core.WDExternalID(value=body['image']['front'], prop_nr='P18', references=[refs]))
+            #statements.append(wdi_core.WDExternalID(value=body['image']['side'], prop_nr='P18', references=[refs]))
+            #statements.append(wdi_core.WDExternalID(value=body['image']['top'], prop_nr='P18', references=[refs]))
             responseData['statement_success'] = True
         except Exception as e:
             responseData['statement_success'] = False
@@ -239,7 +239,7 @@ def pdb_form(request):
         print("Writing the statement")
         try:
             print("protein id:")
-            print(body['proteinQID'])
+            print(body['qid'])
             
             # find the appropriate item in wd
             wd_item_protein = wdi_core.WDItemEngine(wd_item_id=body['qid'], domain=None,
