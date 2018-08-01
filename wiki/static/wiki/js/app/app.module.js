@@ -4,7 +4,6 @@ angular.module('cmod', [
     'ngResource',
     'ngRoute',
     'ngTable',
-    'ngFileUpload',
     'ngCookies',
 
     //internal

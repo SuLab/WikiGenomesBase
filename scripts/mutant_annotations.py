@@ -2,8 +2,7 @@ from pymongo import MongoClient
 from time import gmtime, strftime
 import datetime
 
-__author__ = 'timputman'
-__author__ = 'derekjow'
+__author__ = 'timputman and derekjow'
 
 class MutantMongo(object):
 
