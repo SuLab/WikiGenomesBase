@@ -1,1 +1,1 @@
-{"compress":0,"lowercase_keys":1,"hash_bits":"8","track_names":[],"format":"json"}
+{"compress":0,"format":"json","hash_bits":"8","lowercase_keys":1,"track_names":["genes","mutants"]}
