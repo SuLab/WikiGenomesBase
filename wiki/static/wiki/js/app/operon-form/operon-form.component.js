@@ -5,15 +5,11 @@ angular
                               sendToView, tax2QID) {
             'use strict';
             var ctrl = this;
-            ctrl.$onInit = function () {
-                ctrl.currentTaxid = $routeParams.taxid;
-                ctrl.currentLocusTag = $routeParams.locusTag;
-                ctrl.alerts = {
-                    'success': false,
-                    'error': false
-                };
-
-                ctrl.opFormModel = {
+            
+            ctrl.currentTaxid = $routeParams.taxid;
+            ctrl.currentLocusTag = $routeParams.locusTag;
+            
+            ctrl.opFormModel = {
                     name: null,
                     pub: [],
                     genes: [],
@@ -23,10 +19,21 @@ angular
                     taxQID: null,
                     strand: null
                 };
+            
+            ctrl.$onChanges = function() {
+            	if (ctrl.strand) {
+            		ctrl.opFormModel.strand = ctrl.strand;
+            	}
+            };
+            
+            ctrl.$onInit = function () {
+                ctrl.alerts = {
+                    'success': false,
+                    'error': false
+                };
                 
                 tax2QID.getQID(ctrl.currentTaxid).then(function(data) {
                 	ctrl.opFormModel.taxQID = $filter("parseQID")(data[0].taxon.value);
-                	ctrl.opFormModel.strand = ctrl.gene.strand.id;
                 });
 
                 // controls for navigating form
@@ -149,6 +156,7 @@ angular
         templateUrl: '/static/build/js/angular_templates/operon-form.min.html',
         bindings: {
             allorggenes: '<',
-            gene: '<'
+            gene: '<',
+            strand: '<'
         }
     });
