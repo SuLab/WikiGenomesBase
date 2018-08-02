@@ -14,6 +14,14 @@
         background-color: #385d94;
         color: whitesmoke;
     }
+    
+    .wrapbreaker {
+        word-break: break-all;
+    }
+    
+    .navbar-toggle .icon-bar{ 
+    	background-color: #fff;
+    }
 
 </style>
 <div ng-show="$ctrl.loading" class="overlay">
@@ -189,7 +197,51 @@
                     <h4 ng-show="$ctrl.keywordResult">Gene results for '{{$ctrl.keywordResult}}': {{$ctrl.chlamGenes.currentKW.length}}</h4>
                     <h4 ng-hide="$ctrl.keywordResult">Genes matching advanced criteria: {{$ctrl.chlamGenes.currentKW.length}}</h4>
                 </div>
-                <keyword-paginated data="$ctrl.chlamGenes.currentKW" ng-hide="$ctrl.loading"></keyword-paginated>
+                <keyword-paginated data="$ctrl." ng-hide="$ctrl.loading"></keyword-paginated>
+				<div class="panel-body">
+				
+				    <div style="text-align: center">
+				        <dir-pagination-controls on-page-change="pageChanged(newPageNumber)"></dir-pagination-controls>
+				    </div>
+				    <ul style="list-style: none">
+				        <li>
+				        </li>
+				        <li dir-paginate="x in $ctrl.chlamGenes.currentKW| itemsPerPage: 10">
+				            <div ng-click="$ctrl.onSelect(x)" class="btn btn-default"
+				                 style="margin-top:15px; width:100%; color:#385d94">
+				                <div class="row">
+				                    <div class="col-md-10" style="text-align: left">
+				                        <div style="padding-left: 20px; overflow: hidden; text-overflow: ellipsis">
+				                         <strong><u>{{x.geneLabel.value | limitTo : 80}}</u></strong>
+											<br>
+											<div style="font-size: 13px; overflow: hidden; text-overflow: ellipsis">
+					                            <span>Aliases: {{x.aliases.value}} </span><span>Strain: {{x.taxonLabel.value}}</span><br>
+					                            <span>Locus Tag: {{x.locusTag.value}} </span><span>Entrez: {{x.entrez.value}} </span>
+					                            <span ng-show="x.uniprot.value">Uniprot: {{x.uniprot.value}} </span><span ng-show="x.refseq_prot.value">RefSeq: {{x.refseq_prot.value}}</span><br>
+					                            <span ng-show="x.mfLabel.value">MF Terms: {{x.mfLabel.value}}</span>
+					                            <span ng-show="x.bpLabel.value">BP Terms: {{x.bpLabel.value}}</span>
+					                            <span ng-show="x.ccLabel.value">CC Terms: {{x.ccLabel.value}}</span><br>
+					                            <span ng-show="x.host_protein.value">Host Protein: {{x.host_protein.value}}</span>
+				                            </div>
+				                        </div>
+				                    </div>
+				                    <div class="col-md-2" style="text-align: right"><a target="_blank"
+				                                                                       href="https://www.wikidata.org/wiki/{{x.gene.value | parseQID}}">
+				                        <div style="padding: 10px;">
+				                            <div class="btn btn-default"><img style="max-height: 30px" id="wikilogo"
+				                                                              src="static/wiki/img/GeneWikidata-logo-en.png">
+				                            </div>
+				                        </div>
+				                    </a>
+				                    </div>
+				                </div>
+				            </div>
+				        </li>
+				    </ul>
+				    <div style="text-align: center">
+				        <dir-pagination-controls on-page-change="pageChanged(newPageNumber)"></dir-pagination-controls>
+				    </div>
+				</div>
             </div>
         </div>
         <div class="col-md-2">

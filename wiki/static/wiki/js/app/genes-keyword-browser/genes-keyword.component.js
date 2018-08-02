@@ -9,6 +9,17 @@ angular
                 ctrl.loading = true;
                 ctrl.chlamGenes = {};
                 
+                ctrl.onSelect = function ($item) {
+                    $location.path('/organism/' + $item.taxid.value + "/gene/" + $item.locusTag.value);
+                };
+	            ctrl.longTitle = function($item){
+	                if($item.length > 80){
+	                    return $item;
+	                }else{
+	                    return '';
+	                }
+	            };
+	            
                 ctrl.keyword = $location.path().split("/")[2];
                 ctrl.keywordResult = ctrl.keyword;
                 var cache = $cacheFactory.get("advSearch");

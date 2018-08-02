@@ -31,7 +31,6 @@ angular.module('cmod', [
     'oauthView',
     'genesKeyword',
     'keywordForm',
-    'keywordPaginated',
     'organismTree',
     'linkedPubs',
     'orthologView',

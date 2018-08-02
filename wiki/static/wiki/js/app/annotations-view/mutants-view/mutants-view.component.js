@@ -24,7 +24,7 @@ angular
             ctrl.chemParams = new NgTableParams({}, {});
             ctrl.transParams = new NgTableParams({}, {});
             ctrl.intronParams = new NgTableParams({}, {});
-            ctrl.chemParams = new NgTableParams({}, {});
+            ctrl.recombParams = new NgTableParams({}, {});
             
             ctrl.$onChanges = function() {
                 if (ctrl.data) {
@@ -40,7 +40,6 @@ angular
 	                ctrl.transParams = new NgTableParams({},{dataset: $filter('filter')(parsed, "EFO_0004021")});
 	                ctrl.intronParams = new NgTableParams({},{dataset: $filter('filter')(parsed, "EFO_0004016")});
 	                ctrl.recombParams = new NgTableParams({},{dataset: $filter('filter')(parsed, "EFO_0004293")});
-	                console.log(ctrl.chemParams);
                 }
             };
 
