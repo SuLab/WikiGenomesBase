@@ -1,24 +1,24 @@
-<div align="right" ng-if="$ctrl.data.length!=0" style="overflow: auto">Search: <input type="text" placeholder="Ex. silent_mutation" ng-model="$ctrl.keyword" class="form-control" style="width: 200px; display:inline"></div>
+<div align="right" ng-if="$ctrl.data && $ctrl.data.length!=0" style="overflow: auto">Search: <input type="text" placeholder="Ex. silent_mutation" ng-model="$ctrl.keyword" class="form-control" style="width: 200px; display:inline"></div>
 <div class="table-responsive">
-	<table ng-table="$ctrl.tableParams" class="table table-hover">
+	<table ng-table="$ctrl.chemParams" class="table table-hover" show-filter="false">
 	    <caption style="color:#385d94">Chemical Mutagenesis</caption>
-	    <tr ng-show="$ctrl.data.length!=0" ng-repeat="x in $ctrl.data | filter: $ctrl.keyword" ng-if="x.mutation_id=='EFO_0000370'">
-	        <td title="'Mutant Strain'">
+	    <tr ng-show="$ctrl.chemParams.data.length!=0" ng-repeat="x in $data | filter: $ctrl.keyword">
+	        <td title="'Mutant Strain'" sortable="'name'">
 	            {{ x.name }}
 	        </td>
-	        <td title="'Genomic Position'">
-	            {{ x.coordinate.start }}
+	        <td title="'Genomic Position'" sortable="'start'">
+	            {{ x.start }}
 	        </td>
-	        <td title="'L2 Base'">
+	        <td title="'L2 Base'" sortable="'ref_base'">
 	            {{ x.ref_base }}
 	        </td>
-	        <td title="'Variant Base'">
+	        <td title="'Variant Base'" sortable="'variant_base'">
 	            {{ x.variant_base }}
 	        </td>
-	        <td title="'SNV Type'">
+	        <td title="'SNV Type'" sortable="'snv_name'">
 	            {{ x.snv_name }}
 	        </td>
-	        <td title="'Effect on Amino Acid'">
+	        <td title="'Effect on Amino Acid'" sortable="'aa_effect'">
 	            {{ x.aa_effect }}
 	        </td>
 	        <td title="'Reference'">
@@ -43,26 +43,26 @@
 	
 	    </tr>
 	    <tr>
-	        <td ng-show="$ctrl.data.length==0">
+	        <td ng-show="$ctrl.chemParams.data.length==0">
 	            No data
 	        </td>
 	    </tr>
 	</table>
 </div>
 <div class="table-responsive">
-	<table ng-table="$ctrl.tableParams" class="table table-hover">
+	<table ng-table="$ctrl.transParams" class="table table-hover" show-filter="false">
 	    <caption style="color:#385d94">Transposon Mutagenesis</caption>
-	    <tr ng-show="$ctrl.data.length!=0" ng-repeat="x in $ctrl.data | filter: $ctrl.keyword" ng-if="x.mutation_id=='EFO_0004021'">
-	        <td title="'Mutant Strain'">
+	    <tr ng-show="$ctrl.transParams.data.length!=0" ng-repeat="x in $data | filter: $ctrl.keyword">
+	        <td title="'Mutant Strain'" sortable="'name'">
 	            {{ x.name }}
 	        </td>
-	        <td title="'Genomic Position'">
-	            {{ x.coordinate.start }}
+	        <td title="'Genomic Position'" sortable="'start'">
+	            {{ x.start }}
 	        </td>
-	        <td title="'Percent Left Intact'">
+	        <td title="'Percent Left Intact'" sortable="'percent_gene_intact'">
 	            {{ x.percent_gene_intact }}
 	        </td>
-	        <td title="'Insert Direction'">
+	        <td title="'Insert Direction'" sortable="'insert_direction'">
 	            {{ x.insert_direction }}
 	        </td>
 	
@@ -86,26 +86,26 @@
 	
 	    </tr>
 	    <tr>
-	        <td ng-show="$ctrl.data.length==0">
+	        <td ng-show="$ctrl.transParams.data.length==0">
 	            No data
 	        </td>
 	    </tr>
 	</table>
 </div>
 <div class="table-responsive">
-	<table ng-table="$ctrl.tableParams" class="table table-hover">
+	<table ng-table="$ctrl.intronParams" class="table table-hover" show-filter="false">
 	    <caption style="color:#385d94">Intron Mutagenesis</caption>
-	    <tr ng-show="$ctrl.data.length!=0" ng-repeat="x in $ctrl.data | filter: $ctrl.keyword" ng-if="x.mutation_id=='EFO_0004016'">
-	        <td title="'Mutant Strain'">
+	    <tr ng-show="$ctrl.intronParams.data.length!=0" ng-repeat="x in $data | filter: $ctrl.keyword">
+	        <td title="'Mutant Strain'" sortable="'name'">
 	            {{ x.name }}
 	        </td>
-	        <td title="'Genomic Position'">
-	            {{ x.coordinate.start }}
+	        <td title="'Genomic Position'" sortable="'start'">
+	            {{ x.start }}
 	        </td>
-	        <td title="'Percent Left Intact'">
+	        <td title="'Percent Left Intact'" sortable="'percent_gene_intact'">
 	            {{ x.percent_gene_intact }}
 	        </td>
-	        <td title="'Insert Direction'">
+	        <td title="'Insert Direction'" sortable="'insert_direction'">
 	            {{ x.insert_direction }}
 	        </td>
 	
@@ -129,7 +129,7 @@
 	
 	    </tr>
 	    <tr>
-	        <td ng-show="$ctrl.data.length==0">
+	        <td ng-show="$ctrl.intronParams.data.length==0">
 	            No data
 	        </td>
 	    </tr>
@@ -137,22 +137,22 @@
 </div>
 
 <div class="table-responsive">
-	<table ng-table="$ctrl.tableParams" class="table table-hover">
+	<table ng-table="$ctrl.recombParams" class="table table-hover" show-filter="false">
 	    <caption style="color:#385d94">Recombination</caption>
-	    <tr ng-show="$ctrl.data.length!=0" ng-repeat="x in $ctrl.data | filter: $ctrl.keyword" ng-if="x.mutation_id=='EFO_0004293'">
-	        <td title="'Mutant Strain'">
+	    <tr ng-show="$ctrl.recombParams.data.length!=0" ng-repeat="x in $data | filter: $ctrl.keyword">
+	        <td title="'Mutant Strain'" sortable="'name'">
 	            {{ x.name }}
 	        </td>
-	        <td title="'Start Position'">
-	            {{ x.coordinate.start }}
+	        <td title="'Start Position'" sortable="'start'">
+	            {{ x.start }}
 	        </td>
-	        <td title="'End Position'">
-	            {{ x.coordinate.end }}
+	        <td title="'End Position'" sortable="'end'">
+	            {{ x.end }}
 	        </td>
-	        <td title="'Gene(s) Inserted'">
+	        <td title="'Gene(s) Inserted'" sortable="'genes_inserted'">
 	            {{ x.genes_inserted }}
 	        </td>
-	        <td title="'Insert Direction'">
+	        <td title="'Insert Direction'" sortable="'insert_direction'">
 	            {{ x.insert_direction }}
 	        </td>
 	
@@ -176,7 +176,7 @@
 	
 	    </tr>
 	    <tr>
-	        <td ng-show="$ctrl.data.length==0">
+	        <td ng-show="$ctrl.recombParams.data.length==0">
 	            No data
 	        </td>
 	    </tr>

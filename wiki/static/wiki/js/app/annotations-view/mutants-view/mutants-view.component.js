@@ -4,7 +4,7 @@ angular
         bindings : {
             data : '<'
         },
-        controller : function($location, sendToView) {
+        controller : function($location, sendToView, NgTableParams, $filter) {
             'use strict';
             var ctrl = this;
             ctrl.$onInit = function() {};
@@ -19,6 +19,29 @@ angular
                 sendToView.sendToView(url_suf, mutant).then(function(data) {}).finally(function() {
                     ctrl.loading = false;
                 });
+            };
+            
+            ctrl.chemParams = new NgTableParams({}, {});
+            ctrl.transParams = new NgTableParams({}, {});
+            ctrl.intronParams = new NgTableParams({}, {});
+            ctrl.chemParams = new NgTableParams({}, {});
+            
+            ctrl.$onChanges = function() {
+                if (ctrl.data) {
+                	var parsed = [];
+                	angular.forEach(ctrl.data, function(mutant) {
+                		var next = mutant;
+                		next.start = parseInt(mutant.coordinate.start);
+                		next.end = parseInt(mutant.coordinate.end);
+                		parsed.push(next);
+                	});
+                	
+	                ctrl.chemParams = new NgTableParams({},{dataset: $filter('filter')(parsed, "EFO_0000370")});
+	                ctrl.transParams = new NgTableParams({},{dataset: $filter('filter')(parsed, "EFO_0004021")});
+	                ctrl.intronParams = new NgTableParams({},{dataset: $filter('filter')(parsed, "EFO_0004016")});
+	                ctrl.recombParams = new NgTableParams({},{dataset: $filter('filter')(parsed, "EFO_0004293")});
+	                console.log(ctrl.chemParams);
+                }
             };
 
         },

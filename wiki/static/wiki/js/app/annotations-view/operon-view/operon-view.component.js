@@ -16,7 +16,11 @@ angular
                 	angular.forEach(ctrl.operon, function(obj) {
                 		var next = {};
                 		angular.forEach(obj, function(value, key) {
-                			next[key] = value.value;
+                			if (value.value === parseInt(value.value)) {
+                				next[key] = parseInt(value.value);
+                			} else {
+                				next[key] = value.value;
+                			}
                 		});
                 		parsed.push(next);
                 	});
