@@ -100,6 +100,16 @@ class WDSparqlQueries(object):
         results = self.execute_query(query)
         return results['results']['bindings']
 
-
+    def locus2qid(self, locusTag, taxid):
+        preQuery ='''
+        SELECT distinct ?gene ?protein WHERE{
+                ?strain wdt:P685 '{taxid}'. 
+                ?gene wdt:P2393 '{locusTag}';
+                wdt:P703 ?strain.
+                OPTIONAL {?gene wdt:P688 ?protein.}}
+        '''
+        query = preQuery.replace('{taxid}', taxid).replace('{locusTag}', locusTag)
+        results = self.execute_query(query)
+        return results['results']['bindings']
 
 
