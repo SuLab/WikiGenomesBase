@@ -26,7 +26,10 @@ angular.module("cellVisualizer")
                 	ctrl.loading = false;
                 	ctrl.status = "No Components to Show";
                 }
+            } else {
+                ctrl.loading = false;
             }
+
         };
 
         this.displayCell = false;

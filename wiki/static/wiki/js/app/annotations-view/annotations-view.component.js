@@ -80,7 +80,7 @@ angular
             });
 
             ctrl.$onChanges = function(changes) {
-                if (changes.hasprotein === false) {
+                if (changes.hasprotein && changes.hasprotein.currentValue == false) {
                     // settings for visibility of each annotation view
                     ctrl.settings.product = false;
                     ctrl.settings.go = false;

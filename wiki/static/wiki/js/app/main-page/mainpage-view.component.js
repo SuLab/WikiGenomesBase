@@ -84,6 +84,7 @@ angular
                             ctrl.currentGene.proteinQID = $filter('parseQID')(results[0].protein.value);
                         } else {
                             ctrl.hasprotein = false;
+                            ctrl.currentGene.productType = {"id": "Q7187"};
                         }
 
                     } else {
@@ -108,6 +109,10 @@ angular
                                 ctrl.currentGene.geneAliases.push(alias.value);
                             }
                         });
+
+                        if(entity.claims.P2561) {
+                            ctrl.currentGene.geneSymbol = entity.claims.P2561[0].mainsnak.datavalue.value.text;
+                        }
                         
 	                    OperonData.getOperonData(ctrl.currentGene.entrez).then(
 	                        function(data) {
@@ -133,7 +138,7 @@ angular
                             angular.forEach(entity.aliases.en, function(alias) {
                                 ctrl.currentGene.proteinAliases.push(alias.value);
                             });
-                            
+
                             // get protein sequence data used in protein view for BLAST query
                             proteinSequenceData.getSequence(ctrl.currentGene.refseqProt).then(function(data) {
                     			ctrl.currentGene.sequenceProt = encodeURIComponent(data);

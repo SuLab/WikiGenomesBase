@@ -112,4 +112,34 @@ class WDSparqlQueries(object):
         results = self.execute_query(query)
         return results['results']['bindings']
 
+    def locus2orthologs(self, locusTag):
+        preQuery ='''
+        SELECT ?ortholog ?protein WHERE {
+                       {
+                          ?gene wdt:P2393 '{{locusTag}}'.
+                          ?gene p:P684 ?statement.
+                          ?statement ps:P684 ?ortholog. 
+                          ?ortholog wdt:P2393 ?orthoLocusTag.
+                          ?ortholog wdt:P703 ?orthoTaxon.
+                          ?orthoTaxon wdt:P685 ?orthoTaxid.
+                          OPTIONAL {
+                            ?ortholog wdt:P688 ?protein.
+                          }
+                        }
+                        UNION
+                        {
+                          ?gene wdt:P2393 '{{locusTag}}'.
+                          ?gene wdt:P2393 ?orthoLocusTag.
+                          ?gene wdt:P703 ?orthoTaxon.
+                          ?orthoTaxon wdt:P685 ?orthoTaxid.
+                          BIND(?gene AS ?ortholog).
+                          OPTIONAL {
+                            ?gene wdt:P688 ?protein.
+                          }
+                        }
+                      }'''
+        query = preQuery.replace('{{locusTag}}', locusTag)
+        results = self.execute_query(query)
+        return results['results']['bindings']
+
 

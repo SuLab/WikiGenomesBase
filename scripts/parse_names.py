@@ -1,42 +1,36 @@
 import WD_Utils
 from wikidataintegrator import wdi_core, wdi_login
+import threading
 
 username = "djow2019"
-password = ""
-
-cttax = "272561"
+password = input("Password:\n")
 count = 0
+
+sparql = WD_Utils.WDSparqlQueries()
+login = wdi_login.WDLogin(user=username, pwd=password)
+ref = wdi_core.WDItemID(value="Q22065557", prop_nr='P248', is_reference=True)
+
+def write2wikidata(qid, value):
+    print("%s %s" % (qid, value))
+    statement = wdi_core.WDMonolingualText(value=value, prop_nr='P2561', references=[[ref]])
+    item = wdi_core.WDItemEngine(wd_item_id=qid, data=[statement], domain=None, use_sparql=True)
+    item.write(login=login)
+
 with open("chlamydia.tsv", "r") as file:
     file.readline()
     file.readline()
-    sparql = WD_Utils.WDSparqlQueries()
-    
-    login = wdi_login.WDLogin(user=username, pwd=password)
 
-    ref = wdi_core.WDItemID(value="Q22065557", prop_nr='P248', is_reference=True)
-    
     for line in file:
-        line = line.split("\t")
 
-        if (line[0] != "NA") and line[4] != "-":
-        
-            line[0] = line[0][0:2] + "_" + line[0][2:]
-            results = sparql.locus2qid(locusTag=line[0], taxid=cttax)
-            if len(results) > 0:
-                for key in results[0]:
-                    qid = results[0][key]["value"].split("/")[-1]
-                    statement = wdi_core.WDMonolingualText(value=line[4], prop_nr='P2561', references=[[ref]])
-                    item = wdi_core.WDItemEngine(wd_item_id=qid, data=[statement], append_value=['P2561'], domain=None, use_sparql=True)
-                    item.write(login=login)
-                
-        if (line[1] != "NA") and line[4] != "-":
-            results = sparql.locus2qid(locusTag=line[1], taxid=line[3])
-            if len(results) > 0:
-                for key in results[0]:
-                    qid = results[0][key]["value"].split("/")[-1]
-                    statement = wdi_core.WDMonolingualText(value=line[4], prop_nr='P2561', references=[[ref]])
-                    item = wdi_core.WDItemEngine(wd_item_id=qid, data=[statement], append_value=['P2561'], domain=None, use_sparql=True)
-                    item.write(login=login)
+        if count >= 783:
+            line = line.split("\t")
+            if line[4] != "-":
+                results = sparql.locus2orthologs(locusTag=line[1])
+                for result in results:
+                    for key in result:
+                        qid = result[key]["value"].split("/")[-1]
+                        #thread = threading.Thread(target=write2wikidata, args=(qid, line[4],))
+                        #thread.start()
+                        write2wikidata(qid, line[4])
+
         count = count + 1
-        if count == 2:
-            break;

@@ -919,12 +919,13 @@ angular
         var getAllChlamGeneLabels = function () {
             var endpoint = 'https://query.wikidata.org/sparql?format=json&query=';
             var url = endpoint + encodeURIComponent(
-                    "SELECT ?geneLabel ?locusTag ?taxid WHERE { " +
+                    "SELECT ?geneLabel ?locusTag ?taxid ?symbol WHERE { " +
             			"?taxon wdt:P171* wd:Q846309. " +
             			"?gene wdt:P279 wd:Q7187." +
             			"?gene wdt:P703 ?taxon." +
             			"?gene wdt:P2393 ?locusTag." +
             			"?taxon wdt:P685 ?taxid. " +
+                        "OPTIONAL {?gene wdt:P2561 ?symbol}" +
             			"SERVICE wikibase:label { bd:serviceParam wikibase:language 'en'. }" +
         			"}");
             return $http.get(url)
@@ -932,7 +933,9 @@ angular
                 	var genes = response.results.bindings;
             		var pattern = /(TC|CTL|CT|CPn)_?(RS)?\d+/;
             		angular.forEach(genes, function(gene) {
-            			var value = gene.geneLabel.value;
+
+                        var value = gene.geneLabel.value;
+
             			var locusTag = value.match(pattern)[0];
             			
             			// add locus without _
@@ -948,6 +951,13 @@ angular
             			if (prefix.indexOf("_") != -1) {
             				gene.geneLabel.value += "/" + prefix.replace("_", "") + num;
             			}
+
+                        if (gene.symbol) {
+                            var symbol = gene.symbol.value;
+                            if (gene.geneLabel.value.toLowerCase().indexOf(symbol.toLowerCase()) == -1) {
+                                gene.geneLabel.value += " (" + symbol + ")";
+                            }
+                        }
             		});
                     return genes;
                 })
