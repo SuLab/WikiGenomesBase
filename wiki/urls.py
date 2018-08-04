@@ -14,6 +14,7 @@ urlpatterns = [
     url(r'^organism/\d+/gene/.+/wd_pdb_edit', views.pdb_form, name='pdbForm'),
     url(r'^organism/\d+/gene/.+/wd_mutant_edit', views.mutant_form, name='mutantForm'),
 	url(r'^organism/\d+/gene/.+/wd_gene_name_edit', views.geneName_form, name='geneNameForm'),
+    url(r'^organism/\d+/gene/.+/wd_gene_symbol_edit', views.geneSymbol_form, name='geneSymbolForm'),
     url(r'^organism/\d+/gene/.+/mg_mutant_view', views.mongo_annotations, name='mongoAnnotations'),
     url(r'^wd_oauth', views.wd_oauth, name='wd_oauth'),
     url(r'^email', views.email, name='helpForm'),

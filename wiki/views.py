@@ -565,3 +565,59 @@ def geneName_form(request):
             responseData['write_success'] = False
             print(e)
         return JsonResponse(responseData)
+
+
+@ensure_csrf_cookie
+def geneSymbol_form(request):
+    """
+    uses wdi to make go annotation edit to wikidata
+    :param request: includes go annotation json for writing to wikidata
+    :return: response data object with a write success boolean
+    """
+    print("Gene Symbol Form")
+    if request.method == 'POST':
+        body_unicode = request.body.decode('utf-8')
+        body = json.loads(body_unicode)
+        responseData = {}
+        if 'login' not in request.session.keys():
+            responseData['authentication'] = False
+            return JsonResponse(responseData)
+
+        login = jsonpickle.decode(request.session['login'])
+
+        statements = []
+        refs = []
+        eutilsPMID = body['pmid']
+        # construct the references using WDI_core and PMID_tools if necessary
+        try:
+            refs.append(wdi_core.WDItemID(value='Q26489220', prop_nr='P1640', is_reference=True))
+            refs.append(wdi_core.WDTime(str(strftime("+%Y-%m-%dT00:00:00Z", gmtime())), prop_nr='P813', is_reference=True))
+            pmid_url = 'https://tools.wmflabs.org/pmidtool/get_or_create/{}'.format(eutilsPMID)
+            pmid_result = requests.get(url=pmid_url)
+            if pmid_result.json()['success'] == True:
+                refs.append(wdi_core.WDItemID(value=pmid_result.json()['result'], prop_nr='P248', is_reference=True))
+            else:
+                return JsonResponse({'pmid': False})
+        except Exception as e:
+            print("reference construction error: " + str(e))
+
+        statements.append(wdi_core.WDMonolingualText(value=body['geneSymbol'], prop_nr='P2561', references=[refs]))
+
+        try:
+            print("Writing to gene " + body['geneQID'])
+            if body['geneQID'] != "":
+                wd_item_gene = wdi_core.WDItemEngine(wd_item_id=body['geneQID'], data=statements)
+                wd_item_gene.set_aliases(aliases=[body['geneName']])
+                wd_item_gene.write(login=login)
+
+            print("Writing to protein " + body['proteinQID'])
+            if body['proteinQID'] != "":
+                wd_item_protein = wdi_core.WDItemEngine(wd_item_id=body['proteinQID'], data=statements)
+                wd_item_protein.set_aliases(aliases=[body['geneName']])
+                wd_item_protein.write(login=login)
+
+            responseData['write_success'] = True
+        except Exception as e:
+            responseData['write_success'] = False
+
+        return JsonResponse(responseData)

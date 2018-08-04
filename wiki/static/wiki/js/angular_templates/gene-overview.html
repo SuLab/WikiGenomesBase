@@ -1,5 +1,7 @@
-<h2 style="display: inline; margin-right: 20px">{{$ctrl.data.geneLabel}}</h2>
-<h3>Gene Symbol: {{$ctrl.data.geneSymbol}}</h3>
+<h2>{{$ctrl.data.geneLabel}}</h2>
+<h3 style="display: inline; margin-right: 10px">Gene Symbol: {{$ctrl.data.geneSymbol}}</h3>
+<button style="display: inline" title="Edit Gene Symbol" type="button" class="btn btn-xs btn-info" data-toggle="modal"
+        data-target="#geneSymbol_button"><span class="glyphicon glyphicon-pencil"></span></button><br>
 <div class="container-fluid">
     <div class="row">
         <div class="col-sm-2">
@@ -55,6 +57,24 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content" style="padding:10px">
             <gene-name-form gene="$ctrl.data" ng-hide="showHelp"></gene-name-form>
+            <help-form ng-show="showHelp"></help-form>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" style="float:left" ng-click="showHelp = !showHelp">
+                    <span ng-hide="showHelp">Need Help?</span>
+                    <span ng-show="showHelp">Back</span>
+                </button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" ng-click="showHelp = false">Close
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="geneSymbol_button" tabindex="-1" role="dialog"
+     aria-labelledby="refModalTitle"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content" style="padding:10px">
+            <gene-symbol-form gene="$ctrl.data" ng-hide="showHelp"></gene-symbol-form>
             <help-form ng-show="showHelp"></help-form>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" style="float:left" ng-click="showHelp = !showHelp">
