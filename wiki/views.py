@@ -607,13 +607,13 @@ def geneSymbol_form(request):
             print("Writing to gene " + body['geneQID'])
             if body['geneQID'] != "":
                 wd_item_gene = wdi_core.WDItemEngine(wd_item_id=body['geneQID'], data=statements)
-                wd_item_gene.set_aliases(aliases=[body['geneName']])
+                wd_item_gene.set_aliases(aliases=[body['geneSymbol']])
                 wd_item_gene.write(login=login)
 
             print("Writing to protein " + body['proteinQID'])
             if body['proteinQID'] != "":
                 wd_item_protein = wdi_core.WDItemEngine(wd_item_id=body['proteinQID'], data=statements)
-                wd_item_protein.set_aliases(aliases=[body['geneName']])
+                wd_item_protein.set_aliases(aliases=[body['geneSymbol']])
                 wd_item_protein.write(login=login)
 
             responseData['write_success'] = True
