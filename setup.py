@@ -9,6 +9,7 @@ db = client[mongo_database]
 
 print("Generating Module Settings")
 tasks.generate_module_settings()
+tasks.generate_application_settings()
 
 print("Generating Reference Genomes")
 tasks.generate_org_list()        # generate the list of organisms in json so front end can access easily

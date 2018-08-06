@@ -2,11 +2,20 @@ from __future__ import absolute_import, unicode_literals
 from wikigenomes.settings import BASE_DIR
 from celery import shared_task
 from scripts import jbrowse_configuration, flatfile_ingestion, WD_Utils
-from application_settings import taxids, title, modules
+from application_settings import taxids, modules, application
 from pymongo import MongoClient
 from bson.json_util import dumps
 from pprint import pprint
 import os
+
+def generate_application_settings():
+    """
+    generate_application_settings()
+        Generates a json setting file of the names to use in the application
+    """
+    filepath = BASE_DIR + '/wiki/static/wiki/json/application_data.json'
+    with open(filepath, 'w') as outFile:
+        print(dumps(application), file=outFile)
 
 def generate_org_list():
     """
@@ -92,18 +101,6 @@ def update_jbrowse_operons(taxid=None):
     else:
         refObj = jbrowse_configuration.FeatureDataRetrieval(taxid=taxid)
         refObj.operons2gff()
-
-def generate_app_name():
-    """
-    DeprecationWarning
-    """
-    jsonpath = BASE_DIR + '/wiki/static/wiki/json/'
-    filepath = jsonpath + 'appData.json'
-    name = [{
-        'appName': title
-    }]
-    with open(filepath, 'w') as outfile:
-        print(dumps(name), file=outfile)
 
 @shared_task
 def update_orthologues():

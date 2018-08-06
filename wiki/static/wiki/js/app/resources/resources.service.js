@@ -1,4 +1,16 @@
 //data from /json
+angular
+    .module('resources')
+    .factory('appData', function ($resource) {
+        var url = '/static/wiki/json/application_data.json';
+        return $resource(url, {}, {
+            getAppData: {
+                method: "GET",
+                params: {},
+                cache: true
+            }
+        });
+    });
 
 angular
     .module('resources')

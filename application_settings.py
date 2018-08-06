@@ -1,6 +1,3 @@
-# Application Name
-title = 'ChlamBase'
-
 # enter unique db name for your database
 mongo_database = "chlamdb"
 
@@ -24,4 +21,10 @@ modules = {
     "mutant-view": True,
     "protein-interaction-view": True,
     "related-publication-view": True
+}
+
+application = {
+    "title": "ChlamBase",
+    "noun": "Chlamydia",
+    "adjective": "Chlamydial"
 }

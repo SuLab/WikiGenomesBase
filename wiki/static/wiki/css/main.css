@@ -23,3 +23,6 @@ a:hover{cursor:pointer;}
 a{color: #385d94;}
 .center{margin-left: auto;margin-right: auto;}
 .navbar-toggle .icon-bar{background-color: #fff;}
+#myNavbar .btn {-webkit-transition-duration: 0.4s; /* Safari */transition-duration: 0.4s;}
+#myNavbar .btn:hover {background-color: white;}
+.modal-open {padding-right: 0 !important}
