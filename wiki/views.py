@@ -287,21 +287,16 @@ def localization_form(request):
 
             if pmid_result.json()['success'] == True:
                 refs.append(wdi_core.WDItemID(value=pmid_result.json()['result'], prop_nr='P248', is_reference=True))
-                
-            responseData['ref_success'] = True
+
         except Exception as e:
-            responseData['ref_success'] = False
             print("reference construction error: " + str(e))
 
         statements = []
         # #contstruct the statements using WDI_core
         print("Constructing statements")
         try:
-            # Replace P129 with upregulated_in PID
-            statements.append(wdi_core.WDItemID(value=body["localizationQID"], prop_nr='P129', references=[refs]))
-            responseData['statement_success'] = True
+            statements.append(wdi_core.WDItemID(value=body["localizationQID"], prop_nr='P5572', references=[refs]))
         except Exception as e:
-            responseData['statement_success'] = False
             print(e)
 
         #write the statement to WD using WDI_core
@@ -310,13 +305,11 @@ def localization_form(request):
             print("protein id:")
             print(body['proteinQID'])
             
-            # find the appropriate item in wd, TODO replace P129 with upregulated_in
             wd_item_protein = wdi_core.WDItemEngine(wd_item_id=body['proteinQID'], domain=None,
                                                     data=statements, use_sparql=True,
-                                                    append_value='P129')
-            print("Writing protein with login")
-            #wd_item_protein.write(login=login)
-            responseData['write_success'] = False
+                                                    append_value='P5572')
+            wd_item_protein.write(login=login)
+            responseData['write_success'] = True
 
         except Exception as e:
             responseData['write_success'] = False

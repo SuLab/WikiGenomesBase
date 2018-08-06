@@ -35,11 +35,13 @@
             <strong>Recombination Mutants: </strong>{{$ctrl.rm}}
         </div>
         <div class="col-sm-4">
-            <strong>Expression: </strong>{{$ctrl.annotations.expression.RB_EXPRESSION_TIMING}}<br>
+            <strong>Expression: </strong><span ng-show="$ctrl.annotations.expression.RB_EXPRESSION_TIMING">{{$ctrl.annotations.expression.RB_EXPRESSION_TIMING}}; </span>
+                <span ng-show="$ctrl.data.developmentalForm.eb.value=='true'">Elementary body; </span>
+                <span ng-show="$ctrl.data.developmentalForm.rb.value=='true'">Reticulate body; </span><br>
             <strong>Localizations: </strong><span ng-show="$ctrl.annotations.go.cellcomp.length > 0"
                                                   ng-repeat="x in $ctrl.annotations.go.cellcomp">{{x.gotermValueLabel.value}}; </span>
             <span ng-hide="$ctrl.annotations.go.cellcomp.length > 0">None</span><br>
-            <cell-visualizer cell-comp="$ctrl.annotations.go.cellcomp"></cell-visualizer>
+            <cell-visualizer cell-comp="$ctrl.annotations.go.cellcomp" development="$ctrl.data.developmentalForm"></cell-visualizer>
         </div>
         <div class="col-sm-4">
             <strong>PDB Structure: </strong><span ng-hide="$ctrl.data.pdbIds.length > 0">None</span><span

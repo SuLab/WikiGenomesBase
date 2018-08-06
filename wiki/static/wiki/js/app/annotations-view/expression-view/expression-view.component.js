@@ -3,7 +3,8 @@ angular
     .component('expressionView', {
         templateUrl: '/static/build/js/angular_templates/expression-view.min.html',
         bindings: {
-            data: '<'
+            data: '<',
+            gene: '<'
         },
         controller: function () {
             'use strict';

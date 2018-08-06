@@ -858,6 +858,36 @@ angular
 
 angular
     .module('resources')
+    .factory('developmentalForm', function ($http) {
+        var getDevelopmentalForms = function (uniprot) {
+            var endpoint = 'https://query.wikidata.org/sparql?format=json&query=';
+            var url = endpoint + encodeURIComponent(
+                "SELECT (GROUP_CONCAT(?eb) AS ?eb) (GROUP_CONCAT(?rb) AS ?rb) ?pmid WHERE {" +
+                    "?protein wdt:P352 '" + uniprot+ "'." +
+                    "?protein p:P5572+ ?claim." +
+                    "?claim ps:P5572 ?form." +
+                    "?claim prov:wasDerivedFrom/pr:P248/wdt:P698 ?pmid." +
+                "BIND(IF(?form = wd:Q51955212, true, '') AS ?eb)." +
+                "BIND(IF(?form = wd:Q51955198, true, '') AS ?rb)." +
+            "}" +
+            "GROUP BY ?pmid");
+
+            return $http.get(url)
+                .success(function (response) {
+                    return response.data;
+                })
+                .error(function (response) {
+                    return response;
+                });
+        };
+        return {
+            getDevelopmentalForms: getDevelopmentalForms
+        };
+
+    });
+
+angular
+    .module('resources')
     .factory('allChlamydiaGenes', function ($http) {
         var getAllChlamGenes = function () {
             var endpoint = 'https://query.wikidata.org/sparql?format=json&query=';
