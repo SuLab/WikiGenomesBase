@@ -24,7 +24,7 @@ modules = {
 }
 
 application = {
-    "title": "ChlamBase",
-    "noun": "Chlamydia",
-    "adjective": "Chlamydial"
+    "title": "MyxoBase",
+    "noun": "Myxococcus",
+    "adjective": "Myxococcal"
 }
