@@ -15,6 +15,7 @@ div[class^="col-md-"]{height:100%;padding:1px;}
 td{color:#385d94;}
 .my-custom-table-class tbody tr:hover{background-color:#dddddd;}
 .node1{border-radius:10px;}
+.search-example{background:none;border:none;margin:0;padding:0;}
 a:hover{cursor:pointer;}
 .fadedColor{color:lightgrey;}
 .strongColor{color:#385d94;}
