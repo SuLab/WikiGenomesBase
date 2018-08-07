@@ -32,9 +32,13 @@
         <table ng-table="$ctrl.tableParams" class="table table-hover">
             <tr>
                 <td title="'Developmental Body Enrichment'">
-                    <span ng-class="{'label-success': $ctrl.gene.developmentalForm.eb.value == 'true','label-default': $ctrl.gene.developmentalForm.eb.value != 'true'}"
+                    <span ng-class="{'label-primary': $ctrl.gene.developmentalForm.increased.value=='eb',
+                                     'label-info': $ctrl.gene.developmentalForm.eb.value == '+' && $ctrl.gene.developmentalForm.increased.value!='eb',
+                                     'label-default': $ctrl.gene.developmentalForm.eb.value != '+'}"
                           class="label">Elementary Body</span>
-                    <span ng-class="{'label-success': $ctrl.gene.developmentalForm.rb.value == 'true','label-default': $ctrl.gene.developmentalForm.rb.value != 'true'}"
+                    <span ng-class="{'label-primary': $ctrl.gene.developmentalForm.increased.value=='rb',
+                                     'label-info': $ctrl.gene.developmentalForm.rb.value == '+' && $ctrl.gene.developmentalForm.increased.value!='rb',
+                                     'label-default': $ctrl.gene.developmentalForm.rb.value != '+'}"
                           class="label">Reticulate Body</span>
                 </td>
                 <td title="'References'">
@@ -49,6 +53,12 @@
                 </td>
             </tr>
         </table>
+        <div style="font-size: 10px">
+            <span class="label-primary">&nbsp;&nbsp;&nbsp;&nbsp;</span>=Increased;&nbsp;
+            <span class="label-info">&nbsp;&nbsp;&nbsp;&nbsp;</span>=Expressed;&nbsp;
+            <span class="label-default">&nbsp;&nbsp;&nbsp;&nbsp;</span>=Not Determined or Quantified
+        </div>
+        <br>
         <button type="button" class="btn btn-default" data-toggle="modal" data-target="#l_button">Add an annotation
         </button>
     </div>

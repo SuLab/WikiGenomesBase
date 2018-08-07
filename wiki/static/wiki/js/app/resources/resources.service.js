@@ -874,15 +874,20 @@ angular
         var getDevelopmentalForms = function (uniprot) {
             var endpoint = 'https://query.wikidata.org/sparql?format=json&query=';
             var url = endpoint + encodeURIComponent(
-                "SELECT (GROUP_CONCAT(?eb) AS ?eb) (GROUP_CONCAT(?rb) AS ?rb) ?pmid WHERE {" +
-                    "?protein wdt:P352 '" + uniprot+ "'." +
+                "SELECT (GROUP_CONCAT(?eb) AS ?eb) (GROUP_CONCAT(?rb) AS ?rb) ?pmid (GROUP_CONCAT(?increased) AS ?increased) WHERE {" +
+                    "?protein wdt:P352 '"+uniprot+"'." +
                     "?protein p:P5572+ ?claim." +
                     "?claim ps:P5572 ?form." +
                     "?claim prov:wasDerivedFrom/pr:P248/wdt:P698 ?pmid." +
-                "BIND(IF(?form = wd:Q51955212, true, '') AS ?eb)." +
-                "BIND(IF(?form = wd:Q51955198, true, '') AS ?rb)." +
+                "BIND(IF(?form = wd:Q51955212, '+', '') AS ?eb)." +
+                "BIND(IF(?form = wd:Q51955198, '+', '') AS ?rb)." +
+                "OPTIONAL {" +
+                        "?protein wdt:P1911 ?form." +
+                    "BIND(IF(?form = wd:Q51955212, 'eb', 'rb') AS ?increased)." +
+                "}" +
             "}" +
-            "GROUP BY ?pmid");
+            "GROUP BY ?pmid"
+            );
 
             return $http.get(url)
                 .success(function (response) {
