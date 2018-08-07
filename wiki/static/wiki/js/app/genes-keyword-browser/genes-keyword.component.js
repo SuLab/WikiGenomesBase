@@ -1,9 +1,13 @@
 angular
     .module('genesKeyword')
     .component('genesKeyword', {
-        controller: function ($location, $filter, allChlamOrgs, allChlamydiaGenes, queryBuilder, $http, allGoTerms, sendToView, $cacheFactory) {
+        controller: function ($location, $filter, allChlamOrgs, allChlamydiaGenes, queryBuilder, $http, allGoTerms, sendToView, $cacheFactory, appData) {
             'use strict';
             var ctrl = this;
+
+            appData.getAppData(function (data) {
+                ctrl.appData = data;
+            });
 
             ctrl.$onInit = function () {
                 ctrl.loading = true;

@@ -1,11 +1,15 @@
 angular
     .module('oauthForm')
     .component('oauthForm', {
-        controller: function ($window, $routeParams, $location, sendToView) {
+        controller: function ($window, $routeParams, $location, sendToView, appData) {
             'use strict';
             var ctrl = this;
             
             ctrl.authorization = $location.path().includes('authorized');
+
+            appData.getAppData(function (data) {
+                ctrl.appData = data;
+            });
             
             ctrl.oauthAuthorization = function () {
                 sendToView.sendToView(

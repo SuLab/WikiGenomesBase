@@ -1,35 +1,9 @@
-<style>
-    body {
-        padding-top: 100px;
-    }
-
-    .container-fluid {
-        /*height: 100%;*/
-        padding-top: 30px;
-        padding-bottom: 30px;
-
-    }
-
-    .navbar-custom {
-        background-color: #385d94;
-        color: whitesmoke;
-    }
-    
-    .wrapbreaker {
-        word-break: break-all;
-    }
-    
-    .navbar-toggle .icon-bar{ 
-    	background-color: #fff;
-    }
-
-</style>
 <div ng-show="$ctrl.loading" class="overlay">
     <div class="loading-img"></div>
 </div>
 <nav class="navbar navbar-custom navbar-fixed-top">
 	 <div class="navbar-header" style="padding: 20px">
-           <a style="color: whitesmoke; font-size:20px" href="/">ChlamBase</a>
+           <a style="color: whitesmoke; font-size:20px" href="/">{{$ctrl.appData.title}}</a>
            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbarHeader">
 		        <span class="icon-bar"></span>
 		        <span class="icon-bar"></span>
@@ -43,7 +17,7 @@
        	</ul>
        </div>
 </nav>
-<div class="container-fluid" style="color:#385d94">
+<div class="container-fluid" style="padding-top: 80px;">
     <div class="row">
         <div class="col-md-2">
             <div class="panel" style="padding: 15px" data-intro="Select which genomes you wish to search by clicking the checkboxes here." data-step="5">
@@ -58,7 +32,7 @@
             </div>
         </div>
         <div class="col-md-8">
-        	<h3 style="text-align: center">Chlambase Search</h3>
+        	<h3 style="text-align: center">{{$ctrl.appData.title}} Search</h3>
         	<div class="form-inline" style="white-space: nowrap; margin-bottom: 10px">
 				<label for="keywordSearch">Search: </label>
 				<input ng-model="$ctrl.keyword" 
@@ -207,8 +181,8 @@
 				        <li>
 				        </li>
 				        <li dir-paginate="x in $ctrl.chlamGenes.currentKW| itemsPerPage: 10">
-				            <div ng-click="$ctrl.onSelect(x)" class="btn btn-default"
-				                 style="margin-top:15px; width:100%; color:#385d94">
+				            <div ng-click="$ctrl.onSelect(x)" class="btn btn-default strongColor"
+				                 style="margin-top:15px; width:100%;">
 				                <div class="row">
 				                    <div class="col-md-10" style="text-align: left">
 				                        <div style="padding-left: 20px; overflow: hidden; text-overflow: ellipsis">

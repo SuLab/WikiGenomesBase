@@ -24,7 +24,8 @@ angular
                               pdbData,
                               proteinSequenceData,
                               proteinMass,
-                              developmentalForm
+                              developmentalForm,
+                              appData
         ) {
 
             // Main gene page component. Loaded when a gene is selected.  Parses the url for taxid and locus tag and uses
@@ -44,6 +45,10 @@ angular
                     }
                 });
             }
+
+            appData.getAppData(function (data) {
+                ctrl.appData = data;
+            });
 
             ctrl.$onInit = function () {
                 'use strict';
