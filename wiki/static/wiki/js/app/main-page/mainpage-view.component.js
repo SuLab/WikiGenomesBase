@@ -147,11 +147,13 @@ angular
                             developmentalForm.getDevelopmentalForms(ctrl.currentGene.uniprot).then(function (data) {
                                ctrl.currentGene.developmentalForm = data.data.results.bindings[0];
 
-                               // strange ascii characters got appended to string (8203)
-                               var eb = ctrl.currentGene.developmentalForm.eb.value.indexOf("+") != -1 ? '+' : '';
-                               var rb = ctrl.currentGene.developmentalForm.rb.value.indexOf("+") != -1 ? '+' : '';
-                               ctrl.currentGene.developmentalForm.eb.value = eb;
-                               ctrl.currentGene.developmentalForm.rb.value = rb;
+                               if (ctrl.currentGene.developmentalForm) {
+                                   // strange ascii characters got appended to string (8203)
+                                   var eb = ctrl.currentGene.developmentalForm.eb.value.indexOf("+") != -1 ? '+' : '';
+                                   var rb = ctrl.currentGene.developmentalForm.rb.value.indexOf("+") != -1 ? '+' : '';
+                                   ctrl.currentGene.developmentalForm.eb.value = eb;
+                                   ctrl.currentGene.developmentalForm.rb.value = rb;
+                               }
                             });
 
                             // get protein sequence data used in protein view for BLAST query

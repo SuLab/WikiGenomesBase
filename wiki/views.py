@@ -295,7 +295,11 @@ def localization_form(request):
         # #contstruct the statements using WDI_core
         print("Constructing statements")
         try:
-            statements.append(wdi_core.WDItemID(value=body["localizationQID"], prop_nr='P5572', references=[refs]))
+            for qid in body["localizationQID"]:
+                statements.append(wdi_core.WDItemID(value=qid, prop_nr='P5572', references=[refs]))
+            if body["increased"] is not None:
+                statements.append(wdi_core.WDItemID(value=body["increased"], prop_nr='P1911',
+                    references=[refs], qualifiers=[wdi_core.WDItemID(value=body["relativeTo"], prop_nr='P2210', is_qualifier=True)]))
         except Exception as e:
             print(e)
 
@@ -307,7 +311,7 @@ def localization_form(request):
             
             wd_item_protein = wdi_core.WDItemEngine(wd_item_id=body['proteinQID'], domain=None,
                                                     data=statements, use_sparql=True,
-                                                    append_value='P5572')
+                                                    append_value=['P5572'])
             wd_item_protein.write(login=login)
             responseData['write_success'] = True
 
