@@ -1,7 +1,7 @@
 angular
     .module('browserPage')
     .component('browserPage', {
-        controller: function ($filter, $location, $routeParams, allChlamOrgs, allOrgGenes) {
+        controller: function ($filter, $location, $routeParams, allChlamOrgs, allOrgGenes, appData) {
             'use strict';
             //Browser page Component.  Directed here to paginated list of genes when organism is selected from landing page,
             //or when browser is pointed to URL with /organism/<valid-taxid>
@@ -11,7 +11,9 @@ angular
             ctrl.$onInit = function () {
                 ctrl.loading = true;
                 ctrl.currentTaxid = $routeParams.taxid;
-                console.log(ctrl.currentTaxid);
+                appData.getAppData(function (data) {
+                    ctrl.appData = data;
+                });
                 allChlamOrgs.getAllOrgs(function (data) {
                     ctrl.orgList = data;
                     ctrl.currentOrg = $filter('getJsonItemOrg')('taxid', ctrl.currentTaxid, ctrl.orgList);
