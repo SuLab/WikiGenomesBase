@@ -46,6 +46,7 @@ angular.module('cmod', [
     'localizationView',
     'localizationForm',
     'footer',
+    'header',
     'pdbForm',
     'geneSymbolForm'
 ]);
