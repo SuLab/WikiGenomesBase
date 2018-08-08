@@ -58,20 +58,19 @@
         </div>
     </div>
 
-    <div class="container-fluid" style="margin-bottom: 60px">
+    <div class="container-fluid" style="margin-bottom: 60px" ng-hide="$ctrl.loading">
         <div class="row">
             <div class="col-sm-6" style="padding-left: 40px">
-                <h3>{{$ctrl.chlamGenes.currentKW.length}} Results</h3>
-                <ul style="list-style: none; padding-left: 0px">
-                    <li dir-paginate="x in $ctrl.chlamGenes.currentKW| itemsPerPage: 10">
-                        <div ng-click="$ctrl.onSelect(x)" class="btn btn-default strongColor"
-                             style="margin-top:15px; width:100%;">
-                            <div class="row">
-                                <div class="col-md-10" style="text-align: left">
-                                    <div style="padding-left: 20px; overflow: hidden; text-overflow: ellipsis">
-                                        <strong><u>{{x.geneLabel.value | limitTo : 80}}</u></strong>
-                                        <br>
-                                        <div style="font-size: 13px; overflow: hidden; text-overflow: ellipsis">
+                <h3>{{$ctrl.tableParams.total()}} Results</h3>
+                <table ng-table="$ctrl.tableParams" style="width: 100%">
+                    <tr ng-repeat="x in $data">
+                        <td ng-click="$ctrl.onSelect(x)">
+                            <div class="filter-result strongColor" style="text-align: left; padding-left: 20px;">
+                                <strong><u>{{x.geneLabel.value}}</u></strong>
+                                <br>
+                                <div class="row">
+                                    <div class="col-sm-10">
+                                        <div style="font-size: 13px; margin: 2px">
                                             <span>Aliases: {{x.aliases.value}} </span><span>Strain: {{x.taxonLabel.value}}</span><br>
                                             <span>Locus Tag: {{x.locusTag.value}} </span><span>Entrez: {{x.entrez.value}} </span>
                                             <span ng-show="x.uniprot.value">Uniprot: {{x.uniprot.value}} </span><span
@@ -82,23 +81,18 @@
                                             <span ng-show="x.host_protein.value">Host Protein: {{x.host_protein.value}}</span>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="col-md-2" style="text-align: right"><a target="_blank"
-                                                                                   href="https://www.wikidata.org/wiki/{{x.gene.value | parseQID}}">
-                                    <div style="padding: 10px;">
-                                        <div class="btn btn-default"><img style="max-height: 30px" id="wikilogo"
-                                                                          src="static/wiki/img/GeneWikidata-logo-en.png">
-                                        </div>
+                                    <div class="col-sm-2">
+                                        <button class="btn btn-default">
+                                            <a target="_blank" href="https://www.wikidata.org/wiki/{{x.gene.value | parseQID}}">
+                                                <img class="center" src="static/wiki/img/GeneWikidata-logo-en.png">
+                                            </a>
+                                        </button>
                                     </div>
-                                </a>
                                 </div>
                             </div>
-                        </div>
-                    </li>
-                </ul>
-                <div style="text-align: center">
-                    <dir-pagination-controls on-page-change="pageChanged(newPageNumber)"></dir-pagination-controls>
-                </div>
+                        </td>
+                    </tr>
+                </table>
             </div>
             <div class="col-sm-6 filter-by">
                 <h3>Filter by</h3>
