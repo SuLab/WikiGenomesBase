@@ -31,3 +31,8 @@ a{color: #385d94;}
 .navbar-fixed-bottom {background: #385d94; color: #FFFFFF}
 .navbar-fixed-top{background-color: #385d94; color: whitesmoke;}
 .container-fluid{color:#385d94}
+.filter-header{position: relative}
+.filter-header span{background-color: white; padding-right: 10px}
+.filter-header:after{position: absolute;height: 0.5em;border-top: 1px solid #385d94; z-index:-1; content: "";bottom:0;left:0;right:0;}
+.indented{display: inline; margin-left: 20px}
+.filter-by div{padding: 5px}
