@@ -1,7 +1,7 @@
 angular
     .module('genesKeyword')
     .component('genesKeyword', {
-        controller: function ($location, $filter, allChlamOrgs, allChlamydiaGenes, queryBuilder, $http, allGoTerms, sendToView, $cacheFactory, appData, NgTableParams) {
+        controller: function ($location, $filter, allChlamOrgs, allChlamydiaGenes, queryBuilder, $http, allGoTerms, sendToView, $cacheFactory, appData, NgTableParams, expressionTimingData) {
             'use strict';
             var ctrl = this;
 
@@ -10,7 +10,6 @@ angular
             });
 
             ctrl.$onInit = function () {
-                ctrl.loading = true;
                 ctrl.chlamGenes = {};
 
                 ctrl.tableParams = new NgTableParams();
@@ -51,11 +50,20 @@ angular
                     ctrl.tm = cache.get("tm");
                     ctrl.im = cache.get("im");
                     ctrl.rm = cache.get("rm");
+                    ctrl.rb = cache.get("rb");
+                    ctrl.eb = cache.get("eb");
+                    ctrl.bacp = cache.get("bacp")[0];
+                    ctrl.bacp_text = cache.get("bacp")[1];
 
                     cache.removeAll();
                     cache.destroy();
 
-                    ctrl.advSearch();
+                    if (!(ctrl.keyword == "" && !ctrl.mf && !ctrl.bp && !ctrl.cc && !ctrl.hp && !ctrl.entrez &&
+                        !ctrl.uniprot && !ctrl.refseq && !ctrl.pdb && !ctrl.cm && !ctrl.tm&& !ctrl.im&& !ctrl.rm)) {
+                        ctrl.loading = true;
+                        ctrl.advSearch();
+                    }
+
                 }
 
                 ctrl.orgData = [];
@@ -65,7 +73,8 @@ angular
                         ctrl.orgData.push(value);
                     });
                 });
-                if (!ctrl.adv_cache) {
+                if (!ctrl.adv_cache && ctrl.keyword != "") {
+                    ctrl.loading = true;
                     ctrl.getChlamGenes = allChlamydiaGenes.getAllChlamGenes().then(
                         function (data) {
 
@@ -159,12 +168,56 @@ angular
                     if (ctrl.rm) {
                         count++;
                     }
+                    if (ctrl.constitutive || ctrl.early || ctrl.mid || ctrl.mid_late || ctrl.late || ctrl.very_late) {
+                        count++;
+                    }
 
                     // no mutants to filter
                     if (count == 0) {
                         ctrl.tableParams.settings({dataset: ctrl.chlamGenes.keywordAll});
                         ctrl.loading = false;
                         return;
+                    }
+
+                    if (ctrl.constitutive || ctrl.early || ctrl.mid || ctrl.mid_late || ctrl.late || ctrl.very_late) {
+                        // filter by gene expression timing
+                        expressionTimingData.getExpression(function (data) {
+                            var tags = [];
+                            var timings = [];
+
+                            if (ctrl.constitutive) {
+                                timings.push("Constitutive");
+                            }
+                            if (ctrl.early) {
+                                timings.push("Early");
+                            }
+                            if (ctrl.mid) {
+                                timings.push("Mid");
+                            }
+                            if (ctrl.mid_late) {
+                                timings.push("Mid_Late");
+                            }
+                            if (ctrl.late) {
+                                timings.push("Late");
+                            }
+                            if (ctrl.very_late) {
+                                timings.push("Very_Late");
+                            }
+
+                            angular.forEach(data, function(gene) {
+                                if (timings.indexOf(gene.RB_EXPRESSION_TIMING) != -1) {
+                                    tags.push(gene["Locus tag"]);
+                                }
+                            });
+
+                            ctrl.chlamGenes.keywordAll = $filter('locusTagFilter')(ctrl.chlamGenes.keywordAll, tags);
+                            count--;
+                            if (count == 0) {
+                                ctrl.tableParams.settings({dataset: ctrl.chlamGenes.keywordAll});
+                                ctrl.loading = false;
+                                return;
+                            }
+                        });
                     }
 
                     if (ctrl.cm) {
@@ -287,7 +340,7 @@ angular
 
                 if (ctrl.pdb) {
                     if (ctrl.pdb_text) {
-                        inner += queryBuilder.equals("?protein", "pdb", ctrl.pdb_text);
+                        inner += queryBuilder.equals("?protein", "pdb", ctrl.pdb_text.toUpperCase());
                     } else {
                         inner += queryBuilder.triple("?protein", "pdb", "?pdb");
                     }
@@ -304,6 +357,17 @@ angular
 
                 } else {
                     inner += queryBuilder.optional(queryBuilder.triple("?protein", "refseq", "?refseq"));
+                }
+
+                if (ctrl.rb) {
+                    inner += queryBuilder.triple("?protein", "db", "wd:Q51955198");
+                } else {
+                    inner += queryBuilder.optional(queryBuilder.triple("?protein", "db", "wd:Q51955198"));
+                }
+                if (ctrl.eb) {
+                    inner += queryBuilder.triple("?protein", "db", "wd:Q51955212");
+                } else {
+                    inner += queryBuilder.optional(queryBuilder.triple("?protein", "db", "wd:Q51955212"));
                 }
 
                 if (ctrl.mf) {
@@ -327,13 +391,22 @@ angular
                     inner += queryBuilder.optional(queryBuilder.addLabel("?protein", "cc", "?ccLabel") + queryBuilder.filterEnglish('?ccLabel'));
                 }
 
-                if (ctrl.hp) {
-                    inner += queryBuilder.addLabel("?protein", "hp", "?host_protein");
+                if (ctrl.hp || ctrl.bacp) {
+                    inner += queryBuilder.triple("?protein", "hp", "?host_protein");
+                    inner += queryBuilder.addLabel("?protein", "hp", "?host_proteinLabel");
                 } else {
-                    inner += queryBuilder.optional(queryBuilder.addLabel("?protein", "hp", "?host_protein"));
+                    inner += queryBuilder.optional(queryBuilder.triple("?protein", "hp", "?host_protein"));
+                }
+                if (ctrl.hp && ctrl.bacp) {
+
+                } else if (ctrl.hp) {
+                    inner += queryBuilder.minus(queryBuilder.triple("?host_protein", "taxon", "?taxon"));
+                } else if (ctrl.bacp) {
+                    inner += queryBuilder.triple("?host_protein", "taxon", "?taxon");
                 }
 
-                if (ctrl.uniprot || ctrl.refseq || ctrl.mf || ctrl.bp || ctrl.cc || ctrl.hp || ctrl.pdb) {
+                if (ctrl.uniprot || ctrl.refseq || ctrl.mf || ctrl.bp || ctrl.cc || ctrl.hp || ctrl.bacp ||
+                        ctrl.pdb || ctrl.eb || ctrl.rb) {
                     query += queryBuilder.triple("?gene", "protein", "?protein");
                     query += inner;
                 } else {
@@ -354,7 +427,11 @@ angular
                 }
 
                 if (ctrl.hp && ctrl.hp_text) {
-                    query += queryBuilder.filter("?host_protein", ctrl.hp_text);
+                    query += queryBuilder.filter("?host_proteinLabel", ctrl.hp_text);
+                }
+
+                if (ctrl.bacp && ctrl.bacp_text) {
+                    query += queryBuilder.filter("?host_proteinLabel", ctrl.bacp_text);
                 }
 
                 query += queryBuilder.ending();
@@ -379,49 +456,59 @@ angular
         bp: 'wdt:P682',
         protein: 'wdt:P688',
         hp: 'wdt:P129',
-        pdb: 'wdt:P638'
+        pdb: 'wdt:P638',
+        db: 'wdt:P5572',
+        taxon: 'wdt:P703'
     };
 
     var optional = function (input) {
-        return "OPTIONAL {" + input + "}";
+        return "OPTIONAL {" + input + "}\n";
+    };
+
+    var minus = function (input) {
+        return "MINUS {" + input + "}\n";
+    };
+
+    var union = function (s1, s2) {
+        return "{"+s1+"} UNION {" + s2 + "}\n";
     };
 
     var filter = function (term, keyword) {
-        return "FILTER(CONTAINS(LCASE(" + term + "), '" + keyword.toLowerCase() + "')).";
+        return "FILTER(CONTAINS(LCASE(" + term + "), '" + keyword.toLowerCase() + "')).\n";
     };
 
     var equals = function (key, property, value) {
-        return key + " " + pMap[property] + " '" + value + "'.";
+        return key + " " + pMap[property] + " '" + value + "'.\n";
     };
 
     var filterEnglish = function (keyword) {
-        return "FILTER(LANG(" + keyword + ") = 'en').";
+        return "FILTER(LANG(" + keyword + ") = 'en').\n";
     };
 
     var beginning = function () {
         return "SELECT ?taxon ?taxid ?taxonLabel ?geneLabel ?entrez ?uniprot ?proteinLabel ?locusTag ?refseq_prot ?gene ?pdb" +
-            "(GROUP_CONCAT(DISTINCT ?aliases) AS ?aliases) (GROUP_CONCAT(DISTINCT ?mfLabel) AS ?mfLabel) " +
-            "(GROUP_CONCAT(DISTINCT ?bpLabel) AS ?bpLabel) (GROUP_CONCAT(DISTINCT ?ccLabel) AS ?ccLabel) (GROUP_CONCAT(DISTINCT ?host_protein) AS ?host_protein) WHERE {" +
-            "?taxon wdt:P171* wd:Q846309." +
-            "?gene wdt:P279 wd:Q7187." +
-            "?gene wdt:P703 ?taxon." +
-            "?gene wdt:P2393 ?locusTag." +
-            "?gene skos:altLabel ?aliases.";
+            "(GROUP_CONCAT(DISTINCT ?aliases) AS ?aliases) (GROUP_CONCAT(DISTINCT ?mfLabel) AS ?mfLabel) (GROUP_CONCAT(DISTINCT ?host_proteinLabel) AS ?host_proteinLabel)" +
+            "(GROUP_CONCAT(DISTINCT ?bpLabel) AS ?bpLabel) (GROUP_CONCAT(DISTINCT ?ccLabel) AS ?ccLabel) (GROUP_CONCAT(DISTINCT ?host_protein) AS ?host_protein) WHERE {\n" +
+            "?taxon wdt:P171* wd:Q846309.\n" +
+            "?gene wdt:P279 wd:Q7187.\n" +
+            "?gene wdt:P703 ?taxon.\n" +
+            "?gene wdt:P2393 ?locusTag.\n" +
+            "?gene skos:altLabel ?aliases.\n";
     };
 
     var ending = function () {
-        return "?taxon wdt:P685 ?taxid." +
+        return "?taxon wdt:P685 ?taxid.\n" +
             "SERVICE wikibase:label { bd:serviceParam wikibase:language 'en'. }" +
-            "}" +
+            "}\n" +
             "GROUP BY ?locusTag ?taxon ?taxid ?taxonLabel ?geneLabel ?entrez ?uniprot ?proteinLabel ?refseq_prot ?gene ?pdb";
     };
 
     var addLabel = function (keyword, property, term) {
-        return keyword + " " + pMap[property] + "/rdfs:label " + term + ".";
+        return keyword + " " + pMap[property] + "/rdfs:label " + term + ".\n";
     };
 
     var triple = function (key, property, value) {
-        return key + " " + pMap[property] + " " + value + ".";
+        return key + " " + pMap[property] + " " + value + ".\n";
     };
 
     return {
@@ -433,6 +520,8 @@ angular
         ending: ending,
         addLabel: addLabel,
         triple: triple,
+        union: union,
+        minus: minus
 
     };
 

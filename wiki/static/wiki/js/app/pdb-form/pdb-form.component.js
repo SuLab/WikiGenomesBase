@@ -90,7 +90,7 @@ angular
                             locusTag2QID.getLocusTag2QID(ctrl.orthoData[key], key).then(function (data) {
                             	
                                 var formData = {
-                                		id: ctrl.pdbAnnotation.id,
+                                		id: ctrl.pdbAnnotation.id.toUpperCase(),
                                         pub: ctrl.pdbAnnotation.pub.uid,
                                         qid: null,
                                         image: {
