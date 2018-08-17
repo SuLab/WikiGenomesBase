@@ -1,5 +1,5 @@
 # enter unique db name for your database
-mongo_database = "chlamdb"
+mongo_database = "myxodb"
 
 # used for celery beat scheduler
 wg_timezone = 'America/Los_Angeles'
