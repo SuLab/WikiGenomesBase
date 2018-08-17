@@ -3,7 +3,7 @@
         <div class="col-md-12">
             <img class="img-responsive center" data-intro="Welcome to {{$ctrl.appData.title}}! Follow this quick tutorial to get started!" data-step="1" src="static/wiki/img/logo.png">
 
-            <h3 data-intro="{{$ctrl.appData.title}} is an easily editable model organism database for {{$ctrl.appData.noun}}. We allow you to lookup, add, and modify data in real time. 
+            <h3 class="lightColor" data-intro="{{$ctrl.appData.title}} is an easily editable model organism database for {{$ctrl.appData.noun}}. We allow you to lookup, add, and modify data in real time.
             	Your data will instantly be visible without going through the lengthy publication process!" data-step="2">An open, editable, and centralized model organism database <br> for
                 the
                 {{$ctrl.appData.adjective}} research community.</h3>
@@ -16,7 +16,7 @@
 	            	Or, you can type a keyword like 'actin' and click search to get a list of all genes that contain 'actin' in its data." data-step="4">
 	      <div class="col-md-3"></div>
 	        <div class="col-md-6">
-	            <div class="row form-inline">
+	            <div class="row">
 	             	<advanced-keyword-form></advanced-keyword-form>
 	            </div>
 	        </div>
@@ -33,7 +33,7 @@
         <div class="col-md-1"></div>
         <div class="col-md-10"
              style="padding: 60px">
-            <h2 data-intro="Lastly, new edits and changes to {{$ctrl.appData.title}} will appear here, in addition to related publications. That concludes the tutorial!" data-step="6">See what's happening in the most recent <i><strong>{{$ctrl.appData.noun}}</strong></i> Related Research:</h2>
+            <h2 class="lightColor" data-intro="Lastly, new edits and changes to {{$ctrl.appData.title}} will appear here, in addition to related publications. That concludes the tutorial!" data-step="6">See what's happening in the most recent <i><strong>{{$ctrl.appData.noun}}</strong></i> Related Research:</h2>
             <div style="background-color: transparent; padding-top: 30px;">
                 <div class="carousel slide" data-ride=carousel id="slider">
                     <div class="carousel-inner" role="listbox">
@@ -41,7 +41,7 @@
                              ng-class="{active:!$index}"
                              ng-repeat="pub in $ctrl.recentPubs">
                             <a style="color:whitesmoke" target="_blank" href="https://www.ncbi.nlm.nih.gov/pubmed/{{pub.id}}">
-                                <div><strong><h3>{{pub.title}}</h3></strong></div>
+                                <div><strong><h3 class="lightColor">{{pub.title}}</h3></strong></div>
                                 <div><strong><i>{{pub.journalInfo.journal.title}}</i></strong></div>
                                 <div>{{pub.authorList.author[0].fullName}} <i>et al.</i>
                                     {{pub.journalInfo.printPublicationDate | date}}

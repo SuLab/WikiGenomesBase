@@ -27,52 +27,47 @@ angular
 
                 ctrl.keyword = $location.path().split("/")[2];
                 ctrl.keywordResult = ctrl.keyword;
-                var cache = $cacheFactory.get("advSearch");
-                if (cache) {
-                    ctrl.adv_cache = true;
-                    ctrl.mf = cache.get("mf")[0];
-                    ctrl.mf_text = cache.get("mf")[1];
-                    ctrl.bp = cache.get("bp")[0];
-                    ctrl.bp_text = cache.get("bp")[1];
-                    ctrl.cc = cache.get("cc")[0];
-                    ctrl.cc_text = cache.get("cc")[1];
-                    ctrl.hp = cache.get("hp")[0];
-                    ctrl.hp_text = cache.get("hp")[1];
-                    ctrl.entrez = cache.get("entrez")[0];
-                    ctrl.entrez_text = cache.get("entrez")[1];
-                    ctrl.uniprot = cache.get("uniprot")[0];
-                    ctrl.uniprot_text = cache.get("uniprot")[1];
-                    ctrl.refseq = cache.get("refseq")[0];
-                    ctrl.refseq_text = cache.get("refseq")[1];
-                    ctrl.pdb = cache.get("pdb")[0];
-                    ctrl.pdb_text = cache.get("pdb")[1];
-                    ctrl.cm = cache.get("cm");
-                    ctrl.tm = cache.get("tm");
-                    ctrl.im = cache.get("im");
-                    ctrl.rm = cache.get("rm");
-                    ctrl.rb = cache.get("rb");
-                    ctrl.eb = cache.get("eb");
-                    ctrl.bacp = cache.get("bacp")[0];
-                    ctrl.bacp_text = cache.get("bacp")[1];
 
-                    cache.removeAll();
-                    cache.destroy();
-
-                    if (!(ctrl.keyword == "" && !ctrl.mf && !ctrl.bp && !ctrl.cc && !ctrl.hp && !ctrl.entrez &&
-                        !ctrl.uniprot && !ctrl.refseq && !ctrl.pdb && !ctrl.cm && !ctrl.tm&& !ctrl.im&& !ctrl.rm)) {
-                        ctrl.loading = true;
-                        ctrl.advSearch();
+                ctrl.loadCache = function () {
+                    var cache = $cacheFactory.get("advSearch");
+                    if (cache) {
+                        ctrl.adv_cache = true;
+                        ctrl.mf = cache.get("mf")[0];
+                        ctrl.mf_text = cache.get("mf")[1];
+                        ctrl.bp = cache.get("bp")[0];
+                        ctrl.bp_text = cache.get("bp")[1];
+                        ctrl.cc = cache.get("cc")[0];
+                        ctrl.cc_text = cache.get("cc")[1];
+                        ctrl.hp = cache.get("hp")[0];
+                        ctrl.hp_text = cache.get("hp")[1];
+                        ctrl.entrez = cache.get("entrez")[0];
+                        ctrl.entrez_text = cache.get("entrez")[1];
+                        ctrl.uniprot = cache.get("uniprot")[0];
+                        ctrl.uniprot_text = cache.get("uniprot")[1];
+                        ctrl.refseq = cache.get("refseq")[0];
+                        ctrl.refseq_text = cache.get("refseq")[1];
+                        ctrl.pdb = cache.get("pdb")[0];
+                        ctrl.pdb_text = cache.get("pdb")[1];
+                        ctrl.cm = cache.get("cm");
+                        ctrl.tm = cache.get("tm");
+                        ctrl.im = cache.get("im");
+                        ctrl.rm = cache.get("rm");
+                        ctrl.rb = cache.get("rb");
+                        ctrl.eb = cache.get("eb");
+                        ctrl.bacp = cache.get("bacp")[0];
+                        ctrl.bacp_text = cache.get("bacp")[1];
+                        ctrl.orgData = cache.get("orgs");
+                        ctrl.constitutive = cache.get("constitutive");
+                        ctrl.early = cache.get("early");
+                        ctrl.mid = cache.get("mid");
+                        ctrl.mid_late = cache.get("mid_late");
+                        ctrl.late = cache.get("late");
+                        ctrl.very_late = cache.get("very_late");
                     }
+                };
 
-                }
+                ctrl.loadCache();
 
-                ctrl.orgData = [];
-                allChlamOrgs.getAllOrgs(function (data) {
-                    angular.forEach(data, function (value) {
-                        value.check = true;
-                        ctrl.orgData.push(value);
-                    });
-                });
                 if (!ctrl.adv_cache && ctrl.keyword != "") {
                     ctrl.loading = true;
                     ctrl.getChlamGenes = allChlamydiaGenes.getAllChlamGenes().then(
@@ -88,216 +83,186 @@ angular
                     });
                 }
 
-                var goClassMap = {
-                    'mf_button': {
-                        name: 'Molecular Function',
-                        QID: 'Q14860489'
-                    },
-                    'cc_button': {
-                        name: 'Cellular Component',
-                        QID: 'Q5058355'
-                    },
-                    'bp_button': {
-                        name: 'Biological Process',
-                        QID: 'Q2996394'
-                    }
-                };
 
-                ctrl.mfTerms = function (val) {
-                    return allGoTerms.getGoTermsAll(val, goClassMap.mf_button.QID).then(function (data) {
-                        return data.data.results.bindings.map(function (item) {
-                            return item;
+                ctrl.advSearch = function () {
+                    ctrl.loading = true;
+
+                    ctrl.loadCache();
+
+                    ctrl.keywordResult = ctrl.keyword;
+                    ctrl.tableParams.data = [];
+
+                    $('.collapse').collapse("hide");
+
+                    var endpoint = 'https://query.wikidata.org/sparql?format=json&query=';
+                    var url = endpoint + encodeURIComponent(ctrl.buildQuery());
+                    $http.get(url).then(function (data) {
+                        ctrl.chlamGenes.allGenes = data.data.results.bindings;
+                        ctrl.chlamGenes.keywordAll = $filter('keywordFilter')(ctrl.chlamGenes.allGenes, ctrl.keyword);
+
+                        // filter by organism
+                        ctrl.currentOrgsList = [];
+                        angular.forEach(ctrl.orgData, function (value) {
+                            if (value.check == true) {
+                                ctrl.currentOrgsList.push(value.taxid);
+                            }
                         });
+                        ctrl.chlamGenes.keywordAll = $filter('deleteJsonItemValuesList')('taxid', ctrl.currentOrgsList, ctrl.chlamGenes.keywordAll);
+
+                        var url_surf = "organism/1/gene/1/mg_mutant_view";
+
+                        // number of mutant filters to apply
+                        var count = 0;
+                        if (ctrl.cm) {
+                            count++;
+                        }
+                        if (ctrl.tm) {
+                            count++;
+                        }
+                        if (ctrl.im) {
+                            count++;
+                        }
+                        if (ctrl.rm) {
+                            count++;
+                        }
+                        if (ctrl.constitutive || ctrl.early || ctrl.mid || ctrl.mid_late || ctrl.late || ctrl.very_late) {
+                            count++;
+                        }
+
+                        // no mutants to filter
+                        if (count == 0) {
+                            ctrl.tableParams.settings({dataset: ctrl.chlamGenes.keywordAll});
+                            ctrl.loading = false;
+                            return;
+                        }
+
+                        if (ctrl.constitutive || ctrl.early || ctrl.mid || ctrl.mid_late || ctrl.late || ctrl.very_late) {
+                            // filter by gene expression timing
+                            expressionTimingData.getExpression(function (data) {
+                                var tags = [];
+                                var timings = [];
+
+                                if (ctrl.constitutive) {
+                                    timings.push("Constitutive");
+                                }
+                                if (ctrl.early) {
+                                    timings.push("Early");
+                                }
+                                if (ctrl.mid) {
+                                    timings.push("Mid");
+                                }
+                                if (ctrl.mid_late) {
+                                    timings.push("Mid_Late");
+                                }
+                                if (ctrl.late) {
+                                    timings.push("Late");
+                                }
+                                if (ctrl.very_late) {
+                                    timings.push("Very_Late");
+                                }
+
+                                angular.forEach(data, function (gene) {
+                                    if (timings.indexOf(gene.RB_EXPRESSION_TIMING) != -1) {
+                                        tags.push(gene["Locus tag"]);
+                                    }
+                                });
+
+                                ctrl.chlamGenes.keywordAll = $filter('locusTagFilter')(ctrl.chlamGenes.keywordAll, tags);
+                                count--;
+                                if (count == 0) {
+                                    ctrl.tableParams.settings({dataset: ctrl.chlamGenes.keywordAll});
+                                    ctrl.loading = false;
+                                    return;
+                                }
+                            });
+                        }
+
+                        if (ctrl.cm) {
+                            sendToView.sendToView(url_surf, {"action": "chemical"}).then(function (data) {
+                                var mutants = data.data.mutants;
+                                var tags = [];
+                                angular.forEach(mutants, function (mutant) {
+                                    if (tags.indexOf(mutant.locusTag) == -1) {
+                                        tags.push(mutant.locusTag);
+                                    }
+                                });
+                                ctrl.chlamGenes.keywordAll = $filter('locusTagFilter')(ctrl.chlamGenes.keywordAll, tags);
+                                count--;
+                                if (count == 0) {
+                                    ctrl.tableParams.settings({dataset: ctrl.chlamGenes.keywordAll});
+                                    ctrl.loading = false;
+                                    return;
+                                }
+                            });
+                        }
+
+                        if (ctrl.tm) {
+                            sendToView.sendToView(url_surf, {"action": "transposition"}).then(function (data) {
+                                var mutants = data.data.mutants;
+                                var tags = [];
+                                angular.forEach(mutants, function (mutant) {
+                                    if (tags.indexOf(mutant.locusTag) == -1) {
+                                        tags.push(mutant.locusTag);
+                                    }
+                                });
+                                ctrl.chlamGenes.keywordAll = $filter('locusTagFilter')(ctrl.chlamGenes.keywordAll, tags);
+                                count--;
+                                if (count == 0) {
+                                    ctrl.tableParams.settings({dataset: ctrl.chlamGenes.keywordAll});
+                                    ctrl.loading = false;
+                                    return;
+                                }
+                            });
+                        }
+
+                        if (ctrl.rm) {
+                            sendToView.sendToView(url_surf, {"action": "recombination"}).then(function (data) {
+                                var mutants = data.data.mutants;
+                                var tags = [];
+                                angular.forEach(mutants, function (mutant) {
+                                    if (tags.indexOf(mutant.locusTag) == -1) {
+                                        tags.push(mutant.locusTag);
+                                    }
+                                });
+                                ctrl.chlamGenes.keywordAll = $filter('locusTagFilter')(ctrl.chlamGenes.keywordAll, tags);
+                                count--;
+                                if (count == 0) {
+                                    ctrl.tableParams.settings({dataset: ctrl.chlamGenes.keywordAll});
+                                    ctrl.loading = false;
+                                    return;
+                                }
+                            });
+                        }
+
+                        if (ctrl.im) {
+                            sendToView.sendToView(url_surf, {"action": "insertion"}).then(function (data) {
+                                var mutants = data.data.mutants;
+                                var tags = [];
+                                angular.forEach(mutants, function (mutant) {
+                                    if (tags.indexOf(mutant.locusTag) == -1) {
+                                        tags.push(mutant.locusTag);
+                                    }
+                                });
+                                ctrl.chlamGenes.keywordAll = $filter('locusTagFilter')(ctrl.chlamGenes.keywordAll, tags);
+                                count--;
+                                if (count == 0) {
+                                    ctrl.tableParams.settings({dataset: ctrl.chlamGenes.keywordAll});
+                                    ctrl.loading = false;
+                                    return;
+                                }
+                            });
+                        }
+
                     });
+
                 };
 
-                ctrl.ccTerms = function (val) {
-                    return allGoTerms.getGoTermsAll(val, goClassMap.cc_button.QID).then(function (data) {
-                        return data.data.results.bindings.map(function (item) {
-                            return item;
-                        });
-                    });
-                };
-
-                ctrl.bpTerms = function (val) {
-                    return allGoTerms.getGoTermsAll(val, goClassMap.bp_button.QID).then(function (data) {
-                        return data.data.results.bindings.map(function (item) {
-                            return item;
-                        });
-                    });
-                };
-
-            };
-
-            ctrl.facetOrganism = function (organism) {
-                ctrl.currentOrgsList = [];
-                angular.forEach(ctrl.orgData, function (value) {
-                    if (value.check == true) {
-                        ctrl.currentOrgsList.push(value.taxid);
-                    }
-                });
-                ctrl.tableParams.data = $filter('deleteJsonItemValuesList')('taxid', ctrl.currentOrgsList, ctrl.chlamGenes.keywordAll);
-            };
-
-            ctrl.advSearch = function () {
-                ctrl.loading = true;
-                ctrl.keywordResult = ctrl.keyword;
-                ctrl.tableParams.data = [];
-
-                $('.collapse').collapse("hide");
-
-                var endpoint = 'https://query.wikidata.org/sparql?format=json&query=';
-                var url = endpoint + encodeURIComponent(ctrl.buildQuery());
-                $http.get(url).then(function (data) {
-                    ctrl.chlamGenes.allGenes = data.data.results.bindings;
-                    ctrl.chlamGenes.keywordAll = $filter('keywordFilter')(ctrl.chlamGenes.allGenes, ctrl.keyword);
-
-                    var url_surf = "organism/1/gene/1/mg_mutant_view";
-
-                    // number of mutant filters to apply
-                    var count = 0;
-                    if (ctrl.cm) {
-                        count++;
-                    }
-                    if (ctrl.tm) {
-                        count++;
-                    }
-                    if (ctrl.im) {
-                        count++;
-                    }
-                    if (ctrl.rm) {
-                        count++;
-                    }
-                    if (ctrl.constitutive || ctrl.early || ctrl.mid || ctrl.mid_late || ctrl.late || ctrl.very_late) {
-                        count++;
-                    }
-
-                    // no mutants to filter
-                    if (count == 0) {
-                        ctrl.tableParams.settings({dataset: ctrl.chlamGenes.keywordAll});
-                        ctrl.loading = false;
-                        return;
-                    }
-
-                    if (ctrl.constitutive || ctrl.early || ctrl.mid || ctrl.mid_late || ctrl.late || ctrl.very_late) {
-                        // filter by gene expression timing
-                        expressionTimingData.getExpression(function (data) {
-                            var tags = [];
-                            var timings = [];
-
-                            if (ctrl.constitutive) {
-                                timings.push("Constitutive");
-                            }
-                            if (ctrl.early) {
-                                timings.push("Early");
-                            }
-                            if (ctrl.mid) {
-                                timings.push("Mid");
-                            }
-                            if (ctrl.mid_late) {
-                                timings.push("Mid_Late");
-                            }
-                            if (ctrl.late) {
-                                timings.push("Late");
-                            }
-                            if (ctrl.very_late) {
-                                timings.push("Very_Late");
-                            }
-
-                            angular.forEach(data, function(gene) {
-                                if (timings.indexOf(gene.RB_EXPRESSION_TIMING) != -1) {
-                                    tags.push(gene["Locus tag"]);
-                                }
-                            });
-
-                            ctrl.chlamGenes.keywordAll = $filter('locusTagFilter')(ctrl.chlamGenes.keywordAll, tags);
-                            count--;
-                            if (count == 0) {
-                                ctrl.tableParams.settings({dataset: ctrl.chlamGenes.keywordAll});
-                                ctrl.loading = false;
-                                return;
-                            }
-                        });
-                    }
-
-                    if (ctrl.cm) {
-                        sendToView.sendToView(url_surf, {"action": "chemical"}).then(function (data) {
-                            var mutants = data.data.mutants;
-                            var tags = [];
-                            angular.forEach(mutants, function (mutant) {
-                                if (tags.indexOf(mutant.locusTag) == -1) {
-                                    tags.push(mutant.locusTag);
-                                }
-                            });
-                            ctrl.chlamGenes.keywordAll = $filter('locusTagFilter')(ctrl.chlamGenes.keywordAll, tags);
-                            count--;
-                            if (count == 0) {
-                                ctrl.tableParams.settings({dataset: ctrl.chlamGenes.keywordAll});
-                                ctrl.loading = false;
-                                return;
-                            }
-                        });
-                    }
-
-                    if (ctrl.tm) {
-                        sendToView.sendToView(url_surf, {"action": "transposition"}).then(function (data) {
-                            var mutants = data.data.mutants;
-                            var tags = [];
-                            angular.forEach(mutants, function (mutant) {
-                                if (tags.indexOf(mutant.locusTag) == -1) {
-                                    tags.push(mutant.locusTag);
-                                }
-                            });
-                            ctrl.chlamGenes.keywordAll = $filter('locusTagFilter')(ctrl.chlamGenes.keywordAll, tags);
-                            count--;
-                            if (count == 0) {
-                                ctrl.tableParams.settings({dataset: ctrl.chlamGenes.keywordAll});
-                                ctrl.loading = false;
-                                return;
-                            }
-                        });
-                    }
-
-                    if (ctrl.rm) {
-                        sendToView.sendToView(url_surf, {"action": "recombination"}).then(function (data) {
-                            var mutants = data.data.mutants;
-                            var tags = [];
-                            angular.forEach(mutants, function (mutant) {
-                                if (tags.indexOf(mutant.locusTag) == -1) {
-                                    tags.push(mutant.locusTag);
-                                }
-                            });
-                            ctrl.chlamGenes.keywordAll = $filter('locusTagFilter')(ctrl.chlamGenes.keywordAll, tags);
-                            count--;
-                            if (count == 0) {
-                                ctrl.tableParams.settings({dataset: ctrl.chlamGenes.keywordAll});
-                                ctrl.loading = false;
-                                return;
-                            }
-                        });
-                    }
-
-                    if (ctrl.im) {
-                        sendToView.sendToView(url_surf, {"action": "insertion"}).then(function (data) {
-                            var mutants = data.data.mutants;
-                            var tags = [];
-                            angular.forEach(mutants, function (mutant) {
-                                if (tags.indexOf(mutant.locusTag) == -1) {
-                                    tags.push(mutant.locusTag);
-                                }
-                            });
-                            ctrl.chlamGenes.keywordAll = $filter('locusTagFilter')(ctrl.chlamGenes.keywordAll, tags);
-                            count--;
-                            if (count == 0) {
-                                ctrl.tableParams.settings({dataset: ctrl.chlamGenes.keywordAll});
-                                ctrl.loading = false;
-                                return;
-                            }
-                        });
-                    }
-
-                });
-
+                if (ctrl.keyword != "" || ctrl.mf || ctrl.bp || ctrl.cc || ctrl.hp || ctrl.entrez || ctrl.bacp ||
+                    ctrl.uniprot || ctrl.refseq || ctrl.pdb || ctrl.cm || ctrl.tm || ctrl.im || ctrl.rm ||
+                    ctrl.constitutive || ctrl.early || ctrl.mid || ctrl.mid_late || ctrl.late || ctrl.very_late) {
+                    ctrl.loading = true;
+                    ctrl.advSearch();
+                }
             };
 
             ctrl.startJS = function () {
@@ -406,7 +371,7 @@ angular
                 }
 
                 if (ctrl.uniprot || ctrl.refseq || ctrl.mf || ctrl.bp || ctrl.cc || ctrl.hp || ctrl.bacp ||
-                        ctrl.pdb || ctrl.eb || ctrl.rb) {
+                    ctrl.pdb || ctrl.eb || ctrl.rb) {
                     query += queryBuilder.triple("?gene", "protein", "?protein");
                     query += inner;
                 } else {
@@ -444,7 +409,8 @@ angular
             };
 
         },
-        templateUrl: '/static/build/js/angular_templates/genes-keyword-browser.min.html'
+        templateUrl:
+            '/static/build/js/angular_templates/genes-keyword-browser.min.html'
     }).factory('queryBuilder', function () {
 
     var pMap = {
@@ -470,7 +436,7 @@ angular
     };
 
     var union = function (s1, s2) {
-        return "{"+s1+"} UNION {" + s2 + "}\n";
+        return "{" + s1 + "} UNION {" + s2 + "}\n";
     };
 
     var filter = function (term, keyword) {
