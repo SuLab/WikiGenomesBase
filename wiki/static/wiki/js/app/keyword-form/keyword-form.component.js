@@ -1,16 +1,18 @@
 angular
     .module('keywordForm')
     .component('keywordForm', {
-        controller: function ($filter, $location, allChlamydiaGenes) {
+        controller: function ($filter, $location, allSpeciesGenes, appData) {
             'use strict';
             var ctrl = this;
             ctrl.$onInit = function(){
             	
             	ctrl.selected = null;
-            	
-            	allChlamydiaGenes.getAllChlamGeneLabels().then(function(data) {
-            		ctrl.genes = data.data.results.bindings;
-            	});
+
+                appData.getAppData(function(data) {
+                    allSpeciesGenes.getAllSpeciesGeneLabels(data.parent_taxid).then(function(data) {
+                        ctrl.genes = data.data.results.bindings;
+                    });
+                });
             	
                 ctrl.submitKeyword = function ($item) {
                     if ($item == undefined){

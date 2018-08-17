@@ -1,7 +1,7 @@
 angular
     .module('advancedSearchFilter')
     .component('advancedSearchFilter', {
-        controller: function ($cacheFactory, allGoTerms, allChlamOrgs) {
+        controller: function ($cacheFactory, allGoTerms, allOrgs) {
             var ctrl = this;
 
             var cache = $cacheFactory.get("advSearch");
@@ -40,7 +40,7 @@ angular
 
             } else {
                 ctrl.orgData = [];
-                allChlamOrgs.getAllOrgs(function (data) {
+                allOrgs.getAllOrgs(function (data) {
                     angular.forEach(data, function (value) {
                         value.check = true;
                         ctrl.orgData.push(value);

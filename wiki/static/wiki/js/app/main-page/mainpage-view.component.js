@@ -4,7 +4,7 @@ angular
         controller: function ($filter,
                               $routeParams,
                               $location,
-                              allChlamOrgs,
+                              allOrgs,
                               wdGetEntities,
                               entrez2QID,
                               GOTerms,
@@ -70,7 +70,7 @@ angular
                     });
 
                 // get all organism data for forms
-                allChlamOrgs.getAllOrgs(function (data) {
+                allOrgs.getAllOrgs(function (data) {
                     ctrl.orgList = data;
                     ctrl.currentOrg = $filter('getJsonItemOrg')('taxid', ctrl.currentTaxid, ctrl.orgList);
                     if (ctrl.currentOrg == undefined) {

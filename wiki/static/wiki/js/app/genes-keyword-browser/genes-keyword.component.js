@@ -1,16 +1,12 @@
 angular
     .module('genesKeyword')
     .component('genesKeyword', {
-        controller: function ($location, $filter, allChlamOrgs, allChlamydiaGenes, queryBuilder, $http, allGoTerms, sendToView, $cacheFactory, appData, NgTableParams, expressionTimingData) {
+        controller: function ($location, $filter, allSpeciesGenes, queryBuilder, $http, allGoTerms, sendToView, $cacheFactory, appData, NgTableParams, expressionTimingData) {
             'use strict';
             var ctrl = this;
 
-            appData.getAppData(function (data) {
-                ctrl.appData = data;
-            });
-
             ctrl.$onInit = function () {
-                ctrl.chlamGenes = {};
+                ctrl.speciesGenes = {};
 
                 ctrl.tableParams = new NgTableParams();
 
@@ -68,20 +64,27 @@ angular
 
                 ctrl.loadCache();
 
+                // getting all species genes requries getting app data's parent taxid first
                 if (!ctrl.adv_cache && ctrl.keyword != "") {
                     ctrl.loading = true;
-                    ctrl.getChlamGenes = allChlamydiaGenes.getAllChlamGenes().then(
-                        function (data) {
-
-                            ctrl.chlamGenes.allGenes = data.data.results.bindings;
-                            ctrl.chlamGenes.keywordAll = $filter('keywordFilter')(ctrl.chlamGenes.allGenes, ctrl.keyword);
-                            ctrl.tableParams.settings({dataset: ctrl.chlamGenes.keywordAll});
-                            console.log(ctrl.tableParams);
-
-                        }).finally(function () {
-                        ctrl.loading = false;
-                    });
                 }
+
+                appData.getAppData(function (data) {
+                    ctrl.appData = data;
+
+                    if (!ctrl.adv_cache && ctrl.keyword != "") {
+                        allSpeciesGenes.getAllSpeciesGenes(ctrl.appData.parent_taxid).then(
+                            function (data) {
+
+                                ctrl.speciesGenes.allGenes = data.data.results.bindings;
+                                ctrl.speciesGenes.keywordAll = $filter('keywordFilter')(ctrl.speciesGenes.allGenes, ctrl.keyword);
+                                ctrl.tableParams.settings({dataset: ctrl.speciesGenes.keywordAll});
+
+                            }).finally(function () {
+                            ctrl.loading = false;
+                        });
+                    }
+                });
 
 
                 ctrl.advSearch = function () {
@@ -90,15 +93,14 @@ angular
                     ctrl.loadCache();
 
                     ctrl.keywordResult = ctrl.keyword;
-                    ctrl.tableParams.data = [];
 
                     $('.collapse').collapse("hide");
 
                     var endpoint = 'https://query.wikidata.org/sparql?format=json&query=';
                     var url = endpoint + encodeURIComponent(ctrl.buildQuery());
                     $http.get(url).then(function (data) {
-                        ctrl.chlamGenes.allGenes = data.data.results.bindings;
-                        ctrl.chlamGenes.keywordAll = $filter('keywordFilter')(ctrl.chlamGenes.allGenes, ctrl.keyword);
+                        ctrl.speciesGenes.allGenes = data.data.results.bindings;
+                        ctrl.speciesGenes.keywordAll = $filter('keywordFilter')(ctrl.speciesGenes.allGenes, ctrl.keyword);
 
                         // filter by organism
                         ctrl.currentOrgsList = [];
@@ -107,7 +109,7 @@ angular
                                 ctrl.currentOrgsList.push(value.taxid);
                             }
                         });
-                        ctrl.chlamGenes.keywordAll = $filter('deleteJsonItemValuesList')('taxid', ctrl.currentOrgsList, ctrl.chlamGenes.keywordAll);
+                        ctrl.speciesGenes.keywordAll = $filter('deleteJsonItemValuesList')('taxid', ctrl.currentOrgsList, ctrl.speciesGenes.keywordAll);
 
                         var url_surf = "organism/1/gene/1/mg_mutant_view";
 
@@ -131,7 +133,7 @@ angular
 
                         // no mutants to filter
                         if (count == 0) {
-                            ctrl.tableParams.settings({dataset: ctrl.chlamGenes.keywordAll});
+                            ctrl.tableParams.settings({dataset: ctrl.speciesGenes.keywordAll});
                             ctrl.loading = false;
                             return;
                         }
@@ -167,10 +169,10 @@ angular
                                     }
                                 });
 
-                                ctrl.chlamGenes.keywordAll = $filter('locusTagFilter')(ctrl.chlamGenes.keywordAll, tags);
+                                ctrl.speciesGenes.keywordAll = $filter('locusTagFilter')(ctrl.speciesGenes.keywordAll, tags);
                                 count--;
                                 if (count == 0) {
-                                    ctrl.tableParams.settings({dataset: ctrl.chlamGenes.keywordAll});
+                                    ctrl.tableParams.settings({dataset: ctrl.speciesGenes.keywordAll});
                                     ctrl.loading = false;
                                     return;
                                 }
@@ -186,10 +188,10 @@ angular
                                         tags.push(mutant.locusTag);
                                     }
                                 });
-                                ctrl.chlamGenes.keywordAll = $filter('locusTagFilter')(ctrl.chlamGenes.keywordAll, tags);
+                                ctrl.speciesGenes.keywordAll = $filter('locusTagFilter')(ctrl.speciesGenes.keywordAll, tags);
                                 count--;
                                 if (count == 0) {
-                                    ctrl.tableParams.settings({dataset: ctrl.chlamGenes.keywordAll});
+                                    ctrl.tableParams.settings({dataset: ctrl.speciesGenes.keywordAll});
                                     ctrl.loading = false;
                                     return;
                                 }
@@ -205,10 +207,10 @@ angular
                                         tags.push(mutant.locusTag);
                                     }
                                 });
-                                ctrl.chlamGenes.keywordAll = $filter('locusTagFilter')(ctrl.chlamGenes.keywordAll, tags);
+                                ctrl.speciesGenes.keywordAll = $filter('locusTagFilter')(ctrl.speciesGenes.keywordAll, tags);
                                 count--;
                                 if (count == 0) {
-                                    ctrl.tableParams.settings({dataset: ctrl.chlamGenes.keywordAll});
+                                    ctrl.tableParams.settings({dataset: ctrl.speciesGenes.keywordAll});
                                     ctrl.loading = false;
                                     return;
                                 }
@@ -224,10 +226,10 @@ angular
                                         tags.push(mutant.locusTag);
                                     }
                                 });
-                                ctrl.chlamGenes.keywordAll = $filter('locusTagFilter')(ctrl.chlamGenes.keywordAll, tags);
+                                ctrl.speciesGenes.keywordAll = $filter('locusTagFilter')(ctrl.speciesGenes.keywordAll, tags);
                                 count--;
                                 if (count == 0) {
-                                    ctrl.tableParams.settings({dataset: ctrl.chlamGenes.keywordAll});
+                                    ctrl.tableParams.settings({dataset: ctrl.speciesGenes.keywordAll});
                                     ctrl.loading = false;
                                     return;
                                 }
@@ -243,10 +245,10 @@ angular
                                         tags.push(mutant.locusTag);
                                     }
                                 });
-                                ctrl.chlamGenes.keywordAll = $filter('locusTagFilter')(ctrl.chlamGenes.keywordAll, tags);
+                                ctrl.speciesGenes.keywordAll = $filter('locusTagFilter')(ctrl.speciesGenes.keywordAll, tags);
                                 count--;
                                 if (count == 0) {
-                                    ctrl.tableParams.settings({dataset: ctrl.chlamGenes.keywordAll});
+                                    ctrl.tableParams.settings({dataset: ctrl.speciesGenes.keywordAll});
                                     ctrl.loading = false;
                                     return;
                                 }
@@ -257,10 +259,7 @@ angular
 
                 };
 
-                if (ctrl.keyword != "" || ctrl.mf || ctrl.bp || ctrl.cc || ctrl.hp || ctrl.entrez || ctrl.bacp ||
-                    ctrl.uniprot || ctrl.refseq || ctrl.pdb || ctrl.cm || ctrl.tm || ctrl.im || ctrl.rm ||
-                    ctrl.constitutive || ctrl.early || ctrl.mid || ctrl.mid_late || ctrl.late || ctrl.very_late) {
-                    ctrl.loading = true;
+                if (ctrl.adv_cache) {
                     ctrl.advSearch();
                 }
             };

@@ -37,14 +37,17 @@ class WDSparqlQueries(object):
             final_qid.append(qid_list[-1])
         except Exception:
             final_qid.append('None')
+        self.qid = final_qid[0]
         return final_qid[0]
 
-    def wd_qid2label(self):
+    def wd_qid2label(self, qid=None):
         """
         :param string: 'Q2458943' String value
         :return: QID 'Label'
         """
-        arguments = ' wd:{} rdfs:label ?label. Filter (LANG(?label) = "en") .'.format(self.qid)
+        if not qid:
+            qid = self.qid
+        arguments = ' wd:{} rdfs:label ?label. Filter (LANG(?label) = "en") .'.format(qid)
         select_where = 'SELECT ?label WHERE {{{}}}'.format(arguments)
         query = self.wd + " " + select_where
         results = self.execute_query(query)

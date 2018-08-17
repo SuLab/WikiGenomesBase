@@ -1,7 +1,7 @@
 angular
     .module('browserPage')
     .component('browserPage', {
-        controller: function ($filter, $location, $routeParams, allChlamOrgs, allOrgGenes, appData) {
+        controller: function ($filter, $location, $routeParams, allOrgs, allOrgGenes, appData) {
             'use strict';
             //Browser page Component.  Directed here to paginated list of genes when organism is selected from landing page,
             //or when browser is pointed to URL with /organism/<valid-taxid>
@@ -14,7 +14,7 @@ angular
                 appData.getAppData(function (data) {
                     ctrl.appData = data;
                 });
-                allChlamOrgs.getAllOrgs(function (data) {
+                allOrgs.getAllOrgs(function (data) {
                     ctrl.orgList = data;
                     ctrl.currentOrg = $filter('getJsonItemOrg')('taxid', ctrl.currentTaxid, ctrl.orgList);
                     if (ctrl.currentOrg == undefined) {
@@ -27,8 +27,6 @@ angular
                         var dataResults = data.data.results.bindings;
                         ctrl.currentAllGenes = $filter('orderObjectBy')(dataResults, 'genStart');
                         ctrl.initialGene = ctrl.currentAllGenes[0];
-                        console.log(ctrl.currentAllGenes);
-
                     }).finally(function(){
                         ctrl.loading = false;
                     });

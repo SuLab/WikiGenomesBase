@@ -26,5 +26,7 @@ modules = {
 application = {
     "title": "ChlamBase",
     "noun": "Chlamydia",
-    "adjective": "Chlamydial"
+    "adjective": "Chlamydial",
+    "parent_taxid": 810,
+    "newsfeed_search_term": "chlamydia trachomatis"
 }

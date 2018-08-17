@@ -1,12 +1,14 @@
 angular
     .module('advancedKeywordForm')
     .component('advancedKeywordForm', {
-        controller: function ($cacheFactory, allGoTerms, $location, allChlamydiaGenes) {
+        controller: function ($cacheFactory, allGoTerms, $location, allSpeciesGenes, appData) {
         	var ctrl = this;
-        	
-            allChlamydiaGenes.getAllChlamGeneLabels().then(function(data) {
-        		ctrl.genes = data.data.results.bindings;
-        	});
+
+        	appData.getAppData(function(data) {
+                allSpeciesGenes.getAllSpeciesGeneLabels(data.parent_taxid).then(function(data) {
+                    ctrl.genes = data.data.results.bindings;
+                });
+            });
 
             ctrl.submitKeyword = function ($item) {
                 if ($item == undefined){
