@@ -36,8 +36,8 @@
         </div>
         <div class="col-sm-4">
             <strong>Expression: </strong><span ng-show="$ctrl.annotations.expression.RB_EXPRESSION_TIMING">{{$ctrl.annotations.expression.RB_EXPRESSION_TIMING}}; </span>
-                <span ng-show="$ctrl.data.developmentalForm.eb.value=='true'">Elementary body; </span>
-                <span ng-show="$ctrl.data.developmentalForm.rb.value=='true'">Reticulate body; </span><br>
+                <span ng-show="$ctrl.data.developmentalForm.eb.value=='+'">Elementary body; </span>
+                <span ng-show="$ctrl.data.developmentalForm.rb.value=='+'">Reticulate body; </span><br>
             <strong>Localizations: </strong><span ng-show="$ctrl.annotations.go.cellcomp.length > 0"
                                                   ng-repeat="x in $ctrl.annotations.go.cellcomp">{{x.gotermValueLabel.value}}; </span>
             <span ng-hide="$ctrl.annotations.go.cellcomp.length > 0">None</span><br>

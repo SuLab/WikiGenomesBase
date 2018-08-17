@@ -28,20 +28,6 @@ angular
 
 angular
     .module('resources')
-    .factory('allChlamOrgs', function ($resource) {
-        var url = '/static/wiki/json/chlamsOrgList.json';
-        return $resource(url, {}, {
-            getAllOrgs: {
-                method: "GET",
-                params: {},
-                isArray: true,
-                cache: true
-            }
-        });
-    });
-
-angular
-    .module('resources')
     .factory('evidenceCodes', function ($resource) {
         var url = '/static/wiki/json/evidence_codes.json';
         return $resource(url, {}, {
@@ -122,12 +108,12 @@ angular
                        "{" +
                           "?gene wdt:P2393 '"+locusTag+"'." +
                           "?gene p:P684 ?statement." +
-                          "?statement ps:P684 ?ortholog." + 
+                          "?statement ps:P684 ?ortholog." +
                           "?ortholog wdt:P2393 ?orthoLocusTag." +
                           "?ortholog wdt:P703 ?orthoTaxon." +
                           "?orthoTaxon wdt:P685 ?orthoTaxid." +
                           "?ortholog wdt:P351 ?entrez." +
-                          "?statement prov:wasDerivedFrom/pr:P248 ?reference." + 
+                          "?statement prov:wasDerivedFrom/pr:P248 ?reference." +
                           "OPTIONAL {" +
                             "?ortholog wdt:P688 ?protein." +
                             "?protein wdt:P352 ?uniprot." +
@@ -263,48 +249,6 @@ angular
 
 angular
     .module('resources')
-    .factory('allOrgGenes', function ($http) {
-        var endpoint = 'https://query.wikidata.org/sparql?format=json&query=';
-        var getAllOrgGenes = function (taxid) {
-            var url = endpoint + encodeURIComponent("SELECT ?gene ?geneLabel ?proteinLabel ?protein ?entrez ?refseqProt " +
-                    "?locusTag ?uniprot ?chromosome ?chromosomeLabel ?refSeqChromosome ?refSeqChromosomeLabel ?genStart ?genEnd ?strand " +
-                    "(group_concat(?aliases;separator=', ') as ?alias) " +
-                    "WHERE{ ?taxon wdt:P685 '" + taxid + "'. " +
-                    "?gene wdt:P703 ?taxon; " +
-                    "wdt:P279 wd:Q7187; " +
-                    "wdt:P2393 ?locusTag; " +
-                    "wdt:P351 ?entrez; " +
-                    "wdt:P644 ?genStart; " +
-                    "wdt:P645 ?genEnd; " +
-                    "wdt:P2548 ?strand; " +
-                    "skos:altLabel ?aliases. " +
-                    "OPTIONAL {?gene wdt:P688 ?protein; wdt:P352 ?uniprot; wdt:P637 ?refseqProt. }" +
-                    "?gene p:P644 ?chr. ?chr pq:P1057 ?chromosome. " +
-                    "?chromosome wdt:P2249 ?refSeqChromosome." +
-                    "SERVICE wikibase:label { " +
-                    "bd:serviceParam wikibase:language 'en' ." +
-                    "}" +
-                    "} " +
-                    "GROUP BY ?gene ?geneLabel ?protein ?proteinLabel ?entrez ?refseqProt " +
-                    "?locusTag ?uniprot ?chromosome ?chromosomeLabel ?genStart ?genEnd ?strand " +
-                    "?refSeqChromosome ?refSeqChromosomeLabel "
-                );
-            console.log("Loading all organism genes");
-            return $http.get(url)
-                .success(function (response) {
-                    return response;
-                })
-                .error(function (response) {
-                    return response;
-                });
-        };
-        return {
-            getAllOrgGenes: getAllOrgGenes
-        };
-    });
-
-angular
-    .module('resources')
     .factory('allOrgOperons', function ($http) {
         var endpoint = 'https://query.wikidata.org/sparql?format=json&query=';
         var getAllOrgOperons = function (taxid) {
@@ -341,9 +285,9 @@ angular
           var deferred = $q.defer();
           $http.get(url)
           .success(function (response) {
-              
+
               var pattern = /mass="\d+"/;
-              
+
               return deferred.resolve(response.match(pattern)[0].match(/\d+/)[0]);
 
           })
@@ -522,7 +466,7 @@ angular
     var getQID = function (taxid) {
         var url = endpoint + encodeURIComponent(
         		"SELECT ?taxon WHERE {" +
-				  "?taxon wdt:P685 '"+taxid+"'." +  
+				  "?taxon wdt:P685 '"+taxid+"'." +
 				"}"
             );
 
@@ -545,7 +489,7 @@ angular
 				return response;
 			});
 		};
-		
+
 		return {
 			getSettings: getSettings
 		};
@@ -706,7 +650,7 @@ angular
 angular
     .module('resources')
     .factory('expasyData', function ($http, $location) {
-    	
+
         var expasy_endpoint = "https://" + $location.host() + "/expasy/EC/{ecnumber}.txt";
 
         var getReactionData = function (ecNumber) {
@@ -825,9 +769,10 @@ angular
 
 angular
     .module('resources')
-    .factory('recentChlamPubLinks', function ($http) {
-        var getRecentChlamPubLinks = function (entrez) {
-            var url = 'https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=pubmed&term=chlamydia trachomatis&reldate=10&datetype=edat&retmax=100&usehistory=y&retmode=json';
+    .factory('recentPubLinks', function ($http) {
+        var getRecentPubLinks = function (term) {
+            var url = 'https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=pubmed&term=' + term +
+                '&reldate=10&datetype=edat&retmax=100&usehistory=y&retmode=json';
             return $http.get(url)
                 .success(function (response) {
                     return response;
@@ -837,7 +782,7 @@ angular
                 });
         };
         return {
-            getRecentChlamPubLinks: getRecentChlamPubLinks
+            getRecentPubLinks: getRecentPubLinks
         };
     });
 
@@ -853,7 +798,7 @@ angular
                     "FILTER(CONTAINS(LCASE(?goterm_label), '" +
                     val.toLowerCase() + "' ))}"
                 );
-            
+
             return $http.get(url)
                 .success(function (response) {
                     return response.data;
@@ -874,15 +819,20 @@ angular
         var getDevelopmentalForms = function (uniprot) {
             var endpoint = 'https://query.wikidata.org/sparql?format=json&query=';
             var url = endpoint + encodeURIComponent(
-                "SELECT (GROUP_CONCAT(?eb) AS ?eb) (GROUP_CONCAT(?rb) AS ?rb) ?pmid WHERE {" +
-                    "?protein wdt:P352 '" + uniprot+ "'." +
+                "SELECT (GROUP_CONCAT(?eb) AS ?eb) (GROUP_CONCAT(?rb) AS ?rb) ?pmid (GROUP_CONCAT(?increased) AS ?increased) WHERE {" +
+                    "?protein wdt:P352 '"+uniprot+"'." +
                     "?protein p:P5572+ ?claim." +
                     "?claim ps:P5572 ?form." +
                     "?claim prov:wasDerivedFrom/pr:P248/wdt:P698 ?pmid." +
-                "BIND(IF(?form = wd:Q51955212, true, '') AS ?eb)." +
-                "BIND(IF(?form = wd:Q51955198, true, '') AS ?rb)." +
+                "BIND(IF(?form = wd:Q51955212, '+', '') AS ?eb)." +
+                "BIND(IF(?form = wd:Q51955198, '+', '') AS ?rb)." +
+                "OPTIONAL {" +
+                        "?protein wdt:P1911 ?form." +
+                    "BIND(IF(?form = wd:Q51955212, 'eb', 'rb') AS ?increased)." +
+                "}" +
             "}" +
-            "GROUP BY ?pmid");
+            "GROUP BY ?pmid"
+            );
 
             return $http.get(url)
                 .success(function (response) {
@@ -900,28 +850,72 @@ angular
 
 angular
     .module('resources')
-    .factory('allChlamydiaGenes', function ($http) {
-        var getAllChlamGenes = function () {
+    .factory('allOrgGenes', function ($http) {
+        var endpoint = 'https://query.wikidata.org/sparql?format=json&query=';
+        var getAllOrgGenes = function (taxid) {
+            var url = endpoint + encodeURIComponent("SELECT ?gene ?geneLabel ?proteinLabel ?protein ?entrez ?refseqProt " +
+                "?locusTag ?uniprot ?chromosome ?chromosomeLabel ?refSeqChromosome ?refSeqChromosomeLabel ?genStart ?genEnd ?strand " +
+                "(group_concat(?aliases;separator=', ') as ?alias) " +
+                "WHERE{ ?taxon wdt:P685 '" + taxid + "'. " +
+                "?gene wdt:P703 ?taxon; " +
+                "wdt:P279|wdt:P31 wd:Q7187; " +
+                "skos:altLabel ?aliases;" +
+                "wdt:P2393 ?locusTag. " +
+                "OPTIONAL {?gene wdt:P351 ?entrez.} " +
+                "OPTIONAL {?gene wdt:P644 ?genStart.} " +
+                "OPTIONAL {?gene wdt:P645 ?genEnd.} " +
+                "OPTIONAL {?gene wdt:P2548 ?strand.} " +
+                "OPTIONAL {?gene wdt:P688 ?protein. ?protein wdt:P637 ?refseqProt. OPTIONAL{?protein wdt:P352 ?uniprot.}}" +
+                "OPTIONAL {?gene p:P644 ?chr. ?chr pq:P1057 ?chromosome. " +
+                "?chromosome wdt:P2249 ?refSeqChromosome.}" +
+                "SERVICE wikibase:label { " +
+                "bd:serviceParam wikibase:language 'en' ." +
+                "}" +
+                "} " +
+                "GROUP BY ?gene ?geneLabel ?protein ?proteinLabel ?entrez ?refseqProt " +
+                "?locusTag ?uniprot ?chromosome ?chromosomeLabel ?genStart ?genEnd ?strand " +
+                "?refSeqChromosome ?refSeqChromosomeLabel "
+            );
+            console.log("Loading all organism genes");
+            return $http.get(url)
+                .success(function (response) {
+                    return response;
+                })
+                .error(function (response) {
+                    return response;
+                });
+        };
+        return {
+            getAllOrgGenes: getAllOrgGenes
+        };
+    });
+
+angular
+    .module('resources')
+    .factory('allSpeciesGenes', function ($http) {
+
+        var getAllSpeciesGenes = function (parentTaxid) {
             var endpoint = 'https://query.wikidata.org/sparql?format=json&query=';
             var url = endpoint + encodeURIComponent(
                     "SELECT ?taxon ?taxid ?taxonLabel ?geneLabel ?entrez ?uniprot ?proteinLabel ?locusTag ?refseq_prot ?gene" +
                     "(GROUP_CONCAT(DISTINCT ?aliases) AS ?aliases) (GROUP_CONCAT(DISTINCT ?goLabel) AS ?goLabel) (GROUP_CONCAT(DISTINCT ?host_protein) AS ?host_protein) WHERE {" +
-                    	"?taxon wdt:P171* wd:Q846309." +
-                    	"?gene wdt:P279 wd:Q7187." +
+                        "?parent wdt:P685 '" + parentTaxid + "'." +
+                    	"?taxon wdt:P171+ ?parent." +
+                    	"?gene wdt:P279|wdt:P31 wd:Q7187." +
                     	"?gene wdt:P703 ?taxon." +
-                    	"?gene wdt:P351 ?entrez." +
+                    	"OPTIONAL {?gene wdt:P351 ?entrez.}" +
                     	"?gene wdt:P2393 ?locusTag." +
                     	"?gene skos:altLabel ?aliases." +
                     	"OPTIONAL {" +
                     		"?gene wdt:P688 ?protein." +
-                    		"?protein wdt:P352 ?uniprot." +
+                    		"OPTIONAL {?protein wdt:P352 ?uniprot.}" +
                     		"?protein wdt:P637 ?refseq_prot." +
-    
+
                     		"OPTIONAL {" +
                     			"?protein (wdt:P680 | wdt:P681 | wdt:P682)+/rdfs:label ?goLabel." +
                     			"FILTER(LANG(?goLabel) = 'en')." +
         					"}" +
-    
+
         					"OPTIONAL {" +
         						"?protein wdt:P129+/rdfs:label ?host_protein" +
         					"}" +
@@ -937,17 +931,17 @@ angular
             		angular.forEach(genes, function(gene) {
             			var value = gene.geneLabel.value;
             			var locusTag = value.match(pattern)[0];
-            			
+
             			// add locus without _
             			if (value.indexOf("_") != -1) {
             				gene.geneLabel.value += "/" + locusTag.replace("_", "");
             			}
-            			
+
             			// add locus without beginning 0s in number
             			var prefix = locusTag.match(/(TC|CTL|CT|CPn)_?(RS)?/)[0];
             			var num = parseInt(locusTag.substring(prefix.length));
             			gene.geneLabel.value += "/" + prefix + num;
-            			
+
             			if (prefix.indexOf("_") != -1) {
             				gene.geneLabel.value += "/" + prefix.replace("_", "") + num;
             			}
@@ -958,13 +952,14 @@ angular
                     return response;
                 });
         };
-        var getAllChlamGeneLabels = function () {
+        var getAllSpeciesGeneLabels = function (parentTaxid) {
             var endpoint = 'https://query.wikidata.org/sparql?format=json&query=';
             var url = endpoint + encodeURIComponent(
-                    "SELECT ?geneLabel ?locusTag ?taxid ?symbol WHERE { " +
-            			"?taxon wdt:P171* wd:Q846309. " +
-            			"?gene wdt:P279 wd:Q7187." +
-            			"?gene wdt:P703 ?taxon." +
+                    "SELECT DISTINCT ?geneLabel ?locusTag ?taxid ?symbol WHERE { " +
+                        "?parent wdt:P685 '" + parentTaxid + "'." +
+                        "?taxon wdt:P171+ ?parent." +
+                        "?gene wdt:P279|wdt:P31 wd:Q7187." +
+                        "?gene wdt:P703 ?taxon." +
             			"?gene wdt:P2393 ?locusTag." +
             			"?taxon wdt:P685 ?taxid. " +
                         "OPTIONAL {?gene wdt:P2561 ?symbol}" +
@@ -979,17 +974,17 @@ angular
                         var value = gene.geneLabel.value;
 
             			var locusTag = value.match(pattern)[0];
-            			
+
             			// add locus without _
             			if (value.indexOf("_") != -1) {
             				gene.geneLabel.value += "/" + locusTag.replace("_", "");
             			}
-            			
+
             			// add locus without beginning 0s in number
             			var prefix = locusTag.match(/(TC|CTL|CT|CPn)_?(RS)?/)[0];
             			var num = parseInt(locusTag.substring(prefix.length));
             			gene.geneLabel.value += "/" + prefix + num;
-            			
+
             			if (prefix.indexOf("_") != -1) {
             				gene.geneLabel.value += "/" + prefix.replace("_", "") + num;
             			}
@@ -1008,8 +1003,8 @@ angular
                 });
         };
         return {
-            getAllChlamGenes: getAllChlamGenes,
-            getAllChlamGeneLabels: getAllChlamGeneLabels
+            getAllSpeciesGenes: getAllSpeciesGenes,
+            getAllSpeciesGeneLabels: getAllSpeciesGeneLabels
         };
     });
 

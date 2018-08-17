@@ -5,7 +5,7 @@ mongo_database = "chlamdb"
 wg_timezone = 'America/Los_Angeles'
 
 # Taxids of the organisms in the database (used for setup script, routing, jbrowse)
-taxids = ['471472', '272561', '243161', '115713']
+taxids = ['246197', '1198538']
 
 # which annotations to allow on the gene page
 modules = {
@@ -26,5 +26,7 @@ modules = {
 application = {
     "title": "MyxoBase",
     "noun": "Myxococcus",
-    "adjective": "Myxococcal"
+    "adjective": "Myxococcal",
+    "parent_taxid": 34,
+    "newsfeed_search_term": "myxococcus xanthus"
 }

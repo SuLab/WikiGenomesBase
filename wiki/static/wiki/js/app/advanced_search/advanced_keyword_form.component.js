@@ -1,30 +1,25 @@
 angular
-    .module('keywordForm')
-    .component('keywordForm', {
-        controller: function ($filter, $location, allSpeciesGenes, appData) {
-            'use strict';
-            var ctrl = this;
-            ctrl.$onInit = function(){
-            	
-            	ctrl.selected = null;
+    .module('advancedKeywordForm')
+    .component('advancedKeywordForm', {
+        controller: function ($cacheFactory, allGoTerms, $location, allSpeciesGenes, appData) {
+        	var ctrl = this;
 
-                appData.getAppData(function(data) {
-                    allSpeciesGenes.getAllSpeciesGeneLabels(data.parent_taxid).then(function(data) {
-                        ctrl.genes = data.data.results.bindings;
-                    });
+        	appData.getAppData(function(data) {
+                allSpeciesGenes.getAllSpeciesGeneLabels(data.parent_taxid).then(function(data) {
+                    ctrl.genes = data.data.results.bindings;
                 });
-            	
-                ctrl.submitKeyword = function ($item) {
-                    if ($item == undefined){
-                    	$location.path('keyword/');
-                    } else{
-                        $location.path('keyword/' + $item);
-                    }
-                };
-                
-                ctrl.onSelect = function ($item) {
-                    $location.path('/organism/' + $item.taxid.value + "/gene/" + $item.locusTag.value);
-                };
+            });
+
+            ctrl.submitKeyword = function ($item) {
+                if ($item == undefined){
+                	$location.path('keyword/');
+                } else{
+                    $location.path('keyword/' + $item);
+                }
+            };
+            
+            ctrl.onSelect = function ($item) {
+                $location.path('/organism/' + $item.taxid.value + "/gene/" + $item.locusTag.value);
             };
             
             // whether or not user has scrolled through dropdown
@@ -41,13 +36,13 @@ angular
             		// if user has scrolled, select that item
             		if (ctrl.scrolled) {
             			ctrl.onSelect(ctrl.selected);
-            		
+            			
             		// or if there is only 1 item in the dropdown
             		} else if(ctrl.geneList && ctrl.geneList.length == 1){
             			ctrl.onSelect(ctrl.geneList[0]);
-            		}
-            		//else go to advanced search
-            		else {
+            		
+            		// else go to advanced search
+            		} else {
             			ctrl.submitKeyword(ctrl.keyword);
             		}
             		
@@ -65,6 +60,14 @@ angular
             	}
             };
 
+            ctrl.advSearch = function() {
+                if (!ctrl.keyword) {
+                    ctrl.keyword = "";
+                }
+
+                $location.path('keyword/' + ctrl.keyword);
+			};
+        	
         },
-        templateUrl: '/static/build/js/angular_templates/keyword-form.min.html'
+        templateUrl: '/static/build/js/angular_templates/advanced-keyword-form.min.html'
     });

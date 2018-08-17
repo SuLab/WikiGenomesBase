@@ -23,10 +23,10 @@ angular.module("cellVisualizer")
                 });
 
                 if (ctrl.development) {
-                    if (ctrl.development.eb.value == 'true') {
+                    if (ctrl.development.eb.value == '+') {
                         ctrl.highlight('BTO_0000377');
                     }
-                    if (ctrl.development.rb.value == 'true') {
+                    if (ctrl.development.rb.value == '+') {
                         ctrl.highlight('BTO_0001172');
                     }
                 }

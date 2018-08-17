@@ -10,7 +10,18 @@
                 class="form-control"
                 ng-model="$ctrl.localizationAnnotation.localizationQID"
                 required="required"
-                ng-options="option.name for option in $ctrl.map">
+                ng-options="option.name for option in $ctrl.map"
+                ng-change="$ctrl.selectForm()">
+            <option style="display: none" value="">Developmental Body</option>
+        </select>
+    </div>
+    <div class="form-group" ng-show="$ctrl.pageCount==0 && $ctrl.localizationAnnotation.localizationQID.name == 'elementary body AND reticulate body'">
+        <label>Increased Expression in:</label>
+        <select
+                class="form-control"
+                ng-model="$ctrl.localizationAnnotation.increased"
+                required="required"
+                ng-options="option.name for option in $ctrl.increasedMap">
             <option style="display: none" value="">Developmental Body</option>
         </select>
     </div>

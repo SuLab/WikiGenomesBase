@@ -4,7 +4,7 @@ angular
         controller: function ($filter,
                               $routeParams,
                               $location,
-                              allChlamOrgs,
+                              allOrgs,
                               wdGetEntities,
                               entrez2QID,
                               GOTerms,
@@ -70,7 +70,7 @@ angular
                     });
 
                 // get all organism data for forms
-                allChlamOrgs.getAllOrgs(function (data) {
+                allOrgs.getAllOrgs(function (data) {
                     ctrl.orgList = data;
                     ctrl.currentOrg = $filter('getJsonItemOrg')('taxid', ctrl.currentTaxid, ctrl.orgList);
                     if (ctrl.currentOrg == undefined) {
@@ -146,6 +146,14 @@ angular
 
                             developmentalForm.getDevelopmentalForms(ctrl.currentGene.uniprot).then(function (data) {
                                ctrl.currentGene.developmentalForm = data.data.results.bindings[0];
+
+                               if (ctrl.currentGene.developmentalForm) {
+                                   // strange ascii characters got appended to string (8203)
+                                   var eb = ctrl.currentGene.developmentalForm.eb.value.indexOf("+") != -1 ? '+' : '';
+                                   var rb = ctrl.currentGene.developmentalForm.rb.value.indexOf("+") != -1 ? '+' : '';
+                                   ctrl.currentGene.developmentalForm.eb.value = eb;
+                                   ctrl.currentGene.developmentalForm.rb.value = rb;
+                               }
                             });
 
                             // get protein sequence data used in protein view for BLAST query

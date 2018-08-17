@@ -15,9 +15,9 @@ label {
 	<div class="form-group"
 		ng-show="$ctrl.validateId() && $ctrl.pageCount==0">
 		<label>Image of Protein Structure</label><br>
-		<img ng-src="https://www.ebi.ac.uk/pdbe/static/entry/{{$ctrl.pdbAnnotation.id}}_deposited_chain_front_image-800x800.png" width="100px">
-		<img ng-src="https://www.ebi.ac.uk/pdbe/static/entry/{{$ctrl.pdbAnnotation.id}}_deposited_chain_side_image-800x800.png" width="100px">
-		<img ng-src="https://www.ebi.ac.uk/pdbe/static/entry/{{$ctrl.pdbAnnotation.id}}_deposited_chain_top_image-800x800.png" width="100px">
+		<img ng-src="https://www.ebi.ac.uk/pdbe/static/entry/{{$ctrl.pdbAnnotation.id | lowercase}}_deposited_chain_front_image-800x800.png" width="100px">
+		<img ng-src="https://www.ebi.ac.uk/pdbe/static/entry/{{$ctrl.pdbAnnotation.id | lowercase}}_deposited_chain_side_image-800x800.png" width="100px">
+		<img ng-src="https://www.ebi.ac.uk/pdbe/static/entry/{{$ctrl.pdbAnnotation.id | lowercase}}_deposited_chain_top_image-800x800.png" width="100px">
 	</div>
 	<div class="form-group"
 		ng-show="$ctrl.validateId() && $ctrl.pageCount==0">
