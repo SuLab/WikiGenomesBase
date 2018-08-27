@@ -30,3 +30,31 @@ application = {
     "parent_taxid": 34,
     "newsfeed_search_term": "myxococcus xanthus"
 }
+
+# google chart organism tree
+orgTree = {
+    'data': [
+                [{'v': 'Myxococcus xanthus', 'f': '<div class="btn btn-default treeNode nohover" ><i>Myxococcus xanthus</i></div>'},
+                    ''],
+                [{
+                    'v': 'Myxococcus xanthus DK 1622',
+                    'f': '<div class="btn btn-default treeNode link" ><a href="/organism/246197/"><i>Myxococcus xanthus DK 1622</i></div>'
+                },
+                    'Myxococcus xanthus'],
+                [{
+                    'v': 'Myxococcus xanthus DZF1',
+                    'f': '<div class="btn btn-default treeNode link"><a href="/organism/1198538/"><i>Myxococcus xanthus DZF1</i></div>'
+                },
+                    'Myxococcus xanthus'],
+                [{
+                    'v': 'Myxococcus xanthus DZ2',
+                    'f': '<div class="btn btn-default treeNode nohover"><i>Myxococcus xanthus DZ2</i></div>'
+                },
+                    'Myxococcus xanthus'],
+                [{
+                    'v': 'Myxococcus xanthus NewJersey2',
+                    'f': '<div class="btn btn-default treeNode nohover"><i>Myxococcus xanthus NewJersey2</i></div>'
+                },
+                    'Myxococcus xanthus']
+            ]
+}
