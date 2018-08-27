@@ -2,7 +2,7 @@ from __future__ import absolute_import, unicode_literals
 from wikigenomes.settings import BASE_DIR
 from celery import shared_task
 from scripts import jbrowse_configuration, flatfile_ingestion, WD_Utils
-from application_settings import taxids, modules, application
+from application_settings import taxids, modules, application, orgTree
 from pymongo import MongoClient
 from bson.json_util import dumps
 from pprint import pprint
@@ -16,6 +16,15 @@ def generate_application_settings():
     filepath = BASE_DIR + '/wiki/static/wiki/json/application_data.json'
     with open(filepath, 'w') as outFile:
         print(dumps(application), file=outFile)
+
+def generate_org_tree():
+    """
+    generate_org_tree()
+        Generates a json file of the google org tree displayed on the landing page
+    """
+    filepath = BASE_DIR + '/wiki/static/wiki/json/org_tree.json'
+    with open(filepath, 'w') as outFile:
+        print(dumps(orgTree), file=outFile)
 
 def generate_org_list():
     """

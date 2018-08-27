@@ -100,14 +100,17 @@ angular
                 }).finally(function () {
                     wdGetEntities.wdGetEntities(ctrl.currentGene.geneQID).then(function (data) {
                         var entity = data.entities[ctrl.currentGene.geneQID];
-                        ctrl.currentGene.entrez = entity.claims.P351[0].mainsnak.datavalue.value;
+
                         ctrl.currentGene.geneLabel = entity.labels.en.value;
                         ctrl.currentGene.locusTag = entity.claims.P2393[0].mainsnak.datavalue.value;
                         ctrl.currentGene.geneDescription = entity.descriptions.en.value;
                         ctrl.currentGene.genStart = entity.claims.P644[0].mainsnak.datavalue.value;
                         ctrl.currentGene.genEnd = entity.claims.P645[0].mainsnak.datavalue.value;
                         ctrl.currentGene.strand = entity.claims.P2548[0].mainsnak.datavalue.value;
-                        ctrl.currentGene.geneType = entity.claims.P279[0].mainsnak.datavalue.value;
+
+                        if (entity.claims.P279) {
+                            ctrl.currentGene.geneType = entity.claims.P279[0].mainsnak.datavalue.value;
+                        }
                         ctrl.currentGene.geneAliases = [];
                         angular.forEach(entity.aliases.en, function (alias) {
                             if (alias.value != ctrl.currentGene.locusTag) {
@@ -119,15 +122,20 @@ angular
                             ctrl.currentGene.geneSymbol = entity.claims.P2561[0].mainsnak.datavalue.value.text;
                         }
 
-                        OperonData.getOperonData(ctrl.currentGene.entrez).then(
-                            function (data) {
-                                var dataResults = data.data.results.bindings;
-                                if (dataResults.length > 0) {
-                                    ctrl.annotations.operon = dataResults;
-                                } else {
-                                    ctrl.annotations.operon = [];
-                                }
-                            });
+                        if (entity.claims.P351) {
+                            ctrl.currentGene.entrez = entity.claims.P351[0].mainsnak.datavalue.value;
+
+                            OperonData.getOperonData(ctrl.currentGene.entrez).then(
+                                function (data) {
+                                    var dataResults = data.data.results.bindings;
+                                    if (dataResults.length > 0) {
+                                        ctrl.annotations.operon = dataResults;
+                                    } else {
+                                        ctrl.annotations.operon = [];
+                                    }
+                                });
+                        }
+
                     });
 
                     if (ctrl.currentGene.proteinQID) {
@@ -136,7 +144,6 @@ angular
                             var entity = data.entities[ctrl.currentGene.proteinQID];
                             ctrl.currentGene.proteinLabel = entity.labels.en.value;
                             ctrl.currentGene.description = entity.descriptions.en.value;
-                            ctrl.currentGene.uniprot = entity.claims.P352[0].mainsnak.datavalue.value;
                             ctrl.currentGene.refseqProt = entity.claims.P637[0].mainsnak.datavalue.value;
                             ctrl.currentGene.productType = entity.claims.P279[0].mainsnak.datavalue.value;
                             ctrl.currentGene.proteinAliases = [];
@@ -144,110 +151,113 @@ angular
                                 ctrl.currentGene.proteinAliases.push(alias.value);
                             });
 
-                            developmentalForm.getDevelopmentalForms(ctrl.currentGene.uniprot).then(function (data) {
-                               ctrl.currentGene.developmentalForm = data.data.results.bindings[0];
-
-                               if (ctrl.currentGene.developmentalForm) {
-                                   // strange ascii characters got appended to string (8203)
-                                   var eb = ctrl.currentGene.developmentalForm.eb.value.indexOf("+") != -1 ? '+' : '';
-                                   var rb = ctrl.currentGene.developmentalForm.rb.value.indexOf("+") != -1 ? '+' : '';
-                                   ctrl.currentGene.developmentalForm.eb.value = eb;
-                                   ctrl.currentGene.developmentalForm.rb.value = rb;
-                               }
-                            });
-
                             // get protein sequence data used in protein view for BLAST query
                             proteinSequenceData.getSequence(ctrl.currentGene.refseqProt).then(function (data) {
                                 ctrl.currentGene.sequenceProt = encodeURIComponent(data);
                             });
 
-                            // get protein mass
-                            proteinMass.getMass(ctrl.currentGene.uniprot).then(function (data) {
-                                ctrl.currentGene.mass = data;
-                            });
+                            if (entity.claims.P352) {
+                                ctrl.currentGene.uniprot = entity.claims.P352[0].mainsnak.datavalue.value;
 
-                            // get PDB data
-                            pdbData.getPdbData(ctrl.currentGene.uniprot).then(function (data) {
-                                if (data.data.results.bindings.length > 0) {
-                                    ctrl.currentGene.pdbIds = data.data.results.bindings;
-                                }
-                            });
+                                developmentalForm.getDevelopmentalForms(ctrl.currentGene.uniprot).then(function (data) {
+                                    ctrl.currentGene.developmentalForm = data.data.results.bindings[0];
 
-                            // Get InterPro Domains from Wikidata SPARQL
-                            InterPro.getInterPro(ctrl.currentGene.uniprot).then(
-                                function (data) {
-                                    ctrl.ipData = data;
-                                    ctrl.annotations.interpro = data;
-                                });
-
-                            hostPathogen.getHostPathogen(ctrl.currentGene.uniprot).then(
-                                function (data) {
-                                    ctrl.hostpathData = data;
-                                    ctrl.annotations.hostpath = data;
-                                });
-
-
-                            // Get go terms and EC numbers from WIKIDATA SPARQL
-                            GOTerms.getGoTerms(ctrl.currentGene.uniprot).then(function (data) {
-
-                                ctrl.annotations.go = {
-                                    cellcomp: [],
-                                    bioproc: [],
-                                    molfunc: []
-                                };
-                                ctrl.annotations.reaction = {};
-                                ctrl.mf = 'mf_button';
-                                ctrl.bp = 'bp_button';
-                                ctrl.cc = 'cc_button';
-
-                                var dataResults = data.data.results.bindings;
-
-                                // classify go terms
-                                angular.forEach(dataResults, function (value, key) {
-
-                                    if (value.goclass.value === 'http://www.wikidata.org/entity/Q5058355') {
-                                        ctrl.annotations.go.cellcomp.push(value);
-
-                                    }
-                                    if (value.goclass.value === 'http://www.wikidata.org/entity/Q14860489') {
-                                        ctrl.annotations.go.molfunc.push(value);
-
-                                    }
-                                    if (value.goclass.value === 'http://www.wikidata.org/entity/Q2996394') {
-                                        ctrl.annotations.go.bioproc.push(value);
-                                    }
-
-                                });
-
-                            });
-
-                            ECNumbers.getECNumbers(ctrl.currentGene.uniprot).then(function (data) {
-                                var dataResults = data.data.results.bindings;
-                                angular.forEach(dataResults, function (value) {
-                                    if (value.hasOwnProperty('ecnumber') && ctrl.annotations.ecnumber.indexOf(value.ecnumber.value) == -1 &&
-                                        value.ecnumber.value.indexOf('-') == -1) {
-                                        ctrl.annotations.ecnumber.push(value.ecnumber.value);
+                                    if (ctrl.currentGene.developmentalForm) {
+                                        // strange ascii characters got appended to string (8203)
+                                        var eb = ctrl.currentGene.developmentalForm.eb.value.indexOf("+") != -1 ? '+' : '';
+                                        var rb = ctrl.currentGene.developmentalForm.rb.value.indexOf("+") != -1 ? '+' : '';
+                                        ctrl.currentGene.developmentalForm.eb.value = eb;
+                                        ctrl.currentGene.developmentalForm.rb.value = rb;
                                     }
                                 });
-                            }).finally(function () {
 
-                                // now update enzyme data from ec numbers
-                                angular.forEach(ctrl.annotations.ecnumber, function (value) {
-                                    expasyData.getReactionData(value).then(function (data) {
-                                        console.log(data);
-                                        ctrl.annotations.reaction[data.ecnumber] = data.reaction;
+                                // get protein mass
+                                proteinMass.getMass(ctrl.currentGene.uniprot).then(function (data) {
+                                    ctrl.currentGene.mass = data;
+                                });
+
+                                // get PDB data
+                                pdbData.getPdbData(ctrl.currentGene.uniprot).then(function (data) {
+                                    if (data.data.results.bindings.length > 0) {
+                                        ctrl.currentGene.pdbIds = data.data.results.bindings;
+                                    }
+                                });
+
+                                // Get InterPro Domains from Wikidata SPARQL
+                                InterPro.getInterPro(ctrl.currentGene.uniprot).then(
+                                    function (data) {
+                                        ctrl.ipData = data;
+                                        ctrl.annotations.interpro = data;
                                     });
+
+                                hostPathogen.getHostPathogen(ctrl.currentGene.uniprot).then(
+                                    function (data) {
+                                        ctrl.hostpathData = data;
+                                        ctrl.annotations.hostpath = data;
+                                    });
+
+
+                                // Get go terms and EC numbers from WIKIDATA SPARQL
+                                GOTerms.getGoTerms(ctrl.currentGene.uniprot).then(function (data) {
+
+                                    ctrl.annotations.go = {
+                                        cellcomp: [],
+                                        bioproc: [],
+                                        molfunc: []
+                                    };
+                                    ctrl.annotations.reaction = {};
+                                    ctrl.mf = 'mf_button';
+                                    ctrl.bp = 'bp_button';
+                                    ctrl.cc = 'cc_button';
+
+                                    var dataResults = data.data.results.bindings;
+
+                                    // classify go terms
+                                    angular.forEach(dataResults, function (value, key) {
+
+                                        if (value.goclass.value === 'http://www.wikidata.org/entity/Q5058355') {
+                                            ctrl.annotations.go.cellcomp.push(value);
+
+                                        }
+                                        if (value.goclass.value === 'http://www.wikidata.org/entity/Q14860489') {
+                                            ctrl.annotations.go.molfunc.push(value);
+
+                                        }
+                                        if (value.goclass.value === 'http://www.wikidata.org/entity/Q2996394') {
+                                            ctrl.annotations.go.bioproc.push(value);
+                                        }
+
+                                    });
+
                                 });
 
-                                var annotation_keys = {
-                                    locusTag: ctrl.currentGene.locusTag,
-                                    taxid: ctrl.currentGene.taxid,
-                                    ec_number: ctrl.annotations.ecnumber
-                                };
-                                getServerAnnotationData(annotation_keys);
-                            });
-                        });
+                                ECNumbers.getECNumbers(ctrl.currentGene.uniprot).then(function (data) {
+                                    var dataResults = data.data.results.bindings;
+                                    angular.forEach(dataResults, function (value) {
+                                        if (value.hasOwnProperty('ecnumber') && ctrl.annotations.ecnumber.indexOf(value.ecnumber.value) == -1 &&
+                                            value.ecnumber.value.indexOf('-') == -1) {
+                                            ctrl.annotations.ecnumber.push(value.ecnumber.value);
+                                        }
+                                    });
+                                }).finally(function () {
 
+                                    // now update enzyme data from ec numbers
+                                    angular.forEach(ctrl.annotations.ecnumber, function (value) {
+                                        expasyData.getReactionData(value).then(function (data) {
+                                            console.log(data);
+                                            ctrl.annotations.reaction[data.ecnumber] = data.reaction;
+                                        });
+                                    });
+
+                                    var annotation_keys = {
+                                        locusTag: ctrl.currentGene.locusTag,
+                                        taxid: ctrl.currentGene.taxid,
+                                        ec_number: ctrl.annotations.ecnumber
+                                    };
+                                    getServerAnnotationData(annotation_keys);
+                                });
+                            }
+                        });
                     }
 
                     // Get chromosome refseq id

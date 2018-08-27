@@ -14,6 +14,19 @@ angular
 
 angular
     .module('resources')
+    .factory('orgTree', function ($resource) {
+        var url = '/static/wiki/json/org_tree.json';
+        return $resource(url, {}, {
+            getOrgTree: {
+                method: "GET",
+                params: {},
+                cache: true
+            }
+        });
+    });
+
+angular
+    .module('resources')
     .factory('allOrgs', function ($resource) {
         var url = '/static/wiki/json/orgsList.json';
         return $resource(url, {}, {
@@ -927,7 +940,7 @@ angular
             return $http.get(url)
                 .success(function (response) {
                 	var genes = response.results.bindings;
-            		var pattern = /(TC|CTL|CT|CPn)_?(RS)?\d+/;
+            		var pattern = /(\w{2,4})_?(RS)?\d+/;
             		angular.forEach(genes, function(gene) {
             			var value = gene.geneLabel.value;
             			var locusTag = value.match(pattern)[0];
@@ -938,7 +951,7 @@ angular
             			}
 
             			// add locus without beginning 0s in number
-            			var prefix = locusTag.match(/(TC|CTL|CT|CPn)_?(RS)?/)[0];
+            			var prefix = locusTag.match(/(\w{2,4})_?(RS)?/)[0];
             			var num = parseInt(locusTag.substring(prefix.length));
             			gene.geneLabel.value += "/" + prefix + num;
 
@@ -968,20 +981,18 @@ angular
             return $http.get(url)
                 .success(function (response) {
                 	var genes = response.results.bindings;
-            		var pattern = /(TC|CTL|CT|CPn)_?(RS)?\d+/;
+            		var pattern = /(\w{2,4})_?(RS)?\d+/;
             		angular.forEach(genes, function(gene) {
 
                         var value = gene.geneLabel.value;
-
             			var locusTag = value.match(pattern)[0];
-
             			// add locus without _
             			if (value.indexOf("_") != -1) {
             				gene.geneLabel.value += "/" + locusTag.replace("_", "");
             			}
 
             			// add locus without beginning 0s in number
-            			var prefix = locusTag.match(/(TC|CTL|CT|CPn)_?(RS)?/)[0];
+            			var prefix = locusTag.match(/(\w{2,4})_?(RS)?/)[0];
             			var num = parseInt(locusTag.substring(prefix.length));
             			gene.geneLabel.value += "/" + prefix + num;
 
