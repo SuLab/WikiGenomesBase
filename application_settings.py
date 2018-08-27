@@ -43,7 +43,7 @@ orgTree = {
                     'Myxococcus xanthus'],
                 [{
                     'v': 'Myxococcus xanthus DZF1',
-                    'f': '<div class="btn btn-default treeNode link"><a href="/organism/1198538/"><i>Myxococcus xanthus DZF1</i></div>'
+                    'f': '<div class="btn btn-default treeNode nohover"><i>Myxococcus xanthus DZF1</i></div>'
                 },
                     'Myxococcus xanthus'],
                 [{
