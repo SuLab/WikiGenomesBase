@@ -145,7 +145,9 @@ angular
                             ctrl.currentGene.proteinLabel = entity.labels.en.value;
                             ctrl.currentGene.description = entity.descriptions.en.value;
                             ctrl.currentGene.refseqProt = entity.claims.P637[0].mainsnak.datavalue.value;
-                            ctrl.currentGene.productType = entity.claims.P279[0].mainsnak.datavalue.value;
+                            if (entity.claims.P279) {
+                                ctrl.currentGene.productType = entity.claims.P279[0].mainsnak.datavalue.value;
+                            }
                             ctrl.currentGene.proteinAliases = [];
                             angular.forEach(entity.aliases.en, function (alias) {
                                 ctrl.currentGene.proteinAliases.push(alias.value);
