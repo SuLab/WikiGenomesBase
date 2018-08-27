@@ -5,5 +5,8 @@ angular.module("header").component("header", {
         appData.getAppData(function (data) {
             ctrl.appData = data;
         });
+	},
+	bindings: {
+		oauth: "<"
 	}
 });

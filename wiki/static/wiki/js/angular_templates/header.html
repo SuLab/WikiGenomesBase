@@ -11,6 +11,7 @@
     <div class="collapse navbar-collapse" id="myNavbarHeader">
         <ul class="nav navbar-nav navbar-right" style="padding-top: 15px; margin-right: 20px">
             <li><keyword-form></keyword-form></li>
+            <li ng-if="$ctrl.oauth" style="margin-left: 20px; margin-top: 5px"><oauth-view></oauth-view></li>
         </ul>
     </div>
 </nav>
