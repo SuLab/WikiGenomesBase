@@ -31,7 +31,7 @@
 					},
 					"onClick": {
 						"label": "right-click for more options",
-						"action": "function( track, feature, div ){var top_url = (window.location != window.parent.location)? document.referrer: document.location.href; var pre_url = top_url.split('/');  var taxid = this.feature[7]; var new_url = ['https:/' , pre_url[2], 'organism', taxid, 'gene', this.feature[4]].join('/'); return window.parent.location=new_url}"
+						"action": "function( track, feature, div ){var top_url = (window.location != window.parent.location)? document.referrer: document.location.href; var pre_url = top_url.split('/');  var taxid = 246197; var new_url = ['https:/' , pre_url[2], 'organism', taxid, 'gene', this.feature[7]].join('/'); return window.parent.location=new_url}"
 					},
 					"menuTemplate": [
 						{
@@ -43,7 +43,7 @@
 						{
 							"label": "load this gene page",
 							"iconClass": "dijitIconDatabase",
-							"action": "function( track, feature, div ){var top_url = (window.location != window.parent.location)? document.referrer: document.location.href; var pre_url = top_url.split('/');  var taxid = this.feature[7]; var new_url = ['https:/' , pre_url[2], 'organism', taxid, 'gene', this.feature[4]].join('/'); return window.parent.location=new_url}"
+							"action": "function( track, feature, div ){var top_url = (window.location != window.parent.location)? document.referrer: document.location.href; var pre_url = top_url.split('/'); var taxid = 246197; var new_url = ['https:/' , pre_url[2], 'organism', taxid, 'gene', this.feature[7]].join('/'); return window.parent.location=new_url}"
 						}
 					]
 
