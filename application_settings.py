@@ -32,10 +32,8 @@ application = {
 }
 
 tax2NameMap = {
-    "471472": "Chlamydia trachomatis 434/BU",
-    "272561": "Chlamydia trachomatis D/UW-3/CX",
-    "243161": "Chlamydia muridarum Str. Nigg",
-    "115713": "Chlamydia pneumoniae CWL209"
+    "246197": "Myxococcus xanthus DK 1622",
+    "1198538": "Myxococcus xanthus DZF1"
 }
 
 # google chart organism tree
