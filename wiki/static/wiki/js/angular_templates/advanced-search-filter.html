@@ -2,9 +2,7 @@
     <h3>Filter by</h3>
 
     <h5 class="filter-header"><span>Organism</span></h5>
-    <div ng-repeat="value in $ctrl.orgData"
-         data-intro="Select which genomes you wish to search by clicking the checkboxes here."
-         data-step="5">
+    <div ng-repeat="value in $ctrl.orgData">
         <img ng-src="/static/wiki/img/RB.png">
         <h5 class="indented">{{value.taxonLabel}}</h5>
         <input type="checkbox" ng-click="$ctrl.storeCache()" ng-checked="value.check" ng-model="value.check"
@@ -100,7 +98,7 @@
     </div>
 
     <h5 class="filter-header"><span>Terms & Interactions</span></h5>
-    <div data-intro="This is the filter name, or the criteria you wish to search by." data-step="2">
+    <div>
         <img ng-src="/static/wiki/img/favicon.ico">
         <h5 class="indented">Molecular Function</h5>
         <input type="checkbox" ng-click="$ctrl.storeCache()" ng-checked="$ctrl.mf" ng-model="$ctrl.mf"
