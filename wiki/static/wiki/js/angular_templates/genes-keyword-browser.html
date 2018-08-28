@@ -13,12 +13,15 @@
                    id="keywordSearch"
                    placeholder="Ex. Kinase or CTL0260"
                    style="width: 70%; display: inline"
-                   data-intro="If there is no applicable filter for your query, enter it here. Or, leave this blank for a holistic search. This ends the tutorial!"
-                   data-step="6">
-            <button ng-click="$ctrl.advSearch()" class="btn btn-default" style="display: inline"><span
+                   data-intro="If you aren't sure what filter to use, you can enter a keyword here. This will be matched across all filters."
+                   data-step="3">
+            <button ng-click="$ctrl.advSearch()" class="btn btn-default" style="display: inline"
+                    data-intro="Once you have selected filters and/or specified keywords, click the search button here. Please be patient while we query the databases with your criteria."
+                    data-step="4"><span
                     class="glyphicon glyphicon-search"></span></button>
             <button ng-click="$ctrl.startJS()" class="btn btn-info" style="display: inline"
-                    data-intro="I will help you get started with advanced search!" data-step="1"><span
+                    data-intro="Welcome to the advanced search page! This tutorial will show you how to use this page."
+                    data-step="1"><span
                     class="glyphicon glyphicon-question-sign"></span></button>
         </div>
         <div ng-show="$ctrl.mf || $ctrl.bp || $ctrl.cc || $ctrl.hp || $ctrl.entrez || $ctrl.uniprot || $ctrl.refseq || $ctrl.cm ||
@@ -86,10 +89,13 @@
 
     <div class="container-fluid" style="margin-bottom: 60px" ng-hide="$ctrl.loading">
         <div class="row">
-            <div class="col-sm-5">
+            <div class="col-sm-5" data-intro="All the advanced filters are listed in this column. You can filter by different criteria to limit the search results by clicking on the appropriate checkbox
+                    next to the filter name. Additionally, you can enter a value if there is an input form to further specify the constraint of the filter. Leave the input form blank if the value does not matter."
+                 data-step="2">
                 <advanced-search-filter ng-click="$ctrl.loadCache()"></advanced-search-filter>
             </div>
-            <div class="col-sm-7" style="padding-left: 40px">
+            <div class="col-sm-7" style="padding-left: 40px" data-intro="Finally, results from a search are displayed in this column. If there are no results, then '0 Results' will be shown. Otherwise, you will see
+                it below. This concludes the tutorial!" data-step="5">
                 <h3>{{$ctrl.tableParams.total()}} Results</h3>
                 <table ng-table="$ctrl.tableParams" style="width: 100%">
                     <tr ng-repeat="x in $data">
@@ -112,7 +118,8 @@
                                     </div>
                                     <div class="col-sm-2">
                                         <button class="btn btn-default">
-                                            <a target="_blank" href="https://www.wikidata.org/wiki/{{x.gene.value | parseQID}}">
+                                            <a target="_blank"
+                                               href="https://www.wikidata.org/wiki/{{x.gene.value | parseQID}}">
                                                 <img class="center" src="static/wiki/img/GeneWikidata-logo-en.png">
                                             </a>
                                         </button>

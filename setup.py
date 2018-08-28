@@ -11,6 +11,7 @@ print("Generating Module Settings")
 tasks.generate_module_settings()
 tasks.generate_application_settings()
 tasks.generate_org_tree()
+tasks.generate_tax_map()
 
 print("Generating Reference Genomes")
 tasks.generate_org_list()        # generate the list of organisms in json so front end can access easily

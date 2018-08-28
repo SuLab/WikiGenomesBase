@@ -2,7 +2,7 @@ from __future__ import absolute_import, unicode_literals
 from wikigenomes.settings import BASE_DIR
 from celery import shared_task
 from scripts import jbrowse_configuration, flatfile_ingestion, WD_Utils
-from application_settings import taxids, modules, application, orgTree
+from application_settings import taxids, modules, application, orgTree, tax2NameMap
 from pymongo import MongoClient
 from bson.json_util import dumps
 from pprint import pprint
@@ -16,6 +16,15 @@ def generate_application_settings():
     filepath = BASE_DIR + '/wiki/static/wiki/json/application_data.json'
     with open(filepath, 'w') as outFile:
         print(dumps(application), file=outFile)
+
+def generate_tax_map():
+    """
+    generate_tax_map()
+        Generates a json file of the mappings of taxids to names
+    """
+    filepath = BASE_DIR + '/wiki/static/wiki/json/tax_map.json'
+    with open(filepath, 'w') as outFile:
+        print(dumps(tax2NameMap), file=outFile)
 
 def generate_org_tree():
     """

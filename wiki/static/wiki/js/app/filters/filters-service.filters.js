@@ -14,58 +14,39 @@ angular
 
 angular
     .module('filters')
-    .filter('taxid2Name', function () {
-        var chlamMap = {
-          '471472':'Chlamydia trachomatis 434/BU',
-          '272561': 'Chlamydia trachomatis D/UW-3/CX',
-          '243161': 'Chlamydia muridarum Str. Nigg',
-          '115713': 'Chlamydia pneumoniae CWL209'
-        };
-        return function (input) {
-            if (input) {
-                return chlamMap[input];
+    .filter('taxid2Name', function ($resource) {
+        var url = '/static/wiki/json/tax_map.json';
+        var data = $resource(url, {}, {
+            getTaxMap: {
+                method: "GET",
+                params: {},
+                cache: true
             }
-            else {
-                return "None";
-            }
+        });
+        var taxMap = {};
+        data.getTaxMap(function (data) {
+            taxMap = data;
+        });
+        return function(input) {
+            return taxMap[input];
         };
     });
 
 angular
 .module('filters')
-.filter('taxid2Species', function () {
-    var chlamMap = {
-      '471472':'Chlamydia trachomatis',
-      '272561': 'Chlamydia trachomatis',
-      '243161': 'Chlamydia muridarum',
-      '115713': 'Chlamydia pneumoniae'
-    };
+.filter('taxid2Species', function ($filter) {
     return function (input) {
-        if (input) {
-            return chlamMap[input];
-        }
-        else {
-            return "None";
-        }
+        var name = $filter('taxid2Name')(input);
+        return name.split(" ").slice(0, 2).join(" ");
     };
 });
 
 angular
 .module('filters')
-.filter('taxid2Strain', function () {
-    var chlamMap = {
-      '471472':'434/BU',
-      '272561': 'D/UW-3/CX',
-      '243161': 'Str. Nigg',
-      '115713': 'CWL209'
-    };
+.filter('taxid2Strain', function ($filter) {
     return function (input) {
-        if (input) {
-            return chlamMap[input];
-        }
-        else {
-            return "None";
-        }
+        var name = $filter('taxid2Name')(input);
+        return name.split(" ").slice(2).join(" ");
     };
 });
 

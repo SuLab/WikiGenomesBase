@@ -4,9 +4,8 @@
             <img class="img-responsive center" data-intro="Welcome to {{$ctrl.appData.title}}! Follow this quick tutorial to get started!" data-step="1" src="static/wiki/img/logo.png">
 
             <h3 class="lightColor" data-intro="{{$ctrl.appData.title}} is an easily editable model organism database for {{$ctrl.appData.noun}}. We allow you to lookup, add, and modify data in real time.
-            	Your data will instantly be visible without going through the lengthy publication process!" data-step="2">An open, editable, and centralized model organism database <br> for
-                the
-                {{$ctrl.appData.adjective}} research community.</h3>
+            	Your data will instantly be visible, structured, and shared with the {{$ctrl.appData.adjective}} research community!" data-step="2">An open, editable, and centralized model organism database <br> for
+                the {{$ctrl.appData.adjective}} research community.</h3>
 	    <button id="get-started" type="button" class="btn btn-default"><span>Get Started </span></button>
         </div>
     </div>
@@ -23,7 +22,7 @@
 	        <div class="col-md-3"></div>
 	    </div>
 	
-	    <div style="padding: 40px" data-intro="This is the {{$ctrl.appData.noun}} navigation tree. Click one of the four strains at the bottom to navigate to the organism specific browser page. 
+	    <div style="padding: 40px" data-intro="This is the {{$ctrl.appData.noun}} navigation tree. Click one of the highlighted strains at the bottom to navigate to the organism specific browser page.
 	    	Here, you can browse through all genes of that genome, and see a visualization widget of the genes in a genome browser." data-step="5" data-position="bottom">
 	        <organism-tree orgs="$ctrl.orgList"></organism-tree>
 	    </div>
