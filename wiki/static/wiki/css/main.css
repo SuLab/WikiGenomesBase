@@ -41,3 +41,4 @@ a{color: #385d94;}
     overflow: hidden; text-overflow: ellipsis; display: inline-block;
     border: 1px solid #CCCCCC; border-radius: 4px}
 .filter-result:hover{cursor:pointer; background-color: #E6E6E6}
+.filter-img {width: 32px; height: 32px}
