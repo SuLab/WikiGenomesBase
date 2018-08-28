@@ -31,6 +31,13 @@ application = {
     "newsfeed_search_term": "chlamydia trachomatis"
 }
 
+tax2NameMap = {
+    "471472": "Chlamydia trachomatis 434/BU",
+    "272561": "Chlamydia trachomatis D/UW-3/CX",
+    "243161": "Chlamydia muridarum Str. Nigg",
+    "115713": "Chlamydia pneumoniae CWL209"
+}
+
 # google chart organism tree
 orgTree = {
     'data': [
