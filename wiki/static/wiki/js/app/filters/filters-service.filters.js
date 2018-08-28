@@ -36,8 +36,12 @@ angular
 .module('filters')
 .filter('taxid2Species', function ($filter) {
     return function (input) {
-        var name = $filter('taxid2Name')(input);
-        return name.split(" ").slice(0, 2).join(" ");
+        if ($filter('taxid2Name')) {
+            var name = $filter('taxid2Name')(input);
+            return name.split(" ").slice(0, 2).join(" ");
+        } else {
+            return "Loading";
+        }
     };
 });
 
@@ -45,8 +49,13 @@ angular
 .module('filters')
 .filter('taxid2Strain', function ($filter) {
     return function (input) {
-        var name = $filter('taxid2Name')(input);
-        return name.split(" ").slice(2).join(" ");
+        if ($filter('taxid2Name')) {
+            var name = $filter('taxid2Name')(input);
+            return name.split(" ").slice(2).join(" ");
+        } else {
+            return "Loading";
+        }
+
     };
 });
 

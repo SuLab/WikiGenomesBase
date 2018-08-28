@@ -83,10 +83,12 @@ angular.module('orthologView')
                     ctrl.data[obj.orthoTaxid.value].go = false;
                 }
 
-                OperonData.getOperonData(obj.entrez.value).then(
-                    function(data) {
-                        ctrl.data[obj.orthoTaxid.value].operon = data.data.results.bindings.length > 0;
-                    });
+                if (obj.entrez) {
+                    OperonData.getOperonData(obj.entrez.value).then(
+                        function (data) {
+                            ctrl.data[obj.orthoTaxid.value].operon = data.data.results.bindings.length > 0;
+                        });
+                }
 
                 expressionTimingData.getExpression(function(data) {
                     var current = $filter('keywordFilter')(data, obj.orthoLocusTag.value);
