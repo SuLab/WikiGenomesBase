@@ -61,6 +61,7 @@ angular
             };
 
             ctrl.advSearch = function() {
+                ctrl.storeCache();
                 if (!ctrl.keyword) {
                     ctrl.keyword = "";
                 }
