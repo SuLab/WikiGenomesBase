@@ -1,7 +1,7 @@
 angular
     .module('genesKeyword')
     .component('genesKeyword', {
-        controller: function ($location, $filter, allSpeciesGenes, queryBuilder, $http, allGoTerms, sendToView, $cacheFactory, appData, NgTableParams, expressionTimingData) {
+        controller: function ($location, $filter, allSpeciesGenes, queryBuilder, $http, allGoTerms, sendToView, $cacheFactory, appData, NgTableParams, expressionTimingData, allOrgs) {
             'use strict';
             var ctrl = this;
 
@@ -59,6 +59,14 @@ angular
                         ctrl.mid_late = cache.get("mid_late");
                         ctrl.late = cache.get("late");
                         ctrl.very_late = cache.get("very_late");
+                    } else {
+                        ctrl.orgData = [];
+                        allOrgs.getAllOrgs(function (data) {
+                            angular.forEach(data, function (value) {
+                                value.check = true;
+                                ctrl.orgData.push(value);
+                            });
+                        });
                     }
                 };
 
@@ -410,7 +418,7 @@ angular
         },
         templateUrl:
             '/static/build/js/angular_templates/genes-keyword-browser.min.html'
-    }).factory('queryBuilder', function () {
+    }).factory('queryBuilder', function (appData) {
 
     var pMap = {
         entrez: 'wdt:P351',
@@ -450,12 +458,17 @@ angular
         return "FILTER(LANG(" + keyword + ") = 'en').\n";
     };
 
+    var parentTax = 0;
+    appData.getAppData( function(data) {
+        parentTax = data.parent_taxid;
+    });
+
     var beginning = function () {
         return "SELECT ?taxon ?taxid ?taxonLabel ?geneLabel ?entrez ?uniprot ?proteinLabel ?locusTag ?refseq_prot ?gene ?pdb" +
             "(GROUP_CONCAT(DISTINCT ?aliases) AS ?aliases) (GROUP_CONCAT(DISTINCT ?mfLabel) AS ?mfLabel) (GROUP_CONCAT(DISTINCT ?host_proteinLabel) AS ?host_proteinLabel)" +
             "(GROUP_CONCAT(DISTINCT ?bpLabel) AS ?bpLabel) (GROUP_CONCAT(DISTINCT ?ccLabel) AS ?ccLabel) (GROUP_CONCAT(DISTINCT ?host_protein) AS ?host_protein) WHERE {\n" +
-            "?taxon wdt:P171* wd:Q846309.\n" +
-            "?gene wdt:P279 wd:Q7187.\n" +
+            "?taxon (wdt:P171*/wdt:P685) '" + parentTax + "'.\n" +
+            "?gene (wdt:P279|wdt:P31) wd:Q7187.\n" +
             "?gene wdt:P703 ?taxon.\n" +
             "?gene wdt:P2393 ?locusTag.\n" +
             "?gene skos:altLabel ?aliases.\n";
