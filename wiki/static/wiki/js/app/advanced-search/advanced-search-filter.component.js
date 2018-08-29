@@ -7,21 +7,21 @@ angular
             var cache = $cacheFactory.get("advSearch");
             if (cache) {
                 ctrl.mf = cache.get("mf")[0];
-                ctrl.mf_text = cache.get("mf")[1];
+                ctrl.mftext = cache.get("mf")[1];
                 ctrl.bp = cache.get("bp")[0];
-                ctrl.bp_text = cache.get("bp")[1];
+                ctrl.bptext = cache.get("bp")[1];
                 ctrl.cc = cache.get("cc")[0];
-                ctrl.cc_text = cache.get("cc")[1];
+                ctrl.cctext = cache.get("cc")[1];
                 ctrl.hp = cache.get("hp")[0];
-                ctrl.hp_text = cache.get("hp")[1];
+                ctrl.hptext = cache.get("hp")[1];
                 ctrl.entrez = cache.get("entrez")[0];
-                ctrl.entrez_text = cache.get("entrez")[1];
+                ctrl.entreztext = cache.get("entrez")[1];
                 ctrl.uniprot = cache.get("uniprot")[0];
-                ctrl.uniprot_text = cache.get("uniprot")[1];
+                ctrl.uniprottext = cache.get("uniprot")[1];
                 ctrl.refseq = cache.get("refseq")[0];
-                ctrl.refseq_text = cache.get("refseq")[1];
+                ctrl.refseqtext = cache.get("refseq")[1];
                 ctrl.pdb = cache.get("pdb")[0];
-                ctrl.pdb_text = cache.get("pdb")[1];
+                ctrl.pdbtext = cache.get("pdb")[1];
                 ctrl.cm = cache.get("cm");
                 ctrl.tm = cache.get("tm");
                 ctrl.im = cache.get("im");
@@ -29,14 +29,14 @@ angular
                 ctrl.rb = cache.get("rb");
                 ctrl.eb = cache.get("eb");
                 ctrl.bacp = cache.get("bacp")[0];
-                ctrl.bacp_text = cache.get("bacp")[1];
+                ctrl.bacptext = cache.get("bacp")[1];
                 ctrl.orgData = cache.get("orgs");
                 ctrl.constitutive = cache.get("constitutive");
                 ctrl.early = cache.get("early");
                 ctrl.mid = cache.get("mid");
-                ctrl.mid_late = cache.get("mid_late");
+                ctrl.midlate = cache.get("midlate");
                 ctrl.late = cache.get("late");
-                ctrl.very_late = cache.get("very_late");
+                ctrl.verylate = cache.get("verylate");
 
             } else {
                 ctrl.orgData = [];
@@ -92,30 +92,64 @@ angular
                 if(cache == undefined) {
                     cache = $cacheFactory('advSearch');
                 }
-                cache.put("mf", [ctrl.mf, ctrl.mf_text]);
-                cache.put("bp", [ctrl.bp, ctrl.bp_text]);
-                cache.put("cc", [ctrl.cc, ctrl.cc_text]);
-                cache.put("hp", [ctrl.hp, ctrl.hp_text]);
-                cache.put("entrez", [ctrl.entrez, ctrl.entrez_text]);
-                cache.put("uniprot", [ctrl.uniprot, ctrl.uniprot_text]);
-                cache.put("refseq", [ctrl.refseq, ctrl.refseq_text]);
-                cache.put("pdb", [ctrl.pdb, ctrl.pdb_text]);
+                cache.put("mf", [ctrl.mf, ctrl.mftext]);
+                cache.put("bp", [ctrl.bp, ctrl.bptext]);
+                cache.put("cc", [ctrl.cc, ctrl.cctext]);
+                cache.put("hp", [ctrl.hp, ctrl.hptext]);
+                cache.put("entrez", [ctrl.entrez, ctrl.entreztext]);
+                cache.put("uniprot", [ctrl.uniprot, ctrl.uniprottext]);
+                cache.put("refseq", [ctrl.refseq, ctrl.refseqtext]);
+                cache.put("pdb", [ctrl.pdb, ctrl.pdbtext]);
                 cache.put("cm", ctrl.cm);
                 cache.put("tm", ctrl.tm);
                 cache.put("im", ctrl.im);
                 cache.put("rm", ctrl.rm);
                 cache.put("rb", ctrl.rb);
                 cache.put("eb", ctrl.eb);
-                cache.put("bacp", [ctrl.bacp, ctrl.bacp_text]);
+                cache.put("bacp", [ctrl.bacp, ctrl.bacptext]);
                 cache.put("constitutive", ctrl.constitutive);
                 cache.put("early", ctrl.early);
                 cache.put("mid", ctrl.mid);
-                cache.put("mid_late", ctrl.mid_late);
+                cache.put("midlate", ctrl.midlate);
                 cache.put("late", ctrl.late);
-                cache.put("very_late", ctrl.very_late);
+                cache.put("verylate", ctrl.verylate);
                 cache.put("orgs", ctrl.orgData);
             };
 
         },
-        templateUrl: '/static/build/js/angular_templates/advanced-search-filter.min.html'
+        templateUrl: '/static/build/js/angular_templates/advanced-search-filter.min.html',
+        bindings: {
+            mf: "=?",
+            mftext: "=?",
+            bp: "=?",
+            bptext: "=?",
+            cc: "=?",
+            cctext: "=?",
+            hp: "=?",
+            hptext: "=?",
+            entrez: "=?",
+            entreztext: "=?",
+            uniprot: "=?",
+            uniprottext: "=?",
+            refseq: "=?",
+            refseqtext: "=?",
+            pdb: "=?",
+            pdbtext: "=?",
+            bacp: "=?",
+            bacptext: "=?",
+            cm: "=?",
+            tm: "=?",
+            im: "=?",
+            rm: "=?",
+            rb: "=?",
+            eb: "=?",
+            constitutive: "=?",
+            early: "=?",
+            mid: "=?",
+            midlate: "=?",
+            late: "=?",
+            verylate: "=?",
+            orgData: "=?",
+            storeCache: "=?"
+        }
     });
