@@ -216,8 +216,9 @@ angular
                                 });
                             }
 
-                        }).then(function(error) {
+                        }, function(error) {
                             console.log("Error with query");
+                            console.log(error);
                             ctrl.loading = false;
                         });
                     });
