@@ -24,10 +24,10 @@ angular.module('cmod')
                 template: '<browser-page></browser-page>'
             }).
             when("/keyword/:keyword", {
-                template: '<genes-keyword></genes-keyword>'
+                template: '<adv-search-page></adv-search-page>'
             }).
             when("/keyword/", {
-                template: '<genes-keyword></genes-keyword>'
+                template: '<adv-search-page></adv-search-page>'
             }).
             when("/organism/:taxid/gene/:locusTag", {
                 template: '<main-page></main-page>'

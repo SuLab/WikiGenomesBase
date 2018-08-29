@@ -1,6 +1,6 @@
 angular
-    .module('genesKeyword')
-    .component('genesKeyword', {
+    .module('advSearchPage')
+    .component('advSearchPage', {
         controller: function ($location, $filter, allSpeciesGenes, queryBuilder, $http, allGoTerms, sendToView, $cacheFactory, appData, NgTableParams, expressionTimingData, allOrgs) {
             'use strict';
             var ctrl = this;
@@ -417,7 +417,7 @@ angular
 
         },
         templateUrl:
-            '/static/build/js/angular_templates/genes-keyword-browser.min.html'
+            '/static/build/js/angular_templates/advanced-search-page.min.html'
     }).factory('queryBuilder', function (appData) {
 
     var pMap = {

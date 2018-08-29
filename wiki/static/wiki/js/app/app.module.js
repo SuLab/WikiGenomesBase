@@ -29,7 +29,7 @@ angular.module('cmod', [
     'allgenesDownload',
     'angularUtils.directives.dirPagination',
     'oauthView',
-    'genesKeyword',
+    'advSearchPage',
     'keywordForm',
     'organismTree',
     'linkedPubs',
