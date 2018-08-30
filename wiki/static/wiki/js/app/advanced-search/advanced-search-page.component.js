@@ -1,7 +1,7 @@
 angular
     .module('advSearchPage')
     .component('advSearchPage', {
-        controller: function ($location, $filter, allSpeciesGenes, queryBuilder, $http, allGoTerms, sendToView, $cacheFactory, appData, NgTableParams, expressionTimingData, allOrgs) {
+        controller: function ($location, $filter, allSpeciesGenes, queryBuilder, $http, allGoTerms, sendToView, $cacheFactory, appData, NgTableParams, expressionTimingData, concatenator) {
             'use strict';
             var ctrl = this;
 
@@ -60,7 +60,7 @@ angular
                     appData.getAppData(function (data) {
                         var url = endpoint + encodeURIComponent(ctrl.buildQuery(data.parent_taxid));
                         $http.get(url).then(function (data) {
-                            ctrl.speciesGenes.allGenes = data.data.results.bindings;
+                            ctrl.speciesGenes.allGenes = concatenator.concatenate(data.data.results.bindings);
                             ctrl.speciesGenes.keywordAll = $filter('keywordFilter')(ctrl.speciesGenes.allGenes, ctrl.keyword);
 
                             // filter by organism
@@ -216,7 +216,7 @@ angular
                                 });
                             }
 
-                        }, function(error) {
+                        }, function (error) {
                             console.log("Error with query");
                             console.log(error);
                             ctrl.loading = false;
@@ -306,7 +306,6 @@ angular
 
                 if (ctrl.hp || ctrl.bacp) {
                     inner += queryBuilder.triple("?protein", "hp", "?host_protein");
-                    inner += queryBuilder.addLabel("?protein", "hp", "?host_proteinLabel");
                 }
                 if (ctrl.hp && ctrl.bacp) {
 
@@ -358,7 +357,7 @@ angular
         },
         templateUrl:
             '/static/build/js/angular_templates/advanced-search-page.min.html'
-    }).factory('queryBuilder', function (appData) {
+    }).factory('queryBuilder', function () {
 
     var pMap = {
         entrez: 'wdt:P351',
@@ -400,7 +399,7 @@ angular
 
     var beginning = function (parentTax) {
         return "SELECT REDUCED ?taxid ?taxonLabel ?gene ?geneLabel ?geneAltLabel ?locusTag " +
-            "?entrez ?uniprot ?refseq_prot ?pdb ?mfLabel ?bpLabel ?cdLabel ?host_proteinLabel WHERE {\n" +
+            "?entrez ?uniprot ?refseq_prot ?pdb ?mfLabel ?bpLabel ?ccLabel ?host_proteinLabel WHERE {\n" +
             "?taxon (wdt:P171*/wdt:P685) '" + parentTax + "';\n" +
             "   wdt:P685 ?taxid.\n" +
             "?gene wdt:P703 ?taxon;\n" +
@@ -435,4 +434,53 @@ angular
     };
 
 
+}).factory('concatenator', function () {
+
+    var concatenate = function (list) {
+        var set = {};
+        angular.forEach(list, function (entry) {
+            // combine
+            var locusTag = entry.locusTag.value;
+            if (locusTag in set) {
+
+                if ("mfLabel" in set[locusTag] && set[locusTag].mfLabel.value.indexOf(entry.mfLabel.value) == -1) {
+                    set[locusTag].mfLabel.value.push(entry.mfLabel.value);
+                }
+                if ("bpLabel" in set[locusTag] && set[locusTag].bpLabel.value.indexOf(entry.bpLabel.value) == -1) {
+                    set[locusTag].bpLabel.value.push(entry.bpLabel.value);
+                }
+                if ("ccLabel" in set[locusTag] && set[locusTag].ccLabel.value.indexOf(entry.ccLabel.value) == -1) {
+                    set[locusTag].ccLabel.value.push(entry.ccLabel.value);
+                }
+                if ("host_proteinLabel" in set[locusTag] && set[locusTag].host_proteinLabel.value.indexOf(entry.host_proteinLabel.value) == -1) {
+                    set[locusTag].host_proteinLabel.value.push(entry.host_proteinLabel.value);
+                }
+                if ("pdb" in set[locusTag] && set[locusTag].pdb.value.indexOf(entry.pdb.value) == -1) {
+                    set[locusTag].pdb.value.push(entry.pdb.value);
+                }
+            }
+            else {
+                if ("mfLabel" in entry) entry.mfLabel.value = [entry.mfLabel.value];
+                if ("bpLabel" in entry) entry.bpLabel.value = [entry.bpLabel.value];
+                if ("ccLabel" in entry) entry.ccLabel.value = [entry.ccLabel.value];
+                if ("host_proteinLabel" in entry) entry.host_proteinLabel.value = [entry.host_proteinLabel.value];
+                if ("pdb" in entry) entry.pdb.value = [entry.pdb.value];
+                set[locusTag] = entry;
+            }
+        });
+        var updated = [];
+        angular.forEach(set, function (entry) {
+            if ("mfLabel" in entry) entry.mfLabel.value = entry.mfLabel.value.join(", ");
+            if ("bpLabel" in entry) entry.bpLabel.value = entry.bpLabel.value.join(", ");
+            if ("ccLabel" in entry) entry.ccLabel.value = entry.ccLabel.value.join(", ");
+            if ("host_proteinLabel" in entry) entry.host_proteinLabel.value = entry.host_proteinLabel.value.join(", ");
+            if ("pdb" in entry) entry.pdb.value = entry.pdb.value.join(", ");
+            updated.push(entry);
+        });
+        return updated;
+    };
+
+    return {
+        concatenate: concatenate
+    };
 });
