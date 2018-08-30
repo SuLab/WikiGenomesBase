@@ -1,7 +1,7 @@
 angular
     .module('advSearchPage')
     .component('advSearchPage', {
-        controller: function ($location, $filter, allSpeciesGenes, queryBuilder, $http, allGoTerms, sendToView, $cacheFactory, appData, NgTableParams, expressionTimingData, concatenator) {
+        controller: function ($location, $filter, allSpeciesGenes, queryBuilder, $http, allGoTerms, sendToView, $cacheFactory, appData, NgTableParams, expressionTimingData, concatenator, $timeout) {
             'use strict';
             var ctrl = this;
 
@@ -26,35 +26,14 @@ angular
 
                 ctrl.adv_cache = $cacheFactory.get("advSearch");
 
-                // getting all species genes requries getting app data's parent taxid first
-                if (!ctrl.adv_cache && ctrl.keyword != "") {
-                    ctrl.loading = true;
-                }
-
                 appData.getAppData(function (data) {
                     ctrl.appData = data;
-
-                    if (!ctrl.adv_cache && ctrl.keyword != "") {
-                        allSpeciesGenes.getAllSpeciesGenes(ctrl.appData.parent_taxid).then(
-                            function (data) {
-
-                                ctrl.speciesGenes.allGenes = data.data.results.bindings;
-                                ctrl.speciesGenes.keywordAll = $filter('keywordFilter')(ctrl.speciesGenes.allGenes, ctrl.keyword);
-                                ctrl.tableParams.settings({dataset: ctrl.speciesGenes.keywordAll});
-
-                            }).finally(function () {
-                            ctrl.loading = false;
-                        });
-                    }
                 });
-
 
                 ctrl.advSearch = function () {
                     ctrl.loading = true;
 
                     ctrl.keywordResult = ctrl.keyword;
-
-                    $('.collapse').collapse("hide");
 
                     var endpoint = 'https://query.wikidata.org/sparql?format=json&query=';
                     appData.getAppData(function (data) {
@@ -225,8 +204,9 @@ angular
 
                 };
 
+                // need to wait for cache to be loaded in child then update in parent
                 if (ctrl.adv_cache) {
-                    ctrl.advSearch();
+                    $timeout(ctrl.advSearch, 500);
                 }
             };
 
