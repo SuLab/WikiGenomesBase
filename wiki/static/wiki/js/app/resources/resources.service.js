@@ -559,20 +559,20 @@ angular
     .module('resources')
     .factory('OperonData', function ($http) {
         var endpoint = 'https://query.wikidata.org/sparql?format=json&query=';
-        var getOperonData = function (entrez) {
+        var getOperonData = function (locusTag) {
             var url = endpoint + encodeURIComponent(
             		"SELECT ?operonItemLabel ?op_genesLabel ?locusTag ?entrez ?genStart ?genEnd ?strandLabel ?reference_stated_inLabel ?reference_pmid WHERE {" +
-            			  "?gene wdt:P351 '"+entrez+"'." +
-            			  "?gene p:P361 ?operon." +
-            			  "?operon ps:P361 ?operonItem." +
-            			  "?operonItem wdt:P31 wd:Q139677." +
-            			  "?operonItem wdt:P527 ?op_genes." +
-            			  "?op_genes wdt:P2393 ?locusTag." +
-            			  "?op_genes wdt:P351 ?entrez." +
-            			  "?op_genes wdt:P644 ?genStart." +
-            			  "?op_genes wdt:P645 ?genEnd." +
-            			  "?op_genes wdt:P2548 ?strand." +
-            			  "?operon (prov:wasDerivedFrom/pr:P248) ?reference_stated_in." +
+            			  "?gene wdt:P2393 '"+locusTag+"';" +
+            			  "      p:P361 ?operon." +
+            			  "?operon ps:P361 ?operonItem;" +
+                          "        (prov:wasDerivedFrom/pr:P248) ?reference_stated_in." +
+            			  "?operonItem wdt:P31 wd:Q139677;" +
+            			  "            wdt:P527 ?op_genes." +
+            			  "?op_genes wdt:P2393 ?locusTag;" +
+            			  "          wdt:P351 ?entrez;" +
+            			  "          wdt:P644 ?genStart;" +
+            			  "          wdt:P645 ?genEnd;" +
+            			  "          wdt:P2548 ?strand." +
             			  "?reference_stated_in wdt:P698 ?reference_pmid." +
             			  "SERVICE wikibase:label { bd:serviceParam wikibase:language 'en'. }" +
             			"}"
@@ -913,30 +913,17 @@ angular
     .factory('allOrgGenes', function ($http) {
         var endpoint = 'https://query.wikidata.org/sparql?format=json&query=';
         var getAllOrgGenes = function (taxid) {
-            var url = endpoint + encodeURIComponent("SELECT ?gene ?geneLabel ?proteinLabel ?protein ?entrez ?refseqProt " +
-                "?locusTag ?uniprot ?chromosome ?chromosomeLabel ?refSeqChromosome ?refSeqChromosomeLabel ?genStart ?genEnd ?strand " +
-                "(group_concat(?aliases;separator=', ') as ?alias) " +
-                "WHERE{ ?taxon wdt:P685 '" + taxid + "'. " +
-                "?gene wdt:P703 ?taxon; " +
-                "wdt:P279|wdt:P31 wd:Q7187; " +
-                "skos:altLabel ?aliases;" +
-                "wdt:P2393 ?locusTag. " +
-                "OPTIONAL {?gene wdt:P351 ?entrez.} " +
-                "OPTIONAL {?gene wdt:P644 ?genStart.} " +
-                "OPTIONAL {?gene wdt:P645 ?genEnd.} " +
-                "OPTIONAL {?gene wdt:P2548 ?strand.} " +
-                "OPTIONAL {?gene wdt:P688 ?protein. ?protein wdt:P637 ?refseqProt. OPTIONAL{?protein wdt:P352 ?uniprot.}}" +
-                "OPTIONAL {?gene p:P644 ?chr. ?chr pq:P1057 ?chromosome. " +
-                "?chromosome wdt:P2249 ?refSeqChromosome.}" +
-                "SERVICE wikibase:label { " +
-                "bd:serviceParam wikibase:language 'en' ." +
+            var url = endpoint + encodeURIComponent(
+                "SELECT REDUCED ?gene ?geneLabel ?entrez ?locusTag WHERE { " +
+                    "?taxon wdt:P685 '" + taxid + "'. " +
+                    "?gene wdt:P703 ?taxon; " +
+                    "      wdt:P279|wdt:P31 wd:Q7187; " +
+                    "      wdt:P2393 ?locusTag." +
+                    "OPTIONAL {?gene wdt:P351 ?entrez.} " +
+                    "SERVICE wikibase:label {bd:serviceParam wikibase:language 'en' . }" +
                 "}" +
-                "} " +
-                "GROUP BY ?gene ?geneLabel ?protein ?proteinLabel ?entrez ?refseqProt " +
-                "?locusTag ?uniprot ?chromosome ?chromosomeLabel ?genStart ?genEnd ?strand " +
-                "?refSeqChromosome ?refSeqChromosomeLabel "
+                "ORDER BY ASC(?locusTag)"
             );
-            console.log("Loading all organism genes");
             return $http.get(url)
                 .success(function (response) {
                     return response;
@@ -957,33 +944,14 @@ angular
         var getAllSpeciesGenes = function (parentTaxid) {
             var endpoint = 'https://query.wikidata.org/sparql?format=json&query=';
             var url = endpoint + encodeURIComponent(
-                    "SELECT ?taxon ?taxid ?taxonLabel ?geneLabel ?entrez ?uniprot ?proteinLabel ?locusTag ?refseq_prot ?gene" +
-                    "(GROUP_CONCAT(DISTINCT ?aliases) AS ?aliases) (GROUP_CONCAT(DISTINCT ?goLabel) AS ?goLabel) (GROUP_CONCAT(DISTINCT ?host_protein) AS ?host_protein) WHERE {" +
-                        "?parent wdt:P685 '" + parentTaxid + "'." +
-                    	"?taxon wdt:P171+ ?parent." +
-                    	"?gene wdt:P279|wdt:P31 wd:Q7187." +
-                    	"?gene wdt:P703 ?taxon." +
-                    	"OPTIONAL {?gene wdt:P351 ?entrez.}" +
-                    	"?gene wdt:P2393 ?locusTag." +
-                    	"?gene skos:altLabel ?aliases." +
-                    	"OPTIONAL {" +
-                    		"?gene wdt:P688 ?protein." +
-                    		"OPTIONAL {?protein wdt:P352 ?uniprot.}" +
-                    		"?protein wdt:P637 ?refseq_prot." +
-
-                    		"OPTIONAL {" +
-                    			"?protein (wdt:P680 | wdt:P681 | wdt:P682)+/rdfs:label ?goLabel." +
-                    			"FILTER(LANG(?goLabel) = 'en')." +
-        					"}" +
-
-        					"OPTIONAL {" +
-        						"?protein wdt:P129+/rdfs:label ?host_protein" +
-        					"}" +
-        				"}" +
-        				"?taxon wdt:P685 ?taxid." +
-        				"SERVICE wikibase:label { bd:serviceParam wikibase:language 'en'. }" +
-        			"}" +
-        			"GROUP BY ?locusTag ?taxon ?taxid ?taxonLabel ?geneLabel ?entrez ?uniprot ?proteinLabel ?refseq_prot ?gene");
+                "SELECT REDUCED ?taxid ?taxonLabel ?gene ?geneLabel ?geneAltLabel ?locusTag " +
+                "?entrez ?uniprot ?refseq_prot ?pdb ?mfLabel ?bpLabel ?ccLabel ?host_proteinLabel WHERE {" +
+                "?taxon (wdt:P171*/wdt:P685) '" + parentTax + "';" +
+                "   wdt:P685 ?taxid." +
+                "?gene wdt:P703 ?taxon;" +
+                "   (wdt:P279|wdt:P31) wd:Q7187;" +
+                "   wdt:P2393 ?locusTag." +
+                "SERVICE wikibase:label { bd:serviceParam wikibase:language 'en'. }}");
             return $http.get(url)
                 .success(function (response) {
                 	var genes = response.results.bindings;
@@ -1016,11 +984,10 @@ angular
             var endpoint = 'https://query.wikidata.org/sparql?format=json&query=';
             var url = endpoint + encodeURIComponent(
                     "SELECT DISTINCT ?geneLabel ?locusTag ?taxid ?symbol WHERE { " +
-                        "?parent wdt:P685 '" + parentTaxid + "'." +
-                        "?taxon wdt:P171+ ?parent." +
-                        "?gene wdt:P279|wdt:P31 wd:Q7187." +
-                        "?gene wdt:P703 ?taxon." +
-            			"?gene wdt:P2393 ?locusTag." +
+                        "?taxon wdt:P171+/wdt:P685 '" + parentTaxid + "'." +
+                        "?gene wdt:P703 ?taxon;" +
+                            "wdt:P279|wdt:P31 wd:Q7187;" +
+            			    "wdt:P2393 ?locusTag." +
             			"?taxon wdt:P685 ?taxid. " +
                         "OPTIONAL {?gene wdt:P2561 ?symbol}" +
             			"SERVICE wikibase:label { bd:serviceParam wikibase:language 'en'. }" +

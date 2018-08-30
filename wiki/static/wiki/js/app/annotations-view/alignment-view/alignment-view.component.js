@@ -186,7 +186,6 @@ angular.module("alignmentView")
         templateUrl : "/static/build/js/angular_templates/alignment-view.min.html",
         bindings : {
             locusTag : '<',
-            taxId : '<',
-            allorggenes : '<'
+            taxId : '<'
         },
     });

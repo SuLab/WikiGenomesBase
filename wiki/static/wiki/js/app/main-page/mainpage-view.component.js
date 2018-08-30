@@ -65,8 +65,7 @@ angular
                 // get all gene data for gene search
                 allOrgGenes.getAllOrgGenes(ctrl.currentTaxid)
                     .then(function (data) {
-                        var dataResults = data.data.results.bindings;
-                        ctrl.currentAllGenes = $filter('orderObjectBy')(dataResults, 'genStart');
+                        ctrl.currentAllGenes = data.data.results.bindings;
                     });
 
                 // get all organism data for forms
@@ -125,7 +124,7 @@ angular
                         if (entity.claims.P351) {
                             ctrl.currentGene.entrez = entity.claims.P351[0].mainsnak.datavalue.value;
 
-                            OperonData.getOperonData(ctrl.currentGene.entrez).then(
+                            OperonData.getOperonData(ctrl.currentGene.locusTag).then(
                                 function (data) {
                                     var dataResults = data.data.results.bindings;
                                     if (dataResults.length > 0) {

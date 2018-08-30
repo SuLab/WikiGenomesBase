@@ -24,8 +24,7 @@ angular
                 });
                 allOrgGenes.getAllOrgGenes(ctrl.currentTaxid)
                     .then(function (data) {
-                        var dataResults = data.data.results.bindings;
-                        ctrl.currentAllGenes = $filter('orderObjectBy')(dataResults, 'genStart');
+                        ctrl.currentAllGenes = data.data.results.bindings;
                         ctrl.initialGene = ctrl.currentAllGenes[0];
                     }).finally(function(){
                         ctrl.loading = false;

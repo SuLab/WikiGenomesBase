@@ -49,7 +49,7 @@
                              style="margin-top:15px; width:100%; overflow: hidden; text-overflow: ellipsis">
                             <div class="col-md-7" style="text-align: left"><h4>{{ x.geneLabel.value }}</h4></div>
                             <div class="col-md-2"><h4>Locus Tag: {{ x.locusTag.value }} </h4></div>
-                            <div class="col-md-2"><h4>Entrez: {{ x.entrez.value }} </h4></div>
+                            <div class="col-md-2"><h4 ng-if="x.entrez.value">Entrez: {{ x.entrez.value }} </h4></div>
                             <div class="col-md-1"><a target="_blank"
                                                      href="https://www.wikidata.org/wiki/{{ x.gene.value | parseQID }}">
                                 <div class="btn btn-default"><img style="max-height: 30px" id="wikilogo"
