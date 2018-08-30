@@ -1,13 +1,17 @@
 angular
     .module('localizationForm')
     .component('localizationForm', {
-        controller: function ($location, $routeParams, pubMedData, sendToView, locusTag2QID, orthoData, $filter) {
+        controller: function ($location, $routeParams, pubMedData, sendToView, locusTag2QID, orthoData, $filter, taxidFilter) {
             'use strict';
             var ctrl = this;
 
             ctrl.currentTaxid = $routeParams.taxid;
             ctrl.currentLocusTag = $routeParams.locusTag;
             ctrl.pageCount = 0;
+
+            taxidFilter.map().then(function(data) {
+                ctrl.tax2Name = data;
+            });
 
             ctrl.orthoData = {};
             ctrl.projection = {};

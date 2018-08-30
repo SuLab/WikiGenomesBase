@@ -14,6 +14,53 @@ angular
 
 angular
     .module('resources')
+    .factory('taxidFilter', function ($resource, $q) {
+        var url = '/static/wiki/json/tax_map.json';
+        var data = $resource(url, {}, {
+            getTaxMap: {
+                method: "GET",
+                params: {},
+                cache: true
+            }
+        });
+        var name = function(input) {
+            var deferred = $q.defer();
+            data.getTaxMap(function (data) {
+                deferred.resolve(data[input]);
+            });
+            return deferred.promise;
+        };
+        var species = function(input) {
+            var deferred = $q.defer();
+            data.getTaxMap(function (data) {
+                deferred.resolve(data[input].split(" ").slice(0, 2).join(" "));
+            });
+            return deferred.promise;
+        };
+        var strain = function(input) {
+            var deferred = $q.defer();
+            data.getTaxMap(function (data) {
+                deferred.resolve(data[input].split(" ").slice(2).join(" "));
+            });
+            return deferred.promise;
+        };
+        var map = function() {
+            var deferred = $q.defer();
+            data.getTaxMap(function (data) {
+                deferred.resolve(data);
+            });
+            return deferred.promise;
+        };
+        return {
+            name: name,
+            species: species,
+            strain: strain,
+            map: map
+        };
+    });
+
+angular
+    .module('resources')
     .factory('orgTree', function ($resource) {
         var url = '/static/wiki/json/org_tree.json';
         return $resource(url, {}, {

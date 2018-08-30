@@ -27,8 +27,7 @@
 		<table ng-table="$ctrl.tableParams" class="table table-hover">
 			<tr ng-show="$ctrl.hasOrthologs"
 				ng-repeat="(key, value) in $ctrl.data">
-				<td title="'Strain'"><a href="/organism/{{ key }}">{{ key |
-						taxid2Name }}</a></td>
+				<td title="'Strain'"><a href="/organism/{{ key }}">{{ $ctrl.tax2Name[key] }}</a></td>
 				<td title="'Taxid'"><a
 					href="/organism/{{ key }}">{{ key }}</a></td>
 				<td title="'Current Locus Tag'">

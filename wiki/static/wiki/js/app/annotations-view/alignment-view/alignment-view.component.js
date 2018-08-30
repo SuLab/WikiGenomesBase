@@ -1,9 +1,12 @@
 angular.module("alignmentView")
 
-    .controller("alignmentCtrl", function(orthoData, geneSequenceData, alignOrthologData, proteinSequenceData) {
+    .controller("alignmentCtrl", function(orthoData, geneSequenceData, alignOrthologData, proteinSequenceData, taxidFilter) {
         'use strict';
         var ctrl = this;
 
+        taxidFilter.map().then(function(data) {
+            ctrl.tax2Name = data;
+        });
 
         // initial variable setup
         ctrl.projection = {};

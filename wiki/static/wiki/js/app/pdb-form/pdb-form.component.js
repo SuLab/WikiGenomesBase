@@ -1,9 +1,13 @@
 angular
     .module('pdbForm')
     .component('pdbForm', {
-        controller: function (pubMedData, $location, orthoData, locusTag2QID, $filter, sendToView) {
+        controller: function (pubMedData, $location, orthoData, locusTag2QID, $filter, sendToView, taxidFilter) {
             'use strict';
             var ctrl = this;
+
+            taxidFilter.map().then(function(data) {
+                ctrl.tax2Name = data;
+            });
             
             ctrl.$onInit = function () {
             	
