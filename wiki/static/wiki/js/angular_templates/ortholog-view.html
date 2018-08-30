@@ -2,7 +2,7 @@
 	<table ng-table="$ctrl.tableParams" class="table table-hover" style="overflow: hidden">
 	    <tr ng-show="$ctrl.hasOrthologs" ng-repeat="(key, gene) in $ctrl.data">
 	        <td ng-if="$ctrl.tSettings['strain']" title="'Strain'">
-	            <a href="/organism/{{ gene.taxid }}">{{ gene.taxid | taxid2Name }}</a>
+	            <a href="/organism/{{ gene.taxid }}">{{ $ctrl.tax2Name[gene.taxid] }}</a>
 	        </td>
 	        <td ng-if="$ctrl.tSettings['tax']" title="'Taxid'">
 	            <a href="/organism/{{ gene.taxid }}">{{ gene.taxid }}</a>

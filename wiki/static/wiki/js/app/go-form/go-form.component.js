@@ -1,12 +1,16 @@
 angular
     .module('goForm')
     .component('goForm', {
-        controller: function ($routeParams, $filter, $location, evidenceCodes, sendToView, pubMedData, allGoTerms, locusTag2QID, orthoData) {
+        controller: function ($routeParams, $filter, $location, evidenceCodes, sendToView, pubMedData, allGoTerms, locusTag2QID, orthoData, taxidFilter) {
             var ctrl = this;
             
             ctrl.currentTaxid = $routeParams.taxid;
             ctrl.currentLocusTag = $routeParams.locusTag;
             ctrl.pageCount = 0;
+
+            taxidFilter.map().then(function(data) {
+                ctrl.tax2Name = data;
+            });
             	
             var goClassMap = {
                     'mf_button': {

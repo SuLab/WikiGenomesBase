@@ -4,9 +4,13 @@ angular
         bindings: {
             data: '<'
         },
-        controller: function ($location, $routeParams, speciesGenes, pubMedData, sendToView, locusTag2QID, $filter, orthoData) {
+        controller: function ($location, $routeParams, speciesGenes, pubMedData, sendToView, locusTag2QID, $filter, orthoData, taxidFilter) {
             'use strict';
             var ctrl = this;
+
+            taxidFilter.map().then(function(data) {
+                ctrl.tax2Name = data;
+            });
             
             ctrl.currentTaxid = $routeParams.taxid;
             ctrl.currentLocusTag = $routeParams.locusTag; 

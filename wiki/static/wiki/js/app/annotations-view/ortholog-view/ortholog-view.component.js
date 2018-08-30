@@ -9,11 +9,15 @@ angular.module('orthologView')
             templateUrl : '/static/build/js/angular_templates/ortholog-view.min.html'
         })
 
-    .controller('orthologCtrl', function(orthoData, InterPro, hostPathogen, GOTerms, OperonData, expressionTimingData, $filter, sendToView, $location) {
+    .controller('orthologCtrl', function(orthoData, InterPro, hostPathogen, GOTerms, OperonData, expressionTimingData, $filter, sendToView, $location, taxidFilter) {
 
         'use strict';
 
         var ctrl = this;
+
+        taxidFilter.map().then(function(data) {
+           ctrl.tax2Name = data;
+        });
 
         ctrl.data = {};
         

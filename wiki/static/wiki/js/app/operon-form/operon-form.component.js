@@ -2,23 +2,26 @@ angular
     .module('operonForm')
     .component('operonForm', {
         controller: function ($routeParams, $location, $filter, pubMedData, locusTag2QID, allOrgOperons,
-                              sendToView, tax2QID) {
+                              sendToView, tax2QID, taxidFilter) {
             'use strict';
             var ctrl = this;
             
             ctrl.currentTaxid = $routeParams.taxid;
             ctrl.currentLocusTag = $routeParams.locusTag;
-            
+
             ctrl.opFormModel = {
                     name: null,
                     pub: [],
                     genes: [],
                     geneQID: ctrl.gene.geneQID,
                     taxid: ctrl.currentTaxid,
-                    taxLabel: $filter("taxid2Name")(ctrl.currentTaxid),
                     taxQID: null,
                     strand: null
                 };
+
+            taxidFilter.name(ctrl.currentTaxid).then(function (data) {
+                ctrl.opFormModel.taxLabel = data;
+            });
             
             ctrl.$onChanges = function() {
             	if (ctrl.strand) {

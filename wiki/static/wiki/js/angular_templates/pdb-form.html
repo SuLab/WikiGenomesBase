@@ -44,7 +44,7 @@ label {
 				<td title="'Target'">Target</td>
 			</tr>
 			<tr ng-repeat="(key, value) in $ctrl.orthoData">
-				<td title="'Strain'">{{ key | taxid2Name }}</td>
+				<td title="'Strain'">{{ $ctrl.tax2Name[key] }}</td>
 				<td title="'Taxid'">{{ key }}</td>
 				<td title="'Locus Tag'">{{value}}</td>
 				<td title="'Target'"><input type="checkbox" ng-model="$ctrl.projection[key]">

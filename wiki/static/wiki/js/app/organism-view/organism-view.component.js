@@ -2,12 +2,13 @@ angular
     .module('organismView')
     .component('organismView', {
         templateUrl: '/static/build/js/angular_templates/organism-view.min.html',
-        controller: function ($routeParams) {
+        controller: function ($routeParams, taxidFilter) {
             'use strict';
             var ctrl = this;
             ctrl.currentTaxid = $routeParams.taxid;
-        },
-        bindings: {
-            org: '<'
+
+            taxidFilter.name(ctrl.currentTaxid).then(function(data) {
+                ctrl.name = data;
+            });
         }
     });

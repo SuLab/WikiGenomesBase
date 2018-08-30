@@ -1,9 +1,13 @@
 angular
     .module("geneSymbolForm")
-    .controller("symbolFormCtrl", function ($location, sendToView, orthoData, locusTag2QID, $filter, pubMedData) {
+    .controller("symbolFormCtrl", function ($location, sendToView, orthoData, locusTag2QID, $filter, pubMedData, taxidFilter) {
         'use strict';
 
         var ctrl = this;
+
+        taxidFilter.map().then(function(data) {
+            ctrl.tax2Name = data;
+        });
 
         ctrl.orthoData = {};
         ctrl.projection = {};

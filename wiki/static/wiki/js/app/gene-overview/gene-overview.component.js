@@ -6,13 +6,20 @@ angular
             data: '<',
             annotations: '<'
         },
-        controller: function ($routeParams, sendToView, $location, $scope) {
+        controller: function ($routeParams, sendToView, $location, taxidFilter) {
             'use strict';
             var ctrl = this;
             ctrl.$onInit = function () {
             	ctrl.taxid = $routeParams.taxid;
             	ctrl.locusTag = $routeParams.locusTag;
             	ctrl.cm = ctrl.tm = ctrl.rm = ctrl.im = 0;
+
+                taxidFilter.species(ctrl.taxid).then(function(data) {
+                    ctrl.species = data;
+                });
+                taxidFilter.strain(ctrl.taxid).then(function(data) {
+                    ctrl.strain = data;
+                });
             	
                 var url_suf = $location.path() + '/mg_mutant_view';
                 sendToView.sendToView(url_suf, {

@@ -13,53 +13,6 @@ angular
     });
 
 angular
-    .module('filters')
-    .filter('taxid2Name', function ($resource) {
-        var url = '/static/wiki/json/tax_map.json';
-        var data = $resource(url, {}, {
-            getTaxMap: {
-                method: "GET",
-                params: {},
-                cache: true
-            }
-        });
-        var taxMap = {};
-        data.getTaxMap(function (data) {
-            taxMap = data;
-        });
-        return function(input) {
-            return taxMap[input];
-        };
-    });
-
-angular
-.module('filters')
-.filter('taxid2Species', function ($filter) {
-    return function (input) {
-        if ($filter('taxid2Name')) {
-            var name = $filter('taxid2Name')(input);
-            return name.split(" ").slice(0, 2).join(" ");
-        } else {
-            return "Loading";
-        }
-    };
-});
-
-angular
-.module('filters')
-.filter('taxid2Strain', function ($filter) {
-    return function (input) {
-        if ($filter('taxid2Name')) {
-            var name = $filter('taxid2Name')(input);
-            return name.split(" ").slice(2).join(" ");
-        } else {
-            return "Loading";
-        }
-
-    };
-});
-
-angular
 .module('filters')
 .filter('interactions2bacteria', function () {
     return function (input) {
