@@ -29,14 +29,17 @@
             height: 100%;
             width: 100%;
         }
+        .loading-img{
+          background:url("../../../../../static/wiki/img/gears.gif") center center no-repeat;height:100%;z-index:20;
+        }
     </style>
     <script type="text/javascript" src="dist/main.bundle.js" charset="utf-8"></script>
   </head>
 
   <body>
     <div class="jbrowse" id="GenomeBrowser">
-      <div id="LoadingScreen" style="padding: 50px;">
-        <h1>Loading...</h1>
+      <div id="LoadingScreen" style="height: 100%; width: 100%; padding: 0; border: 0;">
+        <div class="loading-img"></div>
       </div>
     </div>
     <div style="display: none">JBrowseDefaultMainPage</div>
