@@ -28,7 +28,10 @@ application = {
     "noun": "Chlamydia",
     "adjective": "Chlamydial",
     "parent_taxid": 810,
-    "newsfeed_search_term": "chlamydia trachomatis"
+    "newsfeed_search_term": "chlamydia trachomatis",
+    "newsfeed_recent_days": 10,
+    "newsfeed_max_articles": 20,
+    "example_locus_tag": "CTL0260"
 }
 
 tax2NameMap = {

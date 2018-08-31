@@ -6,7 +6,7 @@
 		   type="text" 
 		   class="form-control ui-widget" 
 		   id="keywordSearch"
-	       placeholder="glgB, CTL0260, etc."
+	       placeholder="glgB, {{$ctrl.locusTag}}, etc."
 	       uib-typeahead="gene.geneLabel.value for gene in ($ctrl.geneList = ($ctrl.genes | filter:$viewValue | limitTo:200))"
 	   	   typeahead-on-select="$ctrl.select($item, $event)"
 	   	   typeahead-wait-ms="500"
@@ -16,5 +16,5 @@
 </div>
 <div style="font-size: 12px">
 	Examples: <button class="search-example" ng-click="$ctrl.submitKeyword('glgB')"><i>glgB</i></button>,&nbsp;
-	<button class="search-example" ng-click="$ctrl.submitKeyword('CTL0260')"><i>CTL0260</i></button>
+	<button class="search-example" ng-click="$ctrl.submitKeyword('$ctrl.locusTag')"><i>{{$ctrl.locusTag}}</i></button>
 </div>
