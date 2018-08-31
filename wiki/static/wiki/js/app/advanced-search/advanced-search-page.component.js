@@ -32,6 +32,7 @@ angular
 
                 ctrl.advSearch = function () {
                     ctrl.loading = true;
+                    ctrl.storeCache();
 
                     ctrl.keywordResult = ctrl.keyword;
 
@@ -205,7 +206,7 @@ angular
                 };
 
                 // need to wait for cache to be loaded in child then update in parent
-                if (ctrl.adv_cache) {
+                if (ctrl.adv_cache || ctrl.keyword != "") {
                     $timeout(ctrl.advSearch, 500);
                 }
             };
