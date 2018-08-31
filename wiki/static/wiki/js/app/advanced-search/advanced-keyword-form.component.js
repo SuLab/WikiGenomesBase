@@ -8,6 +8,7 @@ angular
                 allSpeciesGenes.getAllSpeciesGeneLabels(data.parent_taxid).then(function(data) {
                     ctrl.genes = data.data.results.bindings;
                 });
+                ctrl.locusTag = data.example_locus_tag;
             });
 
             ctrl.submitKeyword = function ($item) {

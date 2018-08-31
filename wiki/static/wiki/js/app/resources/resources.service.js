@@ -830,9 +830,9 @@ angular
 angular
     .module('resources')
     .factory('recentPubLinks', function ($http) {
-        var getRecentPubLinks = function (term) {
+        var getRecentPubLinks = function (term, days, max) {
             var url = 'https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=pubmed&term=' + term +
-                '&reldate=10&datetype=edat&retmax=100&usehistory=y&retmode=json';
+                '&reldate='+days+'&datetype=edat&retmax='+max+'&usehistory=y&retmode=json';
             return $http.get(url)
                 .success(function (response) {
                     return response;

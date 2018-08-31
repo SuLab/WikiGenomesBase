@@ -28,7 +28,10 @@ application = {
     "noun": "Myxococcus",
     "adjective": "Myxococcal",
     "parent_taxid": 34,
-    "newsfeed_search_term": "myxococcus xanthus"
+    "newsfeed_search_term": "myxococcus xanthus",
+    "newsfeed_recent_days": 60,
+    "newsfeed_max_articles": 20,
+    "example_locus_tag": "MXAN_RS00015"
 }
 
 tax2NameMap = {
