@@ -1,7 +1,7 @@
 angular
     .module('goForm')
     .component('goForm', {
-        controller: function ($routeParams, $filter, $location, evidenceCodes, sendToView, pubMedData, allGoTerms, locusTag2QID, orthoData, taxidFilter) {
+        controller: function ($routeParams, $filter, $location, evidenceCodes, sendToView, pubMedData, allGoTerms, locusTag2QID, entrez2QID, orthoDataByLocusTag, orthoDataByEntrez, appData, taxidFilter) {
             var ctrl = this;
             
             ctrl.currentTaxid = $routeParams.taxid;
@@ -42,18 +42,33 @@ angular
 
             ctrl.data = {};
             ctrl.projection = {};
-            orthoData.getOrthologs(ctrl.currentLocusTag).then(function(response) {
+            appData.getAppData(function (data) {
 
-                // now add results from sparql query
-                angular.forEach(response.results.bindings, function(obj) {
-                    var tax = obj.orthoTaxid.value;
-                    var tag = obj.orthoLocusTag.value;
-                    ctrl.projection[tax] = tag == ctrl.currentLocusTag;
-                    ctrl.data[tax] = tag;
+                ctrl.appData = data;
+
+                var factory = orthoDataByLocusTag;
+
+                if (data.primary_identifier == "entrez") {
+                    factory = orthoDataByEntrez;
+                }
+                factory.getOrthologs(ctrl.currentLocusTag).then(function (response) {
+
+                    // now add results from sparql query
+                    angular.forEach(response.results.bindings, function(obj) {
+                        var tax = obj.orthoTaxid.value;
+                        var tag;
+                        if (data.primary_identifier == "entrez") {
+                            tag = obj.entrez.value;
+                        } else {
+                            tag = obj.orthoLocusTag.value;
+                        }
+                        ctrl.projection[tax] = tag == ctrl.currentLocusTag;
+                        ctrl.data[tax] = tag;
+                    });
+
                 });
-
             });
-            
+
             // controls for navigating form
             ctrl.nextClick = function () {
                 ctrl.pageCount += 1;
@@ -138,8 +153,16 @@ angular
                 }
                 
                 angular.forEach(ctrl.projection, function(value, key) {
+
+                    var factory = locusTag2QID;
+
+                    if (data.primary_identifier == "entrez") {
+                        factory = entrez2QID;
+                    }
+
                 	if (value) {
-                        locusTag2QID.getLocusTag2QID(ctrl.data[key], key).then(function (data) {
+
+                        factory.getQID(ctrl.data[key], key).then(function (data) {
                         	
                             var formData = {
                                     evi: ctrl.goFormModel.evi,

@@ -5,37 +5,59 @@ angular
             data: '<'
         },
 
-        controller: function (pubMedData, $filter, $location, $routeParams, locusTag2QID, wdGetEntities, sendToView, RefSeqChrom) {
+        controller: function (pubMedData, $filter, $location, $routeParams, locusTag2QID, entrez2QID, wdGetEntities, sendToView, RefSeqChrom, appData) {
             var ctrl = this;
             
-            locusTag2QID.getLocusTag2QID($routeParams.locusTag, $routeParams.taxid).then(function (data) {
-                var results = data.data.results.bindings;
-                if (results.length > 0) {
-                    ctrl.geneQID = $filter('parseQID')(results[0].gene.value);
+            appData.getAppData(function (appData) {
+
+                var factory = locusTag2QID;
+                if (appData.primary_identifier == "entrez"){
+                    factory = entrez2QID;
                 }
 
-            }).finally(function () {
-                wdGetEntities.wdGetEntities(ctrl.geneQID).then(function (data) {
-                    var entity = data.entities[ctrl.geneQID];
-                    
-                    ctrl.genStart = entity.claims.P644[0].mainsnak.datavalue.value;
-                    ctrl.genEnd = entity.claims.P645[0].mainsnak.datavalue.value;
-                    
-                });
-            });
-            
-            RefSeqChrom.getRefSeqChrom($routeParams.locusTag).then(function(data) {
-
-                if (data[0]) {
-                    ctrl.chromosome = data[0].refSeqChromosome.value;
-                    
-                    if (ctrl.mutantAnnotation) {
-                    	ctrl.mutantAnnotation.chromosome = ctrl.chromosome;
+                factory.getQID($routeParams.locusTag, $routeParams.taxid).then(function (data) {
+                    var results = data.data.results.bindings;
+                    if (results.length > 0) {
+                        ctrl.geneQID = $filter('parseQID')(results[0].gene.value);
                     }
-                }
+
+                }).finally(function () {
+                    wdGetEntities.wdGetEntities(ctrl.geneQID).then(function (data) {
+                        var entity = data.entities[ctrl.geneQID];
+
+                        ctrl.genStart = entity.claims.P644[0].mainsnak.datavalue.value;
+                        ctrl.genEnd = entity.claims.P645[0].mainsnak.datavalue.value;
+
+                    });
+                });
+
+                if (appData.primary_identifier == "locus_tag") {
+                    RefSeqChrom.getRefSeqChromByLocusTag($routeParams.locusTag).then(function(data) {
+
+                        if (data[0]) {
+                            ctrl.chromosome = data[0].refSeqChromosome.value;
+
+                            if (ctrl.mutantAnnotation) {
+                                ctrl.mutantAnnotation.chromosome = ctrl.chromosome;
+                            }
+                        }
+
+                    });
+                } else {
+                    RefSeqChrom.getRefSeqChromByEntrez($routeParams.locusTag).then(function(data) {
+
+                    if (data[0]) {
+                        ctrl.chromosome = data[0].refSeqChromosome.value;
+
+                        if (ctrl.mutantAnnotation) {
+                            ctrl.mutantAnnotation.chromosome = ctrl.chromosome;
+                        }
+                    }
+
+                });}
 
             });
-            
+
             ctrl.seq_ontology_map = {
       		  "synonymous": "SO:0001815",
       		  "non-synonymous": "SO:0001816",

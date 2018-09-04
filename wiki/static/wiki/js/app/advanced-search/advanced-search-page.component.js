@@ -10,9 +10,6 @@ angular
 
                 ctrl.tableParams = new NgTableParams();
 
-                ctrl.onSelect = function ($item) {
-                    $location.path('/organism/' + $item.taxid.value + "/gene/" + $item.locusTag.value);
-                };
                 ctrl.longTitle = function ($item) {
                     if ($item.length > 80) {
                         return $item;
@@ -28,6 +25,14 @@ angular
 
                 appData.getAppData(function (data) {
                     ctrl.appData = data;
+
+                    ctrl.onSelect = function ($item) {
+                        if (data.primary_identifier == "locus_tag") {
+                            $location.path('/organism/' + ctrl.currentTaxid + "/gene/" + $item.locusTag.value);
+                        } else {
+                            $location.path('/organism/' + ctrl.currentTaxid + "/gene/" + $item.entrez.value);
+                        }
+                    };
                 });
 
                 ctrl.advSearch = function () {
@@ -228,8 +233,12 @@ angular
 
                 var query = queryBuilder.beginning(parentTax);
 
-                if (ctrl.entrez) {
-                    if (ctrl.entreztext) {
+                if (ctrl.appData.primary_identifier == "locus_tag") {
+                    query += queryBuilder.triple("?gene", "locusTag", "?locusTag");
+                }
+
+                if (ctrl.entrez || ctrl.appData.primary_identifier == "entrez") {
+                    if (ctrl.entreztext && ctrl.entrez) {
                         query += queryBuilder.equals("?gene", "entrez", ctrl.entreztext);
                     } else {
                         query += queryBuilder.triple("?gene", "entrez", "?entrez");
@@ -351,7 +360,8 @@ angular
         hp: 'wdt:P129',
         pdb: 'wdt:P638',
         db: 'wdt:P5572',
-        taxon: 'wdt:P703'
+        taxon: 'wdt:P703',
+        locusTag: 'wdt:P2393'
     };
 
     var optional = function (input) {
@@ -384,8 +394,7 @@ angular
             "?taxon (wdt:P171*/wdt:P685) '" + parentTax + "';\n" +
             "   wdt:P685 ?taxid.\n" +
             "?gene wdt:P703 ?taxon;\n" +
-            "   (wdt:P279|wdt:P31) wd:Q7187;\n" +
-            "   wdt:P2393 ?locusTag.\n";
+            "   (wdt:P279|wdt:P31) wd:Q7187.\n";
     };
 
     var ending = function () {

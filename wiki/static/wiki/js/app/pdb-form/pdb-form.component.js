@@ -1,7 +1,7 @@
 angular
     .module('pdbForm')
     .component('pdbForm', {
-        controller: function (pubMedData, $location, orthoData, locusTag2QID, $filter, sendToView, taxidFilter) {
+        controller: function (pubMedData, $location, orthoDataByEntrez, orthoDataByLocusTag, appData, locusTag2QID, entrez2QID, $filter, sendToView, taxidFilter, $routeParams) {
             'use strict';
             var ctrl = this;
 
@@ -29,16 +29,31 @@ angular
                 
                 ctrl.orthoData = {};
                 ctrl.projection = {};
-                orthoData.getOrthologs(ctrl.gene.locusTag).then(function(response) {
+                appData.getAppData(function (data) {
 
-                    // now add results from sparql query
-                    angular.forEach(response.results.bindings, function(obj) {
-                        var tax = obj.orthoTaxid.value;
-                        var tag = obj.orthoLocusTag.value;
-                        ctrl.projection[tax] = tag == ctrl.gene.locusTag;
-                        ctrl.orthoData[tax] = tag;
+                    ctrl.appData = data;
+
+                    var factory = orthoDataByLocusTag;
+
+                    if (data.primary_identifier == "entrez") {
+                        factory = orthoDataByEntrez;
+                    }
+                    factory.getOrthologs($routeParams.locusTag).then(function (response) {
+
+                        // now add results from sparql query
+                        angular.forEach(response.results.bindings, function (obj) {
+                            var tax = obj.orthoTaxid.value;
+                            var tag;
+                            if (data.primary_identifier == "entrez") {
+                                tag = obj.entrez.value;
+                            } else {
+                                tag = obj.orthoLocusTag.value;
+                            }
+                            ctrl.projection[tax] = tag == $routeParams.locusTag;
+                            ctrl.orthoData[tax] = tag;
+                        });
+
                     });
-
                 });
 
                 ctrl.getPMID = function (val) {
@@ -90,8 +105,14 @@ angular
                     }
                     
                     angular.forEach(ctrl.projection, function(value, key) {
+
+                        var factory = locusTag2QID;
+                        if (ctrl.appData.primary_identifier == "entrez"){
+                            factory = entrez2QID;
+                        }
+
                     	if (value) {
-                            locusTag2QID.getLocusTag2QID(ctrl.orthoData[key], key).then(function (data) {
+                            factory.getQID(ctrl.orthoData[key], key).then(function (data) {
                             	
                                 var formData = {
                                 		id: ctrl.pdbAnnotation.id.toUpperCase(),

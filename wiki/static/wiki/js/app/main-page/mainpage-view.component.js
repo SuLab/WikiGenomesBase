@@ -48,39 +48,13 @@ angular
 
             appData.getAppData(function (data) {
                 ctrl.appData = data;
-            });
 
-            ctrl.$onInit = function () {
-                'use strict';
-                ctrl.currentTaxid = $routeParams.taxid;
-                ctrl.currentLocusTag = $routeParams.locusTag;
-                ctrl.currentGene = {
-                    locusTag: ctrl.currentLocusTag,
-                    taxid: ctrl.currentTaxid
-                };
-                ctrl.annotations = {
-                    ecnumber: []
-                };
+                var factory = locusTag2QID;
+                if (ctrl.appData.primary_identifier == "entrez"){
+                    factory = entrez2QID;
+                }
 
-                // get all gene data for gene search
-                allOrgGenes.getAllOrgGenes(ctrl.currentTaxid)
-                    .then(function (data) {
-                        ctrl.currentAllGenes = data.data.results.bindings;
-                    });
-
-                // get all organism data for forms
-                allOrgs.getAllOrgs(function (data) {
-                    ctrl.orgList = data;
-                    ctrl.currentOrg = $filter('getJsonItemOrg')('taxid', ctrl.currentTaxid, ctrl.orgList);
-                    if (ctrl.currentOrg == undefined) {
-                        alert("not a valid taxonomy id");
-                        $location.path('/');
-                    }
-                });
-
-                ctrl.hasprotein = true;
-
-                locusTag2QID.getLocusTag2QID(ctrl.currentLocusTag, ctrl.currentTaxid).then(function (data) {
+                factory.getQID(ctrl.currentLocusTag, ctrl.currentTaxid).then(function (data) {
                     var results = data.data.results.bindings;
                     if (results.length > 0) {
                         ctrl.currentGene.geneQID = $filter('parseQID')(results[0].gene.value);
@@ -123,8 +97,20 @@ angular
 
                         if (entity.claims.P351) {
                             ctrl.currentGene.entrez = entity.claims.P351[0].mainsnak.datavalue.value;
+                        }
 
-                            OperonData.getOperonData(ctrl.currentGene.locusTag).then(
+                        if (ctrl.appData.primary_identifier == "locus_tag") {
+                            OperonData.getOperonDataByLocusTag(ctrl.currentGene.locusTag).then(
+                                function (data) {
+                                    var dataResults = data.data.results.bindings;
+                                    if (dataResults.length > 0) {
+                                        ctrl.annotations.operon = dataResults;
+                                    } else {
+                                        ctrl.annotations.operon = [];
+                                    }
+                                });
+                        } else {
+                            OperonData.getOperonDataByEntrez(ctrl.currentGene.entrez).then(
                                 function (data) {
                                     var dataResults = data.data.results.bindings;
                                     if (dataResults.length > 0) {
@@ -262,13 +248,23 @@ angular
                     }
 
                     // Get chromosome refseq id
-                    RefSeqChrom.getRefSeqChrom(ctrl.currentLocusTag).then(function (data) {
+                    if (ctrl.appData.primary_identifier == "locus_tag") {
+                        RefSeqChrom.getRefSeqChromByLocusTag(ctrl.currentLocusTag).then(function (data) {
 
-                        if (data[0]) {
-                            ctrl.currentGene.refseqGenome = data[0].refSeqChromosome.value;
-                        }
+                            if (data[0]) {
+                                ctrl.currentGene.refseqGenome = data[0].refSeqChromosome.value;
+                            }
 
-                    });
+                        });
+                    } else {
+                        RefSeqChrom.getRefSeqChromByEntrez(ctrl.currentGene.entrez).then(function (data) {
+
+                            if (data[0]) {
+                                ctrl.currentGene.refseqGenome = data[0].refSeqChromosome.value;
+                            }
+
+                        });
+                    }
 
                     expressionTimingData.getExpression(function (data) {
                         ctrl.expression = data;
@@ -290,6 +286,37 @@ angular
                     });
 
                 });
+            });
+
+            ctrl.$onInit = function () {
+                'use strict';
+                ctrl.currentTaxid = $routeParams.taxid;
+                ctrl.currentLocusTag = $routeParams.locusTag;
+                ctrl.currentGene = {
+                    locusTag: ctrl.currentLocusTag,
+                    taxid: ctrl.currentTaxid
+                };
+                ctrl.annotations = {
+                    ecnumber: []
+                };
+
+                // get all gene data for gene search
+                allOrgGenes.getAllOrgGenes(ctrl.currentTaxid)
+                    .then(function (data) {
+                        ctrl.currentAllGenes = data.data.results.bindings;
+                    });
+
+                // get all organism data for forms
+                allOrgs.getAllOrgs(function (data) {
+                    ctrl.orgList = data;
+                    ctrl.currentOrg = $filter('getJsonItemOrg')('taxid', ctrl.currentTaxid, ctrl.orgList);
+                    if (ctrl.currentOrg == undefined) {
+                        alert("not a valid taxonomy id");
+                        $location.path('/');
+                    }
+                });
+
+                ctrl.hasprotein = true;
 
                 ////send form data to server to edit wikidata
                 var getServerAnnotationData = function (anno_keys) {

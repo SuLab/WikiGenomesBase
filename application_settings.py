@@ -31,7 +31,10 @@ application = {
     "newsfeed_search_term": "chlamydia trachomatis",
     "newsfeed_recent_days": 10,
     "newsfeed_max_articles": 20,
-    "example_locus_tag": "CTL0260"
+    "example_locus_tag": "CTL0260",
+
+    # Either locus_tag or entrez
+    "primary_identifier": "locus_tag"
 }
 
 tax2NameMap = {

@@ -13,6 +13,14 @@ angular
                 ctrl.currentTaxid = $routeParams.taxid;
                 appData.getAppData(function (data) {
                     ctrl.appData = data;
+
+                    ctrl.onSelect = function ($item) {
+                        if (data.primary_identifier == "locus_tag") {
+                            $location.path('/organism/' + ctrl.currentTaxid + "/gene/" + $item.locusTag.value);
+                        } else {
+                            $location.path('/organism/' + ctrl.currentTaxid + "/gene/" + $item.entrez.value);
+                        }
+                    };
                 });
                 allOrgs.getAllOrgs(function (data) {
                     ctrl.orgList = data;
@@ -29,9 +37,6 @@ angular
                     }).finally(function(){
                         ctrl.loading = false;
                     });
-                ctrl.onSelect = function ($item) {
-                    $location.path('/organism/' + ctrl.currentTaxid + "/gene/" + $item.locusTag.value);
-                };
             };
         },
         templateUrl: '/static/build/js/angular_templates/browser-page.min.html'

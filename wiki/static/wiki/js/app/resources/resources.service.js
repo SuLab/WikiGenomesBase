@@ -159,8 +159,8 @@ angular
 
 angular
     .module('resources')
-    .factory('orthoData', function ($http, $q) {
-        var getOrthologs = function (locusTag) {
+    .factory('orthoDataByLocusTag', function ($http, $q) {
+        var getOrthologsByLocusTag = function (locusTag) {
             var deferred = $q.defer();
             var endpoint = 'https://query.wikidata.org/sparql?format=json&query=';
             var url = endpoint + encodeURIComponent(
@@ -205,7 +205,59 @@ angular
             return deferred.promise;
         };
         return {
-            getOrthologs: getOrthologs
+            getOrthologs: getOrthologsByLocusTag,
+        };
+    });
+
+angular
+    .module('resources')
+    .factory('orthoDataByEntrez', function ($http, $q) {
+        var getOrthologsByEntrez = function (entrez) {
+            var deferred = $q.defer();
+            var endpoint = 'https://query.wikidata.org/sparql?format=json&query=';
+            var url = endpoint + encodeURIComponent(
+                "SELECT ?orthoLocusTag ?orthoTaxid ?entrez ?uniprot ?refseq ?reference WHERE {" +
+                "{" +
+                "?gene wdt:P351 '"+entrez+"'." +
+                "?gene p:P684 ?statement." +
+                "?statement ps:P684 ?ortholog." +
+                "OPTIONAL {?ortholog wdt:P2393 ?orthoLocusTag.}" +
+                "?ortholog wdt:P703 ?orthoTaxon." +
+                "?orthoTaxon wdt:P685 ?orthoTaxid." +
+                "OPTIONAL {?ortholog wdt:P351 ?entrez.}" +
+                "?statement prov:wasDerivedFrom/pr:P248 ?reference." +
+                "OPTIONAL {" +
+                "?ortholog wdt:P688 ?protein." +
+                "?protein wdt:P352 ?uniprot." +
+                "?protein wdt:P637 ?refseq." +
+                "}" +
+                "}" +
+                "UNION" +
+                "{" +
+                "?gene wdt:P351 '"+entrez+"'." +
+                "OPTIONAL {?gene wdt:P2393 ?orthoLocusTag.}" +
+                "?gene wdt:P703 ?orthoTaxon." +
+                "?orthoTaxon wdt:P685 ?orthoTaxid." +
+                "OPTIONAL {?gene wdt:P351 ?entrez.}" +
+                "OPTIONAL {" +
+                "?gene wdt:P688 ?protein." +
+                "?protein wdt:P352 ?uniprot." +
+                "?protein wdt:P637 ?refseq." +
+                "}" +
+                "}" +
+                "}"
+            );
+            $http.get(url)
+                .success(function (response) {
+                    deferred.resolve(response);
+                })
+                .error(function (response) {
+                    deferred.reject(response);
+                });
+            return deferred.promise;
+        };
+        return {
+            getOrthologs: getOrthologsByEntrez,
         };
     });
 
@@ -465,7 +517,7 @@ angular
     .module('resources')
     .factory('RefSeqChrom', function ($http) {
         var endpoint = 'https://query.wikidata.org/sparql?format=json&query=';
-        var getRefSeqChrom = function (locusTag) {
+        var getRefSeqChromByLocusTag = function (locusTag) {
             var url = endpoint + encodeURIComponent(
                 "SELECT ?refSeqChromosome " +
                 "WHERE{ \n" +
@@ -482,8 +534,26 @@ angular
 
             });
         };
+        var getRefSeqChromByEntrez = function (entrez) {
+            var url = endpoint + encodeURIComponent(
+                "SELECT ?refSeqChromosome " +
+                "WHERE{ \n" +
+                "  ?gene wdt:P351 " +
+                "'"+ entrez +"';" +
+                "        p:P644 ?chr.\n" +
+                "  ?chr pq:P1057 ?chromosome. \n" +
+                "  ?chromosome wdt:P2249 ?refSeqChromosome.\n" +
+                "  SERVICE wikibase:label { bd:serviceParam wikibase:language 'en' .}\n" +
+                "} \n"
+            );
+            return $http.get(url).then(function (response) {
+                return response.data.results.bindings;
+
+            });
+        };
         return {
-            getRefSeqChrom: getRefSeqChrom
+            getRefSeqChromByLocusTag: getRefSeqChromByLocusTag,
+            getRefSeqChromByEntrez: getRefSeqChromByEntrez
         };
 
 
@@ -559,7 +629,7 @@ angular
     .module('resources')
     .factory('OperonData', function ($http) {
         var endpoint = 'https://query.wikidata.org/sparql?format=json&query=';
-        var getOperonData = function (locusTag) {
+        var getOperonDataByLocusTag = function (locusTag) {
             var url = endpoint + encodeURIComponent(
             		"SELECT ?operonItemLabel ?op_genesLabel ?locusTag ?entrez ?genStart ?genEnd ?strandLabel ?reference_stated_inLabel ?reference_pmid WHERE {" +
             			  "?gene wdt:P2393 '"+locusTag+"';" +
@@ -586,8 +656,36 @@ angular
                     return response;
                 });
         };
+        var getOperonDataByEntrez = function (entrez) {
+            var url = endpoint + encodeURIComponent(
+                "SELECT ?operonItemLabel ?op_genesLabel ?locusTag ?entrez ?genStart ?genEnd ?strandLabel ?reference_stated_inLabel ?reference_pmid WHERE {" +
+                "?gene wdt:P351 '"+entrez+"';" +
+                "      p:P361 ?operon." +
+                "?operon ps:P361 ?operonItem;" +
+                "        (prov:wasDerivedFrom/pr:P248) ?reference_stated_in." +
+                "?operonItem wdt:P31 wd:Q139677;" +
+                "            wdt:P527 ?op_genes." +
+                "?op_genes wdt:P2393 ?locusTag;" +
+                "          wdt:P351 ?entrez;" +
+                "          wdt:P644 ?genStart;" +
+                "          wdt:P645 ?genEnd;" +
+                "          wdt:P2548 ?strand." +
+                "?reference_stated_in wdt:P698 ?reference_pmid." +
+                "SERVICE wikibase:label { bd:serviceParam wikibase:language 'en'. }" +
+                "}"
+            );
+            return $http.get(url)
+                .success(function (response) {
+                    return response.data;
+
+                })
+                .error(function (response) {
+                    return response;
+                });
+        };
         return {
-            getOperonData: getOperonData
+            getOperonDataByLocusTag: getOperonDataByLocusTag,
+            getOperonDataByEntrez: getOperonDataByEntrez
         };
     });
 
@@ -809,7 +907,7 @@ angular
 
 angular
     .module('resources')
-    .factory('pubLinks', function ($http, $filter) {
+    .factory('pubLinks', function ($http) {
         var getPubLinks = function (entrez) {
             var endpoint = 'https://eutils.ncbi.nlm.nih.gov/entrez/eutils/elink.fcgi?dbfrom=gene&db=pubmed&id={entrez}&retmode=json&linkname=gene_pubmed_pmc_nucleotide';
 
@@ -946,7 +1044,7 @@ angular
             var url = endpoint + encodeURIComponent(
                 "SELECT REDUCED ?taxid ?taxonLabel ?gene ?geneLabel ?geneAltLabel ?locusTag " +
                 "?entrez ?uniprot ?refseq_prot ?pdb ?mfLabel ?bpLabel ?ccLabel ?host_proteinLabel WHERE {" +
-                "?taxon (wdt:P171*/wdt:P685) '" + parentTax + "';" +
+                "?taxon (wdt:P171*/wdt:P685) '" + parentTaxid + "';" +
                 "   wdt:P685 ?taxid." +
                 "?gene wdt:P703 ?taxon;" +
                 "   (wdt:P279|wdt:P31) wd:Q7187;" +
@@ -983,13 +1081,14 @@ angular
         var getAllSpeciesGeneLabels = function (parentTaxid) {
             var endpoint = 'https://query.wikidata.org/sparql?format=json&query=';
             var url = endpoint + encodeURIComponent(
-                    "SELECT DISTINCT ?geneLabel ?locusTag ?taxid ?symbol WHERE { " +
+                    "SELECT DISTINCT ?geneLabel ?locusTag ?taxid ?symbol ?entrez WHERE { " +
                         "?taxon wdt:P171+/wdt:P685 '" + parentTaxid + "'." +
                         "?gene wdt:P703 ?taxon;" +
                             "wdt:P279|wdt:P31 wd:Q7187;" +
             			    "wdt:P2393 ?locusTag." +
             			"?taxon wdt:P685 ?taxid. " +
                         "OPTIONAL {?gene wdt:P2561 ?symbol}" +
+                        "OPTIONAL {?gene wdt:P351 ?entrez}" +
             			"SERVICE wikibase:label { bd:serviceParam wikibase:language 'en'. }" +
         			"}");
             return $http.get(url)
@@ -1064,12 +1163,12 @@ angular
 
 angular
     .module('resources')
-    .factory('entrez2QID', function ($http, $filter) {
+    .factory('entrez2QID', function ($http) {
         var endpoint = 'https://query.wikidata.org/sparql?format=json&query=';
-        var getEntrez2QID = function (entrez) {
+        var getEntrez2QID = function (entrez, taxid) {
             var query = "SELECT distinct ?gene ?protein WHERE{" +
-                "?gene wdt:P351 '{entrez}'; " +
-                "wdt:P688 ?protein.}";
+                "?gene wdt:P351 '{entrez}'. " +
+                "OPTIONAL {?gene wdt:P688 ?protein.}}";
             var url = endpoint + encodeURIComponent(query.replace('{entrez}', entrez));
             return $http.get(url)
                 .success(function (response) {
@@ -1081,7 +1180,7 @@ angular
 
         };
         return {
-            getEntrez2QID: getEntrez2QID
+            getQID: getEntrez2QID
         };
 
 
@@ -1089,7 +1188,7 @@ angular
 
 angular
     .module('resources')
-    .factory('locusTag2QID', function ($http, $filter) {
+    .factory('locusTag2QID', function ($http) {
         var endpoint = 'https://query.wikidata.org/sparql?format=json&query=';
         var getLocusTag2QID = function (locusTag, taxid) {
             var query = "SELECT distinct ?gene ?protein WHERE{" +
@@ -1111,7 +1210,7 @@ angular
 
         };
         return {
-            getLocusTag2QID: getLocusTag2QID
+            getQID: getLocusTag2QID
         };
 
 

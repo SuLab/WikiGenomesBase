@@ -1,6 +1,6 @@
 angular.module("alignmentView")
 
-    .controller("alignmentCtrl", function(orthoData, geneSequenceData, alignOrthologData, proteinSequenceData, taxidFilter) {
+    .controller("alignmentCtrl", function(orthoDataByLocusTag, orthoDataByEntrez, appData, geneSequenceData, alignOrthologData, proteinSequenceData, taxidFilter, $routeParams) {
         'use strict';
         var ctrl = this;
 
@@ -17,18 +17,25 @@ angular.module("alignmentView")
 
         // Get ortholog data from wikidata
         ctrl.data = {};
-        orthoData.getOrthologs(ctrl.locusTag).then(function(response) {
+        appData.getAppData(function (data) {
 
-            // now add results from sparql query
-            angular.forEach(response.results.bindings, function(obj) {
-                var tax = obj.orthoTaxid.value;
-                var tag = obj.orthoLocusTag.value;
-                ctrl.hasOrthologs = true;
-                ctrl.projection[tax] = true;
-                var refseq = obj.refseq ? obj.refseq.value : "";
-                ctrl.data[tax] = [ tag, refseq ];
+            var factory = orthoDataByLocusTag;
+
+            if (data.primary_identifier == "entrez") {
+                factory = orthoDataByEntrez;
+            }
+            factory.getOrthologs($routeParams.locusTag).then(function(response) {
+
+                // now add results from sparql query
+                angular.forEach(response.results.bindings, function(obj) {
+                    var tax = obj.orthoTaxid.value;
+                    var tag = obj.orthoLocusTag.value;
+                    ctrl.hasOrthologs = true;
+                    ctrl.projection[tax] = true;
+                    var refseq = obj.refseq ? obj.refseq.value : "";
+                    ctrl.data[tax] = [ tag, refseq ];
+                });
             });
-
         });
 
         // for selecting from the check list

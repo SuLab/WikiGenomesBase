@@ -4,7 +4,7 @@ angular
         bindings: {
             data: '<'
         },
-        controller: function ($location, $routeParams, speciesGenes, pubMedData, sendToView, locusTag2QID, $filter, orthoData, taxidFilter) {
+        controller: function ($location, $routeParams, speciesGenes, pubMedData, sendToView, locusTag2QID, entrez2QID, $filter, orthoDataByEntrez, orthoDataByLocusTag, appData, taxidFilter) {
             'use strict';
             var ctrl = this;
 
@@ -18,16 +18,31 @@ angular
             
             ctrl.orthoData = {};
             ctrl.projection = {};
-            orthoData.getOrthologs(ctrl.currentLocusTag).then(function(response) {
+            appData.getAppData(function (data) {
 
-                // now add results from sparql query
-                angular.forEach(response.results.bindings, function(obj) {
-                    var tax = obj.orthoTaxid.value;
-                    var tag = obj.orthoLocusTag.value;
-                    ctrl.projection[tax] = tag == ctrl.currentLocusTag;
-                    ctrl.orthoData[tax] = tag;
+                ctrl.appData = data;
+
+                var factory = orthoDataByLocusTag;
+
+                if (data.primary_identifier == "entrez") {
+                    factory = orthoDataByEntrez;
+                }
+                factory.getOrthologs(ctrl.currentLocusTag).then(function (response) {
+
+                    // now add results from sparql query
+                    angular.forEach(response.results.bindings, function (obj) {
+                        var tax = obj.orthoTaxid.value;
+                        var tag;
+                        if (data.primary_identifier == "entrez") {
+                            tag = obj.entrez.value;
+                        } else {
+                            tag = obj.orthoLocusTag.value;
+                        }
+                        ctrl.projection[tax] = tag == ctrl.currentLocusTag;
+                        ctrl.orthoData[tax] = tag;
+                    });
+
                 });
-
             });
 
             ctrl.nextClick = function () {
@@ -158,8 +173,13 @@ angular
                 }
                 
                 angular.forEach(ctrl.projection, function(value, key) {
+                    var factory = locusTag2QID;
+                    if (ctrl.appData.primary_identifier == "entrez"){
+                        factory = entrez2QID;
+                    }
+
                 	if (value) {
-                        locusTag2QID.getLocusTag2QID(ctrl.orthoData[key], key).then(function (data) {
+                        factory.getQID(ctrl.orthoData[key], key).then(function (data) {
                         	
                             var formData = {
                             		proteinQID: null,
