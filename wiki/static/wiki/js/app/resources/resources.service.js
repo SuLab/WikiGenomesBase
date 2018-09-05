@@ -1015,8 +1015,8 @@ angular
                 "SELECT REDUCED ?gene ?geneLabel ?entrez ?locusTag WHERE { " +
                     "?taxon wdt:P685 '" + taxid + "'. " +
                     "?gene wdt:P703 ?taxon; " +
-                    "      wdt:P279|wdt:P31 wd:Q7187; " +
-                    "      wdt:P2393 ?locusTag." +
+                    "      wdt:P279|wdt:P31 wd:Q7187. " +
+                    "OPTIONAL{?gene wdt:P2393 ?locusTag.}" +
                     "OPTIONAL {?gene wdt:P351 ?entrez.} " +
                     "SERVICE wikibase:label {bd:serviceParam wikibase:language 'en' . }" +
                 "}" +
