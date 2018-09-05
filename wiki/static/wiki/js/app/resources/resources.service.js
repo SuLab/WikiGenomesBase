@@ -1047,8 +1047,9 @@ angular
                 "?taxon (wdt:P171*/wdt:P685) '" + parentTaxid + "';" +
                 "   wdt:P685 ?taxid." +
                 "?gene wdt:P703 ?taxon;" +
-                "   (wdt:P279|wdt:P31) wd:Q7187;" +
-                "   wdt:P2393 ?locusTag." +
+                "   (wdt:P279|wdt:P31) wd:Q7187." +
+                "OPTIONAL{?gene wdt:P2393 ?locusTag.}" +
+                "OPTIONAL {?gene wdt:P351 ?entrez}" +
                 "SERVICE wikibase:label { bd:serviceParam wikibase:language 'en'. }}");
             return $http.get(url)
                 .success(function (response) {
@@ -1084,9 +1085,9 @@ angular
                     "SELECT DISTINCT ?geneLabel ?locusTag ?taxid ?symbol ?entrez WHERE { " +
                         "?taxon wdt:P171+/wdt:P685 '" + parentTaxid + "'." +
                         "?gene wdt:P703 ?taxon;" +
-                            "wdt:P279|wdt:P31 wd:Q7187;" +
-            			    "wdt:P2393 ?locusTag." +
+                            "wdt:P279|wdt:P31 wd:Q7187." +
             			"?taxon wdt:P685 ?taxid. " +
+                        "OPTIONAL{?gene wdt:P2393 ?locusTag.}" +
                         "OPTIONAL {?gene wdt:P2561 ?symbol}" +
                         "OPTIONAL {?gene wdt:P351 ?entrez}" +
             			"SERVICE wikibase:label { bd:serviceParam wikibase:language 'en'. }" +
