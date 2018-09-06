@@ -19,12 +19,14 @@ angular
                         var end = Number(ctrl.gene.genEnd) + 1000;
 
                         var loc = "";
+                        var highlight = "";
                         if (start && end && ctrl.gene.refseqGenome) {
                             loc = "&loc=" + ctrl.gene.refseqGenome + ":" + start + '..' + end;
+                            highlight = "&highlight=" + ctrl.gene.refseqGenome + ":" + Number(ctrl.gene.genStart) + '..' + Number(ctrl.gene.genEnd);
                         }
 
                         return "static/wiki/js/external_js/JBrowse-1.14.1/index.html?data=" + ctrl.taxid +
-                        "_data&tracks=DNA,genes,operons,mutants&menu=0" + loc;
+                        "_data&tracks=DNA,genes,operons,mutants&menu=0" + loc + highlight;
                     };
 
                 }
