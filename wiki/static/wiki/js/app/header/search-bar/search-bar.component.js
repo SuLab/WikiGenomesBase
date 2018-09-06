@@ -72,5 +72,5 @@ angular
             };
 
         },
-        templateUrl: '/static/build/js/angular_templates/keyword-form.min.html'
+        templateUrl: '/static/build/js/angular_templates/search-bar.min.html'
     });

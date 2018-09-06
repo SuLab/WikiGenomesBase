@@ -1,7 +1,7 @@
 angular
     .module('hostPathogen')
     .component('hostPathogen', {
-        templateUrl: '/static/build/js/angular_templates/host-pathogen.min.html',
+        templateUrl: '/static/build/js/angular_templates/protein-interactions-view.min.html',
         bindings: {
             data: '<'
         },

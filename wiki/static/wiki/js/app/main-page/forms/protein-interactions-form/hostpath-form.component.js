@@ -257,8 +257,7 @@ angular
             };
         },
 
-
-        templateUrl: '/static/build/js/angular_templates/hostpath-form.min.html'
+        templateUrl: '/static/build/js/angular_templates/protein-interactions-form.min.html'
     });
 
 

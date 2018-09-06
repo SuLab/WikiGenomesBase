@@ -227,7 +227,7 @@ angular
         },
 
 
-        templateUrl: '/static/build/js/angular_templates/localization-form.min.html'
+        templateUrl: '/static/build/js/angular_templates/developmental-body-form.min.html'
     });
 
 
