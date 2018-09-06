@@ -22,6 +22,8 @@ angular
                 ctrl.refseqtext = cache.get("refseq")[1];
                 ctrl.pdb = cache.get("pdb")[0];
                 ctrl.pdbtext = cache.get("pdb")[1];
+                ctrl.operon = cache.get("operon")[0];
+                ctrl.operontext = cache.get("operon")[1];
                 ctrl.cm = cache.get("cm");
                 ctrl.tm = cache.get("tm");
                 ctrl.im = cache.get("im");
@@ -100,6 +102,7 @@ angular
                 cache.put("uniprot", [ctrl.uniprot, ctrl.uniprottext]);
                 cache.put("refseq", [ctrl.refseq, ctrl.refseqtext]);
                 cache.put("pdb", [ctrl.pdb, ctrl.pdbtext]);
+                cache.put("operon", [ctrl.operon, ctrl.operontext]);
                 cache.put("cm", ctrl.cm);
                 cache.put("tm", ctrl.tm);
                 cache.put("im", ctrl.im);
@@ -135,6 +138,8 @@ angular
             refseqtext: "=?",
             pdb: "=?",
             pdbtext: "=?",
+            operon: "=?",
+            operontext: "=?",
             bacp: "=?",
             bacptext: "=?",
             cm: "=?",

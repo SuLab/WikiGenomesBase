@@ -634,16 +634,16 @@ angular
             		"SELECT ?operonItemLabel ?op_genesLabel ?locusTag ?entrez ?genStart ?genEnd ?strandLabel ?reference_stated_inLabel ?reference_pmid WHERE {" +
             			  "?gene wdt:P2393 '"+locusTag+"';" +
             			  "      p:P361 ?operon." +
-            			  "?operon ps:P361 ?operonItem;" +
-                          "        (prov:wasDerivedFrom/pr:P248) ?reference_stated_in." +
-            			  "?operonItem wdt:P31 wd:Q139677;" +
-            			  "            wdt:P527 ?op_genes." +
+            			  "?operon ps:P361 ?operonItem." +
+                          "OPTIONAL{?operon (prov:wasDerivedFrom/pr:P248) ?reference_stated_in." +
+                          "           ?reference_stated_in wdt:P698 ?reference_pmid.}" +
+            			  "?operonItem (wdt:P31|wdt:P279) wd:Q139677;" +
+            			  "           wdt:P527 ?op_genes." +
             			  "?op_genes wdt:P2393 ?locusTag;" +
             			  "          wdt:P351 ?entrez;" +
             			  "          wdt:P644 ?genStart;" +
             			  "          wdt:P645 ?genEnd;" +
             			  "          wdt:P2548 ?strand." +
-            			  "?reference_stated_in wdt:P698 ?reference_pmid." +
             			  "SERVICE wikibase:label { bd:serviceParam wikibase:language 'en'. }" +
             			"}"
                 );
@@ -661,9 +661,10 @@ angular
                 "SELECT ?operonItemLabel ?op_genesLabel ?locusTag ?entrez ?genStart ?genEnd ?strandLabel ?reference_stated_inLabel ?reference_pmid WHERE {" +
                 "?gene wdt:P351 '"+entrez+"';" +
                 "      p:P361 ?operon." +
-                "?operon ps:P361 ?operonItem;" +
-                "        (prov:wasDerivedFrom/pr:P248) ?reference_stated_in." +
-                "?operonItem wdt:P31 wd:Q139677;" +
+                "?operon ps:P361 ?operonItem." +
+                "OPTIONAL{?operon (prov:wasDerivedFrom/pr:P248) ?reference_stated_in." +
+                "           ?reference_stated_in wdt:P698 ?reference_pmid.}" +
+                "?operonItem (wdt:P31|wdt:P279) wd:Q139677;" +
                 "            wdt:P527 ?op_genes." +
                 "?op_genes wdt:P2393 ?locusTag;" +
                 "          wdt:P351 ?entrez;" +

@@ -28,9 +28,9 @@ angular
 
                     ctrl.onSelect = function ($item) {
                         if (data.primary_identifier == "locus_tag") {
-                            $location.path('/organism/' + ctrl.currentTaxid + "/gene/" + $item.locusTag.value);
+                            $location.path('/organism/' + $item.taxid.value + "/gene/" + $item.locusTag.value);
                         } else {
-                            $location.path('/organism/' + ctrl.currentTaxid + "/gene/" + $item.entrez.value);
+                            $location.path('/organism/' + $item.taxid.value + "/gene/" + $item.entrez.value);
                         }
                     };
                 });
@@ -245,6 +245,15 @@ angular
                     }
                 }
 
+                if (ctrl.operon) {
+                    query += queryBuilder.triple("?gene", "partOf", "?operon");
+                    if (ctrl.operontext) {
+                        query += queryBuilder.triple("?operon", "hasPart", "?operonGenes");
+                        query += queryBuilder.triple("?operonGenes", "locusTag", "?opLocusTags");
+                        query += queryBuilder.filter("?opLocusTags", ctrl.operontext);
+                    }
+                }
+
                 var inner = "";
 
                 if (ctrl.uniprot) {
@@ -361,7 +370,9 @@ angular
         pdb: 'wdt:P638',
         db: 'wdt:P5572',
         taxon: 'wdt:P703',
-        locusTag: 'wdt:P2393'
+        locusTag: 'wdt:P2393',
+        partOf: 'wdt:P361',
+        hasPart: 'wdt:P527'
     };
 
     var optional = function (input) {
