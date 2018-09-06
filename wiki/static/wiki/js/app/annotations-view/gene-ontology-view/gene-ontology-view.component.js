@@ -7,7 +7,7 @@ angular
             goclass: '@',
             gene: '<'
         },
-        controller: function () {
+        controller: function ($location) {
             'use strict';
             var ctrl = this;
             ctrl.$onChanges = function () {
@@ -17,6 +17,14 @@ angular
 	            		value.determinationLabel.values = value.determinationLabel.value.split(";");
 	            	});
             	}
+            };
+
+            ctrl.checkAuthorization = function() {
+                if (!$location.path().includes("authorized")) {
+                    alert('Please authorize ChlamBase to edit Wikidata on your behalf!');
+                } else {
+                    $("#" + ctrl.goclass + "_button").modal('show');
+                }
             };
             
             ctrl.evidenceCodes = {

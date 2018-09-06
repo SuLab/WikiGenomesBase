@@ -124,7 +124,7 @@ angular
                     return true;
                 }
             };
-            
+
             // send form data to server to edit wikidata
             ctrl.sendData = function () {
                 ctrl.loading = true;
@@ -145,13 +145,7 @@ angular
                 	ctrl.loading = false;
                     return;
                 }
-                
-                if (!$location.path().includes("authorized")) {
-                    alert('Please authorize ChlamBase to edit Wikidata on your behalf!');
-                    ctrl.loading = false;
-                    return;
-                }
-                
+
                 angular.forEach(ctrl.projection, function(value, key) {
 
                     var factory = locusTag2QID;

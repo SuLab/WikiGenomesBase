@@ -99,11 +99,6 @@ angular
                 return;
             }
 
-            if (!$location.path().includes("authorized")) {
-                alert('Please authorize ChlamBase to edit Wikidata on your behalf!');
-                return;
-            }
-
             angular.forEach(ctrl.projection, function (value, key) {
 
                 var factory = locusTag2QID;

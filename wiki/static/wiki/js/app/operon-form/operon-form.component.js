@@ -119,12 +119,6 @@ angular
                     ctrl.loading = true;
                     var url_suf = $location.path().replace("/authorized/", "") + '/wd_operon_edit';
                     
-                    if (!$location.path().includes("authorized")) {
-                        alert('Please authorize ChlamBase to edit Wikidata on your behalf!');
-                        ctrl.loading = false;
-                        return;
-                    }
-                    
                     sendToView.sendToView(url_suf, formData).then(function (data) {
                         if (data.data.operonWrite_success === true) {
                             alert("Successfully Annotated! Well Done! The annotation will appear here in a few minutes.");

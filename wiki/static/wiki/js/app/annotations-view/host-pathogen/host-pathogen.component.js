@@ -5,8 +5,16 @@ angular
         bindings: {
             data: '<'
         },
-        controller: function () {
+        controller: function ($location) {
             'use strict';
             var ctrl = this;
+
+            ctrl.checkAuthorization = function(modal) {
+                if (!$location.path().includes("authorized")) {
+                    alert('Please authorize ChlamBase to edit Wikidata on your behalf!');
+                } else {
+                    $("#" + modal).modal('show');
+                }
+            };
         }
     });

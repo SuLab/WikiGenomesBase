@@ -7,6 +7,15 @@ angular
         controller : function($location, sendToView, NgTableParams, $filter) {
             'use strict';
             var ctrl = this;
+
+            ctrl.checkAuthorization = function(modal) {
+                if (!$location.path().includes("authorized")) {
+                    alert('Please authorize ChlamBase to edit Wikidata on your behalf!');
+                } else {
+                    $("#" + modal).modal('show');
+                }
+            };
+
             ctrl.$onInit = function() {};
             
             ctrl.authorized = $location.path().includes("authorized");

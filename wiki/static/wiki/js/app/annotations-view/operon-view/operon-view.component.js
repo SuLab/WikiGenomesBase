@@ -7,8 +7,16 @@ angular
             allorggenes: '<',
             gene: '<'
         },
-        controller: function (NgTableParams) {
+        controller: function (NgTableParams, $location) {
             var ctrl = this;
+
+            ctrl.checkAuthorization = function(modal) {
+                if (!$location.path().includes("authorized")) {
+                    alert('Please authorize ChlamBase to edit Wikidata on your behalf!');
+                } else {
+                    $("#" + modal).modal('show');
+                }
+            };
             
             ctrl.$onChanges = function() {
                 if (ctrl.operon) {
