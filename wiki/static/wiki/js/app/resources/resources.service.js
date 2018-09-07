@@ -551,9 +551,42 @@ angular
 
             });
         };
+        var getAllChromosomes = function (taxid) {
+            var url = endpoint + encodeURIComponent(
+                "SELECT ?chromosome ?chromosomeLabel ?refseq WHERE {" +
+                 "   ?taxon wdt:P685 '"+ taxid + "'." +
+                 "   ?chromosome wdt:P703 ?taxon;" +
+                 "       (wdt:P279|wdt:P31) wd:Q37748;" +
+                 "       wdt:P2249 ?refseq." +
+                 "   SERVICE wikibase:label { bd:serviceParam wikibase:language 'en'. }" +
+                "}"
+            );
+            return $http.get(url).then(function (response) {
+                return response.data.results.bindings;
+
+            });
+        };
+        var getAllPlasmids = function (taxid) {
+            var url = endpoint + encodeURIComponent(
+                "SELECT ?plasmid ?plasmidLabel ?refseq WHERE {" +
+                "   ?taxon wdt:P685 '"+ taxid + "'." +
+                "   ?plasmid wdt:P703 ?taxon;" +
+                "       (wdt:P279|wdt:P31) wd:Q172778;" +
+                "       wdt:P2249 ?refseq." +
+                "   SERVICE wikibase:label { bd:serviceParam wikibase:language 'en'. }" +
+                "}"
+            );
+            return $http.get(url).then(function (response) {
+                return response.data.results.bindings;
+
+            });
+        };
         return {
             getRefSeqChromByLocusTag: getRefSeqChromByLocusTag,
-            getRefSeqChromByEntrez: getRefSeqChromByEntrez
+            getRefSeqChromByEntrez: getRefSeqChromByEntrez,
+            getAllChromosomes: getAllChromosomes,
+            getAllPlasmids: getAllPlasmids
+
         };
 
 
@@ -634,16 +667,16 @@ angular
             		"SELECT ?operonItemLabel ?op_genesLabel ?locusTag ?entrez ?genStart ?genEnd ?strandLabel ?reference_stated_inLabel ?reference_pmid WHERE {" +
             			  "?gene wdt:P2393 '"+locusTag+"';" +
             			  "      p:P361 ?operon." +
-            			  "?operon ps:P361 ?operonItem;" +
-                          "        (prov:wasDerivedFrom/pr:P248) ?reference_stated_in." +
-            			  "?operonItem wdt:P31 wd:Q139677;" +
-            			  "            wdt:P527 ?op_genes." +
+            			  "?operon ps:P361 ?operonItem." +
+                          "OPTIONAL{?operon (prov:wasDerivedFrom/pr:P248) ?reference_stated_in." +
+                          "           ?reference_stated_in wdt:P698 ?reference_pmid.}" +
+            			  "?operonItem (wdt:P31|wdt:P279) wd:Q139677;" +
+            			  "           wdt:P527 ?op_genes." +
             			  "?op_genes wdt:P2393 ?locusTag;" +
             			  "          wdt:P351 ?entrez;" +
             			  "          wdt:P644 ?genStart;" +
             			  "          wdt:P645 ?genEnd;" +
             			  "          wdt:P2548 ?strand." +
-            			  "?reference_stated_in wdt:P698 ?reference_pmid." +
             			  "SERVICE wikibase:label { bd:serviceParam wikibase:language 'en'. }" +
             			"}"
                 );
@@ -661,9 +694,10 @@ angular
                 "SELECT ?operonItemLabel ?op_genesLabel ?locusTag ?entrez ?genStart ?genEnd ?strandLabel ?reference_stated_inLabel ?reference_pmid WHERE {" +
                 "?gene wdt:P351 '"+entrez+"';" +
                 "      p:P361 ?operon." +
-                "?operon ps:P361 ?operonItem;" +
-                "        (prov:wasDerivedFrom/pr:P248) ?reference_stated_in." +
-                "?operonItem wdt:P31 wd:Q139677;" +
+                "?operon ps:P361 ?operonItem." +
+                "OPTIONAL{?operon (prov:wasDerivedFrom/pr:P248) ?reference_stated_in." +
+                "           ?reference_stated_in wdt:P698 ?reference_pmid.}" +
+                "?operonItem (wdt:P31|wdt:P279) wd:Q139677;" +
                 "            wdt:P527 ?op_genes." +
                 "?op_genes wdt:P2393 ?locusTag;" +
                 "          wdt:P351 ?entrez;" +
@@ -1030,8 +1064,28 @@ angular
                     return response;
                 });
         };
+        var getAllChromosomeGenes = function (refseq) {
+            var url = endpoint + encodeURIComponent(
+                "SELECT REDUCED ?gene ?geneLabel ?entrez ?locusTag WHERE {" +
+                "   ?chromosome wdt:P2249 '" + refseq + "'." +
+                "   ?gene p:P644/pq:P1057 ?chromosome." +
+                "   OPTIONAL { ?gene wdt:P2393 ?locusTag. }" +
+                "   OPTIONAL { ?gene wdt:P351 ?entrez. }" +
+                "   SERVICE wikibase:label { bd:serviceParam wikibase:language 'en'. }" +
+                "}" +
+                "ORDER BY ?locusTag"
+            );
+            return $http.get(url)
+                .success(function (response) {
+                    return response;
+                })
+                .error(function (response) {
+                    return response;
+                });
+        };
         return {
-            getAllOrgGenes: getAllOrgGenes
+            getAllOrgGenes: getAllOrgGenes,
+            getAllChromosomeGenes: getAllChromosomeGenes
         };
     });
 

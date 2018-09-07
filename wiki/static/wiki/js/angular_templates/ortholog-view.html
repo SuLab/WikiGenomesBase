@@ -2,13 +2,16 @@
 	<table ng-table="$ctrl.tableParams" class="table table-hover" style="overflow: hidden">
 	    <tr ng-show="$ctrl.hasOrthologs" ng-repeat="(key, gene) in $ctrl.data">
 	        <td ng-if="$ctrl.tSettings['strain']" title="'Strain'">
-	            <a href="/organism/{{ gene.taxid }}">{{ $ctrl.tax2Name[gene.taxid] }}</a>
+				<a ng-if="gene.locusTag == $ctrl.locusTag" href="/organism/{{ gene.taxid }}"><strong>{{ $ctrl.tax2Name[gene.taxid] }}</strong></a>
+				<a ng-if="gene.locusTag != $ctrl.locusTag" href="/organism/{{ gene.taxid }}">{{ $ctrl.tax2Name[gene.taxid] }}</a>
 	        </td>
 	        <td ng-if="$ctrl.tSettings['tax']" title="'Taxid'">
-	            <a href="/organism/{{ gene.taxid }}">{{ gene.taxid }}</a>
+				<a ng-if="gene.locusTag == $ctrl.locusTag" href="/organism/{{ gene.taxid }}"><strong>{{ gene.taxid }}</strong></a>
+	            <a ng-if="gene.locusTag != $ctrl.locusTag" href="/organism/{{ gene.taxid }}">{{ gene.taxid }}</a>
 	        </td>
 	        <td ng-if="$ctrl.tSettings['cLocus']" title="'Current Locus Tag'">
-	            <a href="/organism/{{ gene.taxid }}/gene/{{ gene.locusTag }}">{{ gene.locusTag }}</a>
+				<a ng-if="gene.locusTag == $ctrl.locusTag" href="/organism/{{ gene.taxid }}/gene/{{ gene.locusTag }}"><strong>{{ gene.locusTag }}</strong></a>
+	            <a ng-if="gene.locusTag != $ctrl.locusTag" href="/organism/{{ gene.taxid }}/gene/{{ gene.locusTag }}">{{ gene.locusTag }}</a>
 	        </td>
 	        <td ng-if="$ctrl.tSettings['dLocus']" title="'Deprecated Locus Tag'">
 	        </td>
