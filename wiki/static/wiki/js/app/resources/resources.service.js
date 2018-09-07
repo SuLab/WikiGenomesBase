@@ -551,9 +551,42 @@ angular
 
             });
         };
+        var getAllChromosomes = function (taxid) {
+            var url = endpoint + encodeURIComponent(
+                "SELECT ?chromosome ?chromosomeLabel ?refseq WHERE {" +
+                 "   ?taxon wdt:P685 '"+ taxid + "'." +
+                 "   ?chromosome wdt:P703 ?taxon;" +
+                 "       (wdt:P279|wdt:P31) wd:Q37748;" +
+                 "       wdt:P2249 ?refseq." +
+                 "   SERVICE wikibase:label { bd:serviceParam wikibase:language 'en'. }" +
+                "}"
+            );
+            return $http.get(url).then(function (response) {
+                return response.data.results.bindings;
+
+            });
+        };
+        var getAllPlasmids = function (taxid) {
+            var url = endpoint + encodeURIComponent(
+                "SELECT ?plasmid ?plasmidLabel ?refseq WHERE {" +
+                "   ?taxon wdt:P685 '"+ taxid + "'." +
+                "   ?plasmid wdt:P703 ?taxon;" +
+                "       (wdt:P279|wdt:P31) wd:Q172778;" +
+                "       wdt:P2249 ?refseq." +
+                "   SERVICE wikibase:label { bd:serviceParam wikibase:language 'en'. }" +
+                "}"
+            );
+            return $http.get(url).then(function (response) {
+                return response.data.results.bindings;
+
+            });
+        };
         return {
             getRefSeqChromByLocusTag: getRefSeqChromByLocusTag,
-            getRefSeqChromByEntrez: getRefSeqChromByEntrez
+            getRefSeqChromByEntrez: getRefSeqChromByEntrez,
+            getAllChromosomes: getAllChromosomes,
+            getAllPlasmids: getAllPlasmids
+
         };
 
 
@@ -1031,8 +1064,28 @@ angular
                     return response;
                 });
         };
+        var getAllChromosomeGenes = function (refseq) {
+            var url = endpoint + encodeURIComponent(
+                "SELECT REDUCED ?gene ?geneLabel ?entrez ?locusTag WHERE {" +
+                "   ?chromosome wdt:P2249 '" + refseq + "'." +
+                "   ?gene p:P644/pq:P1057 ?chromosome." +
+                "   OPTIONAL { ?gene wdt:P2393 ?locusTag. }" +
+                "   OPTIONAL { ?gene wdt:P351 ?entrez. }" +
+                "   SERVICE wikibase:label { bd:serviceParam wikibase:language 'en'. }" +
+                "}" +
+                "ORDER BY ?locusTag"
+            );
+            return $http.get(url)
+                .success(function (response) {
+                    return response;
+                })
+                .error(function (response) {
+                    return response;
+                });
+        };
         return {
-            getAllOrgGenes: getAllOrgGenes
+            getAllOrgGenes: getAllOrgGenes,
+            getAllChromosomeGenes: getAllChromosomeGenes
         };
     });
 
