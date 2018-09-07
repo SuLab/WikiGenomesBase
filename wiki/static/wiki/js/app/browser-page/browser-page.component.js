@@ -30,7 +30,7 @@ angular
                     var col = 0;
                     RefSeqChrom.getAllChromosomes(ctrl.currentTaxid).then( function(data) {
                         angular.forEach(data, function(chr) {
-                            if (col >= 5) {
+                            if (col >= 4) {
                                 row++;
                                 col = 0;
                             }
@@ -53,7 +53,7 @@ angular
                     var j = 0;
                     RefSeqChrom.getAllPlasmids(ctrl.currentTaxid).then( function(data) {
                         angular.forEach(data, function(chr) {
-                            if (j >= 5) {
+                            if (j >= 4) {
                                 i++;
                                 j = 0;
                             }
