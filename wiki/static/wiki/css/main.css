@@ -35,11 +35,11 @@ a{color: #385d94;}
 .filter-header span{background-color: white; padding-right: 10px}
 .filter-header:after{position: absolute;height: 0.5em;border-top: 1px solid #385d94; z-index:-1; content: "";bottom:0;left:0;right:0;}
 .indented{display: inline; margin-left: 20px}
-.filter-by div{padding: 5px}
+.filter-row {padding: 0px; margin: 0px 0px 5px 0px}
 .filter-by{text-align: left; background: initial; min-height: initial; color: #385d94;}
 .filter-result{margin-top:15px; width: 100%; height: 100%;
     overflow: hidden; text-overflow: ellipsis; display: inline-block;
     border: 1px solid #CCCCCC; border-radius: 4px}
 .filter-result:hover{cursor:pointer; background-color: #E6E6E6}
-.filter-img {width: 32px; height: 32px}
+.filter-img {width: 32px; height: 32px; margin-top: -5px}
 #jbrowse-div {height: 250px; border: solid #99c2ff 3px; border-radius: 3px}
