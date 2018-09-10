@@ -189,4 +189,16 @@
                         Specify: <input type="text" class="form-inline" ng-model="$ctrl.operontext">
                     </span>
     </div>
+    <h5 class="filter-header"><span>Ortholog Cliques</span></h5>
+    <h5 class="indented">Enable Ortholog Search: </h5>
+    <input type="checkbox" ng-checked="$ctrl.ortholog" ng-model="$ctrl.ortholog"
+           style="float:right">
+    <div ng-repeat="value in $ctrl.orgData" class="row">
+        <div class="col-md-11">
+            <h5 class="indented">{{value.taxonLabel}}</h5>
+        </div>
+        <div class="col-md-1">
+            <input type="checkbox" ng-model="value.orthoCheck">
+        </div>
+    </div>
 </div>
