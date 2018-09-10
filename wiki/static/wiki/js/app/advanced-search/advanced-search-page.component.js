@@ -300,6 +300,13 @@ angular
                     }
                 }
 
+                if (ctrl.length && ctrl.lower && ctrl.upper) {
+                    query += queryBuilder.triple("?gene", "start", "?start");
+                    query += queryBuilder.triple("?gene", "end", "?end");
+                    //query += queryBuilder.bind("xsd:integer(?end) - xsd:integer(?start)", "?length");
+                    query += queryBuilder.filterExpression("xsd:integer(?start) >= " + ctrl.lower + " && xsd:integer(?end) <= " + ctrl.upper);
+                }
+
                 var inner = "";
 
                 if (ctrl.uniprot) {
@@ -420,11 +427,17 @@ angular
         partOf: 'wdt:P361',
         hasPart: 'wdt:P527',
         ortholog: 'wdt:P684',
-        taxid: 'wdt:P685'
+        taxid: 'wdt:P685',
+        start: 'wdt:P644',
+        end: 'wdt:P645'
     };
 
     var optional = function (input) {
         return "OPTIONAL {\n" + input + "}\n";
+    };
+
+    var bind = function(expression, item) {
+        return "BIND(" + expression + " AS " + item + ").";
     };
 
     var minus = function (input) {
@@ -437,6 +450,10 @@ angular
 
     var filter = function (term, keyword) {
         return "FILTER(CONTAINS(LCASE(" + term + "), '" + keyword.toLowerCase() + "')).\n";
+    };
+
+    var filterExpression = function(expression) {
+        return "FILTER(" + expression + ").";
     };
 
     var equals = function (key, property, value) {
@@ -478,7 +495,9 @@ angular
         addLabel: addLabel,
         triple: triple,
         union: union,
-        minus: minus
+        minus: minus,
+        bind: bind,
+        filterExpression: filterExpression
 
     };
 
