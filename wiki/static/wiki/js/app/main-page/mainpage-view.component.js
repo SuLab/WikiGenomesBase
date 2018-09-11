@@ -241,7 +241,7 @@ angular
                                         taxid: ctrl.currentGene.taxid,
                                         ec_number: ctrl.annotations.ecnumber
                                     };
-                                    getServerAnnotationData(annotation_keys);
+                                    ctrl.getServerAnnotationData(annotation_keys);
                                 });
                             }
                         });
@@ -319,7 +319,7 @@ angular
                 ctrl.hasprotein = true;
 
                 ////send form data to server to edit wikidata
-                var getServerAnnotationData = function (anno_keys) {
+                ctrl.getServerAnnotationData = function (anno_keys) {
                     var url_suf = $location.path() + '/mg_mutant_view';
 
                     sendToView.sendToView(url_suf, anno_keys).then(function (data) {
