@@ -53,13 +53,13 @@ orgTree = {
                 },
                     'Myxococcus xanthus'],
                 [{
-                    'v': 'Myxococcus xanthus DZF1',
-                    'f': '<div class="btn btn-default treeNode link"><a href="/organism/1198538/"><i>Myxococcus xanthus DZF1</i></a></div>'
+                    'v': 'Myxococcus xanthus DZ2',
+                    'f': '<div class="btn btn-default treeNode link"><a href="/organism/1198133/"><i>Myxococcus xanthus DZ2</i></a></div>'
                 },
                     'Myxococcus xanthus'],
                 [{
-                    'v': 'Myxococcus xanthus DZ2',
-                    'f': '<div class="btn btn-default treeNode link"><a href="/organism/1198133/"><i>Myxococcus xanthus DZ2</i></a></div>'
+                    'v': 'Myxococcus xanthus DZF1',
+                    'f': '<div class="btn btn-default treeNode link"><a href="/organism/1198538/"><i>Myxococcus xanthus DZF1</i></a></div>'
                 },
                     'Myxococcus xanthus'],
                 [{

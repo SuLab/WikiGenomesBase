@@ -17,36 +17,30 @@
                  "type" : "SequenceTrack",
                  "urlTemplate" : "seq/{refseq_dirpath}/{refseq}-"
                 },
-                {
+				{
 					"compress" : 0,
 					"key" : "genes",
 					"label" : "genes",
+					"menuTemplate" : [
+						{
+							"action" : "function( track, feature, div ){var top_url = (window.location != window.parent.location)? document.referrer: document.location.href; var pre_url = top_url.split('/');  var taxid = this.feature[7]; var new_url = ['https:/' , pre_url[2], 'organism', taxid, 'gene', this.feature[4]].join('/'); return window.parent.location=new_url}",
+							"label" : "Load this gene page",
+							"iconClass" : "dijitIconDatabase",
+						}
+					],
+					"onClick" : {
+						"label" : "<span><strong>Left click</strong> for gene details<br><strong>Right click</strong> to load this gene page</span>",
+						"action": "defaultDialog",
+						"title": "Gene"
+					},
 					"storeClass" : "JBrowse/Store/SeqFeature/NCList",
+					"style" : {
+						"className" : "feature",
+						"color" : "#99c2ff"
+					},
 					"trackType" : "CanvasFeatures",
 					"type" : "CanvasFeatures",
-					"urlTemplate" : "tracks/genes/{refseq}/trackData.json",
-					"style": {
-						"className" : "feature",
-						"color": "#99c2ff"
-					},
-					"onClick": {
-						"label": "right-click for more options",
-						"action": "function( track, feature, div ){var top_url = (window.location != window.parent.location)? document.referrer: document.location.href; var pre_url = top_url.split('/');  var taxid = 246197; var new_url = ['https:/' , pre_url[2], 'organism', taxid, 'gene', this.feature[7]].join('/'); return window.parent.location=new_url}"
-					},
-					"menuTemplate": [
-						{
-							"label": "View Details",
-						},
-						{
-							"label": "Highlight this gene",
-						},
-						{
-							"label": "load this gene page",
-							"iconClass": "dijitIconDatabase",
-							"action": "function( track, feature, div ){var top_url = (window.location != window.parent.location)? document.referrer: document.location.href; var pre_url = top_url.split('/'); var taxid = 246197; var new_url = ['https:/' , pre_url[2], 'organism', taxid, 'gene', this.feature[7]].join('/'); return window.parent.location=new_url}"
-						}
-					]
-
+					"urlTemplate" : "tracks/genes/{refseq}/trackData.json"
 				}
             ]
         }
