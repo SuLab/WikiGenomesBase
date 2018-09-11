@@ -34,7 +34,8 @@ application = {
     "example_locus_tag": "CTL0260",
 
     # Either locus_tag or entrez
-    "primary_identifier": "locus_tag"
+    "primary_identifier": "locus_tag",
+    "multiple_chromosomes_display": True
 }
 
 tax2NameMap = {
