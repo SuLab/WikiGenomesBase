@@ -16,7 +16,7 @@ angular
                     '/wd_oauth',
                     {
                         'authorization': 'sending',
-                        'current_path': $location.path(),
+                        'current_path': $location.absUrl(),
                         'initiate': true
                     })
                     .then(function (data) {
