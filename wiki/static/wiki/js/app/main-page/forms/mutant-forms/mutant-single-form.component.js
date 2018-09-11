@@ -25,8 +25,8 @@ angular
                     wdGetEntities.wdGetEntities(ctrl.geneQID).then(function (data) {
                         var entity = data.entities[ctrl.geneQID];
 
-                        ctrl.genStart = entity.claims.P644[0].mainsnak.datavalue.value;
-                        ctrl.genEnd = entity.claims.P645[0].mainsnak.datavalue.value;
+                        ctrl.genStart = parseInt(entity.claims.P644[0].mainsnak.datavalue.value);
+                        ctrl.genEnd = parseInt(entity.claims.P645[0].mainsnak.datavalue.value);
 
                     });
                 });
