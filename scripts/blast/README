@@ -1,0 +1,18 @@
+ First, we created four local BLAST databases from the genomes of each Chlamydia strain.
+ After the databases were computed, we ran BLAST for each gene of one organism on the databases of the other three,
+ producing a set of genomic pairwise files. Each gene was then matched to its NCBI Locus Tag identifier.
+  We called these files parsed_[subject genome]_v_[query genome]. Using the parsed files as reference,
+  we generated a histogram with Python’s matplotlib to sort the e-values into bins and determined a threshold at 1e-25
+  was necessary to remove insignificant data (high E-values) from the parsed files. After filtering the pairwise results
+  by the threshold, the remaining results were further reduced by choosing only the match with the lowest E score,
+  or selection of multiple in rare instances of a tie. After mapping each gene to its best BLAST result(s) (usually single),
+  we performed an iterative analysis of every genes’ mappings to check if the query gene was also in the set of its subject.
+  If the results were reciprocal (gene a in X mapped to gene b in Y, and gene b in Y mapped to gene a in X), then output was
+  written to the file [genome]_v_[genome]_rbm.tab. Otherwise, the output was stored in [genome]_v_[genome]_non_rbm.tab.
+  Finally, we generated cliques by grouping genes together based on their reciprocity of their BLAST results. In the case of a
+   perfect 4-way clique, the resulting set contained exactly 4 NCBI genes (one from each strain). Otherwise, an uncertain set
+   could contain >4 genes (meaning there were multiple best hits found for some gene in the set, or >1 genes had different
+   pairwise best matches to >1 strains). Cliques were filtered by size; perfect cliques with 4 genes (1 from each strain)
+   were stored in cliques_4_rbm.tab, sets with only 3 genes, or >4 genes, were saved in cliques_3_rbm.tab (and a separate
+   details file which prints the results from the parsed blast file), and sets with 2 genes (meaning only pairwise best hits
+   found) were saved in cliques_2_rbm.tab. These cliques files were manually curated for accuracy and loaded into Wikidata.

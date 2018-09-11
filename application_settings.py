@@ -5,7 +5,7 @@ mongo_database = "myxodb"
 wg_timezone = 'America/Los_Angeles'
 
 # Taxids of the organisms in the database (used for setup script, routing, jbrowse)
-taxids = ['246197', '1198538']
+taxids = ['246197', '1198538', '1198133']
 
 # which annotations to allow on the gene page
 modules = {
@@ -31,12 +31,15 @@ application = {
     "newsfeed_search_term": "myxococcus xanthus",
     "newsfeed_recent_days": 60,
     "newsfeed_max_articles": 20,
-    "example_locus_tag": "MXAN_RS00015"
+    "example_locus_tag": "MXAN_RS00015",
+    # Either locus_tag or entrez
+    "primary_identifier": "locus_tag"
 }
 
 tax2NameMap = {
     "246197": "Myxococcus xanthus DK 1622",
-    "1198538": "Myxococcus xanthus DZF1"
+    "1198538": "Myxococcus xanthus DZF1",
+    "1198133": "Myxococcus xanthus DZ2"
 }
 
 # google chart organism tree
@@ -56,7 +59,7 @@ orgTree = {
                     'Myxococcus xanthus'],
                 [{
                     'v': 'Myxococcus xanthus DZ2',
-                    'f': '<div class="btn btn-default treeNode nohover"><i>Myxococcus xanthus DZ2</i></div>'
+                    'f': '<div class="btn btn-default treeNode link"><a href="/organism/1198133/"><i>Myxococcus xanthus DZ2</i></a></div>'
                 },
                     'Myxococcus xanthus'],
                 [{

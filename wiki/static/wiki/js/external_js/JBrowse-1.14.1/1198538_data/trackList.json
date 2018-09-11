@@ -24,20 +24,15 @@
          "label" : "genes",
          "menuTemplate" : [
             {
-               "label" : "View Details"
-            },
-            {
-               "label" : "Highlight this gene"
-            },
-            {
                "action" : "function( track, feature, div ){var top_url = (window.location != window.parent.location)? document.referrer: document.location.href; var pre_url = top_url.split('/');  var taxid = this.feature[7]; var new_url = ['https:/' , pre_url[2], 'organism', taxid, 'gene', this.feature[4]].join('/'); return window.parent.location=new_url}",
+               "label" : "Load this gene page",
                "iconClass" : "dijitIconDatabase",
-               "label" : "load this gene page"
             }
          ],
          "onClick" : {
-            "action" : "function( track, feature, div ){var top_url = (window.location != window.parent.location)? document.referrer: document.location.href; var pre_url = top_url.split('/');  var taxid = this.feature[7]; var new_url = ['https:/' , pre_url[2], 'organism', taxid, 'gene', this.feature[4]].join('/'); return window.parent.location=new_url}",
-            "label" : "right-click for more options"
+            "label" : "<span><strong>Left click</strong> for gene details<br><strong>Right click</strong> to load this gene page</span>",
+            "action": "defaultDialog",
+            "title": "Gene"
          },
          "storeClass" : "JBrowse/Store/SeqFeature/NCList",
          "style" : {
