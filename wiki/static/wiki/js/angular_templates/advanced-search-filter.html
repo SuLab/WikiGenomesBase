@@ -2,6 +2,8 @@
     <h3>Filter by</h3>
 
     <h5 class="filter-header"><span>Organism</span></h5>
+    <button class="glyphicon btn btn-default" ng-class="{'glyphicon-menu-down': !descOrg, 'glyphicon-menu-up': descOrg}" ng-click="descOrg = !descOrg"></button>
+    <p ng-show="descOrg">Filter by organism genome. Only genes from the selected genome will appear in results.</p>
     <div class="row filter-row" ng-repeat="value in $ctrl.orgData">
         <div class="col-md-1">
             <img class="filter-img" ng-src="/static/wiki/img/RB.png">
@@ -13,6 +15,8 @@
     </div>
 
     <h5 class="filter-header"><span>Gene Expression</span></h5>
+    <button class="glyphicon btn btn-default" ng-class="{'glyphicon-menu-down': !descExp, 'glyphicon-menu-up': descExp}" ng-click="descExp = !descExp"></button>
+    <p ng-show="descExp">Filter by expression timing. Only genes from the selected expression class will appear in results.</p>
     <div class="row filter-row">
         <div class="col-md-1">
             <img class="filter-img" ng-src="/static/wiki/img/constitutive.png">
@@ -82,6 +86,8 @@
     </div>
 
     <h5 class="filter-header"><span>Developmental Body Enrichment</span></h5>
+    <button class="glyphicon btn btn-default" ng-class="{'glyphicon-menu-down': !descDev, 'glyphicon-menu-up': descDev}" ng-click="descDev = !descDev"></button>
+    <p ng-show="descDev">Filter by developmental form. Only genes whose products are enriched from the selected form will appear in results.</p>
     <div class="row filter-row">
         <div class="col-md-1">
             <img class="filter-img" ng-src="/static/wiki/img/RB.png">
@@ -106,6 +112,9 @@
     </div>
 
     <h5 class="filter-header"><span>Interacts With</span></h5>
+    <button class="glyphicon btn btn-default" ng-class="{'glyphicon-menu-down': !descInt, 'glyphicon-menu-up': descInt}" ng-click="descInt = !descInt"></button>
+    <p ng-show="descInt">Filter by protein interactions. If the target protein is unknown or you want any protein interaction, only click the appropriate checkbox. If the identity of the interacted protein
+    is known, enter the exact name of the protein as it appears in NCBI in the specify input form. Make sure the checkbox is ticked.</p>
     <div class="row filter-row">
         <div class="col-md-1">
             <img class="filter-img" ng-src="/static/wiki/img/head.png">
@@ -136,6 +145,8 @@
     </div>
 
     <h5 class="filter-header"><span>Mutants</span></h5>
+    <button class="glyphicon btn btn-default" ng-class="{'glyphicon-menu-down': !descMut, 'glyphicon-menu-up': descMut}" ng-click="descMut = !descMut"></button>
+    <p ng-show="descMut">Filter by mutant type. Only genes which contain the selected mutant form will appear in results.</p>
     <div class="row filter-row">
         <div class="col-md-1">
             <img class="filter-img" ng-src="/static/wiki/img/hazard.png">
@@ -180,8 +191,10 @@
             <input type="checkbox" ng-checked="$ctrl.rm" ng-model="$ctrl.rm">
         </div>
     </div>
-
-    <h5 class="filter-header"><span>Terms & Interactions</span></h5>
+    <h5 class="filter-header"><span>Gene Ontology</span></h5>
+    <button class="glyphicon btn btn-default" ng-class="{'glyphicon-menu-down': !descAnno, 'glyphicon-menu-up': descAnno}" ng-click="descAnno = !descAnno"></button>
+    <p ng-show="descAnno">Filter by gene ontology annotations. If the annotation is unknown or you want any GO term, only click the appropriate checkbox. If the identity of the GO term
+        is known, enter the exact name of the GO term in the specify input form (there is an autocomplete). Make sure the checkbox is ticked.</p>
     <div class="row filter-row">
         <div class="col-md-1">
             <img class="filter-img" ng-src="/static/wiki/img/go-logo.png">
@@ -233,6 +246,10 @@
             <input type="checkbox" ng-checked="$ctrl.cc" ng-model="$ctrl.cc">
         </div>
     </div>
+    <h5 class="filter-header"><span>Terms & Identifiers</span></h5>
+    <button class="glyphicon btn btn-default" ng-class="{'glyphicon-menu-down': !descId, 'glyphicon-menu-up': descId}" ng-click="descId = !descId"></button>
+    <p ng-show="descId">Filter by identifier. If the target identifier is unknown or you want any gene with that identifier, only click the appropriate checkbox. If the identifier of the target gene or protein
+        is known, enter the id of the gene or protein as it appears in that database in the specify input form. Make sure the checkbox is ticked.</p>
     <div class="row filter-row">
         <div class="col-md-1">
             <img class="filter-img" ng-src="/static/wiki/img/ncbi2.png">
@@ -289,21 +306,13 @@
             <input type="checkbox" ng-checked="$ctrl.pdb" ng-model="$ctrl.pdb">
         </div>
     </div>
-    <div class="row filter-row">
-        <div class="col-md-1">
-            <img class="filter-img" ng-src="/static/wiki/img/ncbi2.png">
-        </div>
-        <div class="col-md-4">
-            <h5 class="indented">Operon: </h5>
-        </div>
-        <div class="col-md-6">
-            Specify: <input type="text" class="form-inline" ng-model="$ctrl.operontext">
-        </div>
-        <div class="col-md-1">
-            <input type="checkbox" ng-checked="$ctrl.operon" ng-model="$ctrl.operon">
-        </div>
-    </div>
     <h5 class="filter-header"><span>Gene Properties</span></h5>
+    <button class="glyphicon btn btn-default" ng-class="{'glyphicon-menu-down': !descProp, 'glyphicon-menu-up': descProp}" ng-click="descProp = !descProp"></button>
+    <p ng-show="descProp">Filter by gene properties. For gene position, enter the lower bound in the first input field and the upper bound in the second
+    input field. Then, select the checkbox. For example, if I wanted to search for genes between 300,000bp and 600,000bp, I would enter 300000 and 600000 respectively.<br>
+    For Operon, if you only want to know which genes are controlled by <strong>annotated</strong> operons, simply check the box. If you want to see which genes are controlled
+    by the same operon as another gene, enter the NCBI locus tag in the specify input form. For example, if I want to know which genes share an operon with glyceraldehyde-3-phosphate dehydrogenase CPn0624,
+    I would enter CPn0624 in the input field and tick the checkbox.</p>
     <div class="row filter-row">
         <div class="col-md-1">
             <img class="filter-img" ng-src="/static/wiki/img/ncbi2.png">
@@ -321,7 +330,25 @@
             <input type="checkbox" ng-checked="$ctrl.length" ng-model="$ctrl.length">
         </div>
     </div>
+    <div class="row filter-row">
+        <div class="col-md-1">
+            <img class="filter-img" ng-src="/static/wiki/img/ncbi2.png">
+        </div>
+        <div class="col-md-4">
+            <h5 class="indented">Operon: </h5>
+        </div>
+        <div class="col-md-6">
+            Specify: <input type="text" class="form-inline" ng-model="$ctrl.operontext">
+        </div>
+        <div class="col-md-1">
+            <input type="checkbox" ng-checked="$ctrl.operon" ng-model="$ctrl.operon">
+        </div>
+    </div>
     <h5 class="filter-header"><span>Ortholog Cliques</span></h5>
+    <button class="glyphicon btn btn-default" ng-class="{'glyphicon-menu-down': !descOrtho, 'glyphicon-menu-up': descOrtho}" ng-click="descOrtho = !descOrtho"></button>
+    <p ng-show="descOrtho">Filter by ortholog cliques. Use this option to filter by genes that form orthologous cliques with the selected organisms. For example, if I wanted all
+    genes in Cmur and L2, I would check the box next to enable ortholog search, then select C. trachomatis 434/BU and then select C. muridarum Nigg. If I wanted to search for
+    genes that did not have any orthologs, I would only check enable ortholog search and leave the organisms checkboxes blank.</p>
     <div class="row filter-row">
         <div class="col-md-1">
             <img class="filter-img" ng-src="/static/wiki/img/RB.png">
