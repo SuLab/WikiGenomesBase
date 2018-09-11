@@ -33,7 +33,8 @@ application = {
     "newsfeed_max_articles": 20,
     "example_locus_tag": "MXAN_RS00015",
     # Either locus_tag or entrez
-    "primary_identifier": "locus_tag"
+    "primary_identifier": "locus_tag",
+    "multiple_chromosomes_display": False
 }
 
 tax2NameMap = {

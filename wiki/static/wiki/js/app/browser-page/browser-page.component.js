@@ -24,51 +24,63 @@ angular
                         }
                     };
 
-                    ctrl.chromosomes = [];
-                    ctrl.numChromosomes = 0;
-                    var row = 0;
-                    var col = 0;
-                    RefSeqChrom.getAllChromosomes(ctrl.currentTaxid).then( function(data) {
-                        angular.forEach(data, function(chr) {
-                            if (col >= 4) {
-                                row++;
-                                col = 0;
-                            }
-                            if (col == 0) {
-                                ctrl.chromosomes.push([]);
-                            }
-                            ctrl.chromosomes[row].push(chr);
-                            col++;
-                            ctrl.numChromosomes++;
+                    if (data.multiple_chromosomes_display) {
+                        ctrl.chromosomes = [];
+                        ctrl.numChromosomes = 0;
+                        var row = 0;
+                        var col = 0;
+                        RefSeqChrom.getAllChromosomes(ctrl.currentTaxid).then(function (data) {
+                            angular.forEach(data, function (chr) {
+                                if (col >= 4) {
+                                    row++;
+                                    col = 0;
+                                }
+                                if (col == 0) {
+                                    ctrl.chromosomes.push([]);
+                                }
+                                ctrl.chromosomes[row].push(chr);
+                                col++;
+                                ctrl.numChromosomes++;
+                            });
+
+                            // select the first chromosome
+                            ctrl.onChromSelect(ctrl.chromosomes[0][0]);
                         });
 
-                        // select the first chromosome
-                        ctrl.onChromSelect(ctrl.chromosomes[0][0]);
-                    });
+                        ctrl.plasmids = [];
+                        ctrl.numPlasmids = 0;
+                        // relabel row and col to i, j because two async methods modify same vars at once
+                        var i = 0;
+                        var j = 0;
+                        RefSeqChrom.getAllPlasmids(ctrl.currentTaxid).then(function (data) {
+                            angular.forEach(data, function (chr) {
+                                if (j >= 4) {
+                                    i++;
+                                    j = 0;
+                                }
+                                if (j == 0) {
+                                    ctrl.plasmids.push([]);
+                                }
+                                ctrl.plasmids[i].push(chr);
+                                ctrl.numPlasmids++;
+                                j++;
+                            });
 
-                    ctrl.plasmids = [];
-                    ctrl.numPlasmids = 0;
-                    // relabel row and col to i, j because two async methods modify same vars at once
-                    var i = 0;
-                    var j = 0;
-                    RefSeqChrom.getAllPlasmids(ctrl.currentTaxid).then( function(data) {
-                        angular.forEach(data, function(chr) {
-                            if (j >= 4) {
-                                i++;
-                                j = 0;
-                            }
-                            if (j == 0) {
-                                ctrl.plasmids.push([]);
-                            }
-                            ctrl.plasmids[i].push(chr);
-                            ctrl.numPlasmids++;
-                            j++;
                         });
+                    } else {
 
-                    });
+                        allOrgGenes.getAllOrgGenes(ctrl.currentTaxid)
+                            .then(function (data) {
+                                ctrl.currentAllGenes = data.data.results.bindings;
+                                ctrl.initialGene = ctrl.currentAllGenes[0];
+                            }).finally(function () {
+                            ctrl.loading = false;
+                        });
+                    }
+
                 });
 
-                ctrl.onChromSelect = function(chr) {
+                ctrl.onChromSelect = function (chr) {
                     ctrl.loading = true;
                     ctrl.currentAllGenes = [];
                     allOrgGenes.getAllChromosomeGenes(chr.refseq.value).then(function (data) {
@@ -79,7 +91,7 @@ angular
                         } else {
                             ctrl.selected = chr.plasmidLabel.value;
                         }
-                    }).finally(function() {
+                    }).finally(function () {
                         ctrl.loading = false;
 
                         if (ctrl.initialGene == undefined) {
@@ -98,15 +110,6 @@ angular
                     }
                 });
 
-
-                /*
-                allOrgGenes.getAllOrgGenes(ctrl.currentTaxid)
-                    .then(function (data) {
-                        ctrl.currentAllGenes = data.data.results.bindings;
-                        ctrl.initialGene = ctrl.currentAllGenes[0];
-                    }).finally(function(){
-                        ctrl.loading = false;
-                    });*/
             };
         },
         templateUrl: '/static/build/js/angular_templates/browser-page.min.html'
