@@ -19,6 +19,25 @@ angular.module('orthologView')
            ctrl.tax2Name = data;
         });
 
+        // config settings for table
+        ctrl.tSettings = {
+            "strain" : true,
+            "tax" : true,
+            "cLocus" : true,
+            "dLocus" : false,
+            "identity" : false,
+            "length" : false,
+            "eval" : false,
+            "ref" : true,
+            "expression" : true,
+            "go" : true,
+            "operons" : true,
+            "mutants" : true,
+            "interpro" : true,
+            "hostPathogen" : true,
+            "entrez": false
+        };
+
         ctrl.data = {};
         
         ctrl.reference = "";
@@ -28,6 +47,9 @@ angular.module('orthologView')
 
             if (data.primary_identifier == "entrez") {
                 factory = orthoDataByEntrez;
+                ctrl.useEntrez = true;
+                ctrl.tSettings.entrez = true;
+                ctrl.tSettings.cLocus = false;
             }
 
             factory.getOrthologs($routeParams.locusTag).then(function(response) {
@@ -36,10 +58,17 @@ angular.module('orthologView')
                 angular.forEach(response.results.bindings, function(obj) {
                     ctrl.hasOrthologs = true;
 
-                    ctrl.data[obj.orthoTaxid.value] = {
-                        "locusTag" : obj.orthoLocusTag.value,
-                        "taxid" : obj.orthoTaxid.value
-                    };
+                    if (ctrl.useEntrez) {
+                        ctrl.data[obj.orthoTaxid.value] = {
+                            "entrez" : obj.entrez.value,
+                            "taxid" : obj.orthoTaxid.value
+                        };
+                    } else {
+                        ctrl.data[obj.orthoTaxid.value] = {
+                            "locusTag" : obj.orthoLocusTag.value,
+                            "taxid" : obj.orthoTaxid.value
+                        };
+                    }
 
                     if (obj.reference) {
                         ctrl.reference = obj.reference.value;
@@ -76,11 +105,20 @@ angular.module('orthologView')
                             });
 
                             // get mutant data
-                            var annotation_keys = {
-                                locusTag : obj.orthoLocusTag.value,
-                                taxid : obj.orthoTaxid.value,
-                                ec_number: ecnumber
-                            };
+                            var annotation_keys;
+                            if (ctrl.useEntrez) {
+                                annotation_keys = {
+                                    entrez : obj.entrez.value,
+                                    taxid : obj.orthoTaxid.value,
+                                    ec_number: ecnumber
+                                };
+                            } else {
+                                annotation_keys = {
+                                    locusTag : obj.orthoLocusTag.value,
+                                    taxid : obj.orthoTaxid.value,
+                                    ec_number: ecnumber
+                                };
+                            }
                             var url_suf = $location.path() + '/mg_mutant_view';
                             sendToView.sendToView(url_suf, annotation_keys).then(function(data) {
 
@@ -106,38 +144,22 @@ angular.module('orthologView')
                             });
                     }
 
-                    expressionTimingData.getExpression(function(data) {
-                        var current = $filter('keywordFilter')(data, obj.orthoLocusTag.value);
-                        var currentExpression = {};
-                        angular.forEach(current[0], function(value, key) {
-                            if (key != '_id' && key != '$oid' && key != 'timestamp') {
-                                currentExpression[key] = value;
-                            }
+                    if (!ctrl.useEntrez) {
+                        expressionTimingData.getExpression(function(data) {
+                            var current = $filter('keywordFilter')(data, obj.orthoLocusTag.value);
+                            var currentExpression = {};
+                            angular.forEach(current[0], function(value, key) {
+                                if (key != '_id' && key != '$oid' && key != 'timestamp') {
+                                    currentExpression[key] = value;
+                                }
+                            });
+                            ctrl.data[obj.orthoTaxid.value].expression = currentExpression.RB_EXPRESSION_TIMING != undefined;
                         });
-                        ctrl.data[obj.orthoTaxid.value].expression = currentExpression.RB_EXPRESSION_TIMING != undefined;
-                    });
+                    }
 
                 });
 
             });
         });
-
-        // config settings for table
-        ctrl.tSettings = {
-            "strain" : true,
-            "tax" : true,
-            "cLocus" : true,
-            "dLocus" : false,
-            "identity" : false,
-            "length" : false,
-            "eval" : false,
-            "ref" : true,
-            "expression" : true,
-            "go" : true,
-            "operons" : true,
-            "mutants" : true,
-            "interpro" : true,
-            "hostPathogen" : true
-        };
 
     });

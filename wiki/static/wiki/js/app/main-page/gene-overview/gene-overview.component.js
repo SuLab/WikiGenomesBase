@@ -6,13 +6,17 @@ angular
             data: '<',
             annotations: '<'
         },
-        controller: function ($routeParams, sendToView, $location, taxidFilter) {
+        controller: function ($routeParams, sendToView, $location, taxidFilter, appData) {
             'use strict';
             var ctrl = this;
             ctrl.$onInit = function () {
             	ctrl.taxid = $routeParams.taxid;
             	ctrl.locusTag = $routeParams.locusTag;
             	ctrl.cm = ctrl.tm = ctrl.rm = ctrl.im = 0;
+
+            	appData.getAppData(function(data) {
+                    ctrl.useEntrez = data.primary_identifier == "entrez";
+                });
 
                 taxidFilter.species(ctrl.taxid).then(function(data) {
                     ctrl.species = data;

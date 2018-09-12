@@ -13,6 +13,10 @@
 				<a ng-if="gene.locusTag == $ctrl.locusTag" href="/organism/{{ gene.taxid }}/gene/{{ gene.locusTag }}"><strong>{{ gene.locusTag }}</strong></a>
 	            <a ng-if="gene.locusTag != $ctrl.locusTag" href="/organism/{{ gene.taxid }}/gene/{{ gene.locusTag }}">{{ gene.locusTag }}</a>
 	        </td>
+			<td ng-if="$ctrl.tSettings['entrez']" title="'Entrez ID'">
+				<a ng-if="gene.entrez == $ctrl.locusTag" href="/organism/{{ gene.taxid }}/gene/{{ gene.entrez }}"><strong>{{ gene.entrez }}</strong></a>
+				<a ng-if="gene.entrez != $ctrl.locusTag" href="/organism/{{ gene.taxid }}/gene/{{ gene.entrez }}">{{ gene.entrez }}</a>
+			</td>
 	        <td ng-if="$ctrl.tSettings['dLocus']" title="'Deprecated Locus Tag'">
 	        </td>
 	        <td ng-if="$ctrl.tSettings['identity']" title="'% Identity'">
