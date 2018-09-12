@@ -4,69 +4,28 @@
       "type" : "Hash",
       "url" : "names/"
    },
-   "trackSelector" : {
-      "type" : "Faceted"
-   },
    "tracks" : [
       {
          "category" : "Reference sequence",
          "chunkSize" : 20000,
          "key" : "Reference sequence",
          "label" : "DNA",
+         "seqType" : "dna",
          "storeClass" : "JBrowse/Store/Sequence/StaticChunked",
          "type" : "SequenceTrack",
          "urlTemplate" : "seq/{refseq_dirpath}/{refseq}-"
       },
       {
          "compress" : 0,
-         "key" : "mutants",
-         "label" : "mutants",
-         "storeClass" : "JBrowse/Store/SeqFeature/NCList",
-         "style" : {
-            "className" : "feature",
-            "color" : "#FF0000"
-         },
-         "trackType" : "CanvasFeatures",
-         "type" : "CanvasFeatures",
-         "urlTemplate" : "tracks/mutants/{refseq}/trackData.json"
-      },
-      {
-         "compress" : 0,
          "key" : "genes",
          "label" : "genes",
-         "menuTemplate" : [
-            {
-               "action" : "function( track, feature, div ){var top_url = (window.location != window.parent.location)? document.referrer: document.location.href; var pre_url = top_url.split('/');  var taxid = this.feature[7]; var new_url = ['https:/' , pre_url[2], 'organism', taxid, 'gene', this.feature[4]].join('/'); return window.parent.location=new_url}",
-               "label" : "Load this gene page",
-               "iconClass" : "dijitIconDatabase",
-            }
-         ],
-         "onClick" : {
-            "label" : "<span><strong>Left click</strong> for gene details<br><strong>Right click</strong> to load this gene page</span>",
-            "action": "defaultDialog",
-            "title": "Gene"
-         },
          "storeClass" : "JBrowse/Store/SeqFeature/NCList",
          "style" : {
-            "className" : "feature",
-            "color" : "#99c2ff"
+            "className" : "feature"
          },
          "trackType" : "CanvasFeatures",
          "type" : "CanvasFeatures",
          "urlTemplate" : "tracks/genes/{refseq}/trackData.json"
-      },
-      {
-         "compress" : 0,
-         "key" : "operons",
-         "label" : "operons",
-         "storeClass" : "JBrowse/Store/SeqFeature/NCList",
-         "style" : {
-            "className" : "feature",
-            "color" : "#134ca0"
-         },
-         "trackType" : "CanvasFeatures",
-         "type" : "CanvasFeatures",
-         "urlTemplate" : "tracks/operons/{refseq}/trackData.json"
       }
    ]
 }
