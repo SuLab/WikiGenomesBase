@@ -30,11 +30,11 @@
 				<td title="'Strain'"><a href="/organism/{{ key }}">{{ $ctrl.tax2Name[key] }}</a></td>
 				<td title="'Taxid'"><a
 					href="/organism/{{ key }}">{{ key }}</a></td>
-				<td ng-hide="$ctrl.useEntrez" title="'Current Locus Tag'">
+				<td ng-if="!$ctrl.useEntrez" title="'Current Locus Tag'">
 					<a href="/organism/{{ key }}/gene/{{ value[0] }}">
 					{{ value[0] }}</a>
 				</td>
-				<td ng-show="$ctrl.useEntrez" title="'Entrez ID'">
+				<td ng-if="$ctrl.useEntrez" title="'Entrez ID'">
 					<a href="/organism/{{ key }}/gene/{{ value[0] }}">
 						{{ value[0] }}</a>
 				</td>

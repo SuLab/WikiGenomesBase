@@ -30,7 +30,12 @@ angular.module("alignmentView")
                 // now add results from sparql query
                 angular.forEach(response.results.bindings, function(obj) {
                     var tax = obj.orthoTaxid.value;
-                    var tag = obj.orthoLocusTag.value;
+                    var tag;
+                    if (ctrl.useEntrez) {
+                        tag = obj.entrez.value;
+                    } else {
+                        tag = obj.orthoLocusTag.value;
+                    }
                     ctrl.hasOrthologs = true;
                     ctrl.projection[tax] = true;
                     var refseq = obj.refseq ? obj.refseq.value : "";
