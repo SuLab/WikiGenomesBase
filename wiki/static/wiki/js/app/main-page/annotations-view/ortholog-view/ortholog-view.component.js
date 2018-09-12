@@ -61,7 +61,8 @@ angular.module('orthologView')
                     if (ctrl.useEntrez) {
                         ctrl.data[obj.orthoTaxid.value] = {
                             "entrez" : obj.entrez.value,
-                            "taxid" : obj.orthoTaxid.value
+                            "taxid" : obj.orthoTaxid.value,
+                            "locusTag" : obj.entrez.value,
                         };
                     } else {
                         ctrl.data[obj.orthoTaxid.value] = {
