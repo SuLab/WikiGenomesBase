@@ -23,6 +23,7 @@ angular.module("alignmentView")
 
             if (data.primary_identifier == "entrez") {
                 factory = orthoDataByEntrez;
+                ctrl.useEntrez = true;
             }
             factory.getOrthologs($routeParams.locusTag).then(function(response) {
 

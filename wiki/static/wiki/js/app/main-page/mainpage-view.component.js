@@ -75,10 +75,16 @@ angular
                         var entity = data.entities[ctrl.currentGene.geneQID];
 
                         ctrl.currentGene.geneLabel = entity.labels.en.value;
-                        ctrl.currentGene.locusTag = entity.claims.P2393[0].mainsnak.datavalue.value;
+                        if (entity.claims.P2393) {
+                            ctrl.currentGene.locusTag = entity.claims.P2393[0].mainsnak.datavalue.value;
+                        }
                         ctrl.currentGene.geneDescription = entity.descriptions.en.value;
-                        ctrl.currentGene.genStart = entity.claims.P644[0].mainsnak.datavalue.value;
-                        ctrl.currentGene.genEnd = entity.claims.P645[0].mainsnak.datavalue.value;
+                        if (entity.claims.P644) {
+                            ctrl.currentGene.genStart = entity.claims.P644[0].mainsnak.datavalue.value;
+                        }
+                        if (entity.claims.P645) {
+                            ctrl.currentGene.genEnd = entity.claims.P645[0].mainsnak.datavalue.value;
+                        }
                         ctrl.currentGene.strand = entity.claims.P2548[0].mainsnak.datavalue.value;
 
                         if (entity.claims.P279) {
