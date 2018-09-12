@@ -145,17 +145,4 @@ class WDSparqlQueries(object):
         results = self.execute_query(query)
         return results['results']['bindings']
 
-    def get_myxo_genes(self):
-        query ='''
-        SELECT REDUCED ?gene ?protein ?refseq WHERE {
-          ?taxon wdt:P171*/wdt:P685 '34'.
-          ?gene wdt:P703 ?taxon;
-                p:P31 ?claim.
-          ?claim prov:wasDerivedFrom/pr:P2249 ?refseq.
-          OPTIONAL {?gene wdt:P688 ?protein.}
-        }
-        '''
-        results = self.execute_query(query)
-        return results['results']['bindings']
-
 

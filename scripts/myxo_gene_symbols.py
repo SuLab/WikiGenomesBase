@@ -1,10 +1,9 @@
 import WD_Utils
 from wikidataintegrator import wdi_core, wdi_login
 import json
-import getpass
 
-username = input("Username: ")
-password = getpass.getpass("Password: ")
+username = "MicrobeBot"
+password = "tK4CdCQv4IeU"
 count = 0
 
 sparql = WD_Utils.WDSparqlQueries()
