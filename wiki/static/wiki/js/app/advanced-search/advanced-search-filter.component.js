@@ -39,6 +39,10 @@ angular
                 ctrl.midlate = cache.get("midlate");
                 ctrl.late = cache.get("late");
                 ctrl.verylate = cache.get("verylate");
+                ctrl.ortholog = cache.get("ortholog");
+                ctrl.length = cache.get("length");
+                ctrl.lower = cache.get("lower");
+                ctrl.upper = cache.get("upper");
 
             } else {
                 ctrl.orgData = [];
@@ -117,8 +121,11 @@ angular
                 cache.put("late", ctrl.late);
                 cache.put("verylate", ctrl.verylate);
                 cache.put("orgs", ctrl.orgData);
+                cache.put("ortholog", ctrl.ortholog);
+                cache.put("length", ctrl.length);
+                cache.put("lower", ctrl.lower);
+                cache.put("upper", ctrl.upper);
             };
-
         },
         templateUrl: '/static/build/js/angular_templates/advanced-search-filter.min.html',
         bindings: {
@@ -155,6 +162,10 @@ angular
             late: "=?",
             verylate: "=?",
             orgData: "=?",
-            storeCache: "=?"
+            storeCache: "=?",
+            ortholog: "=?",
+            length: "=?",
+            lower: "=?",
+            upper: "=?"
         }
     });

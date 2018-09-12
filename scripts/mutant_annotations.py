@@ -1,6 +1,7 @@
 from pymongo import MongoClient
 from time import gmtime, strftime
 import datetime
+from application_settings import mongo_database
 
 __author__ = 'timputman and derekjow'
 
@@ -10,8 +11,8 @@ class MutantMongo(object):
         self.final_json = None
         self.mut_json = mut_json
         self.client = MongoClient()
-        self.chlamdb = self.client.chlamdb
-        self.mutants = self.chlamdb.mutants
+        self.db = self.client[mongo_database]
+        self.mutants = self.db.mutants
 
         strain_name = self.mut_json['name'].replace(' ', '_')
         strain_id = '%s-%s-%s' % (strain_name, self.mut_json['locusTag'], self.mut_json['coordinate']['start'])

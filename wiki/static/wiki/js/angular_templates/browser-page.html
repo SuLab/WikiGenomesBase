@@ -40,17 +40,13 @@
                         <h4>Chromosomes: {{ $ctrl.numChromosomes }}</h4>
                     </div>
                 </div>
-                <div class="panel-body table-responsive">
-                    <table>
-                        <tr ng-repeat="x in $ctrl.chromosomes">
-                            <td ng-repeat="chr in x">
-                                <div ng-click="$ctrl.onChromSelect(chr)" class="btn btn-default strongColor"
-                                     style="text-align: center">
-                                    {{chr.chromosomeLabel.value}}
-                                </div>
-                            </td>
-                        </tr>
-                    </table>
+                <div class="panel-body">
+                    <div ng-repeat="x in $ctrl.chromosomes" class="row">
+                        <div class="col-sm-3 btn btn-default strongColor" ng-repeat="chr in x" ng-click="$ctrl.onChromSelect(chr)"
+                             style="text-align: center; text-overflow: ellipsis; overflow: hidden">
+                            {{chr.chromosomeLabel.value}}
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -67,16 +63,12 @@
                     </div>
                 </div>
                 <div class="panel-body">
-                    <table>
-                        <tr ng-repeat="x in $ctrl.plasmids">
-                            <td ng-repeat="chr in x">
-                                <div ng-click="$ctrl.onChromSelect(chr)" class="btn btn-default strongColor"
-                                     style="text-align: center">
-                                    {{chr.plasmidLabel.value}}
-                                </div>
-                            </td>
-                        </tr>
-                    </table>
+                    <div ng-repeat="x in $ctrl.plasmids" class="row">
+                        <div class="col-sm-3 btn btn-default strongColor" ng-repeat="chr in x" ng-click="$ctrl.onChromSelect(chr)"
+                             style="text-align: center; text-overflow: ellipsis; overflow: hidden">
+                            {{chr.plasmidLabel.value}}
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

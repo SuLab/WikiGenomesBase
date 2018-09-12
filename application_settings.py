@@ -34,7 +34,8 @@ application = {
     "example_locus_tag": "LOC107381016 ",
 
     # Either locus_tag or entrez
-    "primary_identifier": "entrez"
+    "primary_identifier": "entrez",
+    "multiple_chromosomes_display": True
 }
 
 tax2NameMap = {

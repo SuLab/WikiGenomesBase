@@ -1149,24 +1149,27 @@ angular
             return $http.get(url)
                 .success(function (response) {
                 	var genes = response.results.bindings;
-            		var pattern = /(\w{2,4})_?(RS)?\d+/;
+            		var pattern = /([a-zA-Z]{2,4})_?(RS)?\d+/;
             		angular.forEach(genes, function(gene) {
 
                         var value = gene.geneLabel.value;
-            			var locusTag = value.match(pattern)[0];
-            			// add locus without _
-            			if (value.indexOf("_") != -1) {
-            				gene.geneLabel.value += "/" + locusTag.replace("_", "");
-            			}
+            			if (gene.locusTag) {
+            			    var locusTag = value.match(pattern)[0];
 
-            			// add locus without beginning 0s in number
-            			var prefix = locusTag.match(/(\w{2,4})_?(RS)?/)[0];
-            			var num = parseInt(locusTag.substring(prefix.length));
-            			gene.geneLabel.value += "/" + prefix + num;
+                            // add locus without _
+                            if (value.indexOf("_") != -1) {
+                                gene.geneLabel.value += "/" + locusTag.replace("_", "");
+                            }
 
-            			if (prefix.indexOf("_") != -1) {
-            				gene.geneLabel.value += "/" + prefix.replace("_", "") + num;
-            			}
+                            // add locus without beginning 0s in number
+                            var prefix = locusTag.match(/([a-zA-Z]{2,4})_?(RS)?/)[0];
+                            var num = parseInt(locusTag.substring(prefix.length));
+                            gene.geneLabel.value += "/" + prefix + num;
+
+                            if (prefix.indexOf("_") != -1) {
+                                gene.geneLabel.value += "/" + prefix.replace("_", "") + num;
+                            }
+                        }
 
                         if (gene.symbol) {
                             var symbol = gene.symbol.value;

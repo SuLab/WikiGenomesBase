@@ -51,11 +51,41 @@ angular
                             // filter by organism
                             ctrl.currentOrgsList = [];
                             angular.forEach(ctrl.orgData, function (value) {
-                                if (value.check == true) {
+                                if (value.check) {
                                     ctrl.currentOrgsList.push(value.taxid);
                                 }
                             });
                             ctrl.speciesGenes.keywordAll = $filter('deleteJsonItemValuesList')('taxid', ctrl.currentOrgsList, ctrl.speciesGenes.keywordAll);
+
+                            if (ctrl.ortholog) {
+
+                                var taxids = [];
+                                angular.forEach(ctrl.orgData, function(value) {
+                                   if (value.orthoCheck) {
+                                       taxids.push(value.taxid);
+                                   }
+                                });
+
+                                if (taxids.length > 0) {
+                                    var filtered = [];
+                                    angular.forEach(ctrl.speciesGenes.keywordAll, function(gene) {
+
+                                        // orthologs do not include current taxid, hence - 1
+                                        if (gene.orthoTaxId.value.length == taxids.length - 1) {
+                                            var keep = true;
+                                            angular.forEach(taxids, function(tax) {
+                                                if (gene.taxid.value != tax && gene.orthoTaxId.value.indexOf(tax) == -1) {
+                                                    keep = false;
+                                                }
+                                            });
+                                            if (keep) {
+                                                filtered.push(gene);
+                                            }
+                                        }
+                                    });
+                                    ctrl.speciesGenes.keywordAll = filtered;
+                                }
+                            }
 
                             var url_surf = "organism/1/gene/1/mg_mutant_view";
 
@@ -254,6 +284,29 @@ angular
                     }
                 }
 
+                if (ctrl.ortholog) {
+                    var required = false;
+                    angular.forEach(ctrl.orgData, function (value) {
+                        if (value.orthoCheck) {
+                            required = true;
+                        }
+                    });
+                    if (required) {
+                        query += queryBuilder.triple("?gene", "ortholog", "?ortholog");
+                        query += queryBuilder.triple("?ortholog", "taxon", "?orthoTaxon");
+                        query += queryBuilder.triple("?orthoTaxon", "taxid", "?orthoTaxId");
+                    } else {
+                        query += queryBuilder.minus(queryBuilder.triple("?gene", "ortholog", "?ortholog"));
+                    }
+                }
+
+                if (ctrl.length && ctrl.lower && ctrl.upper) {
+                    query += queryBuilder.triple("?gene", "start", "?start");
+                    query += queryBuilder.triple("?gene", "end", "?end");
+                    //query += queryBuilder.bind("xsd:integer(?end) - xsd:integer(?start)", "?length");
+                    query += queryBuilder.filterExpression("xsd:integer(?start) >= " + ctrl.lower + " && xsd:integer(?end) <= " + ctrl.upper);
+                }
+
                 var inner = "";
 
                 if (ctrl.uniprot) {
@@ -372,11 +425,19 @@ angular
         taxon: 'wdt:P703',
         locusTag: 'wdt:P2393',
         partOf: 'wdt:P361',
-        hasPart: 'wdt:P527'
+        hasPart: 'wdt:P527',
+        ortholog: 'wdt:P684',
+        taxid: 'wdt:P685',
+        start: 'wdt:P644',
+        end: 'wdt:P645'
     };
 
     var optional = function (input) {
         return "OPTIONAL {\n" + input + "}\n";
+    };
+
+    var bind = function(expression, item) {
+        return "BIND(" + expression + " AS " + item + ").";
     };
 
     var minus = function (input) {
@@ -391,6 +452,10 @@ angular
         return "FILTER(CONTAINS(LCASE(" + term + "), '" + keyword.toLowerCase() + "')).\n";
     };
 
+    var filterExpression = function(expression) {
+        return "FILTER(" + expression + ").";
+    };
+
     var equals = function (key, property, value) {
         return key + " " + pMap[property] + " '" + value + "'.\n";
     };
@@ -401,7 +466,7 @@ angular
 
     var beginning = function (parentTax) {
         return "SELECT REDUCED ?taxid ?taxonLabel ?gene ?geneLabel ?geneAltLabel ?locusTag " +
-            "?entrez ?uniprot ?refseq_prot ?pdb ?mfLabel ?bpLabel ?ccLabel ?host_proteinLabel WHERE {\n" +
+            "?entrez ?uniprot ?refseq_prot ?pdb ?mfLabel ?bpLabel ?ccLabel ?host_proteinLabel ?orthologLabel ?orthoTaxId WHERE {\n" +
             "?taxon (wdt:P171*/wdt:P685) '" + parentTax + "';\n" +
             "   wdt:P685 ?taxid.\n" +
             "?gene wdt:P703 ?taxon;\n" +
@@ -430,7 +495,9 @@ angular
         addLabel: addLabel,
         triple: triple,
         union: union,
-        minus: minus
+        minus: minus,
+        bind: bind,
+        filterExpression: filterExpression
 
     };
 
@@ -459,6 +526,12 @@ angular
                 if ("pdb" in set[locusTag] && set[locusTag].pdb.value.indexOf(entry.pdb.value) == -1) {
                     set[locusTag].pdb.value.push(entry.pdb.value);
                 }
+                if ("orthologLabel" in set[locusTag] && set[locusTag].orthologLabel.value.indexOf(entry.orthologLabel.value) == -1) {
+                    set[locusTag].orthologLabel.value.push(entry.orthologLabel.value);
+                }
+                if ("orthoTaxId" in set[locusTag] && set[locusTag].orthoTaxId.value.indexOf(entry.orthoTaxId.value) == -1) {
+                    set[locusTag].orthoTaxId.value.push(entry.orthoTaxId.value);
+                }
             }
             else {
                 if ("mfLabel" in entry) entry.mfLabel.value = [entry.mfLabel.value];
@@ -466,6 +539,8 @@ angular
                 if ("ccLabel" in entry) entry.ccLabel.value = [entry.ccLabel.value];
                 if ("host_proteinLabel" in entry) entry.host_proteinLabel.value = [entry.host_proteinLabel.value];
                 if ("pdb" in entry) entry.pdb.value = [entry.pdb.value];
+                if ("orthologLabel" in entry) entry.orthologLabel.value = [entry.orthologLabel.value];
+                if ("orthoTaxId" in entry) entry.orthoTaxId.value = [entry.orthoTaxId.value];
                 set[locusTag] = entry;
             }
         });
@@ -476,6 +551,8 @@ angular
             if ("ccLabel" in entry) entry.ccLabel.value = entry.ccLabel.value.join(", ");
             if ("host_proteinLabel" in entry) entry.host_proteinLabel.value = entry.host_proteinLabel.value.join(", ");
             if ("pdb" in entry) entry.pdb.value = entry.pdb.value.join(", ");
+            if ("orthologLabel" in entry) entry.orthologLabel.value = entry.orthologLabel.value.join(", ");
+            //if ("orthoTaxId" in entry) entry.orthoTaxId.value = entry.orthoTaxId.value.join(", ");
             updated.push(entry);
         });
         return updated;

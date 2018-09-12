@@ -150,7 +150,7 @@ angular
 
                     var factory = locusTag2QID;
 
-                    if (data.primary_identifier == "entrez") {
+                    if (ctrl.appData.primary_identifier == "entrez") {
                         factory = entrez2QID;
                     }
 
