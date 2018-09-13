@@ -8,6 +8,15 @@ angular
                 allSpeciesGenes.getAllSpeciesGeneLabels(data.parent_taxid).then(function(data) {
                     ctrl.genes = data.data.results.bindings;
                 });
+                ctrl.locusTag = data.example_locus_tag;
+
+                ctrl.onSelect = function ($item) {
+                    if (data.primary_identifier == "locus_tag") {
+                        $location.path('/organism/' + $item.taxid.value + "/gene/" + $item.locusTag.value);
+                    } else {
+                        $location.path('/organism/' + $item.taxid.value + "/gene/" + $item.entrez.value);
+                    }
+                };
             });
 
             ctrl.submitKeyword = function ($item) {
@@ -16,10 +25,6 @@ angular
                 } else{
                     $location.path('keyword/' + $item);
                 }
-            };
-            
-            ctrl.onSelect = function ($item) {
-                $location.path('/organism/' + $item.taxid.value + "/gene/" + $item.locusTag.value);
             };
             
             // whether or not user has scrolled through dropdown

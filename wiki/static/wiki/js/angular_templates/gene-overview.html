@@ -1,15 +1,15 @@
 <h2>{{$ctrl.data.geneLabel}}</h2>
 <h3 style="display: inline; margin-right: 10px">Gene Symbol: {{$ctrl.data.geneSymbol}}</h3>
-<button style="display: inline" title="Edit Gene Symbol" type="button" class="btn btn-xs btn-default" data-toggle="modal"
-        data-target="#geneSymbol_button"><span class="glyphicon glyphicon-edit"></span></button><br>
+<button style="display: inline" title="Edit Gene Symbol" type="button" class="btn btn-xs btn-default" ng-click="$ctrl.checkAuthorization('geneSymbol_button')">
+    <span class="glyphicon glyphicon-edit"></span></button><br>
 <div class="container-fluid">
     <div class="row">
         <div class="col-sm-2">
             <strong>Type: </strong>{{$ctrl.data.productType.id | typeFilter}}<br>
-            <strong>Locus Tag: </strong>{{$ctrl.data.locusTag}}<br>
+            <strong ng-hide="$ctrl.useEntrez">Locus Tag: </strong><strong ng-show="$ctrl.useEntrez">Entrez ID: </strong>{{$ctrl.data.locusTag}}<br>
             <strong>Aliases: </strong>{{$ctrl.data.geneAliases | list2CSV}}<br>
-            <button style="float: right; margin-right: 20px" title="Edit Gene Name" type="button" class="btn btn-xs btn-default" data-toggle="modal"
-                    data-target="#geneName_button"><span class="glyphicon glyphicon-plus"></span></button>
+            <button style="float: right; margin-right: 20px" title="Edit Gene Name" type="button" class="btn btn-xs btn-default" ng-click="$ctrl.checkAuthorization('geneName_button')">
+                <span class="glyphicon glyphicon-plus"></span></button>
             <br>
             <strong>Species: </strong>{{$ctrl.species}}<br>
             <strong>Strain: </strong>{{$ctrl.strain}}<br>

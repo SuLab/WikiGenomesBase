@@ -8,7 +8,7 @@ angular
             appData.getAppData(function (data) {
                 ctrl.appData = data;
 
-                recentPubLinks.getRecentPubLinks(data.newsfeed_search_term).then(function (data) {
+                recentPubLinks.getRecentPubLinks(data.newsfeed_search_term, data.newsfeed_recent_days, data.newsfeed_max_articles).then(function (data) {
                     var pubs = data.data.esearchresult.idlist;
                     ctrl.recentPubs = [];
                     angular.forEach(pubs, function (value) {

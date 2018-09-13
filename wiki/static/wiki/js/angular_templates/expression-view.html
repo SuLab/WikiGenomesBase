@@ -26,6 +26,10 @@
                     </td>
                 </tr>
             </table>
+            <div style="font-size: 10px">
+                <span class="label-success">&nbsp;&nbsp;&nbsp;&nbsp;</span>=Expressed;&nbsp;
+                <span class="label-default">&nbsp;&nbsp;&nbsp;&nbsp;</span>=Not Determined or Quantified
+            </div>
         </div>
     </div>
     <div class="col-sm-5">
@@ -59,12 +63,12 @@
             <span class="label-default">&nbsp;&nbsp;&nbsp;&nbsp;</span>=Not Determined or Quantified
         </div>
         <br>
-        <button type="button" class="btn btn-default" data-toggle="modal" data-target="#l_button">Add an annotation
+        <button type="button" class="btn btn-default" ng-click="$ctrl.checkAuthorization('developmental_button')">Add an annotation
         </button>
     </div>
 </div>
 
-<div class="modal fade" id="l_button" tabindex="-1" role="dialog"
+<div class="modal fade" id="developmental_button" tabindex="-1" role="dialog"
      aria-labelledby="refModalTitle"
      aria-hidden="true">
     <div class="modal-dialog" role="document">

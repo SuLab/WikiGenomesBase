@@ -22,6 +22,8 @@ angular
                 ctrl.refseqtext = cache.get("refseq")[1];
                 ctrl.pdb = cache.get("pdb")[0];
                 ctrl.pdbtext = cache.get("pdb")[1];
+                ctrl.operon = cache.get("operon")[0];
+                ctrl.operontext = cache.get("operon")[1];
                 ctrl.cm = cache.get("cm");
                 ctrl.tm = cache.get("tm");
                 ctrl.im = cache.get("im");
@@ -37,6 +39,10 @@ angular
                 ctrl.midlate = cache.get("midlate");
                 ctrl.late = cache.get("late");
                 ctrl.verylate = cache.get("verylate");
+                ctrl.ortholog = cache.get("ortholog");
+                ctrl.length = cache.get("length");
+                ctrl.lower = cache.get("lower");
+                ctrl.upper = cache.get("upper");
 
             } else {
                 ctrl.orgData = [];
@@ -100,6 +106,7 @@ angular
                 cache.put("uniprot", [ctrl.uniprot, ctrl.uniprottext]);
                 cache.put("refseq", [ctrl.refseq, ctrl.refseqtext]);
                 cache.put("pdb", [ctrl.pdb, ctrl.pdbtext]);
+                cache.put("operon", [ctrl.operon, ctrl.operontext]);
                 cache.put("cm", ctrl.cm);
                 cache.put("tm", ctrl.tm);
                 cache.put("im", ctrl.im);
@@ -114,8 +121,11 @@ angular
                 cache.put("late", ctrl.late);
                 cache.put("verylate", ctrl.verylate);
                 cache.put("orgs", ctrl.orgData);
+                cache.put("ortholog", ctrl.ortholog);
+                cache.put("length", ctrl.length);
+                cache.put("lower", ctrl.lower);
+                cache.put("upper", ctrl.upper);
             };
-
         },
         templateUrl: '/static/build/js/angular_templates/advanced-search-filter.min.html',
         bindings: {
@@ -135,6 +145,8 @@ angular
             refseqtext: "=?",
             pdb: "=?",
             pdbtext: "=?",
+            operon: "=?",
+            operontext: "=?",
             bacp: "=?",
             bacptext: "=?",
             cm: "=?",
@@ -150,6 +162,10 @@ angular
             late: "=?",
             verylate: "=?",
             orgData: "=?",
-            storeCache: "=?"
+            storeCache: "=?",
+            ortholog: "=?",
+            length: "=?",
+            lower: "=?",
+            upper: "=?"
         }
     });
