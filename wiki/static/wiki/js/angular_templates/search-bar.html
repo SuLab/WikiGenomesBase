@@ -10,8 +10,7 @@
 	       uib-typeahead="gene.geneLabel.value for gene in ($ctrl.geneList = ($ctrl.genes | filter:$viewValue | limitTo:200))"
 	   	   typeahead-on-select="$ctrl.select($item, $event)"
 	   	   typeahead-wait-ms="500"
-	   	   typeahead-should-select="$ctrl.scrolled"
-	   	   style="width: 70%; display: inline">
+	   	   typeahead-should-select="$ctrl.scrolled">
 	<button ng-click="$ctrl.submitKeyword($ctrl.keyword)" class="btn btn-default" style="display: inline"><span class="glyphicon glyphicon-search"></span></button>
 </div>
 <div style="font-size: 12px">

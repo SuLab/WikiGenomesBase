@@ -74,6 +74,18 @@ angular
 
 angular
     .module('resources')
+    .factory('strainDisplay', function ($http) {
+        var url = '/static/wiki/json/strains.json';
+        var getStrains = function() {
+            return $http.get(url);
+        };
+        return {
+            getStrains: getStrains
+        };
+    });
+
+angular
+    .module('resources')
     .factory('allOrgs', function ($resource) {
         var url = '/static/wiki/json/orgsList.json';
         return $resource(url, {}, {

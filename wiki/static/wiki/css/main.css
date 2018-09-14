@@ -28,8 +28,8 @@ a{color: #385d94;}
 #myNavbar .btn {-webkit-transition-duration: 0.4s; /* Safari */transition-duration: 0.4s;}
 #myNavbar .btn:hover {background-color: white;}
 .modal-open {padding-right: 0 !important}
-.navbar-custom {background: linear-gradient(#2a466f, #4674b9); color: whitesmoke; margin-bottom: 0px; border-radius: 0px}
-.navbar-custom a {color: whitesmoke;}
+.navbar-custom {background: linear-gradient(#2a466f, #4674b9); color: whitesmoke; margin-bottom: 0px; border-radius: 0px; min-height: 68px;}
+.navbar-custom a {color: whitesmoke; margin-top: 8px}
 .container-fluid{color:#385d94}
 .filter-header{position: relative; margin-bottom: 0px}
 .filter-header span{background-color: white; padding-right: 10px; font-size: 17px}
