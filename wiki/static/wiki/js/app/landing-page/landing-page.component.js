@@ -33,6 +33,7 @@ angular
             });
 
             // run the tutorial after clicking the button
+            /*
             document.getElementById("get-started").onclick = function () {
 
                 // set options for introjs
@@ -42,7 +43,7 @@ angular
 
                 // now start it
                 intro.start();
-            };
+            };*/
 
             // when the page is loaded, check whether or not to do the tutorial
             window.addEventListener('load', function () {
