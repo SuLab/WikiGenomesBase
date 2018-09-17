@@ -10,16 +10,16 @@ taxids = ['246197', '1198538', '1198133']
 # which annotations to allow on the gene page
 modules = {
     "protein-view": True,
-    "ortholog-view": True,
-    "alignment-view": True,
-    "expression-view": True,
+    "ortholog-view": False,
+    "alignment-view": False,
+    "expression-view": False,
     "function-view": True,
     "localization-view": True,
     "operon-view": True,
     "interpro-view": True,
     "enzyme-view": True,
     "mutant-view": True,
-    "protein-interaction-view": True,
+    "protein-interaction-view": False,
     "related-publication-view": True
 }
 
