@@ -1,6 +1,7 @@
 <div align="right" ng-if="$ctrl.data && $ctrl.data.length!=0" style="overflow: auto">Search: <input type="text" placeholder="Ex. silent_mutation" ng-model="$ctrl.keyword" class="form-control" style="width: 200px; display:inline"></div>
+<div ng-show="$ctrl.chemParams.data.length==0 && $ctrl.transParams.data.length==0 && $ctrl.intronParams.data.length==0 && $ctrl.recombParams.data.length==0">No data<br><br></div>
 <div class="table-responsive">
-	<table ng-table="$ctrl.chemParams" class="table table-hover" show-filter="false">
+	<table ng-table="$ctrl.chemParams" class="table table-hover" show-filter="false" ng-hide="$ctrl.chemParams.data.length==0">
 	    <caption style="color:#385d94">Chemical Mutagenesis</caption>
 	    <tr ng-show="$ctrl.chemParams.data.length!=0" ng-repeat="x in $data | filter: $ctrl.keyword">
 	        <td title="'Mutant Strain'" sortable="'name'">
@@ -42,15 +43,10 @@
 	        </td>
 	
 	    </tr>
-	    <tr>
-	        <td ng-show="$ctrl.chemParams.data.length==0">
-	            No data
-	        </td>
-	    </tr>
 	</table>
 </div>
 <div class="table-responsive">
-	<table ng-table="$ctrl.transParams" class="table table-hover" show-filter="false">
+	<table ng-table="$ctrl.transParams" class="table table-hover" show-filter="false" ng-hide="$ctrl.transParams.data.length==0">
 	    <caption style="color:#385d94">Transposon Mutagenesis</caption>
 	    <tr ng-show="$ctrl.transParams.data.length!=0" ng-repeat="x in $data | filter: $ctrl.keyword">
 	        <td title="'Mutant Strain'" sortable="'name'">
@@ -85,15 +81,10 @@
 	        </td>
 	
 	    </tr>
-	    <tr>
-	        <td ng-show="$ctrl.transParams.data.length==0">
-	            No data
-	        </td>
-	    </tr>
 	</table>
 </div>
 <div class="table-responsive">
-	<table ng-table="$ctrl.intronParams" class="table table-hover" show-filter="false">
+	<table ng-table="$ctrl.intronParams" class="table table-hover" show-filter="false" ng-hide="$ctrl.intronParams.data.length==0">
 	    <caption style="color:#385d94">Intron Mutagenesis</caption>
 	    <tr ng-show="$ctrl.intronParams.data.length!=0" ng-repeat="x in $data | filter: $ctrl.keyword">
 	        <td title="'Mutant Strain'" sortable="'name'">
@@ -128,16 +119,11 @@
 	        </td>
 	
 	    </tr>
-	    <tr>
-	        <td ng-show="$ctrl.intronParams.data.length==0">
-	            No data
-	        </td>
-	    </tr>
 	</table>
 </div>
 
 <div class="table-responsive">
-	<table ng-table="$ctrl.recombParams" class="table table-hover" show-filter="false">
+	<table ng-table="$ctrl.recombParams" class="table table-hover" show-filter="false" ng-hide="$ctrl.recombParams.data.length==0">
 	    <caption style="color:#385d94">Recombination</caption>
 	    <tr ng-show="$ctrl.recombParams.data.length!=0" ng-repeat="x in $data | filter: $ctrl.keyword">
 	        <td title="'Mutant Strain'" sortable="'name'">
@@ -172,12 +158,6 @@
 	            <a class="glyphicon glyphicon-remove"
 	               ng-click="$ctrl.deleteAnnotation(x); $ctrl.data.splice($index,1)">
 	            </a>
-	        </td>
-	
-	    </tr>
-	    <tr>
-	        <td ng-show="$ctrl.recombParams.data.length==0">
-	            No data
 	        </td>
 	    </tr>
 	</table>
