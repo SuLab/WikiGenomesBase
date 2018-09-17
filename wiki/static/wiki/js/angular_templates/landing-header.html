@@ -11,7 +11,7 @@
             <li><a data-target="#faq_modal" data-toggle="modal" class="btn">Support Us</a></li>
             <li class="dropdown">
                 <a class="dropdown-toggle btn" data-toggle="dropdown" href="#">More WikiGenomesDB &nbsp;<span class="caret"></span></a>
-                <ul class="dropdown-menu">
+                <ul class="dropdown-menu" style="background:#173B53;">
                     <li><a class="dropdown-item" href="https://chlambase.org">ChlamBase</a></li>
                     <li><a class="dropdown-item" href="https://myxobase.org">MyxoBase</a></li>
                     <li><a class="dropdown-item" href="http://13.58.104.209/">FishBase</a></li>
@@ -20,9 +20,11 @@
             </li>
         </ul>
         <ul class="nav navbar-nav navbar-right" ng-if="$ctrl.page == 'landing'">
-            <li><a href="https://github.com/SuLab/WikiGenomesBase" class="btn"><span class="fab fa-github" style="font-size: 30px"></span></a></li>
+            <li><a href="https://github.com/SuLab/WikiGenomesBase/tree/{{$ctrl.appData.title | lowercase}}" class="btn"><span class="fab fa-github" style="font-size: 30px"></span></a></li>
+            <!--
             <li><a href="https://github.com/SuLab/WikiGenomesBase" class="btn"><span class="fab fa-twitter" style="font-size: 30px"></span></a></li>
             <li><a href="https://github.com/SuLab/WikiGenomesBase" class="btn"><span class="fab fa-facebook" style="font-size: 30px"></span></a></li>
+            -->
         </ul>
         <form class="navbar-form navbar-right" ng-if="$ctrl.page == 'main'">
             <oauth-view></oauth-view>
