@@ -1,16 +1,20 @@
-<div class="container-fluid main-landing-page" style="padding: 50px">
+<landing-header page="'landing'"></landing-header>
+<div class="container-fluid main-landing-page" style="padding-top: 68px">
     <div class="row">
         <div class="col-md-12">
-            <img class="img-responsive center" data-intro="Welcome to {{$ctrl.appData.title}}! Follow this quick tutorial to get started!" data-step="1" src="static/wiki/img/logo.png">
+            <img id="get-started" class="img-responsive center" data-intro="Welcome to {{$ctrl.appData.title}}! Follow this quick tutorial to get started!" data-step="1" src="static/wiki/img/logo.png" style="width: 50%">
 
             <h3 class="lightColor" data-intro="{{$ctrl.appData.title}} is an easily editable model organism database for {{$ctrl.appData.noun}}. We allow you to lookup, add, and modify data in real time.
-            	Your data will instantly be visible, structured, and shared with the {{$ctrl.appData.adjective}} research community!" data-step="2">An open, editable, and centralized model organism database <br> for
-                the {{$ctrl.appData.adjective}} research community.</h3>
-	    <button id="get-started" type="button" class="btn btn-default"><span>Get Started </span></button>
+            	Your data will instantly be visible, structured, and shared with the {{$ctrl.appData.adjective}} research community!" data-step="2">An open, editable, and centralized {{$ctrl.appData.adjective}} model organism database <br> powered
+                by WikiGenomesDB.</h3>
+	    <!--<button id="get-started" type="button" class="btn btn-default"><span>Get Started </span></button>-->
         </div>
     </div>
     <br>
-    <div data-intro="You have two options to explore {{$ctrl.appData.title}}. The first way is to search for a gene or protein product by keyword. The second is to browse by organism genome." data-step="3">
+    <br>
+    <!--<h1 style="color: whitesmoke">16 Users Online</h1>-->
+    <br>
+    <div data-intro="You have three options to explore {{$ctrl.appData.title}}. The first way is to search for a gene or protein product by keyword. The second is to browse by organism genome." data-step="3">
    	    <div class="row" data-intro="Using this search bar, you can quick select to any known gene like 'CTL260' and select the dropdown.
 	            	Or, you can type a keyword like 'actin' and click search to get a list of all genes that contain 'actin' in its data." data-step="4">
 	      <div class="col-md-3"></div>
@@ -22,9 +26,22 @@
 	        <div class="col-md-3"></div>
 	    </div>
 	
-	    <div style="padding: 40px" data-intro="This is the {{$ctrl.appData.noun}} navigation tree. Click one of the highlighted strains at the bottom to navigate to the organism specific browser page.
-	    	Here, you can browse through all genes of that genome, and see a visualization widget of the genes in a genome browser." data-step="5" data-position="bottom">
-	        <organism-tree orgs="$ctrl.orgList"></organism-tree>
+	    <div style="padding: 40px">
+	        <!--<organism-tree orgs="$ctrl.orgList"></organism-tree>-->
+            <h1 style="color:whitesmoke">The Strains</h1>
+            <organism-tree data-intro="This is the {{$ctrl.appData.noun}} navigation tree. Click one of the highlighted strains at the bottom to navigate to the organism specific browser page.
+	    	Here, you can browse through all genes of that genome, and see a visualization widget of the genes in a genome browser." data-step="5" data-position="bottom"></organism-tree>
+            <div data-intro="This is the {{$ctrl.appData.noun}} reference strain list. Click 'Browse Genome' to navigate to the organism specific browser page." data-step="6" data-position="bottom">
+                <div class="row" ng-repeat="r in $ctrl.strains">
+                    <div class="col-sm-6" ng-repeat="strain in r">
+                        <div class="panel panel-open panel-info" style="padding: 10px; margin: 10px">
+                            <div class="panel-heading">{{strain.title}}</div>
+                            <div class="panel-body">{{strain.description}}</div>
+                            <a class="btn btn-default" href="/organism/{{strain.taxid}}/">Browse Genome</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
 	    </div>
     </div>
 
@@ -32,7 +49,7 @@
         <div class="col-md-1"></div>
         <div class="col-md-10"
              style="padding: 60px">
-            <h2 class="lightColor" data-intro="Lastly, new edits and changes to {{$ctrl.appData.title}} will appear here, in addition to related publications. That concludes the tutorial!" data-step="6">See what's happening in the most recent <i><strong>{{$ctrl.appData.noun}}</strong></i> Related Research:</h2>
+            <h2 class="lightColor" data-intro="Lastly, new edits and changes to {{$ctrl.appData.title}} will appear here, in addition to related publications. That concludes the tutorial!" data-step="7">Latest <i><strong>{{$ctrl.appData.noun}}</strong></i> Related News:</h2>
             <div style="background-color: transparent; padding-top: 30px;">
                 <div class="carousel slide" data-ride=carousel id="slider">
                     <div class="carousel-inner" role="listbox">
@@ -66,6 +83,4 @@
         </div>
         <div class="col-md-1"></div>
     </div>
-    <div class="row"></div>
 </div>
-<footer></footer>
