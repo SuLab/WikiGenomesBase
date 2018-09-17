@@ -6,9 +6,9 @@
         <ul class="nav navbar-nav">
             <li><a data-target="#about_modal" data-toggle="modal" class="btn">About</a></li>
             <li><a data-target="#pub_modal" data-toggle="modal" class="btn">Publications</a></li>
-            <li><a data-target="#advisors_modal" data-toggle="modal" class="btn">Advisors</a></li>
+            <li><a data-target="#advisors_modal" data-toggle="modal" class="btn">The Team</a></li>
             <li><a data-target="#faq_modal" data-toggle="modal" class="btn">FAQ</a></li>
-            <li><a data-target="#faq_modal" data-toggle="modal" class="btn">Support Us</a></li>
+            <li><a data-target="#support_modal" data-toggle="modal" class="btn">Support Us</a></li>
             <li class="dropdown">
                 <a class="dropdown-toggle btn" data-toggle="dropdown" href="#">More WikiGenomesDB &nbsp;<span class="caret"></span></a>
                 <ul class="dropdown-menu" style="background:#173B53;">
@@ -21,6 +21,7 @@
         </ul>
         <ul class="nav navbar-nav navbar-right" ng-if="$ctrl.page == 'landing'">
             <li><a href="https://github.com/SuLab/WikiGenomesBase/tree/{{$ctrl.appData.title | lowercase}}" class="btn"><span class="fab fa-github" style="font-size: 30px"></span></a></li>
+            <li><a href="http://sulab.org/" class="btn"><img ng-src="/static/wiki/img/scripps.png" style="height: 30px"></a></li>
             <!--
             <li><a href="https://github.com/SuLab/WikiGenomesBase" class="btn"><span class="fab fa-twitter" style="font-size: 30px"></span></a></li>
             <li><a href="https://github.com/SuLab/WikiGenomesBase" class="btn"><span class="fab fa-facebook" style="font-size: 30px"></span></a></li>
@@ -132,17 +133,39 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Advisors</h4>
+                <h4 class="modal-title">The Team</h4>
             </div>
             <div class="modal-text-color modal-body">
                 Andrew Su (The Scripps Research Institute, USA) <br/>
                 Tim Putman (The Scripps Research Institute, USA)<br/>
                 Kevin Hybiske (University of Washington, USA)<br/>
+                Derek Jow (Student; University of California, San Diego)<br/><br/>
+
+                <strong>Advisors</strong><br/>
                 Scott Hefty (University of Kansas, USA)<br/>
                 Daniel Rockey (Oregon State University, USA)<br/><br/>
 
                 <strong>Funding</strong><br/>
                 Support for ChlamBase comes NIH/NIGMS R01GM089820, PI Andrew Su.
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="support_modal" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-lg">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Support Us</h4>
+            </div>
+            <div class="modal-text-color modal-body">
+
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
