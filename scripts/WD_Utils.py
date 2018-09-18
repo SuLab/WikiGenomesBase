@@ -160,4 +160,23 @@ class WDSparqlQueries(object):
         results = self.execute_query(query)
         return results['results']['bindings']
 
+    def get_old_terms(self):
+        query ='''
+        SELECT ?protein ?gotermValue ?goClass WHERE {
+
+          ?taxon wdt:P171+ wd:Q846309.
+          ?protein wdt:P703 ?taxon;
+                   wdt:P279 wd:Q8054;
+                   (p:P680|p:P681|p:P682)+ ?goterm.
+        
+          OPTIONAL {?goterm pq:P459/rdfs:label ?determination. FILTER(LANG(?determination) = 'en').}
+        
+          ?goterm (ps:P680|ps:P681|ps:P682)+ ?gotermValue.
+          ?gotermValue wdt:P31 ?goClass.
+          FILTER(BOUND(?determination) = false)
+        }
+        '''
+        results = self.execute_query(query)
+        return results['results']['bindings']
+
 
