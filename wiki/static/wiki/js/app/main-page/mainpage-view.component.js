@@ -78,6 +78,9 @@ angular
                         if (entity.claims.P2393) {
                             ctrl.currentGene.locusTag = entity.claims.P2393[0].mainsnak.datavalue.value;
                         }
+                        if (entity.claims.P1651) {
+                            ctrl.currentGene.movie = entity.claims.P1651[0].mainsnak.datavalue.value;
+                        }
                         ctrl.currentGene.geneDescription = entity.descriptions.en.value;
                         if (entity.claims.P644) {
                             ctrl.currentGene.genStart = entity.claims.P644[0].mainsnak.datavalue.value;

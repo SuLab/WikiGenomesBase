@@ -4,7 +4,8 @@ angular.module('cmod')
               $routeProvider,
               $httpProvider,
               $interpolateProvider,
-              $compileProvider) {
+              $compileProvider,
+              $sceDelegateProvider) {
         
         'use strict';
 
@@ -12,6 +13,7 @@ angular.module('cmod')
             enabled: true
         });
 
+        $sceDelegateProvider.resourceUrlWhitelist(["self", "https://www.youtube.com/embed/**"]);
 
         $compileProvider.aHrefSanitizationWhitelist(/^\s*(|blob|):/);
         $compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|ftp|mailto|chrome-extension):/);

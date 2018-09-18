@@ -5,7 +5,7 @@ angular
         bindings: {
             data: '<'
         },
-        controller: function ($location) {
+        controller: function ($location, $filter) {
             'use strict';
             var ctrl = this;
 
@@ -15,6 +15,13 @@ angular
                 } else {
                     $("#" + modal).modal('show');
                 }
+            };
+
+            ctrl.$onChanges = function() {
+              if (ctrl.data) {
+                  ctrl.hostData = $filter('interactions2host')(ctrl.data);
+                  ctrl.bacData = $filter('interactions2bacteria')(ctrl.data);
+              }
             };
         }
     });
