@@ -49,5 +49,6 @@ angular.module('cmod', [
     'geneSymbolForm',
     'advancedSearchFilter',
     'landingHeader',
-    'historyView'
+    'historyView',
+    'movieView'
 ]);

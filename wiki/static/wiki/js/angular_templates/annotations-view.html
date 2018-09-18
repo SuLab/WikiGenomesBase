@@ -198,6 +198,20 @@
             </div>
         </div>
     </div>
+    <div uib-accordion-group is-open="$ctrl.accordion.movie" ng-class="{'panel-info': true}"
+         ng-if="$ctrl.settings.movie"
+         template-url="group-template.html">
+        <uib-accordion-heading>
+            Movie Data
+            <i class="pull-right glyphicon"
+               ng-class="{'glyphicon-chevron-down': $ctrl.accordion.movie, 'glyphicon-chevron-right': !$ctrl.accordion.movie}"></i>
+        </uib-accordion-heading>
+        <div class="panel">
+            <div class="panel-body" style="border-bottom: solid #bce8f1 1px">
+                <movie-view uri="$ctrl.data.movie"></movie-view>
+            </div>
+        </div>
+    </div>
     <div uib-accordion-group ng-class="{'panel-info': true}"
          is-open="$ctrl.accordion.hostpath"
          ng-if="$ctrl.settings.hostpath"
@@ -232,7 +246,7 @@
         <uib-accordion-heading>
             Revision History
             <i class="pull-right glyphicon"
-               ng-class="{'glyphicon-chevron-down': $ctrl.accordion.go, 'glyphicon-chevron-right': !$ctrl.accordion.go}"></i>
+               ng-class="{'glyphicon-chevron-down': $ctrl.accordion.history, 'glyphicon-chevron-right': !$ctrl.accordion.history}"></i>
         </uib-accordion-heading>
         <div class="panel">
             <div class="panel-body" style="border-bottom: solid #bce8f1 1px">
