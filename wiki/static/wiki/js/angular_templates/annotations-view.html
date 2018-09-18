@@ -226,6 +226,19 @@
             </div>
         </div>
     </div>
-
+    <div uib-accordion-group is-open="$ctrl.accordion.history" ng-class="{'panel-info': true}"
+         ng-if="$ctrl.settings.history"
+         template-url="group-template.html">
+        <uib-accordion-heading>
+            Revision History
+            <i class="pull-right glyphicon"
+               ng-class="{'glyphicon-chevron-down': $ctrl.accordion.go, 'glyphicon-chevron-right': !$ctrl.accordion.go}"></i>
+        </uib-accordion-heading>
+        <div class="panel">
+            <div class="panel-body" style="border-bottom: solid #bce8f1 1px">
+                <history-view gene="$ctrl.data.geneQID" protein="$ctrl.data.proteinQID"></history-view>
+            </div>
+        </div>
+    </div>
 
 </uib-accordion>

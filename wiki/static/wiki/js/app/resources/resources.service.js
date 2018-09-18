@@ -14,6 +14,18 @@ angular
 
 angular
     .module('resources')
+    .factory('history', function ($http, $location) {
+        var getHistory = function(qid) {
+            return $http.get("https://" + $location.host() + "/wikidata/w/api.php?action=query&prop=revisions&titles=" + qid +
+                "&format=json&rvprop=timestamp|user|parsedcomment&rvlimit=10");
+        };
+        return {
+            getHistory: getHistory
+        };
+    });
+
+angular
+    .module('resources')
     .factory('taxidFilter', function ($resource, $q) {
         var url = '/static/wiki/json/tax_map.json';
         var data = $resource(url, {}, {

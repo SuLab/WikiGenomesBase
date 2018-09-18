@@ -48,5 +48,6 @@ angular.module('cmod', [
     'pdbForm',
     'geneSymbolForm',
     'advancedSearchFilter',
-    'landingHeader'
+    'landingHeader',
+    'historyView'
 ]);

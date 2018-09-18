@@ -25,7 +25,9 @@ angular
                     enzyme : true,
                     mutants : true,
                     hostpath : true,
-                    pubs : true
+                    pubs : true,
+                    history: true,
+                    movie: true
                 };
             
             ctrl.map = {
@@ -40,7 +42,9 @@ angular
                     enzyme : "Enzyme",
                     mutants : "Mutants",
                     hostpath : "Protein Interactions",
-                    pubs : "Related Pubs"
+                    pubs : "Related Pubs",
+                    history: "Revision History",
+                    movie: "Movie Data"
             };
             
             annotationSettings.getSettings().then(function(response) {
@@ -57,7 +61,9 @@ angular
                         enzyme : ctrl.settings.enzyme && response.data["enzyme-view"],
                         mutants : ctrl.settings.mutants && response.data["mutant-view"],
                         hostpath : ctrl.settings.hostpath && response.data["protein-interaction-view"],
-                        pubs : ctrl.settings.pubs && response.data["related-publication-view"]
+                        pubs : ctrl.settings.pubs && response.data["related-publication-view"],
+                        history: ctrl.settings.history && response.data["revision-history-view"],
+                        movie: ctrl.settings.movie && response.data["movie-data-view"],
                     };
             	
                 ctrl.table = [];
@@ -114,6 +120,8 @@ angular
                     expression : true,
                     hostpath : true,
                     localizations : true,
+                    history: true,
+                    movie: true
                 };
 
                 ctrl.toggleOpen = function(openAll) {
@@ -129,6 +137,8 @@ angular
                     ctrl.accordion.hostpath = openAll;
                     ctrl.accordion.expression = openAll;
                     ctrl.accordion.localizations = openAll;
+                    ctrl.accordion.history = openAll;
+                    ctrl.accordion.movie = openAll;
                 };
 
                 ctrl.status = {

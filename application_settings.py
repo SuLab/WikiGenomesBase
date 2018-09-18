@@ -20,7 +20,9 @@ modules = {
     "enzyme-view": True,
     "mutant-view": True,
     "protein-interaction-view": True,
-    "related-publication-view": True
+    "related-publication-view": True,
+    "revision-history-view": True,
+    "movie-data-view": False
 }
 
 application = {
