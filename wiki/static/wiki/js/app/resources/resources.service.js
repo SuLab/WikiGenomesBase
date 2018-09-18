@@ -14,13 +14,32 @@ angular
 
 angular
     .module('resources')
-    .factory('history', function ($http, $location) {
-        var getHistory = function(qid) {
-            return $http.get("https://" + $location.host() + "/wikidata/w/api.php?action=query&prop=revisions&titles=" + qid +
-                "&format=json&rvprop=timestamp|user|parsedcomment&rvlimit=10");
+    .factory('history', function () {
+        var getHistory = function (qid) {
+            return $.ajax({
+                url: "https://www.wikidata.org/w/api.php",
+                jsonp: "callback",
+                dataType: 'jsonp',
+                data: {
+                    action: "query",
+                    titles: qid,
+                    format: "json",
+                    prop: "revisions",
+                    rvprop: "timestamp|user|parsedcomment",
+                    rvlimit:" 10"
+                },
+                xhrFields: {withCredentials: true},
+                success: function (response) {
+                    return response;
+                },
+                error: function (response) {
+                    return response;
+                }
+            });
         };
         return {
             getHistory: getHistory
+
         };
     });
 
