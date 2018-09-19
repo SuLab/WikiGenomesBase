@@ -9,7 +9,7 @@ angular.module('orthologView')
             templateUrl : '/static/build/js/angular_templates/ortholog-view.min.html'
         })
 
-    .controller('orthologCtrl', function(orthoDataByLocusTag, orthoDataByEntrez, appData, $routeParams, InterPro, hostPathogen, GOTerms, OperonData, expressionTimingData, $filter, sendToView, $location, taxidFilter) {
+    .controller('orthologCtrl', function(orthoDataByLocusTag, orthoDataByEntrez, appData, $routeParams, InterPro, hostPathogen, GOTerms, OperonData, expressionTimingData, $filter, sendToView, $location, taxidFilter, expressionBellandData) {
 
         'use strict';
 
@@ -155,6 +155,11 @@ angular.module('orthologView')
                                 }
                             });
                             ctrl.data[obj.orthoTaxid.value].expression = currentExpression.RB_EXPRESSION_TIMING != undefined;
+                        });
+                        expressionBellandData.getExpression(function (data) {
+                            if (data[obj.orthoLocusTag.value]) {
+                                ctrl.data[obj.orthoTaxid.value].expression = true;
+                            }
                         });
                     }
 
