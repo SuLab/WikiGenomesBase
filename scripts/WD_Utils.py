@@ -61,7 +61,7 @@ class WDSparqlQueries(object):
 
     def genes4tid(self):
         preQuery = '''
-        SELECT ?start ?end ?strand ?uri ?entrezGeneID ?name ?description ?refSeq WHERE {
+        SELECT ?start ?end ?strand ?uri ?entrezGeneID ?name ?description ?refSeq ?symbol WHERE {
           ?gene wdt:P279 wd:Q7187;
                 wdt:P703 ?strain;
                 wdt:P351 ?entrezGeneID;
@@ -73,6 +73,7 @@ class WDSparqlQueries(object):
                 p:P644 ?claim.
           ?strain wdt:P685 '{TAXID}'.
           ?claim pq:P1057/wdt:P2249 ?refSeq.
+          OPTIONAL {?gene wdt:P2561 ?symbol.}
           bind( IF(?wdstrand = wd:Q22809680, '+', '-') as ?strand).
           bind(str(?gene) as ?uri).
           filter (lang(?description) = "en").
