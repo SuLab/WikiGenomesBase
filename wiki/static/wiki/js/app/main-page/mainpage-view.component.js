@@ -25,7 +25,8 @@ angular
                               proteinSequenceData,
                               proteinMass,
                               developmentalForm,
-                              appData
+                              appData,
+                              expressionBellandData
         ) {
 
             // Main gene page component. Loaded when a gene is selected.  Parses the url for taxid and locus tag and uses
@@ -287,6 +288,11 @@ angular
                         ctrl.annotations.expression = ctrl.currentExpression;
                     });
 
+                    expressionBellandData.getExpression(function (data) {
+                        if (data[ctrl.currentLocusTag]) {
+                            ctrl.currentGene.expression = data[ctrl.currentLocusTag];
+                        }
+                    });
 
                     // Get related publications from eutils
                     var locus_tag = ctrl.currentGene.locusTag.replace('_', '');

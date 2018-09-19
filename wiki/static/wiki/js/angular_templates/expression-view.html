@@ -1,5 +1,5 @@
 <div class="container-fluid">
-    <div class="col-sm-7">
+    <div class="col-sm-7" ng-hide="$ctrl.belland">
         <div class="table-responsive">
             <table ng-table="$ctrl.tableParams" class="table table-hover">
                 <tr>
@@ -31,6 +31,9 @@
                 <span class="label-default">&nbsp;&nbsp;&nbsp;&nbsp;</span>=Not Determined or Quantified
             </div>
         </div>
+    </div>
+    <div class="col-sm-7" ng-show="$ctrl.belland">
+        <div id="curve_chart"></div>
     </div>
     <div class="col-sm-5">
         <table ng-table="$ctrl.tableParams" class="table table-hover">

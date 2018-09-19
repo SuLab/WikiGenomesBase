@@ -172,6 +172,20 @@ angular
     });
 
 angular
+    .module('resources')
+    .factory('expressionBellandData', function ($resource) {
+        var url = '/static/wiki/json/belland_data.json';
+        return $resource(url, {}, {
+            getExpression: {
+                method: "GET",
+                params: {},
+                isArray: false,
+                cache: true
+            }
+        });
+    });
+
+angular
 .module('resources')
     .factory('pdbData', function ($http) {
         var endpoint = 'https://query.wikidata.org/sparql?format=json&query=';
