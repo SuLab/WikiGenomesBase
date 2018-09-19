@@ -227,6 +227,7 @@
         </div>
     </div>
     <div uib-accordion-group ng-class="{'panel-info': true}"
+         class="not-gene"
          is-open="$ctrl.accordion.pubs"
          ng-if="$ctrl.settings.pubs"
          template-url="group-template.html">
@@ -240,7 +241,7 @@
             </div>
         </div>
     </div>
-    <div uib-accordion-group is-open="$ctrl.accordion.history" ng-class="{'panel-info': true}"
+    <div uib-accordion-group is-open="$ctrl.accordion.history" class="not-gene" ng-class="{'panel-info': true}"
          ng-if="$ctrl.settings.history"
          template-url="group-template.html">
         <uib-accordion-heading>

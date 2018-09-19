@@ -45,3 +45,4 @@ a{color: #385d94;}
 .filter-result:hover{cursor:pointer; background-color: #E6E6E6}
 .filter-img {width: 32px; height: 32px; margin-top: -5px}
 #jbrowse-div {height: 250px; border: solid #99c2ff 3px; border-radius: 3px}
+.not-gene .panel-heading {background-color: #84e184}
