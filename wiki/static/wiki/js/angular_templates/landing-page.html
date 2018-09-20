@@ -1,55 +1,44 @@
 <landing-header page="'landing'"></landing-header>
-<div class="container-fluid main-landing-page" style="padding-top: 68px">
+<div class="container-fluid text-center noPadding">
     <div class="row">
-        <div class="col-md-12">
-            <img id="get-started" class="img-responsive center" data-intro="Welcome to {{$ctrl.appData.title}}! Follow this quick tutorial to get started!" data-step="1" src="static/wiki/img/logo.png" style="width: 50%">
-
-            <h3 class="lightColor" data-intro="{{$ctrl.appData.title}} is an easily editable model organism database for {{$ctrl.appData.noun}}. We allow you to lookup, add, and modify data in real time.
-            	Your data will instantly be visible, structured, and shared with the {{$ctrl.appData.adjective}} research community!" data-step="2">An open, editable, and centralized {{$ctrl.appData.adjective}} model organism database <br> powered
-                by WikiGenomesDB.</h3>
-	    <!--<button id="get-started" type="button" class="btn btn-default"><span>Get Started </span></button>-->
+        <div class="col-md-12 hero">
+            <img id="get-started" class="img-responsive center"  src="static/wiki/img/cb-logo.svg" style="width: 35%; max-width:400px;">
+            <h3 class="text-light smallCaps">
+              An open, editable, and centralized {{$ctrl.appData.adjective}} model organism database <br> powered
+                by WikiGenomesDB.
+              </h3>
+              <advanced-keyword-form></advanced-keyword-form>
         </div>
     </div>
-    <br>
-    <br>
-    <!--<h1 style="color: whitesmoke">16 Users Online</h1>-->
-    <br>
-    <div data-intro="You have three options to explore {{$ctrl.appData.title}}. The first way is to search for a gene or protein product by keyword. The second is to browse by organism genome." data-step="3">
-   	    <div class="row" data-intro="Using this search bar, you can quick select to any known gene like 'CTL260' and select the dropdown.
-	            	Or, you can type a keyword like 'actin' and click search to get a list of all genes that contain 'actin' in its data." data-step="4">
-	      <div class="col-md-3"></div>
-	        <div class="col-md-6">
-	            <div class="row">
-	             	<advanced-keyword-form></advanced-keyword-form>
-	            </div>
-	        </div>
-	        <div class="col-md-3"></div>
-	    </div>
-	
-	    <div style="padding: 40px">
-	        <!--<organism-tree orgs="$ctrl.orgList"></organism-tree>-->
-            <h1 style="color:whitesmoke">The Strains</h1>
-            <organism-tree data-intro="This is the {{$ctrl.appData.noun}} navigation tree. Click one of the highlighted strains at the bottom to navigate to the organism specific browser page.
-	    	Here, you can browse through all genes of that genome, and see a visualization widget of the genes in a genome browser." data-step="5" data-position="bottom"></organism-tree>
-            <div data-intro="This is the {{$ctrl.appData.noun}} reference strain list. Click 'Browse Genome' to navigate to the organism specific browser page." data-step="6" data-position="bottom">
-                <div class="row" ng-repeat="r in $ctrl.strains">
-                    <div class="col-sm-6" ng-repeat="strain in r">
-                        <div class="panel panel-open panel-info" style="padding: 10px; margin: 10px">
-                            <div class="panel-heading">{{strain.title}}</div>
-                            <div class="panel-body">{{strain.description}}</div>
-                            <a class="btn btn-default" href="/organism/{{strain.taxid}}/">Browse Genome</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-	    </div>
+
+    <div class='container-fluid bg-dark padding20'>
+      <organism-tree></organism-tree>
+      <h1 class="text-pink smallCaps">The Strains</h1>
+      <div class="row" ng-repeat="r in $ctrl.strains" style="padding:5vw;">
+          <div class="col-lg-6 col-sm-6 col-md-6 col-xl-6" ng-repeat="strain in r">
+              <div class="panel panel-open panel-info">
+                  <div class="panel-heading bg-dark">
+                    <h3 class="text-pink-light">
+                      {{strain.title}}
+                    </h3>
+                  </div>
+                  <div class="panel-body">
+                    <img width="100px" src="static/wiki/img/cb-icon.svg" />
+                    <p class="padding20">
+                      {{strain.description}}
+                    </p>
+                  </div>
+                  <a style="margin-bottom:20px;" class="btn themeButton" href="/organism/{{strain.taxid}}/">Browse Genome</a>
+              </div>
+          </div>
+      </div>
     </div>
 
-    <div class="row">
+    <div class="row bg-purple text-center">
         <div class="col-md-1"></div>
         <div class="col-md-10"
              style="padding: 60px">
-            <h2 class="lightColor" data-intro="Lastly, new edits and changes to {{$ctrl.appData.title}} will appear here, in addition to related publications. That concludes the tutorial!" data-step="7">Latest <i><strong>{{$ctrl.appData.noun}}</strong></i> Related News:</h2>
+            <h2 class="text-light smallCaps" data-intro="Lastly, new edits and changes to {{$ctrl.appData.title}} will appear here, in addition to related publications. That concludes the tutorial!" data-step="7">Latest <i><strong>{{$ctrl.appData.noun}}</strong></i> Related News:</h2>
             <div style="background-color: transparent; padding-top: 30px;">
                 <div class="carousel slide" data-ride=carousel id="slider">
                     <div class="carousel-inner" role="listbox">
@@ -83,4 +72,32 @@
         </div>
         <div class="col-md-1"></div>
     </div>
+
+    <div>
+      <div class="bg-dark">
+        <div class="row padding20">
+          <div class="col-sm-6 text-center text-pink-light">
+            <ul>
+              <li>
+                MyxoBase
+              </li>
+              <li>
+                Link
+              </li>
+              <li>
+                Link
+              </li>
+            </ul>
+          </div>
+          <div class="col-sm-6 text-center text-pink-light">
+          <a href="https://github.com/SuLab/WikiGenomesBase/tree/{{$ctrl.appData.title | lowercase}}" ><span class="fab fa-github" style="font-size: 30px"></span></a>
+          <a href="http://sulab.org/" ><img ng-src="/static/wiki/img/scripps-logo.svg" style="height: 30px"></a>
+          </div>
+          <div class="col-sm-12 text-center text-pink-light">
+            All content copyright ChlamBase © 2018
+          </div>
+        </div>
+      </div>
+    </div>
+
 </div>

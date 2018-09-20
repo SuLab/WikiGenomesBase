@@ -1,50 +1,101 @@
+
 .main-landing-page {
-    background: #1a2b44 url(../img/background.jpg) top left/cover no-repeat fixed;
-    color: #f5f5f5;
-    text-align: center;
-    min-height: 100%;
-    padding-top: 50px
+  /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#672582+1,000000+100 */
+  background: rgb(103,37,130); /* Old browsers */
+  background: -moz-linear-gradient(top, rgba(103,37,130,1) 1%, rgba(0,0,0,1) 100%); /* FF3.6-15 */
+  background: -webkit-linear-gradient(top, rgba(103,37,130,1) 1%,rgba(0,0,0,1) 100%); /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(to bottom, rgba(103,37,130,1) 1%,rgba(0,0,0,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#672582', endColorstr='#000000',GradientType=0 ); /* IE6-9 */
+  color: white;
 }
 
-.lightColor {
-    color: #f5f5f5
+.padding20{
+  padding: 20px;
+}
+
+.bg-dark{
+  background-color: #222222 !important;
+}
+
+.text-pink{
+  color: #E80C85;
+}
+
+.text-pink-light{
+  color: #fb5db4;
+}
+
+.text-blue{
+  color: #1FDFFF;
+}
+
+.bg-purple{
+  background: #522274;
+}
+
+html{
+  background: #222222;
+}
+
+.flexParent{
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.flexChild{
+  flex: 1;
+}
+
+.text-light{
+  color:white;
+}
+
+li{
+  list-style: none !important;
+}
+
+.noMargin{
+  margin: 0px !important;
+}
+
+.noPadding{
+  padding: 0px !important;
+}
+.mainBack{
+  /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#ea3a0e+0,ff670f+21,ff670f+68,ffaf0f+99 */
+background: rgb(234,58,14); /* Old browsers */
+background: -moz-linear-gradient(left, rgba(234,58,14,1) 0%, rgba(255,103,15,1) 21%, rgba(255,103,15,1) 68%, rgba(255,175,15,1) 99%); /* FF3.6-15 */
+background: -webkit-linear-gradient(left, rgba(234,58,14,1) 0%,rgba(255,103,15,1) 21%,rgba(255,103,15,1) 68%,rgba(255,175,15,1) 99%); /* Chrome10-25,Safari5.1-6 */
+background: linear-gradient(to right, rgba(234,58,14,1) 0%,rgba(255,103,15,1) 21%,rgba(255,103,15,1) 68%,rgba(255,175,15,1) 99%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ea3a0e', endColorstr='#ffaf0f',GradientType=1 ); /* IE6-9 */
+}
+
+.smallCaps{
+  font-variant: small-caps;
+}
+
+.themeButton{
+  background: #522274;
+  color: #fb5db4;
+}
+
+.themeButton:hover{
+  background: #1FDFFF;
+  color:#522274;
+}
+
+.hero{
+  padding: 140px 20px !important;
+  background: #1a2b44 url(../img/hero.jpg) top left/cover no-repeat fixed;
+}
+
+.image-background{
+  background: #1a2b44 url(../img/hero.jpg) top left/cover no-repeat fixed;
 }
 
 #get-started:hover {
     cursor:pointer;
 }
-
-/*
-#get-started {
-    background-color: #e68a00;
-    color: #fff;
-    transition: all .5s;
-    font-size: 20px;
-    text-align: center
-}
-
-#get-started span {
-    display: inline-block;
-    position: relative;
-    transition: .5s
-}
-
-#get-started span:after {
-    content: '\00bb';
-    position: absolute;
-    opacity: 0;
-    right: -20px;
-    transition: .5s
-}
-
-#get-started:hover span {
-    padding-right: 25px
-}
-
-#get-started:hover span:after {
-    opacity: 1;
-    right: 0
-}*/
 
 .carousel-control.left, .carousel-control.right {
     background-image: none

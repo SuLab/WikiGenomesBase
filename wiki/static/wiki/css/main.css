@@ -22,16 +22,16 @@ a:hover{cursor:pointer;}
 .strongColor:hover{color:#385d94;}
 .loading-img{background:url("../../../../static/wiki/img/gears.gif") center center no-repeat;height:100%;z-index:20;}
 .overlay{background:#e9e9e9;position:absolute;top:0;right:0;bottom:0;left:0;opacity:0.5;}
-a{color: #385d94;}
+/* a{color: #385d94;} */
 .center{margin-left: auto;margin-right: auto;}
-.navbar-toggle .icon-bar{background-color: #fff;}
-#myNavbar .btn {-webkit-transition-duration: 0.4s; /* Safari */transition-duration: 0.4s;}
-#myNavbar .btn:hover {background-color: white;}
+/* .navbar-toggle .icon-bar{background-color: #fff;}
+#myNavbar .btn {-webkit-transition-duration: 0.4s; transition-duration: 0.4s;}
+#myNavbar .btn:hover {background-color: white;} */
 .modal-open {padding-right: 0 !important}
-.navbar-custom {background: linear-gradient(#2a466f, #4674b9); color: whitesmoke; margin-bottom: 0px; border-radius: 0px; min-height: 68px;}
+/* .navbar-custom {background: linear-gradient(#2a466f, #4674b9); color: whitesmoke; margin-bottom: 0px; border-radius: 0px; min-height: 68px;}
 .navbar-custom a {color: whitesmoke; margin-top: 8px}
 .dropdown-menu .dropdown-item {color: whitesmoke}
-.container-fluid{color:#385d94}
+.container-fluid{color:#385d94} */
 .filter-header{position: relative; margin-bottom: 0px}
 .filter-header span{background-color: white; padding-right: 10px; font-size: 17px}
 .filter-header:after{position: absolute;height: 0.5em;border-top: 1px solid #385d94; z-index:-1; content: "";bottom:0;left:0;right:0;}
