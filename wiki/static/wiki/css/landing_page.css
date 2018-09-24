@@ -1,11 +1,17 @@
-
+:root {
+    --main-purple: #66338a;
+    --mainDarkGray: #222222;
+    --mainBlue: #1FDFFF;
+    --mainPink: #E80C85;
+    --mainLightPink: #fb5db4;
+}
 .bg-gradient {
   /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#4a2982+1,222222+51,222222+100 */
   background: rgb(74,41,130); /* Old browsers */
   background: -moz-linear-gradient(-45deg, rgba(74,41,130,1) 1%, rgba(34,34,34,1) 51%, rgba(34,34,34,1) 100%); /* FF3.6-15 */
   background: -webkit-linear-gradient(-45deg, rgba(74,41,130,1) 1%,rgba(34,34,34,1) 51%,rgba(34,34,34,1) 100%); /* Chrome10-25,Safari5.1-6 */
   background: linear-gradient(135deg, rgba(74,41,130,1) 1%,rgba(34,34,34,1) 51%,rgba(34,34,34,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4a2982', endColorstr='#222222',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4a2982', endColorstr='var(--mainDarkGray)',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
   color: white;
 }
 
@@ -14,15 +20,15 @@
 }
 
 a:hover{
-  color: #1FDFFF !important;
+  color: var(--mainBlue) !important;
 }
 
 .bg-dark{
-  background-color: #222222 !important;
+  background-color: var(--mainDarkGray) !important;
 }
 
 .text-pink{
-  color: #E80C85;
+  color: var(--mainPink);
 }
 
 .textShadow{
@@ -30,27 +36,27 @@ a:hover{
 }
 
 .bg-pink{
-  background: #E80C85;
+  background: var(--mainPink);
 }
 
 .text-pink-light{
-  color: #fb5db4;
+  color: var(--mainLightPink);
 }
 
 .text-blue{
-  color: #1FDFFF;
+  color: var(--mainBlue);
 }
 
 .bg-purple{
-  background: #522274;
+  background: var(--main-purple);
 }
 
 .text-purple{
-  color: #522274;
+  color: var(--main-purple);
 }
 
 html{
-  background: #222222;
+  background: var(--mainDarkGray);
 }
 
 .flexParent{
@@ -91,13 +97,24 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ea3a0e', end
 }
 
 .themeButton{
-  background: #522274;
-  color: #fb5db4;
+  background: var(--main-purple);
+  color: white !important;
+  padding:15px;
+  text-transform: uppercase;
+  border-radius: 50px;
+  border: 3px solid violet;
+  font-weight:600;
+  transition: all .5s;
 }
 
 .themeButton:hover{
-  background: #1FDFFF;
-  color:#522274;
+  background: var(--mainPink);
+  color: white !important;
+}
+
+.dropdown-menu>.active>a, .dropdown-menu>.active>a:focus, .dropdown-menu>.active>a:hover{
+  background: var(--main-purple) !important;
+  color: var(--mainLightPink) !important;
 }
 
 .hero{
