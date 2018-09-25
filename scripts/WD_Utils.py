@@ -180,4 +180,18 @@ class WDSparqlQueries(object):
         results = self.execute_query(query)
         return results['results']['bindings']
 
+    def get_single_alias_genes(self):
+        query = '''
+        SELECT DISTINCT ?gene WHERE {
+  
+          ?gene wdt:P31|wdt:P279 wd:Q7187;
+                skos:altLabel ?alias.
+          
+          FILTER(LANG(?alias) = "en" && strlen(?alias) = 1 && regex(?alias, "[A-Z,a-z]", "i")).
+        }
+        LIMIT 10000
+        '''
+        results = self.execute_query(query)
+        return results['results']['bindings']
+
 
