@@ -1,13 +1,16 @@
 angular
     .module('landingPage')
     .component('landingPage', {
-        controller: function (allOrgs, recentPubLinks, euroPubData, appData) {
+        controller: function (allOrgs, recentPubLinks, euroPubData, appData, strainDisplay) {
             'use strict';
             var ctrl = this;
 
+            strainDisplay.getStrains().then(function (data) {
+               ctrl.strains = data.data;
+            });
+
             appData.getAppData(function (data) {
                 ctrl.appData = data;
-
                 recentPubLinks.getRecentPubLinks(data.newsfeed_search_term, data.newsfeed_recent_days, data.newsfeed_max_articles).then(function (data) {
                     var pubs = data.data.esearchresult.idlist;
                     ctrl.recentPubs = [];
@@ -33,6 +36,7 @@ angular
             });
 
             // run the tutorial after clicking the button
+
             document.getElementById("get-started").onclick = function () {
 
                 // set options for introjs

@@ -10,7 +10,7 @@ db = client[mongo_database]
 print("Generating Module Settings")
 tasks.generate_module_settings()
 tasks.generate_application_settings()
-tasks.generate_org_tree()
+tasks.generate_strains()
 tasks.generate_tax_map()
 
 print("Generating Reference Genomes")

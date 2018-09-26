@@ -14,6 +14,37 @@ angular
 
 angular
     .module('resources')
+    .factory('history', function () {
+        var getHistory = function (qid) {
+            return $.ajax({
+                url: "https://www.wikidata.org/w/api.php",
+                jsonp: "callback",
+                dataType: 'jsonp',
+                data: {
+                    action: "query",
+                    titles: qid,
+                    format: "json",
+                    prop: "revisions",
+                    rvprop: "timestamp|user|parsedcomment",
+                    rvlimit:" 10"
+                },
+                xhrFields: {withCredentials: true},
+                success: function (response) {
+                    return response;
+                },
+                error: function (response) {
+                    return response;
+                }
+            });
+        };
+        return {
+            getHistory: getHistory
+
+        };
+    });
+
+angular
+    .module('resources')
     .factory('taxidFilter', function ($resource, $q) {
         var url = '/static/wiki/json/tax_map.json';
         var data = $resource(url, {}, {
@@ -74,6 +105,18 @@ angular
 
 angular
     .module('resources')
+    .factory('strainDisplay', function ($http) {
+        var url = '/static/wiki/json/strains.json';
+        var getStrains = function() {
+            return $http.get(url);
+        };
+        return {
+            getStrains: getStrains
+        };
+    });
+
+angular
+    .module('resources')
     .factory('allOrgs', function ($resource) {
         var url = '/static/wiki/json/orgsList.json';
         return $resource(url, {}, {
@@ -123,6 +166,20 @@ angular
                 method: "GET",
                 params: {},
                 isArray: true,
+                cache: true
+            }
+        });
+    });
+
+angular
+    .module('resources')
+    .factory('expressionBellandData', function ($resource) {
+        var url = '/static/wiki/json/belland_data.json';
+        return $resource(url, {}, {
+            getExpression: {
+                method: "GET",
+                params: {},
+                isArray: false,
                 cache: true
             }
         });
