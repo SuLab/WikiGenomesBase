@@ -189,7 +189,6 @@ class WDSparqlQueries(object):
           
           FILTER(LANG(?alias) = "en" && strlen(?alias) = 1 && regex(?alias, "[A-Z,a-z]", "i")).
         }
-        LIMIT 10000
         '''
         results = self.execute_query(query)
         return results['results']['bindings']
