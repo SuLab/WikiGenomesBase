@@ -1,4 +1,5 @@
 <div class="container-fluid">
+
     <div class="col-sm-7">
         <div class="table-responsive">
             <table ng-table="$ctrl.tableParams" class="table table-hover">
@@ -20,8 +21,7 @@
 
                     <td title="'Reference'">
                         <a target="_blank" href="https://www.ncbi.nlm.nih.gov/pubmed/{{$ctrl.data.PMID}}">
-                            <img uib-tooltip="Cited Publication" style="height: 14px; margin-top: -3px"
-                                 data-ng-src="/static/wiki/img/pubmedGlyph.png">
+                            <img uib-tooltip="Cited Publication" class="imageButton" data-ng-src="/static/wiki/img/pubmed-logo.svg">
                         </a>
                     </td>
                 </tr>
@@ -30,6 +30,7 @@
                 <span class="label-success">&nbsp;&nbsp;&nbsp;&nbsp;</span>=Expressed;&nbsp;
                 <span class="label-default">&nbsp;&nbsp;&nbsp;&nbsp;</span>=Not Determined or Quantified
             </div>
+
         </div>
     </div>
     <div class="col-sm-5">
@@ -50,8 +51,7 @@
                     <div style="padding: 3px">
                         <a href="https://www.ncbi.nlm.nih.gov/pubmed/{{$ctrl.gene.developmentalForm.pmid.value}}"
                            target="_blank">
-                            <img uib-tooltip="Link to publication in PubMed" style="height: 14px; margin-top: -3px"
-                                 data-ng-src="/static/wiki/img/pubmedGlyph.png">
+                            <img uib-tooltip="Link to publication in PubMed" class="imageButton" data-ng-src="/static/wiki/img/pubmed-logo.svg">
                         </a>
                     </div>
                 </td>
@@ -63,7 +63,8 @@
             <span class="label-default">&nbsp;&nbsp;&nbsp;&nbsp;</span>=Not Determined or Quantified
         </div>
         <br>
-        <button type="button" class="btn btn-default" ng-click="$ctrl.checkAuthorization('developmental_button')">Add an annotation
+        <button type="button" class="btn themeButton-small" ng-click="$ctrl.checkAuthorization('developmental_button')">
+          Add an annotation <span class="glyphicon glyphicon-plus"></span>
         </button>
     </div>
 </div>

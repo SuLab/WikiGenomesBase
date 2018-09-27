@@ -1,4 +1,4 @@
-<script type="text/ng-template" id="group-template.html">
+<!-- <script type="text/ng-template" id="group-template.html">
     <div class="panel-heading">
         <h4 class="panel-title">
             <a href tabindex="0" class="accordion-toggle" ng-click="toggleOpen()" uib-accordion-transclude="heading">
@@ -31,8 +31,146 @@
 		<div class="btn btn-default btn-xs" ng-click="$ctrl.expandAll()">Expand all</div><br>
 		<div class="btn btn-default btn-xs" ng-click="$ctrl.collapseAll()">Collapse all</div>
     </div>
-</div>
+</div> -->
 
+<!-- Tabs test -->
+<uib-tabset active="active">
+  <uib-tab index="0">
+    <uib-tab-heading >
+      Gene Product
+    </uib-tab-heading>
+    <protein-view protein="$ctrl.data"></protein-view>
+  </uib-tab>
+  <uib-tab index="1" >
+    <uib-tab-heading >
+      Ortholog(s)
+    </uib-tab-heading>
+    <ortholog-view locus-tag="$ctrl.data.locusTag"></ortholog-view>
+  </uib-tab>
+  <uib-tab index="2">
+    <uib-tab-heading >
+      Ortholog Alignment(s)
+    </uib-tab-heading>
+    <alignment-view locus-tag="$ctrl.data.locusTag" tax-id="$ctrl.data.taxid"></alignment-view>
+  </uib-tab>
+  <uib-tab index="3">
+    <uib-tab-heading >
+      Expression
+    </uib-tab-heading>
+    <expression-view data="$ctrl.annotations.expression" gene="$ctrl.data"></expression-view>
+  </uib-tab>
+  <uib-tab index="4" >
+    <uib-tab-heading>
+      Function(s) ({{$ctrl.annotations.go.molfunc.length + $ctrl.annotations.go.bioproc.length}})
+    </uib-tab-heading>
+    <div class="panel">
+        <div class="panel-body" style="border-bottom: solid #bce8f1 1px">
+            <div class="row">
+                <div class="col-sm-6 385d94" style="padding:3px">
+                    <div class="panel">
+                        <div class="panel-heading">Molecular Function</div>
+                        <div class="panel-body">
+                            <gene-ontology gene="$ctrl.data" goclass='mf_button'
+                                           data="$ctrl.annotations.go.molfunc"></gene-ontology>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="col-sm-6" style="padding:3px">
+                    <div class="panel ">
+                        <div class="panel-heading">Biological Process</div>
+                        <div class="panel-body">
+                            <gene-ontology gene="$ctrl.data" goclass='bp_button'
+                                           data="$ctrl.annotations.go.bioproc"></gene-ontology>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+  </uib-tab>
+  <uib-tab index="5">
+    <uib-tab-heading >
+      Localization(s) ({{$ctrl.annotations.go.cellcomp.length}})
+    </uib-tab-heading>
+    <div class="panel">
+        <div class="panel-body" style="border-bottom: solid #bce8f1 1px">
+          <localization-view gene="$ctrl.data" components="$ctrl.annotations.go.cellcomp"></localization-view>
+        </div>
+    </div>
+  </uib-tab>
+  <uib-tab index="6">
+    <uib-tab-heading>
+      Operon ({{$ctrl.annotations.operon.length}})
+    </uib-tab-heading>
+    <div class="panel " style="border-bottom: solid #bce8f1 1px;">
+        <div class="panel-body">
+            <operon-annotations operon="$ctrl.annotations.operon" allorggenes="$ctrl.allorggenes" gene="$ctrl.data"></operon-annotations>
+        </div>
+    </div>
+  </uib-tab>
+  <uib-tab index="7">
+    <uib-tab-heading>
+      InterPro Domains ({{$ctrl.annotations.interpro.length}})
+    </uib-tab-heading>
+    <div class="panel " style="border-bottom: solid #bce8f1 1px;">
+        <div class="panel-body">
+            <inter-pro data="$ctrl.annotations.interpro"></inter-pro>
+        </div>
+    </div>
+  </uib-tab>
+  <uib-tab index="8">
+    <uib-tab-heading >
+      Enzyme ({{$ctrl.annotations.ecnumber.length}})
+    </uib-tab-heading>
+    <div class="panel " style="border-bottom: solid #bce8f1 1px;">
+        <div class="panel-body">
+            <enzyme-view ecnumber="$ctrl.annotations.ecnumber" reaction="$ctrl.annotations.reaction"></enzyme-view>
+        </div>
+    </div>
+  </uib-tab>
+  <uib-tab index="9" >
+    <uib-tab-heading >
+      Mutants ({{ $ctrl.annotations.mutants.length }})
+    </uib-tab-heading>
+    <div class="panel " style="border-bottom: solid #bce8f1 1px;">
+        <div class="panel-body">
+            <mutants-view data="$ctrl.annotations.mutants"></mutants-view>
+        </div>
+    </div>
+  </uib-tab>
+  <uib-tab index="10" >
+    <uib-tab-heading >
+      Protein Interaction(s) ({{$ctrl.annotations.hostpath.length}})
+    </uib-tab-heading>
+    <div class="panel " style="border-bottom: solid #bce8f1 1px;">
+        <div class="panel-body" style="max-height: 400px; overflow: auto">
+            <host-pathogen data="$ctrl.annotations.hostpath"></host-pathogen>
+        </div>
+    </div>
+  </uib-tab>
+  <uib-tab index="11" >
+    <uib-tab-heading >
+      Related Publications
+    </uib-tab-heading>
+    <div class="panel " style="border-bottom: solid #bce8f1 1px;">
+        <div class="panel-body" style="max-height: 400px; overflow: auto">
+            <linked-pubs pubs="$ctrl.annotations.pubList"></linked-pubs>
+        </div>
+    </div>
+  </uib-tab>
+  <uib-tab index="12" >
+    <uib-tab-heading >
+      Revision History
+    </uib-tab-heading>
+    <div class="panel">
+        <div class="panel-body" style="border-bottom: solid #bce8f1 1px">
+            <history-view gene="$ctrl.data.geneQID" protein="$ctrl.data.proteinQID"></history-view>
+        </div>
+    </div>
+  </uib-tab>
+</uib-tabset>
+<!--
 <h4>Annotations</h4>
 <uib-accordion close-others="false">
     <div uib-accordion-group ng-class="{'panel-info': true}"
@@ -140,7 +278,7 @@
             </div>
         </div>
     </div>
-    
+
     <div uib-accordion-group ng-class="{'panel-info': true}"
     	 ng-if="$ctrl.settings.operon"
          template-url="group-template.html" is-open="$ctrl.accordion.operon">
@@ -241,4 +379,4 @@
         </div>
     </div>
 
-</uib-accordion>
+</uib-accordion> -->

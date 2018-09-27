@@ -2,7 +2,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 
 <nav class="navbar navbar-expand-lg navbar-inverse noMargin navbar-fixed-top">
-  <div class="container">
+  <div class="container-fluid">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
                 <span class="sr-only">Toggle navigation</span>
@@ -11,18 +11,24 @@
                 <span class="icon-bar"></span>
             </button>
             <a class="navbar-brand" href="/">
-              <img ng-src="/static/wiki/img/cb-logo-long.svg" style="height:35px;">
+              <!-- <img ng-src="/static/wiki/img/cb-logo-long.svg" style="height:35px;"> -->
+              <span class="text-pink-light">Chlam</span><span class="text-light">Base</span>
             </a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
+              <li ng-if="$ctrl.page != 'landing'">
+                <form class="navbar-form navbar-right" >
+                    <keyword-form></keyword-form>
+                </form>
+              </li>
               <li><a data-target="#about_modal" data-toggle="modal" class="btn">About</a></li>
               <li><a data-target="#pub_modal" data-toggle="modal" class="btn">Publications</a></li>
               <li><a data-target="#advisors_modal" data-toggle="modal" class="btn">The Team</a></li>
               <li><a data-target="#faq_modal" data-toggle="modal" class="btn">FAQ</a></li>
               <li><a data-target="#support_modal" data-toggle="modal" class="btn">Support Us</a></li>
               <li class="dropdown bg-purple">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">More WikiGenomesDB <span class="caret"></span></a>
+                <a href="#" class="dropdown-toggle text-center text-blue" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">More WikiGenomesDB <span class="caret"></span></a>
                 <ul class="dropdown-menu bg-pink" style="max-width:200px; min-height:150px;">
                   <li><a class="text-light" target="_blank" href="https://chlambase.org/">ChlamBase</a></li>
                   <li><a class="text-light" target="_blank" href="https://myxobase.org/">MyxoBase</a></li>
@@ -30,15 +36,20 @@
                   <li><a class="text-light" target="_blank" href="http://wikigenomes.org/">WikiGenomesDB</a></li>
                 </ul>
               </li>
+              <li ng-if="$ctrl.page == 'main'">
+                <form class="navbar-form navbar-right noMargin text-center" >
+                    <oauth-view></oauth-view>
+                </form>
+              </li>
             </ul>
 
         </div>
-        <form class="navbar-form navbar-right" ng-if="$ctrl.page == 'main'">
+        <!-- <form class="navbar-form navbar-right noMargin text-center" ng-if="$ctrl.page == 'main'">
             <oauth-view></oauth-view>
-        </form>
-        <form class="navbar-form navbar-right" ng-if="$ctrl.page != 'landing'" style="color: whitesmoke; margin-right:10px;">
+        </form> -->
+        <!-- <form class="navbar-form navbar-right" ng-if="$ctrl.page != 'landing'">
             <keyword-form></keyword-form>
-        </form>
+        </form> -->
     </div>
 </nav>
 
