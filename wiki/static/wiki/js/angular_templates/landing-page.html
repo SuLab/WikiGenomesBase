@@ -1,55 +1,83 @@
 <landing-header page="'landing'"></landing-header>
-<div class="container-fluid main-landing-page" style="padding-top: 68px">
+<div class="container-fluid text-center noPadding">
     <div class="row">
-        <div class="col-md-12">
-            <img id="get-started" class="img-responsive center" data-intro="Welcome to {{$ctrl.appData.title}}! Follow this quick tutorial to get started!" data-step="1" src="static/wiki/img/logo.png" style="width: 50%">
-
-            <h3 class="lightColor" data-intro="{{$ctrl.appData.title}} is an easily editable model organism database for {{$ctrl.appData.noun}}. We allow you to lookup, add, and modify data in real time.
-            	Your data will instantly be visible, structured, and shared with the {{$ctrl.appData.adjective}} research community!" data-step="2">An open, editable, and centralized {{$ctrl.appData.adjective}} model organism database <br> powered
-                by WikiGenomesDB.</h3>
-	    <!--<button id="get-started" type="button" class="btn btn-default"><span>Get Started </span></button>-->
+        <div class="col-md-12 hero">
+            <img id="get-started" class="img-responsive center"  src="static/wiki/img/cb-logo-outline.svg" style="width: 35%; max-width:400px;">
+            <h3 class="text-light smallCaps textShadow" >
+              An open, editable, and centralized {{$ctrl.appData.adjective}} model organism database <br> powered
+                by WikiGenomesDB.
+              </h3>
+              <advanced-keyword-form></advanced-keyword-form>
         </div>
     </div>
-    <br>
-    <br>
-    <!--<h1 style="color: whitesmoke">16 Users Online</h1>-->
-    <br>
-    <div data-intro="You have three options to explore {{$ctrl.appData.title}}. The first way is to search for a gene or protein product by keyword. The second is to browse by organism genome." data-step="3">
-   	    <div class="row" data-intro="Using this search bar, you can quick select to any known gene like 'CTL260' and select the dropdown.
-	            	Or, you can type a keyword like 'actin' and click search to get a list of all genes that contain 'actin' in its data." data-step="4">
-	      <div class="col-md-3"></div>
-	        <div class="col-md-6">
-	            <div class="row">
-	             	<advanced-keyword-form></advanced-keyword-form>
-	            </div>
-	        </div>
-	        <div class="col-md-3"></div>
-	    </div>
-	
-	    <div style="padding: 40px">
-	        <!--<organism-tree orgs="$ctrl.orgList"></organism-tree>-->
-            <h1 style="color:whitesmoke">The Strains</h1>
-            <organism-tree data-intro="This is the {{$ctrl.appData.noun}} navigation tree. Click one of the highlighted strains at the bottom to navigate to the organism specific browser page.
-	    	Here, you can browse through all genes of that genome, and see a visualization widget of the genes in a genome browser." data-step="5" data-position="bottom"></organism-tree>
-            <div data-intro="This is the {{$ctrl.appData.noun}} reference strain list. Click 'Browse Genome' to navigate to the organism specific browser page." data-step="6" data-position="bottom">
-                <div class="row" ng-repeat="r in $ctrl.strains">
-                    <div class="col-sm-6" ng-repeat="strain in r">
-                        <div class="panel panel-open panel-info" style="padding: 10px; margin: 10px">
-                            <div class="panel-heading">{{strain.title}}</div>
-                            <div class="panel-body">{{strain.description}}</div>
-                            <a class="btn btn-default" href="/organism/{{strain.taxid}}/">Browse Genome</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-	    </div>
+
+    <div class="container-fluid bg-dark text-light noPadding">
+      <div class="flexParent">
+        <div style="flex:1; background-image:url('static/wiki/img/chlamydia-pic.jpg'); background-size:cover;">
+        </div>
+        <div style="flex:2;" class="padding20">
+          <h2 class="text-blue smallCaps">What is {{$ctrl.appData.title}}?</h2>
+          <p class="padding20">
+            {{$ctrl.appData.title}} is an easily editable model organism database for {{$ctrl.appData.noun}}. We allow you to lookup, add, and modify data in real time. <br />Your data will instantly be visible, structured, and shared with the {{$ctrl.appData.adjective}} research community!
+          </p>
+        </div>
+      </div>
     </div>
 
-    <div class="row">
+    <div class='container-fluid padding20 bg-gradient'>
+      <organism-tree></organism-tree>
+      <h1 class="text-pink smallCaps">The Strains</h1>
+      <div class="row" ng-repeat="r in $ctrl.strains" style="padding:5vw;">
+          <div class="col-lg-6 col-sm-6 col-md-6 col-xl-6" ng-repeat="strain in r">
+              <div class="panel panel-open panel-info">
+                  <div class="panel-heading bg-dark">
+                    <h3 class="text-blue">
+                      {{strain.title}}
+                    </h3>
+                  </div>
+                  <div class="panel-body">
+                    <img width="100px" src="static/wiki/img/cb-icon.svg" />
+                    <p class="padding20 text-purple">
+                      {{strain.description}}
+                    </p>
+                  </div>
+                  <a style="margin-bottom:20px;" class="btn themeButton" href="/organism/{{strain.taxid}}/">Browse Genome</a>
+              </div>
+          </div>
+      </div>
+    </div>
+
+    <div class="container-fluid text-center padding20" style="background:#303030;">
+      <h2 class="text-blue smallCaps">Explore More WikiGenomesDB</h2>
+      <div class="flexParent">
+        <div class="flexChild text-center">
+          <a target="_blank" href="https://chlambase.org/">
+            <img class="img-responsive center dropShadow-link"  src="static/wiki/img/cb-logo.svg" style="width: 80%; max-width:200px;">
+          </a>
+        </div>
+        <div class="flexChild text-center">
+          <a target="_blank" href="https://myxobase.org/">
+            <img class="img-responsive center dropShadow-link"  src="static/wiki/img/mb-logo.svg" style="width: 80%; max-width:200px;">
+          </a>
+        </div>
+        <div class="flexChild text-center">
+          <a target="_blank" href="http://13.58.104.209/">
+            <img class="img-responsive center dropShadow-link"  src="static/wiki/img/fb-logo.svg" style="width: 80%; max-width:200px;">
+          </a>
+        </div>
+        <div class="flexChild text-center">
+          <a target="_blank" href="http://wikigenomes.org/">
+            <img class="img-responsive center dropShadow-link"  src="static/wiki/img/wg-logo.png" style="width: 80%; max-width:200px;">
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="row bg-purple text-center">
         <div class="col-md-1"></div>
         <div class="col-md-10"
              style="padding: 60px">
-            <h2 class="lightColor" data-intro="Lastly, new edits and changes to {{$ctrl.appData.title}} will appear here, in addition to related publications. That concludes the tutorial!" data-step="7">Latest <i><strong>{{$ctrl.appData.noun}}</strong></i> Related News:</h2>
+            <h2 class="text-light smallCaps">Latest <i><strong>{{$ctrl.appData.noun}}</strong></i> Related News:</h2>
             <div style="background-color: transparent; padding-top: 30px;">
                 <div class="carousel slide" data-ride=carousel id="slider">
                     <div class="carousel-inner" role="listbox">
@@ -83,4 +111,40 @@
         </div>
         <div class="col-md-1"></div>
     </div>
+
+    <div>
+      <div class="bg-dark">
+        <div class="row padding20">
+          <div class="col-sm-6 text-pink-light">
+            <h3 class="text-light smallCaps">Sites</h3>
+            <hr />
+            <ul class="noPadding">
+              <li><a class="text-pink-light" target="_blank" href="https://chlambase.org/">ChlamBase</a></li>
+              <li><a class="text-pink-light" target="_blank" href="https://myxobase.org/">MyxoBase</a></li>
+              <li><a class="text-pink-light" target="_blank" href="http://13.58.104.209/">FishBase</a></li>
+              <li><a class="text-pink-light" target="_blank" href="http://wikigenomes.org/">WikiGenomesDB</a></li>
+            </ul>
+          </div>
+          <div class="col-sm-6 text-center text-pink-light">
+            <h3 class="text-light smallCaps">Connect</h3>
+            <hr />
+            <ul class="noPadding">
+              <li>
+                <a style="position: absolute; top:10px; right: 10px;" class="github-button" href="https://github.com/SuLab/WikiGenomesBase" data-size="large" data-show-count="true" aria-label="Star SuLab/WikiGenomesBase on GitHub">Star</a>
+              </li>
+              <li>
+                <a class="text-pink-light" href="https://github.com/SuLab/WikiGenomesBase/tree/{{$ctrl.appData.title | lowercase}}" >WikiGenomesDB GitHub</a>
+              </li>
+              <li>
+                <a class="text-pink-light" href="http://sulab.org/" >Sulab @ Scripps Reserach</a>
+              </li>
+            </ul>
+          </div>
+          <div class="col-sm-12 text-center text-pink-light">
+            All content copyright ChlamBase © 2018
+          </div>
+        </div>
+      </div>
+    </div>
+
 </div>

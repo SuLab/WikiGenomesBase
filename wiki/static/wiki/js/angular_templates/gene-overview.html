@@ -1,55 +1,164 @@
-<h2>{{$ctrl.data.geneLabel}}</h2>
-<h3 style="display: inline; margin-right: 10px">Gene Symbol: {{$ctrl.data.geneSymbol}}</h3>
-<button style="display: inline" title="Edit Gene Symbol" type="button" class="btn btn-xs btn-default" ng-click="$ctrl.checkAuthorization('geneSymbol_button')">
-    <span class="glyphicon glyphicon-edit"></span></button><br>
+<div class="padding20 text-center">
+  <h2 class="text-purple">{{$ctrl.data.geneLabel}}</h2>
+  <hr />
+  <h3 style="display: inline; margin-right: 10px" class="text-purple">Gene Symbol: <span class="text-pink">{{$ctrl.data.geneSymbol}}</span></h3>
+  <button style="display: inline" title="Edit Gene Symbol" type="button" class="btn themeButton-tiny smallCaps" ng-click="$ctrl.checkAuthorization('geneSymbol_button')">
+      Edit <span class="glyphicon glyphicon-edit"></span>
+  </button><br>
+</div>
 <div class="container-fluid">
     <div class="row">
-        <div class="col-sm-2">
-            <strong>Type: </strong>{{$ctrl.data.productType.id | typeFilter}}<br>
-            <strong ng-hide="$ctrl.useEntrez">Locus Tag: </strong><strong ng-show="$ctrl.useEntrez">Entrez ID: </strong>{{$ctrl.data.locusTag}}<br>
-            <strong>Aliases: </strong>{{$ctrl.data.geneAliases | list2CSV}}<br>
-            <button style="float: right; margin-right: 20px" title="Edit Gene Name" type="button" class="btn btn-xs btn-default" ng-click="$ctrl.checkAuthorization('geneName_button')">
-                <span class="glyphicon glyphicon-plus"></span></button>
-            <br>
-            <strong>Species: </strong>{{$ctrl.species}}<br>
-            <strong>Strain: </strong>{{$ctrl.strain}}<br>
-            <strong>Subtype: </strong>Reference Strain<br>
-            <br>
-            <strong>References: </strong>
-            <span>
-      	<a target="_blank" href="https://www.ncbi.nlm.nih.gov/gene?term={{ $ctrl.data.entrez }}">
-            <img uib-tooltip="NCBI Database Entry" style="height: 14px; margin-top: -3px"
-                 data-ng-src="/static/wiki/img/NCBI-logo-2.png">
-        </a>
-        <a target="_blank" href="http://www.wikidata.org/wiki/{{ $ctrl.data.geneQID }}">
-            <img uib-tooltip="Wikidata Database Item" style="height: 14px; margin-top: -3px"
-                 data-ng-src="/static/wiki/img/GeneWikidata-logo-en.png">
-        </a>
-      </span>
-        </div>
-        <div class="col-sm-2">
-            <strong>Host Targets: </strong><span ng-repeat="x in $ctrl.annotations.hostpath">{{x.hostProteinLabel.value}}</span><br>
-            <strong>Chemical Mutants: </strong>{{$ctrl.cm}}<br>
-            <strong>Transposon Mutants: </strong>{{$ctrl.tm}}<br>
-            <strong>Intron Mutants: </strong>{{$ctrl.im}}<br>
-            <strong>Recombination Mutants: </strong>{{$ctrl.rm}}
-        </div>
-        <div class="col-sm-4">
-            <strong>Expression: </strong><span ng-show="$ctrl.annotations.expression.RB_EXPRESSION_TIMING">{{$ctrl.annotations.expression.RB_EXPRESSION_TIMING}}; </span>
+      <div class="col-sm-12 col-md-4 col-lg-4">
+        <table class="table table-striped">
+          <tbody>
+            <tr>
+              <td class="text-purple">
+                Type
+              </td>
+              <td class="text-dark">
+                {{$ctrl.data.productType.id | typeFilter}}
+              </td>
+            </tr>
+            <tr>
+              <td class="text-purple">
+                <span ng-hide="$ctrl.useEntrez">Locus Tag: </span><span ng-show="$ctrl.useEntrez">Entrez ID: </span>
+              </td>
+              <td class="text-dark">
+                {{$ctrl.data.locusTag}}
+              </td>
+            </tr>
+            <tr>
+              <td class="text-purple">
+                Aliases
+              </td>
+              <td class="text-dark">
+                {{$ctrl.data.geneAliases | list2CSV}}
+                <div class="text-center" style="padding:5px;">
+                  <button title="Edit Gene Name" type="button" class="btn themeButton-tiny" ng-click="$ctrl.checkAuthorization('geneName_button')">
+                      Add <span class="glyphicon glyphicon-plus"></span>
+                  </button>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td class="text-purple">
+                Species
+              </td>
+              <td class="text-dark">
+                {{$ctrl.species}}
+              </td>
+            </tr>
+            <tr>
+              <td class="text-purple">
+                Strain
+              </td>
+              <td class="text-dark">
+                {{$ctrl.strain}}
+              </td>
+            </tr>
+            <tr>
+              <td class="text-purple">
+                Subtype
+              </td>
+              <td class="text-dark">
+                Reference Strain
+              </td>
+            </tr>
+            <tr>
+              <td class="text-purple">
+                References
+              </td>
+              <td class="text-dark">
+                <span>
+                	<a target="_blank" href="https://www.ncbi.nlm.nih.gov/gene?term={{ $ctrl.data.entrez }}" style="margin-right:5px;">
+                      <img uib-tooltip="NCBI Database Entry" class="imageButton" data-ng-src="/static/wiki/img/ncbi-logo.svg">
+                  </a>
+                  <a target="_blank" href="http://www.wikidata.org/wiki/{{ $ctrl.data.geneQID }}" style="margin-right:5px;">
+                      <img uib-tooltip="Wikidata Database Item" class="imageButton" data-ng-src="/static/wiki/img/wikidata-logo.svg">
+                  </a>
+                </span>
+              </td>
+            </tr>
+            <tr>
+              <td class="text-purple">
+                Host Targets
+              </td>
+              <td class="text-dark">
+                <span ng-repeat="x in $ctrl.annotations.hostpath">{{x.hostProteinLabel.value}}</span>
+              </td>
+            </tr>
+            <tr>
+              <td class="text-purple">
+                Chemical Mutants
+              </td>
+              <td class="text-dark">
+                {{$ctrl.cm}}
+              </td>
+            </tr>
+            <tr>
+              <td class="text-purple">
+                Transposon Mutants
+              </td>
+              <td class="text-dark">
+                {{$ctrl.tm}}
+              </td>
+            </tr>
+            <tr>
+              <td class="text-purple">
+                Intron Mutants
+              </td>
+              <td class="text-dark">
+                {{$ctrl.im}}
+              </td>
+            </tr>
+            <tr>
+              <td class="text-purple">
+                Recombination Mutants
+              </td>
+              <td class="text-dark">
+                {{$ctrl.rm}}
+              </td>
+            </tr>
+            <tr>
+              <td class="text-purple">
+                Expression
+              </td>
+              <td class="text-dark">
+                <span ng-show="$ctrl.annotations.expression.RB_EXPRESSION_TIMING">{{$ctrl.annotations.expression.RB_EXPRESSION_TIMING}}; </span>
                 <span ng-show="$ctrl.data.developmentalForm.eb.value=='+'">Elementary body; </span>
-                <span ng-show="$ctrl.data.developmentalForm.rb.value=='+'">Reticulate body; </span><br>
-            <strong>Localizations: </strong><span ng-show="$ctrl.annotations.go.cellcomp.length > 0"
-                                                  ng-repeat="x in $ctrl.annotations.go.cellcomp">{{x.gotermValueLabel.value}}; </span>
-            <span ng-hide="$ctrl.annotations.go.cellcomp.length > 0">None</span><br>
-            <cell-visualizer cell-comp="$ctrl.annotations.go.cellcomp" development="$ctrl.data.developmentalForm"></cell-visualizer>
+                <span ng-show="$ctrl.data.developmentalForm.rb.value=='+'">Reticulate body; </span>
+              </td>
+            </tr>
+            <tr>
+              <td class="text-purple">
+                Localizations
+              </td>
+              <td class="text-dark">
+                <span ng-show="$ctrl.annotations.go.cellcomp.length > 0" ng-repeat="x in $ctrl.annotations.go.cellcomp">{{x.gotermValueLabel.value}}; </span>
+                <span ng-hide="$ctrl.annotations.go.cellcomp.length > 0">None</span>
+              </td>
+            </tr>
+            <tr>
+              <td class="text-purple">
+                PDB Structure
+              </td>
+              <td class="text-dark">
+                <span ng-hide="$ctrl.data.pdbIds.length > 0">None</span>
+                <span ng-repeat="x in $ctrl.data.pdbIds">{{x.pdbId.value}};&nbsp;</span>
+                <br>
+                <img ng-show="$ctrl.data.pdbIds.length > 0"
+                     ng-src="https://www.ebi.ac.uk/pdbe/static/entry/{{$ctrl.data.pdbIds[0].pdbId.value | lowercase}}_deposited_chain_front_image-800x800.png"
+                     width="100%">
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="col-sm-12 col-md-8 col-lg-8 padding20 bg-white" style="border-radius:10px; border:5px grey solid;">
+        <div style="width:80%; margin:auto; max-width:700px;">
+          <cell-visualizer cell-comp="$ctrl.annotations.go.cellcomp" development="$ctrl.data.developmentalForm"></cell-visualizer>
         </div>
-        <div class="col-sm-4">
-            <strong>PDB Structure: </strong><span ng-hide="$ctrl.data.pdbIds.length > 0">None</span><span
-                ng-repeat="x in $ctrl.data.pdbIds">{{x.pdbId.value}};&nbsp;</span><br>
-            <img ng-show="$ctrl.data.pdbIds.length > 0"
-                 ng-src="https://www.ebi.ac.uk/pdbe/static/entry/{{$ctrl.data.pdbIds[0].pdbId.value | lowercase}}_deposited_chain_front_image-800x800.png"
-                 width="100%">
-        </div>
+      </div>
     </div>
 </div>
 <!-- Modal -->

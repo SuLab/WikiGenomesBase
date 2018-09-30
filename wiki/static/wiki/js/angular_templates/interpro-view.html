@@ -1,31 +1,28 @@
 <div class="table-responsive">
 	<table ng-table="$ctrl.tableParams" class="table table-hover">
-	    <col width="50%"/>
-	    <col width="45%"/>
-	    <col width="5%%"/>
 	    <tr ng-show="$ctrl.data.length!=0" ng-repeat="x in $ctrl.data">
-	        <td title="'InterPro Domain'">
+	        <td title="'InterPro Domain'" class="verticalMiddle">
 	            {{x.interPro_label.value }}
 	        </td>
-	        <td title="'InterPro ID'">
+	        <td title="'InterPro ID'" class="verticalMiddle">
 	            {{x.ipID.value }}
 	        </td>
-	        <td title="'References'">
+	        <td title="'References'" class="verticalMiddle">
 	            <!-- Button trigger modal -->
 	            <div style="padding: 3px">
 	                <a target="_blank" href="{{ x.refURL.value }}">
-	                    <img uib-tooltip="InterPro Database Entry" style="height: 14px; margin-top: -3px" data-ng-src="/static/wiki/img/InterPro_long_1600.png">
+	                    <img uib-tooltip="InterPro Database Entry" class="imageButton" data-ng-src="/static/wiki/img/interpro-logo.svg">
 	                </a>
 	                <a data-toggle="modal"
 	                   data-target="#{{ x.ipID.value}}_pubmed">
-	                   <img uib-tooltip="Cited Publication" style="height: 14px; margin-top: -3px" data-ng-src="/static/wiki/img/pubmedGlyph.png">
+	                   <img uib-tooltip="Cited Publication" class="imageButton" data-ng-src="/static/wiki/img/pubmed-logo.svg">
 	                </a>
 	                <a
 	                  target="_blank" href="{{x.interPro_item.value}}">
-	                   <img uib-tooltip="Wikidata Item" style="height: 14px; margin-top: -3px" data-ng-src="/static/wiki/img/GeneWikidata-logo-en.png">
+	                   <img uib-tooltip="Wikidata Item" class="imageButton" data-ng-src="/static/wiki/img/wikidata-logo.svg">
 	                </a>
 	            </div>
-	
+
 	            <!-- Modal -->
 	            <div class="modal" id="{{x.ipID.value}}_pubmed" tabindex="-1" role="dialog"
 	                 aria-labelledby="refModalTitle"
