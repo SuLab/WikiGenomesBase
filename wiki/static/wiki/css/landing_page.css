@@ -7,6 +7,42 @@
     --mainLightPink: #fb5db4;
     --mainSuccess: #48da7e;
     --mainDanger: #ff4949;
+    --strain434: #F95584;
+    --strainCW: #7966FF;
+    --strainNIGG: #4BE0EF;
+    --strainDUX: #F9DC5F;
+}
+
+.bg-DUX{
+  background: var(--strainDUX) !important;
+}
+
+.bg-434{
+  background: var(--strain434) !important;
+}
+
+.bg-CW{
+  background: var(--strainCW) !important;
+}
+
+.bg-NIGG{
+  background: var(--strainNIGG) !important;
+}
+
+.textDUX{
+  color: var(--strainDUX) !important;
+}
+
+.text434{
+  color: var(--strain434) !important;
+}
+
+.textCW{
+  color: var(--strainCW) !important;
+}
+
+.textNIGG{
+  color: var(--strainNIGG) !important;
 }
 
 @media only screen and (max-width: 600px) {
@@ -14,6 +50,10 @@
   #get-started{
     width: 60% !important;
   }
+}
+
+td{
+    vertical-align:middle !important;
 }
 
 .dropShadow{
