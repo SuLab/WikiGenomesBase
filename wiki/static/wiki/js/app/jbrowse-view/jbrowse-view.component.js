@@ -3,8 +3,8 @@ angular
     .component('jbrowseView', {
         template : '<iframe class="jbrowse" ng-src={{$ctrl.jbrowseURI()}}></iframe>',
         bindings : {
-            taxid : '<',
-            gene : '<'
+            gene : '<',
+            refseq: '<'
         },
         controller : function() {
 
@@ -13,7 +13,7 @@ angular
             ctrl.$onInit = function() {};
 
             ctrl.$onChanges = function() {
-                if (ctrl.gene) {
+                if (ctrl.gene && ctrl.gene.taxid && ctrl.refseq) {
                     ctrl.jbrowseURI = function() {
                         var start = Number(ctrl.gene.genStart) - 1000;
                         var end = Number(ctrl.gene.genEnd) + 1000;
@@ -25,7 +25,7 @@ angular
                             highlight = "&highlight=" + ctrl.gene.refseqGenome + ":" + Number(ctrl.gene.genStart) + '..' + Number(ctrl.gene.genEnd);
                         }
 
-                        return "static/wiki/js/external_js/JBrowse-1.14.1/index.html?data=" + ctrl.taxid +
+                        return "static/wiki/js/external_js/JBrowse-1.14.1/index.html?data=" + ctrl.gene.taxid +
                         "_data&tracks=DNA,genes,operons,mutants&menu=0" + loc + highlight;
                     };
 

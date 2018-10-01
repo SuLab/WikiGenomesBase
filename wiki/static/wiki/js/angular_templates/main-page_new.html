@@ -11,45 +11,45 @@
               </a>
             </div>
             <uib-tabset active="active" class="bg-purple noBorder">
-              <uib-tab index="0">
+              <uib-tab index="'overview'">
                 <uib-tab-heading >
                   Gene Overview
                 </uib-tab-heading>
                 <gene-overview data="$ctrl.currentGene" annotations="$ctrl.annotations"></gene-overview>
               </uib-tab>
-              <uib-tab index="1">
+              <uib-tab index="'jbrowse'">
                 <uib-tab-heading >
                   JBrowse Panel
                 </uib-tab-heading>
                 <div id="jbrowse-div">
-                  <jbrowse-view gene="$ctrl.currentGene" taxid="$ctrl.currentOrg.taxid"></jbrowse-view>
+                  <jbrowse-view gene="$ctrl.currentGene" refseq="$ctrl.currentGene.refseqGenome"></jbrowse-view>
                 </div>
               </uib-tab>
-              <uib-tab index="2">
+              <uib-tab index="'product'" ng-show="$ctrl.settings['product']">
                 <uib-tab-heading >
                   Gene Product
                 </uib-tab-heading>
-                <protein-view protein="$ctrl.data"></protein-view>
+                <protein-view protein="$ctrl.currentGene"></protein-view>
               </uib-tab>
-              <uib-tab index="3" >
+              <uib-tab index="'ortholog'" ng-show="$ctrl.settings['ortholog']">
                 <uib-tab-heading >
                   Ortholog(s)
                 </uib-tab-heading>
-                <ortholog-view locus-tag="$ctrl.data.locusTag"></ortholog-view>
+                <ortholog-view locus-tag="$ctrl.currentGene.locusTag"></ortholog-view>
               </uib-tab>
-              <uib-tab index="4">
+              <uib-tab index="'alignment'" ng-show="$ctrl.settings['alignment']">
                 <uib-tab-heading >
                   Ortholog Alignment(s)
                 </uib-tab-heading>
-                <alignment-view locus-tag="$ctrl.data.locusTag" tax-id="$ctrl.data.taxid"></alignment-view>
+                <alignment-view locus-tag="$ctrl.currentGene.locusTag" tax-id="$ctrl.currentGene.taxid"></alignment-view>
               </uib-tab>
-              <uib-tab index="5">
+              <uib-tab index="'expression'" ng-show="$ctrl.settings['expression']">
                 <uib-tab-heading >
                   Expression
                 </uib-tab-heading>
-                <expression-view data="$ctrl.annotations.expression" gene="$ctrl.data"></expression-view>
+                <expression-view data="$ctrl.annotations.expression" gene="$ctrl.currentGene"></expression-view>
               </uib-tab>
-              <uib-tab index="6" >
+              <uib-tab index="'go'" ng-show="$ctrl.settings['go']">
                 <uib-tab-heading>
                   Function(s) ({{$ctrl.annotations.go.molfunc.length + $ctrl.annotations.go.bioproc.length}})
                 </uib-tab-heading>
@@ -62,7 +62,7 @@
                                       <h2>Molecular Function</h2>
                                     </div>
                                     <div class="panel-body">
-                                        <gene-ontology gene="$ctrl.data" goclass='mf_button'
+                                        <gene-ontology gene="$ctrl.currentGene" goclass='mf_button'
                                                        data="$ctrl.annotations.go.molfunc"></gene-ontology>
                                     </div>
 
@@ -74,7 +74,7 @@
                                       <h2>Biological Process</h2>
                                     </div>
                                     <div class="panel-body">
-                                        <gene-ontology gene="$ctrl.data" goclass='bp_button'
+                                        <gene-ontology gene="$ctrl.currentGene" goclass='bp_button'
                                                        data="$ctrl.annotations.go.bioproc"></gene-ontology>
                                     </div>
                                 </div>
@@ -83,27 +83,27 @@
                     </div>
                 </div>
               </uib-tab>
-              <uib-tab index="7">
+              <uib-tab index="'localizations'" ng-show="$ctrl.settings['localizations']">
                 <uib-tab-heading >
                   Localization(s) ({{$ctrl.annotations.go.cellcomp.length}})
                 </uib-tab-heading>
                 <div class="panel">
                     <div class="panel-body" style="border-bottom: solid #bce8f1 1px">
-                      <localization-view gene="$ctrl.data" components="$ctrl.annotations.go.cellcomp"></localization-view>
+                      <localization-view gene="$ctrl.currentGene" components="$ctrl.annotations.go.cellcomp"></localization-view>
                     </div>
                 </div>
               </uib-tab>
-              <uib-tab index="8">
+              <uib-tab index="'operon'" ng-show="$ctrl.settings['operon']">
                 <uib-tab-heading>
                   Operon ({{$ctrl.annotations.operon.length}})
                 </uib-tab-heading>
                 <div class="panel " style="border-bottom: solid #bce8f1 1px;">
                     <div class="panel-body">
-                        <operon-annotations operon="$ctrl.annotations.operon" allorggenes="$ctrl.allorggenes" gene="$ctrl.data"></operon-annotations>
+                        <operon-annotations operon="$ctrl.annotations.operon" allorggenes="$ctrl.allorggenes" gene="$ctrl.currentGene"></operon-annotations>
                     </div>
                 </div>
               </uib-tab>
-              <uib-tab index="9">
+              <uib-tab index="'interpro'" ng-show="$ctrl.settings['interpro']">
                 <uib-tab-heading>
                   InterPro Domains ({{$ctrl.annotations.interpro.length}})
                 </uib-tab-heading>
@@ -113,7 +113,7 @@
                     </div>
                 </div>
               </uib-tab>
-              <uib-tab index="10">
+              <uib-tab index="'enzyme'" ng-show="$ctrl.settings['enzyme']">
                 <uib-tab-heading >
                   Enzyme ({{$ctrl.annotations.ecnumber.length}})
                 </uib-tab-heading>
@@ -123,7 +123,7 @@
                     </div>
                 </div>
               </uib-tab>
-              <uib-tab index="11" >
+              <uib-tab index="'mutants'" ng-show="$ctrl.settings['mutants']" >
                 <uib-tab-heading >
                   Mutants ({{ $ctrl.annotations.mutants.length }})
                 </uib-tab-heading>
@@ -133,7 +133,19 @@
                     </div>
                 </div>
               </uib-tab>
-              <uib-tab index="12" >
+                <!--
+               <uib-tab index="'movie'" ng-show="$ctrl.settings['movie']">
+                   <uib-tab-heading>
+                       Movie Data
+                   </uib-tab-heading>
+                   <div class="panel " style="border-bottom: solid #bce8f1 1px;">
+                       <div class="panel-body">
+                           <movie-view uri="$ctrl.currentGene.movie"></movie-view>
+                       </div>
+                   </div>
+               </uib-tab>
+               -->
+              <uib-tab index="'hostpath'" ng-show="$ctrl.settings['hostpath']">
                 <uib-tab-heading >
                   Protein Interaction(s) ({{$ctrl.annotations.hostpath.length}})
                 </uib-tab-heading>
@@ -143,7 +155,7 @@
                     </div>
                 </div>
               </uib-tab>
-              <uib-tab index="13" >
+              <uib-tab index="'pubs'" ng-show="$ctrl.settings['pubs']">
                 <uib-tab-heading >
                   Related Publications
                 </uib-tab-heading>
@@ -153,13 +165,13 @@
                     </div>
                 </div>
               </uib-tab>
-              <uib-tab index="14" >
+              <uib-tab index="'history'" ng-show="$ctrl.settings['history']">
                 <uib-tab-heading >
                   Revision History
                 </uib-tab-heading>
                 <div class="panel">
                     <div class="panel-body" style="border-bottom: solid #bce8f1 1px">
-                        <history-view gene="$ctrl.data.geneQID" protein="$ctrl.data.proteinQID"></history-view>
+                        <history-view gene="$ctrl.currentGene.geneQID" protein="$ctrl.currentGene.proteinQID"></history-view>
                     </div>
                 </div>
               </uib-tab>
