@@ -26,7 +26,7 @@ angular
             };
 
             ctrl.load = function() {
-                if (ctrl.start && ctrl.end && ctrl.refseq) {
+                if (ctrl.start && ctrl.end && ctrl.refseq != undefined) {
                     ctrl.queued = false;
                     ctrl.jbrowseURI = function() {
                         var start = ctrl.start;

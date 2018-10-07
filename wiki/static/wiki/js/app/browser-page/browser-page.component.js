@@ -73,6 +73,8 @@ angular
                         });
                     } else {
 
+                        ctrl.refseq = "";
+
                         allOrgGenes.getAllOrgGenes(ctrl.currentTaxid)
                             .then(function (data) {
                                 ctrl.currentAllGenes = data.data.results.bindings;
