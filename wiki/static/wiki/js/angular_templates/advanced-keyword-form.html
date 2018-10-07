@@ -1,5 +1,4 @@
-<div class="form-inline" style="white-space: nowrap; margin-bottom: 10px">
-	<label class="lightColor" for="keywordSearch">Search: </label>
+<div class="form-inline padding20" style="max-width:350px; margin:auto;">
 	<input ng-keyup="$ctrl.keyPressed($event)"
 		   autocomplete="off"
 		   ng-model="$ctrl.keyword"
@@ -12,8 +11,10 @@
 	   	   typeahead-wait-ms="300"
 	   	   typeahead-should-select="$ctrl.scrolled"
 	   	   style="width: 70%; display: inline">
-	<button ng-click="$ctrl.advSearch()" class="btn btn-default" style="display: inline"><span class="glyphicon glyphicon-search"></span></button>
-	<a data-toggle="modal" data-target="#adv_modal" style="color: white">Advanced Search <span class="glyphicon glyphicon-chevron-down"></span></a>
+	<button ng-click="$ctrl.advSearch()" class="btn themeButton" style="display: inline">GO</button>
+	<br />
+	<br />
+	<a data-toggle="modal" data-target="#adv_modal" style="color: white">Advanced Search <span class="glyphicon glyphicon-plus-sign"></span></a>
 </div>
 <div id="adv_modal" class="modal fade" role="dialog">
     <div class="modal-dialog modal-lg">

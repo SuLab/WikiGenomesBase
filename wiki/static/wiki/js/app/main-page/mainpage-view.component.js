@@ -25,12 +25,51 @@ angular
                               proteinSequenceData,
                               proteinMass,
                               developmentalForm,
-                              appData
+                              appData,
+                              expressionBellandData,
+                              annotationSettings,
+                              taxidFilter
         ) {
 
             // Main gene page component. Loaded when a gene is selected.  Parses the url for taxid and locus tag and uses
             // those to make API calls to wikidata.
             var ctrl = this;
+
+            ctrl.settings = {
+                product : true,
+                ortholog : true,
+                alignment: true,
+                expression : true,
+                go : true,
+                localizations: true,
+                operon : true,
+                interpro : true,
+                enzyme : true,
+                mutants : true,
+                hostpath : true,
+                pubs : true,
+                history: true,
+                movie: true
+            };
+
+            annotationSettings.getSettings().then(function(response) {
+                ctrl.settings = {
+                    product : ctrl.settings.product && response.data["protein-view"],
+                    ortholog : ctrl.settings.ortholog && response.data["ortholog-view"],
+                    alignment: ctrl.settings.alignment && response.data["alignment-view"],
+                    expression : ctrl.settings.expression && response.data["expression-view"],
+                    go : ctrl.settings.go && response.data["function-view"],
+                    localizations: ctrl.settings.localizations && response.data["localization-view"],
+                    operon : ctrl.settings.operon && response.data["operon-view"],
+                    interpro : ctrl.settings.interpro && response.data["interpro-view"],
+                    enzyme : ctrl.settings.enzyme && response.data["enzyme-view"],
+                    mutants : ctrl.settings.mutants && response.data["mutant-view"],
+                    hostpath : ctrl.settings.hostpath && response.data["protein-interaction-view"],
+                    pubs : ctrl.settings.pubs && response.data["related-publication-view"],
+                    history: ctrl.settings.history && response.data["revision-history-view"],
+                    movie: ctrl.settings.movie && response.data["movie-data-view"],
+                };
+            });
 
             // check session key
             if ($location.path().includes("authorized")) {
@@ -63,6 +102,12 @@ angular
                         } else {
                             ctrl.hasprotein = false;
                             ctrl.currentGene.productType = {"id": "Q7187"};
+                            ctrl.settings.product = false;
+                            ctrl.settings.go = false;
+                            ctrl.settings.localizations = false;
+                            ctrl.settings.interpro = false;
+                            ctrl.settings.enzyme = false;
+                            ctrl.settings.hostpath = false;
                         }
 
                     } else {
@@ -77,6 +122,9 @@ angular
                         ctrl.currentGene.geneLabel = entity.labels.en.value;
                         if (entity.claims.P2393) {
                             ctrl.currentGene.locusTag = entity.claims.P2393[0].mainsnak.datavalue.value;
+                        }
+                        if (entity.claims.P1651) {
+                            ctrl.currentGene.movie = entity.claims.P1651[0].mainsnak.datavalue.value;
                         }
                         ctrl.currentGene.geneDescription = entity.descriptions.en.value;
                         if (entity.claims.P644) {
@@ -284,6 +332,11 @@ angular
                         ctrl.annotations.expression = ctrl.currentExpression;
                     });
 
+                    expressionBellandData.getExpression(function (data) {
+                        if (data[ctrl.currentLocusTag]) {
+                            ctrl.currentGene.expression = data[ctrl.currentLocusTag];
+                        }
+                    });
 
                     // Get related publications from eutils
                     var locus_tag = ctrl.currentGene.locusTag.replace('_', '');
@@ -305,6 +358,10 @@ angular
                 ctrl.annotations = {
                     ecnumber: []
                 };
+
+                taxidFilter.name(ctrl.currentTaxid).then(function(data) {
+                    ctrl.orgName = data;
+                });
 
                 // get all gene data for gene search
                 allOrgGenes.getAllOrgGenes(ctrl.currentTaxid)

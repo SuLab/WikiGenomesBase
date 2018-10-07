@@ -1,10 +1,10 @@
-<header></header>
+<landing-header></landing-header>
 <div ng-show="$ctrl.loading" class="overlay">
     <div class="loading-img"></div>
 </div>
 <div style="padding: 40px;">
-    <h3 style="text-align: center; margin-top: 60px" class="strongColor">{{$ctrl.appData.title}} Search</h3>
-    <div class="strongColor" style="border-bottom: 1px solid; text-align: center; padding: 10px;">
+    <h3 style="text-align: center; margin-top: 60px">{{$ctrl.appData.title}} Search</h3>
+    <div style="border-bottom: 1px solid; text-align: center; padding: 10px;">
         <div class="form-inline">
             <label for="keywordSearch">Search: </label>
             <input ng-model="$ctrl.keyword"
@@ -139,7 +139,7 @@
                 <table ng-table="$ctrl.tableParams" style="width: 100%">
                     <tr ng-repeat="x in $data">
                         <td ng-click="$ctrl.onSelect(x)">
-                            <div class="filter-result strongColor" style="text-align: left; padding-left: 20px;">
+                            <div class="filter-result" style="text-align: left; padding-left: 20px;">
                                 <strong><u>{{x.geneLabel.value}}</u></strong>
                                 <br>
                                 <div class="row">
@@ -175,4 +175,3 @@
         </div>
     </div>
 </div>
-<footer></footer>

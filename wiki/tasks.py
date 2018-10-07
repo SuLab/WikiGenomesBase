@@ -2,7 +2,7 @@ from __future__ import absolute_import, unicode_literals
 from wikigenomes.settings import BASE_DIR
 from celery import shared_task
 from scripts import jbrowse_configuration, flatfile_ingestion, WD_Utils
-from application_settings import taxids, modules, application, orgTree, tax2NameMap
+from application_settings import taxids, modules, application, orgTree, tax2NameMap, strains
 from pymongo import MongoClient
 from bson.json_util import dumps
 from pprint import pprint
@@ -34,6 +34,15 @@ def generate_org_tree():
     filepath = BASE_DIR + '/wiki/static/wiki/json/org_tree.json'
     with open(filepath, 'w') as outFile:
         print(dumps(orgTree), file=outFile)
+
+def generate_strains():
+    """
+    generate_strains()
+        Generates a json file of the strains displayed on the landing page
+    """
+    filepath = BASE_DIR + '/wiki/static/wiki/json/strains.json'
+    with open(filepath, 'w') as outFile:
+        print(dumps(strains), file=outFile)
 
 def generate_org_list():
     """
