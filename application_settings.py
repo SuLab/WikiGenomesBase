@@ -29,6 +29,8 @@ application = {
     "title": "MyxoBase",
     "noun": "Myxococcus",
     "adjective": "Myxococcal",
+    "abbreviated": "Myxo",
+    "assets": "mb",
     "parent_taxid": 34,
     "newsfeed_search_term": "myxococcus xanthus",
     "newsfeed_recent_days": 60,

@@ -27,7 +27,8 @@ angular
                               developmentalForm,
                               appData,
                               expressionBellandData,
-                              annotationSettings
+                              annotationSettings,
+                              taxidFilter
         ) {
 
             // Main gene page component. Loaded when a gene is selected.  Parses the url for taxid and locus tag and uses
@@ -357,6 +358,10 @@ angular
                 ctrl.annotations = {
                     ecnumber: []
                 };
+
+                taxidFilter.name(ctrl.currentTaxid).then(function(data) {
+                    ctrl.orgName = data;
+                });
 
                 // get all gene data for gene search
                 allOrgGenes.getAllOrgGenes(ctrl.currentTaxid)

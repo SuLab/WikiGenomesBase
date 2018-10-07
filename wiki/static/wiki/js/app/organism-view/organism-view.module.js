@@ -1,5 +1,0 @@
-angular.module('organismView', ['resources']);
-
-
-
-

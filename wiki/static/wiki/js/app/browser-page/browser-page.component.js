@@ -1,7 +1,7 @@
 angular
     .module('browserPage')
     .component('browserPage', {
-        controller: function ($filter, $location, $routeParams, allOrgs, allOrgGenes, appData, RefSeqChrom) {
+        controller: function ($filter, $location, $routeParams, allOrgs, allOrgGenes, appData, RefSeqChrom, taxidFilter) {
             'use strict';
             //Browser page Component.  Directed here to paginated list of genes when organism is selected from landing page,
             //or when browser is pointed to URL with /organism/<valid-taxid>
@@ -12,6 +12,10 @@ angular
                 ctrl.loading = true;
                 ctrl.currentTaxid = $routeParams.taxid;
                 ctrl.selected = "";
+
+                taxidFilter.name(ctrl.currentTaxid).then(function(data) {
+                    ctrl.orgName = data;
+                });
 
                 appData.getAppData(function (data) {
                     ctrl.appData = data;
@@ -83,6 +87,7 @@ angular
                 ctrl.onChromSelect = function (chr) {
                     ctrl.loading = true;
                     ctrl.currentAllGenes = [];
+                    ctrl.refseq = chr.refseq.value;
                     allOrgGenes.getAllChromosomeGenes(chr.refseq.value).then(function (data) {
                         ctrl.currentAllGenes = data.data.results.bindings;
 
@@ -94,9 +99,6 @@ angular
                     }).finally(function () {
                         ctrl.loading = false;
 
-                        if (ctrl.initialGene == undefined) {
-                            ctrl.initialGene = ctrl.currentAllGenes[0];
-                        }
                     });
                 };
 

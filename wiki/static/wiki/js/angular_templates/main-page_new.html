@@ -1,13 +1,17 @@
 <landing-header page="'main'"></landing-header>
 <div class="container-fluid" style="padding-top: 80px; padding-bottom: 40px;">
-    <div class="container-fluid">
+    <div class="container">
         <div class="panel panel-info">
             <div class="bg-purple padding20 text-center">
               <a style="margin-bottom: 5px;width:100%"
                  href="/organism/{{ $ctrl.currentTaxid }}"
                  tooltip-placement="right" uib-tooltip="Click to return to genome level"
                  >
-                  <organism-view org="$ctrl.currentOrg" taxid="$ctrl.currentOrg.taxid"></organism-view>
+                  <div style="width:auto;display:inline">
+                      <h2 class="link-light" style="display:inline;">
+                          <strong>{{ $ctrl.orgName}}</strong> &nbsp; NCBI TaxID: {{ $ctrl.currentTaxid }}
+                      </h2>
+                  </div>
               </a>
             </div>
             <uib-tabset active="active" class="bg-purple noBorder">
@@ -17,12 +21,13 @@
                 </uib-tab-heading>
                 <gene-overview data="$ctrl.currentGene" annotations="$ctrl.annotations"></gene-overview>
               </uib-tab>
-              <uib-tab index="'jbrowse'">
+              <uib-tab index="'jbrowse'" select="$ctrl.jLoad()">
                 <uib-tab-heading >
                   JBrowse Panel
                 </uib-tab-heading>
                 <div id="jbrowse-div">
-                  <jbrowse-view gene="$ctrl.currentGene" refseq="$ctrl.currentGene.refseqGenome"></jbrowse-view>
+                  <jbrowse-view start="$ctrl.currentGene.genStart" end="$ctrl.currentGene.genEnd" delay="true"
+                                refseq="$ctrl.currentGene.refseqGenome" highlight="true" load="$ctrl.jLoad"></jbrowse-view>
                 </div>
               </uib-tab>
               <uib-tab index="'product'" ng-show="$ctrl.settings['product']">
@@ -133,7 +138,6 @@
                     </div>
                 </div>
               </uib-tab>
-                <!--
                <uib-tab index="'movie'" ng-show="$ctrl.settings['movie']">
                    <uib-tab-heading>
                        Movie Data
@@ -144,7 +148,6 @@
                        </div>
                    </div>
                </uib-tab>
-               -->
               <uib-tab index="'hostpath'" ng-show="$ctrl.settings['hostpath']">
                 <uib-tab-heading >
                   Protein Interaction(s) ({{$ctrl.annotations.hostpath.length}})

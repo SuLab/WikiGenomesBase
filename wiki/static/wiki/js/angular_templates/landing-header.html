@@ -11,8 +11,7 @@
                 <span class="icon-bar"></span>
             </button>
             <a class="navbar-brand" href="/">
-              <!-- <img ng-src="/static/wiki/img/cb-logo-long.svg" style="height:35px;"> -->
-              <span class="text-pink-light">Chlam</span><span class="text-light">Base</span>
+              <span class="text-pink-light">{{$ctrl.appData.abbreviated}}</span><span class="text-light">Base</span>
             </a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
@@ -64,7 +63,7 @@
             </div>
             <div class="modal-text-color modal-body bg-dark text-light padding20 ">
                 <div class="text-center">
-                  <img src="static/wiki/img/cb-logo.svg" style="width: 150px;">
+                  <img src="static/wiki/img/{{$ctrl.appData.assets}}/logo.svg" style="width: 150px;">
                 </div>
                 <p>ChlamBase.org, a fork of <a href="http://wikigenomes.org">WikiGenomes.org</a>, is an open source,
                     user-curated database of functional annotations
