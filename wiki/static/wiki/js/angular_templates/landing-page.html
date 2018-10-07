@@ -36,7 +36,10 @@
                     </h3>
                   </div>
                   <div class="panel-body">
-                    <img width="100px" src="static/wiki/img/cb-icon.svg" />
+                    <img ng-if="strain.title === 'Chlamydia trachomatis 434/BU'" width="100px" src="static/wiki/img/strain-434.svg" />
+                    <img ng-if="strain.title === 'Chlamydia trachomatis D/UW-3CX'" width="100px" src="static/wiki/img/strain-DUX.svg" />
+                    <img ng-if="strain.title === 'Chlamydia muridarum Nigg'" width="100px" src="static/wiki/img/strain-NIGG.svg" />
+                    <img ng-if="strain.title === 'Chlamydia pneumoniae CWL029'" width="100px" src="static/wiki/img/strain-CW.svg" />
                     <p class="padding20 text-purple">
                       {{strain.description}}
                     </p>
