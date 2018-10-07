@@ -197,6 +197,15 @@ a:hover{
   color: white !important;
 }
 
+.link-dark:hover{
+  color: var(--mainBlue) !important;
+  text-decoration: underline;
+}
+
+.link-dark{
+  color: black !important;
+}
+
 .text-dark{
   color: var(--mainDarkGray) !important;
 }

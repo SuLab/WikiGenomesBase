@@ -13,7 +13,6 @@ angular.module('cmod', [
     'organismForm',
     'resources',
     'proteinView',
-    'organismView',
     'jbrowseView',
     'annotationsView',
     'landingPage',
