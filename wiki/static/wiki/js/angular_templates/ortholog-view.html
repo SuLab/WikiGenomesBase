@@ -26,35 +26,35 @@
 	        <td ng-if="$ctrl.tSettings['eval']" title="'E-Value'">
 	        </td>
 	        <td ng-if="$ctrl.tSettings['expression']" title="'Expression Data'">
-	        	<span class="glyphicon glyphicon-ok" ng-show="gene.expression"></span>
-	        	<span class="glyphicon glyphicon-remove" ng-hide="gene.expression"></span>
+	        	<span style="font-size:2.5em;" class="glyphicon glyphicon-ok text-success" ng-show="gene.expression"></span>
+	        	<span style="font-size:2.5em;" class="glyphicon glyphicon-remove text-danger" ng-hide="gene.expression"></span>
 	        </td>
 	        <td ng-if="$ctrl.tSettings['interpro']" title="'InterPro Data'">
-	        	<span class="glyphicon glyphicon-ok" ng-show="gene.ip"></span>
-	        	<span class="glyphicon glyphicon-remove" ng-hide="gene.ip"></span>
+	        	<span style="font-size:2.5em;" class="glyphicon glyphicon-ok text-success" ng-show="gene.ip"></span>
+	        	<span style="font-size:2.5em;" class="glyphicon glyphicon-remove text-danger" ng-hide="gene.ip"></span>
 	        </td>
 	        <td ng-if="$ctrl.tSettings['hostPathogen']" title="'HostPathogen Data'">
-	        	<span class="glyphicon glyphicon-ok" ng-show="gene.hp"></span>
-	        	<span class="glyphicon glyphicon-remove" ng-hide="gene.hp"></span>
+	        	<span style="font-size:2.5em;" class="glyphicon glyphicon-ok text-success" ng-show="gene.hp"></span>
+	        	<span style="font-size:2.5em;" class="glyphicon glyphicon-remove text-danger" ng-hide="gene.hp"></span>
 	        </td>
 	        <td ng-if="$ctrl.tSettings['go']" title="'GO Data'">
-	        	<span class="glyphicon glyphicon-ok" ng-show="gene.go"></span>
-	        	<span class="glyphicon glyphicon-remove" ng-hide="gene.go"></span>
+	        	<span style="font-size:2.5em;" class="glyphicon glyphicon-ok text-success" ng-show="gene.go"></span>
+	        	<span style="font-size:2.5em;" class="glyphicon glyphicon-remove text-danger" ng-hide="gene.go"></span>
 	        </td>
 	        <td ng-if="$ctrl.tSettings['operons']" title="'Operon Data'">
-	        	<span class="glyphicon glyphicon-ok" ng-show="gene.operon"></span>
-	        	<span class="glyphicon glyphicon-remove" ng-hide="gene.operon"></span>
+	        	<span style="font-size:2.5em;" class="glyphicon glyphicon-ok text-success" ng-show="gene.operon"></span>
+	        	<span style="font-size:2.5em;" class="glyphicon glyphicon-remove text-danger" ng-hide="gene.operon"></span>
 	        </td>
 	        <td ng-if="$ctrl.tSettings['mutants']" title="'Mutant Data'">
-	        	<span class="glyphicon glyphicon-ok" ng-show="gene.mutant"></span>
-	        	<span class="glyphicon glyphicon-remove" ng-hide="gene.mutant"></span>
+	        	<span style="font-size:2.5em;" class="glyphicon glyphicon-ok text-success" ng-show="gene.mutant"></span>
+	        	<span style="font-size:2.5em;" class="glyphicon glyphicon-remove text-danger" ng-hide="gene.mutant"></span>
 	        </td>
 	        <td ng-if="$ctrl.tSettings['ref']" title="'References'">
 	            <!-- Button trigger modal -->
 	            <div style="padding: 3px">
 	                <a href="{{$ctrl.reference}}" target="_blank">
-	                    <img uib-tooltip="Cited Publication" style="height: 14px; margin-top: -3px"
-	                         data-ng-src="/static/wiki/img/GeneWikidata-logo-en.png">
+	                    <img uib-tooltip="Cited Publication" class="imageButton"
+	                         data-ng-src="/static/wiki/img/wikidata-logo.svg">
 	                </a>
 	            </div>
 	        </td>

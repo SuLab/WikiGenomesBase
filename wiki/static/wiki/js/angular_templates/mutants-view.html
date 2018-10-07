@@ -24,24 +24,24 @@
 	        </td>
 	        <td title="'Reference'">
 	            <!-- Button trigger modal -->
-	
+
 	            <a ng-show="x.pub" target="_blank" href="https://www.ncbi.nlm.nih.gov/pubmed/{{ x.pub}}">
 	                <img uib-tooltip="Link to publication in PubMed" style="height: 14px; margin-top: -3px"
 	                     data-ng-src="/static/wiki/img/pubmedGlyph.png">
 	            </a>
-	            
+
 	            <a ng-show="x.doi" target="_blank" href="https://doi.org/{{ x.doi}}">
 	                <img uib-tooltip="Link to publication in Figshare" style="height: 14px; margin-top: -3px"
 	                     data-ng-src="/static/wiki/img/fs-logo.png">
 	            </a>
 	        </td>
-	        
+
 	        <td ng-if="$ctrl.authorized" title="'Delete Annotation'">
 	            <a class="glyphicon glyphicon-remove"
 	               ng-click="$ctrl.deleteAnnotation(x); $ctrl.data.splice($index,1)">
 	            </a>
 	        </td>
-	
+
 	    </tr>
 	</table>
 </div>
@@ -61,25 +61,25 @@
 	        <td title="'Insert Direction'" sortable="'insert_direction'">
 	            {{ x.insert_direction }}
 	        </td>
-	
+
 	        <td title="'Reference'">
 	            <a ng-show="x.pub" target="_blank" href="https://www.ncbi.nlm.nih.gov/pubmed/{{ x.pub}}">
 	                <img uib-tooltip="Link to publication in PubMed" style="height: 14px; margin-top: -3px"
 	                     data-ng-src="/static/wiki/img/pubmedGlyph.png">
 	            </a>
-	            
+
 	            <a ng-show="x.doi" target="_blank" href="https://doi.org/{{ x.doi}}">
 	                <img uib-tooltip="Link to publication in Figshare" style="height: 14px; margin-top: -3px"
 	                     data-ng-src="/static/wiki/img/fs-logo.png">
 	            </a>
 	        </td>
-	        
+
 	        <td ng-if="$ctrl.authorized" title="'Delete Annotation'">
 	            <a class="glyphicon glyphicon-remove"
 	               ng-click="$ctrl.deleteAnnotation(x); $ctrl.data.splice($index,1)">
 	            </a>
 	        </td>
-	
+
 	    </tr>
 	</table>
 </div>
@@ -99,25 +99,25 @@
 	        <td title="'Insert Direction'" sortable="'insert_direction'">
 	            {{ x.insert_direction }}
 	        </td>
-	
+
 	        <td title="'Reference'">
 	            <a ng-show="x.pub" target="_blank" href="https://www.ncbi.nlm.nih.gov/pubmed/{{ x.pub}}">
 	                <img uib-tooltip="Link to publication in PubMed" style="height: 14px; margin-top: -3px"
 	                     data-ng-src="/static/wiki/img/pubmedGlyph.png">
 	            </a>
-	            
+
 	            <a ng-show="x.doi" target="_blank" href="https://doi.org/{{ x.doi}}">
 	                <img uib-tooltip="Link to publication in Figshare" style="height: 14px; margin-top: -3px"
 	                     data-ng-src="/static/wiki/img/fs-logo.png">
 	            </a>
 	        </td>
-	        
+
 	        <td ng-if="$ctrl.authorized" title="'Delete Annotation'">
 	            <a class="glyphicon glyphicon-remove"
 	               ng-click="$ctrl.deleteAnnotation(x); $ctrl.data.splice($index,1)">
 	            </a>
 	        </td>
-	
+
 	    </tr>
 	</table>
 </div>
@@ -141,19 +141,19 @@
 	        <td title="'Insert Direction'" sortable="'insert_direction'">
 	            {{ x.insert_direction }}
 	        </td>
-	
+
 	        <td title="'Reference'">
 	            <a ng-show="x.pub" target="_blank" href="https://www.ncbi.nlm.nih.gov/pubmed/{{ x.pub}}">
 	                <img uib-tooltip="Link to publication in PubMed" style="height: 14px; margin-top: -3px"
 	                     data-ng-src="/static/wiki/img/pubmedGlyph.png">
 	            </a>
-	            
+
 	            <a ng-show="x.doi" target="_blank" href="https://doi.org/{{ x.doi}}">
 	                <img uib-tooltip="Link to publication in Figshare" style="height: 14px; margin-top: -3px"
 	                     data-ng-src="/static/wiki/img/fs-logo.png">
 	            </a>
 	        </td>
-	        
+
 	        <td ng-if="$ctrl.authorized" title="'Delete Annotation'">
 	            <a class="glyphicon glyphicon-remove"
 	               ng-click="$ctrl.deleteAnnotation(x); $ctrl.data.splice($index,1)">
@@ -164,8 +164,8 @@
 </div>
 
 <!-- Button trigger modal -->
-<button type="button" class="btn btn-default" ng-click="$ctrl.checkAuthorization('mutForm')">
-    Add an annotation
+<button type="button" class="btn themeButton" ng-click="$ctrl.checkAuthorization('mutForm')">
+    Add an annotation <span class="glyphicon glyphicon-plus"></span>
 </button>
 <!-- Modal -->
 <div class="modal fade" id="mutForm" tabindex="-1" role="dialog"
@@ -193,6 +193,3 @@
         </div>
     </div>
 </div>
-
-
-

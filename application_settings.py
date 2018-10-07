@@ -29,6 +29,8 @@ application = {
     "title": "ChlamBase",
     "noun": "Chlamydia",
     "adjective": "Chlamydial",
+    "abbreviated": "Chlam",
+    "assets": "cb",
     "parent_taxid": 810,
     "newsfeed_search_term": "chlamydia trachomatis",
     "newsfeed_recent_days": 10,
