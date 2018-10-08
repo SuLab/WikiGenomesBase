@@ -58,7 +58,7 @@ td{
 
 .dropShadow{
   -webkit-filter: drop-shadow(2px 2px 2px black ) !important;
-	filter: drop-shadow(2px 2px 2px black) !important;
+	filter: drop-shadow(2px 2px 4px black) !important;
 }
 
 .dropShadow-link{
