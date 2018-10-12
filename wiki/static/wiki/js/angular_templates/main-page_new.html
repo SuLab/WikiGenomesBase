@@ -1,14 +1,16 @@
 <landing-header page="'main'"></landing-header>
-<div class="container-fluid" style="padding-top: 80px; padding-bottom: 40px;">
+<div class="container-fluid" style="padding-top: 15vh; padding-bottom: 40px; background: #414449;">
     <div class="container">
-        <div class="panel panel-info">
-            <div class="bg-purple padding20 text-center">
-              <a style="margin-bottom: 5px;width:100%"
-                 href="/organism/{{ $ctrl.currentTaxid }}"
-                 tooltip-placement="right" uib-tooltip="Click to return to genome level"
-                 >
-                  <organism-view org="$ctrl.currentOrg" taxid="$ctrl.currentOrg.taxid"></organism-view>
-              </a>
+        <div class="panel" style="border: 3px grey solid;">
+            <div class="padding20 text-center" ng-class="{'bg-434': $ctrl.currentOrg.taxonLabel === 'Chlamydia trachomatis 434/BU','bg-DUX': $ctrl.currentOrg.taxonLabel === 'Chlamydia trachomatis D/UW-3/CX','bg-NIGG': $ctrl.currentOrg.taxonLabel === 'Chlamydia muridarum Nigg','bg-CW': $ctrl.currentOrg.taxonLabel === 'Chlamydia pneumoniae CWL029'}">
+              <div class="row">
+                <div class="col-sm-2">
+                  <a  tooltip-placement="bottom" uib-tooltip="Genome Level" class="btn themeButton-black" href="/organism/{{ $ctrl.currentTaxid }}">
+                  <i class="fas fa-chevron-left fa-2x"></i>
+                  </a>
+                </div>
+                <organism-view org="$ctrl.currentOrg" taxid="$ctrl.currentOrg.taxid"></organism-view>
+              </div>
             </div>
             <uib-tabset active="active" class="bg-purple noBorder">
               <uib-tab index="'overview'">
@@ -25,33 +27,33 @@
                   <jbrowse-view gene="$ctrl.currentGene" refseq="$ctrl.currentGene.refseqGenome"></jbrowse-view>
                 </div>
               </uib-tab>
-              <uib-tab index="'product'" ng-show="$ctrl.settings['product']">
+              <!-- <uib-tab index="'product'" ng-show="$ctrl.settings['product']">
                 <uib-tab-heading >
                   Gene Product
                 </uib-tab-heading>
                 <protein-view protein="$ctrl.currentGene"></protein-view>
-              </uib-tab>
-              <uib-tab index="'ortholog'" ng-show="$ctrl.settings['ortholog']">
+              </uib-tab> -->
+              <!-- <uib-tab index="'ortholog'" ng-show="$ctrl.settings['ortholog']">
                 <uib-tab-heading >
                   Ortholog(s)
                 </uib-tab-heading>
                 <ortholog-view locus-tag="$ctrl.currentGene.locusTag"></ortholog-view>
-              </uib-tab>
+              </uib-tab> -->
               <uib-tab index="'alignment'" ng-show="$ctrl.settings['alignment']">
                 <uib-tab-heading >
                   Ortholog Alignment(s)
                 </uib-tab-heading>
                 <alignment-view locus-tag="$ctrl.currentGene.locusTag" tax-id="$ctrl.currentGene.taxid"></alignment-view>
               </uib-tab>
-              <uib-tab index="'expression'" ng-show="$ctrl.settings['expression']">
+              <!-- <uib-tab index="'expression'" ng-show="$ctrl.settings['expression']">
                 <uib-tab-heading >
                   Expression
                 </uib-tab-heading>
                 <expression-view data="$ctrl.annotations.expression" gene="$ctrl.currentGene"></expression-view>
-              </uib-tab>
+              </uib-tab> -->
               <uib-tab index="'go'" ng-show="$ctrl.settings['go']">
                 <uib-tab-heading>
-                  Function(s) ({{$ctrl.annotations.go.molfunc.length + $ctrl.annotations.go.bioproc.length}})
+                  Function(s) (<span class="text-blue">{{$ctrl.annotations.go.molfunc.length + $ctrl.annotations.go.bioproc.length}}</span>)
                 </uib-tab-heading>
                 <div class="panel">
                     <div class="panel-body" style="border-bottom: solid #bce8f1 1px">
@@ -83,19 +85,19 @@
                     </div>
                 </div>
               </uib-tab>
-              <uib-tab index="'localizations'" ng-show="$ctrl.settings['localizations']">
+              <!-- <uib-tab index="'localizations'" ng-show="$ctrl.settings['localizations']">
                 <uib-tab-heading >
-                  Localization(s) ({{$ctrl.annotations.go.cellcomp.length}})
+                  Localization(s) (<span class="text-blue">{{$ctrl.annotations.go.cellcomp.length}}</span>)
                 </uib-tab-heading>
                 <div class="panel">
                     <div class="panel-body" style="border-bottom: solid #bce8f1 1px">
                       <localization-view gene="$ctrl.currentGene" components="$ctrl.annotations.go.cellcomp"></localization-view>
                     </div>
                 </div>
-              </uib-tab>
+              </uib-tab> -->
               <uib-tab index="'operon'" ng-show="$ctrl.settings['operon']">
                 <uib-tab-heading>
-                  Operon ({{$ctrl.annotations.operon.length}})
+                  Operon (<span class="text-blue">{{$ctrl.annotations.operon.length}}</span>)
                 </uib-tab-heading>
                 <div class="panel " style="border-bottom: solid #bce8f1 1px;">
                     <div class="panel-body">
@@ -105,7 +107,7 @@
               </uib-tab>
               <uib-tab index="'interpro'" ng-show="$ctrl.settings['interpro']">
                 <uib-tab-heading>
-                  InterPro Domains ({{$ctrl.annotations.interpro.length}})
+                  InterPro Domains (<span class="text-blue">{{$ctrl.annotations.interpro.length}}</span>)
                 </uib-tab-heading>
                 <div class="panel " style="border-bottom: solid #bce8f1 1px;">
                     <div class="panel-body">
@@ -115,7 +117,7 @@
               </uib-tab>
               <uib-tab index="'enzyme'" ng-show="$ctrl.settings['enzyme']">
                 <uib-tab-heading >
-                  Enzyme ({{$ctrl.annotations.ecnumber.length}})
+                  Enzyme (<span class="text-blue">{{$ctrl.annotations.ecnumber.length}}</span>)
                 </uib-tab-heading>
                 <div class="panel " style="border-bottom: solid #bce8f1 1px;">
                     <div class="panel-body">
@@ -123,16 +125,16 @@
                     </div>
                 </div>
               </uib-tab>
-              <uib-tab index="'mutants'" ng-show="$ctrl.settings['mutants']" >
+              <!-- <uib-tab index="'mutants'" ng-show="$ctrl.settings['mutants']" >
                 <uib-tab-heading >
-                  Mutants ({{ $ctrl.annotations.mutants.length }})
+                  Mutants (<span class="text-blue">{{ $ctrl.annotations.mutants.length }}</span>)
                 </uib-tab-heading>
                 <div class="panel " style="border-bottom: solid #bce8f1 1px;">
                     <div class="panel-body">
                         <mutants-view data="$ctrl.annotations.mutants"></mutants-view>
                     </div>
                 </div>
-              </uib-tab>
+              </uib-tab> -->
                 <!--
                <uib-tab index="'movie'" ng-show="$ctrl.settings['movie']">
                    <uib-tab-heading>
@@ -147,7 +149,7 @@
                -->
               <uib-tab index="'hostpath'" ng-show="$ctrl.settings['hostpath']">
                 <uib-tab-heading >
-                  Protein Interaction(s) ({{$ctrl.annotations.hostpath.length}})
+                  Protein Interaction(s) (<span class="text-blue">{{$ctrl.annotations.hostpath.length}}</span>)
                 </uib-tab-heading>
                 <div class="panel " style="border-bottom: solid #bce8f1 1px;">
                     <div class="panel-body" style="max-height: 400px; overflow: auto">
@@ -155,7 +157,7 @@
                     </div>
                 </div>
               </uib-tab>
-              <uib-tab index="'pubs'" ng-show="$ctrl.settings['pubs']">
+              <!-- <uib-tab index="'pubs'" ng-show="$ctrl.settings['pubs']">
                 <uib-tab-heading >
                   Related Publications
                 </uib-tab-heading>
@@ -164,8 +166,8 @@
                         <linked-pubs pubs="$ctrl.annotations.pubList"></linked-pubs>
                     </div>
                 </div>
-              </uib-tab>
-              <uib-tab index="'history'" ng-show="$ctrl.settings['history']">
+              </uib-tab> -->
+              <!-- <uib-tab index="'history'" ng-show="$ctrl.settings['history']">
                 <uib-tab-heading >
                   Revision History
                 </uib-tab-heading>
@@ -174,7 +176,7 @@
                         <history-view gene="$ctrl.currentGene.geneQID" protein="$ctrl.currentGene.proteinQID"></history-view>
                     </div>
                 </div>
-              </uib-tab>
+              </uib-tab> -->
             </uib-tabset>
         </div>
     </div>

@@ -10,7 +10,260 @@
     --strain434: #F95584;
     --strainCW: #7966FF;
     --strainNIGG: #4BE0EF;
-    --strainDUX: #F9DC5F;
+    --strainDUX: #23E08A;
+}
+
+.teamPhoto{
+  box-shadow: 0px 0px 3px #323232;
+}
+
+.pagination>.active>a, .pagination>.active>a:focus, .pagination>.active>a:hover, .pagination>.active>span, .pagination>.active>span:focus, .pagination>.active>span:hover{
+  background: var(--mainPink) !important;
+  border-color: var(--mainPink) !important;
+}
+
+.taxIDBadge{
+  background: white;
+  padding: 5px;
+  border-radius: 15px;
+  border: 2px solid grey;
+}
+
+.orthologButton{
+  border: 2px solid var(--mainBlue);
+  color: var(--mainBlue);
+  transition: .5s all;
+  border-radius: 5px;
+}
+.orthologButton:hover{
+  border: 2px solid white;
+}
+
+
+.text-muted{
+  color: #3e3e3e;
+}
+
+.bg-gradient-purple{
+  /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#9e63ce+0,9745bc+50,6a009b+51,9434d3+100 */
+  background: rgb(158,99,206); /* Old browsers */
+  background: -moz-linear-gradient(top, rgba(158,99,206,1) 0%, rgba(151,69,188,1) 50%, rgba(106,0,155,1) 51%, rgba(148,52,211,1) 100%); /* FF3.6-15 */
+  background: -webkit-linear-gradient(top, rgba(158,99,206,1) 0%,rgba(151,69,188,1) 50%,rgba(106,0,155,1) 51%,rgba(148,52,211,1) 100%); /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(to bottom, rgba(158,99,206,1) 0%,rgba(151,69,188,1) 50%,rgba(106,0,155,1) 51%,rgba(148,52,211,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#9e63ce', endColorstr='#9434d3',GradientType=0 ); /* IE6-9 */
+}
+
+.mutantBadge{
+  display: inline-block;
+  border-radius: 10px;
+  margin:3px;
+}
+
+.mutantBadge div{
+  padding: 10px;
+  display: block;
+  border:2px solid grey;
+  text-align:center;
+}
+
+.mutantBadge div span{
+  font-weight: bold;
+  color: var(--mainPink);
+}
+
+
+.mutantBadge div:first-child{
+  text-transform: uppercase;
+  font-size: .8em;
+  padding: 10px;
+  display: block;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  font-weight: bold;
+  text-shadow: 1px 1px 1px black;
+  color: white;
+  border:2px solid grey;
+}
+
+.mutantBadge div:last-child{
+  padding: 10px;
+  display: block;
+  font-size: 2em;
+  background: white;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  border:2px solid grey;
+}
+
+.zoom {
+    transition: transform .2s; /* Animation */
+    margin: 0 auto;
+    position: relative;
+    z-index: 100;
+}
+
+.zoom:hover {
+    transform: scale(2); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
+}
+
+.magnify:hover{
+  cursor: -moz-zoom-in;
+  cursor: -webkit-zoom-in;
+  cursor: zoom-in;
+}
+
+@media only screen and (max-width: 600px) {
+    #navImage span img{
+      width:70px;
+      margin-top: -20px;
+    }
+}
+
+.bg-gradient-pink{
+box-shadow: 0px 0px 10px var(--mainPink);
+  /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#cb60b3+0,c146a1+50,a80077+51,db36a4+100;Pink+Gloss */
+background: rgb(203,96,179); /* Old browsers */
+background: -moz-linear-gradient(top, rgba(203,96,179,1) 0%, rgba(193,70,161,1) 50%, rgba(168,0,119,1) 51%, rgba(219,54,164,1) 100%); /* FF3.6-15 */
+background: -webkit-linear-gradient(top, rgba(203,96,179,1) 0%,rgba(193,70,161,1) 50%,rgba(168,0,119,1) 51%,rgba(219,54,164,1) 100%); /* Chrome10-25,Safari5.1-6 */
+background: linear-gradient(to bottom, rgba(203,96,179,1) 0%,rgba(193,70,161,1) 50%,rgba(168,0,119,1) 51%,rgba(219,54,164,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#cb60b3', endColorstr='#db36a4',GradientType=0 ); /* IE6-9 */
+}
+
+.bg-gradient-black{
+  /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#4c4c4c+0,595959+12,666666+25,474747+39,2c2c2c+50,000000+51,111111+60,2b2b2b+76,1c1c1c+91,131313+100;Black+Gloss+%231 */
+background: rgb(76,76,76); /* Old browsers */
+background: -moz-linear-gradient(top, rgba(76,76,76,1) 0%, rgba(89,89,89,1) 12%, rgba(102,102,102,1) 25%, rgba(71,71,71,1) 39%, rgba(44,44,44,1) 50%, rgba(0,0,0,1) 51%, rgba(17,17,17,1) 60%, rgba(43,43,43,1) 76%, rgba(28,28,28,1) 91%, rgba(19,19,19,1) 100%); /* FF3.6-15 */
+background: -webkit-linear-gradient(top, rgba(76,76,76,1) 0%,rgba(89,89,89,1) 12%,rgba(102,102,102,1) 25%,rgba(71,71,71,1) 39%,rgba(44,44,44,1) 50%,rgba(0,0,0,1) 51%,rgba(17,17,17,1) 60%,rgba(43,43,43,1) 76%,rgba(28,28,28,1) 91%,rgba(19,19,19,1) 100%); /* Chrome10-25,Safari5.1-6 */
+background: linear-gradient(to bottom, rgba(76,76,76,1) 0%,rgba(89,89,89,1) 12%,rgba(102,102,102,1) 25%,rgba(71,71,71,1) 39%,rgba(44,44,44,1) 50%,rgba(0,0,0,1) 51%,rgba(17,17,17,1) 60%,rgba(43,43,43,1) 76%,rgba(28,28,28,1) 91%,rgba(19,19,19,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4c4c4c', endColorstr='#131313',GradientType=0 ); /* IE6-9 */
+}
+
+.smallFont{
+  font-size: 10px;
+}
+
+.tab-content{
+  padding: 0px !important;
+}
+
+.expressionList{
+  list-style: none;
+  display:flex;
+  margin: 0px;
+  padding: 0px;
+}
+
+.expressionList li{
+  flex: 1;
+  display: inline-block;
+  color: white;
+  text-shadow: 1px 1px 1px black;
+  padding: 15px;
+}
+
+.expressionList li:hover{
+  background: var(--mainPink);
+}
+
+.expressionList li:first-child{
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+}
+
+.expressionList li:last-child{
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+
+.devBodyBadge{
+  display: inline-block;
+  color: white;
+  text-shadow: 1px 1px 1px black;
+  padding: 15px !important;
+  border-radius: 10px !important;
+}
+
+.link:hover{
+  color: var(--mainBlue) !important;
+}
+
+.ng-table-header{
+  font-size: .7em;
+}
+
+.availabilityBadge{
+  width: 20px;
+  height: 20px;
+  margin: auto;
+  border-radius: 100%;
+  border: 2px white solid;
+}
+
+.bg-available{
+  background: #a7fc47;
+  animation: pulse 3s infinite;
+}
+
+.bg-available:hover{
+  background: #91ffb3;
+}
+
+.bg-not-available{
+  background: #6e6e6e;
+}
+
+@-webkit-keyframes pulse {
+  0% {
+    -webkit-box-shadow: 0 0 0 0 #4ee97e;
+  }
+  70% {
+      -webkit-box-shadow: 0 0 0 5px #4ee97e;
+  }
+  100% {
+      -webkit-box-shadow: 0 0 0 0 #4ee97e;
+  }
+}
+@keyframes pulse {
+  0% {
+    -moz-box-shadow: 0 0 0 0 #4ee97e;
+    box-shadow: 0 0 0 0 #4ee97e;
+  }
+  70% {
+      -moz-box-shadow: 0 0 0 5px #4ee97e;
+      box-shadow: 0 0 0 5px #4ee97e;
+  }
+  100% {
+      -moz-box-shadow: 0 0 0 0 #4ee97e;
+      box-shadow: 0 0 0 0 #4ee97e;
+  }
+}
+
+
+.themeBadge{
+  border-radius: 15px;
+  border: 2px solid white;
+  padding: 5px;
+  margin:2px 5px;
+  font-size: 10px;
+  width: auto;
+  color: white;
+  display: inline-block;
+}
+
+.themeBadge span:nth-child(1){
+  text-transform: uppercase;
+  font-weight: bold;
+  display: block;
+  text-shadow: 2px 2px 1px black;
+}
+
+.themeBadge span:nth-child(2){
+  text-transform: capitalize;
+  display: block;
+}
+
+.bg-dark{
+  background: #323232;
 }
 
 .bg-DUX{
@@ -58,7 +311,7 @@ td{
 
 .dropShadow{
   -webkit-filter: drop-shadow(2px 2px 2px black ) !important;
-	filter: drop-shadow(2px 2px 4px black) !important;
+	filter: drop-shadow(2px 2px 2px black) !important;
 }
 
 .dropShadow-link{
@@ -106,7 +359,7 @@ td{
 .tab-content{
   min-height:60vh !important;
   padding:20px;
-  border: var(--mainPink) 10px solid;
+  border: grey 2px solid;
   background: white;
   color: var(--mainDarkGray);
 }
@@ -143,17 +396,16 @@ table thead th{
 }
 
 .bg-gradient {
-  /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#4a2982+1,222222+51,222222+100 */
-  background: rgb(74,41,130); /* Old browsers */
-  background: -moz-linear-gradient(-45deg, rgba(74,41,130,1) 1%, rgba(34,34,34,1) 51%, rgba(34,34,34,1) 100%); /* FF3.6-15 */
-  background: -webkit-linear-gradient(-45deg, rgba(74,41,130,1) 1%,rgba(34,34,34,1) 51%,rgba(34,34,34,1) 100%); /* Chrome10-25,Safari5.1-6 */
-  background: linear-gradient(135deg, rgba(74,41,130,1) 1%,rgba(34,34,34,1) 51%,rgba(34,34,34,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4a2982', endColorstr='var(--mainDarkGray)',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
-  color: white;
+  /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#45484d+0,000000+100;Black+3D+%231 */
+background: rgb(69,72,77); /* Old browsers */
+background: -moz-linear-gradient(top, rgba(69,72,77,1) 0%, rgba(0,0,0,1) 100%); /* FF3.6-15 */
+background: -webkit-linear-gradient(top, rgba(69,72,77,1) 0%,rgba(0,0,0,1) 100%); /* Chrome10-25,Safari5.1-6 */
+background: linear-gradient(to bottom, rgba(69,72,77,1) 0%,rgba(0,0,0,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#45484d', endColorstr='#000000',GradientType=0 ); /* IE6-9 */
 }
 
 .padding20{
-  padding: 20px;
+  padding: 20px !important;
 }
 
 a:hover{
@@ -259,7 +511,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ea3a0e', end
 }
 
 .themeButton{
-  background: var(--main-purple);
+  background: var(--main-purple) !important;
   color: white !important;
   padding:15px;
   text-transform: uppercase;
@@ -271,7 +523,24 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ea3a0e', end
 }
 
 .themeButton:hover{
-  background: var(--mainPink);
+  background: var(--mainPink) !important;
+  color: white !important;
+}
+
+.themeButton-black{
+  background: #323232 !important;
+  color: white !important;
+  padding:15px;
+  text-transform: uppercase;
+  border-radius: 50px;
+  font-weight:600;
+  transition: all .5s;
+  outline: none !important;
+  border:2px solid white !important;
+}
+
+.themeButton-black:hover{
+  background: var(--mainPink) !important;
   color: white !important;
 }
 
@@ -349,4 +618,163 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ea3a0e', end
 .carousel {
     overflow: auto;
     height: 100%
+}
+
+/* ANIMISTA */
+
+/* ----------------------------------------------
+ * Generated by Animista on 2018-10-10 10:27:7
+ * w: http://animista.net, t: @cssanimista
+ * ---------------------------------------------- */
+
+/**
+ * ----------------------------------------
+ * animation flip-in-hor-bottom
+ * ----------------------------------------
+ */
+@-webkit-keyframes flip-in-hor-bottom {
+  0% {
+    -webkit-transform: rotateX(80deg);
+            transform: rotateX(80deg);
+    opacity: 0;
+  }
+  100% {
+    -webkit-transform: rotateX(0);
+            transform: rotateX(0);
+    opacity: 1;
+  }
+}
+@keyframes flip-in-hor-bottom {
+  0% {
+    -webkit-transform: rotateX(80deg);
+            transform: rotateX(80deg);
+    opacity: 0;
+  }
+  100% {
+    -webkit-transform: rotateX(0);
+            transform: rotateX(0);
+    opacity: 1;
+  }
+}
+
+
+.flip-in-hor-bottom {
+	-webkit-animation: flip-in-hor-bottom 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+	        animation: flip-in-hor-bottom 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+}
+
+/* ----------------------------------------------
+ * Generated by Animista on 2018-10-10 10:28:28
+ * w: http://animista.net, t: @cssanimista
+ * ---------------------------------------------- */
+
+/**
+ * ----------------------------------------
+ * animation scale-in-center
+ * ----------------------------------------
+ */
+@-webkit-keyframes scale-in-center {
+  0% {
+    -webkit-transform: scale(0);
+            transform: scale(0);
+    opacity: 1;
+  }
+  100% {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+    opacity: 1;
+  }
+}
+@keyframes scale-in-center {
+  0% {
+    -webkit-transform: scale(0);
+            transform: scale(0);
+    opacity: 1;
+  }
+  100% {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.scale-in-center {
+	-webkit-animation: scale-in-center 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+	        animation: scale-in-center 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+}
+
+/* ----------------------------------------------
+ * Generated by Animista on 2018-10-10 10:39:51
+ * w: http://animista.net, t: @cssanimista
+ * ---------------------------------------------- */
+
+/**
+ * ----------------------------------------
+ * animation jello-horizontal
+ * ----------------------------------------
+ */
+@-webkit-keyframes jello-horizontal {
+  0% {
+    -webkit-transform: scale3d(1, 1, 1);
+            transform: scale3d(1, 1, 1);
+  }
+  30% {
+    -webkit-transform: scale3d(1.25, 0.75, 1);
+            transform: scale3d(1.25, 0.75, 1);
+  }
+  40% {
+    -webkit-transform: scale3d(0.75, 1.25, 1);
+            transform: scale3d(0.75, 1.25, 1);
+  }
+  50% {
+    -webkit-transform: scale3d(1.15, 0.85, 1);
+            transform: scale3d(1.15, 0.85, 1);
+  }
+  65% {
+    -webkit-transform: scale3d(0.95, 1.05, 1);
+            transform: scale3d(0.95, 1.05, 1);
+  }
+  75% {
+    -webkit-transform: scale3d(1.05, 0.95, 1);
+            transform: scale3d(1.05, 0.95, 1);
+  }
+  100% {
+    -webkit-transform: scale3d(1, 1, 1);
+            transform: scale3d(1, 1, 1);
+  }
+}
+@keyframes jello-horizontal {
+  0% {
+    -webkit-transform: scale3d(1, 1, 1);
+            transform: scale3d(1, 1, 1);
+  }
+  30% {
+    -webkit-transform: scale3d(1.25, 0.75, 1);
+            transform: scale3d(1.25, 0.75, 1);
+  }
+  40% {
+    -webkit-transform: scale3d(0.75, 1.25, 1);
+            transform: scale3d(0.75, 1.25, 1);
+  }
+  50% {
+    -webkit-transform: scale3d(1.15, 0.85, 1);
+            transform: scale3d(1.15, 0.85, 1);
+  }
+  65% {
+    -webkit-transform: scale3d(0.95, 1.05, 1);
+            transform: scale3d(0.95, 1.05, 1);
+  }
+  75% {
+    -webkit-transform: scale3d(1.05, 0.95, 1);
+            transform: scale3d(1.05, 0.95, 1);
+  }
+  100% {
+    -webkit-transform: scale3d(1, 1, 1);
+            transform: scale3d(1, 1, 1);
+  }
+}
+
+.jello-horizontal {
+	-webkit-animation: jello-horizontal 0.9s both;
+	        animation: jello-horizontal 0.9s both;
 }

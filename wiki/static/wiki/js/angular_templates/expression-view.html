@@ -1,11 +1,24 @@
 <div class="container-fluid">
-
-    <div class="col-sm-7">
+    <div class="col-sm-12 col-md-6">
         <div class="table-responsive">
             <table ng-table="$ctrl.tableParams" class="table table-hover">
                 <tr>
                     <td title="'Reticulate Body Expression Timing'">
-			                <span ng-class="{'label-success': $ctrl.data.RB_EXPRESSION_TIMING == 'Constitutive', 'label-default': $ctrl.data.RB_EXPRESSION_TIMING != 'Constitutive'}"
+                        <ul class="expressionList">
+                          <li ng-class="{'bg-gradient-pink': $ctrl.data.RB_EXPRESSION_TIMING == 'Constitutive', 'bg-gradient-black': $ctrl.data.RB_EXPRESSION_TIMING != 'Constitutive'}"
+                                >Constitutive</li>
+                          <li ng-class="{'bg-gradient-pink': $ctrl.data.RB_EXPRESSION_TIMING == 'Early', 'bg-gradient-black': $ctrl.data.RB_EXPRESSION_TIMING != 'Early'}"
+                                >Early</li>
+                          <li ng-class="{'bg-gradient-pink': $ctrl.data.RB_EXPRESSION_TIMING == 'Mid', 'bg-gradient-black': $ctrl.data.RB_EXPRESSION_TIMING != 'Mid'}"
+                                >Mid</li>
+                          <li ng-class="{'bg-gradient-pink': $ctrl.data.RB_EXPRESSION_TIMING == 'Mid_Late', 'bg-gradient-black': $ctrl.data.RB_EXPRESSION_TIMING != 'Mid_Late'}"
+                                >Mid_Late</li>
+                          <li ng-class="{'bg-gradient-pink': $ctrl.data.RB_EXPRESSION_TIMING == 'Late', 'bg-gradient-black': $ctrl.data.RB_EXPRESSION_TIMING != 'Late'}"
+                                >Late</li>
+                          <li ng-class="{'bg-gradient-pink': $ctrl.data.RB_EXPRESSION_TIMING == 'Very_Late', 'bg-gradient-black': $ctrl.data.RB_EXPRESSION_TIMING != 'Very_Late'}"
+                                >Very_Late</li>
+                        </ul>
+			                  <!-- <span ng-class="{'label-success': $ctrl.data.RB_EXPRESSION_TIMING == 'Constitutive', 'label-default': $ctrl.data.RB_EXPRESSION_TIMING != 'Constitutive'}"
                                   class="label">Constitutive</span>
                         <span ng-class="{'label-success': $ctrl.data.RB_EXPRESSION_TIMING == 'Early', 'label-default': $ctrl.data.RB_EXPRESSION_TIMING != 'Early'}"
                               class="label">Early</span>
@@ -16,56 +29,83 @@
                         <span ng-class="{'label-success': $ctrl.data.RB_EXPRESSION_TIMING == 'Late', 'label-default': $ctrl.data.RB_EXPRESSION_TIMING != 'Late'}"
                               class="label">Late</span>
                         <span ng-class="{'label-success': $ctrl.data.RB_EXPRESSION_TIMING == 'Very_Late', 'label-default': $ctrl.data.RB_EXPRESSION_TIMING != 'Very_Late'}"
-                              class="label">Very_Late</span>
+                              class="label">Very_Late</span> -->
+                        <hr />
+                        <div class="well smallFont" >
+                            <span class="bg-pink">&nbsp;&nbsp;&nbsp;&nbsp;</span>&nbsp;Expressed&nbsp;
+                            <span class="bg-dark">&nbsp;&nbsp;&nbsp;&nbsp;</span>&nbsp;Not Determined or Quantified
+                        </div>
+                        <p class="well">
+                          <span class="text-pink">References: </span>
+                          <a class="link" target="_blank" href="https://www.ncbi.nlm.nih.gov/pubmed/{{$ctrl.data.PMID}}">
+                            PubMed
+                          </a>
+                        </p>
                     </td>
 
-                    <td title="'Reference'">
+                    <!-- <td title="'Reference'">
                         <a target="_blank" href="https://www.ncbi.nlm.nih.gov/pubmed/{{$ctrl.data.PMID}}">
                             <img uib-tooltip="Cited Publication" class="imageButton" data-ng-src="/static/wiki/img/pubmed-logo.svg">
                         </a>
-                    </td>
+                    </td> -->
                 </tr>
             </table>
-            <div style="font-size: 10px">
-                <span class="label-success">&nbsp;&nbsp;&nbsp;&nbsp;</span>=Expressed;&nbsp;
-                <span class="label-default">&nbsp;&nbsp;&nbsp;&nbsp;</span>=Not Determined or Quantified
-            </div>
+
 
         </div>
     </div>
-    <div class="col-sm-5">
+    <div class="col-sm-12 col-md-6">
         <table ng-table="$ctrl.tableParams" class="table table-hover">
             <tr>
                 <td title="'Developmental Body Enrichment'">
-                    <span ng-class="{'label-primary': $ctrl.gene.developmentalForm.increased.value=='eb',
-                                     'label-info': $ctrl.gene.developmentalForm.eb.value == '+' && $ctrl.gene.developmentalForm.increased.value!='eb',
-                                     'label-default': $ctrl.gene.developmentalForm.eb.value != '+'}"
-                          class="label">Elementary Body</span>
-                    <span ng-class="{'label-primary': $ctrl.gene.developmentalForm.increased.value=='rb',
-                                     'label-info': $ctrl.gene.developmentalForm.rb.value == '+' && $ctrl.gene.developmentalForm.increased.value!='rb',
-                                     'label-default': $ctrl.gene.developmentalForm.rb.value != '+'}"
-                          class="label">Reticulate Body</span>
+                    <div class="text-center">
+                      <span ng-class="{'devBodyBadge label-primary': $ctrl.gene.developmentalForm.increased.value=='eb',
+                                       'devBodyBadge label-info': $ctrl.gene.developmentalForm.eb.value == '+' && $ctrl.gene.developmentalForm.increased.value!='eb',
+                                       'devBodyBadge label-default': $ctrl.gene.developmentalForm.eb.value != '+'}"
+                            >Elementary Body</span>
+                      <span ng-class="{'devBodyBadge label-primary': $ctrl.gene.developmentalForm.increased.value=='rb',
+                                       'devBodyBadge label-info': $ctrl.gene.developmentalForm.rb.value == '+' && $ctrl.gene.developmentalForm.increased.value!='rb',
+                                       'devBodyBadge label-default': $ctrl.gene.developmentalForm.rb.value != '+'}"
+                            >Reticulate Body</span>
+                      <hr />
+                      <button type="button" class="btn themeButton-tiny" ng-click="$ctrl.checkAuthorization('developmental_button')">
+                        Add an annotation <span class="glyphicon glyphicon-plus"></span>
+                      </button>
+                    </div>
+
+                    <hr />
+                    <div class="well smallFont">
+                        <span class="label-primary">&nbsp;&nbsp;&nbsp;&nbsp;</span>&nbsp;Increased&nbsp;
+                        <span class="label-info">&nbsp;&nbsp;&nbsp;&nbsp;</span>&nbsp;Expressed&nbsp;
+                        <span class="label-default">&nbsp;&nbsp;&nbsp;&nbsp;</span>&nbsp;Not Determined or Quantified
+                    </div>
+                    <p class="well">
+                      <span class="text-pink">References: </span>
+                      <a href="https://www.ncbi.nlm.nih.gov/pubmed/{{$ctrl.gene.developmentalForm.pmid.value}}"
+                         target="_blank">
+                          PubMed
+                      </a>
+                    </p>
                 </td>
-                <td title="'References'">
-                    <!-- Button trigger modal -->
+                <!-- <td title="'References'">
                     <div style="padding: 3px">
                         <a href="https://www.ncbi.nlm.nih.gov/pubmed/{{$ctrl.gene.developmentalForm.pmid.value}}"
                            target="_blank">
                             <img uib-tooltip="Link to publication in PubMed" class="imageButton" data-ng-src="/static/wiki/img/pubmed-logo.svg">
                         </a>
                     </div>
-                </td>
+                </td> -->
             </tr>
         </table>
-        <div style="font-size: 10px">
-            <span class="label-primary">&nbsp;&nbsp;&nbsp;&nbsp;</span>=Increased;&nbsp;
-            <span class="label-info">&nbsp;&nbsp;&nbsp;&nbsp;</span>=Expressed;&nbsp;
-            <span class="label-default">&nbsp;&nbsp;&nbsp;&nbsp;</span>=Not Determined or Quantified
-        </div>
+        <!-- <div class="well smallFont">
+            <span class="label-primary">&nbsp;&nbsp;&nbsp;&nbsp;</span>&nbsp;Increased&nbsp;
+            <span class="label-info">&nbsp;&nbsp;&nbsp;&nbsp;</span>&nbsp;Expressed&nbsp;
+            <span class="label-default">&nbsp;&nbsp;&nbsp;&nbsp;</span>&nbsp;Not Determined or Quantified
+        </div> -->
         <br>
-        <button type="button" class="btn themeButton-small" ng-click="$ctrl.checkAuthorization('developmental_button')">
+        <!-- <button type="button" class="btn themeButton-small" ng-click="$ctrl.checkAuthorization('developmental_button')">
           Add an annotation <span class="glyphicon glyphicon-plus"></span>
-        </button>
+        </button> -->
     </div>
 </div>
 
