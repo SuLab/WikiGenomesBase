@@ -161,10 +161,6 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4c4c4c', end
   padding: 15px;
 }
 
-.expressionList li:hover{
-  background: var(--mainPink);
-}
-
 .expressionList li:first-child{
   border-top-left-radius: 10px;
   border-bottom-left-radius: 10px;

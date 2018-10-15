@@ -50,7 +50,6 @@
     </div>
 
     <div class='container padding20 bg-dark'>
-      <!-- <organism-tree></organism-tree> -->
       <div class="panel">
         <div class="panel-heading bg-gradient">
           <h1 class="smallCaps text-muted">The Strains</h1>
@@ -60,7 +59,7 @@
             <div class="col-sm-12 col-lg-1">
             </div>
             <div class="col-sm-12 col-lg-10 padding20" style="border: lightgrey 2px solid;">
-              <img ng-if="$ctrl.appData.noun === 'Chlamydia'" width="90%" alt="chlamydia tree" src="static/wiki/img/chlamydia-tree.svg"/>
+              <organism-tree></organism-tree>
             </div>
             <div class="col-sm-12 col-lg-1">
             </div>
@@ -74,10 +73,18 @@
                         </h3>
                       </div>
                       <div class="panel-body" >
-                        <img class="dropShadow" ng-if="strain.title === 'Chlamydia trachomatis 434/BU'" width="100px" src="static/wiki/img/strain-434.svg" />
-                        <img class="dropShadow" ng-if="strain.title === 'Chlamydia trachomatis D/UW-3CX'" width="100px" src="static/wiki/img/strain-DUX.svg" />
-                        <img class="dropShadow" ng-if="strain.title === 'Chlamydia muridarum Nigg'" width="100px" src="static/wiki/img/strain-NIGG.svg" />
-                        <img class="dropShadow" ng-if="strain.title === 'Chlamydia pneumoniae CWL029'" width="100px" src="static/wiki/img/strain-CW.svg" />
+                        <a href="/organism/{{strain.taxid}}/">
+                          <img class="dropShadow" ng-if="strain.title === 'Chlamydia trachomatis 434/BU'" width="100px" src="static/wiki/img/strain-434.svg" />
+                        </a>
+                        <a href="/organism/{{strain.taxid}}/">
+                          <img class="dropShadow" ng-if="strain.title === 'Chlamydia trachomatis D/UW-3CX'" width="100px" src="static/wiki/img/strain-DUX.svg" />
+                        </a>
+                        <a href="/organism/{{strain.taxid}}/">
+                          <img class="dropShadow" ng-if="strain.title === 'Chlamydia muridarum Nigg'" width="100px" src="static/wiki/img/strain-NIGG.svg" />
+                        </a>
+                        <a href="/organism/{{strain.taxid}}/">
+                          <img class="dropShadow" ng-if="strain.title === 'Chlamydia pneumoniae CWL029'" width="100px" src="static/wiki/img/strain-CW.svg" />
+                        </a>
                         <p class="padding20 text-muted">
                           {{strain.description}}
                         </p>
@@ -172,9 +179,6 @@
             <h3 class="text-light smallCaps">Connect</h3>
             <hr />
             <ul class="noPadding">
-              <!-- <li>
-                <a style="position: absolute; top:10px; right: 10px;" class="github-button" href="https://github.com/SuLab/WikiGenomesBase" data-size="large" data-show-count="true" aria-label="Star SuLab/WikiGenomesBase on GitHub">Star</a>
-              </li> -->
               <li>
                 <a class="text-muted" href="https://github.com/SuLab/WikiGenomesBase/tree/{{$ctrl.appData.title | lowercase}}" ><i class="fab fa-github"></i> WikiGenomesDB GitHub</a>
               </li>
@@ -186,11 +190,6 @@
               </li>
             </ul>
           </div>
-            <!--
-          <div class="col-sm-12 text-center text-pink-light">
-            All content copyright ChlamBase © 2018
-          </div>
-          -->
         </div>
       </div>
     </div>

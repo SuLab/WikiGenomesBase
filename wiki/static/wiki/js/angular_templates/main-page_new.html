@@ -28,31 +28,12 @@
                                 refseq="$ctrl.currentGene.refseqGenome" highlight="true" load="$ctrl.jLoad"></jbrowse-view>
                 </div>
               </uib-tab>
-              <!-- <uib-tab index="'product'" ng-show="$ctrl.settings['product']">
-                <uib-tab-heading >
-                  Gene Product
-                </uib-tab-heading>
-                <protein-view protein="$ctrl.currentGene"></protein-view>
-              </uib-tab> -->
-              <!-- <uib-tab index="'ortholog'" ng-show="$ctrl.settings['ortholog']">
-                <uib-tab-heading >
-                  Ortholog(s)
-                </uib-tab-heading>
-                <ortholog-view locus-tag="$ctrl.currentGene.locusTag"></ortholog-view>
-              </uib-tab> -->
               <uib-tab index="'alignment'" ng-show="$ctrl.settings['alignment']">
                 <uib-tab-heading >
                   Ortholog Alignment(s)
                 </uib-tab-heading>
                 <alignment-view locus-tag="$ctrl.currentGene.locusTag" tax-id="$ctrl.currentGene.taxid"></alignment-view>
               </uib-tab>
-              <!-- <uib-tab index="'expression'" ng-show="$ctrl.settings['expression']">
-                <uib-tab-heading >
-                  Expression
-                </uib-tab-heading>
-                <expression-view data="$ctrl.annotations.expression" gene="$ctrl.currentGene"></expression-view>
-              </uib-tab> -->
-
               <uib-tab index="'go'" ng-show="$ctrl.settings['go']">
                 <uib-tab-heading>
                   Function(s) (<span class="text-blue">{{$ctrl.annotations.go.molfunc.length + $ctrl.annotations.go.bioproc.length}}</span>)
@@ -87,16 +68,6 @@
                     </div>
                 </div>
               </uib-tab>
-              <!-- <uib-tab index="'localizations'" ng-show="$ctrl.settings['localizations']">
-                <uib-tab-heading >
-                  Localization(s) (<span class="text-blue">{{$ctrl.annotations.go.cellcomp.length}}</span>)
-                </uib-tab-heading>
-                <div class="panel">
-                    <div class="panel-body" style="border-bottom: solid #bce8f1 1px">
-                      <localization-view gene="$ctrl.currentGene" components="$ctrl.annotations.go.cellcomp"></localization-view>
-                    </div>
-                </div>
-              </uib-tab> -->
               <uib-tab index="'operon'" ng-show="$ctrl.settings['operon']">
                 <uib-tab-heading>
                   Operon (<span class="text-blue">{{$ctrl.annotations.operon.length}}</span>)
@@ -127,58 +98,6 @@
                     </div>
                 </div>
               </uib-tab>
-              <!-- <uib-tab index="'mutants'" ng-show="$ctrl.settings['mutants']" >
-                <uib-tab-heading >
-                  Mutants (<span class="text-blue">{{ $ctrl.annotations.mutants.length }}</span>)
-                </uib-tab-heading>
-                <div class="panel " style="border-bottom: solid #bce8f1 1px;">
-                    <div class="panel-body">
-                        <mutants-view data="$ctrl.annotations.mutants"></mutants-view>
-                    </div>
-                </div>
-              </uib-tab> -->
-                <!--
-              </uib-tab>
-               <uib-tab index="'movie'" ng-show="$ctrl.settings['movie']">
-                   <uib-tab-heading>
-                       Movie Data
-                   </uib-tab-heading>
-                   <div class="panel " style="border-bottom: solid #bce8f1 1px;">
-                       <div class="panel-body">
-                           <movie-view uri="$ctrl.currentGene.movie"></movie-view>
-                       </div>
-                   </div>
-               </uib-tab>
-              <uib-tab index="'hostpath'" ng-show="$ctrl.settings['hostpath']">
-                <uib-tab-heading >
-                  Protein Interaction(s) (<span class="text-blue">{{$ctrl.annotations.hostpath.length}}</span>)
-                </uib-tab-heading>
-                <div class="panel " style="border-bottom: solid #bce8f1 1px;">
-                    <div class="panel-body" style="max-height: 400px; overflow: auto">
-                        <host-pathogen data="$ctrl.annotations.hostpath"></host-pathogen>
-                    </div>
-                </div>
-              </uib-tab>
-              <!-- <uib-tab index="'pubs'" ng-show="$ctrl.settings['pubs']">
-                <uib-tab-heading >
-                  Related Publications
-                </uib-tab-heading>
-                <div class="panel " style="border-bottom: solid #bce8f1 1px;">
-                    <div class="panel-body" style="max-height: 400px; overflow: auto">
-                        <linked-pubs pubs="$ctrl.annotations.pubList"></linked-pubs>
-                    </div>
-                </div>
-              </uib-tab> -->
-              <!-- <uib-tab index="'history'" ng-show="$ctrl.settings['history']">
-                <uib-tab-heading >
-                  Revision History
-                </uib-tab-heading>
-                <div class="panel">
-                    <div class="panel-body" style="border-bottom: solid #bce8f1 1px">
-                        <history-view gene="$ctrl.currentGene.geneQID" protein="$ctrl.currentGene.proteinQID"></history-view>
-                    </div>
-                </div>
-              </uib-tab> -->
             </uib-tabset>
         </div>
     </div>

@@ -18,18 +18,6 @@
                           <li ng-class="{'bg-gradient-pink': $ctrl.data.RB_EXPRESSION_TIMING == 'Very_Late', 'bg-gradient-black': $ctrl.data.RB_EXPRESSION_TIMING != 'Very_Late'}"
                                 >Very_Late</li>
                         </ul>
-			                  <!-- <span ng-class="{'label-success': $ctrl.data.RB_EXPRESSION_TIMING == 'Constitutive', 'label-default': $ctrl.data.RB_EXPRESSION_TIMING != 'Constitutive'}"
-                                  class="label">Constitutive</span>
-                        <span ng-class="{'label-success': $ctrl.data.RB_EXPRESSION_TIMING == 'Early', 'label-default': $ctrl.data.RB_EXPRESSION_TIMING != 'Early'}"
-                              class="label">Early</span>
-                        <span ng-class="{'label-success': $ctrl.data.RB_EXPRESSION_TIMING == 'Mid', 'label-default': $ctrl.data.RB_EXPRESSION_TIMING != 'Mid'}"
-                              class="label">Mid</span>
-                        <span ng-class="{'label-success': $ctrl.data.RB_EXPRESSION_TIMING == 'Mid_Late', 'label-default': $ctrl.data.RB_EXPRESSION_TIMING != 'Mid_Late'}"
-                              class="label">Mid_Late</span>
-                        <span ng-class="{'label-success': $ctrl.data.RB_EXPRESSION_TIMING == 'Late', 'label-default': $ctrl.data.RB_EXPRESSION_TIMING != 'Late'}"
-                              class="label">Late</span>
-                        <span ng-class="{'label-success': $ctrl.data.RB_EXPRESSION_TIMING == 'Very_Late', 'label-default': $ctrl.data.RB_EXPRESSION_TIMING != 'Very_Late'}"
-                              class="label">Very_Late</span> -->
                         <hr />
                         <div class="well smallFont" >
                             <span class="bg-pink">&nbsp;&nbsp;&nbsp;&nbsp;</span>&nbsp;Expressed&nbsp;
@@ -42,12 +30,6 @@
                           </a>
                         </p>
                     </td>
-
-                    <!-- <td title="'Reference'">
-                        <a target="_blank" href="https://www.ncbi.nlm.nih.gov/pubmed/{{$ctrl.data.PMID}}">
-                            <img uib-tooltip="Cited Publication" class="imageButton" data-ng-src="/static/wiki/img/pubmed-logo.svg">
-                        </a>
-                    </td> -->
                 </tr>
             </table>
 
@@ -101,25 +83,9 @@
                       </a>
                     </p>
                 </td>
-                <!-- <td title="'References'">
-                    <div style="padding: 3px">
-                        <a href="https://www.ncbi.nlm.nih.gov/pubmed/{{$ctrl.gene.developmentalForm.pmid.value}}"
-                           target="_blank">
-                            <img uib-tooltip="Link to publication in PubMed" class="imageButton" data-ng-src="/static/wiki/img/pubmed-logo.svg">
-                        </a>
-                    </div>
-                </td> -->
             </tr>
         </table>
-        <!-- <div class="well smallFont">
-            <span class="label-primary">&nbsp;&nbsp;&nbsp;&nbsp;</span>&nbsp;Increased&nbsp;
-            <span class="label-info">&nbsp;&nbsp;&nbsp;&nbsp;</span>&nbsp;Expressed&nbsp;
-            <span class="label-default">&nbsp;&nbsp;&nbsp;&nbsp;</span>&nbsp;Not Determined or Quantified
-        </div> -->
         <br>
-        <!-- <button type="button" class="btn themeButton-small" ng-click="$ctrl.checkAuthorization('developmental_button')">
-          Add an annotation <span class="glyphicon glyphicon-plus"></span>
-        </button> -->
     </div>
 </div>
 
