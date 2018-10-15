@@ -1,5 +1,5 @@
 <div class="container-fluid">
-    <div class="col-sm-12 col-md-6">
+    <div class="col-sm-7" ng-hide="$ctrl.belland">
         <div class="table-responsive">
             <table ng-table="$ctrl.tableParams" class="table table-hover">
                 <tr>
@@ -54,7 +54,21 @@
 
         </div>
     </div>
-    <div class="col-sm-12 col-md-6">
+    <div class="col-sm-7" ng-show="$ctrl.belland">
+        <div class="row">
+            <div class="col-sm-1">
+                <button class="btn btn-default" style="margin-top: 80px" ng-click="$ctrl.next()"><span class="glyphicon glyphicon-chevron-left"></span></button>
+            </div>
+            <div class="col-sm-9">
+                <div id="curve_chart" style="height: 200px"></div>
+            </div>
+            <div class="col-sm-1">
+                <button class="btn btn-default" style="margin-top: 80px" ng-click="$ctrl.next()"><span class="glyphicon glyphicon-chevron-right"></span></button>
+            </div>
+            <div class="col-sm-1"></div>
+        </div>
+    </div>
+    <div class="col-sm-5">
         <table ng-table="$ctrl.tableParams" class="table table-hover">
             <tr>
                 <td title="'Developmental Body Enrichment'">

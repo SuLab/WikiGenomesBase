@@ -225,7 +225,7 @@
         </uib-accordion-heading>
         <div class="panel " style="border-bottom: solid #bce8f1 1px;">
             <div class="panel-body">
-                <expression-view data="$ctrl.annotations.expression" gene="$ctrl.data"></expression-view>
+                <expression-view data="$ctrl.annotations.expression" gene="$ctrl.data" belland="$ctrl.data.expression"></expression-view>
             </div>
         </div>
 
@@ -336,6 +336,20 @@
             </div>
         </div>
     </div>
+    <div uib-accordion-group is-open="$ctrl.accordion.movie" ng-class="{'panel-info': true}"
+         ng-if="$ctrl.settings.movie"
+         template-url="group-template.html">
+        <uib-accordion-heading>
+            Movie Data
+            <i class="pull-right glyphicon"
+               ng-class="{'glyphicon-chevron-down': $ctrl.accordion.movie, 'glyphicon-chevron-right': !$ctrl.accordion.movie}"></i>
+        </uib-accordion-heading>
+        <div class="panel">
+            <div class="panel-body" style="border-bottom: solid #bce8f1 1px">
+                <movie-view uri="$ctrl.data.movie"></movie-view>
+            </div>
+        </div>
+    </div>
     <div uib-accordion-group ng-class="{'panel-info': true}"
          is-open="$ctrl.accordion.hostpath"
          ng-if="$ctrl.settings.hostpath"
@@ -351,6 +365,7 @@
         </div>
     </div>
     <div uib-accordion-group ng-class="{'panel-info': true}"
+         class="not-gene"
          is-open="$ctrl.accordion.pubs"
          ng-if="$ctrl.settings.pubs"
          template-url="group-template.html">
@@ -364,13 +379,13 @@
             </div>
         </div>
     </div>
-    <div uib-accordion-group is-open="$ctrl.accordion.history" ng-class="{'panel-info': true}"
+    <div uib-accordion-group is-open="$ctrl.accordion.history" class="not-gene" ng-class="{'panel-info': true}"
          ng-if="$ctrl.settings.history"
          template-url="group-template.html">
         <uib-accordion-heading>
             Revision History
             <i class="pull-right glyphicon"
-               ng-class="{'glyphicon-chevron-down': $ctrl.accordion.go, 'glyphicon-chevron-right': !$ctrl.accordion.go}"></i>
+               ng-class="{'glyphicon-chevron-down': $ctrl.accordion.history, 'glyphicon-chevron-right': !$ctrl.accordion.history}"></i>
         </uib-accordion-heading>
         <div class="panel">
             <div class="panel-body" style="border-bottom: solid #bce8f1 1px">

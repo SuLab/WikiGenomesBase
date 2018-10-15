@@ -1,6 +1,7 @@
 <landing-header page="'main'"></landing-header>
 <div class="container-fluid" style="padding-top: 15vh; padding-bottom: 40px; background: #414449;">
     <div class="container">
+<<<<<<< HEAD
         <div class="panel" style="border: 3px grey solid;">
             <div class="padding20 text-center" ng-class="{'bg-434': $ctrl.currentOrg.taxonLabel === 'Chlamydia trachomatis 434/BU','bg-DUX': $ctrl.currentOrg.taxonLabel === 'Chlamydia trachomatis D/UW-3/CX','bg-NIGG': $ctrl.currentOrg.taxonLabel === 'Chlamydia muridarum Nigg','bg-CW': $ctrl.currentOrg.taxonLabel === 'Chlamydia pneumoniae CWL029'}">
               <div class="row">
@@ -11,6 +12,20 @@
                 </div>
                 <organism-view org="$ctrl.currentOrg" taxid="$ctrl.currentOrg.taxid"></organism-view>
               </div>
+=======
+        <div class="panel panel-info">
+            <div class="bg-purple padding20 text-center">
+              <a style="margin-bottom: 5px;width:100%"
+                 href="/organism/{{ $ctrl.currentTaxid }}"
+                 tooltip-placement="right" uib-tooltip="Click to return to genome level"
+                 >
+                  <div style="width:auto;display:inline">
+                      <h2 class="link-light" style="display:inline;">
+                          <strong>{{ $ctrl.orgName}}</strong> &nbsp; NCBI TaxID: {{ $ctrl.currentTaxid }}
+                      </h2>
+                  </div>
+              </a>
+>>>>>>> origin
             </div>
             <uib-tabset active="active" class="bg-purple noBorder">
               <uib-tab index="'overview'">
@@ -19,12 +34,13 @@
                 </uib-tab-heading>
                 <gene-overview data="$ctrl.currentGene" annotations="$ctrl.annotations"></gene-overview>
               </uib-tab>
-              <uib-tab index="'jbrowse'">
+              <uib-tab index="'jbrowse'" select="$ctrl.jLoad()">
                 <uib-tab-heading >
                   JBrowse Panel
                 </uib-tab-heading>
                 <div id="jbrowse-div">
-                  <jbrowse-view gene="$ctrl.currentGene" refseq="$ctrl.currentGene.refseqGenome"></jbrowse-view>
+                  <jbrowse-view start="$ctrl.currentGene.genStart" end="$ctrl.currentGene.genEnd" delay="true"
+                                refseq="$ctrl.currentGene.refseqGenome" highlight="true" load="$ctrl.jLoad"></jbrowse-view>
                 </div>
               </uib-tab>
               <!-- <uib-tab index="'product'" ng-show="$ctrl.settings['product']">
@@ -49,8 +65,13 @@
                 <uib-tab-heading >
                   Expression
                 </uib-tab-heading>
+<<<<<<< HEAD
                 <expression-view data="$ctrl.annotations.expression" gene="$ctrl.currentGene"></expression-view>
               </uib-tab> -->
+=======
+                <expression-view data="$ctrl.annotations.expression" gene="$ctrl.currentGene" belland="$ctrl.currentGene.expression"></expression-view>
+              </uib-tab>
+>>>>>>> origin
               <uib-tab index="'go'" ng-show="$ctrl.settings['go']">
                 <uib-tab-heading>
                   Function(s) (<span class="text-blue">{{$ctrl.annotations.go.molfunc.length + $ctrl.annotations.go.bioproc.length}}</span>)
@@ -134,8 +155,12 @@
                         <mutants-view data="$ctrl.annotations.mutants"></mutants-view>
                     </div>
                 </div>
+<<<<<<< HEAD
               </uib-tab> -->
                 <!--
+=======
+              </uib-tab>
+>>>>>>> origin
                <uib-tab index="'movie'" ng-show="$ctrl.settings['movie']">
                    <uib-tab-heading>
                        Movie Data
@@ -146,7 +171,6 @@
                        </div>
                    </div>
                </uib-tab>
-               -->
               <uib-tab index="'hostpath'" ng-show="$ctrl.settings['hostpath']">
                 <uib-tab-heading >
                   Protein Interaction(s) (<span class="text-blue">{{$ctrl.annotations.hostpath.length}}</span>)

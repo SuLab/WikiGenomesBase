@@ -90,8 +90,12 @@
     <div class="row">
         <div class="col-md-12 bg-gradient-black padding20">
             <div>
-                <div class="">
-                    <organism-view style="width:100%"></organism-view>
+                <div class="col-md-9">
+                    <div style="width:auto;display:inline">
+                        <h2 class="link-dark" style="display:inline;">
+                            <strong>{{ $ctrl.orgName}}</strong> &nbsp; NCBI TaxID: {{ $ctrl.currentTaxid }}
+                        </h2>
+                    </div>
                 </div>
                 <div style="text-align: right" class="col-md-3">
                     <allgenes-download taxid="$ctrl.currentOrg.taxid"></allgenes-download>
@@ -100,10 +104,11 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-md-12 box">
-            <div class="panel noMargin" style="height:300px; border: solid #385d94 2px; border-radius: 3px">
-                <jbrowse-view gene="$ctrl.initialGene"
-                              taxid="$ctrl.currentOrg.taxid"></jbrowse-view>
+        <div class="col-md-1">
+        </div>
+        <div class="col-md-10 box">
+            <div id="jbrowse-div">
+                <jbrowse-view start="'0'" end="'5000'" refseq="$ctrl.refseq"></jbrowse-view>
             </div>
         </div>
     </div>

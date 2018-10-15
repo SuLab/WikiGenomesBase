@@ -13,7 +13,6 @@ angular.module('cmod', [
     'organismForm',
     'resources',
     'proteinView',
-    'organismView',
     'jbrowseView',
     'annotationsView',
     'landingPage',
@@ -49,5 +48,6 @@ angular.module('cmod', [
     'geneSymbolForm',
     'advancedSearchFilter',
     'landingHeader',
-    'historyView'
+    'historyView',
+    'movieView'
 ]);

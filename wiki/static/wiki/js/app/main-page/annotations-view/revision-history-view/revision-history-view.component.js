@@ -2,11 +2,13 @@ angular
     .module('historyView')
     .component('historyView', {
         templateUrl: '/static/build/js/angular_templates/history-view.min.html',
-        controller: function (history, $sce) {
+        controller: function (history, $sce, NgTableParams) {
             'use strict';
             var ctrl = this;
 
             ctrl.feed = [];
+
+            ctrl.tableParams = new NgTableParams({}, {});
 
             ctrl.$onChanges = function() {
                 if (ctrl.gene) {
@@ -20,6 +22,8 @@ angular
                                 });
                             });
                         });
+
+                        ctrl.tableParams = new NgTableParams({},{dataset: ctrl.feed});
                     });
                 }
                 if (ctrl.protein) {
@@ -33,6 +37,8 @@ angular
                                 });
                             });
                         });
+
+                        ctrl.tableParams = new NgTableParams({},{dataset: ctrl.feed});
                     });
                 }
             };

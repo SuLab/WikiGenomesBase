@@ -113,14 +113,14 @@ angular
                     interpro : true,
                     enzyme : true,
                     mutants : true,
-                    pubs : true,
+                    pubs : false,
                     product : true,
                     ortholog : true,
                     alignment: true,
                     expression : true,
                     hostpath : true,
                     localizations : true,
-                    history: true,
+                    history: false,
                     movie: true
                 };
 

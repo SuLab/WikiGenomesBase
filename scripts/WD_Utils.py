@@ -61,7 +61,7 @@ class WDSparqlQueries(object):
 
     def genes4tid(self):
         preQuery = '''
-        SELECT ?start ?end ?strand ?uri ?entrezGeneID ?name ?description ?refSeq WHERE {
+        SELECT ?start ?end ?strand ?uri ?entrezGeneID ?name ?description ?refSeq ?symbol WHERE {
           ?gene wdt:P279 wd:Q7187;
                 wdt:P703 ?strain;
                 wdt:P351 ?entrezGeneID;
@@ -73,6 +73,7 @@ class WDSparqlQueries(object):
                 p:P644 ?claim.
           ?strain wdt:P685 '{TAXID}'.
           ?claim pq:P1057/wdt:P2249 ?refSeq.
+          OPTIONAL {?gene wdt:P2561 ?symbol.}
           bind( IF(?wdstrand = wd:Q22809680, '+', '-') as ?strand).
           bind(str(?gene) as ?uri).
           filter (lang(?description) = "en").
@@ -117,7 +118,7 @@ class WDSparqlQueries(object):
 
     def locus2orthologs(self, locusTag):
         preQuery ='''
-        SELECT ?ortholog ?protein WHERE {
+        SELECT ?ortholog ?protein ?orthoTaxid WHERE {
                        {
                           ?gene wdt:P2393 '{{locusTag}}'.
                           ?gene p:P684 ?statement.
@@ -157,6 +158,51 @@ class WDSparqlQueries(object):
         }
         ORDER BY ?gene
         '''
+        results = self.execute_query(query)
+        return results['results']['bindings']
+
+    def get_old_terms(self):
+        query ='''
+        SELECT ?protein ?gotermValue ?goClass WHERE {
+
+          ?taxon wdt:P171+ wd:Q846309.
+          ?protein wdt:P703 ?taxon;
+                   wdt:P279 wd:Q8054;
+                   (p:P680|p:P681|p:P682)+ ?goterm.
+        
+          OPTIONAL {?goterm pq:P459/rdfs:label ?determination. FILTER(LANG(?determination) = 'en').}
+        
+          ?goterm (ps:P680|ps:P681|ps:P682)+ ?gotermValue.
+          ?gotermValue wdt:P31 ?goClass.
+          FILTER(BOUND(?determination) = false)
+        }
+        '''
+        results = self.execute_query(query)
+        return results['results']['bindings']
+
+    def get_single_alias_genes(self):
+        query = '''
+        SELECT DISTINCT ?gene WHERE {
+  
+          ?gene wdt:P31|wdt:P279 wd:Q7187;
+                skos:altLabel ?alias.
+          
+          FILTER(LANG(?alias) = "en" && strlen(?alias) = 1 && regex(?alias, "[A-Z,a-z]", "i")).
+        }
+        '''
+        results = self.execute_query(query)
+        return results['results']['bindings']
+
+    def get_protein_from_uniprot(self, uniprot):
+        query = '''
+         SELECT ?protein WHERE {
+
+            ?protein wdt:P31|wdt:P279 wd:Q8054;
+               wdt:P352 '{}'.
+            
+         }
+         LIMIT 1
+         '''.replace("{}", uniprot)
         results = self.execute_query(query)
         return results['results']['bindings']
 
