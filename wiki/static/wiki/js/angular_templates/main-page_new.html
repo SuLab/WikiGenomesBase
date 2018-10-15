@@ -9,7 +9,21 @@
                   <i class="fas fa-chevron-left fa-2x"></i>
                   </a>
                 </div>
-                <organism-view org="$ctrl.currentOrg" taxid="$ctrl.currentOrg.taxid"></organism-view>
+                  <table>
+                      <tr>
+                          <td style="padding:10px;">
+                              <img class="dropShadow" style="display:inline;" width="40px" src="static/wiki/img/{{$ctrl.icon}}" />
+                          </td>
+                          <td style="padding:10px;">
+                              <h2 style="display:inline;" class="noMargin text-light textShadow">{{ $ctrl.orgName}}</h2>
+                          </td>
+                          <td style="padding:10px;">
+                              <div class="taxIDBadge">
+                                  <i class="fas fa-passport"></i> NCBI TaxID: {{ $ctrl.currentTaxid }}
+                              </div>
+                          </td>
+                      </tr>
+                  </table>
               </div>
             </div>
             <uib-tabset active="active" class="bg-purple noBorder">

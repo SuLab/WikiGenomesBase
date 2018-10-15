@@ -1,7 +1,7 @@
 angular
     .module('jbrowseView')
     .component('jbrowseView', {
-        template : '<iframe class="jbrowse" ng-src={{$ctrl.jbrowseURI()}}></iframe>',
+        template : '<iframe style="width: 100%; height: 100%" ng-src={{$ctrl.jbrowseURI()}}></iframe>',
         bindings : {
             start: '<',
             end: '<',

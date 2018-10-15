@@ -12,6 +12,10 @@
 	   	   typeahead-should-select="$ctrl.scrolled"
 	   	   style="width: 70%; display: inline">
 	<button ng-click="$ctrl.advSearch()" class="btn themeButton" style="display: inline">GO</button>
+	<div style="font-size: 12px; padding:3px;" class="text-pink">
+		Examples: <button class="search-example text-light" ng-click="$ctrl.submitKeyword('glgB')"><i>glgB</i></button>,&nbsp;
+		<button class="search-example text-light" ng-click="$ctrl.submitKeyword($ctrl.locusTag)"><i>{{$ctrl.locusTag}}</i></button>
+	</div>
 	<br />
 	<br />
 	<a data-toggle="modal" data-target="#adv_modal" style="color: white">Advanced Search <span class="glyphicon glyphicon-plus-sign"></span></a>

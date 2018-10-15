@@ -74,16 +74,7 @@
                       </div>
                       <div class="panel-body" >
                         <a href="/organism/{{strain.taxid}}/">
-                          <img class="dropShadow" ng-if="strain.title === 'Chlamydia trachomatis 434/BU'" width="100px" src="static/wiki/img/strain-434.svg" />
-                        </a>
-                        <a href="/organism/{{strain.taxid}}/">
-                          <img class="dropShadow" ng-if="strain.title === 'Chlamydia trachomatis D/UW-3CX'" width="100px" src="static/wiki/img/strain-DUX.svg" />
-                        </a>
-                        <a href="/organism/{{strain.taxid}}/">
-                          <img class="dropShadow" ng-if="strain.title === 'Chlamydia muridarum Nigg'" width="100px" src="static/wiki/img/strain-NIGG.svg" />
-                        </a>
-                        <a href="/organism/{{strain.taxid}}/">
-                          <img class="dropShadow" ng-if="strain.title === 'Chlamydia pneumoniae CWL029'" width="100px" src="static/wiki/img/strain-CW.svg" />
+                          <img class="dropShadow" width="100px" src="static/wiki/img/{{$ctrl.iconMap[strain.taxid]}}" />
                         </a>
                         <p class="padding20 text-muted">
                           {{strain.description}}

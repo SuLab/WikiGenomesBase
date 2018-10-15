@@ -5,19 +5,33 @@
 <div class="container" style="padding-top: 15vh">
   <div class="row">
     <div class="col-md-12 bg-gradient-black padding20" style="margin:10px 0px; border-radius:10px;">
-      <div>
-          <organism-view style="width:100%"></organism-view>
-      </div>
-      <div style="text-align: right" class="col-md-3">
-          <allgenes-download taxid="$ctrl.currentOrg.taxid"></allgenes-download>
+        <div class="col-sm-8">
+            <table>
+                <tr>
+                    <td style="padding:10px;">
+                        <img class="dropShadow" style="display:inline;" width="40px" src="static/wiki/img/{{$ctrl.icon}}" />
+                    </td>
+                    <td style="padding:10px;">
+                        <h2 style="display:inline;" class="noMargin text-light textShadow">{{ $ctrl.orgName}}</h2>
+                    </td>
+                    <td style="padding:10px;">
+                        <div class="taxIDBadge">
+                            <i class="fas fa-passport"></i> NCBI TaxID: {{ $ctrl.currentTaxid }}
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+        <div style="text-align: right" class="col-md-3">
+          <allgenes-download taxid="$ctrl.currentTaxid"></allgenes-download>
       </div>
     </div>
   </div>
 
   <div class="jumbotron box">
       <div class="panel noMargin" style="height:300px; border: solid #385d94 2px; border-radius: 3px">
-          <jbrowse-view gene="$ctrl.initialGene"
-                        taxid="$ctrl.currentOrg.taxid"></jbrowse-view>
+          <jbrowse-view start="'0'" end="'5000'" refseq="$ctrl.refseq"></jbrowse-view>
       </div>
   </div>
   <div class="flexParent">

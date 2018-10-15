@@ -105,6 +105,20 @@ angular
 
 angular
     .module('resources')
+    .factory('iconMap', function ($resource) {
+        var url = '/static/wiki/json/icon_map.json';
+        return $resource(url, {}, {
+            getMap: {
+                method: "GET",
+                params: {},
+                isArray: false,
+                cache: true
+            }
+        });
+    });
+
+angular
+    .module('resources')
     .factory('strainDisplay', function ($http) {
         var url = '/static/wiki/json/strains.json';
         var getStrains = function() {

@@ -58,9 +58,9 @@
               </li>
               <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fas fa-dna"></i> Type: <span class="text-pink-light">{{$ctrl.data.productType.id | typeFilter}}</span> <span class="caret"></span></a>
-                <ul class="dropdown-menu">
+                <ul class="dropdown-menu" style="width: 1000px;">
                   <li class="text-center padding20">
-                    <protein-view protein="$ctrl.currentGene"></protein-view>
+                    <protein-view protein="$ctrl.data"></protein-view>
                   </li>
                 </ul>
               </li>
@@ -68,7 +68,7 @@
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-list" aria-hidden="true"></span> Ortholog <span class="caret"></span></a>
                 <ul class="dropdown-menu">
                   <li class="text-center padding20">
-                    <ortholog-view locus-tag="$ctrl.currentGene.locusTag"></ortholog-view>
+                    <ortholog-view locus-tag="$ctrl.data.locusTag"></ortholog-view>
                   </li>
                 </ul>
               </li>
@@ -165,7 +165,7 @@
         <div class="panel panel-default">
           <div class="panel-heading">Gene Expression</div>
           <div class="panel-body">
-            <expression-view data="$ctrl.annotations.expression" gene="$ctrl.currentGene"></expression-view>
+            <expression-view data="$ctrl.annotations.expression" gene="$ctrl.data" belland="$ctrl.data.expression"></expression-view>
           </div>
         </div>
       </div>
@@ -270,7 +270,7 @@
               <h4 class="modal-title text-pink-light">Revision History</h4>
           </div>
             <div class="modal-text-color modal-body padding20 ">
-              <history-view gene="$ctrl.currentGene.geneQID" protein="$ctrl.currentGene.proteinQID"></history-view>
+              <history-view gene="$ctrl.data.geneQID" protein="$ctrl.data.proteinQID"></history-view>
             </div>
         </div>
     </div>
