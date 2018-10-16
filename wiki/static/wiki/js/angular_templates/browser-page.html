@@ -23,7 +23,7 @@
             </table>
         </div>
 
-        <div style="text-align: right" class="col-md-3">
+        <div style="text-align: right" class="col-md-3 padding20">
           <allgenes-download taxid="$ctrl.currentTaxid"></allgenes-download>
       </div>
     </div>
@@ -94,106 +94,3 @@
       </div>
   </div>
 </div>
-
-<!-- OLD -->
-<!-- <landing-header page="'browser'"></landing-header>
-<div ng-show="$ctrl.loading" class="overlay">
-    <div class="loading-img"></div>
-</div>
-<div class="container" style="padding-top: 15vh">
-    <div class="row">
-        <div class="col-md-12 bg-gradient-black padding20">
-            <div>
-                <div class="col-md-9">
-                    <div style="width:auto;display:inline">
-                        <h2 class="link-dark" style="display:inline;">
-                            <strong>{{ $ctrl.orgName}}</strong> &nbsp; NCBI TaxID: {{ $ctrl.currentTaxid }}
-                        </h2>
-                    </div>
-                </div>
-                <div style="text-align: right" class="col-md-3">
-                    <allgenes-download taxid="$ctrl.currentOrg.taxid"></allgenes-download>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-1">
-        </div>
-        <div class="col-md-10 box">
-            <div id="jbrowse-div">
-                <jbrowse-view start="'0'" end="'5000'" refseq="$ctrl.refseq"></jbrowse-view>
-            </div>
-        </div>
-    </div>
-    <div class="row" ng-show="$ctrl.numChromosomes > 1 || $ctrl.numPlasmids > 0">
-        <div class="col-md-12">
-            <div class="panel noMargin">
-                <div class="panel-heading bg-dark">
-                    <div class="text-center text-light">
-                        <h4><i class="fas fa-dna"></i> Chromosomes: <span class="text-pink">{{ $ctrl.numChromosomes }}</span></h4>
-                    </div>
-                </div>
-                <div class="panel-body padding20">
-                    <ul class="list-group" ng-repeat="x in $ctrl.chromosomes">
-                      <li class="list-group-item btn themeButton" ng-repeat="chr in x" ng-click="$ctrl.onChromSelect(chr)">
-                        <i class="fas fa-dna"></i> {{chr.chromosomeLabel.value}}
-                      </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="row" ng-show="$ctrl.numPlasmids > 0">
-        <div class="col-md-12">
-            <div class="panel noMargin">
-                <div class="panel-heading bg-dark">
-                    <div class="text-center text-light">
-                        <h4><i class="fas fa-dna"></i> Plasmids: <span class="text-pink">{{ $ctrl.numPlasmids }}</span></h4>
-                    </div>
-                </div>
-                <div class="panel-body padding20">
-                  <ul class="list-group" ng-repeat="x in $ctrl.plasmids">
-                    <li class="list-group-item btn themeButton" ng-repeat="chr in x" ng-click="$ctrl.onChromSelect(chr)">
-                      <i class="fas fa-dna"></i> {{chr.plasmidLabel.value}}
-                    </li>
-                  </ul>
-              </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-12">
-            <div class="panel noMargin">
-                <div class="panel-heading bg-dark">
-                    <div class="text-center text-light">
-                        <h4><span class="text-blue">{{$ctrl.selected}}</span> genes: <span class="text-pink">{{ $ctrl.currentAllGenes.length }}</span></h4> -->
-                        <!-- <dir-pagination-controls on-page-change="pageChanged(newPageNumber)"></dir-pagination-controls>
-                    </div>
-                </div>
-                <div class="panel-body">
-                    <ul style="text-align: left;list-style: none;" class="example-animate-container">
-                        <li dir-paginate="x in $ctrl.currentAllGenes | itemsPerPage: 10">
-                            <div ng-click="$ctrl.onSelect(x)" class="btn btn-default strongColor"
-                                 style="margin-top:15px; width:100%; overflow: hidden; text-overflow: ellipsis">
-                                <div class="col-md-7" style="text-align: left"><h4>{{ x.geneLabel.value }}</h4></div>
-                                <div class="col-md-2"><h4>Locus Tag: {{ x.locusTag.value }} </h4></div>
-                                <div class="col-md-2"><h4 ng-if="x.entrez.value">Entrez: {{ x.entrez.value }} </h4>
-                                </div>
-                                <div class="col-md-1">
-                                  <a target="_blank" href="https://www.wikidata.org/wiki/{{ x.gene.value | parseQID }}">
-                                    <div class="btn btn-default">
-                                      <img style="max-height: 30px" id="wikilogo" src="static/wiki/img/GeneWikidata-logo-en.png">
-                                    </div>
-                                  </a>
-                                </div>
-                            </div>
-                        </li>
-                    </ul>
-                    <div style="text-align: center">
-                        <dir-pagination-controls on-page-change="pageChanged(newPageNumber)"></dir-pagination-controls>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div> -->

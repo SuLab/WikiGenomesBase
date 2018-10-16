@@ -16,10 +16,10 @@
               <li>
                 <h4 class="text-light">
                   <span ng-class="{'text434': $ctrl.strain === '434/BU','textDUX': $ctrl.strain === 'D/UW-3/CX','textNIGG': $ctrl.strain === 'Str. Nigg','textCW': $ctrl.strain === 'CWL209'}">
-                    Strain {{$ctrl.strain}} <i class="fas fa-chevron-right"></i>
+                    <i class="fas fa-dna"></i> {{$ctrl.strain}} <i class="fas fa-chevron-right"></i>
                   </span>
                   {{$ctrl.data.geneLabel}}</h4>
-                <div class="well ">
+                <div class="well bg-glassWhite">
                   <p class="text-muted noMargin noPadding"><span class="text-pink-light">
                     Aliases:</span> {{$ctrl.data.geneAliases | list2CSV}}
                     <button title="Edit Gene Name" type="button" class="btn themeButton-tiny" ng-click="$ctrl.checkAuthorization('geneName_button')">
@@ -29,11 +29,11 @@
                 </div>
                 <br />
                 <div class="flexParent">
-                  <div class="themeBadge bg-pink flexChild scale-in-center">
+                  <div class="themeBadge bg-pink scale-in-center">
                     <span>Species</span>
                     <span>{{$ctrl.species}}</span>
                   </div>
-                  <div class="themeBadge bg-purple flexChild scale-in-center">
+                  <div class="themeBadge bg-purple scale-in-center">
                     <span>Subtype</span>
                     <span>Reference Strain</span>
                   </div>
@@ -64,7 +64,7 @@
                   </li>
                 </ul>
               </li>
-              <li class="dropdown orthologButton">
+              <li class="dropdown orthologButton bg-gradient-black">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-list" aria-hidden="true"></span> Ortholog <span class="caret"></span></a>
                 <ul class="dropdown-menu">
                   <li class="text-center padding20">
@@ -81,67 +81,18 @@
           <div class="panel-body">
             <div class="row">
               <div class="col-sm-12 col-md-9">
-                <nav class="navbar navbar-inverse noMargin padding20">
-                  <div class="container-fluid">
-                    <a class="navbar-brand" href="#"><i class="fas fa-pastafarianism"></i> Mutants</a>
-                    <p class="navbar-text navbar-right">{{$ctrl.data.geneLabel}} mutants</p>
-                    <ul class="nav navbar-nav navbar-left">
-                      <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Detailed View <span class="caret"></span></a>
-                        <ul class="dropdown-menu">
-                          <li class="text-center padding20">
-                            <mutants-view data="$ctrl.annotations.mutants"></mutants-view>
-                          </li>
-                        </ul>
-                      </li>
-                    </ul>
-                  </div>
-                </nav>
-                <div class="panel">
-                  <div class="panel-body">
-                    <div class="flexParent">
-                      <div class="mutantBadge flexChild flip-in-hor-bottom">
-                        <div ng-class="{'bg-gradient-purple': $ctrl.cm > 0, 'bg-gradient-black': $ctrl.cm <= 0}">
-                          Chemical<br />Mutants
-                        </div>
-                        <div ng-class="{'text-success': $ctrl.tm > 0, 'text-muted': $ctrl.tm <= 0}">
-                          {{$ctrl.cm}}
-                        </div>
-                      </div>
-                      <div class="mutantBadge flexChild flip-in-hor-bottom">
-                        <div ng-class="{'bg-gradient-purple': $ctrl.tm > 0, 'bg-gradient-black': $ctrl.tm <= 0}">
-                          Transposon<br />Mutants
-                        </div>
-                        <div ng-class="{'text-success': $ctrl.tm > 0, 'text-muted': $ctrl.tm <= 0}">
-                          {{$ctrl.tm}}
-                        </div>
-                      </div>
-                      <div class="mutantBadge flexChild flip-in-hor-bottom">
-                        <div ng-class="{'bg-gradient-purple': $ctrl.im > 0, 'bg-gradient-black': $ctrl.im <= 0}">
-                          Intron<br />Mutants
-                        </div>
-                        <div ng-class="{'text-success': $ctrl.tm > 0, 'text-muted': $ctrl.tm <= 0}">
-                          {{$ctrl.im}}
-                        </div>
-                      </div>
-                      <div class="mutantBadge flexChild flip-in-hor-bottom">
-                        <div ng-class="{'bg-gradient-purple': $ctrl.rm > 0, 'bg-gradient-black': $ctrl.rm <= 0}">
-                          Recombination<br />Mutants
-                        </div>
-                        <div ng-class="{'text-success': $ctrl.tm > 0, 'text-muted': $ctrl.tm <= 0}">
-                          {{$ctrl.rm}}
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+                <div>
+                  <h4 class="text-muted">Gene Expression</h4>
                 </div>
+                <expression-view data="$ctrl.annotations.expression" gene="$ctrl.data" belland="$ctrl.data.expression"></expression-view>
               </div>
+
               <div class="col-sm-12 col-md-3">
                 <ul class="list-group">
                   <li class="list-group-item">
-                    <p class="well">
-                      <span class="text-pink">Cell Visualizer</span>
-                    </p>
+                    <h4 class="text-muted">
+                      Cell Visualizer
+                    </h4>
                     <a data-target="#cell_modal" data-toggle="modal" class="btn magnify" tooltip-placement="bottom" uib-tooltip="Click to View Full Image">
                       <cell-visualizer cell-comp="$ctrl.annotations.go.cellcomp" development="$ctrl.data.developmentalForm"></cell-visualizer>
                     </a>
@@ -163,12 +114,136 @@
 
       <div class="col-sm-12 ">
         <div class="panel panel-default">
-          <div class="panel-heading">Gene Expression</div>
           <div class="panel-body">
-            <expression-view data="$ctrl.annotations.expression" gene="$ctrl.data" belland="$ctrl.data.expression"></expression-view>
+            <nav class="navbar navbar-inverse noMargin padding20">
+              <div class="container-fluid">
+                <a class="navbar-brand" href="#"><i class="fas fa-pastafarianism"></i> Mutants</a>
+                <p class="navbar-text navbar-right">{{$ctrl.data.geneLabel}} mutants</p>
+                <ul class="nav navbar-nav navbar-left">
+                  <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fas fa-search"></i> Detailed View <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                      <li class="text-center padding20">
+                        <mutants-view data="$ctrl.annotations.mutants"></mutants-view>
+                      </li>
+                    </ul>
+                  </li>
+                </ul>
+              </div>
+            </nav>
+            <div class="panel">
+              <div class="panel-body" style="background: lightgrey;">
+                <div class="flexParent">
+                  <div class="mutantBadge flexChild flip-in-hor-bottom">
+                    <div ng-class="{'bg-gradient-purple': $ctrl.cm > 0, 'bg-gradient-black': $ctrl.cm <= 0}">
+                      <span class="bodyBadge bg-dark smallFont" style="color:lightblue;">CM</span> Chemical Mutants
+                    </div>
+                    <div ng-class="{'text-success': $ctrl.cm > 0, 'text-muted': $ctrl.cm <= 0}">
+                      {{$ctrl.cm}}
+                    </div>
+                  </div>
+                  <div class="mutantBadge flexChild flip-in-hor-bottom">
+                    <div ng-class="{'bg-gradient-purple': $ctrl.tm > 0, 'bg-gradient-black': $ctrl.tm <= 0}">
+                      <span class="bodyBadge bg-dark smallFont" style="color:lightyellow;">TM</span> Transposon Mutants
+                    </div>
+                    <div ng-class="{'text-success': $ctrl.tm > 0, 'text-muted': $ctrl.tm <= 0}">
+                      {{$ctrl.tm}}
+                    </div>
+                  </div>
+                  <div class="mutantBadge flexChild flip-in-hor-bottom">
+                    <div ng-class="{'bg-gradient-purple': $ctrl.im > 0, 'bg-gradient-black': $ctrl.im <= 0}">
+                      <span class="bodyBadge bg-dark smallFont" style="color:lightgreen;">IM</span> Intron Mutants
+                    </div>
+                    <div ng-class="{'text-success': $ctrl.im > 0, 'text-muted': $ctrl.im <= 0}">
+                      {{$ctrl.im}}
+                    </div>
+                  </div>
+                  <div class="mutantBadge flexChild flip-in-hor-bottom">
+                    <div ng-class="{'bg-gradient-purple': $ctrl.rm > 0, 'bg-gradient-black': $ctrl.rm <= 0}">
+                      <span class="bodyBadge bg-dark smallFont" style="color:lightpink;">RM</span> Recombination Mutants
+                    </div>
+                    <div ng-class="{'text-success': $ctrl.rm > 0, 'text-muted': $ctrl.rm <= 0}">
+                      {{$ctrl.rm}}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
+
+      <div class="col-sm-12" >
+        <div class="well text-center">
+          <h3 class="text-muted">Function(s) (<span class="text-pink">{{$ctrl.annotations.go.molfunc.length + $ctrl.annotations.go.bioproc.length}}</span>)</h3>
+          <button class="glyphicon btn btn-default" ng-class="{'glyphicon-menu-down': !showFunctions, 'glyphicon-menu-up': showFunctions}" ng-click="showFunctions = !showFunctions"></button>
+        </div>
+        <div ng-show="showFunctions">
+          <div class="flexParent">
+              <div class="flexChild 385d94" style="padding:3px">
+                  <div class="panel">
+                      <div class="panel-heading text-purple">
+                        <h2>Molecular Function</h2>
+                      </div>
+                      <div class="panel-body">
+                          <gene-ontology gene="$ctrl.currentGene" goclass='mf_button'
+                                         data="$ctrl.annotations.go.molfunc"></gene-ontology>
+                      </div>
+
+                  </div>
+              </div>
+              <div class="flexChild" style="padding:3px">
+                  <div class="panel ">
+                      <div class="panel-heading text-purple">
+                        <h2>Biological Process</h2>
+                      </div>
+                      <div class="panel-body">
+                          <gene-ontology gene="$ctrl.currentGene" goclass='bp_button'
+                                         data="$ctrl.annotations.go.bioproc"></gene-ontology>
+                      </div>
+                  </div>
+              </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-sm-12" >
+        <div class="well text-center">
+          <h3 class="text-muted">Operon (<span class="text-pink">{{$ctrl.annotations.operon.length}}</span>)</h3>
+          <button class="glyphicon btn btn-default" ng-class="{'glyphicon-menu-down': !showOperon, 'glyphicon-menu-up': showOperon}" ng-click="showOperon = !showOperon"></button>
+        </div>
+        <div ng-show="showOperon">
+          <div class="bg-white padding20">
+            <operon-annotations operon="$ctrl.annotations.operon" allorggenes="$ctrl.allorggenes" gene="$ctrl.currentGene"></operon-annotations>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-sm-12" >
+        <div class="well text-center">
+          <h3 class="text-muted">InterPro Domains (<span class="text-pink">{{$ctrl.annotations.interpro.length}}</span>)</h3>
+          <button class="glyphicon btn btn-default" ng-class="{'glyphicon-menu-down': !showInterPro, 'glyphicon-menu-up': showInterPro}" ng-click="showInterPro = !showInterPro"></button>
+        </div>
+        <div ng-show="showInterPro">
+          <div class="bg-white padding20">
+            <inter-pro data="$ctrl.annotations.interpro"></inter-pro>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-sm-12" >
+        <div class="well text-center">
+          <h3 class="text-muted">Enzyme (<span class="text-pink">{{$ctrl.annotations.ecnumber.length}}</span>)</h3>
+          <button class="glyphicon btn btn-default" ng-class="{'glyphicon-menu-down': !showEnzyme, 'glyphicon-menu-up': showEnzyme}" ng-click="showEnzyme = !showEnzyme"></button>
+        </div>
+        <div ng-show="showEnzyme">
+          <div class="bg-white padding20">
+            <inter-pro data="$ctrl.annotations.interpro"></inter-pro>
+          </div>
+        </div>
+      </div>
+
+
 
       <div class="col-sm-12">
         <div class="flexParent well">

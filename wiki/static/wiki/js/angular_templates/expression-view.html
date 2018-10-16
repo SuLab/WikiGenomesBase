@@ -1,34 +1,29 @@
-<div class="container-fluid">
-    <div class="col-sm-7" ng-hide="$ctrl.belland">
+<div class="container-fluid flexParent">
+    <div class="flexChild" ng-hide="$ctrl.belland" style="align-self:center;">
         <div class="table-responsive">
-            <table ng-table="$ctrl.tableParams" class="table table-hover">
+            <table ng-table="$ctrl.tableParams" class="table">
                 <tr>
                     <td title="'Reticulate Body Expression Timing'">
                         <ul class="expressionList">
-                          <li ng-class="{'bg-gradient-pink': $ctrl.data.RB_EXPRESSION_TIMING == 'Constitutive', 'bg-gradient-black': $ctrl.data.RB_EXPRESSION_TIMING != 'Constitutive'}"
+                          <li ng-class="{'bg-green': $ctrl.data.RB_EXPRESSION_TIMING == 'Constitutive', 'bg-gradient-muted': $ctrl.data.RB_EXPRESSION_TIMING != 'Constitutive'}"
                                 >Constitutive</li>
-                          <li ng-class="{'bg-gradient-pink': $ctrl.data.RB_EXPRESSION_TIMING == 'Early', 'bg-gradient-black': $ctrl.data.RB_EXPRESSION_TIMING != 'Early'}"
+                          <li ng-class="{'bg-green': $ctrl.data.RB_EXPRESSION_TIMING == 'Early', 'bg-gradient-muted': $ctrl.data.RB_EXPRESSION_TIMING != 'Early'}"
                                 >Early</li>
-                          <li ng-class="{'bg-gradient-pink': $ctrl.data.RB_EXPRESSION_TIMING == 'Mid', 'bg-gradient-black': $ctrl.data.RB_EXPRESSION_TIMING != 'Mid'}"
+                          <li ng-class="{'bg-green': $ctrl.data.RB_EXPRESSION_TIMING == 'Mid', 'bg-gradient-muted': $ctrl.data.RB_EXPRESSION_TIMING != 'Mid'}"
                                 >Mid</li>
-                          <li ng-class="{'bg-gradient-pink': $ctrl.data.RB_EXPRESSION_TIMING == 'Mid_Late', 'bg-gradient-black': $ctrl.data.RB_EXPRESSION_TIMING != 'Mid_Late'}"
+                          <li ng-class="{'bg-green': $ctrl.data.RB_EXPRESSION_TIMING == 'Mid_Late', 'bg-gradient-muted': $ctrl.data.RB_EXPRESSION_TIMING != 'Mid_Late'}"
                                 >Mid_Late</li>
-                          <li ng-class="{'bg-gradient-pink': $ctrl.data.RB_EXPRESSION_TIMING == 'Late', 'bg-gradient-black': $ctrl.data.RB_EXPRESSION_TIMING != 'Late'}"
+                          <li ng-class="{'bg-green': $ctrl.data.RB_EXPRESSION_TIMING == 'Late', 'bg-gradient-muted': $ctrl.data.RB_EXPRESSION_TIMING != 'Late'}"
                                 >Late</li>
-                          <li ng-class="{'bg-gradient-pink': $ctrl.data.RB_EXPRESSION_TIMING == 'Very_Late', 'bg-gradient-black': $ctrl.data.RB_EXPRESSION_TIMING != 'Very_Late'}"
+                          <li ng-class="{'bg-green': $ctrl.data.RB_EXPRESSION_TIMING == 'Very_Late', 'bg-gradient-muted': $ctrl.data.RB_EXPRESSION_TIMING != 'Very_Late'}"
                                 >Very_Late</li>
                         </ul>
                         <hr />
                         <div class="well smallFont" >
-                            <span class="bg-pink">&nbsp;&nbsp;&nbsp;&nbsp;</span>&nbsp;Expressed&nbsp;
-                            <span class="bg-dark">&nbsp;&nbsp;&nbsp;&nbsp;</span>&nbsp;Not Determined or Quantified
+                          <span><i class="fa-circle fas text-available"></i> Expressed</span>
+                          <span><i class="fa-circle fas text-muted"></i> Not Expressed or Quantified</span>
                         </div>
-                        <p class="well">
-                          <span class="text-pink">References: </span>
-                          <a class="link" target="_blank" href="https://www.ncbi.nlm.nih.gov/pubmed/{{$ctrl.data.PMID}}">
-                            PubMed
-                          </a>
-                        </p>
+
                     </td>
                 </tr>
             </table>
@@ -36,7 +31,7 @@
 
         </div>
     </div>
-    <div class="col-sm-7" ng-show="$ctrl.belland">
+    <div class="flexChild" ng-show="$ctrl.belland" style="align-self:center;">
         <div class="row">
             <div class="col-sm-1">
                 <button class="btn btn-default" style="margin-top: 80px" ng-click="$ctrl.next()"><span class="glyphicon glyphicon-chevron-left"></span></button>
@@ -50,42 +45,55 @@
             <div class="col-sm-1"></div>
         </div>
     </div>
-    <div class="col-sm-5">
-        <table ng-table="$ctrl.tableParams" class="table table-hover">
-            <tr>
-                <td title="'Developmental Body Enrichment'">
-                    <div class="text-center">
-                      <span ng-class="{'devBodyBadge label-primary': $ctrl.gene.developmentalForm.increased.value=='eb',
-                                       'devBodyBadge label-info': $ctrl.gene.developmentalForm.eb.value == '+' && $ctrl.gene.developmentalForm.increased.value!='eb',
-                                       'devBodyBadge label-default': $ctrl.gene.developmentalForm.eb.value != '+'}"
-                            >Elementary Body</span>
-                      <span ng-class="{'devBodyBadge label-primary': $ctrl.gene.developmentalForm.increased.value=='rb',
-                                       'devBodyBadge label-info': $ctrl.gene.developmentalForm.rb.value == '+' && $ctrl.gene.developmentalForm.increased.value!='rb',
-                                       'devBodyBadge label-default': $ctrl.gene.developmentalForm.rb.value != '+'}"
-                            >Reticulate Body</span>
-                      <hr />
-                      <button type="button" class="btn themeButton-tiny" ng-click="$ctrl.checkAuthorization('developmental_button')">
-                        Add an annotation <span class="glyphicon glyphicon-plus"></span>
-                      </button>
-                    </div>
-
-                    <hr />
-                    <div class="well smallFont">
-                        <span class="label-primary">&nbsp;&nbsp;&nbsp;&nbsp;</span>&nbsp;Increased&nbsp;
-                        <span class="label-info">&nbsp;&nbsp;&nbsp;&nbsp;</span>&nbsp;Expressed&nbsp;
-                        <span class="label-default">&nbsp;&nbsp;&nbsp;&nbsp;</span>&nbsp;Not Determined or Quantified
-                    </div>
-                    <p class="well">
-                      <span class="text-pink">References: </span>
-                      <a href="https://www.ncbi.nlm.nih.gov/pubmed/{{$ctrl.gene.developmentalForm.pmid.value}}"
-                         target="_blank">
-                          PubMed
-                      </a>
-                    </p>
-                </td>
-            </tr>
-        </table>
-        <br>
+    <div class="flexChild" style="align-self:center;">
+      <div>
+        <ul>
+          <li class="text-right right smallFont text-muted padding20">
+            Expression
+          </li>
+          <li>
+            <div class="devEnrichWidget">
+              <div>
+                <span style="background:#ff4f5f;" class="bodyBadge">EB</span> Elementary Body
+              </div>
+              <div>
+                <i class="fa-circle fa-2x" ng-class="{'fas text-purple': $ctrl.gene.developmentalForm.increased.value=='eb',
+                                 'fas text-pink': $ctrl.gene.developmentalForm.eb.value == '+' && $ctrl.gene.developmentalForm.increased.value!='eb',
+                                 'far text-muted': $ctrl.gene.developmentalForm.eb.value != '+'}">
+                </i>
+              </div>
+            </div>
+          </li>
+          <li>
+            <div class="devEnrichWidget">
+              <div>
+                <span style="background:#49a4f9;" class="bodyBadge">RB</span> Reticulate Body
+              </div>
+              <div>
+                <i class="fa-circle fa-2x" ng-class="{'fas text-purple': $ctrl.gene.developmentalForm.increased.value=='rb',
+                                 'fas text-pink': $ctrl.gene.developmentalForm.rb.value == '+' && $ctrl.gene.developmentalForm.increased.value!='rb',
+                                 'far text-muted': $ctrl.gene.developmentalForm.rb.value != '+'}">
+                </i>
+              </div>
+            </div>
+          </li>
+          <li class="padding20">
+            <div class="well smallFont">
+                <span><i class="fa-circle fas text-purple"></i> Increased</span>
+                <span><i class="fa-circle fas text-pink"></i> Expressed</span>
+                <span><i class="fa-circle fas text-muted"></i> Not Expressed or Quantified</span>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="col-sm-12">
+      <p class="well">
+        <span class="text-pink">References: </span>
+        <a class="link" target="_blank" href="https://www.ncbi.nlm.nih.gov/pubmed/{{$ctrl.data.PMID}}">
+          PubMed
+        </a>
+      </p>
     </div>
 </div>
 
