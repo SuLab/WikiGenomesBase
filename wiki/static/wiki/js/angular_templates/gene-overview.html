@@ -186,7 +186,7 @@
                         <h2>Molecular Function</h2>
                       </div>
                       <div class="panel-body">
-                          <gene-ontology gene="$ctrl.currentGene" goclass='mf_button'
+                          <gene-ontology gene="$ctrl.data" goclass='mf_button'
                                          data="$ctrl.annotations.go.molfunc"></gene-ontology>
                       </div>
 
@@ -198,11 +198,23 @@
                         <h2>Biological Process</h2>
                       </div>
                       <div class="panel-body">
-                          <gene-ontology gene="$ctrl.currentGene" goclass='bp_button'
+                          <gene-ontology gene="$ctrl.data" goclass='bp_button'
                                          data="$ctrl.annotations.go.bioproc"></gene-ontology>
                       </div>
                   </div>
               </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-sm-12" >
+        <div class="well text-center">
+          <h3 class="text-muted">Cellular Component Localizations (<span class="text-pink">{{$ctrl.annotations.go.cellcomp.length}}</span>)</h3>
+          <button class="glyphicon btn btn-default" ng-class="{'glyphicon-menu-down': !showLocal, 'glyphicon-menu-up': showLocal}" ng-click="showLocal = !showLocal"></button>
+        </div>
+        <div ng-show="showLocal">
+          <div class="bg-white padding20">
+            <localization-view components="$ctrl.annotations.go.cellcomp" gene="$ctrl.data"></localization-view>
           </div>
         </div>
       </div>
@@ -214,7 +226,7 @@
         </div>
         <div ng-show="showOperon">
           <div class="bg-white padding20">
-            <operon-annotations operon="$ctrl.annotations.operon" allorggenes="$ctrl.allorggenes" gene="$ctrl.currentGene"></operon-annotations>
+            <operon-annotations operon="$ctrl.annotations.operon" allorggenes="$ctrl.allorggenes" gene="$ctrl.data"></operon-annotations>
           </div>
         </div>
       </div>
@@ -243,7 +255,17 @@
         </div>
       </div>
 
-
+      <div class="col-sm-12" >
+        <div class="well text-center">
+          <h3 class="text-muted">Protein Interactions (<span class="text-pink">{{$ctrl.annotations.hostpath.length}}</span>)</h3>
+          <button class="glyphicon btn btn-default" ng-class="{'glyphicon-menu-down': !showPI, 'glyphicon-menu-up': showPI}" ng-click="showPI = !showPI"></button>
+        </div>
+        <div ng-show="showPI">
+          <div class="bg-white padding20">
+            <host-pathogen data="$ctrl.annotations.hostpath"></host-pathogen>
+          </div>
+        </div>
+      </div>
 
       <div class="col-sm-12">
         <div class="flexParent well">
@@ -270,34 +292,6 @@
   </div>
 </div>
 <!-- END -->
-
-<!-- <div class="container-fluid">
-    <div class="row">
-      <div class="col-sm-12 col-md-4 col-lg-4">
-        <table class="table table-striped">
-          <tbody>
-            <tr>
-              <td class="text-purple">
-                Host Targets
-              </td>
-              <td class="text-dark">
-                <span ng-repeat="x in $ctrl.annotations.hostpath">{{x.hostProteinLabel.value}}</span>
-              </td>
-            </tr>
-            <tr>
-              <td class="text-purple">
-                Localizations
-              </td>
-              <td class="text-dark">
-                <span ng-show="$ctrl.annotations.go.cellcomp.length > 0" ng-repeat="x in $ctrl.annotations.go.cellcomp">{{x.gotermValueLabel.value}}; </span>
-                <span ng-hide="$ctrl.annotations.go.cellcomp.length > 0">None</span>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-</div> -->
 <!-- Modal -->
 <div class="modal fade" id="geneName_button" tabindex="-1" role="dialog"
      aria-labelledby="refModalTitle"
