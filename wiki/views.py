@@ -103,8 +103,7 @@ def go_form(request):
         try:
             # find the appropriate item in wd
             wd_item_protein = wdi_core.WDItemEngine(wd_item_id=body['proteinQID'], domain=None,
-                                                    data=statements, use_sparql=True,
-                                                    append_value=[goProp[goclass]])
+                                                    data=statements, append_value=[goProp[goclass]])
             wd_item_protein.write(login=login)
             responseData['write_success'] = True
 
@@ -174,8 +173,7 @@ def hostpath_form(request):
             
             # find the appropriate item in wd
             wd_item_protein = wdi_core.WDItemEngine(wd_item_id=body['proteinQID'], domain=None,
-                                                    data=statements, use_sparql=True,
-                                                    append_value='P129')
+                                                    data=statements, append_value='P129')
             print("Writing protein with login")
             wd_item_protein.write(login=login)
             responseData['write_success'] = True
@@ -243,8 +241,7 @@ def pdb_form(request):
             
             # find the appropriate item in wd
             wd_item_protein = wdi_core.WDItemEngine(wd_item_id=body['qid'], domain=None,
-                                                    data=statements, use_sparql=True,
-                                                    append_value=['P638', 'P18'])
+                                                    data=statements, append_value=['P638', 'P18'])
             print("Writing protein with login")
             wd_item_protein.write(login=login)
             responseData['write_success'] = True
@@ -272,7 +269,6 @@ def movie_form(request):
             responseData['authentication'] = True
 
         login = jsonpickle.decode(request.session['login'])
-        eutilsPMID = body['pub']
         refs = []
         # construct the references using WDI_core and PMID_tools if necessary
         print("Constructing reference")
@@ -304,8 +300,7 @@ def movie_form(request):
 
             # find the appropriate item in wd
             wd_item_protein = wdi_core.WDItemEngine(wd_item_id=body['qid'], domain=None,
-                                                    data=statements, use_sparql=True,
-                                                    append_value=['P1651'])
+                                                    data=statements, append_value=['P1651'])
             print("Writing protein with login")
             wd_item_protein.write(login=login)
             responseData['write_success'] = True
@@ -371,8 +366,7 @@ def localization_form(request):
             print(body['proteinQID'])
             
             wd_item_protein = wdi_core.WDItemEngine(wd_item_id=body['proteinQID'], domain=None,
-                                                    data=statements, use_sparql=True,
-                                                    append_value=['P5572'])
+                                                    data=statements, append_value=['P5572'])
             wd_item_protein.write(login=login)
             responseData['write_success'] = True
 
@@ -438,7 +432,7 @@ def operon_form(request):
         operon_qid = None
         try:
             wd_item_operon = wdi_core.WDItemEngine(item_name=body['name'], domain='genes',
-                                                   data=operon_statements, use_sparql=True, append_value=['P527'])
+                                                   data=operon_statements, append_value=['P527'])
             wd_item_operon.set_label(body['name'])
             wd_item_operon.set_description("Microbial operon found in " + body['taxLabel'])
             wd_item_operon.write(login=login)
@@ -453,7 +447,7 @@ def operon_form(request):
         for gene in body['genes']:
             try:
                 qid = gene['gene'].split('/')[-1]
-                wd_gene_item = wdi_core.WDItemEngine(wd_item_id=qid, data=gene_statement, use_sparql=True)
+                wd_gene_item = wdi_core.WDItemEngine(wd_item_id=qid, data=gene_statement)
                 wd_gene_item.write(login=login)
                 responseData['gene_write_success'] = True
             except Exception as e:

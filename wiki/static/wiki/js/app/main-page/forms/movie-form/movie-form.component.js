@@ -47,7 +47,7 @@ angular
                     var url_suf = '/organism/' + ctrl.gene.taxid + '/gene/' + ctrl.gene.locusTag + '/wd_movie_edit';
 
                     console.log(url_suf);
-                    sendToView.sendToView(url_suf, movieAnnotation).then(function (data) {
+                    sendToView.sendToView(url_suf, ctrl.movieAnnotation).then(function (data) {
                         if (data.data.authentication === false) {
                             authorize = true;
                             success = false;
