@@ -12,6 +12,7 @@ urlpatterns = [
 	url(r'^organism/\d+/gene/.+/wd_localization_edit', views.localization_form, name='localizationForm'),
     url(r'^organism/\d+/gene/.+/wd_operon_edit', views.operon_form, name='operonForm'),
     url(r'^organism/\d+/gene/.+/wd_pdb_edit', views.pdb_form, name='pdbForm'),
+    url(r'^organism/\d+/gene/.+/wd_movie_edit', views.movie_form, name='movieForm'),
     url(r'^organism/\d+/gene/.+/wd_mutant_edit', views.mutant_form, name='mutantForm'),
 	url(r'^organism/\d+/gene/.+/wd_gene_name_edit', views.geneName_form, name='geneNameForm'),
     url(r'^organism/\d+/gene/.+/wd_gene_symbol_edit', views.geneSymbol_form, name='geneSymbolForm'),

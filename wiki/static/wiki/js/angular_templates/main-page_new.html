@@ -48,6 +48,12 @@
                 </uib-tab-heading>
                 <alignment-view locus-tag="$ctrl.currentGene.locusTag" tax-id="$ctrl.currentGene.taxid"></alignment-view>
               </uib-tab>
+              <uib-tab index="'movie'" ng-show="$ctrl.settings['alignment']">
+                  <uib-tab-heading >
+                      Movie Data
+                  </uib-tab-heading>
+                  <movie-view data="$ctrl.currentGene.movie" gene="$ctrl.currentGene"></movie-view>
+              </uib-tab>
             </uib-tabset>
         </div>
     </div>

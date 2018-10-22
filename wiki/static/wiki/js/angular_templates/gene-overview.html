@@ -56,7 +56,7 @@
                   </li>
                 </ul>
               </li>
-              <li class="dropdown">
+              <li class="dropdown" ng-show="$ctrl.settings['product']">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fas fa-dna"></i> Type: <span class="text-pink-light">{{$ctrl.data.productType.id | typeFilter}}</span> <span class="caret"></span></a>
                 <ul class="dropdown-menu" style="width: 1000px;">
                   <li class="text-center padding20">
@@ -64,7 +64,7 @@
                   </li>
                 </ul>
               </li>
-              <li class="dropdown orthologButton bg-gradient-black">
+              <li class="dropdown orthologButton bg-gradient-black" ng-show="$ctrl.settings['ortholog']">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-list" aria-hidden="true"></span> Ortholog <span class="caret"></span></a>
                 <ul class="dropdown-menu">
                   <li class="text-center padding20">
@@ -80,7 +80,7 @@
         <div class="panel">
           <div class="panel-body">
             <div class="row">
-              <div class="col-sm-12 col-md-9">
+              <div class="col-sm-12 col-md-9" ng-show="$ctrl.settings['expression']">
                 <div>
                   <h4 class="text-muted">Gene Expression</h4>
                 </div>
@@ -97,7 +97,7 @@
                       <cell-visualizer cell-comp="$ctrl.annotations.go.cellcomp" development="$ctrl.data.developmentalForm"></cell-visualizer>
                     </a>
                   </li>
-                  <li class="list-group-item" >
+                  <li class="list-group-item">
                     <p class="well">
                       <span class="text-pink">PDB Structure:</span> <span ng-hide="$ctrl.data.pdbIds.length > 0">None</span>
                       <span ng-repeat="x in $ctrl.data.pdbIds">{{x.pdbId.value}};&nbsp;</span>
@@ -112,7 +112,7 @@
         </div>
       </div>
 
-      <div class="col-sm-12 ">
+      <div class="col-sm-12 " ng-show="$ctrl.settings['mutants']">
         <div class="panel panel-default">
           <div class="panel-body">
             <nav class="navbar navbar-inverse noMargin padding20">
@@ -173,7 +173,7 @@
         </div>
       </div>
 
-      <div class="col-sm-12" >
+      <div class="col-sm-12" ng-show="$ctrl.settings['go']">
         <div class="well text-center">
           <h3 class="text-muted">Function(s) (<span class="text-pink">{{$ctrl.annotations.go.molfunc.length + $ctrl.annotations.go.bioproc.length}}</span>)</h3>
           <button class="glyphicon btn btn-default" ng-class="{'glyphicon-menu-down': !showFunctions, 'glyphicon-menu-up': showFunctions}" ng-click="showFunctions = !showFunctions"></button>
@@ -207,7 +207,7 @@
         </div>
       </div>
 
-      <div class="col-sm-12" >
+      <div class="col-sm-12"ng-show="$ctrl.settings['localizations']" >
         <div class="well text-center">
           <h3 class="text-muted">Cellular Component Localizations (<span class="text-pink">{{$ctrl.annotations.go.cellcomp.length}}</span>)</h3>
           <button class="glyphicon btn btn-default" ng-class="{'glyphicon-menu-down': !showLocal, 'glyphicon-menu-up': showLocal}" ng-click="showLocal = !showLocal"></button>
@@ -219,7 +219,7 @@
         </div>
       </div>
 
-      <div class="col-sm-12" >
+      <div class="col-sm-12" ng-show="$ctrl.settings['operon']">
         <div class="well text-center">
           <h3 class="text-muted">Operon (<span class="text-pink">{{$ctrl.annotations.operon.length}}</span>)</h3>
           <button class="glyphicon btn btn-default" ng-class="{'glyphicon-menu-down': !showOperon, 'glyphicon-menu-up': showOperon}" ng-click="showOperon = !showOperon"></button>
@@ -231,7 +231,7 @@
         </div>
       </div>
 
-      <div class="col-sm-12" >
+      <div class="col-sm-12" ng-show="$ctrl.settings['interpro']">
         <div class="well text-center">
           <h3 class="text-muted">InterPro Domains (<span class="text-pink">{{$ctrl.annotations.interpro.length}}</span>)</h3>
           <button class="glyphicon btn btn-default" ng-class="{'glyphicon-menu-down': !showInterPro, 'glyphicon-menu-up': showInterPro}" ng-click="showInterPro = !showInterPro"></button>
@@ -243,7 +243,7 @@
         </div>
       </div>
 
-      <div class="col-sm-12" >
+      <div class="col-sm-12" ng-show="$ctrl.settings['enzyme']">
         <div class="well text-center">
           <h3 class="text-muted">Enzyme (<span class="text-pink">{{$ctrl.annotations.ecnumber.length}}</span>)</h3>
           <button class="glyphicon btn btn-default" ng-class="{'glyphicon-menu-down': !showEnzyme, 'glyphicon-menu-up': showEnzyme}" ng-click="showEnzyme = !showEnzyme"></button>
@@ -255,7 +255,7 @@
         </div>
       </div>
 
-      <div class="col-sm-12" >
+      <div class="col-sm-12" ng-show="$ctrl.settings['hostpath']">
         <div class="well text-center">
           <h3 class="text-muted">Protein Interactions (<span class="text-pink">{{$ctrl.annotations.hostpath.length}}</span>)</h3>
           <button class="glyphicon btn btn-default" ng-class="{'glyphicon-menu-down': !showPI, 'glyphicon-menu-up': showPI}" ng-click="showPI = !showPI"></button>

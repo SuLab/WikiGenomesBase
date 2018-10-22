@@ -49,5 +49,6 @@ angular.module('cmod', [
     'advancedSearchFilter',
     'landingHeader',
     'historyView',
-    'movieView'
+    'movieView',
+    'movieForm'
 ]);
