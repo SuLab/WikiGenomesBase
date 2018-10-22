@@ -4,7 +4,6 @@ angular
         templateUrl: '/static/build/js/angular_templates/localization-view.min.html',
         bindings: {
             components: '<',
-            localizations: '<',
             gene: '<'
         },
         controller: function ($location) {

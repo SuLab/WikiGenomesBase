@@ -1,7 +1,7 @@
 angular
     .module('browserPage')
     .component('browserPage', {
-        controller: function ($filter, $location, $routeParams, allOrgs, allOrgGenes, appData, RefSeqChrom, taxidFilter) {
+        controller: function ($filter, $location, $routeParams, allOrgs, allOrgGenes, appData, RefSeqChrom, taxidFilter, iconMap) {
             'use strict';
             //Browser page Component.  Directed here to paginated list of genes when organism is selected from landing page,
             //or when browser is pointed to URL with /organism/<valid-taxid>
@@ -15,6 +15,10 @@ angular
 
                 taxidFilter.name(ctrl.currentTaxid).then(function(data) {
                     ctrl.orgName = data;
+                });
+
+                iconMap.getMap(function(data) {
+                    ctrl.icon = data[ctrl.currentTaxid];
                 });
 
                 appData.getAppData(function (data) {

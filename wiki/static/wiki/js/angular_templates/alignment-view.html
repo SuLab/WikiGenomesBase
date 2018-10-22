@@ -16,6 +16,12 @@
 						<table ng-table="$ctrl.tableParams" class="table table-hover">
 							<tr ng-show="$ctrl.hasOrthologs"
 								ng-repeat="(key, value) in $ctrl.data">
+								<td title="'Image'">
+									<img class="dropShadow" ng-if="$ctrl.tax2Name[key] === 'Chlamydia trachomatis 434/BU'" width="80px" src="static/wiki/img/strain-434.svg" />
+									<img class="dropShadow" ng-if="$ctrl.tax2Name[key] === 'Chlamydia trachomatis D/UW-3/CX'" width="80px" src="static/wiki/img/strain-DUX.svg" />
+									<img class="dropShadow" ng-if="$ctrl.tax2Name[key] === 'Chlamydia muridarum Str. Nigg'" width="80px" src="static/wiki/img/strain-NIGG.svg" />
+									<img class="dropShadow" ng-if="$ctrl.tax2Name[key] === 'Chlamydia pneumoniae CWL209'" width="80px" src="static/wiki/img/strain-CW.svg" />
+								</td>
 								<td title="'Strain'"><a href="/organism/{{ key }}">{{ $ctrl.tax2Name[key] }}</a></td>
 								<td title="'Taxid'"><a
 									href="/organism/{{ key }}">{{ key }}</a></td>
@@ -65,11 +71,11 @@
 						<td class="text-center verticalMiddle">
 							<button type="button" ng-click="$ctrl.alignData()"
 								ng-hide="$ctrl.aligning" class="btn themeButton">
-								Align Ortholog
+								Align Sequences
 							</button>
 						</td>
 					</tr>
-					<tr>
+					<tr ng-hide="!$ctrl.isRendered">
 						<td class="bg-purple text-light text-center padding20" colspan="2">
 							<h3>Results</h3>
 						</td>

@@ -47,6 +47,13 @@ tax2NameMap = {
     "1198133": "Myxococcus xanthus DZ2"
 }
 
+tax2IconMap = {
+    "471472": "strain-434.svg",
+    "272561": "strain-DUX.svg",
+    "243161": "strain-NIGG.svg",
+    "115713": "strain-CW.svg"
+}
+
 strains = [
     [
         {
@@ -77,26 +84,26 @@ strains = [
 # google chart organism tree
 orgTree = {
     'data': [
-                [{'v': 'Myxococcus xanthus', 'f': '<div class="btn btn-default treeNode nohover" ><i>Myxococcus xanthus</i></div>'},
+                [{'v': 'Myxococcus xanthus', 'f': '<div class="btn btn-default bg-dark text-light treeNode nohover" ><i>Myxococcus xanthus</i></div>'},
                     ''],
                 [{
                     'v': 'Myxococcus xanthus DK 1622',
-                    'f': '<div class="btn btn-default treeNode link" ><a href="/organism/246197/"><i>Myxococcus xanthus DK 1622</i></a></div>'
+                    'f': '<div class="btn btn-default treeNode c434 link" ><a href="/organism/246197/"><i>Myxococcus xanthus DK 1622</i></a></div>'
                 },
                     'Myxococcus xanthus'],
                 [{
                     'v': 'Myxococcus xanthus DZ2',
-                    'f': '<div class="btn btn-default treeNode link"><a href="/organism/1198133/"><i>Myxococcus xanthus DZ2</i></a></div>'
+                    'f': '<div class="btn btn-default treeNode cDUX link"><a href="/organism/1198133/"><i>Myxococcus xanthus DZ2</i></a></div>'
                 },
                     'Myxococcus xanthus'],
                 [{
                     'v': 'Myxococcus xanthus DZF1',
-                    'f': '<div class="btn btn-default treeNode link"><a href="/organism/1198538/"><i>Myxococcus xanthus DZF1</i></a></div>'
+                    'f': '<div class="btn btn-default treeNode cNIGG link"><a href="/organism/1198538/"><i>Myxococcus xanthus DZF1</i></a></div>'
                 },
                     'Myxococcus xanthus'],
                 [{
                     'v': 'Myxococcus xanthus NewJersey2',
-                    'f': '<div class="btn btn-default treeNode nohover"><i>Myxococcus xanthus NewJersey2</i></div>'
+                    'f': '<div class="btn btn-default treeNode cCW nohover"><i>Myxococcus xanthus NewJersey2</i></div>'
                 },
                     'Myxococcus xanthus']
             ]

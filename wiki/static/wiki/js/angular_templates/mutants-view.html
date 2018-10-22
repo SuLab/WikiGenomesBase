@@ -1,7 +1,7 @@
 <div align="right" ng-if="$ctrl.data && $ctrl.data.length!=0" style="overflow: auto">Search: <input type="text" placeholder="Ex. silent_mutation" ng-model="$ctrl.keyword" class="form-control" style="width: 200px; display:inline"></div>
 <div ng-show="$ctrl.chemParams.data.length==0 && $ctrl.transParams.data.length==0 && $ctrl.intronParams.data.length==0 && $ctrl.recombParams.data.length==0">No data<br><br></div>
 <div class="table-responsive">
-	<table ng-table="$ctrl.chemParams" class="table table-hover" show-filter="false" ng-hide="$ctrl.chemParams.data.length==0">
+	<table ng-table="$ctrl.chemParams" class="table table-hover bg-white" show-filter="false" ng-hide="$ctrl.chemParams.data.length==0">
 	    <caption style="color:#385d94">Chemical Mutagenesis</caption>
 	    <tr ng-show="$ctrl.chemParams.data.length!=0" ng-repeat="x in $data | filter: $ctrl.keyword">
 	        <td title="'Mutant Strain'" sortable="'name'">

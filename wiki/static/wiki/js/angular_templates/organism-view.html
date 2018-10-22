@@ -1,0 +1,20 @@
+<div class="col-sm-8">
+  <table>
+    <tr>
+      <td style="padding:10px;">
+        <img class="dropShadow" style="display:inline;" ng-if="$ctrl.name === 'Chlamydia trachomatis 434/BU'" width="40px" src="static/wiki/img/strain-434.svg" />
+        <img class="dropShadow" style="display:inline;" ng-if="$ctrl.name === 'Chlamydia trachomatis D/UW-3/CX'" width="40px" src="static/wiki/img/strain-DUX.svg" />
+        <img class="dropShadow" style="display:inline;" ng-if="$ctrl.name === 'Chlamydia muridarum Str. Nigg'" width="40px" src="static/wiki/img/strain-NIGG.svg" />
+        <img class="dropShadow" style="display:inline;" ng-if="$ctrl.name === 'Chlamydia pneumoniae CWL209'" width="40px" src="static/wiki/img/strain-CW.svg" />
+      </td>
+      <td style="padding:10px;">
+        <h2 style="display:inline;" class="noMargin text-light textShadow">{{ $ctrl.name}}</h2>
+      </td>
+      <td style="padding:10px;">
+        <div class="taxIDBadge">
+          <i class="fas fa-passport"></i> NCBI TaxID: {{ $ctrl.currentTaxid }}
+        </div>
+      </td>
+    </tr>
+  </table>
+</div>

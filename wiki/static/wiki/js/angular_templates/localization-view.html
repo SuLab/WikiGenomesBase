@@ -9,9 +9,9 @@
 		            <div title="{{x.goID.value }}">{{x.gotermValueLabel.value }}</div>
 		        </td>
 		        <td title="'Evidence'">
-					<div ng-repeat="val in x.determinationLabel.values" title="{{$ctrl.evidenceCodes[val]}}">
-						{{ val }}
-					</div>
+							<span ng-repeat="val in x.determinationLabel.values" title="{{$ctrl.evidenceCodes[val]}}">
+								{{ val }}
+							<span >
 		        </td>
 		        <td title="'Source'">
 		            <!-- Button trigger modal -->

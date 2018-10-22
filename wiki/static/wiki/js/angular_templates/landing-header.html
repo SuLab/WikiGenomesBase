@@ -28,7 +28,7 @@
               <li><a data-target="#support_modal" data-toggle="modal" class="btn">Support Us</a></li>
               <li class="dropdown bg-purple">
                 <a href="#" class="dropdown-toggle text-center text-blue" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">More WikiGenomesDB <span class="caret"></span></a>
-                <ul class="dropdown-menu bg-pink" style="max-width:200px; min-height:150px;">
+                <ul class="dropdown-menu bg-pink">
                   <li><a class="text-light" target="_blank" href="https://chlambase.org/">ChlamBase</a></li>
                   <li><a class="text-light" target="_blank" href="https://myxobase.org/">MyxoBase</a></li>
                   <li><a class="text-light" target="_blank" href="http://13.58.104.209/">FishBase</a></li>
@@ -57,13 +57,13 @@
     <div class="modal-dialog modal-lg">
 
         <div class="modal-content">
-            <div class="modal-header bg-purple">
+            <div class="modal-header bg-dark">
                 <button type="button" class="close text-light" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title text-pink-light">About ChlamBase</h4>
+                <h4 class="modal-title text-light"><i class="fas fa-comment"></i> About ChlamBase</h4>
             </div>
-            <div class="modal-text-color modal-body bg-dark text-light padding20 ">
+            <div class="modal-text-color modal-body text-muted padding20 ">
                 <div class="text-center">
-                  <img src="static/wiki/img/{{$ctrl.appData.assets}}/logo.svg" style="width: 150px;">
+                  <img class="dropShadow" src="static/wiki/img/{{$ctrl.appData.assets}}/logo.svg" style="width: 150px;">
                 </div>
                 <p>ChlamBase.org, a fork of <a href="http://wikigenomes.org">WikiGenomes.org</a>, is an open source,
                     user-curated database of functional annotations
@@ -77,9 +77,9 @@
                     visualization of the organism genome using JBrowse at the top of the main page, and also provides
                     a widget for sequence alignment of either dna or amino acids of chlamydia orthologs.
                   </p>
-                  <div class="text-center">
+                  <div class="text-center well">
                     <h2 class='text-pink-light smallCaps'>Funding</h2>
-                    <p class="text-light">
+                    <p class="text-muted">
                       Support for ChlamBase comes NIH/NIGMS R01GM089820, PI Andrew Su.
                     </p>
                   </div>
@@ -93,11 +93,11 @@
     <div class="modal-dialog modal-lg">
 
         <div class="modal-content">
-          <div class="modal-header bg-purple">
+          <div class="modal-header bg-dark">
               <button type="button" class="close text-light" data-dismiss="modal">&times;</button>
-              <h4 class="modal-title text-pink-light">WikiGenomes</h4>
+              <h4 class="modal-title text-light">WikiGenomes</h4>
           </div>
-            <div class="modal-text-color modal-body bg-dark text-light padding20 ">
+            <div class="modal-text-color modal-body text-muted padding20 ">
                 <p>
                     WikiGenomes is a portal to the biological content in the <a href="http://wikidata.org">Wikidata</a>
                     project. It currently hosts the
@@ -118,26 +118,36 @@
     <div class="modal-dialog modal-lg">
 
         <div class="modal-content">
-          <div class="modal-header bg-purple">
+          <div class="modal-header bg-dark">
               <button type="button" class="close text-light" data-dismiss="modal">&times;</button>
-              <h4 class="modal-title text-pink-light">Publications</h4>
+              <h4 class="modal-title text-light"><i class="fas fa-book"></i> Publications</h4>
           </div>
-            <div class="modal-text-color modal-body bg-dark text-light padding20 ">
-                <a target="_blank" href="https://academic.oup.com/database/article-lookup/doi/10.1093/database/bax025">
-                    Tim E. Putman Sebastien Lelong, Sebastian Burgstaller-Muehlbacher, Andra Waagmeester, Colin Diesh,
-                    Nathan Dunn, Monica
-                    Munoz-Torres, Gregory S. Stupp, Chunlei Wu, Andrew I. Su, and Benjamin M. Good. 2017. <strong class='text-pink-light'>â€œWikiGenomes:
-                    An Open Web Application for
-                    Community Consumption and Curation of Gene Annotation Data in Wikidata.â€� Database 2017 (March).
-                    doi:10.1093/database/baw028.</strong class='text-pink-light'>
-                </a>
+            <div class="modal-text-color modal-body text-muted padding20 ">
+                <div class="well padding20">
+                  <a target="_blank" href="https://academic.oup.com/database/article-lookup/doi/10.1093/database/bax025">
+                      Tim E. Putman Sebastien Lelong, Sebastian Burgstaller-Muehlbacher, Andra Waagmeester, Colin Diesh,
+                      Nathan Dunn, Monica
+                      Munoz-Torres, Gregory S. Stupp, Chunlei Wu, Andrew I. Su, and Benjamin M. Good. 2017. <strong>â€œWikiGenomes:
+                      An Open Web Application for
+                      Community Consumption and Curation of Gene Annotation Data in Wikidata.â€� Database 2017 (March).
+                      doi:10.1093/database/baw028.</strong>
+                  </a>
+                </div>
 
-                <h4>Related Projects</h4>
-                <a href="https://en.wikipedia.org/wiki/Portal:Gene_Wiki">Gene Wiki</a><br>
-                <a href="https://www.wikidata.org/wiki/Wikidata:WikiProject_Molecular_biology">Wikidata Project
-                    Molecular Biology</a><br>
-                <a href="https://www.wikidata.org/wiki/Wikidata:WikiProject_Microbiology">Wikidata Project
-                    Microbiology</a><br>
+                <div class="well">
+                  <h4>Related Projects</h4>
+                  <ul class="list-group">
+                    <li class="list-group-item">
+                      <a href="https://en.wikipedia.org/wiki/Portal:Gene_Wiki">Gene Wiki</a>
+                    </li>
+                    <li class="list-group-item">
+                      <a href="https://www.wikidata.org/wiki/Wikidata:WikiProject_Molecular_biology">Wikidata Project Molecular Biology</a>
+                    </li>
+                    <li class="list-group-item">
+                      <a href="https://www.wikidata.org/wiki/Wikidata:WikiProject_Microbiology">Wikidata Project Microbiology</a>
+                    </li>
+                  </ul>
+                </div>
             </div>
         </div>
     </div>
@@ -147,16 +157,16 @@
     <div class="modal-dialog modal-lg">
 
         <div class="modal-content">
-          <div class="modal-header bg-purple">
+          <div class="modal-header bg-dark">
               <button type="button" class="close text-light" data-dismiss="modal">&times;</button>
-              <h4 class="modal-title text-pink-light">The Team</h4>
+              <h4 class="modal-title text-light"><i class="fas fa-users"></i> The Team</h4>
           </div>
-            <div class="modal-text-color modal-body bg-dark text-light padding20 ">
+            <div class="modal-text-color modal-body text-muted padding20 ">
 
                   <div class="flexParent">
                     <div class="flexChild text-center">
-                      <img width="40%" style="border-radius:100%;" src="https://avatars0.githubusercontent.com/u/2635409?s=460&v=4"/>
-                      <h5 class="text-blue smallCaps">Andrew Su / Professsor</h5>
+                      <img class="teamPhoto" width="40%" style="border-radius:100%;" src="https://avatars0.githubusercontent.com/u/2635409?s=460&v=4"/>
+                      <h5 class="smallCaps">Andrew Su / Professsor</h5>
                       <p>
                         Scripps Research
                       </p>
@@ -171,8 +181,8 @@
                   <hr/>
                   <div class="flexParent">
                     <div class="flexChild text-center">
-                      <img width="40%" style="border-radius:100%;" src="https://media.licdn.com/dms/image/C5103AQFZJM_yeVeuWQ/profile-displayphoto-shrink_800_800/0?e=1542844800&v=beta&t=TwBkUrRxZp6kbVUp8IH1CgRY9weSyeYPBenqiF4bQLk"/>
-                      <h5 class="text-blue smallCaps">Tim Putman / Research Associate</h5>
+                      <img class="teamPhoto" width="40%" style="border-radius:100%;" src="https://media.licdn.com/dms/image/C5103AQFZJM_yeVeuWQ/profile-displayphoto-shrink_800_800/0?e=1542844800&v=beta&t=TwBkUrRxZp6kbVUp8IH1CgRY9weSyeYPBenqiF4bQLk"/>
+                      <h5 class="smallCaps">Tim Putman / Research Associate</h5>
                       <p>
                         Scripps Research
                       </p>
@@ -185,8 +195,8 @@
                   <hr />
                   <div class="flexParent">
                     <div class="flexChild text-center">
-                      <img width="40%" style="border-radius:100%;" src="https://pbs.twimg.com/profile_images/702369628706762753/rkefNcjC_400x400.png"/>
-                      <h5 class="text-blue smallCaps">Kevin Hybiske, PhD / Assistant Professor</h5>
+                      <img class="teamPhoto" width="40%" style="border-radius:100%;" src="https://pbs.twimg.com/profile_images/702369628706762753/rkefNcjC_400x400.png"/>
+                      <h5 class="smallCaps">Kevin Hybiske, PhD / Assistant Professor</h5>
                       <p>
                         University of Washington
                       </p>
@@ -199,8 +209,8 @@
                   <hr />
                   <div class="flexParent">
                     <div class="flexChild text-center">
-                      <img width="40%" style="border-radius:100%;" src="http://sulab.org/wp-content/uploads/2018/07/derek_jow-300x243.jpg"/>
-                      <h5 class="text-blue smallCaps">Derek Jow / Student UCSD</h5>
+                      <img class="teamPhoto" width="40%" style="border-radius:100%;" src="static/wiki/img/derek.jpg"/>
+                      <h5 class="smallCaps">Derek Jow / Student UCSD</h5>
                       <p>
                         University of California, San Diego
                       </p>
@@ -212,8 +222,8 @@
                   <hr />
                   <div class="flexParent">
                     <div class="flexChild text-center">
-                      <img width="40%" style="border-radius:100%;" src="https://avatars1.githubusercontent.com/u/23092057?s=460&v=4"/>
-                      <h5 class="text-blue smallCaps">Marco Cano / Research Programmer II</h5>
+                      <img class="teamPhoto" width="40%" style="border-radius:100%;" src="https://avatars1.githubusercontent.com/u/23092057?s=460&v=4"/>
+                      <h5 class="smallCaps">Marco Cano / Research Programmer II</h5>
                       <p>
                         Scripps Research
                       </p>
@@ -243,23 +253,25 @@
     <div class="modal-dialog modal-lg">
 
         <div class="modal-content">
-          <div class="modal-header bg-purple">
+          <div class="modal-header bg-dark">
               <button type="button" class="close text-light" data-dismiss="modal">&times;</button>
-              <h4 class="modal-title text-pink-light">Support Us</h4>
+              <h4 class="modal-title text-light"><i class="fas fa-heart"></i> Support Us</h4>
           </div>
-            <div class="modal-text-color modal-body bg-dark text-light padding20 ">
-              <p>
-                This site is a free service and we would like it to remain that way. If you found us useful (even just at one point), please help support the project by demonstrating its value to our funders by doing as many of the following as possible:
-              </p>
-              <ul>
-                <li>
-                  <script async defer src="https://buttons.github.io/buttons.js"></script>
-                  Follow us on GitHub <a class="github-button" href="https://github.com/SuLab/WikiGenomesBase" data-size="large" data-show-count="true" aria-label="Star SuLab/WikiGenomesBase on GitHub">Star</a>
-                </li>
-                <li>
-                  Use our branding to spread the word about our work.
-                </li>
-              </ul>
+            <div class="modal-text-color modal-body text-muted padding20 ">
+              <div class="jumbotron padding20">
+                <p>
+                  This site is a free service and we would like it to remain that way. If you found us useful (even just at one point), please help support the project by demonstrating its value to our funders by doing as many of the following as possible:
+                </p>
+                <ul>
+                  <li>
+                    <script async defer src="https://buttons.github.io/buttons.js"></script>
+                    Follow us on GitHub <a class="github-button" href="https://github.com/SuLab/WikiGenomesBase" data-size="large" data-show-count="true" aria-label="Star SuLab/WikiGenomesBase on GitHub">Star</a>
+                  </li>
+                  <li>
+                    Use our branding to spread the word about our work.
+                  </li>
+                </ul>
+              </div>
             </div>
         </div>
     </div>
@@ -269,11 +281,11 @@
     <div class="modal-dialog modal-lg">
 
         <div class="modal-content">
-          <div class="modal-header bg-purple">
+          <div class="modal-header bg-dark">
               <button type="button" class="close text-light" data-dismiss="modal">&times;</button>
-              <h4 class="modal-title text-pink-light">FAQ</h4>
+              <h4 class="modal-title text-light"><i class="fas fa-question-circle"></i> FAQ</h4>
           </div>
-            <div class="modal-text-color modal-body bg-dark text-light padding20 ">
+            <div class="modal-text-color modal-body text-muted padding20 ">
                 1. <strong class='text-pink-light'>I want to get a list of all chlamydia genes that have annotated cellular components.</strong class='text-pink-light'><br>
                 Use the "advanced search" option. Click the "advanced search" dropdown and select the
                 box next to "cellular component" in the first column. Then click the search button.<br><br>

@@ -103,8 +103,7 @@ def go_form(request):
         try:
             # find the appropriate item in wd
             wd_item_protein = wdi_core.WDItemEngine(wd_item_id=body['proteinQID'], domain=None,
-                                                    data=statements, use_sparql=True,
-                                                    append_value=[goProp[goclass]])
+                                                    data=statements, append_value=[goProp[goclass]])
             wd_item_protein.write(login=login)
             responseData['write_success'] = True
 
@@ -174,8 +173,7 @@ def hostpath_form(request):
             
             # find the appropriate item in wd
             wd_item_protein = wdi_core.WDItemEngine(wd_item_id=body['proteinQID'], domain=None,
-                                                    data=statements, use_sparql=True,
-                                                    append_value='P129')
+                                                    data=statements, append_value='P129')
             print("Writing protein with login")
             wd_item_protein.write(login=login)
             responseData['write_success'] = True
@@ -243,8 +241,7 @@ def pdb_form(request):
             
             # find the appropriate item in wd
             wd_item_protein = wdi_core.WDItemEngine(wd_item_id=body['qid'], domain=None,
-                                                    data=statements, use_sparql=True,
-                                                    append_value=['P638', 'P18'])
+                                                    data=statements, append_value=['P638', 'P18'])
             print("Writing protein with login")
             wd_item_protein.write(login=login)
             responseData['write_success'] = True
@@ -252,7 +249,66 @@ def pdb_form(request):
         except Exception as e:
             responseData['write_success'] = False
             print(e)
-        return JsonResponse(responseData)        
+        return JsonResponse(responseData)
+
+@ensure_csrf_cookie
+def movie_form(request):
+    """
+    uses wdi to make go annotation edit to wikidata
+    :param request: includes go annotation json for writing to wikidata
+    :return: response data object with a write success boolean
+    """
+    if request.method == 'POST':
+        body_unicode = request.body.decode('utf-8')
+        body = json.loads(body_unicode)
+        responseData = {}
+        if 'login' not in request.session.keys():
+            responseData['authentication'] = False
+            return JsonResponse(responseData)
+        else:
+            responseData['authentication'] = True
+
+        login = jsonpickle.decode(request.session['login'])
+        refs = []
+        # construct the references using WDI_core and PMID_tools if necessary
+        print("Constructing reference")
+        try:
+            refs.append(wdi_core.WDItemID(value='Q26489220', prop_nr='P1640', is_reference=True))
+            refs.append(wdi_core.WDTime(str(strftime("+%Y-%m-%dT00:00:00Z", gmtime())), prop_nr='P813',
+                                        is_reference=True))
+
+            responseData['ref_success'] = True
+        except Exception as e:
+            responseData['ref_success'] = False
+            print("reference construction error: " + str(e))
+
+        statements = []
+        # #contstruct the statements using WDI_core
+        print("Constructing statements")
+        try:
+            statements.append(wdi_core.WDExternalID(value=body['id'], prop_nr='P1651', references=[refs]))
+            responseData['statement_success'] = True
+        except Exception as e:
+            responseData['statement_success'] = False
+            print(e)
+
+        #write the statement to WD using WDI_core
+        print("Writing the statement")
+        try:
+            print("protein id:")
+            print(body['qid'])
+
+            # find the appropriate item in wd
+            wd_item_protein = wdi_core.WDItemEngine(wd_item_id=body['qid'], domain=None,
+                                                    data=statements, append_value=['P1651'])
+            print("Writing protein with login")
+            wd_item_protein.write(login=login)
+            responseData['write_success'] = True
+
+        except Exception as e:
+            responseData['write_success'] = False
+            print(e)
+        return JsonResponse(responseData)
 
 @ensure_csrf_cookie
 def localization_form(request):
@@ -310,8 +366,7 @@ def localization_form(request):
             print(body['proteinQID'])
             
             wd_item_protein = wdi_core.WDItemEngine(wd_item_id=body['proteinQID'], domain=None,
-                                                    data=statements, use_sparql=True,
-                                                    append_value=['P5572'])
+                                                    data=statements, append_value=['P5572'])
             wd_item_protein.write(login=login)
             responseData['write_success'] = True
 
@@ -377,7 +432,7 @@ def operon_form(request):
         operon_qid = None
         try:
             wd_item_operon = wdi_core.WDItemEngine(item_name=body['name'], domain='genes',
-                                                   data=operon_statements, use_sparql=True, append_value=['P527'])
+                                                   data=operon_statements, append_value=['P527'])
             wd_item_operon.set_label(body['name'])
             wd_item_operon.set_description("Microbial operon found in " + body['taxLabel'])
             wd_item_operon.write(login=login)
@@ -392,7 +447,7 @@ def operon_form(request):
         for gene in body['genes']:
             try:
                 qid = gene['gene'].split('/')[-1]
-                wd_gene_item = wdi_core.WDItemEngine(wd_item_id=qid, data=gene_statement, use_sparql=True)
+                wd_gene_item = wdi_core.WDItemEngine(wd_item_id=qid, data=gene_statement)
                 wd_gene_item.write(login=login)
                 responseData['gene_write_success'] = True
             except Exception as e:

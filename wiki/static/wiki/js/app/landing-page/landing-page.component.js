@@ -1,12 +1,16 @@
 angular
     .module('landingPage')
     .component('landingPage', {
-        controller: function (allOrgs, recentPubLinks, euroPubData, appData, strainDisplay) {
+        controller: function (allOrgs, recentPubLinks, euroPubData, appData, strainDisplay, iconMap) {
             'use strict';
             var ctrl = this;
 
             strainDisplay.getStrains().then(function (data) {
                ctrl.strains = data.data;
+            });
+
+            iconMap.getMap(function(data) {
+                ctrl.iconMap = data;
             });
 
             appData.getAppData(function (data) {

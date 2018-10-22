@@ -1,13 +1,13 @@
 angular
     .module('allgenesDownload')
     .component('allgenesDownload', {
-        template: '<a target="_blank" href="{{$ctrl.genesUrl()}}"><div class="btn btn-default">Download Genes</div></a>',
+        template: '<a target="_blank" href="{{$ctrl.genesUrl()}}"><div class="btn themeButton"><i class="fas fa-download"></i> Download Genes</div></a>',
 
         bindings: {
             taxid: '<'
         },
         controller: function () {
-            
+
             'use strict';
 
             var ctrl = this;
