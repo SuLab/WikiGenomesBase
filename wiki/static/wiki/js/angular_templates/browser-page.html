@@ -2,8 +2,27 @@
 <div ng-show="$ctrl.loading" class="overlay">
     <div class="loading-img"></div>
 </div>
-<div class="container" style="padding-top: 15vh">
+<div class="container" style="padding-top: 10vh">
   <div class="row">
+    <!-- to-do: make dynamic -->
+    <div class="col-sm-12 text-center">
+      <h3 class="text-muted text-weight-light">Explore Other Strains</h3>
+      <div style="margin:auto;">
+        <a class="scale-in-center margin20 organismBtn" href="/organism/471472">
+          <img width="40px" src="static/wiki/img/strain-434.svg"/>
+        </a>
+        <a class="scale-in-center margin20 organismBtn" href="/organism/272561">
+          <img width="40px" src="static/wiki/img/strain-DUX.svg"/>
+        </a>
+        <a class="scale-in-center margin20 organismBtn" href="/organism/243161">
+          <img width="40px" src="static/wiki/img/strain-NIGG.svg"/>
+        </a>
+        <a class="scale-in-center margin20 organismBtn" href="/organism/115713">
+          <img width="40px" src="static/wiki/img/strain-CW.svg"/>
+        </a>
+      </div>
+    </div>
+
     <div class="col-md-12 bg-gradient-black padding20" style="margin:10px 0px; border-radius:10px;">
         <div class="col-sm-8">
             <table>
@@ -37,24 +56,24 @@
   <div class="flexParent">
     <div class="flexChild panel text-center">
       <div class="panel-heading bg-dark text-center text-light">
-        <h4><i class="fas fa-dna"></i> Chromosomes: <span class="text-pink">{{ $ctrl.numChromosomes }}</span></h4>
+        <h4> Chromosomes: <span class="text-pink">{{ $ctrl.numChromosomes }}</span></h4>
       </div>
       <div class="panel-body padding20" style="border:2px grey solid;">
         <div ng-repeat="x in $ctrl.chromosomes">
           <a class="btn themeButton-tiny" ng-repeat="chr in x" ng-click="$ctrl.onChromSelect(chr)">
-            <i class="fas fa-dna"></i> {{chr.chromosomeLabel.value}}
+             {{chr.chromosomeLabel.value}}
           </a>
         </div>
       </div>
     </div>
     <div class="flexChild panel text-center">
       <div class="panel-heading bg-dark text-center text-light">
-        <h4><i class="fas fa-dna"></i> Plasmids: <span class="text-pink">{{ $ctrl.numPlasmids }}</span></h4>
+        <h4> Plasmids: <span class="text-pink">{{ $ctrl.numPlasmids }}</span></h4>
       </div>
       <div class="panel-body padding20" style="border:2px grey solid;">
         <div ng-repeat="x in $ctrl.plasmids">
           <a class="btn themeButton-tiny" ng-repeat="chr in x" ng-click="$ctrl.onChromSelect(chr)">
-            <i class="fas fa-dna"></i> {{chr.plasmidLabel.value}}
+             {{chr.plasmidLabel.value}}
           </a>
         </div>
       </div>

@@ -33,16 +33,11 @@
     </div>
     <div class="flexChild" ng-show="$ctrl.belland" style="align-self:center;">
         <div class="row">
-            <div class="col-sm-1">
-                <button class="btn btn-default" style="margin-top: 80px" ng-click="$ctrl.next()"><span class="glyphicon glyphicon-chevron-left"></span></button>
-            </div>
-            <div class="col-sm-9">
+            <div class="col-sm-12 padding20 text-center">
                 <div id="curve_chart" style="height: 200px"></div>
+                <hr />
+                <button class="btn themeButton-tiny" ng-click="$ctrl.next()">Chart Style</button>
             </div>
-            <div class="col-sm-1">
-                <button class="btn btn-default" style="margin-top: 80px" ng-click="$ctrl.next()"><span class="glyphicon glyphicon-chevron-right"></span></button>
-            </div>
-            <div class="col-sm-1"></div>
         </div>
     </div>
     <div class="flexChild" style="align-self:center;">
@@ -57,9 +52,9 @@
                 <span style="background:#ff4f5f;" class="bodyBadge">EB</span> Elementary Body
               </div>
               <div>
-                <i class="fa-circle fa-2x" ng-class="{'fas text-purple': $ctrl.gene.developmentalForm.increased.value=='eb',
-                                 'fas text-pink': $ctrl.gene.developmentalForm.eb.value == '+' && $ctrl.gene.developmentalForm.increased.value!='eb',
-                                 'far text-muted': $ctrl.gene.developmentalForm.eb.value != '+'}">
+                <i class="fas fa-circle fa-2x" ng-class="{'text-pink': $ctrl.gene.developmentalForm.increased.value=='eb',
+                                 'text-available': $ctrl.gene.developmentalForm.eb.value == '+' && $ctrl.gene.developmentalForm.increased.value!='eb',
+                                 'text-muted': $ctrl.gene.developmentalForm.eb.value != '+'}">
                 </i>
               </div>
             </div>
@@ -70,17 +65,17 @@
                 <span style="background:#49a4f9;" class="bodyBadge">RB</span> Reticulate Body
               </div>
               <div>
-                <i class="fa-circle fa-2x" ng-class="{'fas text-purple': $ctrl.gene.developmentalForm.increased.value=='rb',
-                                 'fas text-pink': $ctrl.gene.developmentalForm.rb.value == '+' && $ctrl.gene.developmentalForm.increased.value!='rb',
-                                 'far text-muted': $ctrl.gene.developmentalForm.rb.value != '+'}">
+                <i class="fas fa-circle fa-2x" ng-class="{'text-pink': $ctrl.gene.developmentalForm.increased.value=='rb',
+                                 'text-available': $ctrl.gene.developmentalForm.rb.value == '+' && $ctrl.gene.developmentalForm.increased.value!='rb',
+                                 'text-muted': $ctrl.gene.developmentalForm.rb.value != '+'}">
                 </i>
               </div>
             </div>
           </li>
           <li class="padding20">
             <div class="well smallFont">
-                <span><i class="fa-circle fas text-purple"></i> Increased</span>
-                <span><i class="fa-circle fas text-pink"></i> Expressed</span>
+                <span><i class="fa-circle fas text-pink"></i> Increased</span>
+                <span><i class="fa-circle fas text-available"></i> Expressed</span>
                 <span><i class="fa-circle fas text-muted"></i> Not Expressed or Quantified</span>
             </div>
           </li>

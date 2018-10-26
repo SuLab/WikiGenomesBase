@@ -4,7 +4,7 @@
 			<span>GO Term</span>
 			<span style="float:right">Evidence</span>
 		</li>
-	  <li class="list-group-item" ng-repeat="x in $ctrl.data">
+	  <li class="list-group-item text-left" ng-repeat="x in $ctrl.data">
 	    <span class="badge" ng-repeat="val in x.determinationLabel.values">{{val}}</span>
 			<a data-toggle="modal" style="text-transform:capitalize;"
 				 data-target="#{{ x.goID.value | replaceColon }}">
