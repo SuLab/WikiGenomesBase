@@ -1,7 +1,7 @@
 angular
     .module('browserPage')
     .component('browserPage', {
-        controller: function ($filter, $location, $routeParams, allOrgs, allOrgGenes, appData, RefSeqChrom, taxidFilter, iconMap) {
+        controller: function ($filter, $location, $routeParams, allOrgs, allOrgGenes, appData, RefSeqChrom, taxidFilter, iconMap, strainDisplay) {
             'use strict';
             //Browser page Component.  Directed here to paginated list of genes when organism is selected from landing page,
             //or when browser is pointed to URL with /organism/<valid-taxid>
@@ -19,6 +19,16 @@ angular
 
                 iconMap.getMap(function(data) {
                     ctrl.icon = data[ctrl.currentTaxid];
+                    ctrl.iconMap = data;
+                });
+
+                strainDisplay.getStrains().then(function (data) {
+                    ctrl.strains = [];
+                    for(var i = 0; i < data.data.length; i++) {
+                        for (var j = 0; j < data.data[i].length; j++) {
+                            ctrl.strains.push(data.data[i][j]);
+                        }
+                    }
                 });
 
                 appData.getAppData(function (data) {

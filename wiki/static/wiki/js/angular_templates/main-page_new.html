@@ -2,7 +2,7 @@
 <div class="container-fluid" style="padding-top: 10vh; padding-bottom: 40px; background: #414449;">
     <div class="container">
         <div class="panel" style="border: 2px grey solid;">
-            <div style="padding:5px;" class="text-center" ng-class="{'bg-434-grad': $ctrl.currentOrg.taxonLabel === 'Chlamydia trachomatis 434/BU','bg-DUX-grad': $ctrl.currentOrg.taxonLabel === 'Chlamydia trachomatis D/UW-3/CX','bg-NIGG-grad': $ctrl.currentOrg.taxonLabel === 'Chlamydia muridarum Nigg','bg-CW-grad': $ctrl.currentOrg.taxonLabel === 'Chlamydia pneumoniae CWL029'}">
+            <div style="padding:5px;" class="text-center" ng-class="{'bg-434-grad': $ctrl.backgrounds[0],'bg-DUX-grad': $ctrl.backgrounds[1],'bg-NIGG-grad': $ctrl.backgrounds[2],'bg-CW-grad': $ctrl.backgrounds[3]}">
               <table>
                 <col width="20%">
                 <col width="60%">
@@ -50,12 +50,18 @@
                 </uib-tab-heading>
                 <alignment-view locus-tag="$ctrl.currentGene.locusTag" tax-id="$ctrl.currentGene.taxid"></alignment-view>
               </uib-tab>
-              <uib-tab index="'movie'" ng-show="$ctrl.settings['alignment']">
+              <uib-tab index="'movie'" ng-show="$ctrl.settings['movie']">
                   <uib-tab-heading >
                       Movie Data
                   </uib-tab-heading>
                   <movie-view data="$ctrl.currentGene.movie" gene="$ctrl.currentGene"></movie-view>
               </uib-tab>
+                <uib-tab index="'product'" ng-show="$ctrl.settings['product']">
+                    <uib-tab-heading >
+                        Gene Product
+                    </uib-tab-heading>
+                    <protein-view protein="$ctrl.currentGene"></protein-view>
+                </uib-tab>
             </uib-tabset>
         </div>
     </div>

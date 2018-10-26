@@ -1,15 +1,17 @@
-<div ng-hide="$ctrl.data">No data</div>
-<table ng-table="$ctrl.tableParams" class="table table-hover" ng-show="$ctrl.data">
-	<tr ng-repeat="uri in $ctrl.data">
-		<td title="'Observed Phenotype(s)'">
-            <iframe width="560" height="315" ng-src="{{'https://www.youtube.com/embed/' + uri.mainsnak.datavalue.value}}" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-		</td>
-	</tr>
-</table>
+<div style="text-align: center">
+	<div ng-hide="$ctrl.data">No data <br><br></div>
+	<table ng-table="$ctrl.tableParams" class="table table-hover" ng-show="$ctrl.data">
+		<tr ng-repeat="uri in $ctrl.data">
+			<td title="'Observed Phenotype(s)'">
+				<iframe width="560" height="315" ng-src="{{'https://www.youtube.com/embed/' + uri.mainsnak.datavalue.value}}" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+			</td>
+		</tr>
+	</table>
 
-<button type="button" class="btn themeButton-tiny" ng-click="$ctrl.checkAuthorization('movie_button')">
-	Add an annotation <span class="glyphicon glyphicon-plus"></span>
-</button>
+	<button type="button" class="btn themeButton-tiny" ng-click="$ctrl.checkAuthorization('movie_button')">
+		Add an annotation <span class="glyphicon glyphicon-plus"></span>
+	</button>
+</div>
 
 <!-- Modal -->
 <div class="modal fade" id="movie_button" tabindex="-1" role="dialog"

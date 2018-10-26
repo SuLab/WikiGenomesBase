@@ -85,9 +85,10 @@
     <div class="col-sm-12">
       <p class="well">
         <span class="text-pink">References: </span>
-        <a class="link" target="_blank" href="https://www.ncbi.nlm.nih.gov/pubmed/{{$ctrl.data.PMID}}">
+        <a ng-show="$ctrl.data.PMID" class="link" target="_blank" href="https://www.ncbi.nlm.nih.gov/pubmed/{{$ctrl.data.PMID}}">
           PubMed
         </a>
+        <span ng-hide="$ctrl.data.PMID">No references available</span>
       </p>
     </div>
 </div>

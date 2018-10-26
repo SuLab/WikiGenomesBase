@@ -8,17 +8,8 @@
     <div class="col-sm-12 text-center">
       <h3 class="text-muted text-weight-light">Explore Other Strains</h3>
       <div style="margin:auto;">
-        <a class="scale-in-center margin20 organismBtn" href="/organism/471472">
-          <img width="40px" src="static/wiki/img/strain-434.svg"/>
-        </a>
-        <a class="scale-in-center margin20 organismBtn" href="/organism/272561">
-          <img width="40px" src="static/wiki/img/strain-DUX.svg"/>
-        </a>
-        <a class="scale-in-center margin20 organismBtn" href="/organism/243161">
-          <img width="40px" src="static/wiki/img/strain-NIGG.svg"/>
-        </a>
-        <a class="scale-in-center margin20 organismBtn" href="/organism/115713">
-          <img width="40px" src="static/wiki/img/strain-CW.svg"/>
+        <a ng-repeat="strain in $ctrl.strains" class="scale-in-center margin20 organismBtn" href="/organism/{{strain.taxid}}">
+          <img width="40px" src="static/wiki/img/{{$ctrl.iconMap[strain.taxid]}}"/>
         </a>
       </div>
     </div>
