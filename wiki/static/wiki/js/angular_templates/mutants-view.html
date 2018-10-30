@@ -1,15 +1,15 @@
 <div align="right" ng-if="$ctrl.data && $ctrl.data.length!=0" style="overflow: auto">
 	Filter Search <input type="text" placeholder="Ex. silent_mutation" ng-model="$ctrl.keyword" class="form-control" style="width: 200px; display:inline">
 </div>
-<div class="text-center padding20 text-muted-light" ng-show="$ctrl.chemParams.data.length==0 && $ctrl.transParams.data.length==0 && $ctrl.intronParams.data.length==0 && $ctrl.recombParams.data.length==0">
+<div class="text-center padding20 text-muted-light" ng-show="$ctrl.data.length == 0">
 	No Data
 </div>
 <div class="flexParent">
-	<div class="panel panel-default flexChild scale-in-center mutantCard" ng-show="$ctrl.chemParams.data.length!=0" ng-repeat="x in $data | filter: $ctrl.keyword" >
+	<div class="panel panel-default flexChild scale-in-center mutantCard" ng-show="$ctrl.chemParams.length!=0" ng-repeat="x in $ctrl.chemParams | filter: $ctrl.keyword" >
 	  <div class="panel-heading bg-dark text-light smallCaps padding20">
 			<span class="bodyBadge bg-dark" style="color:lightblue;">EMS</span> Chemical Mutagenesis
 		</div>
-	  <div class="panel-body" ng-hide="$ctrl.chemParams.data.length != 0">
+	  <div class="panel-body" ng-show="$ctrl.chemParams.length != 0">
 					<p class="text-center text-muted noPadding">
 						<span>Strain: </span><b class="text-pink">{{ x.name }}</b>
 					</p>
@@ -70,11 +70,11 @@
 	  </div>
 	</div>
 
-	<div class="panel panel-default flexChild scale-in-center mutantCard" ng-show="$ctrl.transParams.data.length!=0" ng-repeat="x in $data | filter: $ctrl.keyword" >
+	<div class="panel panel-default flexChild scale-in-center mutantCard" ng-show="$ctrl.transParams.length!=0" ng-repeat="x in $ctrl.transParams | filter: $ctrl.keyword" >
 	  <div class="panel-heading bg-dark text-light smallCaps padding20">
 			<span class="bodyBadge bg-dark" style="color:violet;">TN</span> Transposon Mutagenesis
 		</div>
-	  <div class="panel-body" ng-hide="$ctrl.chemParams.data.length != 0">
+	  <div class="panel-body" ng-show="$ctrl.transParams.length != 0">
 					<p class="text-center text-muted noPadding">
 						<span>Strain: </span><b class="text-pink">{{ x.name}}</b>
 					</p>
@@ -119,11 +119,11 @@
 	  </div>
 	</div>
 
-	<div class="panel panel-default flexChild scale-in-center mutantCard" ng-show="$ctrl.transParams.data.length!=0" ng-repeat="x in $data | filter: $ctrl.keyword" >
+	<div class="panel panel-default flexChild scale-in-center mutantCard" ng-show="$ctrl.intronParams.length!=0" ng-repeat="x in ctrl.intronParams | filter: $ctrl.keyword" >
 	  <div class="panel-heading bg-dark text-light smallCaps padding20">
 			<span class="bodyBadge bg-dark" style="color:lightgreen;">TT</span> Intron Mutagenesis
 		</div>
-	  <div class="panel-body" ng-hide="$ctrl.chemParams.data.length != 0">
+	  <div class="panel-body" ng-show="$ctrl.intronParams.length != 0">
 					<p class="text-center text-muted noPadding">
 						<span>Strain: </span><b class="text-pink">{{ x.name}}</b>
 					</p>
@@ -168,11 +168,11 @@
 	  </div>
 	</div>
 
-	<div class="panel panel-default flexChild scale-in-center mutantCard" ng-show="$ctrl.transParams.data.length!=0" ng-repeat="x in $data | filter: $ctrl.keyword" >
+	<div class="panel panel-default flexChild scale-in-center mutantCard" ng-show="ctrl.recombParams.length!=0" ng-repeat="x in $ctrl.recombParams | filter: $ctrl.keyword" >
 		<div class="panel-heading bg-dark text-light smallCaps padding20">
 			<span class="bodyBadge bg-dark" style="color:lightpink;">RC</span> Recombination
 		</div>
-		<div class="panel-body" ng-hide="$ctrl.chemParams.data.length != 0">
+		<div class="panel-body" ng-show="$ctrl.recombParams.length != 0">
 					<p class="text-center text-muted noPadding">
 						<span>Strain: </span><b class="text-pink">{{ x.name}}</b>
 					</p>
@@ -262,13 +262,13 @@
 
 
 <!-- <div align="right" ng-if="$ctrl.data && $ctrl.data.length!=0" style="overflow: auto">Search: <input type="text" placeholder="Ex. silent_mutation" ng-model="$ctrl.keyword" class="form-control" style="width: 200px; display:inline"></div>
-<div class="text-center padding20 text-muted" ng-show="$ctrl.chemParams.data.length==0 && $ctrl.transParams.data.length==0 && $ctrl.intronParams.data.length==0 && $ctrl.recombParams.data.length==0">
+<div class="text-center padding20 text-muted" ng-show="$ctrl.chemParams.length==0 && $ctrl.transParams.length==0 && $ctrl.intronParams.length==0 && $ctrl.recombParams.length==0">
 	No data
 </div>
 <div class="table-responsive">
-	<table ng-table="$ctrl.chemParams" class="table table-hover bg-white" show-filter="false" ng-hide="$ctrl.chemParams.data.length==0">
+	<table ng-table="$ctrl.chemParams" class="table table-hover bg-white" show-filter="false" ng-hide="$ctrl.chemParams.length==0">
 	    <caption style="color:#385d94">Chemical Mutagenesis</caption>
-	    <tr ng-show="$ctrl.chemParams.data.length!=0" ng-repeat="x in $data | filter: $ctrl.keyword">
+	    <tr ng-show="$ctrl.chemParams.length!=0" ng-repeat="x in $data | filter: $ctrl.keyword">
 	        <td title="'Mutant Strain'" sortable="'name'">
 	            {{ x.name }}
 	        </td>
@@ -310,9 +310,9 @@
 	</table>
 </div>
 <div class="table-responsive">
-	<table ng-table="$ctrl.transParams" class="table table-hover" show-filter="false" ng-hide="$ctrl.transParams.data.length==0">
+	<table ng-table="$ctrl.transParams" class="table table-hover" show-filter="false" ng-hide="$ctrl.transParams.length==0">
 	    <caption style="color:#385d94">Transposon Mutagenesis</caption>
-	    <tr ng-show="$ctrl.transParams.data.length!=0" ng-repeat="x in $data | filter: $ctrl.keyword">
+	    <tr ng-show="$ctrl.transParams.length!=0" ng-repeat="x in $data | filter: $ctrl.keyword">
 	        <td title="'Mutant Strain'" sortable="'name'">
 	            {{ x.name }}
 	        </td>
@@ -348,9 +348,9 @@
 	</table>
 </div>
 <div class="table-responsive">
-	<table ng-table="$ctrl.intronParams" class="table table-hover" show-filter="false" ng-hide="$ctrl.intronParams.data.length==0">
+	<table ng-table="$ctrl.intronParams" class="table table-hover" show-filter="false" ng-hide="$ctrl.intronParams.length==0">
 	    <caption style="color:#385d94">Intron Mutagenesis</caption>
-	    <tr ng-show="$ctrl.intronParams.data.length!=0" ng-repeat="x in $data | filter: $ctrl.keyword">
+	    <tr ng-show="$ctrl.intronParams.length!=0" ng-repeat="x in $data | filter: $ctrl.keyword">
 	        <td title="'Mutant Strain'" sortable="'name'">
 	            {{ x.name }}
 	        </td>
@@ -387,9 +387,9 @@
 </div>
 
 <div class="table-responsive">
-	<table ng-table="$ctrl.recombParams" class="table table-hover" show-filter="false" ng-hide="$ctrl.recombParams.data.length==0">
+	<table ng-table="$ctrl.recombParams" class="table table-hover" show-filter="false" ng-hide="$ctrl.recombParams.length==0">
 	    <caption style="color:#385d94">Recombination</caption>
-	    <tr ng-show="$ctrl.recombParams.data.length!=0" ng-repeat="x in $data | filter: $ctrl.keyword">
+	    <tr ng-show="$ctrl.recombParams.length!=0" ng-repeat="x in $data | filter: $ctrl.keyword">
 	        <td title="'Mutant Strain'" sortable="'name'">
 	            {{ x.name }}
 	        </td>
