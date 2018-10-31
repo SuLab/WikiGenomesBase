@@ -11,7 +11,8 @@ angular
 
             ctrl.checkAuthorization = function(modal) {
                 if (!$location.path().includes("authorized")) {
-                    alert('Please authorize ChlamBase to edit Wikidata on your behalf!');
+                    // alert('Please authorize ChlamBase to edit Wikidata on your behalf!');
+                    $("#errorInteractions").modal('show');
                 } else {
                     $("#" + modal).modal('show');
                 }

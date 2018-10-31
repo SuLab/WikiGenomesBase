@@ -61,7 +61,7 @@ angular
                 taxidFilter.strain(ctrl.taxid).then(function(data) {
                     ctrl.strain = data;
                 });
-            	
+
                 var url_suf = $location.path() + '/mg_mutant_view';
                 sendToView.sendToView(url_suf, {
                     locusTag : ctrl.locusTag,
@@ -84,7 +84,7 @@ angular
 
             ctrl.checkAuthorization = function(modal) {
                 if (!$location.path().includes("authorized")) {
-                    alert('Please authorize ChlamBase to edit Wikidata on your behalf!');
+                    $("#errorGene").modal('show');
                 } else {
                     $("#" + modal).modal('show');
                 }

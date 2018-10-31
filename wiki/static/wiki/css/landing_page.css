@@ -13,6 +13,15 @@
     --strainDUX: #23E08A;
 }
 
+.modal-backdrop.in{
+  z-index: -10;
+}
+
+.badgeFilter:hover{
+  background: var(--mainPink) !important;
+  cursor: pointer !important;
+}
+
 .betaBadge{
 border:2px solid white;
 margin: 0px 0px 8px 4px;
@@ -41,9 +50,14 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#66338a', end
 }
 
 .mutantCard{
+  background: #eeeeee !important;
   border:1px solid #e2e2e2;
   margin:3px;
-  max-width: 22%;
+  transition: all .5s;
+}
+
+.mutantCard:hover{
+  background: white !important;
 }
 
 .outlineBtn{

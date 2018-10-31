@@ -110,28 +110,13 @@
       <div class="col-sm-12 " ng-show="$ctrl.settings['mutants']">
         <div class="panel panel-default">
           <div class="panel-body">
-            <!-- <nav class="navbar navbar-inverse noMargin padding20">
-              <div class="container-fluid">
-                <a class="navbar-brand" href="#"><i class="fas fa-pastafarianism"></i> Mutants</a>
-                <p class="navbar-text navbar-right">{{$ctrl.data.geneLabel}} mutants</p>
-                <ul class="nav navbar-nav navbar-left">
-                  <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fas fa-search"></i> Detailed View <span class="caret"></span></a>
-                    <ul class="dropdown-menu">
-                      <li class="text-center padding20">
-                        <mutants-view data="$ctrl.annotations.mutants"></mutants-view>
-                      </li>
-                    </ul>
-                  </li>
-                </ul>
-              </div>
-            </nav> -->
             <div class="panel">
               <div class="panel-body" style="background: lightgrey;">
+                <h4 class="text-muted">Mutants</h4>
                 <div class="flexParent">
                   <div class="mutantBadge flexChild flip-in-hor-bottom">
                     <div ng-class="{'bg-gradient-purple': $ctrl.cm > 0, 'bg-gradient': $ctrl.cm <= 0}">
-                      <span class="bodyBadge bg-dark smallFont" style="color:lightblue;">EMS</span> Chemical Mutants
+                      <span class="bodyBadge bg-dark smallFont" style="color:skyblue;">EMS</span> Chemical Mutants
                     </div>
                     <div ng-class="{'text-pink': $ctrl.cm > 0, 'text-muted': $ctrl.cm <= 0}">
                       {{$ctrl.cm}}
@@ -164,7 +149,7 @@
                   <div class="text-center flexChild" style="min-width: 100%;">
                     <div style="padding:10px;">
                       <p class="text-muted">
-                        Show Details
+                        Show All
                       </p>
                       <button class="glyphicon btn btn-default" ng-class="{'glyphicon-menu-down': !showMutants, 'glyphicon-menu-up': showMutants}" ng-click="showMutants = !showMutants"></button>
                     </div>
@@ -187,7 +172,7 @@
           <button class="glyphicon btn btn-default" ng-class="{'glyphicon-menu-down': !showFunctions, 'glyphicon-menu-up': showFunctions}" ng-click="showFunctions = !showFunctions"></button>
         </div>
         <div ng-show="showFunctions">
-          <div class="flexParent bg-white flip-in-hor-bottom">
+          <div class="flexParent bg-white flip-in-hor-bottom" style="min-height:25vh;">
               <div class="flexChild 385d94">
                   <div class="panel">
                       <div class="panel-heading text-purple">
@@ -221,7 +206,7 @@
           <button class="glyphicon btn btn-default" ng-class="{'glyphicon-menu-down': !showLocal, 'glyphicon-menu-up': showLocal}" ng-click="showLocal = !showLocal"></button>
         </div>
         <div ng-show="showLocal">
-          <div class="bg-white padding20 flip-in-hor-bottom">
+          <div class="bg-white padding20 flip-in-hor-bottom" style="min-height:25vh;">
             <localization-view components="$ctrl.annotations.go.cellcomp" gene="$ctrl.data"></localization-view>
           </div>
         </div>
@@ -233,7 +218,7 @@
           <button class="glyphicon btn btn-default" ng-class="{'glyphicon-menu-down': !showOperon, 'glyphicon-menu-up': showOperon}" ng-click="showOperon = !showOperon"></button>
         </div>
         <div ng-show="showOperon">
-          <div class="bg-white padding20 flip-in-hor-bottom">
+          <div class="bg-white padding20 flip-in-hor-bottom" style="min-height:25vh;">
             <operon-annotations operon="$ctrl.annotations.operon" allorggenes="$ctrl.allorggenes" gene="$ctrl.data"></operon-annotations>
           </div>
         </div>
@@ -245,7 +230,7 @@
           <button class="glyphicon btn btn-default" ng-class="{'glyphicon-menu-down': !showInterPro, 'glyphicon-menu-up': showInterPro}" ng-click="showInterPro = !showInterPro"></button>
         </div>
         <div ng-show="showInterPro">
-          <div class="bg-white padding20 flip-in-hor-bottom">
+          <div class="bg-white padding20 flip-in-hor-bottom" style="min-height:25vh;">
             <inter-pro data="$ctrl.annotations.interpro"></inter-pro>
           </div>
         </div>
@@ -257,7 +242,7 @@
           <button class="glyphicon btn btn-default" ng-class="{'glyphicon-menu-down': !showEnzyme, 'glyphicon-menu-up': showEnzyme}" ng-click="showEnzyme = !showEnzyme"></button>
         </div>
         <div ng-show="showEnzyme">
-          <div class="bg-white padding20 flip-in-hor-bottom">
+          <div class="bg-white padding20 flip-in-hor-bottom" style="min-height:25vh;">
             <enzyme-view ecnumber="$ctrl.annotations.ecnumber" reaction="$ctrl.annotations.reaction"></enzyme-view>
           </div>
         </div>
@@ -269,7 +254,7 @@
           <button class="glyphicon btn btn-default" ng-class="{'glyphicon-menu-down': !showPI, 'glyphicon-menu-up': showPI}" ng-click="showPI = !showPI"></button>
         </div>
         <div ng-show="showPI">
-          <div class="bg-white padding20 flip-in-hor-bottom">
+          <div class="bg-white padding20 flip-in-hor-bottom" style="min-height:25vh;">
             <host-pathogen data="$ctrl.annotations.hostpath"></host-pathogen>
           </div>
         </div>
@@ -377,6 +362,29 @@
           </div>
             <div class="modal-text-color modal-body padding20 ">
               <cell-visualizer cell-comp="$ctrl.annotations.go.cellcomp" development="$ctrl.data.developmentalForm"></cell-visualizer>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade jello-horizontal" id="errorGene" tabindex="-1" role="dialog"
+     aria-labelledby="refModalTitle"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="refModalTitle">
+                	<span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span>
+                </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body padding20">
+                <h2 class="modal-title" id="refModalTitle">You Must Be Logged In To Edit</h2>
+								<p class="text-muted">
+									Please authorize ChlamBase to edit Wikidata on your behalf!
+								</p>
             </div>
         </div>
     </div>

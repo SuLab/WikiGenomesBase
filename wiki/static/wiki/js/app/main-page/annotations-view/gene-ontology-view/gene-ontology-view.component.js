@@ -11,7 +11,7 @@ angular
             'use strict';
             var ctrl = this;
             ctrl.$onChanges = function () {
-            	
+
             	if (ctrl.data) {
 	            	angular.forEach(ctrl.data, function(value) {
 	            		value.determinationLabel.values = value.determinationLabel.value.split(";");
@@ -21,12 +21,12 @@ angular
 
             ctrl.checkAuthorization = function() {
                 if (!$location.path().includes("authorized")) {
-                    alert('Please authorize ChlamBase to edit Wikidata on your behalf!');
+                    $("#errorOnth").modal('show');
                 } else {
                     $("#" + ctrl.goclass + "_button").modal('show');
                 }
             };
-            
+
             ctrl.evidenceCodes = {
                     "IEA": "Inferred From Electronic Annotation",
                     "EXP": "Inferred from Experiment",

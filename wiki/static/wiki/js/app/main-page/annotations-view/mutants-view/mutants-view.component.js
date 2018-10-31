@@ -10,7 +10,7 @@ angular
 
             ctrl.checkAuthorization = function(modal) {
                 if (!$location.path().includes("authorized")) {
-                    alert('Please authorize ChlamBase to edit Wikidata on your behalf!');
+                    $("#error").modal('show');
                 } else {
                     $("#" + modal).modal('show');
                 }
@@ -19,11 +19,13 @@ angular
             ctrl.$onInit = function() {
 
             };
-            
+
             ctrl.authorized = $location.path().includes("authorized");
-            
+
+            ctrl.editMode = false;
+
             ctrl.deleteAnnotation = function(mutant) {
-                console.log(mutant);
+                // console.log(mutant);
                 ctrl.loading = true;
                 mutant.action = 'delete';
                 var url_suf = $location.path() + '/wd_mutant_edit';
