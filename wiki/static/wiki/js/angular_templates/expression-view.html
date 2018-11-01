@@ -79,6 +79,11 @@
                 <span><i class="fa-circle fas text-muted"></i> Not Expressed or Quantified</span>
             </div>
           </li>
+          <li>
+              <button type="button" class="btn themeButton-tiny" ng-click="$ctrl.checkAuthorization('developmental_button')">
+                  Add an annotation <span class="glyphicon glyphicon-plus"></span>
+              </button>
+          </li>
         </ul>
       </div>
     </div>
@@ -90,24 +95,5 @@
         </a>
         <span ng-hide="$ctrl.data.PMID">No references available</span>
       </p>
-    </div>
-</div>
-
-<div class="modal fade" id="developmental_button" tabindex="-1" role="dialog"
-     aria-labelledby="refModalTitle"
-     aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content" style="padding:10px">
-            <localization-form ng-hide="showHelp"></localization-form>
-            <help-form ng-show="showHelp"></help-form>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" style="float:left" ng-click="showHelp = !showHelp">
-                    <span ng-hide="showHelp">Need Help?</span>
-                    <span ng-show="showHelp">Back</span>
-                </button>
-                <button type="button" class="btn btn-secondary" data-dismiss="modal" ng-click="showHelp = false">Close
-                </button>
-            </div>
-        </div>
     </div>
 </div>

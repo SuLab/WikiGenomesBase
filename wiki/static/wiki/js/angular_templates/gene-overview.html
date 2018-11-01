@@ -181,6 +181,9 @@
                       <div class="panel-body">
                           <gene-ontology gene="$ctrl.data" goclass='mf_button'
                                          data="$ctrl.annotations.go.molfunc"></gene-ontology>
+                          <button type="button" class="btn themeButton-tiny" ng-click="$ctrl.checkAuthorization('mf_button')">
+                              Add an annotation <span class="glyphicon glyphicon-plus"></span>
+                          </button>
                       </div>
 
                   </div>
@@ -193,6 +196,9 @@
                       <div class="panel-body">
                           <gene-ontology gene="$ctrl.data" goclass='bp_button'
                                          data="$ctrl.annotations.go.bioproc"></gene-ontology>
+                          <button type="button" class="btn themeButton-tiny" ng-click="$ctrl.checkAuthorization('bp_button')">
+                              Add an annotation <span class="glyphicon glyphicon-plus"></span>
+                          </button>
                       </div>
                   </div>
               </div>
@@ -208,6 +214,9 @@
         <div ng-show="showLocal">
           <div class="bg-white padding20 flip-in-hor-bottom" style="min-height:25vh;">
             <localization-view components="$ctrl.annotations.go.cellcomp" gene="$ctrl.data"></localization-view>
+              <button type="button" class="btn themeButton" ng-click="$ctrl.checkAuthorization('cc_button')">
+                  Add an annotation <span class="glyphicon glyphicon-plus"></span>
+              </button>
           </div>
         </div>
       </div>
@@ -220,6 +229,9 @@
         <div ng-show="showOperon">
           <div class="bg-white padding20 flip-in-hor-bottom" style="min-height:25vh;">
             <operon-annotations operon="$ctrl.annotations.operon" allorggenes="$ctrl.allorggenes" gene="$ctrl.data"></operon-annotations>
+              <button type="button" class="btn themeButton" ng-click="$ctrl.checkAuthorization('operonForm_button')">
+                  Add an annotation <span class="glyphicon glyphicon-plus"></span>
+              </button>
           </div>
         </div>
       </div>
@@ -256,6 +268,9 @@
         <div ng-show="showPI">
           <div class="bg-white padding20 flip-in-hor-bottom" style="min-height:25vh;">
             <host-pathogen data="$ctrl.annotations.hostpath"></host-pathogen>
+              <button type="button" class="btn themeButton" ng-click="$ctrl.checkAuthorization('hostPath_button')">
+                  Add an annotation <span class="glyphicon glyphicon-plus"></span>
+              </button>
           </div>
         </div>
       </div>
@@ -385,6 +400,110 @@
 								<p class="text-muted">
 									Please authorize ChlamBase to edit Wikidata on your behalf!
 								</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="mf_button" tabindex="-1" role="dialog"
+     aria-labelledby="refModalTitle"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content" style="padding:10px">
+            <go-form gene="$ctrl.data" goclass="'mf_button'" ng-hide="showHelp"></go-form>
+            <help-form ng-show="showHelp"></help-form>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" style="float:left" ng-click="showHelp = !showHelp">
+                    <span ng-hide="showHelp">Need Help?</span>
+                    <span ng-show="showHelp">Back</span>
+                </button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" ng-click="showHelp = false">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="bp_button" tabindex="-1" role="dialog"
+     aria-labelledby="refModalTitle"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content" style="padding:10px">
+            <go-form gene="$ctrl.data" goclass="'bp_button'" ng-hide="showHelp"></go-form>
+            <help-form ng-show="showHelp"></help-form>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" style="float:left" ng-click="showHelp = !showHelp">
+                    <span ng-hide="showHelp">Need Help?</span>
+                    <span ng-show="showHelp">Back</span>
+                </button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" ng-click="showHelp = false">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="developmental_button" tabindex="-1" role="dialog"
+     aria-labelledby="refModalTitle"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content" style="padding:10px">
+            <localization-form ng-hide="showHelp"></localization-form>
+            <help-form ng-show="showHelp"></help-form>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" style="float:left" ng-click="showHelp = !showHelp">
+                    <span ng-hide="showHelp">Need Help?</span>
+                    <span ng-show="showHelp">Back</span>
+                </button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" ng-click="showHelp = false">Close
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="cc_button" tabindex="-1" role="dialog"
+     aria-labelledby="refModalTitle"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content" style="padding:10px">
+            <go-form gene="$ctrl.data" goclass="'cc_button'" ng-hide="showHelp"></go-form>
+            <help-form ng-show="showHelp"></help-form>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" style="float:left" ng-click="showHelp = !showHelp">
+                    <span ng-hide="showHelp">Need Help?</span>
+                    <span ng-show="showHelp">Back</span>
+                </button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" ng-click="showHelp = false">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="operonForm_button" tabindex="-1" role="dialog"
+     aria-labelledby="refModalTitle"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content" style="padding:10px">
+            <operon-form ng-hide="showHelp" allorggenes="$ctrl.allorggenes" gene="$ctrl.data" strand="$ctrl.data.strand"></operon-form>
+            <help-form ng-show="showHelp"></help-form>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" style="float:left" ng-click="showHelp = !showHelp">
+                    <span ng-hide="showHelp">Need Help?</span>
+                    <span ng-show="showHelp">Back</span>
+                </button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" ng-click="showHelp = false">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="hostPath_button" tabindex="-1" role="dialog"
+     aria-labelledby="refModalTitle"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content" style="padding:10px">
+            <hostpath-form data="" ng-hide="showHelp"></hostpath-form>
+            <help-form ng-show="showHelp"></help-form>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" style="float:left" ng-click="showHelp = !showHelp">
+                    <span ng-hide="showHelp">Need Help?</span>
+                    <span ng-show="showHelp">Back</span>
+                </button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" ng-click="showHelp = false">Close</button>
             </div>
         </div>
     </div>

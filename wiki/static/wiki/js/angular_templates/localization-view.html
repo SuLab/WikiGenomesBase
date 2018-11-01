@@ -49,28 +49,9 @@
 		        </td>
 		    </tr>
 		</table>
-		<button type="button" class="btn themeButton" ng-click="$ctrl.checkAuthorization('cc_button')">
-			Add an annotation <span class="glyphicon glyphicon-plus"></span>
-		</button>
 </div>
 <!-- Modal -->
-<div class="modal fade" id="cc_button" tabindex="-1" role="dialog"
-     aria-labelledby="refModalTitle"
-     aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content" style="padding:10px">
-            <go-form gene="$ctrl.gene" goclass="'cc_button'" ng-hide="showHelp"></go-form>
-            <help-form ng-show="showHelp"></help-form>
-            <div class="modal-footer">
-            	<button type="button" class="btn btn-default" style="float:left" ng-click="showHelp = !showHelp">
-            		<span ng-hide="showHelp">Need Help?</span>
-            		<span ng-show="showHelp">Back</span>
-            	</button>
-                <button type="button" class="btn btn-secondary" data-dismiss="modal" ng-click="showHelp = false">Close</button>
-            </div>
-        </div>
-    </div>
-</div>
+
 <div class="modal fade jello-horizontal" id="errorLocalizations" tabindex="-1" role="dialog"
      aria-labelledby="refModalTitle"
      aria-hidden="true">

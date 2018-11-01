@@ -19,14 +19,6 @@ angular
             	}
             };
 
-            ctrl.checkAuthorization = function() {
-                if (!$location.path().includes("authorized")) {
-                    $("#errorOnth").modal('show');
-                } else {
-                    $("#" + ctrl.goclass + "_button").modal('show');
-                }
-            };
-
             ctrl.evidenceCodes = {
                     "IEA": "Inferred From Electronic Annotation",
                     "EXP": "Inferred from Experiment",
