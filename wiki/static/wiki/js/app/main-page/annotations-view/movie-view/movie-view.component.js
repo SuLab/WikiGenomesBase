@@ -2,17 +2,23 @@ angular
     .module('movieView')
     .component('movieView', {
         templateUrl: '/static/build/js/angular_templates/movie-view.min.html',
-        controller: function () {
+        controller: function ($location) {
             'use strict';
             var ctrl = this;
 
-            ctrl.$onChanges = function() {
-                ctrl.uris = [ctrl.uri];
-                console.log(ctrl.uri);
+            ctrl.checkAuthorization = function(modal) {
+
+                if (!$location.path().includes("authorized")) {
+                    // alert('Please authorize ChlamBase to edit Wikidata on your behalf!');
+                    $("#errorMovie").modal('show');
+                } else {
+                    $("#" + modal).modal('show');
+                }
             };
 
         },
         bindings: {
-            uri: '<'
+            data: '<',
+            gene: '<'
         }
     });

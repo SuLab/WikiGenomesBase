@@ -1,9 +1,318 @@
-<div align="right" ng-if="$ctrl.data && $ctrl.data.length!=0" style="overflow: auto">Search: <input type="text" placeholder="Ex. silent_mutation" ng-model="$ctrl.keyword" class="form-control" style="width: 200px; display:inline"></div>
-<div ng-show="$ctrl.chemParams.data.length==0 && $ctrl.transParams.data.length==0 && $ctrl.intronParams.data.length==0 && $ctrl.recombParams.data.length==0">No data<br><br></div>
+<div class="text-center padding20 text-muted-light" ng-show="!$ctrl.data && $ctrl.data.length == 0">
+	No Data
+</div>
+<div class="well text-muted" align="right" ng-if="$ctrl.data && $ctrl.data.length!=0" style="overflow: auto">
+	<div class="row">
+		<div class="col-sm-12 col-md-6" ng-if="$ctrl.authorized">
+			<span ng-show="$ctrl.editMode">
+				Edit Mode
+			</span>
+			<span ng-show="!$ctrl.editMode">
+				Click To Edit
+			</span>
+			<button class="glyphicon btn btn-default" ng-class="{'glyphicon-lock': !$ctrl.editMode, 'glyphicon-pencil': $ctrl.editMode}" ng-click="$ctrl.editMode = !$ctrl.editMode"></button>
+		</div>
+		<div class="col-sm-12 col-md-6" ng-if="!$ctrl.authorized">
+			<p class="text-muted text-center noMargin">
+				Log in to edit mutant annotations
+			</p>
+		</div>
+		<div class="col-sm-12 col-md-6">
+			Filter Search <input type="text" placeholder="Ex. silent_mutation, synonymous, stop_gained" ng-model="$ctrl.keyword" class="form-control" style="width: 50%; display:inline">
+			<a class="btn themeButton" ng-click="$ctrl.keyword = ''">Reset Filters</a>
+		</div>
+	</div>
+</div>
+<div class="flexParent">
+	<div class="panel panel-default flexChild scale-in-center mutantCard" ng-show="$ctrl.chemParams.length!=0" ng-repeat="x in $ctrl.chemParams | filter: $ctrl.keyword" >
+	  <div class="panel-heading bg-dark text-light smallCaps smallFont" style="border-top:3px solid skyblue;">
+			<span style="color:skyblue">EMS</span>
+		</div>
+	  <div class="panel-body" ng-show="$ctrl.chemParams.length != 0">
+					<p class="text-center text-muted noPadding">
+						<span>Strain: </span><b class="text-pink">{{ x.name }}</b>
+					</p>
+					<table class="padding20" style="margin:auto;">
+						<tr>
+							<td class="text-left smallFont text-muted">
+								SNV Type
+							</td>
+							<td class="text-right">
+								<span class="badge bg-purple badgeFilter" ng-click="$ctrl.keyword = x.snv_name ">{{ x.snv_name }}</span>
+							</td>
+						</tr>
+						<tr>
+							<td class="text-left smallFont text-muted">
+								Genomic Position
+							</td>
+							<td class="text-right">
+								<span class="badge bg-purple badgeFilter" ng-click="$ctrl.keyword = x.start ">{{ x.start }}</span>
+							</td>
+						</tr>
+						<tr>
+							<td class="text-left smallFont text-muted">
+								L2 Base
+							</td>
+							<td class="text-right">
+								<span class="badge bg-purple badgeFilter" ng-click="$ctrl.keyword = x.ref_base ">{{ x.ref_base }}</span>
+							</td>
+						</tr>
+						<tr>
+							<td class="text-left smallFont text-muted">
+								Variant Base
+							</td>
+							<td class="text-right">
+								<span class="badge bg-purple badgeFilter" ng-click="$ctrl.keyword = x.variant_base ">{{ x.variant_base }}</span>
+							</td>
+						</tr>
+						<tr>
+							<td class="text-left smallFont text-muted">
+								Effect on Amino Acid
+							</td>
+							<td class="text-right">
+								<span class="badge bg-purple badgeFilter" ng-click="$ctrl.keyword = x.aa_effect ">{{ x.aa_effect }}</span>
+							</td>
+						</tr>
+						<tr ng-show="$ctrl.editMode">
+							<td colspan="2" style="padding:5px;">
+			            <a class="btn themeButton-tiny" style="background:lightcoral;" ng-click="$ctrl.deleteAnnotation(x); $ctrl.data.splice($index,1)">
+										<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+			            </a>
+			        </td>
+						</tr>
+					</table>
+					<p class="text-center noMargin smallFont text-muted" style="background:#e2e2e2;">
+						<span class="text-muted">Refs: </span>
+						<a ng-show="x.pub" target="_blank" href="https://www.ncbi.nlm.nih.gov/pubmed/{{ x.pub}}">PubMed</a>
+						<a ng-show="x.doi" target="_blank" href="https://doi.org/{{ x.doi}}">Figshare</a>
+					</p>
+	  </div>
+	</div>
+
+	<div class="panel panel-default flexChild scale-in-center mutantCard" ng-show="$ctrl.transParams.length!=0" ng-repeat="x in $ctrl.transParams | filter: $ctrl.keyword" >
+	  <div class="panel-heading bg-dark text-light smallCaps smallFont" style="border-top:3px solid violet;">
+			<span style="color:violet">TN</span>
+		</div>
+	  <div class="panel-body" ng-show="$ctrl.transParams.length != 0">
+					<p class="text-center text-muted noPadding">
+						<span>Strain: </span><b class="text-pink">{{ x.name}}</b>
+					</p>
+					<table class="padding20" style="margin:auto;">
+						<tr>
+							<td class="text-left smallFont text-muted">
+								Genomic Position
+							</td>
+							<td class="text-right">
+								<span class="badge bg-purple badgeFilter" ng-click="$ctrl.keyword = x.start ">{{ x.start}}</span>
+							</td>
+						</tr>
+						<tr>
+							<td class="text-left smallFont text-muted">
+								Percentage Left Intact
+							</td>
+							<td class="text-right">
+								<span class="badge bg-purple badgeFilter" ng-click="$ctrl.keyword = x.percent_gene_intact ">{{ x.percent_gene_intact }}</span>
+							</td>
+						</tr>
+						<tr>
+							<td class="text-left smallFont text-muted">
+								Insert Direction
+							</td>
+							<td class="text-right">
+								<span class="badge bg-purple badgeFilter" ng-click="$ctrl.keyword = x.insert_direction ">{{ x.insert_direction }}</span>
+							</td>
+						</tr>
+						<tr ng-show="$ctrl.editMode">
+							<td colspan="2" style="padding:5px;">
+			            <a class="btn themeButton-tiny" style="background:lightcoral;" ng-click="$ctrl.deleteAnnotation(x); $ctrl.data.splice($index,1)">
+										<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+			            </a>
+			        </td>
+						</tr>
+					</table>
+					<p class="text-center noMargin smallFont text-muted" style="background:#e2e2e2;">
+						<span class="text-muted">Refs: </span>
+						<a ng-show="x.pub" target="_blank" href="https://www.ncbi.nlm.nih.gov/pubmed/{{ x.pub}}">PubMed</a>
+						<a ng-show="x.doi" target="_blank" href="https://doi.org/{{ x.doi}}">Figshare</a>
+					</p>
+	  </div>
+	</div>
+
+	<div class="panel panel-default flexChild scale-in-center mutantCard" ng-show="$ctrl.intronParams.length!=0" ng-repeat="x in ctrl.intronParams | filter: $ctrl.keyword" >
+	  <div class="panel-heading bg-dark text-light smallCaps smallFont" style="border-top:3px solid lightgreen;">
+			<span style="color:lightgreen">TT</span>
+		</div>
+	  <div class="panel-body" ng-show="$ctrl.intronParams.length != 0">
+					<p class="text-center text-muted noPadding">
+						<span>Strain: </span><b class="text-pink">{{ x.name}}</b>
+					</p>
+					<table class="padding20" style="margin:auto;">
+						<tr>
+							<td class="text-left smallFont text-muted">
+								Genomic Position
+							</td>
+							<td class="text-right">
+								<span class="badge bg-purple badgeFilter" ng-click="$ctrl.keyword = x.start ">{{ x.start}}</span>
+							</td>
+						</tr>
+						<tr>
+							<td class="text-left smallFont text-muted">
+								Percentage Left Intact
+							</td>
+							<td class="text-right">
+								<span class="badge bg-purple badgeFilter" ng-click="$ctrl.keyword = x.percent_gene_intact ">{{ x.percent_gene_intact }}</span>
+							</td>
+						</tr>
+						<tr>
+							<td class="text-left smallFont text-muted">
+								Insert Direction
+							</td>
+							<td class="text-right">
+								<span class="badge bg-purple badgeFilter" ng-click="$ctrl.keyword = x.insert_direction ">{{ x.insert_direction }}</span>
+							</td>
+						</tr>
+						<tr ng-show="$ctrl.editMode">
+							<td colspan="2" style="padding:5px;">
+			            <a class="btn themeButton-tiny" style="background:lightcoral;" ng-click="$ctrl.deleteAnnotation(x); $ctrl.data.splice($index,1)">
+										<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+			            </a>
+			        </td>
+						</tr>
+					</table>
+					<p class="text-center noMargin smallFont text-muted" style="background:#e2e2e2;">
+						<span class="text-muted">Refs: </span>
+						<a ng-show="x.pub" target="_blank" href="https://www.ncbi.nlm.nih.gov/pubmed/{{ x.pub}}">PubMed</a>
+						<a ng-show="x.doi" target="_blank" href="https://doi.org/{{ x.doi}}">Figshare</a>
+					</p>
+	  </div>
+	</div>
+
+	<div class="panel panel-default flexChild scale-in-center mutantCard" ng-show="ctrl.recombParams.length!=0" ng-repeat="x in $ctrl.recombParams | filter: $ctrl.keyword" >
+		<div class="panel-heading bg-dark text-light smallCaps smallFont" style="border-top:3px solid lightpink;">
+			<span style="color:lightpink">RC</span>
+		</div>
+		<div class="panel-body" ng-show="$ctrl.recombParams.length != 0">
+					<p class="text-center text-muted noPadding">
+						<span>Strain: </span><b class="text-pink">{{ x.name}}</b>
+					</p>
+					<table class="padding20" style="margin:auto;">
+						<tr>
+							<td class="text-left smallFont text-muted">
+								Start Position
+							</td>
+							<td class="text-right">
+								<span class="badge bg-purple badgeFilter" ng-click="$ctrl.keyword = x.start ">{{ x.start}}</span>
+							</td>
+						</tr>
+						<tr>
+							<td class="text-left smallFont text-muted">
+								end Position
+							</td>
+							<td class="text-right">
+								<span class="badge bg-purple badgeFilter" ng-click="$ctrl.keyword = x.end ">{{ x.end}}</span>
+							</td>
+						</tr>
+						<tr>
+							<td class="text-left smallFont text-muted">
+								Gene(s) Inserted
+							</td>
+							<td class="text-right">
+								<span class="badge bg-purple badgeFilter" ng-click="$ctrl.keyword = x.genes_inserted ">{{ x.genes_inserted }}</span>
+							</td>
+						</tr>
+						<tr>
+							<td class="text-left smallFont text-muted">
+								Insert Direction
+							</td>
+							<td class="text-right">
+								<span class="badge bg-purple badgeFilter" ng-click="$ctrl.keyword = x.insert_direction ">{{ x.insert_direction }}</span>
+							</td>
+						</tr>
+						<tr ng-show="$ctrl.editMode">
+							<td colspan="2" style="padding:5px;">
+									<a class="btn themeButton-tiny" style="background:lightcoral;" ng-click="$ctrl.deleteAnnotation(x); $ctrl.data.splice($index,1)">
+										<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+									</a>
+							</td>
+						</tr>
+					</table>
+					<p class="text-center noMargin smallFont text-muted" style="background:#e2e2e2;">
+						<span class="text-muted">Refs: </span>
+						<a ng-show="x.pub" target="_blank" href="https://www.ncbi.nlm.nih.gov/pubmed/{{ x.pub}}">PubMed</a>
+						<a ng-show="x.doi" target="_blank" href="https://doi.org/{{ x.doi}}">Figshare</a>
+					</p>
+		</div>
+	</div>
+</div>
+
+<div class="well padding20">
+	<button type="button" class="btn themeButton-tiny" ng-click="$ctrl.checkAuthorization('mutForm')">
+	    Add an annotation <span class="glyphicon glyphicon-plus"></span>
+	</button>
+</div>
+
+<div class="modal fade" id="mutForm" tabindex="-1" role="dialog"
+     aria-labelledby="refModalTitle"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="refModalTitle">Add a Mutation</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <mutant-form ng-hide="showHelp"></mutant-form>
+                <help-form ng-show="showHelp"></help-form>
+            </div>
+            <div class="modal-footer">
+            	<button type="button" class="btn btn-default" style="float:left" ng-click="showHelp = !showHelp">
+            		<span ng-hide="showHelp">Need Help?</span>
+            		<span ng-show="showHelp">Back</span>
+            	</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" ng-click="showHelp = false">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade jello-horizontal" id="error" tabindex="-1" role="dialog"
+     aria-labelledby="refModalTitle"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="refModalTitle">
+                	<span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span>
+                </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body padding20">
+                <h2 class="modal-title" id="refModalTitle">You Must Be Logged In To Edit</h2>
+								<p class="text-muted">
+									Please authorize ChlamBase to edit Wikidata on your behalf!
+								</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+<!-- <div align="right" ng-if="$ctrl.data && $ctrl.data.length!=0" style="overflow: auto">Search: <input type="text" placeholder="Ex. silent_mutation" ng-model="$ctrl.keyword" class="form-control" style="width: 200px; display:inline"></div>
+<div class="text-center padding20 text-muted" ng-show="$ctrl.chemParams.length==0 && $ctrl.transParams.length==0 && $ctrl.intronParams.length==0 && $ctrl.recombParams.length==0">
+	No data
+</div>
 <div class="table-responsive">
-	<table ng-table="$ctrl.chemParams" class="table table-hover" show-filter="false" ng-hide="$ctrl.chemParams.data.length==0">
+	<table ng-table="$ctrl.chemParams" class="table table-hover bg-white" show-filter="false" ng-hide="$ctrl.chemParams.length==0">
 	    <caption style="color:#385d94">Chemical Mutagenesis</caption>
-	    <tr ng-show="$ctrl.chemParams.data.length!=0" ng-repeat="x in $data | filter: $ctrl.keyword">
+	    <tr ng-show="$ctrl.chemParams.length!=0" ng-repeat="x in $data | filter: $ctrl.keyword">
 	        <td title="'Mutant Strain'" sortable="'name'">
 	            {{ x.name }}
 	        </td>
@@ -23,7 +332,6 @@
 	            {{ x.aa_effect }}
 	        </td>
 	        <td title="'Reference'">
-	            <!-- Button trigger modal -->
 
 	            <a ng-show="x.pub" target="_blank" href="https://www.ncbi.nlm.nih.gov/pubmed/{{ x.pub}}">
 	                <img uib-tooltip="Link to publication in PubMed" style="height: 14px; margin-top: -3px"
@@ -46,9 +354,9 @@
 	</table>
 </div>
 <div class="table-responsive">
-	<table ng-table="$ctrl.transParams" class="table table-hover" show-filter="false" ng-hide="$ctrl.transParams.data.length==0">
+	<table ng-table="$ctrl.transParams" class="table table-hover" show-filter="false" ng-hide="$ctrl.transParams.length==0">
 	    <caption style="color:#385d94">Transposon Mutagenesis</caption>
-	    <tr ng-show="$ctrl.transParams.data.length!=0" ng-repeat="x in $data | filter: $ctrl.keyword">
+	    <tr ng-show="$ctrl.transParams.length!=0" ng-repeat="x in $data | filter: $ctrl.keyword">
 	        <td title="'Mutant Strain'" sortable="'name'">
 	            {{ x.name }}
 	        </td>
@@ -84,9 +392,9 @@
 	</table>
 </div>
 <div class="table-responsive">
-	<table ng-table="$ctrl.intronParams" class="table table-hover" show-filter="false" ng-hide="$ctrl.intronParams.data.length==0">
+	<table ng-table="$ctrl.intronParams" class="table table-hover" show-filter="false" ng-hide="$ctrl.intronParams.length==0">
 	    <caption style="color:#385d94">Intron Mutagenesis</caption>
-	    <tr ng-show="$ctrl.intronParams.data.length!=0" ng-repeat="x in $data | filter: $ctrl.keyword">
+	    <tr ng-show="$ctrl.intronParams.length!=0" ng-repeat="x in $data | filter: $ctrl.keyword">
 	        <td title="'Mutant Strain'" sortable="'name'">
 	            {{ x.name }}
 	        </td>
@@ -123,9 +431,9 @@
 </div>
 
 <div class="table-responsive">
-	<table ng-table="$ctrl.recombParams" class="table table-hover" show-filter="false" ng-hide="$ctrl.recombParams.data.length==0">
+	<table ng-table="$ctrl.recombParams" class="table table-hover" show-filter="false" ng-hide="$ctrl.recombParams.length==0">
 	    <caption style="color:#385d94">Recombination</caption>
-	    <tr ng-show="$ctrl.recombParams.data.length!=0" ng-repeat="x in $data | filter: $ctrl.keyword">
+	    <tr ng-show="$ctrl.recombParams.length!=0" ng-repeat="x in $data | filter: $ctrl.keyword">
 	        <td title="'Mutant Strain'" sortable="'name'">
 	            {{ x.name }}
 	        </td>
@@ -163,11 +471,10 @@
 	</table>
 </div>
 
-<!-- Button trigger modal -->
-<button type="button" class="btn themeButton" ng-click="$ctrl.checkAuthorization('mutForm')">
+<button type="button" class="btn themeButton-tiny" ng-click="$ctrl.checkAuthorization('mutForm')">
     Add an annotation <span class="glyphicon glyphicon-plus"></span>
 </button>
-<!-- Modal -->
+
 <div class="modal fade" id="mutForm" tabindex="-1" role="dialog"
      aria-labelledby="refModalTitle"
      aria-hidden="true">
@@ -192,4 +499,4 @@
             </div>
         </div>
     </div>
-</div>
+</div> -->

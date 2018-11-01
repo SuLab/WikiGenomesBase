@@ -4,14 +4,13 @@ angular
         templateUrl: '/static/build/js/angular_templates/localization-view.min.html',
         bindings: {
             components: '<',
-            localizations: '<',
             gene: '<'
         },
         controller: function ($location) {
             'use strict';
             var ctrl = this;
             ctrl.$onChanges = function () {
-            	
+
             	if (ctrl.components) {
 	            	angular.forEach(ctrl.components, function(value) {
 	            		value.determinationLabel.values = value.determinationLabel.value.split(";");
@@ -21,12 +20,13 @@ angular
 
             ctrl.checkAuthorization = function(modal) {
                 if (!$location.path().includes("authorized")) {
-                    alert('Please authorize ChlamBase to edit Wikidata on your behalf!');
+                    // alert('Please authorize ChlamBase to edit Wikidata on your behalf!');
+                    $("#errorLocalizations").modal('show');
                 } else {
                     $("#" + modal).modal('show');
                 }
             };
-            
+
             ctrl.evidenceCodes = {
                     "IEA": "Inferred From Electronic Annotation",
                     "EXP": "Inferred from Experiment",

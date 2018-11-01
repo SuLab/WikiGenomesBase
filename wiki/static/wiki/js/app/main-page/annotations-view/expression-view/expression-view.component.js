@@ -26,11 +26,12 @@ angular
 
                 var options = {
                     title: 'Expression Timing for ' + ctrl.gene.locusTag,
-                    titleTextStyle: {color: '#385d94', fontSize: 16, bold: true},
+                    titleTextStyle: {color: '#66338a', fontSize: 16, bold: true},
                     curveType: 'function',
                     hAxis: {title: "Time (hours)", showTextEvery: 1},
                     vAxis: {title: "Expression", viewWindow: {min: 0}},
-                    legend: {position: "none"}
+                    legend: {position: "none"},
+                    colors: ['#66338a']
                 };
 
                 var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
@@ -41,17 +42,17 @@ angular
                 ctrl.isLine = false;
                 var data = google.visualization.arrayToDataTable([
                     ['Hour', 'Expression', { role: "style" }],
-                    ["1h", ctrl.belland["1h"], "#385d94"],
-                    ["3h", ctrl.belland["3h"], "#385d94"],
-                    ["8h", ctrl.belland["8h"], "#385d94"],
-                    ["16h", ctrl.belland["16h"], "#385d94"],
-                    ["24h", ctrl.belland["24h"], "#385d94"],
-                    ["40h", ctrl.belland["40h"], "#385d94"],
+                    ["1h", ctrl.belland["1h"], "#66338a"],
+                    ["3h", ctrl.belland["3h"], "#66338a"],
+                    ["8h", ctrl.belland["8h"], "#66338a"],
+                    ["16h", ctrl.belland["16h"], "#66338a"],
+                    ["24h", ctrl.belland["24h"], "#66338a"],
+                    ["40h", ctrl.belland["40h"], "#66338a"],
                 ]);
 
                 var options = {
                     title: 'Expression Timing for ' + ctrl.gene.locusTag,
-                    titleTextStyle: {color: '#385d94', fontSize: 16, bold: true},
+                    titleTextStyle: {color: '#66338a', fontSize: 16, bold: true},
                     legend: {position: "none"},
                     bar: {groupWidth: "95%"}
                 };

@@ -1,8 +1,56 @@
-<div ng-hide="$ctrl.uri">No data</div>
-<table ng-table="$ctrl.tableParams" class="table table-hover" ng-show="$ctrl.uri">
-	<tr ng-repeat="uri in $ctrl.uris">
-		<td title="'Observed Phenotype(s)'">
-            <iframe width="560" height="315" ng-src="{{'https://www.youtube.com/embed/' + uri}}" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-		</td>
-	</tr>
-</table>
+<div style="text-align: center">
+	<div ng-hide="$ctrl.data">No data <br><br></div>
+	<table ng-table="$ctrl.tableParams" class="table table-hover" ng-show="$ctrl.data">
+		<tr ng-repeat="uri in $ctrl.data">
+			<td title="'Observed Phenotype(s)'">
+				<iframe width="560" height="315" ng-src="{{'https://www.youtube.com/embed/' + uri.mainsnak.datavalue.value}}" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+			</td>
+		</tr>
+	</table>
+
+	<button type="button" class="btn themeButton-tiny" ng-click="$ctrl.checkAuthorization('movie_button')">
+		Add an annotation <span class="glyphicon glyphicon-plus"></span>
+	</button>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="movie_button" tabindex="-1" role="dialog"
+	 aria-labelledby="refModalTitle"
+	 aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content" style="padding:10px">
+			<movie-form gene="$ctrl.gene" ng-hide="showHelp"></movie-form>
+			<help-form ng-show="showHelp"></help-form>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" style="float:left" ng-click="showHelp = !showHelp">
+					<span ng-hide="showHelp">Need Help?</span>
+					<span ng-show="showHelp">Back</span>
+				</button>
+				<button type="button" class="btn btn-secondary" data-dismiss="modal" ng-click="showHelp = false">Close</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="modal fade jello-horizontal" id="errorMovie" tabindex="-1" role="dialog"
+     aria-labelledby="refModalTitle"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="refModalTitle">
+                	<span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span>
+                </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body padding20">
+                <h2 class="modal-title" id="refModalTitle">You Must Be Logged In To Edit</h2>
+								<p class="text-muted">
+									Please authorize ChlamBase to edit Wikidata on your behalf!
+								</p>
+            </div>
+        </div>
+    </div>
+</div>

@@ -4,7 +4,7 @@ angular.module("cellVisualizer")
         'use strict';
 
         //var color = "#4784FF";
-        var color = "#cc0000";
+        var color = "#E80C85";
 
         var ctrl = this;
 

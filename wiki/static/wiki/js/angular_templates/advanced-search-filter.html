@@ -1,373 +1,385 @@
-<div class="filter-by">
-    <h3>Filter by</h3>
-
-    <h5 class="filter-header"><span>Organism</span></h5>
-    <button class="glyphicon btn btn-default" ng-class="{'glyphicon-menu-down': !descOrg, 'glyphicon-menu-up': descOrg}" ng-click="descOrg = !descOrg"></button>
-    <p ng-show="descOrg">Filter by organism genome. Only genes from the selected genome will appear in results.</p>
-    <div class="row filter-row" ng-repeat="value in $ctrl.orgData">
-        <div class="col-md-1">
-            <img class="filter-img" ng-src="/static/wiki/img/RB.png">
-        </div>
-        <div class="col-md-10">
-            <h5 class="indented">{{value.taxonLabel}}</h5>
-        </div>
-        <div class="col-md-1"><input type="checkbox" ng-checked="value.check" ng-model="value.check"></div>
+<div class="filter-by padding20">
+  <h3 class="text-muted">Filter by</h3>
+    <div >
+      <h5 class="text-purple">
+        Organism
+        <i class="fas fa-info-circle text-pink"
+        tooltip-placement="bottom"
+        uib-tooltip="Filter by organism genome. Only genes from the selected genome will appear in results."></i>
+      </h5>
+      <hr />
+      <table class="table" style="background: #f3f3f3;">
+          <tr ng-repeat="value in $ctrl.orgData">
+              <td ng-class="{'text434': value.taxonLabel === 'Chlamydia trachomatis 434/BU','textDUX': value.taxonLabel === 'Chlamydia trachomatis D/UW-3/CX','textNIGG': value.taxonLabel === 'Chlamydia muridarum Nigg','textCW': value.taxonLabel === 'Chlamydia pneumoniae CWL029'}">
+                <h5><i class="fas fa-dna"></i> {{value.taxonLabel}}</h5>
+              </td>
+              <td style="text-align:right;">
+                <input  type="checkbox" ng-checked="value.check" ng-model="value.check">
+              </td>
+          </tr>
+      </table>
     </div>
 
-    <h5 class="filter-header"><span>Gene Expression</span></h5>
-    <button class="glyphicon btn btn-default" ng-class="{'glyphicon-menu-down': !descExp, 'glyphicon-menu-up': descExp}" ng-click="descExp = !descExp"></button>
-    <p ng-show="descExp">Filter by expression timing. Only genes from the selected expression class will appear in results.</p>
-    <div class="row filter-row">
-        <div class="col-md-1">
-            <img class="filter-img" ng-src="/static/wiki/img/constitutive.png">
-        </div>
-        <div class="col-md-10">
-            <h5 class="indented">Constitutive</h5>
-        </div>
-        <div class="col-md-1">
-            <input type="checkbox" ng-checked="$ctrl.constitutive" ng-model="$ctrl.constitutive">
-        </div>
-    </div>
-    <div class="row filter-row">
-        <div class="col-md-1">
-            <img class="filter-img" ng-src="/static/wiki/img/early.png">
-        </div>
-        <div class="col-md-10">
-            <h5 class="indented">Early</h5>
-        </div>
-        <div class="col-md-1">
-            <input type="checkbox" ng-checked="$ctrl.early" ng-model="$ctrl.early">
-        </div>
-    </div>
-    <div class="row filter-row">
-        <div class="col-md-1">
-            <img class="filter-img" ng-src="/static/wiki/img/mid.png">
-        </div>
-        <div class="col-md-10">
-            <h5 class="indented">Mid</h5>
-        </div>
-        <div class="col-md-1">
-            <input type="checkbox" ng-checked="$ctrl.mid" ng-model="$ctrl.mid">
-        </div>
-
-    </div>
-    <div class="row filter-row">
-        <div class="col-md-1">
-            <img class="filter-img" ng-src="/static/wiki/img/mid_late.png">
-        </div>
-        <div class="col-md-10">
-            <h5 class="indented">Mid_Late</h5>
-        </div>
-        <div class="col-md-1">
-            <input type="checkbox" ng-checked="$ctrl.midlate" ng-model="$ctrl.midlate">
-        </div>
-    </div>
-    <div class="row filter-row">
-        <div class="col-md-1">
-            <img class="filter-img" ng-src="/static/wiki/img/late.png">
-        </div>
-        <div class="col-md-10">
-            <h5 class="indented">Late</h5>
-        </div>
-        <div class="col-md-1">
-            <input type="checkbox" ng-checked="$ctrl.late" ng-model="$ctrl.late">
-        </div>
-    </div>
-    <div class="row filter-row">
-        <div class="col-md-1">
-            <img class="filter-img" ng-src="/static/wiki/img/very_late.png">
-        </div>
-        <div class="col-md-10">
-            <h5 class="indented">Very_Late</h5>
-        </div>
-        <div class="col-md-1">
-            <input type="checkbox" ng-checked="$ctrl.verylate" ng-model="$ctrl.verylate">
-        </div>
+    <div >
+      <h5 class="text-purple">
+        Gene Expression
+        <i class="fas fa-info-circle text-pink"
+        tooltip-placement="bottom"
+        uib-tooltip="Filter by expression timing. Only genes from the selected expression class will appear in results."></i>
+      </h5>
+      <button class="glyphicon btn btn-default" ng-class="{'glyphicon-menu-down': !descExp, 'glyphicon-menu-up': descExp}" ng-click="descExp = !descExp"></button>
+      <hr />
+      <table class="table" ng-show="descExp" style="background: #f3f3f3;">
+          <tr >
+              <td>
+                <h5><i class="fas fa-clock"></i> Constitutive</h5>
+              </td>
+              <td style="text-align:right;">
+                <input  type="checkbox" ng-checked="$ctrl.constitutive" ng-model="$ctrl.constitutive">
+              </td>
+          </tr>
+          <tr >
+              <td>
+                <h5><i class="fas fa-clock"></i> Early</h5>
+              </td>
+              <td style="text-align:right;">
+                <input  type="checkbox" ng-checked="$ctrl.early" ng-model="$ctrl.early">
+              </td>
+          </tr>
+          <tr >
+              <td>
+                <h5><i class="fas fa-clock"></i> Mid</h5>
+              </td>
+              <td style="text-align:right;">
+                <input  type="checkbox" ng-checked="$ctrl.mid" ng-model="$ctrl.mid">
+              </td>
+          </tr>
+          <tr >
+              <td>
+                <h5><i class="fas fa-clock"></i> Mid Late</h5>
+              </td>
+              <td style="text-align:right;">
+                <input  type="checkbox" ng-checked="$ctrl.midlate" ng-model="$ctrl.midlate">
+              </td>
+          </tr>
+          <tr >
+              <td>
+                <h5><i class="fas fa-clock"></i> Late</h5>
+              </td>
+              <td style="text-align:right;">
+                <input  type="checkbox" ng-checked="$ctrl.late" ng-model="$ctrl.late">
+              </td>
+          </tr>
+          <tr >
+              <td>
+                <h5><i class="fas fa-clock"></i> Very Late</h5>
+              </td>
+              <td style="text-align:right;">
+                <input  type="checkbox" ng-checked="$ctrl.verylate" ng-model="$ctrl.verylate">
+              </td>
+          </tr>
+      </table>
     </div>
 
-    <h5 class="filter-header"><span>Developmental Body Enrichment</span></h5>
-    <button class="glyphicon btn btn-default" ng-class="{'glyphicon-menu-down': !descDev, 'glyphicon-menu-up': descDev}" ng-click="descDev = !descDev"></button>
-    <p ng-show="descDev">Filter by developmental form. Only genes whose products are enriched from the selected form will appear in results.</p>
-    <div class="row filter-row">
-        <div class="col-md-1">
-            <img class="filter-img" ng-src="/static/wiki/img/RB.png">
-        </div>
-        <div class="col-md-10">
-            <h5 class="indented">Reticulate Body</h5>
-        </div>
-        <div class="col-md-1">
-            <input type="checkbox" ng-checked="$ctrl.rb" ng-model="$ctrl.rb">
-        </div>
-    </div>
-    <div class="row filter-row">
-        <div class="col-md-1">
-            <img class="filter-img" ng-src="/static/wiki/img/EB.png">
-        </div>
-        <div class="col-md-10">
-            <h5 class="indented">Elementary Body</h5>
-        </div>
-        <div class="col-md-1">
-            <input type="checkbox" ng-checked="$ctrl.eb" ng-model="$ctrl.eb">
-        </div>
-    </div>
-
-    <h5 class="filter-header"><span>Interacts With</span></h5>
-    <button class="glyphicon btn btn-default" ng-class="{'glyphicon-menu-down': !descInt, 'glyphicon-menu-up': descInt}" ng-click="descInt = !descInt"></button>
-    <p ng-show="descInt">Filter by protein interactions. If the target protein is unknown or you want any protein interaction, only click the appropriate checkbox. If the identity of the interacted protein
-    is known, enter the exact name of the protein as it appears in NCBI in the specify input form. Make sure the checkbox is ticked.</p>
-    <div class="row filter-row">
-        <div class="col-md-1">
-            <img class="filter-img" ng-src="/static/wiki/img/head.png">
-        </div>
-        <div class="col-md-4">
-            <h5 class="indented">Host Proteins: </h5>
-        </div>
-        <div class="col-md-6">
-            Specify: <input type="text" class="form-inline" ng-model="$ctrl.hptext">
-        </div>
-        <div class="col-md-1">
-            <input type="checkbox" ng-checked="$ctrl.hp" ng-model="$ctrl.hp">
-        </div>
-    </div>
-    <div class="row filter-row">
-        <div class="col-md-1">
-            <img class="filter-img" ng-src="/static/wiki/img/bacteria.png">
-        </div>
-        <div class="col-md-4">
-            <h5 class="indented">Bacterial Proteins: </h5>
-        </div>
-        <div class="col-md-6">
-           Specify: <input type="text" class="form-inline" ng-model="$ctrl.bacptext">
-        </div>
-        <div class="col-md-1">
-            <input type="checkbox" ng-checked="$ctrl.bacp" ng-model="$ctrl.bacp">
-        </div>
+    <div >
+      <h5 class="text-purple">
+        Developmental Body Enrichment
+        <i class="fas fa-info-circle text-pink"
+        tooltip-placement="bottom"
+        uib-tooltip="Filter by developmental form. Only genes whose products are enriched from the selected form will appear in results."></i>
+      </h5>
+      <button class="glyphicon btn btn-default" ng-class="{'glyphicon-menu-down': !descDev, 'glyphicon-menu-up': descDev}" ng-click="descDev = !descDev"></button>
+      <hr />
+      <table class="table" ng-show="descDev" style="background: #f3f3f3;">
+          <tr >
+              <td>
+                <h5><i class="fas fa-dot-circle"></i> Reticulate Body</h5>
+              </td>
+              <td style="text-align:right;">
+                <input  type="checkbox" ng-checked="$ctrl.rb" ng-model="$ctrl.rb">
+              </td>
+          </tr>
+          <tr >
+              <td>
+                <h5><i class="far fa-dot-circle"></i> Elementary Body</h5>
+              </td>
+              <td style="text-align:right;">
+                <input  type="checkbox" ng-checked="$ctrl.eb" ng-model="$ctrl.eb">
+              </td>
+          </tr>
+      </table>
     </div>
 
-    <h5 class="filter-header"><span>Mutants</span></h5>
-    <button class="glyphicon btn btn-default" ng-class="{'glyphicon-menu-down': !descMut, 'glyphicon-menu-up': descMut}" ng-click="descMut = !descMut"></button>
-    <p ng-show="descMut">Filter by mutant type. Only genes which contain the selected mutant form will appear in results.</p>
-    <div class="row filter-row">
-        <div class="col-md-1">
-            <img class="filter-img" ng-src="/static/wiki/img/hazard.png">
-        </div>
-        <div class="col-md-10">
-            <h5 class="indented">Chemically Induced Mutants: </h5>
-        </div>
-        <div class="col-md-1">
-            <input type="checkbox" ng-checked="$ctrl.cm" ng-model="$ctrl.cm">
-        </div>
+    <div >
+      <h5 class="text-purple">
+        Interacts With
+        <i class="fas fa-info-circle text-pink"
+        tooltip-placement="bottom"
+        uib-tooltip="Filter by protein interactions. If the target protein is unknown or you want any protein interaction, only click the appropriate checkbox. If the identity of the interacted protein
+        is known, enter the exact name of the protein as it appears in NCBI in the specify input form. Make sure the checkbox is ticked."></i>
+      </h5>
+      <button class="glyphicon btn btn-default" ng-class="{'glyphicon-menu-down': !descInt, 'glyphicon-menu-up': descInt}" ng-click="descInt = !descInt"></button>
+      <hr />
+      <table class="table" ng-show="descInt" style="background: #f3f3f3;">
+          <tr >
+              <td>
+                <h5><i class="fas fa-user-plus"></i> Host Proteins</h5>
+              </td>
+              <td>
+                Specify: <input type="text" class="form-inline" ng-model="$ctrl.hptext">
+              </td>
+              <td style="text-align:right;">
+                <input  type="checkbox" ng-checked="$ctrl.hp" ng-model="$ctrl.hp">
+              </td>
+          </tr>
+          <tr >
+              <td>
+                <h5><i class="fas fa-user-plus"></i> Bacterial Proteins</h5>
+              </td>
+              <td>
+                Specify: <input type="text" class="form-inline" ng-model="$ctrl.bacptext">
+              </td>
+              <td style="text-align:right;">
+                <input  type="checkbox" ng-checked="$ctrl.bacp" ng-model="$ctrl.bacp">
+              </td>
+          </tr>
+      </table>
     </div>
-    <div class="row filter-row">
-        <div class="col-md-1">
-            <img class="filter-img" ng-src="/static/wiki/img/hazard.png">
-        </div>
-        <div class="col-md-10">
-            <h5 class="indented">Intron Mutants: </h5>
-        </div>
-        <div class="col-md-1">
-            <input type="checkbox" ng-checked="$ctrl.im" ng-model="$ctrl.im">
-        </div>
+
+    <div >
+      <h5 class="text-purple">
+        Mutants
+        <i class="fas fa-info-circle text-pink"
+        tooltip-placement="bottom"
+        uib-tooltip="Filter by mutant type. Only genes which contain the selected mutant form will appear in results."></i>
+      </h5>
+      <button class="glyphicon btn btn-default" ng-class="{'glyphicon-menu-down': !descMut, 'glyphicon-menu-up': descMut}" ng-click="descMut = !descMut"></button>
+      <hr />
+      <table class="table" ng-show="descMut" style="background: #f3f3f3;">
+          <tr >
+              <td>
+                <h5><i class="fas fa-pastafarianism"></i> Chemically Induced Mutants</h5>
+              </td>
+              <td style="text-align:right;">
+                <input  type="checkbox" ng-checked="$ctrl.cm" ng-model="$ctrl.cm">
+              </td>
+          </tr>
+          <tr >
+              <td>
+                <h5><i class="fas fa-pastafarianism"></i> Intron Mutants</h5>
+              </td>
+              <td style="text-align:right;">
+                <input  type="checkbox" ng-checked="$ctrl.im" ng-model="$ctrl.im">
+              </td>
+          </tr>
+          <tr >
+              <td>
+                <h5><i class="fas fa-pastafarianism"></i> Transposition Mutants</h5>
+              </td>
+              <td style="text-align:right;">
+                <input  type="checkbox" ng-checked="$ctrl.tm" ng-model="$ctrl.tm">
+              </td>
+          </tr>
+          <tr >
+              <td>
+                <h5><i class="fas fa-pastafarianism"></i> Recombination Mutants</h5>
+              </td>
+              <td style="text-align:right;">
+                <input  type="checkbox" ng-checked="$ctrl.rm" ng-model="$ctrl.rm">
+              </td>
+          </tr>
+      </table>
     </div>
-    <div class="row filter-row">
-        <div class="col-md-1">
-            <img class="filter-img" ng-src="/static/wiki/img/hazard.png">
-        </div>
-        <div class="col-md-10">
-            <h5 class="indented">Transposition Mutants: </h5>
-        </div>
-        <div class="col-md-1">
-            <input type="checkbox" ng-checked="$ctrl.tm" ng-model="$ctrl.tm">
-        </div>
+
+    <div >
+      <h5 class="text-purple">
+        Gene Ontology
+        <i class="fas fa-info-circle text-pink"
+        tooltip-placement="bottom"
+        uib-tooltip="Filter by gene ontology annotations. If the annotation is unknown or you want any GO term, only click the appropriate checkbox. If the identity of the GO term
+            is known, enter the exact name of the GO term in the specify input form (there is an autocomplete). Make sure the checkbox is ticked."></i>
+      </h5>
+      <button class="glyphicon btn btn-default" ng-class="{'glyphicon-menu-down': !descAnno, 'glyphicon-menu-up': descAnno}" ng-click="descAnno = !descAnno"></button>
+      <hr />
+      <table class="table" ng-show="descAnno" style="background: #f3f3f3;">
+          <tr >
+              <td>
+                <h5><i class="fas fa-list-alt"></i> Molecular Function</h5>
+              </td>
+              <td>
+                Specify: <input type="text" class="form-inline" ng-model="$ctrl.mftext"
+                                uib-typeahead="go as go.goterm_label.value for go in $ctrl.mfTerms($viewValue)"
+                                typeahead-wait-ms="500"
+                                typeahead-on-select="$ctrl.mftext = $item.goterm_label.value">
+              </td>
+              <td style="text-align:right;">
+                <input type="checkbox" ng-checked="$ctrl.mf" ng-model="$ctrl.mf">
+              </td>
+          </tr>
+          <tr >
+              <td>
+                <h5><i class="fas fa-list-alt"></i> Biological Process</h5>
+              </td>
+              <td>
+                Specify: <input type="text" class="form-inline" ng-model="$ctrl.bptext"
+                                uib-typeahead="go as go.goterm_label.value for go in $ctrl.bpTerms($viewValue)"
+                                typeahead-wait-ms="500"
+                                typeahead-on-select="$ctrl.bptext = $item.goterm_label.value">
+              </td>
+              <td style="text-align:right;">
+                <input type="checkbox" ng-checked="$ctrl.bp" ng-model="$ctrl.bp">
+              </td>
+          </tr>
+          <tr >
+              <td>
+                <h5><i class="fas fa-list-alt"></i> Cellular Component</h5>
+              </td>
+              <td>
+                Specify: <input type="text" class="form-inline" ng-model="$ctrl.cctext"
+                                uib-typeahead="go as go.goterm_label.value for go in $ctrl.ccTerms($viewValue)"
+                                typeahead-wait-ms="500"
+                                typeahead-on-select="$ctrl.cctext = $item.goterm_label.value">
+              </td>
+              <td style="text-align:right;">
+                <input type="checkbox" ng-checked="$ctrl.cc" ng-model="$ctrl.cc">
+              </td>
+          </tr>
+      </table>
     </div>
-    <div class="row filter-row">
-        <div class="col-md-1">
-            <img class="filter-img" ng-src="/static/wiki/img/hazard.png">
-        </div>
-        <div class="col-md-10">
-            <h5 class="indented">Recombination Mutants: </h5>
-        </div>
-        <div class="col-md-1">
-            <input type="checkbox" ng-checked="$ctrl.rm" ng-model="$ctrl.rm">
-        </div>
+
+    <div >
+      <h5 class="text-purple">
+        Terms and Identifiers
+        <i class="fas fa-info-circle text-pink"
+        tooltip-placement="bottom"
+        uib-tooltip="Filter by identifier. If the target identifier is unknown or you want any gene with that identifier, only click the appropriate checkbox. If the identifier of the target gene or protein
+            is known, enter the id of the gene or protein as it appears in that database in the specify input form. Make sure the checkbox is ticked."></i>
+      </h5>
+      <button class="glyphicon btn btn-default" ng-class="{'glyphicon-menu-down': !descId, 'glyphicon-menu-up': descId}" ng-click="descId = !descId"></button>
+      <hr />
+      <table class="table" ng-show="descId" style="background: #f3f3f3;">
+          <tr >
+              <td>
+                <img class="filter-img" ng-src="/static/wiki/img/ncbi2.png">
+                <h5>Entrez</h5>
+              </td>
+              <td>
+                Specify: <input type="text" class="form-inline" ng-model="$ctrl.entreztext">
+              </td>
+              <td style="text-align:right;">
+                <input type="checkbox" ng-checked="$ctrl.entrez" ng-model="$ctrl.entrez">
+              </td>
+          </tr>
+          <tr >
+              <td>
+                <img class="filter-img" ng-src="/static/wiki/img/uniprot2.png">
+                <h5>UniProt</h5>
+              </td>
+              <td>
+                Specify: <input type="text" class="form-inline" ng-model="$ctrl.uniprottext">
+              </td>
+              <td style="text-align:right;">
+                <input type="checkbox" ng-checked="$ctrl.uniprot" ng-model="$ctrl.uniprot">
+              </td>
+          </tr>
+          <tr >
+              <td>
+                <img class="filter-img" ng-src="/static/wiki/img/ncbi2.png">
+                <h5>RefSeq</h5>
+              </td>
+              <td>
+                Specify: <input type="text" class="form-inline" ng-model="$ctrl.refseqtext">
+              </td>
+              <td style="text-align:right;">
+                <input type="checkbox" ng-checked="$ctrl.refseq" ng-model="$ctrl.refseq">
+              </td>
+          </tr>
+          <tr >
+              <td>
+                <img class="filter-img" ng-src="/static/wiki/img/pdb.png">
+                <h5>PDB</h5>
+              </td>
+              <td>
+                Specify: <input type="text" class="form-inline" ng-model="$ctrl.pdbtext">
+              </td>
+              <td style="text-align:right;">
+                <input type="checkbox" ng-checked="$ctrl.pbd" ng-model="$ctrl.pdb">
+              </td>
+          </tr>
+      </table>
     </div>
-    <h5 class="filter-header"><span>Gene Ontology</span></h5>
-    <button class="glyphicon btn btn-default" ng-class="{'glyphicon-menu-down': !descAnno, 'glyphicon-menu-up': descAnno}" ng-click="descAnno = !descAnno"></button>
-    <p ng-show="descAnno">Filter by gene ontology annotations. If the annotation is unknown or you want any GO term, only click the appropriate checkbox. If the identity of the GO term
-        is known, enter the exact name of the GO term in the specify input form (there is an autocomplete). Make sure the checkbox is ticked.</p>
-    <div class="row filter-row">
-        <div class="col-md-1">
-            <img class="filter-img" ng-src="/static/wiki/img/go-logo.png">
-        </div>
-        <div class="col-md-4">
-            <h5 class="indented">Molecular Function</h5>
-        </div>
-        <div class="col-md-6">
-            Specify: <input type="text" class="form-inline" ng-model="$ctrl.mftext"
-                            uib-typeahead="go as go.goterm_label.value for go in $ctrl.mfTerms($viewValue)"
-                            typeahead-wait-ms="500"
-                            typeahead-on-select="$ctrl.mftext = $item.goterm_label.value">
-        </div>
-        <div class="col-md-1">
-            <input type="checkbox" ng-checked="$ctrl.mf" ng-model="$ctrl.mf">
-        </div>
+
+    <div >
+      <h5 class="text-purple">
+        Gene Properties
+        <i class="fas fa-info-circle text-pink"
+        tooltip-placement="bottom"
+        uib-tooltip="Filter by gene properties. For gene position, enter the lower bound in the first input field and the upper bound in the second
+        input field. Then, select the checkbox. For example, if I wanted to search for genes between 300,000bp and 600,000bp, I would enter 300000 and 600000 respectively.<br>
+        For Operon, if you only want to know which genes are controlled by <strong>annotated</strong> operons, simply check the box. If you want to see which genes are controlled
+        by the same operon as another gene, enter the NCBI locus tag in the specify input form. For example, if I want to know which genes share an operon with glyceraldehyde-3-phosphate dehydrogenase CPn0624,
+        I would enter CPn0624 in the input field and tick the checkbox."></i>
+      </h5>
+      <button class="glyphicon btn btn-default" ng-class="{'glyphicon-menu-down': !descProp, 'glyphicon-menu-up': descProp}" ng-click="descProp = !descProp"></button>
+      <hr />
+      <table class="table" ng-show="descProp" style="background: #f3f3f3;">
+          <tr >
+              <td>
+                <h5><i class="fas fa-certificate"></i> Gene Position</h5>
+              </td>
+              <td>
+                Between <input type="text" class="form-inline" ng-model="$ctrl.lower">
+              </td>
+              <td>
+                and <input type="text" class="form-inline" ng-model="$ctrl.upper">
+              </td>
+              <td style="text-align:right;">
+                <input type="checkbox" ng-checked="$ctrl.length" ng-model="$ctrl.length">
+              </td>
+          </tr>
+          <tr >
+              <td>
+                <h5><i class="fas fa-certificate"></i> Operon</h5>
+              </td>
+              <td colspan="2">
+                Specify: <input type="text" class="form-inline" ng-model="$ctrl.operontext">
+              </td>
+              <td style="text-align:right;">
+                <input type="checkbox" ng-checked="$ctrl.operon" ng-model="$ctrl.operon">
+              </td>
+          </tr>
+      </table>
     </div>
-    <div class="row filter-row">
-        <div class="col-md-1">
-            <img class="filter-img" ng-src="/static/wiki/img/go-logo.png">
-        </div>
-        <div class="col-md-4">
-            <h5 class="indented">Biological Process: </h5>
-        </div>
-        <div class="col-md-6">
-            Specify: <input type="text" class="form-inline" ng-model="$ctrl.bptext"
-                            uib-typeahead="go as go.goterm_label.value for go in $ctrl.bpTerms($viewValue)"
-                            typeahead-wait-ms="500"
-                            typeahead-on-select="$ctrl.bptext = $item.goterm_label.value">
-        </div>
-        <div class="col-md-1">
-            <input type="checkbox" ng-checked="$ctrl.bp" ng-model="$ctrl.bp">
-        </div>
+
+    <div >
+      <h5 class="text-purple">
+        Organism
+        <i class="fas fa-info-circle text-pink"
+        tooltip-placement="bottom"
+        uib-tooltip="Filter by ortholog cliques. Use this option to filter by genes that form orthologous cliques with the selected organisms. For example, if I wanted all
+        genes in Cmur and L2, I would check the box next to enable ortholog search, then select C. trachomatis 434/BU and then select C. muridarum Nigg. If I wanted to search for
+        genes that did not have any orthologs, I would only check enable ortholog search and leave the organisms checkboxes blank."></i>
+      </h5>
+      <button class="glyphicon btn btn-default" ng-class="{'glyphicon-menu-down': !descOrtho, 'glyphicon-menu-up': descOrtho}" ng-click="descOrtho = !descOrtho"></button>
+      <hr />
+      <table class="table" ng-show="descOrtho" style="background: #f3f3f3;">
+          <tr>
+            <td>
+              <h5 class="indented">Enable Ortholog Search: </h5>
+            </td>
+            <td style="text-align:right;">
+              <input type="checkbox" ng-checked="$ctrl.ortholog" ng-model="$ctrl.ortholog">
+            </td>
+          </tr>
+          <tr ng-repeat="value in $ctrl.orgData">
+              <td ng-class="{'text434': value.taxonLabel === 'Chlamydia trachomatis 434/BU','textDUX': value.taxonLabel === 'Chlamydia trachomatis D/UW-3/CX','textNIGG': value.taxonLabel === 'Chlamydia muridarum Nigg','textCW': value.taxonLabel === 'Chlamydia pneumoniae CWL029'}">
+                <h5><i class="fas fa-dna"></i> {{value.taxonLabel}}</h5>
+              </td>
+              <td style="text-align:right;">
+                <input type="checkbox" ng-model="value.orthoCheck">
+              </td>
+          </tr>
+      </table>
     </div>
-    <div class="row filter-row">
-        <div class="col-md-1">
-            <img class="filter-img" ng-src="/static/wiki/img/go-logo.png">
-        </div>
-        <div class="col-md-4">
-            <h5 class="indented">Cellular Component: </h5>
-        </div>
-        <div class="col-md-6">
-            Specify: <input type="text" class="form-inline" ng-model="$ctrl.cctext"
-                            uib-typeahead="go as go.goterm_label.value for go in $ctrl.ccTerms($viewValue)"
-                            typeahead-wait-ms="500"
-                            typeahead-on-select="$ctrl.cctext = $item.goterm_label.value">
-        </div>
-        <div class="col-md-1">
-            <input type="checkbox" ng-checked="$ctrl.cc" ng-model="$ctrl.cc">
-        </div>
-    </div>
-    <h5 class="filter-header"><span>Terms & Identifiers</span></h5>
-    <button class="glyphicon btn btn-default" ng-class="{'glyphicon-menu-down': !descId, 'glyphicon-menu-up': descId}" ng-click="descId = !descId"></button>
-    <p ng-show="descId">Filter by identifier. If the target identifier is unknown or you want any gene with that identifier, only click the appropriate checkbox. If the identifier of the target gene or protein
-        is known, enter the id of the gene or protein as it appears in that database in the specify input form. Make sure the checkbox is ticked.</p>
-    <div class="row filter-row">
-        <div class="col-md-1">
-            <img class="filter-img" ng-src="/static/wiki/img/ncbi2.png">
-        </div>
-        <div class="col-md-4">
-            <h5 class="indented">Entrez: </h5>
-        </div>
-        <div class="col-md-6">
-            Specify: <input type="text" class="form-inline" ng-model="$ctrl.entreztext">
-        </div>
-        <div class="col-md-1">
-            <input type="checkbox" ng-checked="$ctrl.entrez" ng-model="$ctrl.entrez">
-        </div>
-    </div>
-    <div class="row filter-row">
-        <div class="col-md-1">
-            <img class="filter-img" ng-src="/static/wiki/img/uniprot2.png">
-        </div>
-        <div class="col-md-4">
-            <h5 class="indented">Uniprot: </h5>
-        </div>
-        <div class="col-md-6">
-            Specify: <input type="text" class="form-inline" ng-model="$ctrl.uniprottext">
-        </div>
-        <div class="col-md-1">
-            <input type="checkbox" ng-checked="$ctrl.uniprot" ng-model="$ctrl.uniprot">
-        </div>
-    </div>
-    <div class="row filter-row">
-        <div class="col-md-1">
-            <img class="filter-img" ng-src="/static/wiki/img/ncbi2.png">
-        </div>
-        <div class="col-md-4">
-            <h5 class="indented">RefSeq: </h5>
-        </div>
-        <div class="col-md-6">
-            Specify: <input type="text" class="form-inline" ng-model="$ctrl.refseqtext">
-        </div>
-        <div class="col-md-1">
-            <input type="checkbox" ng-checked="$ctrl.refseq" ng-model="$ctrl.refseq">
-        </div>
-    </div>
-    <div class="row filter-row">
-        <div class="col-md-1">
-            <img class="filter-img" ng-src="/static/wiki/img/pdb.png">
-        </div>
-        <div class="col-md-4">
-            <h5 class="indented">PDB: </h5>
-        </div>
-        <div class="col-md-6">
-            Specify: <input type="text" class="form-inline" ng-model="$ctrl.pdbtext">
-        </div>
-        <div class="col-md-1">
-            <input type="checkbox" ng-checked="$ctrl.pdb" ng-model="$ctrl.pdb">
-        </div>
-    </div>
-    <h5 class="filter-header"><span>Gene Properties</span></h5>
-    <button class="glyphicon btn btn-default" ng-class="{'glyphicon-menu-down': !descProp, 'glyphicon-menu-up': descProp}" ng-click="descProp = !descProp"></button>
-    <p ng-show="descProp">Filter by gene properties. For gene position, enter the lower bound in the first input field and the upper bound in the second
-    input field. Then, select the checkbox. For example, if I wanted to search for genes between 300,000bp and 600,000bp, I would enter 300000 and 600000 respectively.<br>
-    For Operon, if you only want to know which genes are controlled by <strong>annotated</strong> operons, simply check the box. If you want to see which genes are controlled
-    by the same operon as another gene, enter the NCBI locus tag in the specify input form. For example, if I want to know which genes share an operon with glyceraldehyde-3-phosphate dehydrogenase CPn0624,
-    I would enter CPn0624 in the input field and tick the checkbox.</p>
-    <div class="row filter-row">
-        <div class="col-md-1">
-            <img class="filter-img" ng-src="/static/wiki/img/ncbi2.png">
-        </div>
-        <div class="col-md-2">
-            <h5>Gene Position</h5>
-        </div>
-        <div class="col-md-5" style="margin-top:5px">
-            <span>Between <input type="text" class="form-inline" ng-model="$ctrl.lower" style="width: 70%"></span>
-        </div>
-        <div class="col-md-3" style="margin-top:5px">
-            <span>and <input type="text" class="form-inline" ng-model="$ctrl.upper" style="width: 70%"></span>
-        </div>
-        <div class="col-md-1" style="margin-top:5px">
-            <input type="checkbox" ng-checked="$ctrl.length" ng-model="$ctrl.length">
-        </div>
-    </div>
-    <div class="row filter-row">
-        <div class="col-md-1">
-            <img class="filter-img" ng-src="/static/wiki/img/ncbi2.png">
-        </div>
-        <div class="col-md-4">
-            <h5 class="indented">Operon: </h5>
-        </div>
-        <div class="col-md-6">
-            Specify: <input type="text" class="form-inline" ng-model="$ctrl.operontext">
-        </div>
-        <div class="col-md-1">
-            <input type="checkbox" ng-checked="$ctrl.operon" ng-model="$ctrl.operon">
-        </div>
-    </div>
-    <h5 class="filter-header"><span>Ortholog Cliques</span></h5>
-    <button class="glyphicon btn btn-default" ng-class="{'glyphicon-menu-down': !descOrtho, 'glyphicon-menu-up': descOrtho}" ng-click="descOrtho = !descOrtho"></button>
-    <p ng-show="descOrtho">Filter by ortholog cliques. Use this option to filter by genes that form orthologous cliques with the selected organisms. For example, if I wanted all
-    genes in Cmur and L2, I would check the box next to enable ortholog search, then select C. trachomatis 434/BU and then select C. muridarum Nigg. If I wanted to search for
-    genes that did not have any orthologs, I would only check enable ortholog search and leave the organisms checkboxes blank.</p>
-    <div class="row filter-row">
-        <div class="col-md-1">
-            <img class="filter-img" ng-src="/static/wiki/img/RB.png">
-        </div>
-        <div class="col-md-10">
-            <h5 class="indented">Enable Ortholog Search: </h5>
-        </div>
-        <div class="col-md-1">
-            <input type="checkbox" ng-checked="$ctrl.ortholog" ng-model="$ctrl.ortholog">
-        </div>
-    </div>
-    <div ng-repeat="value in $ctrl.orgData" class="row filter-row">
-        <div class="col-md-1"></div>
-        <div class="col-md-1"><img class="filter-img" ng-src="/static/wiki/img/EB.png"></div>
-        <div class="col-md-9">
-            <h5 class="indented">{{value.taxonLabel}}</h5>
-        </div>
-        <div class="col-md-1">
-            <input type="checkbox" ng-model="value.orthoCheck">
-        </div>
-    </div>
+
 </div>

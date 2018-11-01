@@ -49,6 +49,13 @@ tax2NameMap = {
     "115713": "Chlamydia pneumoniae CWL209"
 }
 
+tax2IconMap = {
+    "471472": "strain-434.svg",
+    "272561": "strain-DUX.svg",
+    "243161": "strain-NIGG.svg",
+    "115713": "strain-CW.svg"
+}
+
 strains = [
     [
         {

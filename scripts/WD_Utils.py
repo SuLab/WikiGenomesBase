@@ -118,7 +118,7 @@ class WDSparqlQueries(object):
 
     def locus2orthologs(self, locusTag):
         preQuery ='''
-        SELECT ?ortholog ?protein WHERE {
+        SELECT ?ortholog ?protein ?orthoTaxid WHERE {
                        {
                           ?gene wdt:P2393 '{{locusTag}}'.
                           ?gene p:P684 ?statement.
@@ -190,6 +190,19 @@ class WDSparqlQueries(object):
           FILTER(LANG(?alias) = "en" && strlen(?alias) = 1 && regex(?alias, "[A-Z,a-z]", "i")).
         }
         '''
+        results = self.execute_query(query)
+        return results['results']['bindings']
+
+    def get_protein_from_uniprot(self, uniprot):
+        query = '''
+         SELECT ?protein WHERE {
+
+            ?protein wdt:P31|wdt:P279 wd:Q8054;
+               wdt:P352 '{}'.
+            
+         }
+         LIMIT 1
+         '''.replace("{}", uniprot)
         results = self.execute_query(query)
         return results['results']['bindings']
 
