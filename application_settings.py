@@ -48,10 +48,9 @@ tax2NameMap = {
 }
 
 tax2IconMap = {
-    "471472": "strain-434.svg",
-    "272561": "strain-DUX.svg",
-    "243161": "strain-NIGG.svg",
-    "115713": "strain-CW.svg"
+    "246197": "strain-dk.svg",
+    "1198538": "strain-DZF1.svg",
+    "1198133": "strain-DZF2.svg"
 }
 
 strains = [
