@@ -14,7 +14,7 @@ from scripts.get_mongo_annotations import GetMongoAnnotations
 from scripts.WD_Utils import WDSparqlQueries
 from secret_settings import consumer_key, consumer_secret
 from wikidataintegrator import wdi_login, wdi_core
-
+from wikidataintegrator.wdi_helpers.publication import PublicationHelper
 
 def index(request):
     # launch landing page
@@ -76,11 +76,10 @@ def go_form(request):
             refs.append(wdi_core.WDItemID(value='Q26489220', prop_nr='P1640', is_reference=True))
             refs.append(wdi_core.WDTime(str(strftime("+%Y-%m-%dT00:00:00Z", gmtime())), prop_nr='P813',
                                         is_reference=True))
-            pmid_url = 'https://tools.wmflabs.org/pmidtool/get_or_create/{}'.format(eutilsPMID)
-            pmid_result = requests.get(url=pmid_url)
-            if pmid_result.json()['success'] == True:
-                refs.append(wdi_core.WDItemID(value=pmid_result.json()['result'], prop_nr='P248', is_reference=True))
-            pprint(pmid_result.json())
+            pub = PublicationHelper(eutilsPMID, 'pmid', 'europepmc')
+            result = pub.get_or_create(login)
+            if len(result) > 0 and result[0]:
+                refs.append(wdi_core.WDItemID(value=result[0], prop_nr='P248', is_reference=True))
             responseData['ref_success'] = True
         except Exception as e:
             responseData['ref_success'] = False
@@ -140,11 +139,10 @@ def hostpath_form(request):
             refs.append(wdi_core.WDItemID(value='Q26489220', prop_nr='P1640', is_reference=True))
             refs.append(wdi_core.WDTime(str(strftime("+%Y-%m-%dT00:00:00Z", gmtime())), prop_nr='P813',
                                         is_reference=True))
-            pmid_url = 'https://tools.wmflabs.org/pmidtool/get_or_create/{}'.format(eutilsPMID)
-            pmid_result = requests.get(url=pmid_url)
-
-            if pmid_result.json()['success'] == True:
-                refs.append(wdi_core.WDItemID(value=pmid_result.json()['result'], prop_nr='P248', is_reference=True))
+            pub = PublicationHelper(eutilsPMID, 'pmid', 'europepmc')
+            result = pub.get_or_create(login)
+            if len(result) > 0 and result[0]:
+                refs.append(wdi_core.WDItemID(value=result[0], prop_nr='P248', is_reference=True))
 
             responseData['ref_success'] = True
         except Exception as e:
@@ -209,11 +207,10 @@ def pdb_form(request):
             refs.append(wdi_core.WDItemID(value='Q26489220', prop_nr='P1640', is_reference=True))
             refs.append(wdi_core.WDTime(str(strftime("+%Y-%m-%dT00:00:00Z", gmtime())), prop_nr='P813',
                                         is_reference=True))
-            pmid_url = 'https://tools.wmflabs.org/pmidtool/get_or_create/{}'.format(eutilsPMID)
-            pmid_result = requests.get(url=pmid_url)
-
-            if pmid_result.json()['success'] == True:
-                refs.append(wdi_core.WDItemID(value=pmid_result.json()['result'], prop_nr='P248', is_reference=True))
+            pub = PublicationHelper(eutilsPMID, 'pmid', 'europepmc')
+            result = pub.get_or_create(login)
+            if len(result) > 0 and result[0]:
+                refs.append(wdi_core.WDItemID(value=result[0], prop_nr='P248', is_reference=True))
 
             responseData['ref_success'] = True
         except Exception as e:
@@ -338,11 +335,10 @@ def localization_form(request):
             refs.append(wdi_core.WDItemID(value='Q26489220', prop_nr='P1640', is_reference=True))
             refs.append(wdi_core.WDTime(str(strftime("+%Y-%m-%dT00:00:00Z", gmtime())), prop_nr='P813',
                                         is_reference=True))
-            pmid_url = 'https://tools.wmflabs.org/pmidtool/get_or_create/{}'.format(eutilsPMID)
-            pmid_result = requests.get(url=pmid_url)
-
-            if pmid_result.json()['success'] == True:
-                refs.append(wdi_core.WDItemID(value=pmid_result.json()['result'], prop_nr='P248', is_reference=True))
+            pub = PublicationHelper(eutilsPMID, 'pmid', 'europepmc')
+            result = pub.get_or_create(login)
+            if len(result) > 0 and result[0]:
+                refs.append(wdi_core.WDItemID(value=result[0], prop_nr='P248', is_reference=True))
 
         except Exception as e:
             print("reference construction error: " + str(e))
@@ -403,12 +399,10 @@ def operon_form(request):
                 refs.append(wdi_core.WDItemID(value='Q26489220', prop_nr='P1640', is_reference=True))
                 refs.append(wdi_core.WDTime(str(strftime("+%Y-%m-%dT00:00:00Z", gmtime())), prop_nr='P813',
                                             is_reference=True))
-                pmid_url = 'https://tools.wmflabs.org/pmidtool/get_or_create/{}'.format(eutilsPMID)
-                pmid_result = requests.get(url=pmid_url)
-                if pmid_result.json()['success'] == True:
-                    refs.append(wdi_core.WDItemID(value=pmid_result.json()['result'], prop_nr='P248', is_reference=True))
-                else:
-                    return JsonResponse({'pmid': False})
+                pub = PublicationHelper(eutilsPMID, 'pmid', 'europepmc')
+                result = pub.get_or_create(login)
+                if len(result) > 0 and result[0]:
+                    refs.append(wdi_core.WDItemID(value=result[0], prop_nr='P248', is_reference=True))
                 responseData['ref_success'] = True
             except Exception as e:
                 responseData['ref_success'] = False
@@ -507,6 +501,7 @@ def wd_oauth(request):
     if request.method == 'POST':
         body_unicode = request.body.decode('utf-8')
         body = json.loads(body_unicode)
+        #body['current_path'] = "https://chlambase.org/organism/471472/gene/CTL0370";
         pprint(body)
         # initiate the handshake by sendin consumer token to wikidata by redirect
         if 'initiate' in body.keys():
@@ -644,12 +639,10 @@ def geneSymbol_form(request):
         try:
             refs.append(wdi_core.WDItemID(value='Q26489220', prop_nr='P1640', is_reference=True))
             refs.append(wdi_core.WDTime(str(strftime("+%Y-%m-%dT00:00:00Z", gmtime())), prop_nr='P813', is_reference=True))
-            pmid_url = 'https://tools.wmflabs.org/pmidtool/get_or_create/{}'.format(eutilsPMID)
-            pmid_result = requests.get(url=pmid_url)
-            if pmid_result.json()['success'] == True:
-                refs.append(wdi_core.WDItemID(value=pmid_result.json()['result'], prop_nr='P248', is_reference=True))
-            else:
-                return JsonResponse({'pmid': False})
+            pub = PublicationHelper(eutilsPMID, 'pmid', 'europepmc')
+            result = pub.get_or_create(login)
+            if len(result) > 0 and result[0]:
+                refs.append(wdi_core.WDItemID(value=result[0], prop_nr='P248', is_reference=True))
         except Exception as e:
             print("reference construction error: " + str(e))
 

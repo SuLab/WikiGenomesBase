@@ -381,6 +381,13 @@ angular
                         alert("not a valid taxonomy id");
                         $location.path('/');
                     }
+                    ctrl.backgrounds = [];
+                    angular.forEach(ctrl.orgList, function(strain) {
+                        ctrl.backgrounds.push(strain.taxid == ctrl.currentTaxid);
+                    });
+                    while (ctrl.backgrounds.length != 4) {
+                        ctrl.backgrounds.push(false);
+                    }
                 });
 
                 ctrl.hasprotein = true;

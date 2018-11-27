@@ -4,26 +4,26 @@
   </div>
   <div class="col-sm-12 col-md-4 col-lg-4">
       <ul class="list-group">
-        <li class="list-group-item">
+        <li class="list-group-item text-left">
           <span class="badge">{{ $ctrl.protein.productType.id | typeFilter}}</span>
           Product Type
         </li>
-        <li class="list-group-item">
+        <li class="list-group-item text-left">
           <span class="badge">{{$ctrl.protein.mass}}</span>
           Mass
         </li>
-        <li class="list-group-item">
+        <li class="list-group-item text-left">
           <span class="badge">{{$ctrl.protein.uniprot}}</span>
           UniProt ID
         </li>
-        <li class="list-group-item">
+        <li class="list-group-item text-left">
           <span class="badge">{{$ctrl.protein.refseqProt}}</span>
           NCBI RefSeq ID
         </li>
-        <li class="list-group-item">
+        <li class="list-group-item text-left">
           <span style="float:right;">
             <a class="link" uib-tooltip="Blast Protein" href="https://blast.ncbi.nlm.nih.gov/Blast.cgi?PROGRAM=blastp&PAGE_TYPE=BlastSearch&LINK_LOC=blasthome&QUERY={{$ctrl.protein.sequenceProt}}" target="_blank">
-              NCBI
+              <span class="glyphicon glyphicon-share" aria-hidden="true"></span> BLASTP
             </a>
           </span>
           BLAST
@@ -86,19 +86,24 @@
   </div>
 </div>
 <!-- Modal -->
-<div class="modal fade" id="pdbForm_button" tabindex="-1" role="dialog"
+<div class="modal fade jello-horizontal" id="errorProtein" tabindex="-1" role="dialog"
      aria-labelledby="refModalTitle"
      aria-hidden="true">
     <div class="modal-dialog" role="document">
-        <div class="modal-content" style="padding:10px">
-            <pdb-form ng-hide="showHelp" gene="$ctrl.protein"></pdb-form>
-            <help-form ng-show="showHelp"></help-form>
-            <div class="modal-footer">
-            	<button type="button" class="btn btn-default" style="float:left" ng-click="showHelp = !showHelp">
-            		<span ng-hide="showHelp">Need Help?</span>
-            		<span ng-show="showHelp">Back</span>
-            	</button>
-                <button type="button" class="btn btn-secondary" data-dismiss="modal" ng-click="showHelp = false">Close</button>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="refModalTitle">
+                	<span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span>
+                </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body padding20">
+                <h2 class="modal-title" id="refModalTitle">You Must Be Logged In To Edit</h2>
+								<p class="text-muted">
+									Please authorize ChlamBase to edit Wikidata on your behalf!
+								</p>
             </div>
         </div>
     </div>
