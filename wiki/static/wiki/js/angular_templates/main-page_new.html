@@ -48,7 +48,9 @@
                 <uib-tab-heading >
                   Ortholog Alignment(s)
                 </uib-tab-heading>
-                <alignment-view locus-tag="$ctrl.currentGene.locusTag" tax-id="$ctrl.currentGene.taxid"></alignment-view>
+                <alignment-view locus-tag="$ctrl.currentGene.locusTag" tax-id="$ctrl.currentGene.taxid"
+                                start="$ctrl.currentGene.genStart" end="$ctrl.currentGene.genEnd"
+                                chromosome="$ctrl.currentGene.refseqGenome"></alignment-view>
               </uib-tab>
               <uib-tab index="'movie'" ng-show="$ctrl.settings['movie']">
                   <uib-tab-heading >

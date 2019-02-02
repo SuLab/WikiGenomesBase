@@ -62,7 +62,7 @@ angular.module("alignmentView")
                 if (value) {
                     var promise;
                     if (ctrl.type == "dna") {
-                        promise = geneSequenceData.getSequence(ctrl.data[key][0]);
+                        promise = geneSequenceData.getSequence(ctrl.data[key][0], ctrl.chromosome, ctrl.start, ctrl.end);
                     } else {
                         promise = proteinSequenceData.getSequence(ctrl.data[key][1]);
                     }
@@ -199,6 +199,9 @@ angular.module("alignmentView")
         templateUrl : "/static/build/js/angular_templates/alignment-view.min.html",
         bindings : {
             locusTag : '<',
-            taxId : '<'
+            taxId : '<',
+            start: '<',
+            end: '<',
+            chromosome: '<'
         },
     });

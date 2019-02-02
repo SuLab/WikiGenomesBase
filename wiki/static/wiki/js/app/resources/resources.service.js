@@ -799,60 +799,36 @@ angular
 	.factory('geneSequenceData', function($http, $q) {
     'use strict';
 
-    var getSequence = function(value) {
+    var getSequence = function(value, accession, start, stop) {
 
         var deferred = $q.defer();
 
-        // first get the UID from the nuccore database
-        $http.get('https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=gene&term=' + value).success(function(response) {
+        // which strand to use
+        var strand = 1;
 
-            // data in string as xml, find the ID
-            var xml = response;
-            if (xml.includes("<Id>")) {
+        if (start > stop) {
 
-                // extract the id
-                var id = xml.substring(xml.indexOf("<Id>") + 4, xml.indexOf("</Id>"));
+            // strand 2 when start > stop
+            strand = 2;
 
-                // now that we have the ID, get the start and stop from the summary
-                $http.get('https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esummary.fcgi?db=gene&id=' + id).success(function(resp) {
+            // now swap the start and stop
+            var temp = start;
+            start = stop;
+            stop = temp;
+        }
 
-                    // the response is in xml again, take out the stop and start sequences
-                    xml = resp;
-                    var start = parseInt(xml.substring(xml.indexOf("<ChrStart>") + 10, xml.indexOf("</ChrStart>"))) + 1;
-                    var stop = parseInt(xml.substring(xml.indexOf("<ChrStop>") + 9, xml.indexOf("</ChrStop>"))) + 1;
-                    var accession = xml.substring(xml.indexOf("<ChrAccVer>") + 11, xml.indexOf("</ChrAccVer>"));
+        // now do the efetch
+        $http.get("https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=nuccore&id=" + accession + "&seq_start=" + start + "&seq_stop=" + stop + "&strand=" + strand + "&rettype=fasta").success(function(r) {
 
-                    // which strand to use
-                    var strand = 1;
+            // get the human readable name
+            var first = ">" + value + "\n";
+            var body = r.substring(r.indexOf("\n") + 1, r.length).replace(/\n/g, "");
 
-                    if (start > stop) {
+            // the sequence of the gene
+            deferred.resolve(first + body);
 
-                        // strand 2 when start > stop
-                        strand = 2;
-
-                        // now swap the start and stop
-                        var temp = start;
-                        start = stop;
-                        stop = temp;
-                    }
-
-                    // now do the efetch
-                    $http.get("https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=nuccore&id=" + accession + "&seq_start=" + start + "&seq_stop=" + stop + "&strand=" + strand + "&rettype=fasta").success(function(r) {
-
-                        // get the human readable name
-                        var first = ">" + value + "\n";
-                        var body = r.substring(r.indexOf("\n") + 1, r.length).replace(/\n/g, "");
-
-                        // the sequence of the gene
-                        deferred.resolve(first + body);
-
-                    }).error(function(response) {
-                        deferred.reject(response);
-                    });
-                }).error(function(response) {
-                    deferred.reject(response);
-                });
-            }
+        }).error(function(response) {
+            deferred.reject(response);
         });
 
         // return future gene sequence
