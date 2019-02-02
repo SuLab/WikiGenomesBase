@@ -820,7 +820,7 @@ angular
             stop = temp;
         }
         // now do the efetch
-        $http.get("https://" + $location.host() + "/efetch/?db=nuccore&id=" + accession + "&seq_start=" + start + "&seq_stop=" + stop + "&strand=" + strand + "&rettype=fasta").success(function(r) {
+        $http.get("https://" + $location.host() + "/efetch?db=nuccore&id=" + accession + "&seq_start=" + start + "&seq_stop=" + stop + "&strand=" + strand + "&rettype=fasta").success(function(r) {
 
             // get the human readable name
             var first = ">" + value + "\n";
@@ -856,7 +856,7 @@ angular
         if (refseq) {
 
             // first get the UID from the nuccore database
-            $http.get("https://" + $location.host() + "/efetch/?db=protein&id=" + refseq + "&rettype=fasta")
+            $http.get("https://" + $location.host() + "/efetch?db=protein&id=" + refseq + "&rettype=fasta")
 
                 // success
                 .then(function(response) {
