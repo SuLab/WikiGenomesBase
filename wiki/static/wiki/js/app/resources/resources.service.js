@@ -592,11 +592,14 @@ angular
             var url = endpoint + encodeURIComponent(
                 "SELECT ?refSeqChromosome " +
                 "WHERE{ \n" +
-                "  ?gene wdt:P2393 " +
-                "'"+ locusTag +"';" +
-                "        p:P644 ?chr.\n" +
-                "  ?chr pq:P1057 ?chromosome. \n" +
-                "  ?chromosome wdt:P2249 ?refSeqChromosome.\n" +
+                    "?gene wdt:P2393 '" + locusTag + "';\n" +
+                    "   p:P644 ?start.\n" +
+                    "OPTIONAL {\n" +
+                    "   ?start pq:P1057/wdt:P2249 ?refSeqChromosome.\n" +
+                    "}\n" +
+                    "OPTIONAL {\n" +
+                    "        ?start pq:P2249 ?refSeqChromosome.\n" +
+                    "}\n" +
                 "  SERVICE wikibase:label { bd:serviceParam wikibase:language 'en' .}\n" +
                 "} \n"
                 );
@@ -796,7 +799,7 @@ angular
 
 angular
 	.module('resources')
-	.factory('geneSequenceData', function($http, $q) {
+	.factory('geneSequenceData', function($http, $q, $location) {
     'use strict';
 
     var getSequence = function(value, accession, start, stop) {
@@ -816,9 +819,8 @@ angular
             start = stop;
             stop = temp;
         }
-
         // now do the efetch
-        $http.get("https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=nuccore&id=" + accession + "&seq_start=" + start + "&seq_stop=" + stop + "&strand=" + strand + "&rettype=fasta").success(function(r) {
+        $http.get("https://" + $location.host() + "/efetch/?db=nuccore&id=" + accession + "&seq_start=" + start + "&seq_stop=" + stop + "&strand=" + strand + "&rettype=fasta").success(function(r) {
 
             // get the human readable name
             var first = ">" + value + "\n";
@@ -843,7 +845,7 @@ angular
 
 angular
 	.module('resources')
-	.factory('proteinSequenceData', function($http, $q) {
+	.factory('proteinSequenceData', function($http, $q, $location) {
     'use strict';
 
     // value = ref seq ID of protein
@@ -854,7 +856,7 @@ angular
         if (refseq) {
 
             // first get the UID from the nuccore database
-            $http.get("https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=protein&id=" + refseq + "&rettype=fasta")
+            $http.get("https://" + $location.host() + "/efetch/?db=protein&id=" + refseq + "&rettype=fasta")
 
                 // success
                 .then(function(response) {
