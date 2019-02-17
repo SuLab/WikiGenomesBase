@@ -465,12 +465,13 @@ angular
     };
 
     var beginning = function (parentTax) {
-        return "SELECT REDUCED ?taxid ?taxonLabel ?gene ?geneLabel ?geneAltLabel ?locusTag " +
+        return "SELECT REDUCED ?taxid ?taxonLabel ?gene ?geneLabel ?geneAltLabel ?geneSymbol ?locusTag " +
             "?entrez ?uniprot ?refseq_prot ?pdb ?mfLabel ?bpLabel ?ccLabel ?host_proteinLabel ?orthologLabel ?orthoTaxId WHERE {\n" +
             "?taxon (wdt:P171*/wdt:P685) '" + parentTax + "';\n" +
             "   wdt:P685 ?taxid.\n" +
             "?gene wdt:P703 ?taxon;\n" +
-            "   (wdt:P279|wdt:P31) wd:Q7187.\n";
+            "   (wdt:P279|wdt:P31) wd:Q7187.\n" +
+            "OPTIONAL {?gene wdt:P2561 ?geneSymbol}\n";
     };
 
     var ending = function () {
