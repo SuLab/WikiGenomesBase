@@ -1084,4 +1084,5 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ea3a0e', end
 #cell-svg{
   width: 60%;
   z-index: 4;
+  background: white;
 }
