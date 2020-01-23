@@ -495,12 +495,12 @@ angular
         var getGoTerms = function (uniprot) {
             var url = endpoint + encodeURIComponent(
             		"SELECT ?gotermValueLabel ?goID ?gotermValue ?goclass ?reference_retrievedLabel " +
-            		  "(GROUP_CONCAT(DISTINCT ?reference_stated_label; SEPARATOR = '; ') AS ?reference_stated_label) " +
-            		  "(GROUP_CONCAT(DISTINCT ?determination; SEPARATOR = ';') AS ?determinationLabel) WHERE {" +
+            		  "(GROUP_CONCAT(DISTINCT ?reference_stated_label_tmp; SEPARATOR = '; ') AS ?reference_stated_label) " +
+            		  "(GROUP_CONCAT(DISTINCT ?determination_tmp; SEPARATOR = ';') AS ?determinationLabel) WHERE {" +
             		  "?protein wdt:P352 '" + uniprot + "'." +
             		  "?protein (p:P680|p:P681|p:P682)+ ?goterm." +
-            		  "?goterm pq:P459/rdfs:label ?determination. FILTER(LANG(?determination) = 'en')." +
-            		  "OPTIONAL { ?goterm (prov:wasDerivedFrom/pr:P248)/rdfs:label ?reference_stated_label. FILTER(LANG(?reference_stated_label) = 'en').}" +
+            		  "?goterm pq:P459/rdfs:label ?determination_tmp. FILTER(LANG(?determination_tmp) = 'en')." +
+            		  "OPTIONAL { ?goterm (prov:wasDerivedFrom/pr:P248)/rdfs:label ?reference_stated_label_tmp. FILTER(LANG(?reference_stated_label_tmp) = 'en').}" +
             		  "OPTIONAL { ?goterm (prov:wasDerivedFrom/pr:P813) ?reference_retrieved. }" +
             		  "?goterm (ps:P680|ps:P681|ps:P682)+ ?gotermValue." +
             		  "?gotermValue wdt:P31 ?goclass." +
@@ -1060,16 +1060,16 @@ angular
         var getDevelopmentalForms = function (uniprot) {
             var endpoint = 'https://query.wikidata.org/sparql?format=json&query=';
             var url = endpoint + encodeURIComponent(
-                "SELECT (GROUP_CONCAT(?eb) AS ?eb) (GROUP_CONCAT(?rb) AS ?rb) ?pmid (GROUP_CONCAT(?increased) AS ?increased) WHERE {" +
+                "SELECT (GROUP_CONCAT(?eb_tmp) AS ?eb) (GROUP_CONCAT(?rb_tmp) AS ?rb) ?pmid (GROUP_CONCAT(?increased_tmp) AS ?increased) WHERE {" +
                     "?protein wdt:P352 '"+uniprot+"'." +
                     "?protein p:P5572+ ?claim." +
                     "?claim ps:P5572 ?form." +
                     "?claim prov:wasDerivedFrom/pr:P248/wdt:P698 ?pmid." +
-                "BIND(IF(?form = wd:Q51955212, '+', '') AS ?eb)." +
-                "BIND(IF(?form = wd:Q51955198, '+', '') AS ?rb)." +
+                "BIND(IF(?form = wd:Q51955212, '+', '') AS ?eb_tmp)." +
+                "BIND(IF(?form = wd:Q51955198, '+', '') AS ?rb_tmp)." +
                 "OPTIONAL {" +
                         "?protein wdt:P1911 ?form." +
-                    "BIND(IF(?form = wd:Q51955212, 'eb', 'rb') AS ?increased)." +
+                    "BIND(IF(?form = wd:Q51955212, 'eb', 'rb') AS ?increased_tmp)." +
                 "}" +
             "}" +
             "GROUP BY ?pmid"
