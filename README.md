@@ -17,7 +17,12 @@ A central feature of ChlamBase is to allow users to view, add, and edit:
 Instructions to create a model organism database for the microbes of your choice, go to the [wikigenomes_base](https://github.com/SuLab/wikigenomes_base)
 repository and follow the build instructions.
 
-# Developer Note
+# Developer Notes
+When cloning repo for first time:
+pip install -r requirements.txt
+Manually do pip install celery==4.0.0 afterwards (because it doesn't install properly in the requirements.txt file)
+Copy secret_settings template and fill accordingly
+
 Need to install grunt in order to rebuild code
 Install NPM
 npm install grunt-cli -g
