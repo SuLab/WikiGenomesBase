@@ -18,17 +18,18 @@ Instructions to create a model organism database for the microbes of your choice
 repository and follow the build instructions.
 
 # Developer Notes
-When cloning repo for first time:
-pip install -r requirements.txt
-Manually do pip install celery==4.0.0 afterwards (because it doesn't install properly in the requirements.txt file)
-Copy secret_settings template and fill accordingly
+When cloning repo for first time:  
+pip install -r requirements.txt  
+Manually do pip install celery==4.0.0 afterwards (because it doesn't install properly in the requirements.txt file)  
+Copy secret_settings template and fill accordingly  
+Run server with python manage.py runserver  
 
-Need to install grunt in order to rebuild code
-Install NPM
-npm install grunt-cli -g
-From chlambase directory, npm install
-Then, do "grunt minify" to minify and rebuild classes
+Need to install grunt in order to rebuild code  
+Install NPM  
+npm install grunt-cli -g  
+From chlambase directory, npm install  
+Then, do "grunt minify" to minify and rebuild classes  
 
-Also need to run ./setup in the JBROWSE directory
-(Does not work on windows)
-Need celery task manager: celery -A tasks worker --loglevel=info
+Also need to run ./setup in the JBROWSE directory  
+(Does not work on windows)  
+Need celery task manager: celery -A tasks worker --loglevel=info  
